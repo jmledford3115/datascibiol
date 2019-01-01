@@ -11,7 +11,7 @@ output:
     toc: yes
 ---
 
-## Where have we been, and where are we going?
+## Where have we been and where are we going?
 At this point you should feel reasonably comfortable working in RStudio and using dplyr and tidyr. It is OK if you need to go back through the labs and find bits of code that work for you, but do try and force yourself to originate new chunks.  
 
 You should be able to take a relatively messy data set and make some sense out of it. The key is that you can tidy the data in R (without using excel). Dplyr and tidyr are core pieces of the tidyverse and with them you can do a lot of analysis. You are eventually going to need more functions but for now we are moving on to data visualization using `ggplot2`. Many people use R because of this package alone so it is important.
