@@ -1,0 +1,61 @@
+---
+title: "Syllabus"
+author: "Joel Ledford"
+date: "Winter 2019"
+output:
+  html_document:
+    theme: spacelab
+    toc: yes
+    toc_float: yes
+  word_document:
+    toc: yes
+---    
+
+## Class Times and Contact Information
++ Fridays, 1:10-3:00p, 2103 SCC
++ [Joel Ledford](mailto:jmledford@ucdavis.edu)
++ Office: 2220 Life Sciences, Department of Plant Biology
+
+## Course Summary
+In FRS 417, you will be introduced to the fundamentals of data science with emphasis on the types of data frequently used by biologists. We will use the R software environment to develop and practice key skills including data management, transformation, analysis, and visualization. Practical examples will span a range of disciplines including ecology, evolution, and genetics. Labs will use a problem-solving approach where students build on previously learned skills culminating in a small, group-based project. 
+
+This class is designed for students with *no background in computer programming, R, or statistics*. My assumption is that you know how to turn a computer on and use a mouse- that's it!  
+
+This class is currently a freshman seminar, but is a pilot for a formal course that will be launched next academic year `BIS 015`. Your feedback is *very important*, so please let me know if you have any suggestions.  
+
+## Course Structure
+Each lab will include a combination of worked examples and practice. Because the labs are two hours, we will divide each session into two parts. Each lab has an associated homework assignment to practice skills.  
+
+## Equipment
+We are working in a mac-based computer lab so we can more easily use the UNIX environment. I am also much more comfortable troubleshooting the mac OS. However, you may use any computer that you would like as long it is running the current version of R and RStudio. 
+
+## Grading
+Grading is **pass/ no pass** and is divided into two parts:  
+
+1. Weekly homework assignments (70%). Each assignment must be completed and uploaded to GitHub prior to the next lab. I will randomly pull an example from GitHub to discuss with the class to see alternate solutions and address issues. Even if you miss a lab, you must complete all homework assignments to receive a pass grade.  
+
+2. Class project (30%). As part of the class, you will form a group to explore a project in data science. The project may be based on any available data of interest to the group, and should highlight skills learned in the labs. The group will present their results during the last lab session.
+
+3. Attendance. Although attendance is not a percentage of the grade, students are only allowed one absence during the quarter. Please [email me](mailto:jmledford@ucdavis.edu) if you need to miss a lab.
+
+## Reading
+[R for Data Science](https://r4ds.had.co.nz/), Grolemund and Wickham (2017). This book is freely available online.  
+
+There are many other resources that we will use, and they will be attached at the start of each lab. If you find something really helpful, please share!  
+
+## Course Learning Goals
+*At the end of this course, you will be able to:*  
+
+1. Use R and RStudio to perform basic analyses including arithmetic and basic statistics.  
+2. Work with multiple types of data in R and RStudio including vectors, data frames, and nucleotide sequences.  
+3. Import and transform complex, messy data for analysis in R using `dplyr`, `tidyr`, and `purrr`.  
+4. Produce a variety of plots and charts to visualize results of data analysis using `ggplot2`.  
+5. Build an exploratory analysis pipeline that can be applied to a variety of data types and structures.  
+6. Import and perform basic analyses of nucleotide sequence data from GenBank.  
+7. Navigate and run command-line programs in the UNIX environment.  
+
+## Office Hours
+Office hours are by appointment. If there are problems with the assignments, it is important that we communicate together as a class. Please use the class email list as a first step so we all may benefit.
+
+## About Me
+I am an LPSOE (aka. teaching professor) in the department of [Plant Biology](http://www-plb.ucdavis.edu/) who specializes in teaching. My research is focused in education and spider biology. My experience in R has mostly involved statistical analysis in education and phylogenetics. I also teach part of the introductory biology series `BIS2C` (Fall and Winter) and introductory plant biology `PLB10` (Spring).

@@ -1,0 +1,172 @@
+---
+title: "Lab 2: Working with Data, Part 1"
+author: "Joel Ledford"
+date: "Winter 2019"
+output:
+  html_document:
+    theme: spacelab
+    toc: yes
+    toc_float: yes
+  pdf_document:
+    toc: yes
+---
+
+## Learning Goals
+*At the end of this exercise, you will be able to:*    
+1. Combine a series of vectors into a data matrix.  
+2. Name columns and rows in a data matrix.  
+3. Select values and use summary functions in a data matrix.  
+4. Specify the difference between a data matrix and a data frame.  
+
+## Resources
+- [R for Data Science](https://r4ds.had.co.nz/)
+
+## Data Matrix
+Last time, you learned how to work with vectors. In the homework assignment, you had a preview of a data matrix when you combined data about genome sizes in several organisms. Although we used the data.frame command, technically speaking we built a data matrix because a data matrix is restricted to *data of the same type*. In the short example (from DataCamp) below, we will build a new data matrix using the matrix command.
+
+Box office earnings for Star Wars movies (in millions!).
+```{r}
+new_hope <- c(460.998, 314.4)
+empire_strikes <- c(290.475, 247.900)
+return_jedi <- c(309.306, 165.8)
+```
+
+Create new object box_office.
+```{r}
+box_office <- c(new_hope, empire_strikes, return_jedi)
+box_office
+```
+
+Construct star_wars_matrix.
+```{r}
+star_wars_matrix <- matrix(box_office,nrow=3,byrow=T)
+star_wars_matrix
+```
+
+Vectors region and titles, used for naming.
+```{r}
+region <- c("US", "non-US")
+titles <- c("A New Hope", "The Empire Strikes Back", "Return of the Jedi")
+```
+
+Name the columns with region.
+```{r}
+colnames(star_wars_matrix)<-region
+```
+
+Name the rows with titles.
+```{r}
+rownames(star_wars_matrix)<-titles
+```
+
+Print star_wars_matrix.
+```{r}
+star_wars_matrix
+```
+
+Once you have a data matrix, you can perform lots of different functions. For example, you can calculate the total earnings of each movie.
+```{r}
+worldwide_vector <- rowSums(star_wars_matrix)
+worldwide_vector
+```
+
+And even add a new column to reflect this calculation. cbind adds columns.
+```{r}
+all_wars_matrix <- cbind(star_wars_matrix,worldwide_vector)
+all_wars_matrix
+```
+
+We can combine additional data. rbind adds rows.
+```{r}
+the_phantom_menace <- c(474.5, 552.5)
+attack_of_the_clones <- c(310.7, 338.7)
+revenge_of_the_sith <- c(380.3, 468.5)
+box_office2 <- c(the_phantom_menace, attack_of_the_clones, revenge_of_the_sith)
+star_wars_matrix2 <- matrix(box_office2,nrow=3,byrow=T)
+colnames(star_wars_matrix2)<-region
+rownames(star_wars_matrix2)<-titles
+
+all_wars_matrix2 <- rbind(star_wars_matrix, star_wars_matrix2)
+all_wars_matrix2
+```
+
+The same methods of selecting variables in a vector apply.
+```{r}
+all_wars_matrix2[1,2]
+```
+
+But, we can also select values in an entire row or column. This can be useful for calculations.
+```{r}
+non_us_earnings <- all_wars_matrix2[ ,2]
+mean(non_us_earnings)
+```
+
+## Practice
+Below are data collected by three scientists (Jill, Steve, Susan in order) measuring temperatures of eight hot springs.
+```{r}
+spring_1 <- c(36.25, 35.40, 35.30)
+spring_2 <- c(35.15, 35.35, 33.35)
+spring_3 <- c(30.70, 29.65, 29.20)
+spring_4 <- c(39.70, 40.05, 38.65)
+spring_5 <- c(31.85, 31.40, 29.30)
+spring_6 <- c(30.20, 30.65, 29.75)
+spring_7 <- c(32.90, 32.50, 32.80)
+spring_8 <- c(36.80, 36.45, 33.15)
+```
+
+Build a data matrix that has the columns named by scientist and rows by the names of the springs.
+```{r}
+springs <- c(spring_1, spring_2, spring_3, spring_4, spring_5, spring_6, spring_7, spring_8)
+springs_matrix <- matrix(springs, nrow=8, byrow = T)
+scientists <- c("Jill", "Steve", "Susan")
+springs <- c("Bluebell Spring", "Opal Spring", "Riverside Spring", "Too Hot Spring", "Mystery Spring", "Emerald Spring", "Black Spring", "Pearl Spring")
+colnames(springs_matrix) <- scientists
+rownames(springs_matrix) <- springs
+springs_matrix
+```
+
+Calculate the mean of all three scientists and add it as a new column.
+```{r}
+mean_vector <- rowMeans(springs_matrix)
+mean_vector
+springs_matrix2 <- cbind(springs_matrix, mean_vector)
+scientists2 <- c("Jill", "Steve", "Susan", "Mean")
+colnames(springs_matrix2) <- scientists2
+springs_matrix2
+```
+
+## Final Thoughts on Data Matrices
+Working with data matrices requires all of the data to be of the same type. For some applications (linear algebra) they are routinely used and many packages require data to be stored as a matrix. Many programmers would also point out that data matrices are more efficient when compared to data frames (see below), especially for large data sets. This is great in principle, but in practice most biological data are heterogeneous and thus must be stored as a data frame. Lastly, nearly all of the packages that we will use in R only work with data frames. We will work with data frames almost exclusively for the remainder of the course.
+
+## Data Frames
+A data fram is a fancy way of saying data table with one caveat; we need to bear in mind that the data in a frame can be of multiple types as defined by R. This should make good sense as we often want to analyze relationships between numerical values, logical values, lists, etc. and this isn't possible in a data matrix.
+
+In most respects, working with data frames is just easier.
+
+Load the tidyverse.
+```{r echo=T, message=FALSE, warning=FALSE}
+library(tidyverse)
+```
+
+Let's go back to the homework example. Here is the list of organisms.
+```{r}
+organism<-c("Human","Mouse","Fruit Fly", "Roundworm","Yeast")
+```
+
+Here are the data.
+```{r}
+genomeSizeBP<-c(3000000000,3000000000,135600000,97000000,12100000)
+estGeneCount<-c(30000,30000,13061,19099,6034)
+```
+
+Instead of using the matrix command, we will combine the data using data.frame.
+```{r}
+comparativeGenomeSize<- data.frame(organism=organism, genomeSizeBP=genomeSizeBP, estGeneCount=estGeneCount)
+comparativeGenomeSize
+```
+Notice that not only are the data neater and cleaner looking, there is also information provided about the type of data in the frame. dbl just means that the value is a type of numeric (double precision floating point, http://uc-r.github.io/integer_double/).  
+
+## Data matrix vs. Data Frame
+Take a moment to reflect on the differences between these two data structures. What are the primary differences between them? Which do you think will be most relevant to the type of data you expect to work with in your field?
+
+## Let's Take a Break!

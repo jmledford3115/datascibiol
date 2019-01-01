@@ -1,0 +1,228 @@
+---
+title: "Lab 3: Working with Data, Part 4"
+author: "Joel Ledford"
+date: "Winter 2019"
+output:
+  html_document:
+    theme: spacelab
+    toc: yes
+    toc_float: yes
+  pdf_document:
+    toc: yes
+---
+
+> **For Big-Data Scientists, ‘Janitor Work’ Is Key Hurdle to Insights.**  
+> "Data scientists, according to interviews and expert estimates, spend from 50 percent to 80 percent of their time mired in the mundane labor of collecting and preparing data, before it can be explored for useful information."  
+> [New York Times (2014)](http://www.nytimes.com/2014/08/18/technology/for-big-data-scientists-hurdle-to-insights-is-janitor-work.html)
+
+## Overview
+The  quote sums above sums up much of the work in data science. Simply put, most of the data that you end up working with will be messy, disorganized, and not **tidy**. By the end of the course, you will become a master of wrangling messy data into tidy data that are organized and ready for analysis.
+
+## Resources
+- [dplyr-tidyr tutorial](http://tclavelle.github.io/dplyr-tidyr-tutorial/)
+- [Data wrangling cheatsheet (`dplyr`,`tidyr`)](http://ucsb-bren.github.io/refs/cheatsheets/data-wrangling-cheatsheet.pdf)
+- [Tidyr, R for Data Science](https://r4ds.had.co.nz/tidy-data.html#unite)
+
+## Learning Goals
+*At the end of this exercise, you will be able to:*    
+1. Explain the difference between tidy and messy data.  
+2. Evaluate a dataset as tidy or untidy.  
+3. Use the functions of tidyr to transform messy data to tidy data.
+
+## Update check
+Let's make sure our software and packages are up-to-date. We should routinely make these checks. Here is a new way to make this check.
+```{r eval=FALSE, include=TRUE}
+devtools::session_info()
+```
+
+## Load the library
+```{r message=FALSE, warning=FALSE}
+library(tidyverse)
+```
+
+## Tidy data
+Most data that you will encounter are organized incorrectly for work in R and, as you might expect, the tools used to transform data are a core part of the tidyverse. I will attempt to summarize the most important points below, but you should read chapter 12 of the data science text (https://r4ds.had.co.nz/tidy-data.html).  
+
+`Tidy` data in the sense of the tidyverse adheres to three conventions:   
+(1) each variable has its own column  
+(2) each observation has its own row  
+(3) each value has its own cell  
+
+This is summarized in the image below.  
+![*Tidy Data.*](tidy-1.png)
+I think this, and many other, explanations of tidy data are good but they don't emphasize a key point: R was built around working with vectors (which are stored as columns) and this is inherent in how it uses data. So, in order for many of the functions in R to work data need to be organized accordingly. The package used to tidy data is called **tidyr** and is a core part of the tidyverse.  
+
+## Tidyr
++ `gather()` and `spread()` convert data between wide and long format  
++ `separate()` and `unite()` separates or unites information in columns  
+
+The following data are results from a drug trial that shows the effect of four different treatments on six patients. The values represent resting heart rate.
+```{r}
+non_tidy1 <- data.frame(
+  patient= c("Margaret", "Frank", "Hawkeye", "Trapper", "Radar", "Henry"),
+  a= c(72, 84, 64, 60, 74, 88),
+  b= c(74, 84, 66, 58, 72, 87),
+  c= c(80, 88, 68, 64, 78, 88),
+  d= c(68, 76, 64, 58, 70, 72)
+)
+non_tidy1
+```
+Let's assess whether or not these data are tidy.  
+
+(1) each variable has its own column  
+*No. The columns are actually variables.*  
+(2) each observation has its own row  
+*No. The observations are grouped in a single row by patient.*  
+(3) each value has its own cell  
+*Yes. There are no unusual combinations of data in each cell.*    
+
+Because rules 1 and 2 are violated, these data are **not** tidy. We need to use tidyr to make them useable in R. As a final demonstration, let's plot these data. We haven't covered plots yet but this is a good first example.
+```{r}
+plot(non_tidy1)
+```
+R cannot make sense of these data; the plot is nonsense. Even though I gave no specific plotting instructions, R should be able to produce something intelligible or ask you to identify axes.  
+
+*If you can't figure out if your data are tidy or not, you might try the plot function to see what R is "thinking".*  
+
+## Why are data untidy? 
+Scientists frequently use excel spreadsheets that are organized to make data entry efficient. I don't think there is anything wrong with this approach, and we can easily make adjustments in R.  But, if you know that you are going to use R for analysis you might plan the spreadsheet to minimize post-processing and prevent problems.  
+
+By far, the most common problem is to have column names actually represent variables.  Another way of thinking about this is that R doesn't like data in "wide" format. Our example [non_tidy1] example is wide and in order to make it tidy it needs to be transformed to "long".
+
+## gather()
+gather() is the function used most when dealing with non-tidy data. It allows us to transform wide data into long data.
+```{r echo=FALSE}
+non_tidy1 <- data.frame(
+  patient= c("Margaret", "Frank", "Hawkeye", "Trapper", "Radar", "Henry"),
+  a= c(72, 84, 64, 60, 74, 88),
+  b= c(74, 84, 66, 58, 72, 87),
+  c= c(80, 88, 68, 64, 78, 88),
+  d= c(68, 76, 64, 58, 70, 72)
+)
+non_tidy1
+```
+The syntax to gather() is a bit strange. From the [Tidyr, R for Data Science](https://r4ds.had.co.nz/tidy-data.html#unite) text, you need to know three things in order to use the function:  
+
+(1) The set of columns that represent values, not variables.  
+*In our case, these are the different drug treatments a, b, c, d.*
+(2) The name of the variable whose values form the column names.  
+*This is called the key, and in our data this is the drug.*
+(3) The name of the variable whose values are spread over the cells.  
+*This is called the value, and in our case is the heart rate.*
+
+```{r}
+tidy1 <- non_tidy1 %>% 
+  gather(a, b, c, d, key="drug", value="heartrate")
+tidy1
+```
+Now, we can reverify by doing our tidy check.  
+
+(1) each variable has its own column  
+*Yes. Patient, drug, and heartrate are separated into individual columns.*  
+(2) each observation has its own row  
+*Yes. Each row has exactly one observation broken down by drug.*  
+(3) each value has its own cell  
+*Yes. There are no unusual combinations of data in each cell.*   
+
+And, as a final check let's try the plot command again. I do need to tell R the x and y axes.
+```{r}
+plot(tidy1$patient, tidy1$heartrate)
+```
+
+## separate()
+In our next example, I have added the sex of each patient to the data matrix. Is this data tidy? No, there is more than one value per cell in the patient column and all of the previous conditions remain violated. We need to start by separating these values.
+```{r}
+non_tidy2 <- data.frame(
+  patient= c("Margaret_f", "Frank_m", "Hawkeye_m", "Trapper_m", "Radar_m", "Henry_m"),
+  a= c(72, 84, 64, 60, 74, 88),
+  b= c(74, 84, 66, 58, 72, 87),
+  c= c(80, 88, 68, 64, 78, 88),
+  d= c(68, 76, 64, 58, 70, 72)
+)
+```
+
+`separate()` needs to know which column you want to split, the names of the new columns, and what to look for in terms of breaks in the data.
+```{r}
+non_tidy2 %>% 
+  separate(patient, into= c("patient", "sex"), sep = "_")
+```
+
+This is great; we have separated sex from patient. Are the data tidy? Not yet. We still need to run `gather()`.
+```{r}
+tidy2 <- non_tidy2 %>% 
+  separate(patient, into= c("patient", "sex"), sep = "_") %>% 
+  gather(a, b, c, d, key="drug", value="heartrate")
+tidy2
+```
+
+## spread()
+The opposite of `gather()`. Essentially, you are making your long data wide. I only use `spread()` when I want to put data back into the format in which it was originally placed. I rarely use spread, but it can be convenient to repackage data.
+```{r}
+tidy2 %>% 
+  spread(key="drug", value="heartrate")
+```
+
+## unite()
+The last function is `unite()`. This is the opposite of separate(). It's syntax is relatively straightforward. You only need to identify the key and the value.
+```{r}
+tidy2 %>% 
+  spread(key="drug", value="heartrate") %>% 
+  unite(patient_sex, patient, sex, sep="_")
+```
+
+## Rename
+The rename function is actually part of *dplyr*, but I put it here because I think of it as part of transforming untidy data.
+```{r}
+tidy2
+```
+
+Let's say I don't like the names of the columns. They can be renamed, just remember to replace or build a new object to keep things clean. (syntax is *new name* = *old name*)
+```{r}
+tidy2 %>% 
+  dplyr::rename(
+    MASH_character = patient,
+    Sex = sex,
+    Drug = drug,
+    Heartrate_bpm = heartrate)
+```
+
+## Practice
+In this example study, ten participants were asked to categorize three face styles by clicking various buttons that represent three different categories (face 1, face 2, face 3). The time it took to click a button is in milliseconds.
+```{r}
+faces <- data.frame(
+  ParticipantID_sex = c("001_m", "002_f", "003_f", "004_f", "005_m", "006_f", "007_m", "008_m", "009_m", "010_f"),
+  Face_1 = c(411,723,325,456,579,612,709,513,527,379),
+  Face_2 = c(123,300,400,500,600,654,789,906,413,567),
+  Face_3 = c(1457,1000,569,896,956,2345,780,599,1023,678)
+)
+faces
+```
+
+1. Are these data tidy? Why or why not?  
+*No, this dataset is not tidy.*  
+
+- each variable has its own column  
+*No, some columns contain more than one variable.*  
+- each observation has its own row  
+*No, there are three observations per row.*  
+- each value has its own cell  
+*No, some cells appear to have two values.*  
+
+2. Use `gather()` and `separate()` to tidy the data.
+```{r}
+faces_tidy <- faces %>% 
+  gather(Face_1, Face_2, Face_3, key="Face_style", value="milliseconds") %>% 
+  separate(ParticipantID_sex, c("participant_ID", "sex"), sep="_")
+```
+
+3. Use `spread()` and `unite()` to transform the data into wide format.
+```{r}
+faces_tidy %>% 
+  spread(key="Face_style", value="milliseconds") %>% 
+  unite(ParticipantID_sex, participant_ID, sex, sep= "_")
+```
+
+## Wrap-up
+Please review the learning goals and be sure to use the code here as a reference when completing the homework.
+
+See you next time!

@@ -1,0 +1,258 @@
+---
+title: "Lab 4: Visualizing Data, Part 1"
+author: "Joel Ledford"
+date: "Winter 2019"
+output:
+  html_document:
+    theme: spacelab
+    toc: yes
+    toc_float: yes
+  pdf_document:
+    toc: yes
+---
+
+## Where have we been, and where are we going?
+At this point you should feel reasonably comfortable working in RStudio and using dplyr and tidyr. It is OK if you need to go back through the labs and find bits of code that work for you, but do try and force yourself to originate new chunks.  
+
+You should be able to take a relatively messy data set and make some sense out of it. The key is that you can tidy the data in R (without using excel). Dplyr and tidyr are core pieces of the tidyverse and with them you can do a lot of analysis. You are eventually going to need more functions but for now we are moving on to data visualization using `ggplot2`. Many people use R because of this package alone so it is important.
+
+At the end of the next two sessions, we are going to build a pipeline for exploratory data analysis. Consider a scenario where a perspective employer were to give you some complex data and ask for an opinion. I want you to have a set of scripts that work for you to build a basic set of analyses for nearly every type of data. A big part of this will be the generation of clean, clear, and aesthetically appealing graphs.  
+
+## Group Project
+Let's take 10 minutes to decide on groups and think about a theme for our projects. What data interest you? Make a plan on doing some judicious internet searches and building a data set that will work for your group. Think about the kinds of questions you might ask.  
+
+One caveat- try to not use anything from class OR any pre-installed libraries. It also needs to be relatively big data but not gigantic.    
+
+## Resources
+- [ggplot2 cheatsheet](https://www.rstudio.com/wp-content/uploads/2015/03/ggplot2-cheatsheet.pdf)
+- [R for Data Science](https://r4ds.had.co.nz/)
+
+## Learning Goals
+*At the end of this exercise, you will be able to:*    
+1. Understand and apply the syntax of building plots using `ggplot2`.
+2. Build a boxplot using `ggplot2`.  
+3. Build a scatterplot using `ggplot2`.  
+4. Build a barplot using `ggplot2` and show the difference between `stat=count` and `stat=identity`.  
+
+## Load the tidyverse
+```{r message=FALSE, warning=FALSE}
+library(tidyverse)
+library(magrittr)
+library(skimr)
+```
+
+## Grammar of Graphics
+The ability to quickly produce and edit beautiful graphs and charts is a strength of R. These data visualizations are produced by the package `ggplot2` and it is a core part of the tidyverse. The syntax for using ggplot is specific and common to all of the plots. This is what Hadley Wickham calls a [Grammar of Graphics](http://vita.had.co.nz/papers/layered-grammar.pdf). The "gg" in `ggplot` stands for grammar of graphics.
+
+## Philosophy
+What makes a good chart? In my opinion a good chart is elegant in its simplicity. It provides a clean, clear visual of the data without being overwhelming for the audience. This is really hard to do and takes some careful thinking. Always keep in mind that an audience will almost never know the data as well as you do so you need to be mindful about presenting the facts. 
+
+## Basics
+The syntax used by ggplot takes some practice to get used to, especially for customizing plots, but the basic elements are the same. We start by calling the ggplot function, identifying the data, and specifying the axes. The data in this case is important because ggplot only works with dataframes- specifically, tidy dataframes.  
+
+In short, plot= data + aesthetics + geometry.  
+
+To make things easier, let's start with some built in data.
+```{r}
+?iris
+names(iris)
+```
+
+To make a plot, we need to first specify the data and map the aesthetics. The aesthetics include how each variable in our dataset will be used. In the example below, I am using the aes() function to identify the x and y variables in the plot.
+```{r}
+ggplot(data=iris, mapping=aes(x=Species, y=Petal.Length))
+```
+
+Notice that we have a nice background, labeled axes, and even values of our variables- but no plot. This is because we need to tell ggplot what type of plot we want to make. This is called the geometry or `geom()`.
+
+Here we specify that we want a boxplot, indicated by `geom_boxplot()`.
+```{r}
+ggplot(data=iris, mapping=aes(x=Species, y=Petal.Length))+
+  geom_boxplot()
+```
+
+## Plots are built in layers
+Given the syntax used by ggplot, it is helpful to think of plots as being built up in layers. The geom type is a separate layer and is added using `+`. Each geom() works with specific types of data and R is capable of building plots for single variables, multiple variables, distributions, and even maps.  
+
+Layers can also include many types of aesthetics, including titles, scale bars, color coded keys, etc. Nearly everything is adjustable. But, before we go crazy customizing let's keep things simple.  
+
+One thing to start thinking about is just how powerful all of the elements of the tidyverse are when used together; `dplyr()`, `tidyr()`, and `ggplot()` all work as a team.  
+
+## Practice
+Take a moment to practice. Use the iris data to build a scatterplot that compares sepal length vs. sepal width. Use the cheatsheet to find the correct `geom_` for a scatterplot.
+```{r}
+ggplot(data=iris, mapping=aes(x=Sepal.Length, y=Sepal.Width))+
+  geom_point()
+```
+
+## Scatterplots, barplots, and boxplots
+Now that we have an idea of the syntax, let's start by working with three standard types of plots. They are among the most common plots used by scientists and provide nice visuals for many different types of data. 
+
+For the following examples, I am going to use data about vertebrate home range sizes. The data are tidy, but you should run the usual exploratory checks.
+
+####Database of vertebrate home range sizes.    
+Reference: *Tamburello N, Cote IM, Dulvy NK (2015) Energy and the scaling of animal space use. The American Naturalist 186(2):196-211. http://dx.doi.org/10.1086/682070.*  
+Data: http://datadryad.org/resource/doi:10.5061/dryad.q5j65/1  
+
+```{r message=FALSE, warning=FALSE}
+homerange <- readr::read_csv("data/Tamburelloetal_HomeRangeDatabase.csv")
+```
+
+A little bit of cleaning to focus on the variables of interest.
+```{r}
+homerange %<>%  
+  select(common.name, taxon, family, genus, species, mean.mass.g, log10.mass, mean.hra.m2, log10.hra, preymass, log10.preymass, trophic.guild)
+```
+
+```{r}
+names(homerange)
+```
+
+### 1. Scatter Plots
+Scatter plots are good at revealing relationships that are not readily visible in the raw data. For now, we will not add regression lines nor calculate any r^2^ values (this isn't a statistics course). In this case, we are exploring whether or not there is a relationship between animal mass and homerange. We are using log transformed values because there is a very large difference in mass and homerange among the different vertebrate species in the data.
+```{r}
+ggplot(data=homerange, mapping=aes(x=log10.mass, y=log10.hra)) +
+  geom_point()
+```
+
+In big data sets with lots of similar values, overplotting can be an issue. `geom_jitter()` is similar to `geom_point()` but it helps with overplotting by adding some random noise to the data and separating some of the individual points.
+```{r}
+ggplot(data=homerange, mapping=aes(x=log10.mass, y=log10.hra)) +
+  geom_jitter()
+```
+
+You want to see the regression line, right?
+```{r}
+ggplot(data=homerange, mapping=aes(x=log10.mass, y=log10.hra)) +
+  geom_jitter()+
+  geom_smooth(method=lm, se=FALSE) 
+```
+
+### 2A. Bar Plot: `stat="count"`
+When making a bar graph, the default is to count the number of observations in the specified column. This is best for categorical data and is defined by the aesthetic `stat="count"`. Here, I want to know how many carnivores vs. herbivores are in the data.  
+
+Notice that we can use pipes and the `mapping=` function is implied by `aes` and so is often left out.  
+```{r}
+homerange %>% 
+  ggplot(aes(x=trophic.guild))+
+  geom_bar(stat="count")
+```
+
+### 2B. Bar Plot: `stat="identity"`
+`stat="identity"` allows us to map a variable to the y axis so that we aren't restricted to count. Let's use our dplyr skills to first filter out carnivorous mammals and see which families have the highest mean body weight.
+```{r}
+carni_mammals <- homerange %>% 
+  filter(taxon=="mammals", 
+         trophic.guild=="carnivore") %>% 
+  group_by(family) %>% 
+  summarize(count=n(),
+            mean_body_wt=mean(log10.mass)) %>% 
+  arrange(desc(mean_body_wt))
+carni_mammals
+```
+
+Now let's plot the data using `stat="identity"` to help visualize these differences.
+```{r}
+carni_mammals%>% 
+  ggplot(aes(x=family, y=mean_body_wt))+
+  geom_bar(stat="identity")
+```
+
+This looks nice, but the x axis is a mess and needs adjustment. We make these adjustments using `theme()`. We will explore these more in the next session.
+```{r}
+carni_mammals%>% 
+  ggplot(aes(x=family, y=mean_body_wt))+
+  geom_bar(stat="identity")+
+  theme(axis.text.x = element_text(angle = 60, hjust=1))
+```
+
+### 3. Box Plots
+Let's briefly return to the `homerange` data and filter out carnivorous mammals. We can use a boxplot to visualize the differences in body mass by family.
+```{r}
+homerange %>% 
+  filter(taxon=="mammals", trophic.guild=="carnivore") %>% 
+  ggplot(aes(x=family, y=log10.mass))+
+  geom_boxplot()+
+  theme(axis.text.x = element_text(angle = 60, hjust=1))
+```
+
+What do you think those solid lines represent? Have a look at `carni_mammals` again; `count` represents the number of individuals that were measured by family. So the solid lines represent single individuals.
+```{r}
+carni_mammals %>% 
+  arrange(desc(count))
+```
+
+Rebuild the blot only for Felidae (cats), Mustelidae (weasels), and Canidae (dogs) because they have the largest sample sizes. This time, plot their `log10.hra` so we can compare homerange sizes.
+```{r}
+homerange %>% 
+  filter(family=="felidae" | family=="mustelidae" | family=="canidae") %>% 
+  ggplot(aes(x=family, y=log10.hra))+
+  geom_boxplot()
+```
+
+## Practice
+Filter the `homerange` data to include `mammals` only and eliminate some of the variables.
+```{r}
+mammals <- homerange %>% 
+  filter(taxon=="mammals") %>% 
+  select(common.name, family, genus, species, trophic.guild, mean.mass.g, log10.mass, mean.hra.m2, log10.hra, preymass, log10.preymass)
+```
+
+```{r}
+mammals
+```
+
+1. Are there more herbivores or carnivores in mammals? Make a bar plot that shows their relative proportions.
+```{r}
+mammals %>% 
+  ggplot(aes(x=trophic.guild))+
+  geom_bar(stat="count")
+```
+
+2. There appear to be many more herbivores than carnivores. How do their masses compare? Make a boxplot that compares their masses. Use `log10.mass`.
+```{r}
+mammals %>% 
+  ggplot(aes(x=trophic.guild, y=log10.mass))+
+  geom_boxplot()
+```
+
+3. Is there a positive or negative relationship between mass and homerange? How does this compare between herbivores and carnivores? Provide examples below.  
+
+### Carnivores
+```{r}
+mammals %>% 
+  filter(trophic.guild=="carnivore") %>% 
+  ggplot(mapping=aes(x=log10.mass, y=log10.hra)) +
+  geom_point()+
+  geom_smooth(method=lm, se=FALSE) 
+```
+
+### Herbivores
+```{r}
+mammals %>% 
+  filter(trophic.guild=="herbivore") %>% 
+  ggplot(mapping=aes(x=log10.mass, y=log10.hra)) +
+  geom_point()+
+  geom_smooth(method=lm, se=FALSE) 
+```
+
+4. Wouldn't it be nice if we could make one plot, but color the points according to `trophic guild`? Run this code and have a look. Notice that I need to identify the `group` as part of the main ggplot aesthetic and then color by that group as part of the `geom_point()` aesthetic.
+```{r}
+mammals %>%
+  ggplot(mapping=aes(x=log10.mass, y=log10.hra, group=trophic.guild)) +
+  geom_point(mapping=aes(color=trophic.guild))
+```
+
+5. Make a barplot that shows the masses of the top 10 smallest mammals. Be sure to use `stat'="identity"`.
+```{r}
+mammals %>%
+  arrange(log10.mass)
+```
+
+```{r}
+mammals %>%
+  top_n(-10, log10.mass) %>%
+  ggplot(aes(x=common.name, y=log10.mass))+
+  geom_bar(stat="identity")+
+  theme(axis.text.x = element_text(angle = 60, hjust=1))
+```

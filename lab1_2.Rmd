@@ -1,0 +1,254 @@
+---
+title: "Lab 1: Getting Started, Part 2"
+author: "Joel Ledford"
+date: "Winter 2019"
+output:
+  html_document:
+    theme: spacelab
+    toc: yes
+    toc_float: yes
+---
+
+## Review
+At this point, you should have a GitHub account, completed your first commit, and uploaded your first push. R and RStudio are installed along with the tidyverse library. Let's make a few checks before we begin.
+
+This shows your current version of R along with details of your operating system.
+```{r}
+R.Version()
+```
+
+This shows the current version of a specified package.
+```{r}
+packageVersion("tidyverse")
+```
+
+This provides an overview of the session.
+```{r}
+sessionInfo()
+```
+
+## Essential Information about R
+R is an open source, **scripting** language. RStudio is a GUI (graphical user interface) that is frequently used to interact with R. You need R installed in order for RStudio to work.
+
+Because R is a scripting language you don't point and click to run commands. Instead, you write specific instructions that are used by the computer to complete an operation. This makes for excellent repeatability (good science) but makes it hard to learn at first because the instructions are very specific. R is **not** tolerant of typos, puntuation errors, errant spaces, or other types of mistakes.
+
+Many experienced programmers write their code directly in R with minimal annotations. This is great for them because they read R fluently. Since we are programming novices we will write our code in RMarkdown format. RMarkdown allows us to embed code in annotated chunks, including display of graphical output. The RMarkdown file can then be exported in a number of easy to read formats including html, pdf, and MS Word. If you have questions, the definitive guide is [here](https://bookdown.org/yihui/rmarkdown/).  
+
+R is a very poweful and flexible programming language that is used by scientists worldwide. Thousands of packages are available to perform specific analyses and there is a large community of people willing to help if you have problems. Just be sure to thoroughly look for help before posting questions to openstacks or related forums.
+
+Adding a '?' before a command will bring up the associated help document.
+```{r}
+?mean
+```
+
+At first, it will be hard to get used to the programming syntax- expect a learning curve. We are all working together to learn R, so let's help each other get started!
+
+## Learning Goals
+*At the end of this exercise, you will be able to:*    
+1. Solve simple arithmetic operations in R.  
+2. Define an object in R; assign values to objects.  
+3. Learn best practices in the naming of objects and other R programming conventions.  
+4. Learn the differences in the types of data used in R.  
+5. Perform simple operations using vectors.
+
+## Arithmetic
+You can use R as a calculator; just type the operation into the console. Order of operations applies and you don't need to add an '=' sign. 
+
+```{r}
+4*12
+```
+
+```{r}
+(4*12)/2
+```
+
+Depending on your needs, R understands other functions such as sin, cos, tan, etc.
+```{r}
+cos(30)
+```
+
+Statistics are what R was originally written for, so it will pretty much do anything you need and there are thousands of packages for specialized statistics depending on your needs.
+```{r}
+mean(4, 6, 8, 5, 6, 7, 7, 7)
+```
+
+## Objects
+Arimethic is great, but in order to access the potential of R we need to assign values or other types of data to objects. There is a specific format that I want you to follow, so please pay close attention.  
+
+Assign a value to object 'x'. The '<-' symbol is read as 'gets'. In this case, x gets 42. Make sure that you are in the environment panel and you should see the value associated with 'x'. On a mac, you can push option and - to automatically generate the gets symbol. Some people use the '=' sign instead of <- but this won't work in all situations. Please do not use '=' instead of '<-'.
+```{r}
+x<-42
+```
+
+To print the object to the screen, just type x. Alternatively, you can use the print command.
+```{r}
+x
+print(x)
+```
+
+Once an object has been created, you can do things with them.
+```{r}
+treatment<-36
+control<-38
+
+my_experiment<-treatment+control
+
+my_experiment
+
+my_experiment*2
+```
+
+*Objects* in R are often referred to as *variables*, especially in other programming languages. They are not the same thing for reasons that will become apparent in the following sections.  
+
+## Nomenclature
+We need to be careful about our nomenclature when we write code. R allows us to give almost any name we want to an object, but there are exceptions. For example, we don't want to give a name to an object that is the same as a function in R.
+
+```{r eval=FALSE, include=TRUE}
+else<-12
+```
+
+We get an error here because else is a function in R. You also don't want to give names that might get confused with functions; i.e. you can assign a value to 'mean' but this could get confusing because mean is primarily used as a function. Also, because of the way R was originally written you should not use periods in your objects; i.e. my.experiment. Instead, use underscores or no spaces at all.  
+
+```{r}
+my_experiment
+```
+
+Poorly written code is a major problem in science that has received a lot of attention recently. Among the serious problems is that repeatability can break down. We must be vigilant to avoid poorly written or broken code and so will strictly follow several conventions as we progress during the quarter.
+
+A popular data scientist named Jenifer Bryan once said: "File organization and naming are powerful weapons against chaos." We would be wise to heed her words.  
+
+[Jennifer Bryan's talk](https://www.youtube.com/watch?v=7oyiPBjLAWY)  
+
+## Types of Data
+R is capable of working with multiple types of data. Three are common: numerics, integers, logical, and characters. Numerics include decimals and integers are generally treated as numerics unless we explicitly ask R to treat a number as an integer.
+```{r}
+my_numeric <- 42
+my_character <- "universe"
+my_logical <- FALSE
+```
+
+To find out what type of data you are working with, use the class function. This is important because sometimes we will need to change the type of data to perform certain analyses.
+```{r}
+class(my_numeric)
+class(my_character)
+class(my_logical)
+```
+
+You can use the is and as functions to clarify or specify a type of data.
+```{r}
+is.integer(my_numeric) #is my_numeric an integer?
+my_integer <- as.integer(my_numeric) #create a new object specified as an integer
+is.integer(my_integer) #is my_numeric an integer?
+```
+
+If you ask many R programmers what is meant by 'type of data' they will often give you ways of organizing data such as data frames, vectors, lists, etc. I distinguish between the types of data and how they are organized here although in practice you will interact mostly with data frames and vectors.
+
+## Annotations
+Alhough RMarkdown allows us to thoroughly explain our code, many programmers use hashtags to annotate code chunks. These annotations can be helpful in showing how each bit of code functions and can be a helpful way to keep notes for yourself as you work.
+```{r}
+cell_count<- 40 #the number of cells observed
+cell_count*2 #the number of cells present after two hours
+```
+
+## Vectors
+Vectors are a common way of organizing data in R. The key detail is that they contain data of the same type. We create vectors using the c command.  
+
+[Vector tutorial](https://thomasleeper.com/Rcourse/Tutorials/vectorindexing.html)    
+
+A numeric vector.
+```{r}
+my_vector <- c(10, 20, 30)
+```
+
+We can make character vectors as well.
+```{r}
+days_of_the_week <- c("Monday", "Tuesday", "Wednesday", "Thrusday", "Friday", "Saturday", "Sunday")
+```
+
+A convenient trick is to generate a string of numerical vectors.
+```{r}
+my_vector_string <- c(1:10)
+my_vector_string2 <- seq(1, 4, by=0.25) #seq allows you more control
+my_vector_string2
+```
+
+In order to make vectors more helpful, we can assign elements to names.
+```{r}
+scientists <- c("Einstein", "physicist", "Male", "Darwin", "biologist", "Male", "Faraday", "physicist", "Male", "Curie", "chemist", "Female")
+scientists
+```
+
+```{r}
+names(scientists) <- c("Name", "Profession", "Sex", "Name", "Profession", "Sex", "Name", "Profession", "Sex", "Name", "Profession", "Sex")
+scientists
+```
+
+Nice, but annoying. Nobody is going to type all of this in over and over again. If you build the classification once then it can be reused. Just make sure the vector is the same length.
+```{r}
+scientists_2 <- c("Sagan", "physicist", "Male", "Lyell", "geologist", "Male", "Franklin", "biologist", "Female", "McClintock", "biologist", "Female")
+
+classification <- c("Name", "Profession", "Sex", "Name", "Profession", "Sex", "Name", "Profession", "Sex", "Name", "Profession", "Sex")
+
+names(scientists_2) <- classification
+
+scientists_2
+```
+
+Let's combine them. Remember, this isn't addition so we need to build a new object and another vector.
+```{r}
+scientists_total <- c(scientists, scientists_2)
+scientists_total
+```
+
+Separate the sexes of the scientists. Notice that because this is a vector, we have to specify the position of each element. This makes working with character vectors inefficient; they are better suited to numericals.
+```{r}
+scientists_sex <- scientists_total[c(3, 6, 9, 12, 15, 18, 21, 24)]
+
+scientists_male <-scientists_sex[c(1,2,3,5,6)]
+scientists_male
+
+scientists_female <- scientists_sex[c(4, 7, 8)]
+scientists_female
+```
+
+You can also use the [] to call named elements. This makes things a bit easier.
+```{r}
+scientists_male2 <- scientists_total[scientists_total == "Male"]
+scientists_female2 <- scientists_total[scientists_total == "Female"]
+males <- length(scientists_male2)
+females <- length(scientists_female2)
+males>females #is the number of male scientists larger than fremale scientists?
+```
+
+Let's create a new numeric vector.
+```{r}
+new_vector <- 1:100
+new_vector[new_vector == 15] #we can ask to select only the value 15
+```
+
+We can evaluate all numerics in our vector to determine which has a value of 15.
+```{r}
+new_vector == 15
+```
+
+Now we are getting somewhere, because we can use <, >, ==, <==, etc.
+```{r}
+new_vector < 10
+```
+
+Using the & symbol allows us to refine our elements of interest.
+```{r}
+new_vector < 10 & new_vector > 2
+```
+
+If you use the [] then you will only get the values, not the logical evaluation of the entire vector.
+```{r}
+new_vector[new_vector < 10 & new_vector > 2]
+```
+
+We will come back to vectors later. In practice, most data in R is organized into data frames; i.e. data tables. Data frames operate  like a series of equal length vectors, so it is helpful to know how to work with both.
+
+## Wrap-up
+Please review the learning goals and be sure to use the code here as a reference when completing the homework.
+
+See you next time!

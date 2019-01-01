@@ -1,0 +1,106 @@
+---
+title: "Lab 3 Homework"
+author: "Joel Ledford"
+date: "Winter 2019"
+output:
+  html_document:
+    theme: spacelab
+    toc: no
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Instructions
+Answer the following questions and complete the exercises in RMarkdown. Please embed all of your code, keep track of your versions using git, and push your final work to our [GitHub repository](https://github.com/FRS417-DataScienceBiologists). I will randomly select a few examples of student work at the start of each session to use as examples so be sure that your code is working to the best of your ability.
+
+## Load the libraries
+```{r message=FALSE, warning=FALSE}
+library(tidyverse)
+library(magrittr)
+library(skimr)
+```
+
+For this assignment we are going to work with a large dataset from the [United Nations Food and Agriculture Organization](http://www.fao.org/about/en/) on world fisheries. The data are messy, so for this assignment I am going to provide some help. First, load the data. **Read** the error message.  
+
+```{r message=TRUE, warning=TRUE}
+fisheries <- readr::read_csv(file = "data/FAO_1950to2012_111914.csv") 
+```
+
+1. Reformat the data `as.tibble()` and show the column names. Do you see any potential problems with the column names? Does the error message now make more sense?   
+
+
+
+
+
+2. The `make.names()` command is helpful when there are issues with column names. Notice that although the names are still cumbersome, much of the problemtatic syntax is removed.
+```{r echo=TRUE}
+names(fisheries) = make.names(names(fisheries), unique=T) #changes the vector names to intelligible by R
+names(fisheries)
+```
+
+3. Let's rename the columns. Use `rename()` to adjust the names as follows. Double check to make sure the rename worked correctly.  
++ country     = Country..Country.  
++ commname    = Species..ASFIS.species.  
++ sciname     = Species..ASFIS.species._2  
++ spcode      = Species..ASFIS.species._1  
++ spgroup     = Species..ISSCAAP.group.  
++ spgroupname = Species..ISSCAAP.group._1  
++ region      = Fishing.area..FAO.major.fishing.area.  
++ unit        = Measure..Measure.  
+
+
+4. Are these data tidy? Why or why not, and, how do you know?  
+
+
+
+5. We need to tidy the data using `gather()`. The code below will not run. I have added a bit of code that will prevent you from needing to type in each year from 1950-2012 but you need to complete the remainder.
+
+```{r eval=FALSE, include=T}
+fisheries_tidy <- 
+  fisheries %>% 
+  gather(num_range('X',1950:2012), key='QQQ', value='QQQ')
+```
+
+6. Use `glimpse()` to look at the categories of the variables. Pay particular attention to `year` and `catch`. What do you notice?  
+ 
+
+```{r eval=FALSE, include=T}
+glimpse(fisheries_tidy)
+```
+
+7. Are there any NAs in the data?  Use whichever method you feel is best.
+
+
+
+8. Double check question 7. If you still come up with zero NAs, look for other ways missing data may be represented. What characters were used to represent NAs?  
+
+
+
+9. The bit of code below is very nice. It will create new columns for `year` and `catch` but, it also converts these columns to numerics which forces the blank entries to become NAs. The error "NAs introduced by coercion" indicates their replacement.
+```{r eval=FALSE, include=T}
+fisheries_tidy %<>% 
+  mutate(
+    year= as.numeric(str_replace(Year, 'X', '')),
+    catch= as.numeric(str_replace(Catch, c(' F','...','-'), replacement = ''))
+    )
+```
+
+11. Have a look now and report the number of NAs.
+
+
+12. As a final tidy step, remove the redundant untidy Count and Year columns. Also, remove region and unit. Make a new object for these data called `fao_tidy` and have a look. We could still improve these data to some degree, but for our purposes they are close.
+
+
+13. You are a fisheries scientist studying cephalopod catch during 2008-2012. Identify the top five consumers of cephalopods.
+
+
+14. Who consumes the most cuttlefish (another type of cephalopod)? Store this as a new object `cuttle`.
+
+
+15. The Atlantic Cod fishery has been very poorly managed and it is listed as a threatened species. This has been know since the mid 1990's. Who are the top five consumers of Atlantic Cod since 1995?
+
+
+## Push your final code to [GitHub](https://github.com/FRS417-DataScienceBiologists)
+Make sure that you push your code into the appropriate folder. Also, be sure that you have check the `keep md` file in the knit preferences.
