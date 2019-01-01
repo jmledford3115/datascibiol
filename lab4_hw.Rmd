@@ -24,6 +24,7 @@ library(skimr)
 
 ## Mammal life history
 Let's revisit the mammal life history data to practice our ggplot skills. The [data](http://esapubs.org/archive/ecol/E084/093/) are from: *S. K. Morgan Ernest. 2003. Life history characteristics of placental non-volant mammals. Ecology 84:3402.* The data are not tidy, so I am going to walk you through some steps to clean things up a bit.
+
 ```{r message=FALSE, warning=FALSE}
 life_history <- readr::read_csv(file = "data/mammal_lifehistories_v2.csv")
 ```
@@ -119,9 +120,6 @@ life_history %>%
 ```
 
 5. Make a new boxplot that deals with this problem; i.e. how will you reflect the range of masses by mammalian order yet not have the plot overly skewed by Cetacea. There are lots of possible solutions here, so be creative.
-
-
-
 
 ## Push your final code to [GitHub](https://github.com/FRS417-DataScienceBiologists)
 Make sure that you push your code into the appropriate folder. Also, be sure that you have check the `keep md` file in the knit preferences.
