@@ -1,0 +1,228 @@
+---
+title: "Lab 4 Homework"
+author: "Joel Ledford"
+date: "Winter 2019"
+output:
+  html_document:
+    theme: spacelab
+    toc: no
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Instructions
+Answer the following questions and complete the exercises in RMarkdown. Please embed all of your code, keep track of your versions using git, and push your final work to our [GitHub repository](https://github.com/FRS417-DataScienceBiologists). I will randomly select a few examples of student work at the start of each session to use as examples so be sure that your code is working to the best of your ability.
+
+## Load the libraries
+```{r message=FALSE, warning=FALSE}
+library(tidyverse)
+library(magrittr)
+library(skimr)
+```
+
+## Mammal life history
+Let's revisit the mammal life history data to practice our ggplot skills. The [data](http://esapubs.org/archive/ecol/E084/093/) are from: *S. K. Morgan Ernest. 2003. Life history characteristics of placental non-volant mammals. Ecology 84:3402.* The data are not tidy, so I am going to walk through some steps to clean things up a bit.
+```{r message=FALSE, warning=FALSE}
+life_history <- readr::read_csv(file = "data/mammal_lifehistories_v2.csv")
+```
+
+### Examine variable names
+```{r echo=FALSE}
+names(life_history)
+```
+
+### Rename variables
+Some of these variable names will be problematic. Let's rename them here. Note that I am replacing the data so you can only do this once.
+```{r}
+life_history %<>% 
+  dplyr::rename(
+          genus        = Genus,
+          wean_mass    = `wean mass`,
+          max_life     = `max. life`,
+          litter_size  = `litter size`,
+          litters_yr   = `litters/year`
+          )
+```
+
+### Skim
+Notice the `-999` values. These should catch your attention as they likely represent NA's.
+```{r}
+life_history %>% 
+  skimr::skim()
+```
+
+### Are there any NA's?
+This result seems unlikely given the size of the dataset and the `-999` values.
+```{r}
+life_history %>%
+  purrr::map_df(~ sum(is.na(.)))%>% 
+  tidyr::gather(variables, num_nas) %>% 
+  arrange(desc(num_nas))
+```
+
+### NA's in a single variable?
+Notice how the `weaning` variable has 619 `-999` values alone.
+```{r}
+life_history %>% 
+  count(weaning)
+```
+
+### Replace `-999` with NA and reassess
+```{r}
+life_history %<>% 
+  na_if("-999")
+```
+
+### Now, are there any NA's?
+Looks like there are a lot of missing data.
+```{r}
+life_history %>%
+  purrr::map_df(~ sum(is.na(.)))%>% 
+  tidyr::gather(variables, num_nas) %>% 
+  arrange(desc(num_nas))
+```
+
+```{r}
+names(life_history)
+```
+
+##`ggplot()`
+For the questions below, try to use the aesthetics you have learned to make visually appealing, customized, and informative plots. Make sure to include nice labels for the axes, titles, and keys when appropriate. Themes and colors are all up to you!
+```{r}
+options(scipen=999) #cancels the use of scientific notation for the session
+```
+
+1. What is the relationship between body mass and gestation? Make a scatterplot that shows this relationship. Color the points by order and incorporate the mass of each species.
+```{r message=FALSE, warning=FALSE}
+life_history %>%
+  ggplot(aes(x=gestation, y=newborn, size=mass, color=order))+
+  geom_jitter(alpha=0.75)+
+  scale_y_log10()+
+  labs(title = "Gestation time vs. Newborn mass in Mammals",
+       x = "Gestation (months)",
+       y = "Newborn mass log10 (g)",
+       color="Order")+
+  scale_size(range = c(1, 10),
+             guide = "none")+
+  theme_linedraw()+
+  theme(legend.position = "right",
+        axis.line = element_line(color = "grey85"),
+        axis.ticks = element_line(color = "grey85"))
+```
+
+2. What is the mean gestation time by mammalian order? Make a barplot that contrasts mean gestation time and fill by another variable (mean wean mass is interesting). You will need to use your dplyr skills to set this up before building the plot.
+```{r}
+by_order <- 
+  life_history %>%
+  group_by(order) %>% 
+  summarize(mean_mass=mean(mass, na.rm=TRUE),
+            mean_gestation=mean(gestation, na.rm=TRUE),
+            mean_newborn=mean(newborn, na.rm=TRUE),
+            mean_weaning=mean(weaning, na.rm=TRUE),
+            mean_wean_mass=mean(wean_mass, na.rm=TRUE),
+            mean_lifespan_mo=mean(max_life, na.rm = TRUE)) %>% 
+  mutate(mean_lifespan_yr=(mean_lifespan_mo/12))
+```
+
+```{r}
+by_order %>% 
+  ggplot(aes(x=order, y=mean_gestation, fill=mean_weaning))+
+  geom_col(alpha=0.85, color="black")+
+  labs(title = "Mean Gestation Time by Mammalian Order",
+       x = "Order",
+       y = "Gestation (months)",
+       fill= "Mean Wean Mass")+
+  theme_linedraw()+
+  theme(legend.position = "right",
+        axis.line = element_line(color = "grey85"),
+        axis.ticks = element_line(color = "grey85"),
+        axis.text.x = element_text(angle = 60, hjust=1)
+        )
+```
+
+3. Use the same dataframe to make a barplot that shows mean lifespan by order. Fill by mean mass and use `coord_flip()` to make the barplot horizontal.
+```{r}
+by_order %>% 
+  ggplot(aes(x=order, y=mean_lifespan_yr, fill=mean_mass))+
+  geom_col(alpha=0.85, color="black")+
+  coord_flip()+
+  labs(title = "Mean Lifespan by Mammalian Order",
+       x = "Order",
+       y = "Lifespan (years)",
+       fill= "Mean Mass")+
+  theme_linedraw()+
+  theme(legend.position = "right",
+        axis.line = element_line(color = "grey85"),
+        axis.ticks = element_line(color = "grey85"))
+```
+
+4. Let's examine the range of mass by order. Make a quick boxplot with minimal aesthetics. You may want to use `coord_flip()` again to make the plot more readable. You should see that Cetacea (whales and relatives) are an outlier given their tremendous size.
+```{r warning=FALSE}
+life_history %>%
+  ggplot(aes(x=order, y=mass))+
+  geom_boxplot()+
+  coord_flip()
+```
+
+5. Make a new boxplot that deals with this problem; i.e. how will you reflect the range of masses by mammalian order yet not have the plot overly skewed by Cetacea. There are lots of possible solutions here, so be creative.
+
+#### What is the range of masses that I need to account for?
+```{r}
+life_history %>% 
+  summarize(min=min(mass, na.rm=TRUE),
+            max=max(mass, na.rm=TRUE),
+            mean=mean(mass, na.rm=TRUE),
+            sd=sd(mass, na.rm=TRUE),
+            total=n())
+```
+
+#### The mass unit of measurement appears to be grams. Who would measure a whale in grams? Let's convert to kg.
+```{r}
+life_history %>% 
+  mutate(mass_kg=(mass/1000)) %>% 
+  summarize(min=min(mass_kg, na.rm=TRUE),
+            max=max(mass_kg, na.rm=TRUE),
+            mean=mean(mass_kg, na.rm=TRUE),
+            sd=sd(mass_kg, na.rm=TRUE),
+            total=n())
+```
+
+#### This is helpful, but the plot still doesn't look great to me. There is just too much variation. Also, we lost Proboscidea (elephants).
+```{r}
+life_history %>% 
+  mutate(mass_kg=(mass/1000)) %>% 
+  filter(mass_kg<=407) %>% 
+  ggplot(aes(x=order, y=mass_kg))+
+    geom_boxplot()+
+    coord_flip()
+```
+
+#### It will probably be best to log transform the mass. We could do this in a few ways, but I will use `mutate()` here. This looks much better to me.
+```{r warning=FALSE}
+life_history %>% 
+  mutate(mass_log10=log10(mass)) %>% 
+  ggplot(aes(x=order, y=mass_log10))+
+    geom_boxplot()+
+    coord_flip()
+```
+
+#### Add some aesthetics and we are done.
+```{r warning=FALSE}
+life_history %>% 
+  mutate(mass_log10=log10(mass)) %>% 
+  ggplot(aes(x=order, y=mass_log10, fill=order))+
+    geom_boxplot(alpha=0.75, color="black")+
+    coord_flip()+
+  labs(title = "Mass by Mammalian Order",
+       x = "Order",
+       y = "Mass (log10)")+
+  theme_linedraw()+
+  theme(legend.position = "none",
+        axis.line = element_line(color = "grey85"),
+        axis.ticks = element_line(color = "grey85"))
+```
+
+## Push your final code to [GitHub](https://github.com/FRS417-DataScienceBiologists)
+Make sure that you push your code into the appropriate folder. Also, be sure that you have check the `keep md` file in the knit preferences.
