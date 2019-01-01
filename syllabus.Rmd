@@ -61,8 +61,9 @@ Office hours are by appointment. If there are problems with the assignments, it 
 I am an LPSOE (aka. teaching professor) in the department of [Plant Biology](http://www-plb.ucdavis.edu/). My research is focused on education and spider biology. My experience in R has mostly involved statistical analysis in education and phylogenetics. I also teach part of the introductory biology series `BIS2C` (Fall and Winter) and introductory plant biology `PLB10` (Spring).
 
 ## Do's and Dont's
-Learning any programming language is hard; it only gets easier with time and practice. Please *do* ask questions, get help from class partners, and complete assignments on-time. Please *don't* miss class or get behind on the homework. We can only go as fast as the slowest person in class, and it will be too hard for me to catch you up while helping everybody else.  
+Learning any programming language is hard; it only gets easier with time and practice. Don't give up!  
 
-I am very open to suggestions, especially when it comes to relevant and interesting examples. If you find data that are especially interesting to you please let me know and I will do my best to incorporate it into my examples.  
++ Please *do* ask questions, get help from class partners, and complete assignments on-time.  
++ Please *don't* miss class or get behind on the homework.
 
-Most of all, have fun learning and if you are not then let me know!
+I am very open to suggestions, especially when it comes to relevant and interesting examples. If you find data that are especially interesting to you please let me know and I will do my best to incorporate it into class examples. Most of all, have fun learning R and if you are not then let me know!  

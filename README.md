@@ -13,7 +13,7 @@ This class is designed for students with *no background in computer programming,
 
 Please read our course syllabus [here.](https://jmledford3115.github.io/datascibiol/syllabus.html)
 
-## Lab Schedule and Data
+## Lab Schedule
 We will have eight total labs. The last two labs (9 and 10) will be devoted to getting final projects complete and preparing presentations.  
 
 1. **Lab 1** | [part 1](https://jmledford3115.github.io/datascibiol/lab1_1.html) | [part 2](https://jmledford3115.github.io/datascibiol/lab1_2.html)
@@ -25,15 +25,17 @@ We will have eight total labs. The last two labs (9 and 10) will be devoted to g
 7. **Lab 7** | [part 1](https://jmledford3115.github.io/datascibiol/lab1_1.html) | [part 2](https://jmledford3115.github.io/datascibiol/lab1_1.html)
 8. **Lab 8** | [part 1](https://jmledford3115.github.io/datascibiol/lab1_1.html) | [part 2](https://jmledford3115.github.io/datascibiol/lab1_1.html)
 
-## Homework and Data
-1. [HW 1](https://jmledford3115.github.io/datascibiol/lab1_hw.html) | [data]
-2. [HW 2](https://jmledford3115.github.io/datascibiol/lab2_hw.html) | [data]
-3. [HW 3](https://jmledford3115.github.io/datascibiol/lab3_hw.html) | [data]
-4. [HW 4](https://jmledford3115.github.io/datascibiol/lab1_hw.html) | [data]
-5. [HW 5](https://jmledford3115.github.io/datascibiol/lab1_hw.html) | [data]
-6. [HW 6](https://jmledford3115.github.io/datascibiol/lab1_hw.html) | [data]
-7. [HW 7](https://jmledford3115.github.io/datascibiol/lab1_hw.html) | [data]
-8. [HW 8](https://jmledford3115.github.io/datascibiol/lab1_hw.html) | [data]
+## Homework
+Please make sure to complete the homework on-time and upload to your GitHub repository.  
+
+1. [HW 1](https://jmledford3115.github.io/datascibiol/lab1_hw.html)
+2. [HW 2](https://jmledford3115.github.io/datascibiol/lab2_hw.html)
+3. [HW 3](https://jmledford3115.github.io/datascibiol/lab3_hw.html)
+4. [HW 4](https://jmledford3115.github.io/datascibiol/lab1_hw.html)
+5. [HW 5](https://jmledford3115.github.io/datascibiol/lab1_hw.html)
+6. [HW 6](https://jmledford3115.github.io/datascibiol/lab1_hw.html)
+7. [HW 7](https://jmledford3115.github.io/datascibiol/lab1_hw.html)
+8. [HW 8](https://jmledford3115.github.io/datascibiol/lab1_hw.html)
 
 ## Reading
 [R for Data Science](https://r4ds.had.co.nz/), Grolemund and Wickham (2017). This book is freely available online and is an excellent resource.  
