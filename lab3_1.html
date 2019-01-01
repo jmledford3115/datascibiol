@@ -263,14 +263,14 @@ library(skimr)</code></pre>
 </div>
 <div id="skimr" class="section level2">
 <h2>Skimr</h2>
-<p>Skimr is a package that allows for a new kind of data summary which I find appealing. It provides different information than glimpse(), str(), or summary() and is very helpful. I especially like the histograms and how it breaks down the different variables. Notice that it also includes a column for missing data.</p>
+<p>Skimr is a package that allows for a new kind of data summary which I find appealing. It provides different information than <code>glimpse()</code>, <code>str()</code>, or <code>summary()</code> and is very helpful. I especially like the histograms and how it breaks down the different variables. Notice that it also includes a column for missing data.</p>
 <pre class="r"><code>msleep %&gt;% 
   skimr::skim()</code></pre>
 <pre><code>## Skim summary statistics
 ##  n obs: 83 
 ##  n variables: 11 
 ## 
-## ── Variable type:character ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+## ── Variable type:character ─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
 ##      variable missing complete  n min max empty n_unique
 ##  conservation      29       54 83   2  12     0        6
 ##         genus       0       83 83   3  13     0       77
@@ -278,7 +278,7 @@ library(skimr)</code></pre>
 ##         order       0       83 83   6  15     0       19
 ##          vore       7       76 83   4   7     0        4
 ## 
-## ── Variable type:numeric ──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+## ── Variable type:numeric ───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
 ##     variable missing complete  n   mean     sd      p0     p25    p50
 ##        awake       0       83 83  13.57   4.45 4.1     10.25   13.9  
 ##       bodywt       0       83 83 166.14 786.84 0.005    0.17    1.67 
@@ -296,7 +296,7 @@ library(skimr)</code></pre>
 </div>
 <div id="summarize" class="section level2">
 <h2>Summarize</h2>
-<p>Summarize (not to be confused with base R summary()) will produce summary statistics for a given variable in a data frame. For example, in the homework you were asked to calculate the mean of the sleep total column for large and small mammals. I did this using a combination of tidyverse and base R commands, which isn’t very efficient or clean. It also took two steps.</p>
+<p>Summarize (not to be confused with base R <code>summary()</code>) will produce summary statistics for a given variable in a data frame. For example, in the homework you were asked to calculate the mean of the sleep total column for large and small mammals. I did this using a combination of tidyverse and base R commands, which isn’t very efficient or clean. It also took two steps.</p>
 <pre class="r"><code>large &lt;- msleep %&gt;% 
   select(name, genus, bodywt, sleep_total) %&gt;% 
   filter(bodywt&gt;=200) %&gt;% 
@@ -346,7 +346,7 @@ library(skimr)</code></pre>
 </div>
 <div id="group_by" class="section level2">
 <h2>Group_by()</h2>
-<p>The group_by() function allows us to use summarize() for a specific group represented in our data frame. An example of this would be to produce a count of the number of species that belong to each type of feeding ecology; i.e. how many carnivores, herbivores, etc. do we have?</p>
+<p>The group_by() function allows us to use <code>summarize()</code> for a specific group represented in our data frame. An example of this would be to produce a count of the number of species that belong to each type of feeding ecology; i.e. how many carnivores, herbivores, etc. do we have?</p>
 <pre class="r"><code>msleep %&gt;%
   group_by(vore) %&gt;% #we are grouping by feeding ecology
   summarize(n())</code></pre>
@@ -358,7 +358,7 @@ library(skimr)</code></pre>
 ## 3 insecti     5
 ## 4 omni       20
 ## 5 &lt;NA&gt;        7</code></pre>
-<p>And, if we wanted to calculate the same comprehensive summaries as in the previous example but for the specific feeding ecology of mammals we would use group_by.</p>
+<p>And, if we wanted to calculate the same comprehensive summaries as in the previous example but for the specific feeding ecology of mammals we would use <code>group_by()</code>.</p>
 <pre class="r"><code>msleep %&gt;%
   group_by(vore) %&gt;% #we are grouping by feeding ecology
   summarize(min_bodywt=min(bodywt),
@@ -646,7 +646,7 @@ library(skimr)</code></pre>
 ## 5 nt               4
 ## 6 vu               7
 ## 7 &lt;NA&gt;            29</code></pre>
-<p>Adding the sort=TRUE option automatically makes a descending list.</p>
+<p>Adding the <code>sort=TRUE</code> option automatically makes a descending list.</p>
 <pre class="r"><code>msleep %&gt;% 
   count(genus, sort=TRUE)</code></pre>
 <pre><code>## # A tibble: 77 x 2
@@ -725,7 +725,7 @@ library(skimr)</code></pre>
 <h2>Data Source</h2>
 <p>The data were downloaded from: <a href="http://www.esapubs.org/archive/ecol/E084/093/metadata.htm" class="uri">http://www.esapubs.org/archive/ecol/E084/093/metadata.htm</a></p>
 <ol style="list-style-type: decimal">
-<li>Explore the data using the method that you prefer, but include the use of skim().</li>
+<li>Explore the data using the method that you prefer, but include the use of <code>skim()</code>.</li>
 </ol>
 <pre class="r"><code>life_history %&gt;% 
   names()</code></pre>
@@ -739,20 +739,20 @@ library(skimr)</code></pre>
 ##  n obs: 1440 
 ##  n variables: 13 
 ## 
-## ── Variable type:character ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+## ── Variable type:character ─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
 ##  variable missing complete    n min max empty n_unique
 ##    family       0     1440 1440   6  15     0       96
 ##     Genus       0     1440 1440   3  16     0      618
 ##     order       0     1440 1440   7  14     0       17
 ##   species       0     1440 1440   3  17     0     1191
 ## 
-## ── Variable type:integer ──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+## ── Variable type:integer ───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
 ##   variable missing complete    n    mean    sd   p0  p25  p50    p75 p100
 ##  max. life       0     1440 1440 -490.26 615.3 -999 -999 -999 147.25 1368
 ##      hist
 ##  ▇▁▁▃▂▁▁▁
 ## 
-## ── Variable type:numeric ──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+## ── Variable type:numeric ───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
 ##      variable missing complete    n      mean         sd   p0  p25     p50
 ##           AFR       0     1440 1440   -408.12     504.97 -999 -999    2.5 
 ##     gestation       0     1440 1440   -287.25     455.36 -999 -999    1.05
@@ -782,20 +782,20 @@ library(skimr)</code></pre>
 ##  n obs: 1440 
 ##  n variables: 13 
 ## 
-## ── Variable type:character ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+## ── Variable type:character ─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
 ##  variable missing complete    n min max empty n_unique
 ##    family       0     1440 1440   6  15     0       96
 ##     Genus       0     1440 1440   3  16     0      618
 ##     order       0     1440 1440   7  14     0       17
 ##   species       0     1440 1440   3  17     0     1191
 ## 
-## ── Variable type:integer ──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+## ── Variable type:integer ───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
 ##   variable missing complete    n   mean     sd p0 p25 p50 p75 p100
 ##  max. life     841      599 1440 224.03 189.74 12  84 192 288 1368
 ##      hist
 ##  ▇▆▂▁▁▁▁▁
 ## 
-## ── Variable type:numeric ──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+## ── Variable type:numeric ───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
 ##      variable missing complete    n      mean         sd   p0   p25    p50
 ##           AFR     607      833 1440     22.44      26.45 0.7   4.5   12   
 ##     gestation     418     1022 1440      3.86       3.62 0.49  0.99   2.11

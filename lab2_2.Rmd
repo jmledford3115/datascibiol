@@ -23,22 +23,22 @@ library("tidyverse")
 3. Use the functions of dplyr (filter, select, arrange, mutate) to organize and sort data frames.  
 
 ## Data Frames
-For the remainder of the course, we will work with data frames. Recall that data frames allow us to store multiple types of data, so they have advantages over both vectors and data matrices. In the first session, you were shown how to build data frames using the data.frame() command. However, most scientists make their data available in some form as supplementary material in a publication. As data scientists, we can capitalize on this by importing data directly into R.
+For the remainder of the course, we will work exclusively with data frames. Recall that data frames allow us to store multiple types of data, so they have advantages over both vectors and data matrices. In the first session, you were shown how to build data frames using the `data.frame()` command. However, most scientists make their data available in some form as supplementary material in a publication. As data scientists, we can capitalize on this by importing data directly into R.
 
-## Loading Data Frames
+## Loading Data into Data Frames
 R allows us to import a wide variety of data types. The most common type of file is a .csv file which stands for comma separated values. Spreadsheets are often developed in Excel then saved as .csv files for use in R. There are packages that allow you to open excel files and many other formats but .csv is the most common.
 
 To open a .csv file, be sure that you are in the correct working directory.
 ```{r echo=T, results='hide'}
 getwd()
 ```
-It is best to store the data as a new object. My only caveat is that unless you really need to, don't create an object called 'data' or 'dat'. Other bad choices include: x, y, z, input, etc. Transparency: I am guilty of all of these!  
+It is best to store the data as a new object. My only caveat is that unless you really need to, don't create an object called 'data' or 'dat'. Other bad choices include: x, y, z, input, etc.
 
-Also, while many people specify a discrete path in the read command it only works on their computer because it is local. This is generally not good practice. Instead include the .csv file in your working directory.
+Also, while many people specify a discrete path in the read command it only works on their computer because it is local. This is generally not good practice. Instead include the .csv file in a folder called `data` within your working directory.
 
 Here we open a .csv file with data on fish scales. Since we are using the tidyverse, we open the file using read_csv. In non-tidyverse R you would use the read.csv command. There are a few important differences between read.csv and read_csv, but for now it is enough to know that we are learning R the 'tidy' way.
 ```{r message=FALSE, warning=FALSE}
-fish <- read_csv("data/Gaeta_etal_CLC_data.csv")
+fish <- readr::read_csv("data/Gaeta_etal_CLC_data.csv")
 ```
 
 ## Summary functions
@@ -56,7 +56,7 @@ head(fish)
 tail(fish)
 ```
 
-Summary() and str() are classic functions used by many R programmers. Glimpse() is part of the tidyverse.
+`summary()` and `str()` are classic functions used by many R programmers. `glimpse()` is part of the tidyverse.
 ```{r}
 summary(fish)
 str(fish)
@@ -64,9 +64,9 @@ glimpse(fish)
 ```
 
 ## Practice
-Load the data frame mammal life histories and place it into a new object.
+Load the data mammal life histories and place it into a new object.
 ```{r message=FALSE, warning=FALSE}
-mammals <- read_csv("data/Mammal_lifehistories_v2.csv")
+mammals <- readr::read_csv("data/Mammal_lifehistories_v2.csv")
 ```
 
 1. Provide the dimensions of the data frame.
@@ -94,24 +94,24 @@ head(mammals)
 ```
 
 ## [Tidyverse](https://www.tidyverse.org/)
-The tidyverse is a collection of packages that make workflows in R easier. It was originally developed by Hadley Wickham who is, for all practical purposes, the wizard of the R universe. The packages operate differently than base R commands so if you look at older code you will see that there are many different ways of accomplishing the same task. Although not universal, the tidyverse has been adopted by many users. In our class, we embrace the tidyverse philosophy and thus will be doing things the tidy way.  
+The tidyverse is a collection of packages that make workflows in R easier. It was originally developed by Hadley Wickham who is, for all practical purposes, the wizard of the R universe. The packages operate differently than base R commands so if you look at older code you will see that there are many different ways of accomplishing the same task. Although not universal, the tidyverse has been adopted by many (most) users. In our class, we embrace the tidyverse philosophy and thus will be doing things the tidy way.  
 
 ![*Data Science Workflow in the Tidyverse.*](tidyverse1.png)
 
 ## Dplyr: filter()
 A core package in the tidyverse is dplyr. This package allows you to transform your data in many different ways including filtering, subsetting, and reordering. This helps keep your data cleaner, easier to work with, and easier for other people to understand.  
 
-The first command that we will learn is filter(). Filter allows you to subset observations in a data frame by their values. You should still have the fish data loaded, but if not then please re-load.  
+The first command that we will learn is `filter()`. Filter allows you to subset observations in a data frame by their values. You should still have the fish data loaded, but if not then please re-load.  
 ```{r}
 fish <- read_csv("data/Gaeta_etal_CLC_data.csv")
 ```
 
-Let's say that we are interested only in the fish that occur in the lake labeled AL. We can use filter() to extract these observations to build a new data frame focused on our question.
+Let's say that we are interested only in the fish that occur in the lake labeled AL. We can use `filter()` to extract these observations to build a new data frame focused on our question.
 ```{r}
 filter(fish, lakeid=="AL")
 ```
 
-Similarly, if we are only interested in fish with a length greater than or equal to 350 we can use filter() to do this work.
+Similarly, if we are only interested in fish with a length greater than or equal to 350 we can use `filter()` to do this work.
 ```{r}
 filter(fish, length>=350)
 ```
@@ -125,12 +125,12 @@ When we use the '&' above, we are asking for a specific filter: provide only tho
 
 Rules: & is “and”, | is “or”, and ! is “not”.
 
-Notice that the code below generates a data frame larger than above because it includes non AL lakes.
+Notice that the code below generates a data frame larger than the one above because it includes non AL lakes.
 ```{r}
 filter(fish, lakeid=="AL" | length<350)
 ```
 
-If you want to filter among multiple values in the same variable you can use the %in% operator. This is a useful way to simnplify your code.
+If you want to filter multiple values in the same variable you can use the `%in%` operator. This is a useful way to simplify your code.
 ```{r}
 filter(fish, length %in% c(167, 175))
 ```
@@ -153,7 +153,7 @@ The - operator is useful in select. It allows us to select everything except the
 select(fish, -fish_id, -annnumber, -length, -radii_length_mm)
 ```
 
-For very large data frames with lots of variables, select() utilizes lots of different operators to make things easier. Let's say we are only interested in the variables that deal with length.
+For very large data frames with lots of variables, `select()` utilizes lots of different operators to make things easier. Let's say we are only interested in the variables that deal with length.
 ```{r}
 select(fish, contains("length"))
 ```
@@ -172,7 +172,7 @@ filter(fish2, lakeid=="AL")
 ```
 
 ## Dplyr: Pipes %>% 
-The code above works fine but there is a more efficient way. We need to learn pipes %>%. Pipes allow you to feed the output from one function to the input of another function. We are going to use pipes from here on to keep things cleaner. (command+shift+m)
+The code above works fine but there is a more efficient way. We need to learn pipes `%>%`. Pipes allow you to feed the output from one function to the input of another function. We are going to use pipes from here on to keep things cleaner. (command+shift+m)
 ```{r}
 fish%>%
   select(lakeid, scalelength)%>%
@@ -180,7 +180,7 @@ fish%>%
 ```
 
 ## Dplyr: arrange()
-The arrange command is a bit like a sort command in excel.
+The `arrange()` command is a bit like a sort command in excel.
 ```{r}
 fish %>% 
   arrange(scalelength)
@@ -195,7 +195,7 @@ fish %>%
 ```
 
 ## Dplyr: mutate()
-The mutate() command will allow you to generate new columns. These new columns are powerful because they can be populated by the output of functions.
+The `mutate()` command will allow you to generate new columns. These new columns are powerful because they can be populated by the output of functions.
 ```{r}
 fish %>%
   mutate(length_scalelength_ratio=length/scalelength)
@@ -203,7 +203,6 @@ fish %>%
 
 ## Practice
 We are going to practice our dplyr skills using examples from a package called gapminder. This dataset includes information about economics, population, and life expectancy from countries all over the world.
-
 ```{r eval=FALSE, include=FALSE}
 install.packages("gapminder") #installs the package
 library("gapminder") #loads the library

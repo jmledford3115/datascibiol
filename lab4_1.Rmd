@@ -11,7 +11,7 @@ output:
     toc: yes
 ---
 
-## Where have we been and where are we going?
+## Where Have We Been and Where Are We Going?
 At this point you should feel reasonably comfortable working in RStudio and using dplyr and tidyr. It is OK if you need to go back through the labs and find bits of code that work for you, but do try and force yourself to originate new chunks.  
 
 You should be able to take a relatively messy data set and make some sense out of it. The key is that you can tidy the data in R (without using excel). Dplyr and tidyr are core pieces of the tidyverse and with them you can do a lot of analysis. You are eventually going to need more functions but for now we are moving on to data visualization using `ggplot2`. Many people use R because of this package alone so it is important.
@@ -19,9 +19,7 @@ You should be able to take a relatively messy data set and make some sense out o
 At the end of the next two sessions, we are going to build a pipeline for exploratory data analysis. Consider a scenario where a perspective employer were to give you some complex data and ask for an opinion. I want you to have a set of scripts that work for you to build a basic set of analyses for nearly every type of data. A big part of this will be the generation of clean, clear, and aesthetically appealing graphs.  
 
 ## Group Project
-Let's take 10 minutes to decide on groups and think about a theme for our projects. What data interest you? Make a plan on doing some judicious internet searches and building a data set that will work for your group. Think about the kinds of questions you might ask.  
-
-One caveat- try to not use anything from class OR any pre-installed libraries. It also needs to be relatively big data but not gigantic.    
+Let's take 10-15 minutes to decide on groups and think about a theme for our projects. What data interest you? Make a plan on doing some judicious internet searches and building a data set that will work for your group. Think about the kinds of questions you might ask. One caveat- try to not use anything from class OR any pre-installed libraries. It also needs to be relatively big data but not gigantic.    
 
 ## Resources
 - [ggplot2 cheatsheet](https://www.rstudio.com/wp-content/uploads/2015/03/ggplot2-cheatsheet.pdf)

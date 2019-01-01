@@ -279,7 +279,7 @@ div.tocify {
 <pre class="r"><code>sessionInfo()</code></pre>
 <pre><code>## R version 3.5.1 (2018-07-02)
 ## Platform: x86_64-apple-darwin15.6.0 (64-bit)
-## Running under: macOS  10.14.1
+## Running under: macOS  10.14.2
 ## 
 ## Matrix products: default
 ## BLAS: /Library/Frameworks/R.framework/Versions/3.5/Resources/lib/libRblas.0.dylib
@@ -300,9 +300,9 @@ div.tocify {
 <div id="essential-information-about-r" class="section level2">
 <h2>Essential Information about R</h2>
 <p>R is an open source, <strong>scripting</strong> language. RStudio is a GUI (graphical user interface) that is frequently used to interact with R. You need R installed in order for RStudio to work.</p>
-<p>Because R is a scripting language you don’t point and click to run commands. Instead, you write specific instructions that are used by the computer to complete an operation. This makes for excellent repeatability (good science) but makes it hard to learn at first because the instructions are very specific. R is <strong>not</strong> tolerant of typos, puntuation errors, errant spaces, or other types of mistakes.</p>
+<p>Because R is a scripting language you don’t point and click to run commands. Instead, you write instructions that are used by the computer to complete an operation. This makes for excellent repeatability (good science) but makes it hard to learn at first because the instructions are very specific. R is <strong>not</strong> tolerant of typos, puntuation errors, errant spaces, or other types of mistakes.</p>
 <p>Many experienced programmers write their code directly in R with minimal annotations. This is great for them because they read R fluently. Since we are programming novices we will write our code in RMarkdown format. RMarkdown allows us to embed code in annotated chunks, including display of graphical output. The RMarkdown file can then be exported in a number of easy to read formats including html, pdf, and MS Word. If you have questions, the definitive guide is <a href="https://bookdown.org/yihui/rmarkdown/">here</a>.</p>
-<p>R is a very poweful and flexible programming language that is used by scientists worldwide. Thousands of packages are available to perform specific analyses and there is a large community of people willing to help if you have problems. Just be sure to thoroughly look for help before posting questions to openstacks or related forums.</p>
+<p>R is a poweful and flexible programming language that is used by scientists worldwide. Thousands of packages are available to perform specific analyses and there is a large community of people willing to help if you have problems. Just be sure to thoroughly look for help before posting questions to openstacks or related forums.</p>
 <p>Adding a ‘?’ before a command will bring up the associated help document.</p>
 <pre class="r"><code>?mean</code></pre>
 <p>At first, it will be hard to get used to the programming syntax- expect a learning curve. We are all working together to learn R, so let’s help each other get started!</p>
@@ -350,7 +350,6 @@ my_experiment</code></pre>
 <pre><code>## [1] 74</code></pre>
 <pre class="r"><code>my_experiment*2</code></pre>
 <pre><code>## [1] 148</code></pre>
-<p><em>Objects</em> in R are often referred to as <em>variables</em>, especially in other programming languages. They are not the same thing for reasons that will become apparent in the following sections.</p>
 </div>
 <div id="nomenclature" class="section level2">
 <h2>Nomenclature</h2>
@@ -359,30 +358,39 @@ my_experiment</code></pre>
 <p>We get an error here because else is a function in R. You also don’t want to give names that might get confused with functions; i.e. you can assign a value to ‘mean’ but this could get confusing because mean is primarily used as a function. Also, because of the way R was originally written you should not use periods in your objects; i.e. my.experiment. Instead, use underscores or no spaces at all.</p>
 <pre class="r"><code>my_experiment</code></pre>
 <pre><code>## [1] 74</code></pre>
-<p>Poorly written code is a major problem in science that has received a lot of attention recently. Among the serious problems is that repeatability can break down. We must be vigilant to avoid poorly written or broken code and so will strictly follow several conventions as we progress during the quarter.</p>
-<p>A popular data scientist named Jenifer Bryan once said: “File organization and naming are powerful weapons against chaos.” We would be wise to heed her words.</p>
+<p>Poorly written code is a major problem in science that has received a lot of attention recently. Among the serious problems is that repeatability can break down. We must be vigilant to avoid poorly written or broken code and so will follow several conventions as we progress during the quarter.</p>
+<p>A popular data scientist named Jennifer Bryan said: “File organization and naming are powerful weapons against chaos.” We would be wise to heed her words.</p>
 <p><a href="https://www.youtube.com/watch?v=7oyiPBjLAWY">Jennifer Bryan’s talk</a></p>
 </div>
 <div id="types-of-data" class="section level2">
 <h2>Types of Data</h2>
-<p>R is capable of working with multiple types of data. Three are common: numerics, integers, logical, and characters. Numerics include decimals and integers are generally treated as numerics unless we explicitly ask R to treat a number as an integer.</p>
+<p>There are five main types or classes of data frequently (we won’t use raw) used in R: 1. numeric, 2. integer, 3. character, 4. logical, 5. complex. These are referred to as <code>atomic</code> because they only hold data of a single type.</p>
 <pre class="r"><code>my_numeric &lt;- 42
+my_integer &lt;- 2L
 my_character &lt;- &quot;universe&quot;
-my_logical &lt;- FALSE</code></pre>
+my_logical &lt;- FALSE
+my_complex &lt;- 2+4i</code></pre>
 <p>To find out what type of data you are working with, use the class function. This is important because sometimes we will need to change the type of data to perform certain analyses.</p>
 <pre class="r"><code>class(my_numeric)</code></pre>
 <pre><code>## [1] &quot;numeric&quot;</code></pre>
+<pre class="r"><code>class(my_integer)</code></pre>
+<pre><code>## [1] &quot;integer&quot;</code></pre>
 <pre class="r"><code>class(my_character)</code></pre>
 <pre><code>## [1] &quot;character&quot;</code></pre>
 <pre class="r"><code>class(my_logical)</code></pre>
 <pre><code>## [1] &quot;logical&quot;</code></pre>
+<pre class="r"><code>class(my_complex)</code></pre>
+<pre><code>## [1] &quot;complex&quot;</code></pre>
 <p>You can use the is and as functions to clarify or specify a type of data.</p>
 <pre class="r"><code>is.integer(my_numeric) #is my_numeric an integer?</code></pre>
 <pre><code>## [1] FALSE</code></pre>
 <pre class="r"><code>my_integer &lt;- as.integer(my_numeric) #create a new object specified as an integer
 is.integer(my_integer) #is my_numeric an integer?</code></pre>
 <pre><code>## [1] TRUE</code></pre>
-<p>If you ask many R programmers what is meant by ‘type of data’ they will often give you ways of organizing data such as data frames, vectors, lists, etc. I distinguish between the types of data and how they are organized here although in practice you will interact mostly with data frames and vectors.</p>
+</div>
+<div id="data-structures" class="section level2">
+<h2>Data Structures</h2>
+<p>In addition to the types or classes of data, R also organizes data in specific ways. These are data structures and include vectors, lists, matrices, data frames, and factors. For now, we are going to focus on vectors.</p>
 </div>
 <div id="annotations" class="section level2">
 <h2>Annotations</h2>
@@ -393,7 +401,7 @@ cell_count*2 #the number of cells present after two hours</code></pre>
 </div>
 <div id="vectors" class="section level2">
 <h2>Vectors</h2>
-<p>Vectors are a common way of organizing data in R. The key detail is that they contain data of the same type. We create vectors using the c command.</p>
+<p>Vectors are a common way of organizing data (data structure) in R. The key detail is that they contain data of the same type. We create vectors using the c command.</p>
 <p><a href="https://thomasleeper.com/Rcourse/Tutorials/vectorindexing.html">Vector tutorial</a></p>
 <p>A numeric vector.</p>
 <pre class="r"><code>my_vector &lt;- c(10, 20, 30)</code></pre>
@@ -404,7 +412,7 @@ cell_count*2 #the number of cells present after two hours</code></pre>
 my_vector_string2 &lt;- seq(1, 4, by=0.25) #seq allows you more control
 my_vector_string2</code></pre>
 <pre><code>##  [1] 1.00 1.25 1.50 1.75 2.00 2.25 2.50 2.75 3.00 3.25 3.50 3.75 4.00</code></pre>
-<p>In order to make vectors more helpful, we can assign elements to names.</p>
+<p>In order to make vectors more helpful, we can assign elements to objects.</p>
 <pre class="r"><code>scientists &lt;- c(&quot;Einstein&quot;, &quot;physicist&quot;, &quot;Male&quot;, &quot;Darwin&quot;, &quot;biologist&quot;, &quot;Male&quot;, &quot;Faraday&quot;, &quot;physicist&quot;, &quot;Male&quot;, &quot;Curie&quot;, &quot;chemist&quot;, &quot;Female&quot;)
 scientists</code></pre>
 <pre><code>##  [1] &quot;Einstein&quot;  &quot;physicist&quot; &quot;Male&quot;      &quot;Darwin&quot;    &quot;biologist&quot;
@@ -504,7 +512,7 @@ new_vector[new_vector == 15] #we can ask to select only the value 15</code></pre
 <p>If you use the [] then you will only get the values, not the logical evaluation of the entire vector.</p>
 <pre class="r"><code>new_vector[new_vector &lt; 10 &amp; new_vector &gt; 2]</code></pre>
 <pre><code>## [1] 3 4 5 6 7 8 9</code></pre>
-<p>We will come back to vectors later. In practice, most data in R is organized into data frames; i.e. data tables. Data frames operate like a series of equal length vectors, so it is helpful to know how to work with both.</p>
+<p>We will come back to vectors later. In practice, most data in R is organized into data frames. Data frames operate like a series of equal length vectors, so it is helpful to know how to work with both.</p>
 </div>
 <div id="wrap-up" class="section level2">
 <h2>Wrap-up</h2>

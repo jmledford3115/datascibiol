@@ -48,14 +48,14 @@ View(msleep)
 ```
 
 ## Skimr
-Skimr is a package that allows for a new kind of data summary which I find appealing. It provides different information than glimpse(), str(), or summary() and is very helpful. I especially like the histograms and how it breaks down the different variables. Notice that it also includes a column for missing data.
+Skimr is a package that allows for a new kind of data summary which I find appealing. It provides different information than `glimpse()`, `str()`, or `summary()` and is very helpful. I especially like the histograms and how it breaks down the different variables. Notice that it also includes a column for missing data.
 ```{r}
 msleep %>% 
   skimr::skim()
 ```
 
 ## Summarize
-Summarize (not to be confused with base R summary()) will produce summary statistics for a given variable in a data frame. For example, in the homework you were asked to calculate the mean of the sleep total column for large and small mammals. I did this using a combination of tidyverse and base R commands, which isn't very efficient or clean. It also took two steps.
+Summarize (not to be confused with base R `summary()`) will produce summary statistics for a given variable in a data frame. For example, in the homework you were asked to calculate the mean of the sleep total column for large and small mammals. I did this using a combination of tidyverse and base R commands, which isn't very efficient or clean. It also took two steps.
 ```{r}
 large <- msleep %>% 
   select(name, genus, bodywt, sleep_total) %>% 
@@ -103,14 +103,14 @@ msleep %>%
 ```
 
 ## Group_by()
-The group_by() function allows us to use summarize() for a specific group represented in our data frame. An example of this would be to produce a count of the number of species that belong to each type of feeding ecology; i.e. how many carnivores, herbivores, etc. do we have?
+The group_by() function allows us to use `summarize()` for a specific group represented in our data frame. An example of this would be to produce a count of the number of species that belong to each type of feeding ecology; i.e. how many carnivores, herbivores, etc. do we have?
 ```{r}
 msleep %>%
   group_by(vore) %>% #we are grouping by feeding ecology
   summarize(n())
 ```
 
-And, if we wanted to calculate the same comprehensive summaries as in the previous example but for the specific feeding ecology of mammals we would use group_by.
+And, if we wanted to calculate the same comprehensive summaries as in the previous example but for the specific feeding ecology of mammals we would use `group_by()`.
 ```{r}
 msleep %>%
   group_by(vore) %>% #we are grouping by feeding ecology
@@ -176,7 +176,7 @@ msleep %>%
   count(conservation)
 ```
 
-Adding the sort=TRUE option automatically makes a descending list.
+Adding the `sort=TRUE` option automatically makes a descending list.
 ```{r}
 msleep %>% 
   count(genus, sort=TRUE)
@@ -217,7 +217,7 @@ life_history <- readr::read_csv("data/mammal_lifehistories_v2.csv")
 ## Data Source
 The data were downloaded from: http://www.esapubs.org/archive/ecol/E084/093/metadata.htm  
 
-1. Explore the data using the method that you prefer, but include the use of skim().
+1. Explore the data using the method that you prefer, but include the use of `skim()`.
 
 ```{r}
 life_history %>% 

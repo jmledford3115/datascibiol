@@ -244,8 +244,8 @@ Office: 2220 Life Sciences</p>
 <p>In nearly every field of science, our ability to generate data has exceeded our capacity for analysis. For me, this means that there is the potential for loss to science; many important discoveries may go unnoticed because we are unable to efficiently analyze data.</p>
 <p>There is also a growing problem of curation. As the analyses and data become more complex, research labs have a problem of storing and managing data such that it can be used in future analyses or shared with colleagues. As students, postdocs, and visiting scientists come and go in labs, there is often a mess left behind where data are inefficiently stored and analytical scripts are hard to interpret.</p>
 <p>Lastly, with the widespread availability of data online there is the potential for new scientific discovery or insight through exploratory data analysis. In many cases a clean, organized workflow will yield new perspectives and promising results.</p>
-<p>The goal for this course is to help get you started learning to manage, transform, and visualize data using the R programming language. You will learn to clearly and neatly organize messy data, transform it in ways that address your questions, and communicate results in a variety of visual formats. The course is designed for people with <strong>no prior programming experience</strong>. My only caveat is that there is a substantial learning curve but, working together, we should be able to make learning R easier, interesting, and fun.</p>
-<p>Why spend the time? If you are pursuing any research path in science, this class will give you a significant competitive advantage and save you countless hours as most scientists struggle to learn R on their own. Even if you are not pursuing a research career, companies routinely hire data scientists (or people with skills in data science) to anlyze a variety of data.</p>
+<p>The goal for this course is to help get you started learning to manage, transform, and visualize data using the R programming language. You will learn to clearly and neatly organize messy data, transform it in ways that address your questions, and communicate results in a variety of formats. The course is designed for people with <strong>no prior programming experience</strong>. My only caveat is that there is a substantial learning curve but, working together, we should be able to make learning R easier, interesting, and fun.</p>
+<p>Why spend the time? If you are pursuing any research path in science, this class will give you a significant competitive advantage and save you countless hours as most scientists struggle to <a href="https://www.wired.com/2017/03/biologists-teaching-code-survive/">learn R on their own</a>. Even if you are not pursuing a research career, companies routinely hire data scientists (or people with skills in data science to anlyze a variety of data.</p>
 </div>
 <div id="resources" class="section level2">
 <h2>Resources</h2>
@@ -254,11 +254,12 @@ Office: 2220 Life Sciences</p>
 <li><a href="https://r4ds.had.co.nz/">R for data science</a></li>
 <li><a href="https://www.rstudio.com/resources/cheatsheets/">R cheatsheets</a></li>
 <li><a href="https://support.rstudio.com/hc/en-us/articles/200711853-Keyboard-Shortcuts">RStudio keyboard shortcuts</a></li>
+<li><a href="http://happygitwithr.com/">Happy Git and GitHub for the useR</a></li>
 </ul>
 </div>
 <div id="where-to-go-for-help" class="section level2">
 <h2>Where to go for help?</h2>
-<p>You are going to get stuck working through the exercises. Google is your friend, but be diligent in your searches and I recommend NOT posting to forums about questions. Instead, let’s try to solve the problems together.</p>
+<p>You are going to get stuck working through the exercises. Google is your friend, but be diligent in your searches and I recommend NOT posting to forums about questions at first. Instead, let’s try to solve the problems together.</p>
 <p>The RStudio help tab is also excellent, but a bit intimidating at first. With practice, you will quickly understand the structure of each help file and often find the answers you need.</p>
 <p>To bring up help or information about any particular function or library, use a ‘?’.</p>
 <pre class="r"><code>?tidyr</code></pre>
@@ -267,7 +268,7 @@ Office: 2220 Life Sciences</p>
 </div>
 <div id="syntax-errors" class="section level2">
 <h2>Syntax errors</h2>
-<p>Computers are precise tools; they will do exactly what you ask them to but no more. In order to do this, they need precise instructions and are intolerant of spelling and syntax errors. At first, this is one of the more frustrating aspects of programming so it is important that you follow along with my code examples.</p>
+<p>Computers are precise tools; they will do exactly what you ask them to but no more. In order to do this, they need perfect instructions and are intolerant of spelling and syntax errors. At first, this is one of the more frustrating aspects of programming so it is important that you follow along with my code examples as closely as possible.</p>
 </div>
 <div id="lab-1" class="section level2">
 <h2>Lab 1</h2>
@@ -290,32 +291,32 @@ Office: 2220 Life Sciences</p>
 <h2>Let’s Get Started!</h2>
 <p>If you get lost, ask for help. You won’t be able to complete assignments if you don’t set-up R correctly.</p>
 </div>
-<div id="download-the-most-recent-version-of-r-and-install." class="section level2">
-<h2>Download the most recent version of R and install.</h2>
+<div id="download-the-most-recent-version-of-r-and-install" class="section level2">
+<h2>Download the most recent version of R and install</h2>
 <p>R is open source and constantly changing. Make regular version checks part of your routine. R will run on a variety of platforms, but there are slight differences between mac and pc versions.</p>
 <p>Download the latest version of R <a href="https://www.r-project.org/">here</a> and install:</p>
 </div>
-<div id="download-the-most-recent-version-of-rstudio-and-install." class="section level2">
-<h2>Download the most recent version of RStudio and install.</h2>
+<div id="download-the-most-recent-version-of-rstudio-and-install" class="section level2">
+<h2>Download the most recent version of RStudio and install</h2>
 <p>RStudio is a GUI that allows for more intuitive management of R and includes numerous additional functions. All of our work will be done in RStudio, including uploads to Git.</p>
 <p>Download the latest version of RStudio <a href="https://www.rstudio.com/">here</a> and install:</p>
 </div>
-<div id="download-and-install-the-tidyverse." class="section level2">
-<h2>Download and install the tidyverse.</h2>
+<div id="download-and-install-the-tidyverse" class="section level2">
+<h2>Download and install the tidyverse</h2>
 <p>One strength of R is that there are thousands of add-on packages that perform specialized functions. Building these packages is a labor of love, so always be kind and mindful to the authors if you encounter problems. The packages are referred to as libraries.</p>
 <p>In this class, we will routinely use the library called the <strong>tidyverse</strong>. Libraries need to be installed in ordert to work, and whenever you update R you also need to update the packages that you use.</p>
 <p>To make a new code chunk, the mac shortcut is option + command + i. The PC shortcut is Ctrl + Alt + i.</p>
 <pre class="r"><code>install.packages(&quot;tidyverse&quot;)</code></pre>
 </div>
-<div id="create-a-github-account." class="section level2">
-<h2>Create a GitHub account.</h2>
+<div id="create-a-github-account" class="section level2">
+<h2>Create a GitHub account</h2>
 <p><strong>GitHub</strong> is a repository for programmers. Programmers upload code and make it publicly available on the site (www.github.com). <strong>Git</strong> is software that is used for version control. It tracks changes and is especially helpful when multiple people are collaborating on a project; if a mistake is made it can be easily tracked back and retrieved. Both can be integrated with RStudio.</p>
-<p>Since we will use GitHub as a repository for assignments, we need to make an account for each student and build a new project through RStudio to set-up Git.</p>
+<p>Since we will use GitHub as a repository for all assignments, we need to make an account for each student and build a new project through RStudio to set-up Git.</p>
 <p>Navigate to www.github.com and create a free account. <a href="mailto:jmledford@ucdavis.edu">Email</a> your username to me. You will receive an email to join the repository for our course.</p>
 <p>If you are using a PC or a Mac and have never used Git before, you need to follow the directions posted <a href="https://datacarpentry.org/semester-biology/computer-setup/">here</a></p>
 </div>
-<div id="make-a-test-rmarkdown-file-perform-a-commit-local-and-push-files-to-github-remote." class="section level2">
-<h2>Make a test RMarkdown file, perform a commit (local), and push files to GitHub (remote).</h2>
+<div id="make-a-test-rmarkdown-file-perform-a-commit-local-and-push-files-to-github-remote" class="section level2">
+<h2>Make a test RMarkdown file, perform a commit (local), and push files to GitHub (remote)</h2>
 <p>Once you have created a GitHub account, we need to practice. We will use the example below for several exercises today, so we need to build a new project in RStudio that includes the data.</p>
 <p>I have made a repository for our class titled: FRS417-DataScienceBiologists. You should be able to login to GitHub and find this organization. You should see a directory associated with your login name.</p>
 <p>Click on your directory to enter. Once there, click on the green button in the top right corner titled <strong>Clone or download</strong>. A URL will appear and you should copy that address.</p>
@@ -331,12 +332,12 @@ Office: 2220 Life Sciences</p>
 <p>Load the libraries. Once a package is installed, it still needs to be loaded for each session.</p>
 <pre class="r"><code>library(nycflights13)
 library(tidyverse)</code></pre>
-<pre><code>## ── Attaching packages ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────── tidyverse 1.2.1 ──</code></pre>
+<pre><code>## ── Attaching packages ─────────────────────────────────────────────────────────────────────────────────────────────────────── tidyverse 1.2.1 ──</code></pre>
 <pre><code>## ✔ ggplot2 3.0.0     ✔ purrr   0.2.5
 ## ✔ tibble  1.4.2     ✔ dplyr   0.7.8
 ## ✔ tidyr   0.8.2     ✔ stringr 1.3.1
 ## ✔ readr   1.1.1     ✔ forcats 0.3.0</code></pre>
-<pre><code>## ── Conflicts ───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
+<pre><code>## ── Conflicts ────────────────────────────────────────────────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
 ## ✖ dplyr::filter() masks stats::filter()
 ## ✖ dplyr::lag()    masks stats::lag()</code></pre>
 <pre class="r"><code>flights</code></pre>
@@ -381,6 +382,10 @@ library(tidyverse)</code></pre>
 <p>Make sure you are in the correct working directory and save your work. Now, click on the <strong>Commit</strong> tab.</p>
 <p>Enter a note to keep track of each commit that you make. Remember, these are being saved to your local directory. In the left window, make sure the file that you have changed is selected. Now, click the <strong>Commit</strong> button on the right window.</p>
 <p>Lastly, we need to upload our changes to GitHub. This is called a <strong>Push</strong>. When you are ready, click the push button and your files will be uploaded. Wait a few minutes and then check your directory on GitHub to see that it worked.</p>
+</div>
+<div id="git-and-github-issues" class="section level2">
+<h2>Git and GitHub Issues</h2>
+<p>We will encounter many issues over the next few weeks with Git and GitHub. These will be caused mostly by user error, but sometimes weird things happen. If you are stuck, especially in the first few sessions, stop trying to commit, push, or pull. Get my attention and we will sort things out.</p>
 <p>That’s it, let’s take a break!</p>
 </div>
 
