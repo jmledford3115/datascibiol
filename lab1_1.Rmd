@@ -30,13 +30,19 @@ The goal for this course is to help get you started learning to manage, transfor
 
 Why spend the time? If you are pursuing any research path in science, this class will give you a significant competitive advantage and save you countless hours as most scientists struggle to [learn R on their own](https://www.wired.com/2017/03/biologists-teaching-code-survive/). Even if you are not pursuing a research career, companies routinely hire data scientists (or people with skills in data science to anlyze a variety of data.
 
-## Resources
+## Online Resources
 Given the open source nature of R, many resources are available online. We will use a combination of resources in the class, but key items are listed below.
 
 - [R for data science](https://r4ds.had.co.nz/)
 - [R cheatsheets](https://www.rstudio.com/resources/cheatsheets/)
 - [RStudio keyboard shortcuts](https://support.rstudio.com/hc/en-us/articles/200711853-Keyboard-Shortcuts)
 - [Happy Git and GitHub for the useR](http://happygitwithr.com/)
+
+## Data Science at UC Davis
+Our campus has a wealth of expertise in data science, from working groups to full initiatives. Should your interests progress, here are some links. They offer regular workshops and maintain archives.
+
+- [Data Science Initiative, UC Davis](http://dsi.ucdavis.edu/)  
+- [Davis R Users Group](http://d-rug.github.io/) 
 
 ## Where to go for help?
 You are going to get stuck working through the exercises. Google is your friend, but be diligent in your searches and I recommend NOT posting to forums about questions at first. Instead, let's try to solve the problems together.  
