@@ -34,7 +34,7 @@ Our campus has a wealth of expertise in data science, from working groups to ful
 - [Data Science Initiative, UC Davis](http://dsi.ucdavis.edu/)  
 - [Davis R Users Group](http://d-rug.github.io/) 
 
-## Lab 1, Part 1
+## Lab 1, part 1
 The first goal of lab 1 is to get everyone started using R, Rstudio, and Git. All of our work will be done in RStudio and uploaded to the class GitHub repository. We will use RMarkdown to write all of our code; it allows us to easily check functionality and neatly annotate chunks.
 
 At the start of each lab session, I will randomly pull someone's code from the GitHub repository and use it as an example. There are many, many ways to solve the same problems in R and seeing other people's code is a great way to learn. This is not about shaming people who make mistakes!  
