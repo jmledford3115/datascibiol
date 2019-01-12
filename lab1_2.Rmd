@@ -113,12 +113,6 @@ We get an error here because else is a function in R. You also don't want to giv
 my_experiment
 ```
 
-Poorly written code is a major problem in science that has received a lot of attention recently. Among the serious problems is that repeatability can break down. We must be vigilant to avoid poorly written or broken code and so will follow several conventions as we progress during the quarter.
-
-A popular data scientist named Jennifer Bryan said: "File organization and naming are powerful weapons against chaos." We would be wise to heed her words.  
-
-[Jennifer Bryan's talk](https://www.youtube.com/watch?v=7oyiPBjLAWY)  
-
 ## Types of Data
 There are five main types or classes of data frequently (we won't use raw) used in R: 1. numeric, 2. integer, 3. character,  4. logical, 5. complex. These are referred to as `atomic` because they only hold data of a single type.
 ```{r}
@@ -202,17 +196,17 @@ new_vector <- 1:100
 new_vector[new_vector == 15] #we can ask to select only the value 15
 ```
 
-We can evaluate all numerics in our vector to determine which has a value of 15.
+We can evaluate all numerics in our vector to determine which has a value of 15. Try some other values to experiment.
 ```{r}
 new_vector == 15
 ```
 
-Now we are getting somewhere, because we can use <, >, ==, <==, etc.
+Now we are getting somewhere, because we can also use <, >, ==, <==, etc.
 ```{r}
 new_vector < 10
 ```
 
-Using the & symbol allows us to refine our elements of interest.
+Using the `&` symbol allows us to refine our elements of interest.
 ```{r}
 new_vector < 10 & new_vector > 2
 ```

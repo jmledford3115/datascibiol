@@ -426,9 +426,6 @@ my_experiment</code></pre>
 <p>We get an error here because else is a function in R. You also don’t want to give names that might get confused with functions; i.e. you can assign a value to ‘mean’ but this could get confusing because mean is primarily used as a function. Also, because of the way R was originally written you should not use periods in your objects; i.e. my.experiment. Instead, use underscores or no spaces at all.</p>
 <pre class="r"><code>my_experiment</code></pre>
 <pre><code>## [1] 74</code></pre>
-<p>Poorly written code is a major problem in science that has received a lot of attention recently. Among the serious problems is that repeatability can break down. We must be vigilant to avoid poorly written or broken code and so will follow several conventions as we progress during the quarter.</p>
-<p>A popular data scientist named Jennifer Bryan said: “File organization and naming are powerful weapons against chaos.” We would be wise to heed her words.</p>
-<p><a href="https://www.youtube.com/watch?v=7oyiPBjLAWY">Jennifer Bryan’s talk</a></p>
 </div>
 <div id="types-of-data" class="section level2">
 <h2>Types of Data</h2>
@@ -505,7 +502,7 @@ scientists_sex</code></pre>
 <pre class="r"><code>new_vector &lt;- 1:100
 new_vector[new_vector == 15] #we can ask to select only the value 15</code></pre>
 <pre><code>## [1] 15</code></pre>
-<p>We can evaluate all numerics in our vector to determine which has a value of 15.</p>
+<p>We can evaluate all numerics in our vector to determine which has a value of 15. Try some other values to experiment.</p>
 <pre class="r"><code>new_vector == 15</code></pre>
 <pre><code>##   [1] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
 ##  [12] FALSE FALSE FALSE  TRUE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
@@ -517,7 +514,7 @@ new_vector[new_vector == 15] #we can ask to select only the value 15</code></pre
 ##  [78] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
 ##  [89] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
 ## [100] FALSE</code></pre>
-<p>Now we are getting somewhere, because we can use &lt;, &gt;, ==, &lt;==, etc.</p>
+<p>Now we are getting somewhere, because we can also use &lt;, &gt;, ==, &lt;==, etc.</p>
 <pre class="r"><code>new_vector &lt; 10</code></pre>
 <pre><code>##   [1]  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE FALSE FALSE
 ##  [12] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
@@ -529,7 +526,7 @@ new_vector[new_vector == 15] #we can ask to select only the value 15</code></pre
 ##  [78] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
 ##  [89] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
 ## [100] FALSE</code></pre>
-<p>Using the &amp; symbol allows us to refine our elements of interest.</p>
+<p>Using the <code>&amp;</code> symbol allows us to refine our elements of interest.</p>
 <pre class="r"><code>new_vector &lt; 10 &amp; new_vector &gt; 2</code></pre>
 <pre><code>##   [1] FALSE FALSE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE FALSE FALSE
 ##  [12] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE

@@ -77,7 +77,7 @@ Click on your directory to enter. Once there, click on the green button in the t
 + Paste the URL that you copied from GitHub into the directory. 
 
 ## Perform a commit (local), and push files to GitHub (remote)
-Navigate to the [dummy_push](https://jmledford3115.github.io/datascibiol/dummy_push.html)file. Copy and paste all of the code chunks in this file into a new RMarkdown file called `dummy_push_login`. Replace `login` with your GitHub login name.
+Navigate to the [dummy_push](https://jmledford3115.github.io/datascibiol/dummy_push.html) file. Copy and paste all of the code chunks in this file into a new RMarkdown file called `dummy_push_login`. Replace `login` with your GitHub login name.  
 
 In the top right window of RStudio, you should see several options as tabs including **Environment, History, Connections, and Git**. Click on the `Git` tab.
 
