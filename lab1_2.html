@@ -100,6 +100,9 @@ img {
 button.code-folding-btn:focus {
   outline: none;
 }
+summary {
+  display: list-item;
+}
 </style>
 
 
@@ -107,14 +110,74 @@ button.code-folding-btn:focus {
 <div class="container-fluid main-container">
 
 <!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
 <script>
 $(document).ready(function () {
   window.buildTabsets("TOC");
 });
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
 </script>
 
 <!-- code folding -->
-
 
 
 
@@ -292,10 +355,9 @@ div.tocify {
 ## [1] stats     graphics  grDevices utils     datasets  methods   base     
 ## 
 ## loaded via a namespace (and not attached):
-##  [1] compiler_3.5.1  backports_1.1.2 magrittr_1.5    rprojroot_1.3-2
-##  [5] tools_3.5.1     htmltools_0.3.6 yaml_2.2.0      Rcpp_1.0.0     
-##  [9] stringi_1.2.4   rmarkdown_1.10  knitr_1.20      stringr_1.3.1  
-## [13] digest_0.6.17   evaluate_0.11</code></pre>
+##  [1] compiler_3.5.1  magrittr_1.5    tools_3.5.1     htmltools_0.3.6
+##  [5] yaml_2.2.0      Rcpp_1.0.0      stringi_1.2.4   rmarkdown_1.11 
+##  [9] knitr_1.20      stringr_1.3.1   digest_0.6.18   evaluate_0.12</code></pre>
 </div>
 <div id="essential-information-about-r" class="section level2">
 <h2>Essential Information about R</h2>
@@ -366,7 +428,7 @@ my_experiment</code></pre>
 <h2>Types of Data</h2>
 <p>There are five main types or classes of data frequently (we won’t use raw) used in R: 1. numeric, 2. integer, 3. character, 4. logical, 5. complex. These are referred to as <code>atomic</code> because they only hold data of a single type.</p>
 <pre class="r"><code>my_numeric &lt;- 42
-my_integer &lt;- 2L
+my_integer &lt;- 2L #adding an L automatically denotes an integer
 my_character &lt;- &quot;universe&quot;
 my_logical &lt;- FALSE
 my_complex &lt;- 2+4i</code></pre>
@@ -390,18 +452,18 @@ is.integer(my_integer) #is my_numeric an integer?</code></pre>
 </div>
 <div id="data-structures" class="section level2">
 <h2>Data Structures</h2>
-<p>In addition to the types or classes of data, R also organizes data in specific ways. These are data structures and include vectors, lists, matrices, data frames, and factors. For now, we are going to focus on vectors.</p>
+<p>In addition to the types or classes of data, R also organizes data in specific ways. These are data structures and include vectors, lists, matrices, data frames, and factors. For now, we are going to focus on <code>vectors</code>.</p>
 </div>
 <div id="annotations" class="section level2">
 <h2>Annotations</h2>
-<p>Alhough RMarkdown allows us to thoroughly explain our code, many programmers use hashtags to annotate code chunks. These annotations can be helpful in showing how each bit of code functions and can be a helpful way to keep notes for yourself as you work.</p>
+<p>While RMarkdown allows us to thoroughly explain our code, many programmers use hashtags to annotate code chunks. These annotations can be helpful in showing how each bit of code functions and can be a helpful way to keep notes for yourself as you work.</p>
 <pre class="r"><code>cell_count&lt;- 40 #the number of cells observed
 cell_count*2 #the number of cells present after two hours</code></pre>
 <pre><code>## [1] 80</code></pre>
 </div>
 <div id="vectors" class="section level2">
 <h2>Vectors</h2>
-<p>Vectors are a common way of organizing data (data structure) in R. The key detail is that they contain data of the same type. We create vectors using the c command.</p>
+<p>Vectors are a common way of organizing data (data structure) in R. The key detail is that they contain data <em>of the same type</em>. We create vectors using the <code>c</code> command.</p>
 <p><a href="https://thomasleeper.com/Rcourse/Tutorials/vectorindexing.html">Vector tutorial</a></p>
 <p>A numeric vector.</p>
 <pre class="r"><code>my_vector &lt;- c(10, 20, 30)</code></pre>
@@ -412,7 +474,7 @@ cell_count*2 #the number of cells present after two hours</code></pre>
 my_vector_string2 &lt;- seq(1, 4, by=0.25) #seq allows you more control
 my_vector_string2</code></pre>
 <pre><code>##  [1] 1.00 1.25 1.50 1.75 2.00 2.25 2.50 2.75 3.00 3.25 3.50 3.75 4.00</code></pre>
-<p>In order to make vectors more helpful, we can assign elements to objects.</p>
+<p>In order to make vectors more helpful, we can name the elements in a vector.</p>
 <pre class="r"><code>scientists &lt;- c(&quot;Einstein&quot;, &quot;physicist&quot;, &quot;Male&quot;, &quot;Darwin&quot;, &quot;biologist&quot;, &quot;Male&quot;, &quot;Faraday&quot;, &quot;physicist&quot;, &quot;Male&quot;, &quot;Curie&quot;, &quot;chemist&quot;, &quot;Female&quot;)
 scientists</code></pre>
 <pre><code>##  [1] &quot;Einstein&quot;  &quot;physicist&quot; &quot;Male&quot;      &quot;Darwin&quot;    &quot;biologist&quot;
@@ -462,13 +524,16 @@ scientists_male</code></pre>
 scientists_female</code></pre>
 <pre><code>##      Sex      Sex      Sex 
 ## &quot;Female&quot; &quot;Female&quot; &quot;Female&quot;</code></pre>
-<p>You can also use the [] to call named elements. This makes things a bit easier.</p>
+<p>You can also use <code>[]</code> to call named elements. This makes things a bit easier.</p>
 <pre class="r"><code>scientists_male2 &lt;- scientists_total[scientists_total == &quot;Male&quot;]
 scientists_female2 &lt;- scientists_total[scientists_total == &quot;Female&quot;]
 males &lt;- length(scientists_male2)
 females &lt;- length(scientists_female2)
 males&gt;females #is the number of male scientists larger than fremale scientists?</code></pre>
 <pre><code>## [1] TRUE</code></pre>
+</div>
+<div id="practice" class="section level2">
+<h2>Practice</h2>
 <p>Let’s create a new numeric vector.</p>
 <pre class="r"><code>new_vector &lt;- 1:100
 new_vector[new_vector == 15] #we can ask to select only the value 15</code></pre>
@@ -509,7 +574,7 @@ new_vector[new_vector == 15] #we can ask to select only the value 15</code></pre
 ##  [78] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
 ##  [89] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
 ## [100] FALSE</code></pre>
-<p>If you use the [] then you will only get the values, not the logical evaluation of the entire vector.</p>
+<p>If you use <code>[]</code> then you only get the values, not the logical evaluation of the entire vector.</p>
 <pre class="r"><code>new_vector[new_vector &lt; 10 &amp; new_vector &gt; 2]</code></pre>
 <pre><code>## [1] 3 4 5 6 7 8 9</code></pre>
 <p>We will come back to vectors later. In practice, most data in R is organized into data frames. Data frames operate like a series of equal length vectors, so it is helpful to know how to work with both.</p>

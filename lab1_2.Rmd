@@ -144,17 +144,17 @@ is.integer(my_integer) #is my_numeric an integer?
 ```
 
 ## Data Structures
-In addition to the types or classes of data, R also organizes data in specific ways. These are data structures and include vectors, lists, matrices, data frames, and factors. For now, we are going to focus on vectors.  
+In addition to the types or classes of data, R also organizes data in specific ways. These are data structures and include vectors, lists, matrices, data frames, and factors. For now, we are going to focus on `vectors`.  
 
 ## Annotations
-Alhough RMarkdown allows us to thoroughly explain our code, many programmers use hashtags to annotate code chunks. These annotations can be helpful in showing how each bit of code functions and can be a helpful way to keep notes for yourself as you work.
+While RMarkdown allows us to thoroughly explain our code, many programmers use hashtags to annotate code chunks. These annotations can be helpful in showing how each bit of code functions and can be a helpful way to keep notes for yourself as you work.
 ```{r}
 cell_count<- 40 #the number of cells observed
 cell_count*2 #the number of cells present after two hours
 ```
 
 ## Vectors
-Vectors are a common way of organizing data (data structure) in R. The key detail is that they contain data of the same type. We create vectors using the c command.  
+Vectors are a common way of organizing data (data structure) in R. The key detail is that they contain data *of the same type*. We create vectors using the `c` command.  
 
 [Vector tutorial](https://thomasleeper.com/Rcourse/Tutorials/vectorindexing.html)    
 
@@ -175,7 +175,7 @@ my_vector_string2 <- seq(1, 4, by=0.25) #seq allows you more control
 my_vector_string2
 ```
 
-In order to make vectors more helpful, we can assign elements to objects.
+In order to make vectors more helpful, we can name the elements in a vector.
 ```{r}
 scientists <- c("Einstein", "physicist", "Male", "Darwin", "biologist", "Male", "Faraday", "physicist", "Male", "Curie", "chemist", "Female")
 scientists
@@ -214,7 +214,7 @@ scientists_female <- scientists_sex[c(4, 7, 8)]
 scientists_female
 ```
 
-You can also use the [] to call named elements. This makes things a bit easier.
+You can also use `[]` to call named elements. This makes things a bit easier.
 ```{r}
 scientists_male2 <- scientists_total[scientists_total == "Male"]
 scientists_female2 <- scientists_total[scientists_total == "Female"]
@@ -223,6 +223,7 @@ females <- length(scientists_female2)
 males>females #is the number of male scientists larger than fremale scientists?
 ```
 
+## Practice
 Let's create a new numeric vector.
 ```{r}
 new_vector <- 1:100
@@ -244,7 +245,7 @@ Using the & symbol allows us to refine our elements of interest.
 new_vector < 10 & new_vector > 2
 ```
 
-If you use the [] then you will only get the values, not the logical evaluation of the entire vector.
+If you use `[]` then you only get the values, not the logical evaluation of the entire vector.
 ```{r}
 new_vector[new_vector < 10 & new_vector > 2]
 ```

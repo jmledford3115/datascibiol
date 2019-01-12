@@ -26,7 +26,7 @@ roulette <- c(60, 50, 120, -300, 10)
 
 a. Build a new vector called `days` for the days of the week (Monday through Friday). 
 ```{r, eval=F, echo=T}
-
+days <- 
 ```
 
 We will use `days` to name the elements in the poker and roulette vectors.
@@ -48,7 +48,7 @@ c. Calculate how much you won or lost in roulette over the week.
 
 d. Build a `total_week` vector to show how much you lost or won on each day over the week. Which days seem lucky or unlucky for you?
 ```{r, eval=F, echo=T}
-
+total_week <- 
 ```
 
 e. Should you stick to blackjack or roulette? Write a program that verifies this below.
