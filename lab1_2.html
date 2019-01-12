@@ -487,51 +487,11 @@ scientists</code></pre>
 ##  &quot;Einstein&quot; &quot;physicist&quot;      &quot;Male&quot;    &quot;Darwin&quot; &quot;biologist&quot;      &quot;Male&quot; 
 ##        Name  Profession         Sex        Name  Profession         Sex 
 ##   &quot;Faraday&quot; &quot;physicist&quot;      &quot;Male&quot;     &quot;Curie&quot;   &quot;chemist&quot;    &quot;Female&quot;</code></pre>
-<p>Nice, but annoying. Nobody is going to type all of this in over and over again. If you build the classification once then it can be reused. Just make sure the vector is the same length.</p>
-<pre class="r"><code>scientists_2 &lt;- c(&quot;Sagan&quot;, &quot;physicist&quot;, &quot;Male&quot;, &quot;Lyell&quot;, &quot;geologist&quot;, &quot;Male&quot;, &quot;Franklin&quot;, &quot;biologist&quot;, &quot;Female&quot;, &quot;McClintock&quot;, &quot;biologist&quot;, &quot;Female&quot;)
-
-classification &lt;- c(&quot;Name&quot;, &quot;Profession&quot;, &quot;Sex&quot;, &quot;Name&quot;, &quot;Profession&quot;, &quot;Sex&quot;, &quot;Name&quot;, &quot;Profession&quot;, &quot;Sex&quot;, &quot;Name&quot;, &quot;Profession&quot;, &quot;Sex&quot;)
-
-names(scientists_2) &lt;- classification
-
-scientists_2</code></pre>
-<pre><code>##         Name   Profession          Sex         Name   Profession 
-##      &quot;Sagan&quot;  &quot;physicist&quot;       &quot;Male&quot;      &quot;Lyell&quot;  &quot;geologist&quot; 
-##          Sex         Name   Profession          Sex         Name 
-##       &quot;Male&quot;   &quot;Franklin&quot;  &quot;biologist&quot;     &quot;Female&quot; &quot;McClintock&quot; 
-##   Profession          Sex 
-##  &quot;biologist&quot;     &quot;Female&quot;</code></pre>
-<p>Let’s combine them. Remember, this isn’t addition so we need to build a new object and another vector.</p>
-<pre class="r"><code>scientists_total &lt;- c(scientists, scientists_2)
-scientists_total</code></pre>
-<pre><code>##         Name   Profession          Sex         Name   Profession 
-##   &quot;Einstein&quot;  &quot;physicist&quot;       &quot;Male&quot;     &quot;Darwin&quot;  &quot;biologist&quot; 
-##          Sex         Name   Profession          Sex         Name 
-##       &quot;Male&quot;    &quot;Faraday&quot;  &quot;physicist&quot;       &quot;Male&quot;      &quot;Curie&quot; 
-##   Profession          Sex         Name   Profession          Sex 
-##    &quot;chemist&quot;     &quot;Female&quot;      &quot;Sagan&quot;  &quot;physicist&quot;       &quot;Male&quot; 
-##         Name   Profession          Sex         Name   Profession 
-##      &quot;Lyell&quot;  &quot;geologist&quot;       &quot;Male&quot;   &quot;Franklin&quot;  &quot;biologist&quot; 
-##          Sex         Name   Profession          Sex 
-##     &quot;Female&quot; &quot;McClintock&quot;  &quot;biologist&quot;     &quot;Female&quot;</code></pre>
 <p>Separate the sexes of the scientists. Notice that because this is a vector, we have to specify the position of each element. In order to do this, we use <code>[]</code>.</p>
-<pre class="r"><code>scientists_sex &lt;- scientists_total[c(3, 6, 9, 12, 15, 18, 21, 24)]
-
-scientists_male &lt;-scientists_sex[c(1,2,3,5,6)]
-scientists_male</code></pre>
-<pre><code>##    Sex    Sex    Sex    Sex    Sex 
-## &quot;Male&quot; &quot;Male&quot; &quot;Male&quot; &quot;Male&quot; &quot;Male&quot;</code></pre>
-<pre class="r"><code>scientists_female &lt;- scientists_sex[c(4, 7, 8)]
-scientists_female</code></pre>
-<pre><code>##      Sex      Sex      Sex 
-## &quot;Female&quot; &quot;Female&quot; &quot;Female&quot;</code></pre>
-<p>You can also use <code>[]</code> to call named elements. This makes things a bit easier.</p>
-<pre class="r"><code>scientists_male2 &lt;- scientists_total[scientists_total == &quot;Male&quot;]
-scientists_female2 &lt;- scientists_total[scientists_total == &quot;Female&quot;]
-males &lt;- length(scientists_male2)
-females &lt;- length(scientists_female2)
-males&gt;females #is the number of male scientists larger than fremale scientists?</code></pre>
-<pre><code>## [1] TRUE</code></pre>
+<pre class="r"><code>scientists_sex &lt;- scientists[c(3, 6, 9, 12)]
+scientists_sex</code></pre>
+<pre><code>##      Sex      Sex      Sex      Sex 
+##   &quot;Male&quot;   &quot;Male&quot;   &quot;Male&quot; &quot;Female&quot;</code></pre>
 </div>
 <div id="practice" class="section level2">
 <h2>Practice</h2>

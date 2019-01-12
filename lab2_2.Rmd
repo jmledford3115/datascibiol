@@ -23,7 +23,7 @@ library("tidyverse")
 3. Use the functions of dplyr (filter, select, arrange, mutate) to organize and sort data frames.  
 
 ## Data Frames
-For the remainder of the course, we will work exclusively with data frames. Recall that data frames allow us to store multiple types of data, so they have advantages over both vectors and data matrices. In the first session, you were shown how to build data frames using the `data.frame()` command. However, most scientists make their data available in some form as supplementary material in a publication. As data scientists, we can capitalize on this by importing data directly into R.
+For the remainder of the course, we will work exclusively with data frames. Recall that data frames allow us to store multiple types of data. In the first session, you were shown how to build data frames using the `data.frame()` command. However, most scientists make their data available in some form as supplementary material associated with a publication. As data scientists, we can capitalize on this by importing data directly into R.
 
 ## Loading Data into Data Frames
 R allows us to import a wide variety of data types. The most common type of file is a .csv file which stands for comma separated values. Spreadsheets are often developed in Excel then saved as .csv files for use in R. There are packages that allow you to open excel files and many other formats but .csv is the most common.
@@ -32,11 +32,12 @@ To open a .csv file, be sure that you are in the correct working directory.
 ```{r echo=T, results='hide'}
 getwd()
 ```
+
 It is best to store the data as a new object. My only caveat is that unless you really need to, don't create an object called 'data' or 'dat'. Other bad choices include: x, y, z, input, etc.
 
 Also, while many people specify a discrete path in the read command it only works on their computer because it is local. This is generally not good practice. Instead include the .csv file in a folder called `data` within your working directory.
 
-Here we open a .csv file with data on fish scales. Since we are using the tidyverse, we open the file using read_csv. In non-tidyverse R you would use the read.csv command. There are a few important differences between read.csv and read_csv, but for now it is enough to know that we are learning R the 'tidy' way.
+Here we open a .csv file with data on fish scales. Since we are using the tidyverse, we open the file using read_csv. 
 ```{r message=FALSE, warning=FALSE}
 fish <- readr::read_csv("data/Gaeta_etal_CLC_data.csv")
 ```
@@ -94,7 +95,7 @@ head(mammals)
 ```
 
 ## [Tidyverse](https://www.tidyverse.org/)
-The tidyverse is a collection of packages that make workflows in R easier. It was originally developed by Hadley Wickham who is, for all practical purposes, the wizard of the R universe. The packages operate differently than base R commands so if you look at older code you will see that there are many different ways of accomplishing the same task. Although not universal, the tidyverse has been adopted by many (most) users. In our class, we embrace the tidyverse philosophy and thus will be doing things the tidy way.  
+The tidyverse is a collection of packages that make workflows in R easier. The packages operate differently than base R commands so if you look at older code you will see that there are many different ways of accomplishing the same task. Although not universal, the tidyverse has been adopted by many (most) users. In our class, we embrace the tidyverse philosophy and thus will be doing things the tidy way.  
 
 ![*Data Science Workflow in the Tidyverse.*](tidyverse1.png)
 

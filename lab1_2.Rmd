@@ -187,41 +187,10 @@ names(scientists) <- c("Name", "Profession", "Sex", "Name", "Profession", "Sex",
 scientists
 ```
 
-Nice, but annoying. Nobody is going to type all of this in over and over again. If you build the classification once then it can be reused. Just make sure the vector is the same length.
-```{r}
-scientists_2 <- c("Sagan", "physicist", "Male", "Lyell", "geologist", "Male", "Franklin", "biologist", "Female", "McClintock", "biologist", "Female")
-
-classification <- c("Name", "Profession", "Sex", "Name", "Profession", "Sex", "Name", "Profession", "Sex", "Name", "Profession", "Sex")
-
-names(scientists_2) <- classification
-
-scientists_2
-```
-
-Let's combine them. Remember, this isn't addition so we need to build a new object and another vector.
-```{r}
-scientists_total <- c(scientists, scientists_2)
-scientists_total
-```
-
 Separate the sexes of the scientists. Notice that because this is a vector, we have to specify the position of each element. In order to do this, we use `[]`.
 ```{r}
-scientists_sex <- scientists_total[c(3, 6, 9, 12, 15, 18, 21, 24)]
-
-scientists_male <-scientists_sex[c(1,2,3,5,6)]
-scientists_male
-
-scientists_female <- scientists_sex[c(4, 7, 8)]
-scientists_female
-```
-
-You can also use `[]` to call named elements. This makes things a bit easier.
-```{r}
-scientists_male2 <- scientists_total[scientists_total == "Male"]
-scientists_female2 <- scientists_total[scientists_total == "Female"]
-males <- length(scientists_male2)
-females <- length(scientists_female2)
-males>females #is the number of male scientists larger than fremale scientists?
+scientists_sex <- scientists[c(3, 6, 9, 12)]
+scientists_sex
 ```
 
 ## Practice

@@ -11,9 +11,6 @@ output:
     toc: yes
 ---
 
-## Welcome Back
-Any volunteers for a homework demo?
-
 ## Learning Goals
 *At the end of this exercise, you will be able to:*    
 1. Combine a series of vectors into a data matrix.  
@@ -25,7 +22,7 @@ Any volunteers for a homework demo?
 - [R for Data Science](https://r4ds.had.co.nz/)
 
 ## Data Matrix
-Last time, you learned how to work with vectors. In the homework assignment, you had a preview of a data matrix when you combined data about genome sizes in several organisms. Although we used the data.frame command, technically speaking we built a data matrix because a data matrix is restricted to *data of the same type*. In the short example (from DataCamp) below, we will build a new data matrix using the matrix command.
+Last time, you learned how to work with vectors. Today we will organize the vectors into a new type of data structure called a data matrix. Like vectors, data matrices are restricted to *data of the same type*. In the short example (from DataCamp) below, we will build a new data matrix using the matrix command.  
 
 Box office earnings for Star Wars movies (in millions!).
 ```{r}
@@ -73,13 +70,13 @@ worldwide_vector <- rowSums(star_wars_matrix)
 worldwide_vector
 ```
 
-And even add a new column to reflect this calculation. cbind adds columns.
+And even add a new column to reflect this calculation. `cbind()` adds columns.
 ```{r}
 all_wars_matrix <- cbind(star_wars_matrix,worldwide_vector)
 all_wars_matrix
 ```
 
-We can combine additional data. rbind adds rows.
+We can combine additional data. `rbind()` adds rows.
 ```{r}
 the_phantom_menace <- c(474.5, 552.5)
 attack_of_the_clones <- c(310.7, 338.7)
@@ -128,7 +125,7 @@ rownames(springs_matrix) <- springs
 springs_matrix
 ```
 
-Calculate the mean of all three scientists and add it as a new column.
+Calculate the mean temperature of all three springs and add it as a new column.
 ```{r}
 mean_vector <- rowMeans(springs_matrix)
 mean_vector
@@ -149,7 +146,7 @@ Load the tidyverse.
 library(tidyverse)
 ```
 
-Let's go back to the homework example. Here is the list of organisms.
+Here is the vector of organisms.
 ```{r}
 organism<-c("Human","Mouse","Fruit Fly", "Roundworm","Yeast")
 ```
@@ -166,8 +163,4 @@ comparativeGenomeSize<- data.frame(organism=organism, genomeSizeBP=genomeSizeBP,
 comparativeGenomeSize
 ```
 Notice that not only are the data neater and cleaner looking, there is also information provided about the type of data in the frame. dbl just means that the value is a type of numeric (double precision floating point, http://uc-r.github.io/integer_double/).  
-
-## Data matrix vs. Data Frame
-Take a moment to reflect on the differences between these two data structures. What are the primary differences between them? Which do you think will be most relevant to the type of data you expect to work with in your field?
-
 ## Let's Take a Break!
