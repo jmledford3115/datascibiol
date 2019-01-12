@@ -175,12 +175,13 @@ my_vector_string2 <- seq(1, 4, by=0.25) #seq allows you more control
 my_vector_string2
 ```
 
-In order to make vectors more helpful, we can name the elements in a vector.
+Another vector of famous scientists.
 ```{r}
 scientists <- c("Einstein", "physicist", "Male", "Darwin", "biologist", "Male", "Faraday", "physicist", "Male", "Curie", "chemist", "Female")
 scientists
 ```
 
+In order to make vectors more helpful, we can name the elements in a vector using the `names ()` command.
 ```{r}
 names(scientists) <- c("Name", "Profession", "Sex", "Name", "Profession", "Sex", "Name", "Profession", "Sex", "Name", "Profession", "Sex")
 scientists
@@ -203,7 +204,7 @@ scientists_total <- c(scientists, scientists_2)
 scientists_total
 ```
 
-Separate the sexes of the scientists. Notice that because this is a vector, we have to specify the position of each element. This makes working with character vectors inefficient; they are better suited to numericals.
+Separate the sexes of the scientists. Notice that because this is a vector, we have to specify the position of each element. In order to do this, we use `[]`.
 ```{r}
 scientists_sex <- scientists_total[c(3, 6, 9, 12, 15, 18, 21, 24)]
 

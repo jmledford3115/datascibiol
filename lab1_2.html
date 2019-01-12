@@ -474,12 +474,13 @@ cell_count*2 #the number of cells present after two hours</code></pre>
 my_vector_string2 &lt;- seq(1, 4, by=0.25) #seq allows you more control
 my_vector_string2</code></pre>
 <pre><code>##  [1] 1.00 1.25 1.50 1.75 2.00 2.25 2.50 2.75 3.00 3.25 3.50 3.75 4.00</code></pre>
-<p>In order to make vectors more helpful, we can name the elements in a vector.</p>
+<p>Another vector of famous scientists.</p>
 <pre class="r"><code>scientists &lt;- c(&quot;Einstein&quot;, &quot;physicist&quot;, &quot;Male&quot;, &quot;Darwin&quot;, &quot;biologist&quot;, &quot;Male&quot;, &quot;Faraday&quot;, &quot;physicist&quot;, &quot;Male&quot;, &quot;Curie&quot;, &quot;chemist&quot;, &quot;Female&quot;)
 scientists</code></pre>
 <pre><code>##  [1] &quot;Einstein&quot;  &quot;physicist&quot; &quot;Male&quot;      &quot;Darwin&quot;    &quot;biologist&quot;
 ##  [6] &quot;Male&quot;      &quot;Faraday&quot;   &quot;physicist&quot; &quot;Male&quot;      &quot;Curie&quot;    
 ## [11] &quot;chemist&quot;   &quot;Female&quot;</code></pre>
+<p>In order to make vectors more helpful, we can name the elements in a vector using the <code>names ()</code> command.</p>
 <pre class="r"><code>names(scientists) &lt;- c(&quot;Name&quot;, &quot;Profession&quot;, &quot;Sex&quot;, &quot;Name&quot;, &quot;Profession&quot;, &quot;Sex&quot;, &quot;Name&quot;, &quot;Profession&quot;, &quot;Sex&quot;, &quot;Name&quot;, &quot;Profession&quot;, &quot;Sex&quot;)
 scientists</code></pre>
 <pre><code>##        Name  Profession         Sex        Name  Profession         Sex 
@@ -513,7 +514,7 @@ scientists_total</code></pre>
 ##      &quot;Lyell&quot;  &quot;geologist&quot;       &quot;Male&quot;   &quot;Franklin&quot;  &quot;biologist&quot; 
 ##          Sex         Name   Profession          Sex 
 ##     &quot;Female&quot; &quot;McClintock&quot;  &quot;biologist&quot;     &quot;Female&quot;</code></pre>
-<p>Separate the sexes of the scientists. Notice that because this is a vector, we have to specify the position of each element. This makes working with character vectors inefficient; they are better suited to numericals.</p>
+<p>Separate the sexes of the scientists. Notice that because this is a vector, we have to specify the position of each element. In order to do this, we use <code>[]</code>.</p>
 <pre class="r"><code>scientists_sex &lt;- scientists_total[c(3, 6, 9, 12, 15, 18, 21, 24)]
 
 scientists_male &lt;-scientists_sex[c(1,2,3,5,6)]
