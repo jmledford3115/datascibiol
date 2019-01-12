@@ -34,12 +34,12 @@ Our campus has a wealth of expertise in data science, from working groups to ful
 - [Data Science Initiative, UC Davis](http://dsi.ucdavis.edu/)  
 - [Davis R Users Group](http://d-rug.github.io/) 
 
-## Lab 1, part 1
+## Lab 1
 The first goal of lab 1 is to get everyone started using R, Rstudio, and Git. All of our work will be done in RStudio and uploaded to the class GitHub repository. We will use RMarkdown to write all of our code; it allows us to easily check functionality and neatly annotate chunks.
 
 At the start of each lab session, I will randomly pull someone's code from the GitHub repository and use it as an example. There are many, many ways to solve the same problems in R and seeing other people's code is a great way to learn. This is not about shaming people who make mistakes!  
 
-This first lab is pretty tedious, so please be patient. It is important that everyone is set-up correctly before they leave today. In the spirit of the R universe, our class is a community. If you see someone struggling, please give them some help.  
+This first lab is tedious, so please be patient. It is important that everyone is set-up correctly before they leave today. In the spirit of the R universe, our class is a community. If you see someone struggling, please give them some help.  
 
 ## Setup your own computer
 You are welcome to use your own computer, but in order to do so you need to install R, RStudio, and Git. If you would like to set-up your own computer, please follow the directions [here](https://jmledford3115.github.io/datascibiol/setup.html).
@@ -54,65 +54,38 @@ Navigate to www.github.com and create a free account. [Email](mailto:jmledford@u
 ## Open RStudio
 Once you are in RStudio, open a new markdown document: **File>New File>R Markdown**  
 
-In this new file insert a new R code chunk by clicking on the green `insert` tab and selecting R.
+In this new file insert a new R code chunk by clicking on the green `insert` tab and selecting R. The mac shortcut is option + command + i. The PC shortcut is Ctrl + Alt + i.
 
 ## Install the tidyverse
-One strength of R is that there are thousands of add-on packages that perform specialized functions. Building these packages is a labor of love, so always be kind and mindful to the authors if you encounter problems. The packages are referred to as libraries.  
+One strength of R is that there are thousands of add-on packages that perform specialized functions. The packages are referred to as libraries.  
 
-In this class, we will routinely use the library called the **tidyverse**. Libraries need to be installed in order to work, and whenever you update R you also need to update the packages that you use.
-
-To make a new code chunk, the mac shortcut is option + command + i. The PC shortcut is Ctrl + Alt + i.
+In this class, we will routinely use the library called the **tidyverse**. Libraries need to be installed in order to work, and whenever you update R you also need to update all of the packages that you use.
 ```{r eval=FALSE, include=TRUE}
 install.packages("tidyverse")
+install.packages("nycflights13")
 ```
 
-## Make a test RMarkdown file, perform a commit (local), and push files to GitHub (remote)
+## Create a new project with Git
 Once you have created a GitHub account, we need to practice. I have made a repository for our class titled: FRS417-DataScienceBiologists. You should be able to login to GitHub and find this organization. You should see a directory associated with your login name.  
 
 Click on your directory to enter. Once there, click on the green button in the top right corner titled **Clone or download**. A URL will appear and you should copy that address.
 
-In RStudio, navigate to File> New Project.
++ In RStudio, navigate to File> New Project.
 
-From the **Create Project** window, select Version Control> Git.
++ From the **Create Project** window, select Version Control> Git.
 
-Paste the URL that you copied from GitHub into the directory. Copy and paste **all** of the following code into the blank workscreen.
++ Paste the URL that you copied from GitHub into the directory. 
 
-Check your working directory. One of the most common problems in R is 'losing' files because you are not in the correct `working directory`. Before you start working, always make sure that you are in the correct directory on your computer.  
+## Perform a commit (local), and push files to GitHub (remote)
+Navigate to the [dummy_push](https://jmledford3115.github.io/datascibiol/dummy_push.html)file. Copy and paste all of the code chunks in this file into a new RMarkdown file called `dummy_push_login`. Replace `login` with your GitHub login name.
 
-The following code chunk will tell you where you are on your computer.
-```{r echo=TRUE}
-getwd()
-```
-
-We are going to use many example datasets in the course, but R has some nice built-in data for practice. Let's load the `nycflights13` data.
-```{r eval=FALSE, include=TRUE}
-install.packages("nycflights13")
-```
-
-Load the libraries. Once a package is installed, it still needs to be loaded for each session.
-```{r echo=TRUE}
-library(nycflights13)
-library(tidyverse)
-```
-
-```{r echo=TRUE}
-flights
-```
-
-If this worked correctly, then you should see a data table with records of all flights that left New York City in 2013. The following command will restrict the data to those flights that left on January 11, 2013.
-```{r echo=TRUE}
-filter(flights, month==1, day==11)
-```
-
-You should now see a data table with the month and day restricted to January 11, 2013.
-
-In the top right window of RStudio, you should see several options as tabs including **Environment, History, Connections, and Git**. Click on the Git tab.
+In the top right window of RStudio, you should see several options as tabs including **Environment, History, Connections, and Git**. Click on the `Git` tab.
 
 Make sure you are in the correct working directory and save your work. Now, click on the **Commit** tab.
 
-Enter a note to keep track of each commit that you make. Remember, these are being saved to your local directory. In the left window, make sure the file that you have changed is selected. Now, click the **Commit** button on the right window.
+Enter a note to keep track of each commit that you make. In the left window, make sure the file that you have changed is selected. Now, click the **Commit** button on the right window.
 
-Lastly, we need to upload our changes to GitHub. This is called a **Push**. When you are ready, click the push button and your files will be uploaded. Wait a few minutes and then check your directory on GitHub to see that it worked.
+Lastly, we need to upload our changes to GitHub. This is called a **Push**. When you are ready, click the push button and your files will be uploaded. Wait a few moments and then check your directory on GitHub to see that it worked.
 
 ## Git and GitHub Issues
 We will encounter many issues over the next few weeks with Git and GitHub. These will be caused mostly by user error, but sometimes weird things happen. If you are stuck, especially in the first few sessions, stop trying to commit, push, or pull. Get my attention and we will sort things out.

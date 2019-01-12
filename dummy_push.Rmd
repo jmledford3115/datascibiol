@@ -1,0 +1,48 @@
+---
+title: "Dummy Push"
+author: "Your Name"
+date: "1/12/2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Working directory
+```{r echo=TRUE}
+getwd()
+```
+
+## Session Info
+```{r}
+sessionInfo()
+```
+
+## Load the libraries
+```{r}
+library(nycflights13)
+library(tidyverse)
+```
+
+## nycflights13
+All flights.
+```{r}
+flights
+```
+
+## Filter
+Flights between JFK and SFO airports.
+```{r echo=TRUE}
+flights %>% 
+  filter(origin=="JFK" & dest=="SFO")
+```
+
+##Plot
+Count of flights between JFK and SFO airports by carrier.
+```{r}
+flights %>% 
+  filter(origin=="JFK" & dest=="SFO") %>% 
+  ggplot(aes(x=carrier))+
+  geom_bar()
+```

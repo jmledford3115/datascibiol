@@ -318,11 +318,11 @@ div.tocify {
 <li><a href="http://d-rug.github.io/">Davis R Users Group</a></li>
 </ul>
 </div>
-<div id="lab-1-part-1" class="section level2">
-<h2>Lab 1, part 1</h2>
+<div id="lab-1" class="section level2">
+<h2>Lab 1</h2>
 <p>The first goal of lab 1 is to get everyone started using R, Rstudio, and Git. All of our work will be done in RStudio and uploaded to the class GitHub repository. We will use RMarkdown to write all of our code; it allows us to easily check functionality and neatly annotate chunks.</p>
 <p>At the start of each lab session, I will randomly pull someone’s code from the GitHub repository and use it as an example. There are many, many ways to solve the same problems in R and seeing other people’s code is a great way to learn. This is not about shaming people who make mistakes!</p>
-<p>This first lab is pretty tedious, so please be patient. It is important that everyone is set-up correctly before they leave today. In the spirit of the R universe, our class is a community. If you see someone struggling, please give them some help.</p>
+<p>This first lab is tedious, so please be patient. It is important that everyone is set-up correctly before they leave today. In the spirit of the R universe, our class is a community. If you see someone struggling, please give them some help.</p>
 </div>
 <div id="setup-your-own-computer" class="section level2">
 <h2>Setup your own computer</h2>
@@ -337,81 +337,32 @@ div.tocify {
 <div id="open-rstudio" class="section level2">
 <h2>Open RStudio</h2>
 <p>Once you are in RStudio, open a new markdown document: <strong>File&gt;New File&gt;R Markdown</strong></p>
-<p>In this new file insert a new R code chunk by clicking on the green <code>insert</code> tab and selecting R.</p>
+<p>In this new file insert a new R code chunk by clicking on the green <code>insert</code> tab and selecting R. The mac shortcut is option + command + i. The PC shortcut is Ctrl + Alt + i.</p>
 </div>
 <div id="install-the-tidyverse" class="section level2">
 <h2>Install the tidyverse</h2>
-<p>One strength of R is that there are thousands of add-on packages that perform specialized functions. Building these packages is a labor of love, so always be kind and mindful to the authors if you encounter problems. The packages are referred to as libraries.</p>
-<p>In this class, we will routinely use the library called the <strong>tidyverse</strong>. Libraries need to be installed in order to work, and whenever you update R you also need to update the packages that you use.</p>
-<p>To make a new code chunk, the mac shortcut is option + command + i. The PC shortcut is Ctrl + Alt + i.</p>
-<pre class="r"><code>install.packages(&quot;tidyverse&quot;)</code></pre>
+<p>One strength of R is that there are thousands of add-on packages that perform specialized functions. The packages are referred to as libraries.</p>
+<p>In this class, we will routinely use the library called the <strong>tidyverse</strong>. Libraries need to be installed in order to work, and whenever you update R you also need to update all of the packages that you use.</p>
+<pre class="r"><code>install.packages(&quot;tidyverse&quot;)
+install.packages(&quot;nycflights13&quot;)</code></pre>
 </div>
-<div id="make-a-test-rmarkdown-file-perform-a-commit-local-and-push-files-to-github-remote" class="section level2">
-<h2>Make a test RMarkdown file, perform a commit (local), and push files to GitHub (remote)</h2>
+<div id="create-a-new-project-with-git" class="section level2">
+<h2>Create a new project with Git</h2>
 <p>Once you have created a GitHub account, we need to practice. I have made a repository for our class titled: FRS417-DataScienceBiologists. You should be able to login to GitHub and find this organization. You should see a directory associated with your login name.</p>
 <p>Click on your directory to enter. Once there, click on the green button in the top right corner titled <strong>Clone or download</strong>. A URL will appear and you should copy that address.</p>
-<p>In RStudio, navigate to File&gt; New Project.</p>
-<p>From the <strong>Create Project</strong> window, select Version Control&gt; Git.</p>
-<p>Paste the URL that you copied from GitHub into the directory. Copy and paste <strong>all</strong> of the following code into the blank workscreen.</p>
-<p>Check your working directory. One of the most common problems in R is ‘losing’ files because you are not in the correct <code>working directory</code>. Before you start working, always make sure that you are in the correct directory on your computer.</p>
-<p>The following code chunk will tell you where you are on your computer.</p>
-<pre class="r"><code>getwd()</code></pre>
-<pre><code>## [1] &quot;/Users/jmledford/datascibiol&quot;</code></pre>
-<p>We are going to use many example datasets in the course, but R has some nice built-in data for practice. Let’s load the <code>nycflights13</code> data.</p>
-<pre class="r"><code>install.packages(&quot;nycflights13&quot;)</code></pre>
-<p>Load the libraries. Once a package is installed, it still needs to be loaded for each session.</p>
-<pre class="r"><code>library(nycflights13)
-library(tidyverse)</code></pre>
-<pre><code>## ── Attaching packages ──────────────────────────────────────────────────────────────────────────────────── tidyverse 1.2.1 ──</code></pre>
-<pre><code>## ✔ ggplot2 3.1.0     ✔ purrr   0.2.5
-## ✔ tibble  1.4.2     ✔ dplyr   0.7.8
-## ✔ tidyr   0.8.2     ✔ stringr 1.3.1
-## ✔ readr   1.1.1     ✔ forcats 0.3.0</code></pre>
-<pre><code>## ── Conflicts ─────────────────────────────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
-## ✖ dplyr::filter() masks stats::filter()
-## ✖ dplyr::lag()    masks stats::lag()</code></pre>
-<pre class="r"><code>flights</code></pre>
-<pre><code>## # A tibble: 336,776 x 19
-##     year month   day dep_time sched_dep_time dep_delay arr_time
-##    &lt;int&gt; &lt;int&gt; &lt;int&gt;    &lt;int&gt;          &lt;int&gt;     &lt;dbl&gt;    &lt;int&gt;
-##  1  2013     1     1      517            515         2      830
-##  2  2013     1     1      533            529         4      850
-##  3  2013     1     1      542            540         2      923
-##  4  2013     1     1      544            545        -1     1004
-##  5  2013     1     1      554            600        -6      812
-##  6  2013     1     1      554            558        -4      740
-##  7  2013     1     1      555            600        -5      913
-##  8  2013     1     1      557            600        -3      709
-##  9  2013     1     1      557            600        -3      838
-## 10  2013     1     1      558            600        -2      753
-## # ... with 336,766 more rows, and 12 more variables: sched_arr_time &lt;int&gt;,
-## #   arr_delay &lt;dbl&gt;, carrier &lt;chr&gt;, flight &lt;int&gt;, tailnum &lt;chr&gt;,
-## #   origin &lt;chr&gt;, dest &lt;chr&gt;, air_time &lt;dbl&gt;, distance &lt;dbl&gt;, hour &lt;dbl&gt;,
-## #   minute &lt;dbl&gt;, time_hour &lt;dttm&gt;</code></pre>
-<p>If this worked correctly, then you should see a data table with records of all flights that left New York City in 2013. The following command will restrict the data to those flights that left on January 11, 2013.</p>
-<pre class="r"><code>filter(flights, month==1, day==11)</code></pre>
-<pre><code>## # A tibble: 930 x 19
-##     year month   day dep_time sched_dep_time dep_delay arr_time
-##    &lt;int&gt; &lt;int&gt; &lt;int&gt;    &lt;int&gt;          &lt;int&gt;     &lt;dbl&gt;    &lt;int&gt;
-##  1  2013     1    11       11           2359        12      436
-##  2  2013     1    11       19           2359        20      439
-##  3  2013     1    11      453            500        -7      643
-##  4  2013     1    11      519            525        -6      735
-##  5  2013     1    11      520            530       -10      817
-##  6  2013     1    11      530            540       -10      812
-##  7  2013     1    11      538            540        -2      956
-##  8  2013     1    11      549            600       -11      642
-##  9  2013     1    11      551            600        -9      750
-## 10  2013     1    11      553            600        -7      653
-## # ... with 920 more rows, and 12 more variables: sched_arr_time &lt;int&gt;,
-## #   arr_delay &lt;dbl&gt;, carrier &lt;chr&gt;, flight &lt;int&gt;, tailnum &lt;chr&gt;,
-## #   origin &lt;chr&gt;, dest &lt;chr&gt;, air_time &lt;dbl&gt;, distance &lt;dbl&gt;, hour &lt;dbl&gt;,
-## #   minute &lt;dbl&gt;, time_hour &lt;dttm&gt;</code></pre>
-<p>You should now see a data table with the month and day restricted to January 11, 2013.</p>
-<p>In the top right window of RStudio, you should see several options as tabs including <strong>Environment, History, Connections, and Git</strong>. Click on the Git tab.</p>
+<ul>
+<li><p>In RStudio, navigate to File&gt; New Project.</p></li>
+<li><p>From the <strong>Create Project</strong> window, select Version Control&gt; Git.</p></li>
+<li><p>Paste the URL that you copied from GitHub into the directory.</p></li>
+</ul>
+</div>
+<div id="perform-a-commit-local-and-push-files-to-github-remote" class="section level2">
+<h2>Perform a commit (local), and push files to GitHub (remote)</h2>
+<p>Navigate to the <a href="https://jmledford3115.github.io/datascibiol/dummy_push.html">dummy_push</a>file. Copy and paste all of the code chunks in this file into a new RMarkdown file called <code>dummy_push_login</code>. Replace <code>login</code> with your GitHub login name.</p>
+<p>In the top right window of RStudio, you should see several options as tabs including <strong>Environment, History, Connections, and Git</strong>. Click on the <code>Git</code> tab.</p>
 <p>Make sure you are in the correct working directory and save your work. Now, click on the <strong>Commit</strong> tab.</p>
-<p>Enter a note to keep track of each commit that you make. Remember, these are being saved to your local directory. In the left window, make sure the file that you have changed is selected. Now, click the <strong>Commit</strong> button on the right window.</p>
-<p>Lastly, we need to upload our changes to GitHub. This is called a <strong>Push</strong>. When you are ready, click the push button and your files will be uploaded. Wait a few minutes and then check your directory on GitHub to see that it worked.</p>
+<p>Enter a note to keep track of each commit that you make. In the left window, make sure the file that you have changed is selected. Now, click the <strong>Commit</strong> button on the right window.</p>
+<p>Lastly, we need to upload our changes to GitHub. This is called a <strong>Push</strong>. When you are ready, click the push button and your files will be uploaded. Wait a few moments and then check your directory on GitHub to see that it worked.</p>
 </div>
 <div id="git-and-github-issues" class="section level2">
 <h2>Git and GitHub Issues</h2>
