@@ -1,0 +1,61 @@
+---
+title: "Setup Instructions"
+author: "Joel Ledford"
+date: "Winter 2019"
+output:
+  html_document:
+    theme: spacelab
+    toc: yes
+    toc_float: yes
+---
+
+## Resources
+- [Happy Git and GitHub for the useR](http://happygitwithr.com/)
+- [Data Carpentry for Biologists Git](https://datacarpentry.org/semester-biology/computer-setup/)
+
+## Setup your own computer
+We are fortunate to have access to a set of nice lab computers with R and RStudio pre-installed. There are advantages to having your own system, but with so many operating systems it is hard for me to troubleshoot for everyone. If you can get your computer up and running quickly, then please feel free to use your own system. If you encounter problems, it will be easier for you and me if you use the lab computer.  
+
+In order to get set-up, you need three things:  
+
++ [R](https://www.r-project.org/)  
++ [RStudio](https://www.rstudio.com/)  
++ [Git](http://git-scm.com/downloads)
+
+### 1. Download the most recent version of R and install
+R is open source and constantly changing. Make regular version checks part of your routine. R will run on a variety of platforms, but there are slight differences between mac and pc versions.  
+
+Download the latest version of R [here](https://www.r-project.org/) and install.
+
+### 2. Download the most recent version of RStudio and install
+RStudio is a GUI that allows for more intuitive management of R and includes numerous additional functions. All of our work will be done in RStudio, including uploads to Git.
+
+Download the latest version of RStudio [here](https://www.rstudio.com/) and install.  
+
+### 3. Check for Git and install if necessary  
+**Git** is software that is used for version control. It tracks changes and is especially helpful when multiple people are collaborating on a project; if a mistake is made it can be easily tracked back and retrieved.  
+
+#### Mac check and installation
+If you are using a Mac, start by opening a `terminal` window. Go to the spotlight in the top right of the finder and search for `terminal`. Open a terminal window and then type:  
+
+`which git`  
+*/usr/bin/git*  
+
+Then type:  
+`git --version`  
+*git version 2.17.2 (Apple Git-113)*
+
+If this worked and your output looks similar to mine, then you already have Git installed. If you get an error then continue reading below. **Note:** you may get an offer to install `command line developer tools` when typing the commands above. If this happens, please install them.    
+
+In the terminal window, type:  
+
+`git config`  
+
+If you get an offer to install `command line developer tools, please install them. If this doesn't work, then we will ask for them directly by typing:  
+
+`xcode-select --install`
+
+If these commands in the terminal do not work, then navigate directly to the Git site, download the [MacOS installer] (https://github.com/timcharper/git_osx_installer), and install.
+
+#### PC installation
+On a PC, start by trying the instructions on [Data Carpentry for Biologists](https://datacarpentry.org/semester-biology/computer-setup/). If this does not work, the [Happy Git and GitHub for the useR](http://happygitwithr.com/) site has more complete directions.

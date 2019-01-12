@@ -9,34 +9,24 @@ output:
     toc_float: yes
 ---
 
-## Class schedule
-Fridays, 1:10- 3:00p, 2013 SCC  
-
-## Contact Information
-Joel Ledford [email](mailto:jmledford@ucdavis.edu)  
-Office: 2220 Life Sciences
-
-## Greetings and Salutations
-Take a moment to introduce yourself. What is your major, what do you expect to learn, have you ever used R?
-
-## Background and Objectives
+## Background
 In nearly every field of science, our ability to generate data has exceeded our capacity for analysis. For me, this means that there is the potential for loss to science; many important discoveries may go unnoticed because we are unable to efficiently analyze data.
 
 There is also a growing problem of curation. As the analyses and data become more complex, research labs have a problem of storing and managing data such that it can be used in future analyses or shared with colleagues. As students, postdocs, and visiting scientists come and go in labs, there is often a mess left behind where data are inefficiently stored and analytical scripts are hard to interpret.
 
 Lastly, with the widespread availability of data online there is the potential for new scientific discovery or insight through exploratory data analysis. In many cases a clean, organized workflow will yield new perspectives and promising results.  
 
+## Objectives
 The goal for this course is to help get you started learning to manage, transform, and visualize data using the R programming language. You will learn to clearly and neatly organize messy data, transform it in ways that address your questions, and communicate results in a variety of formats. The course is designed for people with **no prior programming experience**. My only caveat is that there is a substantial learning curve but, working together, we should be able to make learning R easier, interesting, and fun.
 
 Why spend the time? If you are pursuing any research path in science, this class will give you a significant competitive advantage and save you countless hours as most scientists struggle to [learn R on their own](https://www.wired.com/2017/03/biologists-teaching-code-survive/). Even if you are not pursuing a research career, companies routinely hire data scientists (or people with skills in data science to anlyze a variety of data.
 
-## Online Resources
+## Resources
 Given the open source nature of R, many resources are available online. We will use a combination of resources in the class, but key items are listed below.
 
 - [R for data science](https://r4ds.had.co.nz/)
 - [R cheatsheets](https://www.rstudio.com/resources/cheatsheets/)
 - [RStudio keyboard shortcuts](https://support.rstudio.com/hc/en-us/articles/200711853-Keyboard-Shortcuts)
-- [Happy Git and GitHub for the useR](http://happygitwithr.com/)
 
 ## Data Science at UC Davis
 Our campus has a wealth of expertise in data science, from working groups to full initiatives. Should your interests progress, here are some links. They offer regular workshops and maintain archives.
@@ -44,57 +34,14 @@ Our campus has a wealth of expertise in data science, from working groups to ful
 - [Data Science Initiative, UC Davis](http://dsi.ucdavis.edu/)  
 - [Davis R Users Group](http://d-rug.github.io/) 
 
-## Where to go for help?
-You are going to get stuck working through the exercises. Google is your friend, but be diligent in your searches and I recommend NOT posting to forums about questions at first. Instead, let's try to solve the problems together.  
+## Lab 1, Part 1
+The first goal of lab 1 is to get everyone started using R, Rstudio, and Git. All of our work will be done in RStudio and uploaded to the class GitHub repository. We will use RMarkdown to write all of our code; it allows us to easily check functionality and neatly annotate chunks.
 
-The RStudio help tab is also excellent, but a bit intimidating at first. With practice, you will quickly understand the structure of each help file and often find the answers you need.  
-
-To bring up help or information about any particular function or library, use a '?'.
-```{r}
-?tidyr
-```
-
-## Syntax errors
-Computers are precise tools; they will do exactly what you ask them to but no more. In order to do this, they need perfect instructions and are intolerant of spelling and syntax errors. At first, this is one of the more frustrating aspects of programming so it is important that you follow along with my code examples as closely as possible.
-
-## Lab 1
-The goal of lab 1 is to get everyone started using R, Rstudio, and Git. All of our work will be done in RStudio and uploaded to the class GitHub repository. We will use RMarkdown to write all of our code; it allows us to easily check functionality and neatly annotate chunks.
-
-At the start of each lab session, I will randomly pull someone's code from the GitHub repository and use it as an example. There are many, many ways to solve the same problems in R and seeing other people's code is a great way to learn. This is not about shaming people who made mistakes!  
+At the start of each lab session, I will randomly pull someone's code from the GitHub repository and use it as an example. There are many, many ways to solve the same problems in R and seeing other people's code is a great way to learn. This is not about shaming people who make mistakes!  
 
 This first lab is pretty tedious, so please be patient. It is important that everyone is set-up correctly before they leave today. In the spirit of the R universe, our class is a community. If you see someone struggling, please give them some help.  
 
-## To do list
-In order to get set-up, we need to complete all items on the list below. Please be sure to complete these tasks in the order listed. If you plan to use a lab computer, then you only need to complete 3-5.
-
-1. Download the most recent version of R and install.
-2. Download the most recent version of RStudio and install.
-3. Download and install the tidyverse.
-4. Create a GitHub account.
-5. Make a test RMarkdown file, perform a commit (local) and push (remote).
-
-## Let's Get Started!
-If you get lost, ask for help. You won't be able to complete assignments if you don't set-up R correctly.  
-
-## Download the most recent version of R and install
-R is open source and constantly changing. Make regular version checks part of your routine. R will run on a variety of platforms, but there are slight differences between mac and pc versions.  
-
-Download the latest version of R [here](https://www.r-project.org/) and install:
-
-## Download the most recent version of RStudio and install
-RStudio is a GUI that allows for more intuitive management of R and includes numerous additional functions. All of our work will be done in RStudio, including uploads to Git.
-
-Download the latest version of RStudio [here](https://www.rstudio.com/) and install:
-
-## Download and install the tidyverse
-One strength of R is that there are thousands of add-on packages that perform specialized functions. Building these packages is a labor of love, so always be kind and mindful to the authors if you encounter problems. The packages are referred to as libraries.  
-
-In this class, we will routinely use the library called the **tidyverse**. Libraries need to be installed in ordert to work, and whenever you update R you also need to update the packages that you use.
-
-To make a new code chunk, the mac shortcut is option + command + i. The PC shortcut is Ctrl + Alt + i.
-```{r eval=FALSE, include=TRUE}
-install.packages("tidyverse")
-```
+You are welcome to use your own computer, but in order to do so you need to install R, RStudio, and Git. If you would like to set-up your own computer, please follow the directions [here](https://jmledford3115.github.io/datascibiol/setup.html).
 
 ## Create a GitHub account
 **GitHub** is a repository for programmers. Programmers upload code and make it publicly available on the site (www.github.com). **Git** is software that is used for version control. It tracks changes and is especially helpful when multiple people are collaborating on a project; if a mistake is made it can be easily tracked back and retrieved. Both can be integrated with RStudio.  
@@ -103,12 +50,23 @@ Since we will use GitHub as a repository for all assignments, we need to make an
 
 Navigate to www.github.com and create a free account. [Email](mailto:jmledford@ucdavis.edu) your username to me. You will receive an email to join the repository for our course.  
 
-If you are using a PC or a Mac and have never used Git before, you need to follow the directions posted [here](https://datacarpentry.org/semester-biology/computer-setup/)
+## Open RStudio
+Once you are in RStudio, open a new markdown document: **File>New File>R Markdown**  
+
+In this new file insert a new R code chunk by clicking on the green `insert` tab and selecting R.
+
+## Install the tidyverse
+One strength of R is that there are thousands of add-on packages that perform specialized functions. Building these packages is a labor of love, so always be kind and mindful to the authors if you encounter problems. The packages are referred to as libraries.  
+
+In this class, we will routinely use the library called the **tidyverse**. Libraries need to be installed in order to work, and whenever you update R you also need to update the packages that you use.
+
+To make a new code chunk, the mac shortcut is option + command + i. The PC shortcut is Ctrl + Alt + i.
+```{r eval=FALSE, include=TRUE}
+install.packages("tidyverse")
+```
 
 ## Make a test RMarkdown file, perform a commit (local), and push files to GitHub (remote)
-Once you have created a GitHub account, we need to practice. We will use the example below for several exercises today, so we need to build a new project in RStudio that includes the data.
-
-I have made a repository for our class titled: FRS417-DataScienceBiologists. You should be able to login to GitHub and find this organization. You should see a directory associated with your login name.
+Once you have created a GitHub account, we need to practice. I have made a repository for our class titled: FRS417-DataScienceBiologists. You should be able to login to GitHub and find this organization. You should see a directory associated with your login name.  
 
 Click on your directory to enter. Once there, click on the green button in the top right corner titled **Clone or download**. A URL will appear and you should copy that address.
 
