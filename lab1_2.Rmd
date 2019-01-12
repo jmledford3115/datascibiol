@@ -121,7 +121,7 @@ A popular data scientist named Jennifer Bryan said: "File organization and namin
 There are five main types or classes of data frequently (we won't use raw) used in R: 1. numeric, 2. integer, 3. character,  4. logical, 5. complex. These are referred to as `atomic` because they only hold data of a single type.
 ```{r}
 my_numeric <- 42
-my_integer <- 2L
+my_integer <- 2L #adding an L automatically denotes an integer
 my_character <- "universe"
 my_logical <- FALSE
 my_complex <- 2+4i

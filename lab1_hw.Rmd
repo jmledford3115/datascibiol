@@ -11,69 +11,50 @@ output:
 ## Instructions
 Answer the following questions and complete the exercises in RMarkdown. Please embed all of your code, keep track of your versions using git, and push your final work to our [GitHub repository](https://github.com/FRS417-DataScienceBiologists). I will randomly select a few examples of student work at the start of each session to use as examples so be sure that your code is working to the best of your ability.
 
-1. Read "What is R?" at the r-project homepage. https://www.r-project.org/about.html. 
-
-2. Do some judicious internet searches and explain why R is named R.  
-  
-
-3. Why is R called a scripting language? What is the difference between scripting languages and other programming languages?  
- 
-
-4. Navigate to the R console and calculate the following expressions.  
+1. Navigate to the R console and calculate the following expressions.  
   + 5 - 3 * 2  
   + 8 / 2 ** 2  
   
-5. Did any of the results in #4 surprise you? Write two programs that calculate each expression such that the result for the first example is 4 and the second example is 16.  
+2. Did any of the results in #4 surprise you? Write two programs that calculate each expression such that the result for the first example is 4 and the second example is 16.  
 
 
+3. You have decided to use your new analytical powers in R to become a professional gambler. Here are your winnings and losses this week.
+```{r, eval=F, echo=T}
+blackjack <- c(140, -20, 70, -120, 240)
+roulette <- c(60, 50, 120, -300, 10)
+```
 
-6. You have an expensive car collection, just like Jay Leno! In total, you have 4 Ferrari's, 2 Porshe's, 2 Lamborghini's, 1 McClaren, and 1 Bentley. Create objects for each of these then create an object for the total number of cars. Print the total number of cars.
+a. Build a new vector called `days` for the days of the week (Monday through Friday). 
+```{r, eval=F, echo=T}
 
+```
 
-
-7. You have decided to use your new analytical powers in R to become a professional gambler. Here are your winnings and losses this week.
-
-
-a. Build a new vector for the days of the week (Monday through Friday) and use it to name the elements in the poker and roulette vectors.
-
+We will use `days` to name the elements in the poker and roulette vectors.
+```{r, eval=F, echo=T}
+names(blackjack) <- days
+names(roulette) <- days
+```
 
 b. Calculate how much you won or lost in blackjack over the week.
-
+```{r, eval=F, echo=T}
+total_blackjack <- sum(blackjack)
+total_blackjack
+```
 
 c. Calculate how much you won or lost in roulette over the week.  
+```{r, eval=F, echo=T}
 
+```
 
-d. Build a total vector to show how much you lost or won on each day over the week. Which days seem lucky or unlucky for you?
+d. Build a `total_week` vector to show how much you lost or won on each day over the week. Which days seem lucky or unlucky for you?
+```{r, eval=F, echo=T}
 
+```
 
 e. Should you stick to blackjack or roulette? Write a program that verifies this below.
+```{r, eval=F, echo=T}
 
-
-8. OK, now that you know how to work with vectors let's do a sneak preview for next time. Below are two vectors that show the genome sizes and gene counts for five organisms. Run the code and then answer the questions that follow.
-
-```{r}
-genomeSizeBP<-c(3000000000,3000000000,135600000,97000000,12100000)
-estGeneCount<-c(30000,30000,13061,19099,6034)
 ```
-
-```{r}
-organism<-c("Human","Mouse","Fruit Fly", "Roundworm","Yeast") #this will be used to name the rows
-columns <- c("Genome Size", "Gene Count") #this will be used to name the columns
-```
-
-We are going to combine these vectors in a new way called a data matrix.
-```{r}
-genomes <- c(genomeSizeBP, estGeneCount)
-genomes_matrix <- matrix(genomes, ncol=2)
-colnames(genomes_matrix) <- columns
-rownames(genomes_matrix) <- organism
-genomes_matrix
-```
-
-a. What do tyou notice about the relationship between vectors and a data matrix? Think specifically in terms of columns and rows.  
-
-
-b. Copy and paste the code above but remove one of the values in one of the vectors. What happens? What can we use to represent missing values?  
 
 ## Push your final code to [GitHub](https://github.com/FRS417-DataScienceBiologists)
 Make sure that you push your code into the appropriate folder. Also, be sure that you have check the `keep md` file in the knit preferences.

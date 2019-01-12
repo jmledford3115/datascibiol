@@ -97,6 +97,9 @@ img {
 button.code-folding-btn:focus {
   outline: none;
 }
+summary {
+  display: list-item;
+}
 </style>
 
 
@@ -104,14 +107,74 @@ button.code-folding-btn:focus {
 <div class="container-fluid main-container">
 
 <!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
 <script>
 $(document).ready(function () {
   window.buildTabsets("TOC");
 });
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
 </script>
 
 <!-- code folding -->
-
 
 
 
@@ -132,9 +195,6 @@ $(document).ready(function () {
 <h2>Instructions</h2>
 <p>Answer the following questions and complete the exercises in RMarkdown. Please embed all of your code, keep track of your versions using git, and push your final work to our <a href="https://github.com/FRS417-DataScienceBiologists">GitHub repository</a>. I will randomly select a few examples of student work at the start of each session to use as examples so be sure that your code is working to the best of your ability.</p>
 <ol style="list-style-type: decimal">
-<li><p>Read “What is R?” at the r-project homepage. <a href="https://www.r-project.org/about.html" class="uri">https://www.r-project.org/about.html</a>.</p></li>
-<li><p>Do some judicious internet searches and explain why R is named R.</p></li>
-<li><p>Why is R called a scripting language? What is the difference between scripting languages and other programming languages?</p></li>
 <li>Navigate to the R console and calculate the following expressions.<br />
 </li>
 </ol>
@@ -143,40 +203,27 @@ $(document).ready(function () {
 </li>
 <li>8 / 2 ** 2</li>
 </ul>
-<ol start="5" style="list-style-type: decimal">
+<ol start="2" style="list-style-type: decimal">
 <li><p>Did any of the results in #4 surprise you? Write two programs that calculate each expression such that the result for the first example is 4 and the second example is 16.</p></li>
-<li><p>You have an expensive car collection, just like Jay Leno! In total, you have 4 Ferrari’s, 2 Porshe’s, 2 Lamborghini’s, 1 McClaren, and 1 Bentley. Create objects for each of these then create an object for the total number of cars. Print the total number of cars.</p></li>
 <li><p>You have decided to use your new analytical powers in R to become a professional gambler. Here are your winnings and losses this week.</p></li>
 </ol>
+<pre class="r"><code>blackjack &lt;- c(140, -20, 70, -120, 240)
+roulette &lt;- c(60, 50, 120, -300, 10)</code></pre>
 <ol style="list-style-type: lower-alpha">
-<li><p>Build a new vector for the days of the week (Monday through Friday) and use it to name the elements in the poker and roulette vectors.</p></li>
-<li><p>Calculate how much you won or lost in blackjack over the week.</p></li>
+<li>Build a new vector called <code>days</code> for the days of the week (Monday through Friday).</li>
+</ol>
+<p>We will use <code>days</code> to name the elements in the poker and roulette vectors.</p>
+<pre class="r"><code>names(blackjack) &lt;- days
+names(roulette) &lt;- days</code></pre>
+<ol start="2" style="list-style-type: lower-alpha">
+<li>Calculate how much you won or lost in blackjack over the week.</li>
+</ol>
+<pre class="r"><code>total_blackjack &lt;- sum(blackjack)
+total_blackjack</code></pre>
+<ol start="3" style="list-style-type: lower-alpha">
 <li><p>Calculate how much you won or lost in roulette over the week.</p></li>
-<li><p>Build a total vector to show how much you lost or won on each day over the week. Which days seem lucky or unlucky for you?</p></li>
+<li><p>Build a <code>total_week</code> vector to show how much you lost or won on each day over the week. Which days seem lucky or unlucky for you?</p></li>
 <li><p>Should you stick to blackjack or roulette? Write a program that verifies this below.</p></li>
-</ol>
-<ol start="8" style="list-style-type: decimal">
-<li>OK, now that you know how to work with vectors let’s do a sneak preview for next time. Below are two vectors that show the genome sizes and gene counts for five organisms. Run the code and then answer the questions that follow.</li>
-</ol>
-<pre class="r"><code>genomeSizeBP&lt;-c(3000000000,3000000000,135600000,97000000,12100000)
-estGeneCount&lt;-c(30000,30000,13061,19099,6034)</code></pre>
-<pre class="r"><code>organism&lt;-c(&quot;Human&quot;,&quot;Mouse&quot;,&quot;Fruit Fly&quot;, &quot;Roundworm&quot;,&quot;Yeast&quot;) #this will be used to name the rows
-columns &lt;- c(&quot;Genome Size&quot;, &quot;Gene Count&quot;) #this will be used to name the columns</code></pre>
-<p>We are going to combine these vectors in a new way called a data matrix.</p>
-<pre class="r"><code>genomes &lt;- c(genomeSizeBP, estGeneCount)
-genomes_matrix &lt;- matrix(genomes, ncol=2)
-colnames(genomes_matrix) &lt;- columns
-rownames(genomes_matrix) &lt;- organism
-genomes_matrix</code></pre>
-<pre><code>##           Genome Size Gene Count
-## Human       3.000e+09      30000
-## Mouse       3.000e+09      30000
-## Fruit Fly   1.356e+08      13061
-## Roundworm   9.700e+07      19099
-## Yeast       1.210e+07       6034</code></pre>
-<ol style="list-style-type: lower-alpha">
-<li><p>What do tyou notice about the relationship between vectors and a data matrix? Think specifically in terms of columns and rows.</p></li>
-<li><p>Copy and paste the code above but remove one of the values in one of the vectors. What happens? What can we use to represent missing values?</p></li>
 </ol>
 </div>
 <div id="push-your-final-code-to-github" class="section level2">
