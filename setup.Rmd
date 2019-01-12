@@ -51,11 +51,11 @@ In the terminal window, type:
 
 `git config`  
 
-If you get an offer to install `command line developer tools, please install them. If this doesn't work, then we will ask for them directly by typing:  
+If you get an offer to install `command line developer tools`, please install them. If this doesn't work, then we will ask for them directly by typing:  
 
 `xcode-select --install`
 
-If these commands in the terminal do not work, then navigate directly to the Git site, download the [MacOS installer] (https://github.com/timcharper/git_osx_installer), and install.
+If these commands in the terminal do not work, then navigate directly to the Git site, download the [MacOS installer](https://github.com/timcharper/git_osx_installer), and install.
 
 #### PC installation
 On a PC, start by trying the instructions on [Data Carpentry for Biologists](https://datacarpentry.org/semester-biology/computer-setup/). If this does not work, the [Happy Git and GitHub for the useR](http://happygitwithr.com/) site has more complete directions.
