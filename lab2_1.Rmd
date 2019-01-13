@@ -118,8 +118,14 @@ Build a data matrix that has the columns named by scientist and rows by the name
 ```{r}
 springs <- c(spring_1, spring_2, spring_3, spring_4, spring_5, spring_6, spring_7, spring_8)
 springs_matrix <- matrix(springs, nrow=8, byrow = T)
+```
+
+```{r}
 scientists <- c("Jill", "Steve", "Susan")
 springs <- c("Bluebell Spring", "Opal Spring", "Riverside Spring", "Too Hot Spring", "Mystery Spring", "Emerald Spring", "Black Spring", "Pearl Spring")
+```
+
+```{r}
 colnames(springs_matrix) <- scientists
 rownames(springs_matrix) <- springs
 springs_matrix
@@ -129,6 +135,9 @@ Calculate the mean temperature of all three springs and add it as a new column.
 ```{r}
 mean_vector <- rowMeans(springs_matrix)
 mean_vector
+```
+
+```{r}
 springs_matrix2 <- cbind(springs_matrix, mean_vector)
 scientists2 <- c("Jill", "Steve", "Susan", "Mean")
 colnames(springs_matrix2) <- scientists2

@@ -43,8 +43,6 @@ Adding a '?' before a command will bring up the associated help document.
 ?mean
 ```
 
-At first, it will be hard to get used to the programming syntax- expect a learning curve. We are all working together to learn R, so let's help each other get started!
-
 ## Learning Goals
 *At the end of this exercise, you will be able to:*    
 1. Solve simple arithmetic operations in R.  
@@ -201,7 +199,7 @@ We can evaluate all numerics in our vector to determine which has a value of 15.
 new_vector == 15
 ```
 
-Now we are getting somewhere, because we can also use <, >, ==, <==, etc.
+Now we are getting somewhere, because we can also use <, >, ==, <==, etc. Try another function to experiment.
 ```{r}
 new_vector < 10
 ```
