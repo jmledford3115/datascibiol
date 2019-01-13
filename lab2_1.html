@@ -385,10 +385,10 @@ spring_7 &lt;- c(32.90, 32.50, 32.80)
 spring_8 &lt;- c(36.80, 36.45, 33.15)</code></pre>
 <p>Build a data matrix that has the columns named by scientist and rows by the names of the springs.</p>
 <pre class="r"><code>springs &lt;- c(spring_1, spring_2, spring_3, spring_4, spring_5, spring_6, spring_7, spring_8)
-springs_matrix &lt;- matrix(springs, nrow=8, byrow = T)
-scientists &lt;- c(&quot;Jill&quot;, &quot;Steve&quot;, &quot;Susan&quot;)
-springs &lt;- c(&quot;Bluebell Spring&quot;, &quot;Opal Spring&quot;, &quot;Riverside Spring&quot;, &quot;Too Hot Spring&quot;, &quot;Mystery Spring&quot;, &quot;Emerald Spring&quot;, &quot;Black Spring&quot;, &quot;Pearl Spring&quot;)
-colnames(springs_matrix) &lt;- scientists
+springs_matrix &lt;- matrix(springs, nrow=8, byrow = T)</code></pre>
+<pre class="r"><code>scientists &lt;- c(&quot;Jill&quot;, &quot;Steve&quot;, &quot;Susan&quot;)
+springs &lt;- c(&quot;Bluebell Spring&quot;, &quot;Opal Spring&quot;, &quot;Riverside Spring&quot;, &quot;Too Hot Spring&quot;, &quot;Mystery Spring&quot;, &quot;Emerald Spring&quot;, &quot;Black Spring&quot;, &quot;Pearl Spring&quot;)</code></pre>
+<pre class="r"><code>colnames(springs_matrix) &lt;- scientists
 rownames(springs_matrix) &lt;- springs
 springs_matrix</code></pre>
 <pre><code>##                   Jill Steve Susan
