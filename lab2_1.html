@@ -353,7 +353,9 @@ revenge_of_the_sith &lt;- c(380.3, 468.5)
 box_office2 &lt;- c(the_phantom_menace, attack_of_the_clones, revenge_of_the_sith)
 star_wars_matrix2 &lt;- matrix(box_office2,nrow=3,byrow=T)
 colnames(star_wars_matrix2)&lt;-region
-rownames(star_wars_matrix2)&lt;-titles
+
+titles2 &lt;- c(&quot;The Phantom Menace&quot;, &quot;Attack of the Clones&quot;, &quot;Revenge of the Sith&quot;)
+rownames(star_wars_matrix2)&lt;-titles2
 
 all_wars_matrix2 &lt;- rbind(star_wars_matrix, star_wars_matrix2)
 all_wars_matrix2</code></pre>
@@ -361,9 +363,9 @@ all_wars_matrix2</code></pre>
 ## A New Hope              460.998  314.4
 ## The Empire Strikes Back 290.475  247.9
 ## Return of the Jedi      309.306  165.8
-## A New Hope              474.500  552.5
-## The Empire Strikes Back 310.700  338.7
-## Return of the Jedi      380.300  468.5</code></pre>
+## The Phantom Menace      474.500  552.5
+## Attack of the Clones    310.700  338.7
+## Revenge of the Sith     380.300  468.5</code></pre>
 <p>The same methods of selecting variables in a vector apply.</p>
 <pre class="r"><code>all_wars_matrix2[1,2]</code></pre>
 <pre><code>## [1] 314.4</code></pre>

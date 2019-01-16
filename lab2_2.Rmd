@@ -19,7 +19,7 @@ library("tidyverse")
 ## Learning Goals
 *At the end of this exercise, you will be able to:*    
 1. Import .csv files as data frames.  
-2. Use summary functions to explore the contents of a data frame. 
+2. Use summary functions to explore the contents of a data frame.  
 3. Use the functions of dplyr (filter, select, arrange, mutate) to organize and sort data frames.  
 
 ## Data Frames

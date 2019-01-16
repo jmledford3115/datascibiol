@@ -19,7 +19,7 @@ Lastly, with the widespread availability of data online there is the potential f
 ## Objectives
 The goal for this course is to help get you started learning to manage, transform, and visualize data using the R programming language. You will learn to clearly and neatly organize messy data, transform it in ways that address your questions, and communicate results in a variety of formats. The course is designed for people with **no prior programming experience**. My only caveat is that there is a substantial learning curve but, working together, we should be able to make learning R easier, interesting, and fun.
 
-Why spend the time? If you are pursuing any research path in science, this class will give you a significant competitive advantage and save you countless hours as most scientists struggle to [learn R on their own](https://www.wired.com/2017/03/biologists-teaching-code-survive/). Even if you are not pursuing a research career, companies routinely hire data scientists (or people with skills in data science to anlyze a variety of data.
+Why spend the time? If you are pursuing any research path in science, this class will give you a significant competitive advantage and save you countless hours as most people struggle to [learn R on their own](https://www.wired.com/2017/03/biologists-teaching-code-survive/). Even if you are not pursuing a research career, companies routinely hire data scientists (or people with skills in data science) to anlyze a variety of data.
 
 ## Resources
 Given the open source nature of R, many resources are available online. We will use a combination of resources in the class, but key items are listed below.
@@ -45,7 +45,7 @@ This first lab is tedious, so please be patient. It is important that everyone i
 You are welcome to use your own computer, but in order to do so you need to install R, RStudio, and Git. If you would like to set-up your own computer, please follow the directions [here](https://jmledford3115.github.io/datascibiol/setup.html).
 
 ## Create a GitHub account
-**GitHub** is a repository for programmers. Programmers upload code and make it publicly available on the site (www.github.com). **Git** is software that is used for version control. It tracks changes and is especially helpful when multiple people are collaborating on a project; if a mistake is made it can be easily tracked back and retrieved. Both can be integrated with RStudio.  
+[**GitHub**](www.github.com) is a repository for programmers. Programmers upload code and make it publicly available. **Git** is software that is used for version control. It tracks changes and is especially helpful when multiple people are collaborating on a project; if a mistake is made it can be easily tracked back and retrieved. Both can be integrated with RStudio.  
 
 Since we will use GitHub as a repository for all assignments, we need to make an account for each student and build a new project through RStudio to set-up Git.  
 

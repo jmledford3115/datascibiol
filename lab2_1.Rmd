@@ -84,7 +84,9 @@ revenge_of_the_sith <- c(380.3, 468.5)
 box_office2 <- c(the_phantom_menace, attack_of_the_clones, revenge_of_the_sith)
 star_wars_matrix2 <- matrix(box_office2,nrow=3,byrow=T)
 colnames(star_wars_matrix2)<-region
-rownames(star_wars_matrix2)<-titles
+
+titles2 <- c("The Phantom Menace", "Attack of the Clones", "Revenge of the Sith")
+rownames(star_wars_matrix2)<-titles2
 
 all_wars_matrix2 <- rbind(star_wars_matrix, star_wars_matrix2)
 all_wars_matrix2
