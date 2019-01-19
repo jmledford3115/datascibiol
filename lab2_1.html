@@ -289,6 +289,10 @@ div.tocify {
 </div>
 
 
+<div id="setup" class="section level2">
+<h2>Setup</h2>
+<p>At the beginning of each class, please make sure that you navigate to the class GitHub and download the <code>class_files</code> folder. In our class GitHub, you will see a directory called <code>class_files</code>. Click on the <code>Clone or download</code> button and download the files as a <code>.zip</code>. You should now have a folder called <code>class_files</code> on your computer inside of which are all of the files that we will use for today’s class.</p>
+</div>
 <div id="learning-goals" class="section level2">
 <h2>Learning Goals</h2>
 <p><em>At the end of this exercise, you will be able to:</em><br />
@@ -297,36 +301,33 @@ div.tocify {
 3. Select values and use summary functions in a data matrix.<br />
 4. Specify the difference between a data matrix and a data frame.</p>
 </div>
-<div id="resources" class="section level2">
-<h2>Resources</h2>
-<ul>
-<li><a href="https://r4ds.had.co.nz/">R for Data Science</a></li>
-</ul>
-</div>
 <div id="data-matrix" class="section level2">
 <h2>Data Matrix</h2>
 <p>Last time, you learned how to work with vectors. Today we will organize the vectors into a new type of data structure called a data matrix. Like vectors, data matrices are restricted to <em>data of the same type</em>. In the short example (from DataCamp) below, we will build a new data matrix using the matrix command.</p>
-<p>Box office earnings for Star Wars movies (in millions!).</p>
+<p>Box office earnings for Star Wars movies (in millions!). Notice that these are vectors.</p>
 <pre class="r"><code>new_hope &lt;- c(460.998, 314.4)
 empire_strikes &lt;- c(290.475, 247.900)
 return_jedi &lt;- c(309.306, 165.8)</code></pre>
-<p>Create new object box_office.</p>
+<p>Create a new object called <code>box_office</code>. Here we are using the <code>c</code> command to combine the three vectors into one.</p>
 <pre class="r"><code>box_office &lt;- c(new_hope, empire_strikes, return_jedi)
 box_office</code></pre>
 <pre><code>## [1] 460.998 314.400 290.475 247.900 309.306 165.800</code></pre>
-<p>Construct star_wars_matrix.</p>
+<p>Construct star_wars_matrix using the <code>matrix()</code> command. We need to tell R how to organize the <code>box_office</code> vector using the <code>nrow</code> and <code>byrow</code> commands.</p>
 <pre class="r"><code>star_wars_matrix &lt;- matrix(box_office,nrow=3,byrow=T)
 star_wars_matrix</code></pre>
 <pre><code>##         [,1]  [,2]
 ## [1,] 460.998 314.4
 ## [2,] 290.475 247.9
 ## [3,] 309.306 165.8</code></pre>
-<p>Vectors region and titles, used for naming.</p>
+</div>
+<div id="name-the-rows-and-columns" class="section level2">
+<h2>Name the rows and columns</h2>
+<p>Vectors <code>region</code> and <code>titles</code>, used for naming.</p>
 <pre class="r"><code>region &lt;- c(&quot;US&quot;, &quot;non-US&quot;)
 titles &lt;- c(&quot;A New Hope&quot;, &quot;The Empire Strikes Back&quot;, &quot;Return of the Jedi&quot;)</code></pre>
-<p>Name the columns with region.</p>
+<p>Name the columns using <code>colnames()</code> with the vector region.</p>
 <pre class="r"><code>colnames(star_wars_matrix)&lt;-region</code></pre>
-<p>Name the rows with titles.</p>
+<p>Name the rows using <code>rownames()</code> with the vector titles.</p>
 <pre class="r"><code>rownames(star_wars_matrix)&lt;-titles</code></pre>
 <p>Print star_wars_matrix.</p>
 <pre class="r"><code>star_wars_matrix</code></pre>
@@ -334,6 +335,9 @@ titles &lt;- c(&quot;A New Hope&quot;, &quot;The Empire Strikes Back&quot;, &quo
 ## A New Hope              460.998  314.4
 ## The Empire Strikes Back 290.475  247.9
 ## Return of the Jedi      309.306  165.8</code></pre>
+</div>
+<div id="using-a-data-matrix" class="section level2">
+<h2>Using a data matrix</h2>
 <p>Once you have a data matrix, you can perform lots of different functions. For example, you can calculate the total earnings of each movie.</p>
 <pre class="r"><code>worldwide_vector &lt;- rowSums(star_wars_matrix)
 worldwide_vector</code></pre>
@@ -346,18 +350,21 @@ all_wars_matrix</code></pre>
 ## A New Hope              460.998  314.4          775.398
 ## The Empire Strikes Back 290.475  247.9          538.375
 ## Return of the Jedi      309.306  165.8          475.106</code></pre>
-<p>We can combine additional data. <code>rbind()</code> adds rows.</p>
+<p>We can combine additional data. <code>rbind()</code> adds rows. Create three new vectors for the new movies.</p>
 <pre class="r"><code>the_phantom_menace &lt;- c(474.5, 552.5)
 attack_of_the_clones &lt;- c(310.7, 338.7)
-revenge_of_the_sith &lt;- c(380.3, 468.5)
-box_office2 &lt;- c(the_phantom_menace, attack_of_the_clones, revenge_of_the_sith)
-star_wars_matrix2 &lt;- matrix(box_office2,nrow=3,byrow=T)
-colnames(star_wars_matrix2)&lt;-region
-
-titles2 &lt;- c(&quot;The Phantom Menace&quot;, &quot;Attack of the Clones&quot;, &quot;Revenge of the Sith&quot;)
-rownames(star_wars_matrix2)&lt;-titles2
-
-all_wars_matrix2 &lt;- rbind(star_wars_matrix, star_wars_matrix2)
+revenge_of_the_sith &lt;- c(380.3, 468.5)</code></pre>
+<p>Combine the new movies into a single vector as before.</p>
+<pre class="r"><code>box_office2 &lt;- c(the_phantom_menace, attack_of_the_clones, revenge_of_the_sith)</code></pre>
+<p>Use the <code>matrix()</code> command to organize the <code>box_office2</code> vector.</p>
+<pre class="r"><code>star_wars_matrix2 &lt;- matrix(box_office2,nrow=3,byrow=T)</code></pre>
+<p>Create a new vector that will be used for naming. We can re-use region.</p>
+<pre class="r"><code>titles2 &lt;- c(&quot;The Phantom Menace&quot;, &quot;Attack of the Clones&quot;, &quot;Revenge of the Sith&quot;)</code></pre>
+<p>Use <code>colnames()</code> and <code>rownames()</code> to name the data matrix.</p>
+<pre class="r"><code>colnames(star_wars_matrix2)&lt;-region
+rownames(star_wars_matrix2)&lt;-titles2</code></pre>
+<p>Combine the two data matrices into one using <code>rbind()</code></p>
+<pre class="r"><code>all_wars_matrix2 &lt;- rbind(star_wars_matrix, star_wars_matrix2)
 all_wars_matrix2</code></pre>
 <pre><code>##                              US non-US
 ## A New Hope              460.998  314.4
@@ -366,10 +373,13 @@ all_wars_matrix2</code></pre>
 ## The Phantom Menace      474.500  552.5
 ## Attack of the Clones    310.700  338.7
 ## Revenge of the Sith     380.300  468.5</code></pre>
-<p>The same methods of selecting variables in a vector apply.</p>
+</div>
+<div id="select-elements-in-a-data-matrix" class="section level2">
+<h2>Select elements in a data matrix</h2>
+<p>The same methods of selecting elements in a vector apply. We use <code>[]</code>.</p>
 <pre class="r"><code>all_wars_matrix2[1,2]</code></pre>
 <pre><code>## [1] 314.4</code></pre>
-<p>But, we can also select values in an entire row or column. This can be useful for calculations.</p>
+<p>We can also select values in an entire row or column. This can be useful for calculations.</p>
 <pre class="r"><code>non_us_earnings &lt;- all_wars_matrix2[ ,2]
 mean(non_us_earnings)</code></pre>
 <pre><code>## [1] 347.9667</code></pre>
@@ -387,7 +397,17 @@ spring_7 &lt;- c(32.90, 32.50, 32.80)
 spring_8 &lt;- c(36.80, 36.45, 33.15)</code></pre>
 <p>Build a data matrix that has the columns named by scientist and rows by the names of the springs.</p>
 <pre class="r"><code>springs &lt;- c(spring_1, spring_2, spring_3, spring_4, spring_5, spring_6, spring_7, spring_8)
-springs_matrix &lt;- matrix(springs, nrow=8, byrow = T)</code></pre>
+springs_matrix &lt;- matrix(springs, nrow=8, byrow = T)
+springs_matrix</code></pre>
+<pre><code>##       [,1]  [,2]  [,3]
+## [1,] 36.25 35.40 35.30
+## [2,] 35.15 35.35 33.35
+## [3,] 30.70 29.65 29.20
+## [4,] 39.70 40.05 38.65
+## [5,] 31.85 31.40 29.30
+## [6,] 30.20 30.65 29.75
+## [7,] 32.90 32.50 32.80
+## [8,] 36.80 36.45 33.15</code></pre>
 <pre class="r"><code>scientists &lt;- c(&quot;Jill&quot;, &quot;Steve&quot;, &quot;Susan&quot;)
 springs &lt;- c(&quot;Bluebell Spring&quot;, &quot;Opal Spring&quot;, &quot;Riverside Spring&quot;, &quot;Too Hot Spring&quot;, &quot;Mystery Spring&quot;, &quot;Emerald Spring&quot;, &quot;Black Spring&quot;, &quot;Pearl Spring&quot;)</code></pre>
 <pre class="r"><code>colnames(springs_matrix) &lt;- scientists
@@ -410,18 +430,18 @@ mean_vector</code></pre>
 ##   Mystery Spring   Emerald Spring     Black Spring     Pearl Spring 
 ##         30.85000         30.20000         32.73333         35.46667</code></pre>
 <pre class="r"><code>springs_matrix2 &lt;- cbind(springs_matrix, mean_vector)
-scientists2 &lt;- c(&quot;Jill&quot;, &quot;Steve&quot;, &quot;Susan&quot;, &quot;Mean&quot;)
+scientists2 &lt;- c(&quot;Jill&quot;, &quot;Steve&quot;, &quot;Susan&quot;, &quot;Mean Temp&quot;)
 colnames(springs_matrix2) &lt;- scientists2
 springs_matrix2</code></pre>
-<pre><code>##                   Jill Steve Susan     Mean
-## Bluebell Spring  36.25 35.40 35.30 35.65000
-## Opal Spring      35.15 35.35 33.35 34.61667
-## Riverside Spring 30.70 29.65 29.20 29.85000
-## Too Hot Spring   39.70 40.05 38.65 39.46667
-## Mystery Spring   31.85 31.40 29.30 30.85000
-## Emerald Spring   30.20 30.65 29.75 30.20000
-## Black Spring     32.90 32.50 32.80 32.73333
-## Pearl Spring     36.80 36.45 33.15 35.46667</code></pre>
+<pre><code>##                   Jill Steve Susan Mean Temp
+## Bluebell Spring  36.25 35.40 35.30  35.65000
+## Opal Spring      35.15 35.35 33.35  34.61667
+## Riverside Spring 30.70 29.65 29.20  29.85000
+## Too Hot Spring   39.70 40.05 38.65  39.46667
+## Mystery Spring   31.85 31.40 29.30  30.85000
+## Emerald Spring   30.20 30.65 29.75  30.20000
+## Black Spring     32.90 32.50 32.80  32.73333
+## Pearl Spring     36.80 36.45 33.15  35.46667</code></pre>
 </div>
 <div id="final-notes-on-data-matrices" class="section level2">
 <h2>Final Notes on Data Matrices</h2>
@@ -429,10 +449,11 @@ springs_matrix2</code></pre>
 </div>
 <div id="data-frames" class="section level2">
 <h2>Data Frames</h2>
-<p>A data frame is a fancy way of saying data table with one caveat; we need to keep in mind that the data in a frame can be of multiple types as defined by R. This should make good sense as we often want to analyze relationships between numerical values, logical values, integers, etc. and this isn’t possible in a data matrix. In most respects, working with data frames is just easier.</p>
+<p>A data frame is a fancy way of saying data table with one caveat; the data in a data frame can be of multiple classes. This should make good sense as we often want to analyze relationships between numerical values, logical values, integers, etc. and this isn’t possible in a data matrix.</p>
 <p>Load the tidyverse.</p>
-<pre class="r"><code>library(tidyverse)</code></pre>
-<p>Here is the vector of organisms.</p>
+<pre class="r"><code>library(tidyverse)
+options(scipen = 999)</code></pre>
+<p>Here is a vector of organisms.</p>
 <pre class="r"><code>organism&lt;-c(&quot;Human&quot;,&quot;Mouse&quot;,&quot;Fruit Fly&quot;, &quot;Roundworm&quot;,&quot;Yeast&quot;)</code></pre>
 <p>Here are the data.</p>
 <pre class="r"><code>genomeSizeBP&lt;-c(3000000000,3000000000,135600000,97000000,12100000)
@@ -441,11 +462,11 @@ estGeneCount&lt;-c(30000,30000,13061,19099,6034)</code></pre>
 <pre class="r"><code>comparativeGenomeSize&lt;- data.frame(organism=organism, genomeSizeBP=genomeSizeBP, estGeneCount=estGeneCount)
 comparativeGenomeSize</code></pre>
 <pre><code>##    organism genomeSizeBP estGeneCount
-## 1     Human    3.000e+09        30000
-## 2     Mouse    3.000e+09        30000
-## 3 Fruit Fly    1.356e+08        13061
-## 4 Roundworm    9.700e+07        19099
-## 5     Yeast    1.210e+07         6034</code></pre>
+## 1     Human   3000000000        30000
+## 2     Mouse   3000000000        30000
+## 3 Fruit Fly    135600000        13061
+## 4 Roundworm     97000000        19099
+## 5     Yeast     12100000         6034</code></pre>
 <p>Notice that not only are the data neater and cleaner looking, there is also information provided about the type of data in the frame. dbl just means that the value is a type of numeric <a href="http://uc-r.github.io/integer_double/">double precision floating point</a>.</p>
 </div>
 <div id="lets-take-a-break" class="section level2">

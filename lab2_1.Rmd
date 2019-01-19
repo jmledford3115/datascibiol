@@ -11,6 +11,9 @@ output:
     toc: yes
 ---
 
+## Setup
+At the beginning of each class, please make sure that you navigate to the class GitHub and download the `class_files` folder. In our class GitHub, you will see a directory called `class_files`. Click on the `Clone or download` button and download the files as a `.zip`. You should now have a folder called `class_files` on your computer inside of which are all of the files that we will use for today's class.  
+
 ## Learning Goals
 *At the end of this exercise, you will be able to:*    
 1. Combine a series of vectors into a data matrix.  
@@ -21,37 +24,38 @@ output:
 ## Data Matrix
 Last time, you learned how to work with vectors. Today we will organize the vectors into a new type of data structure called a data matrix. Like vectors, data matrices are restricted to *data of the same type*. In the short example (from DataCamp) below, we will build a new data matrix using the matrix command.  
 
-Box office earnings for Star Wars movies (in millions!).
+Box office earnings for Star Wars movies (in millions!). Notice that these are vectors.
 ```{r}
 new_hope <- c(460.998, 314.4)
 empire_strikes <- c(290.475, 247.900)
 return_jedi <- c(309.306, 165.8)
 ```
 
-Create new object box_office.
+Create a new object called `box_office`. Here we are using the `c` command to combine the three vectors into one.
 ```{r}
 box_office <- c(new_hope, empire_strikes, return_jedi)
 box_office
 ```
 
-Construct star_wars_matrix.
+Construct star_wars_matrix using the `matrix()` command. We need to tell R how to organize the `box_office` vector using the `nrow` and `byrow` commands.
 ```{r}
 star_wars_matrix <- matrix(box_office,nrow=3,byrow=T)
 star_wars_matrix
 ```
 
-Vectors region and titles, used for naming.
+## Name the rows and columns
+Vectors `region` and `titles`, used for naming.
 ```{r}
 region <- c("US", "non-US")
 titles <- c("A New Hope", "The Empire Strikes Back", "Return of the Jedi")
 ```
 
-Name the columns with region.
+Name the columns using `colnames()` with the vector region.
 ```{r}
 colnames(star_wars_matrix)<-region
 ```
 
-Name the rows with titles.
+Name the rows using `rownames()` with the vector titles.
 ```{r}
 rownames(star_wars_matrix)<-titles
 ```
@@ -61,6 +65,7 @@ Print star_wars_matrix.
 star_wars_matrix
 ```
 
+## Using a data matrix
 Once you have a data matrix, you can perform lots of different functions. For example, you can calculate the total earnings of each movie.
 ```{r}
 worldwide_vector <- rowSums(star_wars_matrix)
@@ -72,29 +77,47 @@ And even add a new column to reflect this calculation. `cbind()` adds columns.
 all_wars_matrix <- cbind(star_wars_matrix,worldwide_vector)
 all_wars_matrix
 ```
-
-We can combine additional data. `rbind()` adds rows.
+We can combine additional data. `rbind()` adds rows. Create three new vectors for the new movies.
 ```{r}
 the_phantom_menace <- c(474.5, 552.5)
 attack_of_the_clones <- c(310.7, 338.7)
 revenge_of_the_sith <- c(380.3, 468.5)
+```
+
+Combine the new movies into a single vector as before.
+```{r}
 box_office2 <- c(the_phantom_menace, attack_of_the_clones, revenge_of_the_sith)
+```
+
+Use the `matrix()` command to organize the `box_office2` vector.
+```{r}
 star_wars_matrix2 <- matrix(box_office2,nrow=3,byrow=T)
-colnames(star_wars_matrix2)<-region
+```
 
+Create a new vector that will be used for naming. We can re-use region.
+```{r}
 titles2 <- c("The Phantom Menace", "Attack of the Clones", "Revenge of the Sith")
-rownames(star_wars_matrix2)<-titles2
+```
 
+Use `colnames()` and `rownames()` to name the data matrix.
+```{r}
+colnames(star_wars_matrix2)<-region
+rownames(star_wars_matrix2)<-titles2
+```
+
+Combine the two data matrices into one using `rbind()`
+```{r}
 all_wars_matrix2 <- rbind(star_wars_matrix, star_wars_matrix2)
 all_wars_matrix2
 ```
 
-The same methods of selecting variables in a vector apply.
+## Select elements in a data matrix
+The same methods of selecting elements in a vector apply. We use `[]`.
 ```{r}
 all_wars_matrix2[1,2]
 ```
 
-But, we can also select values in an entire row or column. This can be useful for calculations.
+We can also select values in an entire row or column. This can be useful for calculations.
 ```{r}
 non_us_earnings <- all_wars_matrix2[ ,2]
 mean(non_us_earnings)
@@ -117,6 +140,7 @@ Build a data matrix that has the columns named by scientist and rows by the name
 ```{r}
 springs <- c(spring_1, spring_2, spring_3, spring_4, spring_5, spring_6, spring_7, spring_8)
 springs_matrix <- matrix(springs, nrow=8, byrow = T)
+springs_matrix
 ```
 
 ```{r}
@@ -138,7 +162,7 @@ mean_vector
 
 ```{r}
 springs_matrix2 <- cbind(springs_matrix, mean_vector)
-scientists2 <- c("Jill", "Steve", "Susan", "Mean")
+scientists2 <- c("Jill", "Steve", "Susan", "Mean Temp")
 colnames(springs_matrix2) <- scientists2
 springs_matrix2
 ```
@@ -147,14 +171,15 @@ springs_matrix2
 Working with data matrices requires all of the data to be of the same type. For some applications they are routinely used and many packages require data to be stored as a matrix. Many programmers would also point out that data matrices are more efficient when compared to data frames (see below), especially for large data sets. This is great in principle, but in practice most biological data are heterogeneous and thus must be stored as a data frame. Lastly, nearly all of the packages that we will use in R only work with data frames. We will work with data frames almost exclusively for the remainder of the course.
 
 ## Data Frames
-A data frame is a fancy way of saying data table with one caveat; we need to keep in mind that the data in a frame can be of multiple types as defined by R. This should make good sense as we often want to analyze relationships between numerical values, logical values, integers, etc. and this isn't possible in a data matrix. In most respects, working with data frames is just easier.  
+A data frame is a fancy way of saying data table with one caveat; the data in a data frame can be of multiple classes. This should make good sense as we often want to analyze relationships between numerical values, logical values, integers, etc. and this isn't possible in a data matrix.
 
 Load the tidyverse.
 ```{r echo=T, message=FALSE, warning=FALSE}
 library(tidyverse)
+options(scipen = 999)
 ```
 
-Here is the vector of organisms.
+Here is a vector of organisms.
 ```{r}
 organism<-c("Human","Mouse","Fruit Fly", "Roundworm","Yeast")
 ```
