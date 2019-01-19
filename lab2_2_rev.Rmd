@@ -1,5 +1,5 @@
 ---
-title: "Lab 2_2_rev"
+title: "Lab 2_2"
 author: "Joel Ledford"
 date: "Winter 2019"
 output:
@@ -20,7 +20,7 @@ Part of this is learning the syntax of R and getting used to the environment. If
 *At the end of this exercise, you will be able to:*    
 1. Import .csv files as data frames.  
 2. Use summary functions to explore the contents of a data frame.  
-3. Use the functions of dplyr (filter, select, arrange, mutate) to organize and sort data frames.  
+3. Use the filter function of dplyr to organize and sort data frames.  
 
 ## Libraries
 ```{r message=FALSE, warning=FALSE}
