@@ -320,53 +320,66 @@ div.tocify {
 </div>
 <div id="lab-1" class="section level2">
 <h2>Lab 1</h2>
-<p>The first goal of lab 1 is to get everyone started using R, Rstudio, and Git. All of our work will be done in RStudio and uploaded to the class GitHub repository. We will use RMarkdown to write all of our code; it allows us to easily check functionality and neatly annotate chunks.</p>
-<p>At the start of each lab session, I will randomly pull someone’s code from the GitHub repository and use it as an example. There are many, many ways to solve the same problems in R and seeing other people’s code is a great way to learn. This is not about shaming people who make mistakes!</p>
+<p>The first goal of lab 1 is to get everyone started using R, Rstudio, and GitHub. All of our work will be done in RStudio and uploaded to the class GitHub repository.</p>
+<p>At the start of each lab session, I will randomly pull someone’s code from the class GitHub repository and use it as an example. There are many, many ways to solve the same problems in R and seeing other people’s code is a great way to learn. This is not about shaming people who make mistakes!</p>
 <p>This first lab is tedious, so please be patient. It is important that everyone is set-up correctly before they leave today. In the spirit of the R universe, our class is a community. If you see someone struggling, please give them some help.</p>
 </div>
 <div id="setup-your-own-computer" class="section level2">
 <h2>Setup your own computer</h2>
-<p>You are welcome to use your own computer, but in order to do so you need to install R, RStudio, and Git. If you would like to set-up your own computer, please follow the directions <a href="https://jmledford3115.github.io/datascibiol/setup.html">here</a>.</p>
+<p>You are welcome to use your own computer, but in order to do so you need to install R, RStudio, and Git. If you would like to set-up your own computer, please follow the directions <a href="https://jmledford3115.github.io/datascibiol/setup.html">here</a>. If you are unsure about troubleshooting your own computer, <strong>please</strong> use the lab computers.</p>
 </div>
 <div id="create-a-github-account" class="section level2">
 <h2>Create a GitHub account</h2>
-<p><a href="www.github.com"><strong>GitHub</strong></a> is a repository for programmers. Programmers upload code and make it publicly available. <strong>Git</strong> is software that is used for version control. It tracks changes and is especially helpful when multiple people are collaborating on a project; if a mistake is made it can be easily tracked back and retrieved. Both can be integrated with RStudio.</p>
-<p>Since we will use GitHub as a repository for all assignments, we need to make an account for each student and build a new project through RStudio to set-up Git.</p>
-<p>Navigate to www.github.com and create a free account. <a href="mailto:jmledford@ucdavis.edu">Email</a> your username to me. You will receive an email to join the repository for our course.</p>
+<p><a href="www.github.com"><strong>GitHub</strong></a> is a repository for programmers. Programmers upload code to repositories and make it publicly available. <strong>Git</strong> is software that is used for version control. It tracks changes and is especially helpful when multiple people are collaborating on a project; if a mistake is made it can be easily tracked back and retrieved. Both can be integrated with RStudio.</p>
+<p>Since we will use GitHub as a repository for all assignments, we need to make an account for each student and build a new project through RStudio. Navigate to www.github.com and create a free account. <a href="mailto:jmledford@ucdavis.edu">Email</a> your username to me. You will receive an email to join the repository for our course.</p>
+<p>I have made a repository for our class titled: <a href="https://github.com/FRS417-DataScienceBiologists">FRS417-DataScienceBiologists</a>. Once you have accepted the invitation to join the repository, you should be able to login to GitHub and see this organization or click on the link above. You should see a directory associated with your login name. This where you will upload all of your work during the quarter.</p>
 </div>
-<div id="open-rstudio" class="section level2">
-<h2>Open RStudio</h2>
-<p>Once you are in RStudio, open a new markdown document: <strong>File&gt;New File&gt;R Markdown</strong></p>
-<p>In this new file insert a new R code chunk by clicking on the green <code>insert</code> tab and selecting R. The mac shortcut is option + command + i. The PC shortcut is Ctrl + Alt + i.</p>
+<div id="download-class_files" class="section level2">
+<h2>Download <code>class_files</code></h2>
+<p>In our class GitHub, you will see a directory called <code>class_files</code>. Click on the <code>Clone or download</code> button and download the files as a <code>.zip</code>. You should now have a folder called <code>class_files</code> inside of which are all of the files that we will use for each class.</p>
 </div>
-<div id="install-the-tidyverse" class="section level2">
-<h2>Install the tidyverse</h2>
+<div id="rstudio" class="section level2">
+<h2>RStudio</h2>
+<p>Inside the <code>class_files</code> folder you will see a file titled <code>lab1_1.Rmd</code>. Open this file by double clicking and you should now be in RStudio. This file is what was used to generate the course webpage.</p>
+<p>RStudio is an interactive working environment for R. When you first open it, you should see your screen divided into four quadrants. I will demonstrate each of these in class, but for now it is enough to know that they display different information and are very helpful as you work on code. We will use RStudio exclusively throughout the quarter.</p>
+<p>You need to make a folder on your computer where you will keep all of your work. You will need frequent access to the folder, so I recommend putting it in an easy to find space. I put mine on the desktop.</p>
+<p>Please run the following code to check your current working directory.</p>
+<pre class="r"><code>getwd()</code></pre>
+<pre><code>## [1] &quot;/Users/jmledford/datascibiol&quot;</code></pre>
+<p>If you find that you are not in the folder that you created, please navigate to it: Session&gt;Set Working Directory&gt;Choose Directory.</p>
+<p>Re-run the code below to confirm.</p>
+<pre class="r"><code>getwd()</code></pre>
+<pre><code>## [1] &quot;/Users/jmledford/datascibiol&quot;</code></pre>
+</div>
+<div id="rmarkdown" class="section level2">
+<h2>RMarkdown</h2>
+<p>RMarkdown is one of many types of files that can be created in RStudio. It is an extremely helpful way to build code because it will display the code, its output, and any text that you wish to add.</p>
+<p>In RStudio, open a new markdown document: <strong>File&gt;New File&gt;R Markdown</strong></p>
+<p>There is some generic information at the start of the file that we don’t need. Delete lines 12 through 31 to clean things up.</p>
+<p>In this file insert a new R code chunk by clicking on the green <code>insert</code> tab and selecting R.<br />
++ The mac shortcut is option + command + i<br />
++ The PC shortcut is Ctrl + Alt + i.</p>
+<div id="install-the-tidyverse" class="section level3">
+<h3>Install the tidyverse</h3>
 <p>One strength of R is that there are thousands of add-on packages that perform specialized functions. The packages are referred to as libraries.</p>
 <p>In this class, we will routinely use the library called the <strong>tidyverse</strong>. Libraries need to be installed in order to work, and whenever you update R you also need to update all of the packages that you use.</p>
 <pre class="r"><code>install.packages(&quot;tidyverse&quot;)
 install.packages(&quot;nycflights13&quot;)</code></pre>
 </div>
-<div id="create-a-new-project-with-git" class="section level2">
-<h2>Create a new project with Git</h2>
-<p>Once you have created a GitHub account, we need to practice. I have made a repository for our class titled: FRS417-DataScienceBiologists. You should be able to login to GitHub and find this organization. You should see a directory associated with your login name.</p>
-<p>Click on your directory to enter. Once there, click on the green button in the top right corner titled <strong>Clone or download</strong>. A URL will appear and you should copy that address.</p>
-<ul>
-<li><p>In RStudio, navigate to File&gt; New Project.</p></li>
-<li><p>From the <strong>Create Project</strong> window, select Version Control&gt; Git.</p></li>
-<li><p>Paste the URL that you copied from GitHub into the directory.</p></li>
-</ul>
 </div>
-<div id="perform-a-commit-local-and-push-files-to-github-remote" class="section level2">
-<h2>Perform a commit (local), and push files to GitHub (remote)</h2>
-<p>Navigate to the <a href="https://jmledford3115.github.io/datascibiol/dummy_push.html">dummy_push</a> file. Copy and paste all of the code chunks in this file into a new RMarkdown file called <code>dummy_push_login</code>. Replace <code>login</code> with your GitHub login name.</p>
-<p>In the top right window of RStudio, you should see several options as tabs including <strong>Environment, History, Connections, and Git</strong>. Click on the <code>Git</code> tab.</p>
-<p>Make sure you are in the correct working directory and save your work. Now, click on the <strong>Commit</strong> tab.</p>
-<p>Enter a note to keep track of each commit that you make. In the left window, make sure the file that you have changed is selected. Now, click the <strong>Commit</strong> button on the right window.</p>
-<p>Lastly, we need to upload our changes to GitHub. This is called a <strong>Push</strong>. When you are ready, click the push button and your files will be uploaded. Wait a few moments and then check your directory on GitHub to see that it worked.</p>
+<div id="push-files-to-github" class="section level2">
+<h2>Push files to GitHub</h2>
+<p>You can use your repository to store all of your notes and work. All you need to do is go back to your GitHub directory in your web browser and click <code>Upload files</code>. Once there, you can drag and drop any files directly into your repository. But, in order for the upload to complete you need to add a short message in the box beneath <code>Commit changes</code>. Once the message is added, click <code>Commit changes</code> and your upload will be complete.</p>
 </div>
-<div id="git-and-github-issues" class="section level2">
-<h2>Git and GitHub Issues</h2>
-<p>We will encounter many issues over the next few weeks with Git and GitHub. These will be caused mostly by user error, but sometimes weird things happen. If you are stuck, especially in the first few sessions, stop trying to commit, push, or pull. Get my attention and we will sort things out.</p>
+<div id="practice" class="section level2">
+<h2>Practice</h2>
+<p>Since you will use your GitHub repository for your homework, we need to practice.</p>
+<p>Navigate to the <code>class_files</code> folder that you downloaded and find the file <code>dummy_push</code>. Open this file and save a copy to your working directory using: File&gt;Save As. Change the name of the file to <code>dummy_push_*</code> where the <code>*</code> is your last name. You can also remove my name and add yours in the <code>author:</code> field at the top of the document.</p>
+<p>Once this is finished, <code>push</code> this file to your GitHub directory using the instructions above. After a few moments, you should be able to see this file in GitHub.</p>
+</div>
+<div id="github-issues" class="section level2">
+<h2>GitHub Issues</h2>
+<p>We may encounter issues over the next few weeks with GitHub. These will be caused mostly by user error, but sometimes weird things happen. If you are stuck, get my attention and we will sort things out.</p>
 <p>That’s it, let’s take a break!</p>
 </div>
 
