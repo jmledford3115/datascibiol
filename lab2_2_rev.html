@@ -307,7 +307,7 @@ div.tocify {
 </div>
 <div id="data-frames" class="section level2">
 <h2>Data Frames</h2>
-<p>For the remainder of the course, we will work exclusively with data frames. Recall that data frames allow us to store multiple types of data. Last time, you were shown how to build data frames using the <code>data.frame()</code> command. However, scientists often make their data available as supplementary material associated with a publication. As data scientists, we can capitalize on this by importing data directly into R.</p>
+<p>For the remainder of the course, we will work exclusively with data frames. Recall that data frames allow us to store multiple classes of data. Last time, you were shown how to build data frames using the <code>data.frame()</code> command. However, scientists often make their data available as supplementary material associated with a publication. As data scientists, we can capitalize on this by importing data directly into R.</p>
 </div>
 <div id="loading-data-into-data-frames" class="section level2">
 <h2>Loading Data into Data Frames</h2>
@@ -403,7 +403,7 @@ div.tocify {
 </div>
 <div id="practice" class="section level2">
 <h2>Practice</h2>
-<p>Load the data mammal life histories and place it into a new object.</p>
+<p>Load the data <code>mammal_lifehistories_v2.csv</code> and place it into a new object.</p>
 <pre class="r"><code>mammals &lt;- readr::read_csv(&quot;data/Mammal_lifehistories_v2.csv&quot;)</code></pre>
 <ol style="list-style-type: decimal">
 <li>Provide the dimensions of the data frame.</li>
@@ -518,7 +518,7 @@ div.tocify {
 <h2>Dplyr: filter()</h2>
 <p>A core package in the tidyverse is dplyr. This package allows you to transform your data in many different ways including filtering, subsetting, and reordering. This helps keep your data cleaner, easier to work with, and easier for other people to understand.</p>
 <p>The first command that we will learn is <code>filter()</code>. Filter allows you to subset observations in a data frame by their values. You should still have the fish data loaded, but if not then please re-load.</p>
-<pre class="r"><code>fish &lt;- read_csv(&quot;data/Gaeta_etal_CLC_data.csv&quot;)</code></pre>
+<pre class="r"><code>fish &lt;- readr::read_csv(&quot;data/Gaeta_etal_CLC_data.csv&quot;)</code></pre>
 <pre><code>## Parsed with column specification:
 ## cols(
 ##   lakeid = col_character(),

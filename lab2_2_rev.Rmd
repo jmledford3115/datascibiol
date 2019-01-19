@@ -28,7 +28,7 @@ library("tidyverse")
 ```
 
 ## Data Frames
-For the remainder of the course, we will work exclusively with data frames. Recall that data frames allow us to store multiple types of data. Last time, you were shown how to build data frames using the `data.frame()` command. However, scientists often make their data available as supplementary material associated with a publication. As data scientists, we can capitalize on this by importing data directly into R.
+For the remainder of the course, we will work exclusively with data frames. Recall that data frames allow us to store multiple classes of data. Last time, you were shown how to build data frames using the `data.frame()` command. However, scientists often make their data available as supplementary material associated with a publication. As data scientists, we can capitalize on this by importing data directly into R.
 
 ## Loading Data into Data Frames
 R allows us to import a wide variety of data types. The most common type of file is a .csv file which stands for comma separated values. Spreadsheets are often developed in Excel then saved as .csv files for use in R. There are packages that allow you to open excel files and many other formats but .csv is the most common.
@@ -66,7 +66,7 @@ glimpse(fish)
 ```
 
 ## Practice
-Load the data mammal life histories and place it into a new object.
+Load the data `mammal_lifehistories_v2.csv` and place it into a new object.
 ```{r message=FALSE, warning=FALSE}
 mammals <- readr::read_csv("data/Mammal_lifehistories_v2.csv")
 ```
@@ -105,7 +105,7 @@ A core package in the tidyverse is dplyr. This package allows you to transform y
 
 The first command that we will learn is `filter()`. Filter allows you to subset observations in a data frame by their values. You should still have the fish data loaded, but if not then please re-load.  
 ```{r}
-fish <- read_csv("data/Gaeta_etal_CLC_data.csv")
+fish <- readr::read_csv("data/Gaeta_etal_CLC_data.csv")
 ```
 
 Let's say that we are interested only in the fish that occur in the lake labeled AL. We can use `filter()` to extract these observations to build a new data frame focused on our question.
