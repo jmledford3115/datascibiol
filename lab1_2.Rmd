@@ -10,16 +10,11 @@ output:
 ---
 
 ## Review
-At this point, you should have a GitHub account, completed your first commit, and uploaded your first push. R and RStudio are installed along with the tidyverse library. Let's make a few checks before we begin.
+At this point, you should have a GitHub account and made your first push. We also installed the `tidyverse` and `nycflights13` libraries. Let's make a few checks before we begin.  
 
 This shows your current version of R along with details of your operating system.
 ```{r}
 R.Version()
-```
-
-This shows the current version of a specified package.
-```{r}
-packageVersion("tidyverse")
 ```
 
 This provides an overview of the session.
@@ -73,9 +68,9 @@ mean(4, 6, 8, 5, 6, 7, 7, 7)
 ```
 
 ## Objects
-Arimethic is great, but in order to access the potential of R we need to assign values or other types of data to objects. There is a specific format that I want you to follow, so please pay close attention.  
+In order to access the potential of R we need to assign values or other types of data to `objects`. There is a specific format that I want you to follow, so please pay close attention.  
 
-Assign a value to object 'x'. The '<-' symbol is read as 'gets'. In this case, x gets 42. Make sure that you are in the environment panel and you should see the value associated with 'x'. On a mac, you can push option and - to automatically generate the gets symbol. Some people use the '=' sign instead of <- but this won't work in all situations. Please do not use '=' instead of '<-'.
+Assign a value to object 'x'. The '<-' symbol is read as 'gets'. In this case, x gets 42. Make sure that you are in the environment panel and you should see the value associated with 'x'. On a mac, you can push `option` and `-` to automatically generate the gets symbol. Some people use the '=' sign instead of <- but this won't work in all situations. Please do not use '=' instead of '<-'.
 ```{r}
 x<-42
 ```
@@ -105,14 +100,14 @@ We need to be careful about our nomenclature when we write code. R allows us to 
 else<-12
 ```
 
-We get an error here because else is a function in R. You also don't want to give names that might get confused with functions; i.e. you can assign a value to 'mean' but this could get confusing because mean is primarily used as a function. Also, because of the way R was originally written you should not use periods in your objects; i.e. my.experiment. Instead, use underscores or no spaces at all.  
+We get an error here because `else` is a function in R. You also don't want to give names that might get confused with functions; i.e. you can assign a value to 'mean' but this could get confusing because mean is primarily used as a function. Also, because of the way R was originally written you should not use periods in your objects; i.e. my.experiment. Instead, use underscores or no spaces at all.  
 
 ```{r}
 my_experiment
 ```
 
 ## Types of Data
-There are five main types or classes of data frequently (we won't use raw) used in R: 1. numeric, 2. integer, 3. character,  4. logical, 5. complex. These are referred to as `atomic` because they only hold data of a single type.
+There are five frequently used `classes` of data (we won't use raw): 1. numeric, 2. integer, 3. character, 4. logical, 5. complex. These are referred to as `atomic` because they only hold data of a single type.
 ```{r}
 my_numeric <- 42
 my_integer <- 2L #adding an L automatically denotes an integer
@@ -130,7 +125,7 @@ class(my_logical)
 class(my_complex)
 ```
 
-You can use the is and as functions to clarify or specify a type of data.
+You can use the `is` and `as` functions to clarify or specify a type of data.
 ```{r}
 is.integer(my_numeric) #is my_numeric an integer?
 my_integer <- as.integer(my_numeric) #create a new object specified as an integer
@@ -140,15 +135,8 @@ is.integer(my_integer) #is my_numeric an integer?
 ## Data Structures
 In addition to the types or classes of data, R also organizes data in specific ways. These are data structures and include vectors, lists, matrices, data frames, and factors. For now, we are going to focus on `vectors`.  
 
-## Annotations
-While RMarkdown allows us to thoroughly explain our code, many programmers use hashtags to annotate code chunks. These annotations can be helpful in showing how each bit of code functions and can be a helpful way to keep notes for yourself as you work.
-```{r}
-cell_count<- 40 #the number of cells observed
-cell_count*2 #the number of cells present after two hours
-```
-
 ## Vectors
-Vectors are a common way of organizing data (data structure) in R. The key detail is that they contain data *of the same type*. We create vectors using the `c` command.  
+Vectors are a common way of organizing data in R. The key detail is that they contain data *of the same type*. We create vectors using the `c` command.  
 
 [Vector tutorial](https://thomasleeper.com/Rcourse/Tutorials/vectorindexing.html)    
 
@@ -175,12 +163,14 @@ scientists <- c("Einstein", "physicist", "Male", "Darwin", "biologist", "Male", 
 scientists
 ```
 
+## Naming vectors
 In order to make vectors more helpful, we can name the elements in a vector using the `names ()` command.
 ```{r}
 names(scientists) <- c("Name", "Profession", "Sex", "Name", "Profession", "Sex", "Name", "Profession", "Sex", "Name", "Profession", "Sex")
 scientists
 ```
 
+## Identifying vector elements
 Separate the sexes of the scientists. Notice that because this is a vector, we have to specify the position of each element. In order to do this, we use `[]`.
 ```{r}
 scientists_sex <- scientists[c(3, 6, 9, 12)]
@@ -214,7 +204,10 @@ If you use `[]` then you only get the values, not the logical evaluation of the 
 new_vector[new_vector < 10 & new_vector > 2]
 ```
 
-We will come back to vectors later. In practice, most data in R is organized into data frames. Data frames operate like a series of equal length vectors, so it is helpful to know how to work with both.
+There is a distinction between the `&` symbol and the `|` symbol.
+```{r}
+new_vector[new_vector <= 10 | new_vector >= 90]
+```
 
 ## Wrap-up
 Please review the learning goals and be sure to use the code here as a reference when completing the homework.
