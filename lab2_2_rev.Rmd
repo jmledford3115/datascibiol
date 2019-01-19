@@ -66,39 +66,22 @@ glimpse(fish)
 ```
 
 ## Practice
-Load the data `mammal_lifehistories_v2.csv` and place it into a new object.
-```{r message=FALSE, warning=FALSE}
-mammals <- readr::read_csv("data/Mammal_lifehistories_v2.csv")
-```
+Load the data `mammal_lifehistories_v2.csv` and place it into a new object called `mammals`.
 
 1. Provide the dimensions of the data frame.
-```{r}
-dim(mammals)
-```
+
 
 2. Check the column names in the data frame. 
-```{r}
-names(mammals)
-```
+
 
 3. Use str() to show the structure of the data frame and its individual columns; compare this to glimpse(). 
-```{r}
-str(mammals)
-```
 
-```{r}
-glimpse(mammals)
-```
 
 4. Print out the first few rows of the data using the function head().  
-```{r}
-head(mammals)
-```
+
 
 5. Print out the last few rows using the function `tail()`.
-```{r}
-tail(mammals)
-```
+
 
 ## Dplyr: filter()
 A core package in the tidyverse is dplyr. This package allows you to transform your data in many different ways including filtering, subsetting, and reordering. This helps keep your data cleaner, easier to work with, and easier for other people to understand.  
@@ -144,29 +127,19 @@ filter(fish, length==167 & length==175)
 
 ## Practice
 1. Filter the `fish` data to include the samples from lake `DY`.
-```{r}
-filter(fish, lakeid=="DY")
-```
+
 
 2. Filter the data to include all lakes except AL.
-```{r}
-filter(fish, !lakeid=="AL")
-```
+
 
 3. Filter the data to include all lakes except AL and DY.
-```{r}
-filter(fish, !lakeid %in% c("AL", "DY"))
-```
+
+
 
 4. Filter the data to include all fish with a scale length greater than or equal to 11.
-```{r}
-filter(fish, scalelength>=11)
-```
+
 
 5. Filter the data to include fish only from lake AL and with a scalelength greater than or equal to 2 and less than or equal to 4.
-```{r}
-lake_AL <- filter(fish, lakeid=="AL")
-filter(lake_AL, scalelength>=2 & scalelength<=4)
-```
+
 
 That's it, let's take a break!
