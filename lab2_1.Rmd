@@ -18,9 +18,6 @@ output:
 3. Select values and use summary functions in a data matrix.  
 4. Specify the difference between a data matrix and a data frame.  
 
-## Resources
-- [R for Data Science](https://r4ds.had.co.nz/)
-
 ## Data Matrix
 Last time, you learned how to work with vectors. Today we will organize the vectors into a new type of data structure called a data matrix. Like vectors, data matrices are restricted to *data of the same type*. In the short example (from DataCamp) below, we will build a new data matrix using the matrix command.  
 
