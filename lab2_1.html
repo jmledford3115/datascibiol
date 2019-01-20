@@ -386,7 +386,9 @@ mean(non_us_earnings)</code></pre>
 </div>
 <div id="practice" class="section level2">
 <h2>Practice</h2>
-<p>Below are data collected by three scientists (Jill, Steve, Susan in order) measuring temperatures of eight hot springs.</p>
+<ol style="list-style-type: decimal">
+<li>Below are data collected by three scientists (Jill, Steve, Susan in order) measuring temperatures of eight hot springs.</li>
+</ol>
 <pre class="r"><code>spring_1 &lt;- c(36.25, 35.40, 35.30)
 spring_2 &lt;- c(35.15, 35.35, 33.35)
 spring_3 &lt;- c(30.70, 29.65, 29.20)
@@ -395,7 +397,9 @@ spring_5 &lt;- c(31.85, 31.40, 29.30)
 spring_6 &lt;- c(30.20, 30.65, 29.75)
 spring_7 &lt;- c(32.90, 32.50, 32.80)
 spring_8 &lt;- c(36.80, 36.45, 33.15)</code></pre>
-<p>Build a data matrix that has the columns named by scientist and rows by the names of the springs.</p>
+<ol start="2" style="list-style-type: decimal">
+<li>Build a data matrix that has the columns named by scientist and rows by the names of the springs.</li>
+</ol>
 <pre class="r"><code>springs &lt;- c(spring_1, spring_2, spring_3, spring_4, spring_5, spring_6, spring_7, spring_8)
 springs_matrix &lt;- matrix(springs, nrow=8, byrow = T)
 springs_matrix</code></pre>
@@ -408,8 +412,14 @@ springs_matrix</code></pre>
 ## [6,] 30.20 30.65 29.75
 ## [7,] 32.90 32.50 32.80
 ## [8,] 36.80 36.45 33.15</code></pre>
+<ol start="3" style="list-style-type: decimal">
+<li>Let’s name the columns and rows. Start by making two new vectors with the names.</li>
+</ol>
 <pre class="r"><code>scientists &lt;- c(&quot;Jill&quot;, &quot;Steve&quot;, &quot;Susan&quot;)
 springs &lt;- c(&quot;Bluebell Spring&quot;, &quot;Opal Spring&quot;, &quot;Riverside Spring&quot;, &quot;Too Hot Spring&quot;, &quot;Mystery Spring&quot;, &quot;Emerald Spring&quot;, &quot;Black Spring&quot;, &quot;Pearl Spring&quot;)</code></pre>
+<ol start="4" style="list-style-type: decimal">
+<li>Use <code>colnames()</code> and <code>rownames()</code> to name the columns and rows.</li>
+</ol>
 <pre class="r"><code>colnames(springs_matrix) &lt;- scientists
 rownames(springs_matrix) &lt;- springs
 springs_matrix</code></pre>
@@ -422,13 +432,18 @@ springs_matrix</code></pre>
 ## Emerald Spring   30.20 30.65 29.75
 ## Black Spring     32.90 32.50 32.80
 ## Pearl Spring     36.80 36.45 33.15</code></pre>
-<p>Calculate the mean temperature of all three springs and add it as a new column.</p>
+<ol start="5" style="list-style-type: decimal">
+<li>Calculate the mean temperature of all three springs.</li>
+</ol>
 <pre class="r"><code>mean_vector &lt;- rowMeans(springs_matrix)
 mean_vector</code></pre>
 <pre><code>##  Bluebell Spring      Opal Spring Riverside Spring   Too Hot Spring 
 ##         35.65000         34.61667         29.85000         39.46667 
 ##   Mystery Spring   Emerald Spring     Black Spring     Pearl Spring 
 ##         30.85000         30.20000         32.73333         35.46667</code></pre>
+<ol start="6" style="list-style-type: decimal">
+<li>Add <code>mean_vector</code> as a new column.</li>
+</ol>
 <pre class="r"><code>springs_matrix2 &lt;- cbind(springs_matrix, mean_vector)
 scientists2 &lt;- c(&quot;Jill&quot;, &quot;Steve&quot;, &quot;Susan&quot;, &quot;Mean Temp&quot;)
 colnames(springs_matrix2) &lt;- scientists2
@@ -442,10 +457,6 @@ springs_matrix2</code></pre>
 ## Emerald Spring   30.20 30.65 29.75  30.20000
 ## Black Spring     32.90 32.50 32.80  32.73333
 ## Pearl Spring     36.80 36.45 33.15  35.46667</code></pre>
-</div>
-<div id="final-notes-on-data-matrices" class="section level2">
-<h2>Final Notes on Data Matrices</h2>
-<p>Working with data matrices requires all of the data to be of the same type. For some applications they are routinely used and many packages require data to be stored as a matrix. Many programmers would also point out that data matrices are more efficient when compared to data frames (see below), especially for large data sets. This is great in principle, but in practice most biological data are heterogeneous and thus must be stored as a data frame. Lastly, nearly all of the packages that we will use in R only work with data frames. We will work with data frames almost exclusively for the remainder of the course.</p>
 </div>
 <div id="data-frames" class="section level2">
 <h2>Data Frames</h2>

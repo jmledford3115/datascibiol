@@ -124,7 +124,7 @@ mean(non_us_earnings)
 ```
 
 ## Practice
-Below are data collected by three scientists (Jill, Steve, Susan in order) measuring temperatures of eight hot springs.
+1. Below are data collected by three scientists (Jill, Steve, Susan in order) measuring temperatures of eight hot springs.
 ```{r}
 spring_1 <- c(36.25, 35.40, 35.30)
 spring_2 <- c(35.15, 35.35, 33.35)
@@ -136,39 +136,39 @@ spring_7 <- c(32.90, 32.50, 32.80)
 spring_8 <- c(36.80, 36.45, 33.15)
 ```
 
-Build a data matrix that has the columns named by scientist and rows by the names of the springs.
+2. Build a data matrix that has the columns named by scientist and rows by the names of the springs.
 ```{r}
 springs <- c(spring_1, spring_2, spring_3, spring_4, spring_5, spring_6, spring_7, spring_8)
 springs_matrix <- matrix(springs, nrow=8, byrow = T)
 springs_matrix
 ```
 
+3. Let's name the columns and rows. Start by making two new vectors with the names.
 ```{r}
 scientists <- c("Jill", "Steve", "Susan")
 springs <- c("Bluebell Spring", "Opal Spring", "Riverside Spring", "Too Hot Spring", "Mystery Spring", "Emerald Spring", "Black Spring", "Pearl Spring")
 ```
 
+4. Use `colnames()` and `rownames()` to name the columns and rows.
 ```{r}
 colnames(springs_matrix) <- scientists
 rownames(springs_matrix) <- springs
 springs_matrix
 ```
 
-Calculate the mean temperature of all three springs and add it as a new column.
+5. Calculate the mean temperature of all three springs.
 ```{r}
 mean_vector <- rowMeans(springs_matrix)
 mean_vector
 ```
 
+6. Add `mean_vector` as a new column.
 ```{r}
 springs_matrix2 <- cbind(springs_matrix, mean_vector)
 scientists2 <- c("Jill", "Steve", "Susan", "Mean Temp")
 colnames(springs_matrix2) <- scientists2
 springs_matrix2
 ```
-
-## Final Notes on Data Matrices
-Working with data matrices requires all of the data to be of the same type. For some applications they are routinely used and many packages require data to be stored as a matrix. Many programmers would also point out that data matrices are more efficient when compared to data frames (see below), especially for large data sets. This is great in principle, but in practice most biological data are heterogeneous and thus must be stored as a data frame. Lastly, nearly all of the packages that we will use in R only work with data frames. We will work with data frames almost exclusively for the remainder of the course.
 
 ## Data Frames
 A data frame is a fancy way of saying data table with one caveat; the data in a data frame can be of multiple classes. This should make good sense as we often want to analyze relationships between numerical values, logical values, integers, etc. and this isn't possible in a data matrix.
@@ -195,6 +195,7 @@ Instead of using the matrix command, we will combine the data using `data.frame(
 comparativeGenomeSize<- data.frame(organism=organism, genomeSizeBP=genomeSizeBP, estGeneCount=estGeneCount)
 comparativeGenomeSize
 ```
+
 Notice that not only are the data neater and cleaner looking, there is also information provided about the type of data in the frame. dbl just means that the value is a type of numeric [double precision floating point](http://uc-r.github.io/integer_double/).  
 
 ## Let's Take a Break!
