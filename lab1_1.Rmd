@@ -99,9 +99,9 @@ You can use your repository to store all of your notes and work. All you need to
 ## Practice
 Since you will use your GitHub repository for your homework, we need to practice.  
 
-Navigate to the `class_files` folder that you downloaded and find the file `dummy_push`. Open this file and save a copy to your working directory using: File>Save As.  Change the name of the file to `dummy_push_*` where the `*` is your last name. You can also remove my name and add yours in the `author:` field at the top of the document.  
+1. Navigate to the `class_files` folder that you downloaded and find the file `dummy_push`. Open this file and save a copy to your working directory using: File>Save As.  Change the name of the file to `dummy_push_*` where the `*` is your last name. You can also remove my name and add yours in the `author:` field at the top of the document.  
 
-Once this is finished, `push` this file to your GitHub directory using the instructions above. After a few moments, you should be able to see this file in GitHub.
+2. Once this is finished, `push` this file to your GitHub directory using the instructions above. After a few moments, you should be able to see this file in GitHub.
 
 ## GitHub Issues
 We may encounter  issues over the next few weeks with GitHub. These will be caused mostly by user error, but sometimes weird things happen. If you are stuck, get my attention and we will sort things out.
