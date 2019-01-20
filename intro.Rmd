@@ -1,0 +1,68 @@
+---
+title: "Introduction to Data Science for Biologists"
+author: "Joel Ledford"
+date: "Winter 2019"
+output: ioslides_presentation
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+library("jpeg")
+```
+
+## Welcome!
+
+### What is this class about?
+- Learn to manage, transform, and visualize data using the R programming language  
+- Organize messy data, transform it in ways that address your questions, and communicate results  
+- Can you turn a computer on? Use a mouse? *No programming experience required*  
+
+## Why are you doing this?
+
+> **Want to Make it as a Biologist? Better Learn to Code**  
+> "In biology, big data is the thing. Every day, biologists go into the lab to coax data out of living matter—more and more data, with the advent of biological tools like Crispr/Cas9..."We cannot manually look through 15,000 data points anymore," Udeshi says. To analyze it all, biologists need to write programs specifically tailored for their experiments."  
+> [Wired Magazine (2017)](https://www.wired.com/2017/03/biologists-teaching-code-survive/)
+
+```{r out.width = "50%", fig.align = "center"}
+knitr::include_graphics("images/guinea_pigs.png")
+```
+
+## Will it hurt?
+
+- At first, yup
+- Learning a new "language" is hard and takes practice
+- I am here to guide you, but I won't have all the answers
+- We are a community of learners and will help each other
+
+```{r out.width = "75%", fig.align = "center"}
+knitr::include_graphics("images/will_it_hurt.png")
+```
+
+## General Information
+
+- Fridays, 1:10-3:00p, 2103 SCC
+- Joel Ledford (jmledford@ucdavis.edu)
+- Office: 2220 Life Sciences, Department of Plant Biology
+
+## Logistics
+
+- Grading is **P/NP**
+- Attendance is mandatory
+- Weekly homework (70%)
+- Group project (30%)
+
+## Enrollment
+
+- There is a waitlist
+- Please be sure you really want to take the class
+- The FRS series has strict limits
+
+```{r eval=FALSE, include=FALSE}
+sample(1:10, 1)
+```
+
+## Let's Get Started!
+
+```{r out.width = "100%", fig.align = "center"}
+knitr::include_graphics("images/gitty_up.png")
+```
