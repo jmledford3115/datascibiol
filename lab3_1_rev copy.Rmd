@@ -1,0 +1,113 @@
+---
+title: "Lab3_1"
+author: "Joel Ledford"
+date: "Winter 2019"
+output:
+  html_document:
+    theme: spacelab
+    toc: yes
+    toc_float: yes
+  pdf_document:
+    toc: yes
+---
+
+## Review
+In the last section you were introduced to the `tidyverse` and the core function `filter()`. Filter allows us to separate specific variables of interest from large, complex data. `filter()` works by looking through rows, but what about columns? Recall that each column is essentially a vector, so we need the new function `select()` to separate columns of interest. As you may expect, we can also use them together to focus our data on the variables of interest.
+
+## Resources
+- [R for Data Science](https://r4ds.had.co.nz/)
+
+## Learning Goals
+*At the end of this exercise, you will be able to:*    
+1. Use the functions of dplyr (filter, select, arrange) to organize and sort data frames. 
+
+## Load the tidyverse
+```{r message=FALSE, warning=FALSE}
+library("tidyverse")
+```
+
+## Load the fish scale data
+Here we open a .csv file with data on fish scales. Since we are using the tidyverse, we open the file using read_csv. 
+```{r message=FALSE, warning=FALSE}
+fish <- readr::read_csv("data/Gaeta_etal_CLC_data.csv")
+```
+
+## Dplyr: select()
+Select allows you to build a new data frame by selecting your variable(s) of interest. Our fish data only has six variables, but this should give you some ideas especially when you have a large data frames with lots of variables.  
+
+We are only interested in lakeid and scalelength.
+```{r}
+select(fish, lakeid, scalelength)
+```
+
+The - operator is useful in select. It allows us to select everything except the specified variables.
+```{r}
+select(fish, -fish_id, -annnumber, -length, -radii_length_mm)
+```
+
+For very large data frames with lots of variables, `select()` utilizes lots of different operators to make things easier. Let's say we are only interested in the variables that deal with length.
+```{r}
+select(fish, contains("length"))
+```
+
+Some additional options to select columns based on a specific criteria include:  
+1. ends_with() = Select columns that end with a character string  
+2. contains() = Select columns that contain a character string  
+3. matches() = Select columns that match a regular expression  
+4. one_of() = Select columns names that are from a group of names  
+
+## Practice
+1. What are the names of the columns in the `fish` data?
+```{r}
+colnames(fish)
+```
+
+2. We are only interested in the variables `lakeid`, `length`, and `scalelength`. Use `select()` to build a new dataframe focused on these variables.
+```{r}
+select(fish, lakeid, length, scalelength)
+```
+
+## Dplyr: Can we combine filter() and select()?
+Absolutely. This is one of the strengths of the tidyverse, it uses the same grammar to specify commands.
+```{r}
+fish2 <- select(fish, lakeid, scalelength)
+
+filter(fish2, lakeid=="AL")
+```
+
+## Dplyr: Pipes %>% 
+The code above works fine but there is a more efficient way. We need to learn pipes `%>%`. Pipes allow you to feed the output from one function to the input of another function. We are going to use pipes from here on to keep things cleaner. (command+shift+m)
+```{r}
+fish%>%
+  select(lakeid, scalelength)%>%
+  filter(lakeid=="AL")
+```
+
+## Practice
+1. Build a dataframe focused on the lakes `AL` and `AR` and looking at radii length between 2 and 4 only. Use pipes!
+```{r}
+fish %>% 
+  select(lakeid, radii_length_mm) %>%
+  filter(radii_length_mm>=2 & radii_length_mm<=4,
+         lakeid=="AL" | lakeid=="AR")
+```
+
+## Dplyr: arrange()
+The `arrange()` command is a bit like a sort command in excel.
+```{r}
+fish %>% 
+  arrange(scalelength)
+```
+
+It can be very helpful in combination with the other functions.
+```{r}
+fish %>% 
+  select(lakeid, length, fish_id, scalelength) %>% 
+  filter(lakeid=="AL") %>% 
+  arrange(fish_id)
+```
+
+## Wrap-up
+Please review the learning goals and be sure to use the code here as a reference when completing the homework.
+
+See you next time!

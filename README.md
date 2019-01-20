@@ -18,7 +18,7 @@ We have eight total labs. The last two labs (9 and 10) will be devoted to gettin
 
 1. **Lab 1** | [part 1](https://jmledford3115.github.io/datascibiol/lab1_1.html) | [part 2](https://jmledford3115.github.io/datascibiol/lab1_2.html) | [HW 1](https://jmledford3115.github.io/datascibiol/lab1_hw.html)  
 2. **Lab 2** | [part 1](https://jmledford3115.github.io/datascibiol/lab2_1.html) | [part 2](https://jmledford3115.github.io/datascibiol/lab2_2_rev.html) | [HW 2](https://jmledford3115.github.io/datascibiol/lab2_hw.html)  
-3. **Lab 3** | [part 1](https://jmledford3115.github.io/datascibiol/lab3_1.html) | [part 2](https://jmledford3115.github.io/datascibiol/lab3_2.html) | [HW 3](https://jmledford3115.github.io/datascibiol/lab3_hw.html)  
+3. **Lab 3** | [part 1](https://jmledford3115.github.io/datascibiol/lab3_1_rev.html) | [part 2](https://jmledford3115.github.io/datascibiol/lab3_2.html) | [HW 3](https://jmledford3115.github.io/datascibiol/lab3_hw.html)  
 4. **Lab 4** | [part 1](https://jmledford3115.github.io/datascibiol/lab4_1.html) | [part 2](https://jmledford3115.github.io/datascibiol/lab4_2.html) | [HW 4](https://jmledford3115.github.io/datascibiol/lab4_hw.html)  
 5. **Lab 5** | [part 1](https://jmledford3115.github.io/datascibiol/lab1_1.html) | [part 2](https://jmledford3115.github.io/datascibiol/lab1_1.html) | [HW 5](https://jmledford3115.github.io/datascibiol/lab1_hw.html)  
 6. **Lab 6** | [part 1](https://jmledford3115.github.io/datascibiol/lab1_1.html) | [part 2](https://jmledford3115.github.io/datascibiol/lab1_1.html) | [HW 6](https://jmledford3115.github.io/datascibiol/lab1_hw.html)
