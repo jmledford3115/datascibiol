@@ -26,6 +26,7 @@ Part of this is learning the syntax of R and getting used to the environment. If
 3. Use the filter function of dplyr to organize and sort data frames.  
 
 ## Libraries
+From this point on, you will need the `tidyverse` for all labs.
 ```{r message=FALSE, warning=FALSE}
 library("tidyverse")
 ```
