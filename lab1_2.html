@@ -440,36 +440,18 @@ is.integer(my_integer) #is my_numeric an integer?</code></pre>
 <pre class="r"><code>days_of_the_week &lt;- c(&quot;Monday&quot;, &quot;Tuesday&quot;, &quot;Wednesday&quot;, &quot;Thrusday&quot;, &quot;Friday&quot;, &quot;Saturday&quot;, &quot;Sunday&quot;)</code></pre>
 <p>A convenient trick is to generate a string of numerical vectors.</p>
 <pre class="r"><code>my_vector_string &lt;- c(1:10)
-my_vector_string2 &lt;- seq(1, 4, by=0.25) #seq allows you more control
+my_vector_string</code></pre>
+<pre><code>##  [1]  1  2  3  4  5  6  7  8  9 10</code></pre>
+<p><code>seq</code> allows more control.</p>
+<pre class="r"><code>my_vector_string2 &lt;- seq(1, 4, by=0.25)
 my_vector_string2</code></pre>
 <pre><code>##  [1] 1.00 1.25 1.50 1.75 2.00 2.25 2.50 2.75 3.00 3.25 3.50 3.75 4.00</code></pre>
 </div>
-<div id="vectors-can-be-characters" class="section level2">
-<h2>Vectors can be characters</h2>
-<p>Another vector of famous scientists.</p>
-<pre class="r"><code>scientists &lt;- c(&quot;Einstein&quot;, &quot;physicist&quot;, &quot;Male&quot;, &quot;Darwin&quot;, &quot;biologist&quot;, &quot;Male&quot;, &quot;Faraday&quot;, &quot;physicist&quot;, &quot;Male&quot;, &quot;Curie&quot;, &quot;chemist&quot;, &quot;Female&quot;)
-scientists</code></pre>
-<pre><code>##  [1] &quot;Einstein&quot;  &quot;physicist&quot; &quot;Male&quot;      &quot;Darwin&quot;    &quot;biologist&quot;
-##  [6] &quot;Male&quot;      &quot;Faraday&quot;   &quot;physicist&quot; &quot;Male&quot;      &quot;Curie&quot;    
-## [11] &quot;chemist&quot;   &quot;Female&quot;</code></pre>
-</div>
-<div id="naming-vectors" class="section level2">
-<h2>Naming vectors</h2>
-<p>In order to make vectors more helpful, we can name the elements in a vector using the <code>names ()</code> command.</p>
-<pre class="r"><code>names(scientists) &lt;- c(&quot;Name&quot;, &quot;Profession&quot;, &quot;Sex&quot;, &quot;Name&quot;, &quot;Profession&quot;, &quot;Sex&quot;, &quot;Name&quot;, &quot;Profession&quot;, &quot;Sex&quot;, &quot;Name&quot;, &quot;Profession&quot;, &quot;Sex&quot;)
-scientists</code></pre>
-<pre><code>##        Name  Profession         Sex        Name  Profession         Sex 
-##  &quot;Einstein&quot; &quot;physicist&quot;      &quot;Male&quot;    &quot;Darwin&quot; &quot;biologist&quot;      &quot;Male&quot; 
-##        Name  Profession         Sex        Name  Profession         Sex 
-##   &quot;Faraday&quot; &quot;physicist&quot;      &quot;Male&quot;     &quot;Curie&quot;   &quot;chemist&quot;    &quot;Female&quot;</code></pre>
-</div>
 <div id="identifying-vector-elements" class="section level2">
 <h2>Identifying vector elements</h2>
-<p>Separate the sexes of the scientists. Notice that because this is a vector, we have to specify the position of each element. In order to do this, we use <code>[]</code>.</p>
-<pre class="r"><code>scientists_sex &lt;- scientists[c(3, 6, 9, 12)]
-scientists_sex</code></pre>
-<pre><code>##      Sex      Sex      Sex      Sex 
-##   &quot;Male&quot;   &quot;Male&quot;   &quot;Male&quot; &quot;Female&quot;</code></pre>
+<p>We can use <code>[]</code> to pull out vector elements. We just need to specify its position in the vector; i.e. day 3 is Wednesday.</p>
+<pre class="r"><code>days_of_the_week[3]</code></pre>
+<pre><code>## [1] &quot;Wednesday&quot;</code></pre>
 </div>
 <div id="practice-1" class="section level2">
 <h2>Practice</h2>

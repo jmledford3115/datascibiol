@@ -147,29 +147,19 @@ days_of_the_week <- c("Monday", "Tuesday", "Wednesday", "Thrusday", "Friday", "S
 A convenient trick is to generate a string of numerical vectors.
 ```{r}
 my_vector_string <- c(1:10)
-my_vector_string2 <- seq(1, 4, by=0.25) #seq allows you more control
+my_vector_string
+```
+
+`seq` allows more control.
+```{r}
+my_vector_string2 <- seq(1, 4, by=0.25)
 my_vector_string2
 ```
 
-## Vectors can be characters
-Another vector of famous scientists.
-```{r}
-scientists <- c("Einstein", "physicist", "Male", "Darwin", "biologist", "Male", "Faraday", "physicist", "Male", "Curie", "chemist", "Female")
-scientists
-```
-
-## Naming vectors
-In order to make vectors more helpful, we can name the elements in a vector using the `names ()` command.
-```{r}
-names(scientists) <- c("Name", "Profession", "Sex", "Name", "Profession", "Sex", "Name", "Profession", "Sex", "Name", "Profession", "Sex")
-scientists
-```
-
 ## Identifying vector elements
-Separate the sexes of the scientists. Notice that because this is a vector, we have to specify the position of each element. In order to do this, we use `[]`.
+We can use `[]` to pull out vector elements. We just need to specify its position in the vector; i.e. day 3 is Wednesday.
 ```{r}
-scientists_sex <- scientists[c(3, 6, 9, 12)]
-scientists_sex
+days_of_the_week[3]
 ```
 
 ## Practice
