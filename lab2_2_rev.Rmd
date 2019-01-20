@@ -16,6 +16,9 @@ At this point, I expect that you have familiarity in RStudio, GitHub (even if Gi
 
 Part of this is learning the syntax of R and getting used to the environment. If you are confused, please [email me](mailto: jmledford@ucdavis.edu) so we can get you back on track.  
 
+## Resources
+- [R for Data Science](https://r4ds.had.co.nz/)
+
 ## Learning Goals
 *At the end of this exercise, you will be able to:*    
 1. Import .csv files as data frames.  
