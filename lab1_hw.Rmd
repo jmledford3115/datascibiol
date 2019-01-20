@@ -15,7 +15,7 @@ Answer the following questions and complete the exercises in RMarkdown. Please e
   + 5 - 3 * 2  
   + 8 / 2 ** 2  
   
-2. Did any of the results in #4 surprise you? Write two programs that calculate each expression such that the result for the first example is 4 and the second example is 16.  
+2. Did any of the results in #1 surprise you? Write two programs that calculate each expression such that the result for the first example is 4 and the second example is 16.  
 
 
 3. You have decided to use your new analytical powers in R to become a professional gambler. Here are your winnings and losses this week.
