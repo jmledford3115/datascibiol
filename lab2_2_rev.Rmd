@@ -140,5 +140,4 @@ filter(fish, length==167 & length==175)
 
 5. Filter the data to include fish only from lake AL and with a scalelength greater than or equal to 2 and less than or equal to 4.
 
-
 That's it, let's take a break!
