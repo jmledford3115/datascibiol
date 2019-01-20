@@ -135,7 +135,6 @@ filter(fish, length==167 & length==175)
 3. Filter the data to include all lakes except AL and DY.
 
 
-
 4. Filter the data to include all fish with a scale length greater than or equal to 11.
 
 
