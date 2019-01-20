@@ -1,5 +1,5 @@
 ---
-title: "Lab 2: Working with Data, Part 1"
+title: "Data Matrices"
 author: "Joel Ledford"
 date: "Winter 2019"
 output:
