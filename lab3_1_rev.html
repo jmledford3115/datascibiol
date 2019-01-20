@@ -291,7 +291,7 @@ div.tocify {
 
 <div id="review" class="section level2">
 <h2>Review</h2>
-<p>In the last section you were introduced to the <code>tidyverse</code> and the core function <code>filter()</code>. Filter allows us to separate specific variables of interest from large, complex data. <code>filter()</code> works by looking through rows, but what about columns? Recall that each column is a vector, so we need the new function <code>select()</code> to separate columns of interest. As you may expect, we can use <code>filter()</code> and <code>select()</code> together to build dataframes focused on our variables of interest.</p>
+<p>In the last section you were introduced to the <strong>tidyverse</strong> and the function <code>filter()</code>. <code>filter()</code> works by looking through rows, but what about columns? Recall that each column is a vector, so we need the new function <code>select()</code> to separate columns of interest. As you may expect, we can use <code>filter()</code> and <code>select()</code> together to build data frames focused on our variables of interest.</p>
 </div>
 <div id="resources" class="section level2">
 <h2>Resources</h2>
@@ -302,7 +302,7 @@ div.tocify {
 <div id="learning-goal" class="section level2">
 <h2>Learning Goal</h2>
 <p><em>At the end of this exercise, you will be able to:</em><br />
-1. Use the functions of dplyr (filter, select, arrange) to organize and sort data frames.</p>
+1. Use the <code>filter()</code>, <code>select()</code>, and <code>arrange()</code> functions of dplyr to organize and sort data frames.</p>
 </div>
 <div id="libraries" class="section level2">
 <h2>Libraries</h2>
@@ -310,12 +310,12 @@ div.tocify {
 </div>
 <div id="load-the-fish-scale-data" class="section level2">
 <h2>Load the fish scale data</h2>
-<p>Here we open a .csv file with data on fish scales. Since we are using the tidyverse, we open the file using read_csv.</p>
+<p>Here we load a .csv file with data on fish scales. We open the file using <code>read_csv()</code>.</p>
 <pre class="r"><code>fish &lt;- readr::read_csv(&quot;data/Gaeta_etal_CLC_data.csv&quot;)</code></pre>
 </div>
 <div id="dplyr-select" class="section level2">
 <h2>Dplyr: select()</h2>
-<p>Select allows you to build a new data frame by selecting your variable(s) of interest. Our fish data only has six variables, but this should give you some ideas especially when you have a large data frames with lots of variables.</p>
+<p>Select allows you to build a new data frame by selecting your columns (variables) of interest. Our fish data only has six columns, but this should give you some ideas especially when you have large data frames with lots of columns.</p>
 <p>We are only interested in lakeid and scalelength.</p>
 <pre class="r"><code>select(fish, lakeid, scalelength)</code></pre>
 <pre><code>## # A tibble: 4,033 x 2
@@ -332,7 +332,7 @@ div.tocify {
 ##  9 AL            3.34
 ## 10 AL            3.34
 ## # ... with 4,023 more rows</code></pre>
-<p>The - operator is useful in select. It allows us to select everything except the specified variables.</p>
+<p>The <code>-</code> operator is useful in select. It allows us to select everything except the specified variables.</p>
 <pre class="r"><code>select(fish, -fish_id, -annnumber, -length, -radii_length_mm)</code></pre>
 <pre><code>## # A tibble: 4,033 x 2
 ##    lakeid scalelength
@@ -348,7 +348,7 @@ div.tocify {
 ##  9 AL            3.34
 ## 10 AL            3.34
 ## # ... with 4,023 more rows</code></pre>
-<p>For very large data frames with lots of variables, <code>select()</code> utilizes lots of different operators to make things easier. Let’s say we are only interested in the variables that deal with length.</p>
+<p>For very large data frames with lots of variables, <code>select()</code> uses many different operators to make things easier. Let’s say we are only interested in the variables that deal with length.</p>
 <pre class="r"><code>select(fish, contains(&quot;length&quot;))</code></pre>
 <pre><code>## # A tibble: 4,033 x 3
 ##    length radii_length_mm scalelength
@@ -380,9 +380,8 @@ div.tocify {
 <div id="dplyr-can-we-combine-filter-and-select" class="section level2">
 <h2>Dplyr: Can we combine filter() and select()?</h2>
 <p>Absolutely. This is one of the strengths of the tidyverse, it uses the same grammar to specify commands.</p>
-<pre class="r"><code>fish2 &lt;- select(fish, lakeid, scalelength)
-
-filter(fish2, lakeid==&quot;AL&quot;)</code></pre>
+<pre class="r"><code>fish2 &lt;- select(fish, lakeid, scalelength)</code></pre>
+<pre class="r"><code>filter(fish2, lakeid==&quot;AL&quot;)</code></pre>
 <pre><code>## # A tibble: 383 x 2
 ##    lakeid scalelength
 ##    &lt;chr&gt;        &lt;dbl&gt;
@@ -427,22 +426,22 @@ filter(fish2, lakeid==&quot;AL&quot;)</code></pre>
 </div>
 <div id="dplyr-arrange" class="section level2">
 <h2>Dplyr: arrange()</h2>
-<p>The <code>arrange()</code> command is a bit like a sort command in excel.</p>
+<p>The <code>arrange()</code> command allows us to sort values in a column.</p>
 <pre class="r"><code>fish %&gt;% 
-  arrange(scalelength)</code></pre>
+  arrange(desc(scalelength))</code></pre>
 <pre><code>## # A tibble: 4,033 x 6
 ##    lakeid fish_id annnumber length radii_length_mm scalelength
 ##    &lt;chr&gt;    &lt;int&gt; &lt;chr&gt;      &lt;int&gt;           &lt;dbl&gt;       &lt;dbl&gt;
-##  1 WS         151 EDGE          58           0.628       0.628
-##  2 WS         153 EDGE          78           0.637       0.637
-##  3 LSG         59 EDGE          64           0.773       0.773
-##  4 WS         152 EDGE          74           0.832       0.832
-##  5 LSG         58 EDGE          92           1.15        1.15 
-##  6 WS         155 EDGE         128           1.41        1.41 
-##  7 WS         155 2            128           1.16        1.41 
-##  8 WS         155 1            128           0.579       1.41 
-##  9 BO         391 EDGE         107           1.43        1.43 
-## 10 BO         391 1            107           0.695       1.43 
+##  1 WS         180 EDGE         403           11.0         11.0
+##  2 WS         180 16           403           10.6         11.0
+##  3 WS         180 15           403           10.3         11.0
+##  4 WS         180 14           403            9.93        11.0
+##  5 WS         180 13           403            9.56        11.0
+##  6 WS         180 12           403            9.17        11.0
+##  7 WS         180 11           403            8.62        11.0
+##  8 WS         180 10           403            8.15        11.0
+##  9 WS         180 9            403            7.49        11.0
+## 10 WS         180 8            403            6.97        11.0
 ## # ... with 4,023 more rows</code></pre>
 <p>It can be very helpful in combination with the other functions.</p>
 <pre class="r"><code>fish %&gt;% 
@@ -463,6 +462,12 @@ filter(fish2, lakeid==&quot;AL&quot;)</code></pre>
 ##  9 AL        194     301        3.34
 ## 10 AL        194     301        3.34
 ## # ... with 373 more rows</code></pre>
+</div>
+<div id="practice-2" class="section level2">
+<h2>Practice</h2>
+<ol style="list-style-type: decimal">
+<li>Build a dataframe focused on the scalelengths of <code>fish_id</code> 300 and 301. Use <code>arrange()</code> to sort from smallest to largest scalelength. Use pipes!</li>
+</ol>
 </div>
 <div id="wrap-up" class="section level2">
 <h2>Wrap-up</h2>

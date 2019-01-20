@@ -291,50 +291,7 @@ div.tocify {
 
 <div id="review" class="section level2">
 <h2>Review</h2>
-<p>At this point, you should have a GitHub account and made your first push. We also installed the <code>tidyverse</code> and <code>nycflights13</code> libraries. Let’s make a few checks before we begin.</p>
-<p>This shows your current version of R along with details of your operating system.</p>
-<pre class="r"><code>R.Version()</code></pre>
-<pre><code>## $platform
-## [1] &quot;x86_64-apple-darwin15.6.0&quot;
-## 
-## $arch
-## [1] &quot;x86_64&quot;
-## 
-## $os
-## [1] &quot;darwin15.6.0&quot;
-## 
-## $system
-## [1] &quot;x86_64, darwin15.6.0&quot;
-## 
-## $status
-## [1] &quot;&quot;
-## 
-## $major
-## [1] &quot;3&quot;
-## 
-## $minor
-## [1] &quot;5.1&quot;
-## 
-## $year
-## [1] &quot;2018&quot;
-## 
-## $month
-## [1] &quot;07&quot;
-## 
-## $day
-## [1] &quot;02&quot;
-## 
-## $`svn rev`
-## [1] &quot;74947&quot;
-## 
-## $language
-## [1] &quot;R&quot;
-## 
-## $version.string
-## [1] &quot;R version 3.5.1 (2018-07-02)&quot;
-## 
-## $nickname
-## [1] &quot;Feather Spray&quot;</code></pre>
+<p>At this point, you should have a GitHub account and made your first push. We also installed the <code>tidyverse</code> and <code>nycflights13</code> libraries.</p>
 </div>
 <div id="essential-information-about-r" class="section level2">
 <h2>Essential Information about R</h2>
@@ -403,27 +360,27 @@ my_experiment</code></pre>
 chiron &lt;- 261
 veyron &lt;- 268</code></pre>
 <ol start="2" style="list-style-type: decimal">
-<li>Use arithmetic functions to calculate the mean top speed for the cars.</li>
+<li>Use arithmetic to calculate the mean top speed for the cars.</li>
 </ol>
 <pre class="r"><code>(270+261+268)/3</code></pre>
 <pre><code>## [1] 266.3333</code></pre>
 </div>
 <div id="types-of-data" class="section level2">
 <h2>Types of Data</h2>
-<p>There are five frequently used <code>classes</code> of data (we won’t use raw): 1. numeric, 2. integer, 3. character, 4. logical, 5. complex. These are referred to as <code>atomic</code> because they only hold data of a single type.</p>
+<p>There are five frequently used <code>classes</code> of data (we won’t use raw): 1. numeric, 2. integer, 3. character, 4. logical, 5. complex.</p>
 <pre class="r"><code>my_numeric &lt;- 42
 my_integer &lt;- 2L #adding an L automatically denotes an integer
 my_character &lt;- &quot;universe&quot;
 my_logical &lt;- FALSE
 my_complex &lt;- 2+4i</code></pre>
-<p>To find out what type of data you are working with, use the class function. This is important because sometimes we will need to change the type of data to perform certain analyses.</p>
+<p>To find out what type of data you are working with, use the <code>class()</code> function. This is important because sometimes we will need to change the type of data to perform certain analyses.</p>
 <pre class="r"><code>class(my_numeric)</code></pre>
 <pre><code>## [1] &quot;numeric&quot;</code></pre>
-<p>You can use the <code>is</code> and <code>as</code> functions to clarify or specify a type of data.</p>
+<p>You can use the <code>is()</code> and <code>as()</code> functions to clarify or specify a type of data.</p>
 <pre class="r"><code>is.integer(my_numeric) #is my_numeric an integer?</code></pre>
 <pre><code>## [1] FALSE</code></pre>
-<pre class="r"><code>my_integer &lt;- as.integer(my_numeric) #create a new object specified as an integer
-is.integer(my_integer) #is my_numeric an integer?</code></pre>
+<pre class="r"><code>my_integer &lt;- as.integer(my_numeric) #create a new object specified as an integer</code></pre>
+<pre class="r"><code>is.integer(my_integer) #is my_numeric an integer?</code></pre>
 <pre><code>## [1] TRUE</code></pre>
 </div>
 <div id="data-structures" class="section level2">
@@ -433,12 +390,11 @@ is.integer(my_integer) #is my_numeric an integer?</code></pre>
 <div id="vectors" class="section level2">
 <h2>Vectors</h2>
 <p>Vectors are a common way of organizing data in R. The key detail is that they contain data <em>of the same type</em>. We create vectors using the <code>c</code> command.</p>
-<p><a href="https://thomasleeper.com/Rcourse/Tutorials/vectorindexing.html">Vector tutorial</a></p>
 <p>A numeric vector.</p>
 <pre class="r"><code>my_vector &lt;- c(10, 20, 30)</code></pre>
 <p>We can make character vectors as well.</p>
 <pre class="r"><code>days_of_the_week &lt;- c(&quot;Monday&quot;, &quot;Tuesday&quot;, &quot;Wednesday&quot;, &quot;Thrusday&quot;, &quot;Friday&quot;, &quot;Saturday&quot;, &quot;Sunday&quot;)</code></pre>
-<p>A convenient trick is to generate a string of numerical vectors.</p>
+<p>A convenient trick is to generate a string of numbers.</p>
 <pre class="r"><code>my_vector_string &lt;- c(1:10)
 my_vector_string</code></pre>
 <pre><code>##  [1]  1  2  3  4  5  6  7  8  9 10</code></pre>
@@ -461,11 +417,6 @@ my_vector_string2</code></pre>
 </ol>
 <pre class="r"><code>new_vector &lt;- 1:100</code></pre>
 <ol start="2" style="list-style-type: decimal">
-<li>We can ask to select only the value 15</li>
-</ol>
-<pre class="r"><code>new_vector[new_vector == 15] </code></pre>
-<pre><code>## [1] 15</code></pre>
-<ol start="3" style="list-style-type: decimal">
 <li>We can evaluate all numerics in our vector to determine which has a value of 15.</li>
 </ol>
 <pre class="r"><code>new_vector == 15</code></pre>
@@ -479,8 +430,8 @@ my_vector_string2</code></pre>
 ##  [78] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
 ##  [89] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
 ## [100] FALSE</code></pre>
-<ol start="4" style="list-style-type: decimal">
-<li>We can also use &lt;, &gt;, ==, &lt;==, etc.</li>
+<ol start="3" style="list-style-type: decimal">
+<li>We can also use operators such as &lt;, &gt;, ==, &lt;==, etc.</li>
 </ol>
 <pre class="r"><code>new_vector &lt; 10</code></pre>
 <pre><code>##   [1]  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE FALSE FALSE
@@ -493,17 +444,17 @@ my_vector_string2</code></pre>
 ##  [78] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
 ##  [89] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
 ## [100] FALSE</code></pre>
-<ol start="5" style="list-style-type: decimal">
+<ol start="4" style="list-style-type: decimal">
 <li>If you use <code>[]</code> then you only get the values, not the logical evaluation of the entire vector.</li>
 </ol>
 <pre class="r"><code>new_vector[new_vector &lt;=10]</code></pre>
 <pre><code>##  [1]  1  2  3  4  5  6  7  8  9 10</code></pre>
-<ol start="6" style="list-style-type: decimal">
+<ol start="5" style="list-style-type: decimal">
 <li>Using the <code>&amp;</code> symbol allows us to refine our elements of interest.</li>
 </ol>
 <pre class="r"><code>new_vector[new_vector &lt;= 10 &amp; new_vector &gt;= 1]</code></pre>
 <pre><code>##  [1]  1  2  3  4  5  6  7  8  9 10</code></pre>
-<ol start="7" style="list-style-type: decimal">
+<ol start="6" style="list-style-type: decimal">
 <li>There is a distinction between the <code>&amp;</code> symbol and the <code>|</code> symbol.</li>
 </ol>
 <pre class="r"><code>new_vector[new_vector &lt;= 10 | new_vector == 1]</code></pre>

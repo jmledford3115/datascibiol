@@ -292,7 +292,7 @@ div.tocify {
 <div id="review" class="section level2">
 <h2>Review</h2>
 <p>At this point, I expect that you have familiarity in RStudio, GitHub (even if Git is not working for you), and basic operations in R. You understand how to do arithmetic, assign values to objects, and work with vectors or data matrices.</p>
-<p>Part of this is learning the syntax of R and getting used to the environment. If you are confused, please <a href="mailto:%20jmledford@ucdavis.edu">email me</a> so we can get you back on track.</p>
+<p>Part of this is learning the syntax of R and getting used to the environment. If you are confused or feel behind, please <a href="mailto:%20jmledford@ucdavis.edu">email me</a> so we can get you back on track.</p>
 </div>
 <div id="resources" class="section level2">
 <h2>Resources</h2>
@@ -305,7 +305,7 @@ div.tocify {
 <p><em>At the end of this exercise, you will be able to:</em><br />
 1. Import .csv files as data frames.<br />
 2. Use summary functions to explore the contents of a data frame.<br />
-3. Use the filter function of dplyr to organize and sort data frames.</p>
+3. Use the <code>filter()</code> function of dplyr to organize and sort data frames.</p>
 </div>
 <div id="libraries" class="section level2">
 <h2>Libraries</h2>
@@ -314,7 +314,7 @@ div.tocify {
 </div>
 <div id="data-frames" class="section level2">
 <h2>Data Frames</h2>
-<p>For the remainder of the course, we will work exclusively with data frames. Recall that data frames allow us to store multiple classes of data. Last time, you were shown how to build data frames using the <code>data.frame()</code> command. However, scientists often make their data available as supplementary material associated with a publication. As data scientists, we can capitalize on this by importing data directly into R.</p>
+<p>For the remainder of the course, we will work exclusively with data frames. Recall that data frames allow us to store multiple classes of data. Last time, you were <a href="https://jmledford3115.github.io/datascibiol/lab2_1.html">shown how to build data frames</a> using the <code>data.frame()</code> command. However, scientists often make their data available as supplementary material associated with a publication. As data scientists, we can capitalize on this by importing data directly into R.</p>
 </div>
 <div id="loading-data-into-data-frames" class="section level2">
 <h2>Loading Data into Data Frames</h2>
@@ -326,7 +326,7 @@ div.tocify {
 </div>
 <div id="summary-functions" class="section level2">
 <h2>Summary functions</h2>
-<p>Once data have been uploaded, you may want to get an idea of its contents and dimensions. This may seem self-evident for small files but this is a big help for large data files.</p>
+<p>Once a data frame has been imported, you may want to get an idea of its contents and dimensions. This may seem self-evident for small files but this can be a challenge for large data sets. Summary functions help us get a general idea of the contents of a data frame.</p>
 <pre class="r"><code>nrow(fish) #the number of rows</code></pre>
 <pre><code>## [1] 4033</code></pre>
 <pre class="r"><code>ncol(fish) #the number of columns</code></pre>
@@ -410,18 +410,17 @@ div.tocify {
 </div>
 <div id="practice" class="section level2">
 <h2>Practice</h2>
-<p>Load the data <code>mammal_lifehistories_v2.csv</code> and place it into a new object called <code>mammals</code>.</p>
 <ol style="list-style-type: decimal">
+<li><p>Load the data <code>mammal_lifehistories_v2.csv</code> and place it into a new object called <code>mammals</code>.</p></li>
 <li><p>Provide the dimensions of the data frame.</p></li>
-<li><p>Check the column names in the data frame.</p></li>
+<li><p>Display the column names in the data frame.</p></li>
 <li><p>Use str() to show the structure of the data frame and its individual columns; compare this to glimpse().</p></li>
 <li><p>Print out the first few rows of the data using the function head().</p></li>
-<li><p>Print out the last few rows using the function <code>tail()</code>.</p></li>
 </ol>
 </div>
 <div id="dplyr-filter" class="section level2">
 <h2>Dplyr: filter()</h2>
-<p>A core package in the tidyverse is dplyr. This package allows you to transform your data in many different ways including filtering, subsetting, and reordering. This helps keep your data cleaner, easier to work with, and easier for other people to understand.</p>
+<p>A core package in the <strong>tidyverse</strong> is <code>dplyr</code>. This package allows you to transform your data in many different ways to focus on variables of interest. This helps keep your data clean, easier to work with, and easier for other people to understand.</p>
 <p>The first command that we will learn is <code>filter()</code>. Filter allows you to subset observations in a data frame by their values. You should still have the fish data loaded, but if not then please re-load.</p>
 <pre class="r"><code>fish &lt;- readr::read_csv(&quot;data/Gaeta_etal_CLC_data.csv&quot;)</code></pre>
 <pre><code>## Parsed with column specification:

@@ -14,7 +14,7 @@ output:
 ## Review
 At this point, I expect that you have familiarity in RStudio, GitHub (even if Git is not working for you), and basic operations in R. You understand how to do arithmetic, assign values to objects, and work with vectors or data matrices.  
 
-Part of this is learning the syntax of R and getting used to the environment. If you are confused, please [email me](mailto: jmledford@ucdavis.edu) so we can get you back on track.  
+Part of this is learning the syntax of R and getting used to the environment. If you are confused or feel behind, please [email me](mailto: jmledford@ucdavis.edu) so we can get you back on track.  
 
 ## Resources
 - [R for Data Science](https://r4ds.had.co.nz/)
@@ -23,7 +23,7 @@ Part of this is learning the syntax of R and getting used to the environment. If
 *At the end of this exercise, you will be able to:*    
 1. Import .csv files as data frames.  
 2. Use summary functions to explore the contents of a data frame.  
-3. Use the filter function of dplyr to organize and sort data frames.  
+3. Use the `filter()` function of dplyr to organize and sort data frames.  
 
 ## Libraries
 From this point on, you will need the `tidyverse` for all labs.
@@ -32,7 +32,7 @@ library("tidyverse")
 ```
 
 ## Data Frames
-For the remainder of the course, we will work exclusively with data frames. Recall that data frames allow us to store multiple classes of data. Last time, you were shown how to build data frames using the `data.frame()` command. However, scientists often make their data available as supplementary material associated with a publication. As data scientists, we can capitalize on this by importing data directly into R.
+For the remainder of the course, we will work exclusively with data frames. Recall that data frames allow us to store multiple classes of data. Last time, you were [shown how to build data frames](https://jmledford3115.github.io/datascibiol/lab2_1.html) using the `data.frame()` command. However, scientists often make their data available as supplementary material associated with a publication. As data scientists, we can capitalize on this by importing data directly into R.
 
 ## Loading Data into Data Frames
 R allows us to import a wide variety of data types. The most common type of file is a .csv file which stands for comma separated values. Spreadsheets are often developed in Excel then saved as .csv files for use in R. There are packages that allow you to open excel files and many other formats but .csv is the most common.
@@ -48,47 +48,62 @@ fish <- readr::read_csv("data/Gaeta_etal_CLC_data.csv")
 ```
 
 ## Summary functions
-Once data have been uploaded, you may want to get an idea of its contents and dimensions. This may seem self-evident for small files but this is a big help for large data files.
+Once a data frame has been imported, you may want to get an idea of its contents and dimensions. This may seem self-evident for small files but this can be a challenge for large data sets. Summary functions help us get a general idea of the contents of a data frame.
 ```{r}
 nrow(fish) #the number of rows
+```
+
+```{r}
 ncol(fish) #the number of columns
+```
+
+```{r}
 dim(fish) #total dimensions
+```
+
+```{r}
 colnames(fish) #column names
 ```
 
 There are many other useful summary functions, all of which work a bit differently. I didn't try to make the joke about fish heads and tails on purpose, but here it is anyway.
 ```{r}
 head(fish)
+```
+
+```{r}
 tail(fish)
 ```
 
 `summary()` and `str()` are classic functions used by many R programmers. `glimpse()` is part of the tidyverse.
 ```{r}
 summary(fish)
+```
+
+```{r}
 str(fish)
+```
+
+```{r}
 glimpse(fish)
 ```
 
 ## Practice
-Load the data `mammal_lifehistories_v2.csv` and place it into a new object called `mammals`.
+1. Load the data `mammal_lifehistories_v2.csv` and place it into a new object called `mammals`.
 
-1. Provide the dimensions of the data frame.
-
-
-2. Check the column names in the data frame. 
+2. Provide the dimensions of the data frame.
 
 
-3. Use str() to show the structure of the data frame and its individual columns; compare this to glimpse(). 
+3. Display the column names in the data frame. 
 
 
-4. Print out the first few rows of the data using the function head().  
+4. Use str() to show the structure of the data frame and its individual columns; compare this to glimpse(). 
 
 
-5. Print out the last few rows using the function `tail()`.
+5. Print out the first few rows of the data using the function head().  
 
 
 ## Dplyr: filter()
-A core package in the tidyverse is dplyr. This package allows you to transform your data in many different ways including filtering, subsetting, and reordering. This helps keep your data cleaner, easier to work with, and easier for other people to understand.  
+A core package in the **tidyverse** is `dplyr`. This package allows you to transform your data in many different ways to focus on variables of interest. This helps keep your data clean, easier to work with, and easier for other people to understand.  
 
 The first command that we will learn is `filter()`. Filter allows you to subset observations in a data frame by their values. You should still have the fish data loaded, but if not then please re-load.  
 ```{r}

@@ -10,12 +10,7 @@ output:
 ---
 
 ## Review
-At this point, you should have a GitHub account and made your first push. We also installed the `tidyverse` and `nycflights13` libraries. Let's make a few checks before we begin.  
-
-This shows your current version of R along with details of your operating system.
-```{r}
-R.Version()
-```
+At this point, you should have a GitHub account and made your first push. We also installed the `tidyverse` and `nycflights13` libraries.  
 
 ## Essential Information about R
 R is an open source, **scripting** language. RStudio is a GUI (graphical user interface) that is frequently used to interact with R. You need R installed in order for RStudio to work.
@@ -99,13 +94,13 @@ chiron <- 261
 veyron <- 268
 ```
 
-2. Use arithmetic functions to calculate the mean top speed for the cars.
+2. Use arithmetic to calculate the mean top speed for the cars.
 ```{r}
 (270+261+268)/3
 ```
 
 ## Types of Data
-There are five frequently used `classes` of data (we won't use raw): 1. numeric, 2. integer, 3. character, 4. logical, 5. complex. These are referred to as `atomic` because they only hold data of a single type.
+There are five frequently used `classes` of data (we won't use raw): 1. numeric, 2. integer, 3. character, 4. logical, 5. complex.
 ```{r}
 my_numeric <- 42
 my_integer <- 2L #adding an L automatically denotes an integer
@@ -114,15 +109,21 @@ my_logical <- FALSE
 my_complex <- 2+4i
 ```
 
-To find out what type of data you are working with, use the class function. This is important because sometimes we will need to change the type of data to perform certain analyses.
+To find out what type of data you are working with, use the `class()` function. This is important because sometimes we will need to change the type of data to perform certain analyses.
 ```{r}
 class(my_numeric)
 ```
 
-You can use the `is` and `as` functions to clarify or specify a type of data.
+You can use the `is()` and `as()` functions to clarify or specify a type of data.
 ```{r}
 is.integer(my_numeric) #is my_numeric an integer?
+```
+
+```{r}
 my_integer <- as.integer(my_numeric) #create a new object specified as an integer
+```
+
+```{r}
 is.integer(my_integer) #is my_numeric an integer?
 ```
 
@@ -131,8 +132,6 @@ In addition to the types or classes of data, R also organizes data in specific w
 
 ## Vectors
 Vectors are a common way of organizing data in R. The key detail is that they contain data *of the same type*. We create vectors using the `c` command.  
-
-[Vector tutorial](https://thomasleeper.com/Rcourse/Tutorials/vectorindexing.html)    
 
 A numeric vector.
 ```{r}
@@ -144,7 +143,7 @@ We can make character vectors as well.
 days_of_the_week <- c("Monday", "Tuesday", "Wednesday", "Thrusday", "Friday", "Saturday", "Sunday")
 ```
 
-A convenient trick is to generate a string of numerical vectors.
+A convenient trick is to generate a string of numbers.
 ```{r}
 my_vector_string <- c(1:10)
 my_vector_string
@@ -170,32 +169,27 @@ Work through these examples and make adjustments to the values to experiment.
 new_vector <- 1:100
 ```
 
-2. We can ask to select only the value 15
-```{r}
-new_vector[new_vector == 15] 
-```
-
-3. We can evaluate all numerics in our vector to determine which has a value of 15.
+2. We can evaluate all numerics in our vector to determine which has a value of 15.
 ```{r}
 new_vector == 15
 ```
 
-4. We can also use <, >, ==, <==, etc.
+3. We can also use operators such as <, >, ==, <==, etc.
 ```{r}
 new_vector < 10
 ```
 
-5. If you use `[]` then you only get the values, not the logical evaluation of the entire vector.
+4. If you use `[]` then you only get the values, not the logical evaluation of the entire vector.
 ```{r}
 new_vector[new_vector <=10]
 ```
 
-6. Using the `&` symbol allows us to refine our elements of interest.
+5. Using the `&` symbol allows us to refine our elements of interest.
 ```{r}
 new_vector[new_vector <= 10 & new_vector >= 1]
 ```
 
-7. There is a distinction between the `&` symbol and the `|` symbol.
+6. There is a distinction between the `&` symbol and the `|` symbol.
 ```{r}
 new_vector[new_vector <= 10 | new_vector == 1]
 ```

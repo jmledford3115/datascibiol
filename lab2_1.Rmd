@@ -19,12 +19,12 @@ At the beginning of each class, please make sure that you navigate to the class 
 1. Combine a series of vectors into a data matrix.  
 2. Name columns and rows in a data matrix.  
 3. Select values and use summary functions in a data matrix.  
-4. Specify the difference between a data matrix and a data frame.  
+4. Explain the difference between a data matrix and a data frame.  
 
 ## Data Matrix
 Last time, you learned how to work with vectors. Today we will organize the vectors into a new type of data structure called a data matrix. Like vectors, data matrices are restricted to *data of the same type*. In the short example (from DataCamp) below, we will build a new data matrix using the matrix command.  
 
-Box office earnings for Star Wars movies (in millions!). Notice that these are vectors.
+Box office earnings for Star Wars movies (in millions!). Notice that these are separate vectors.
 ```{r}
 new_hope <- c(460.998, 314.4)
 empire_strikes <- c(290.475, 247.900)
@@ -37,7 +37,7 @@ box_office <- c(new_hope, empire_strikes, return_jedi)
 box_office
 ```
 
-Construct star_wars_matrix using the `matrix()` command. We need to tell R how to organize the `box_office` vector using the `nrow` and `byrow` commands.
+Create `star_wars_matrix` using the `matrix()` command. We need to tell R how to organize the `box_office` vector using the `nrow` and `byrow` commands.
 ```{r}
 star_wars_matrix <- matrix(box_office,nrow=3,byrow=T)
 star_wars_matrix
@@ -66,7 +66,7 @@ star_wars_matrix
 ```
 
 ## Using a data matrix
-Once you have a data matrix, you can perform lots of different functions. For example, you can calculate the total earnings of each movie.
+Once you have a data matrix, you can perform lots of different analyses For example, you can calculate the total earnings of each movie.
 ```{r}
 worldwide_vector <- rowSums(star_wars_matrix)
 worldwide_vector
@@ -105,14 +105,14 @@ colnames(star_wars_matrix2)<-region
 rownames(star_wars_matrix2)<-titles2
 ```
 
-Combine the two data matrices into one using `rbind()`
+Combine the two data matrices into one using `rbind()`.
 ```{r}
 all_wars_matrix2 <- rbind(star_wars_matrix, star_wars_matrix2)
 all_wars_matrix2
 ```
 
 ## Select elements in a data matrix
-The same methods of selecting elements in a vector apply. We use `[]`.
+The same methods of selecting elements in a vector apply to data matrices. We use `[]`.
 ```{r}
 all_wars_matrix2[1,2]
 ```
@@ -136,14 +136,14 @@ spring_7 <- c(32.90, 32.50, 32.80)
 spring_8 <- c(36.80, 36.45, 33.15)
 ```
 
-2. Build a data matrix that has the columns named by scientist and rows by the names of the springs.
+2. Build a data matrix that has the springs as rows and the columns as scientists.
 ```{r}
 springs <- c(spring_1, spring_2, spring_3, spring_4, spring_5, spring_6, spring_7, spring_8)
 springs_matrix <- matrix(springs, nrow=8, byrow = T)
 springs_matrix
 ```
 
-3. Let's name the columns and rows. Start by making two new vectors with the names.
+3. Let's name the rows and columns. Start by making two new vectors with the names.
 ```{r}
 scientists <- c("Jill", "Steve", "Susan")
 springs <- c("Bluebell Spring", "Opal Spring", "Riverside Spring", "Too Hot Spring", "Mystery Spring", "Emerald Spring", "Black Spring", "Pearl Spring")

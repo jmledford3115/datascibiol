@@ -57,4 +57,3 @@ e. Should you stick to blackjack or roulette? Write a program that verifies this
 ```
 
 ## Push your final code to [GitHub](https://github.com/FRS417-DataScienceBiologists)
-Make sure that you push your code into the appropriate folder. Also, be sure that you have check the `keep md` file in the knit preferences.

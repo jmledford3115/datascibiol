@@ -299,12 +299,12 @@ div.tocify {
 1. Combine a series of vectors into a data matrix.<br />
 2. Name columns and rows in a data matrix.<br />
 3. Select values and use summary functions in a data matrix.<br />
-4. Specify the difference between a data matrix and a data frame.</p>
+4. Explain the difference between a data matrix and a data frame.</p>
 </div>
 <div id="data-matrix" class="section level2">
 <h2>Data Matrix</h2>
 <p>Last time, you learned how to work with vectors. Today we will organize the vectors into a new type of data structure called a data matrix. Like vectors, data matrices are restricted to <em>data of the same type</em>. In the short example (from DataCamp) below, we will build a new data matrix using the matrix command.</p>
-<p>Box office earnings for Star Wars movies (in millions!). Notice that these are vectors.</p>
+<p>Box office earnings for Star Wars movies (in millions!). Notice that these are separate vectors.</p>
 <pre class="r"><code>new_hope &lt;- c(460.998, 314.4)
 empire_strikes &lt;- c(290.475, 247.900)
 return_jedi &lt;- c(309.306, 165.8)</code></pre>
@@ -312,7 +312,7 @@ return_jedi &lt;- c(309.306, 165.8)</code></pre>
 <pre class="r"><code>box_office &lt;- c(new_hope, empire_strikes, return_jedi)
 box_office</code></pre>
 <pre><code>## [1] 460.998 314.400 290.475 247.900 309.306 165.800</code></pre>
-<p>Construct star_wars_matrix using the <code>matrix()</code> command. We need to tell R how to organize the <code>box_office</code> vector using the <code>nrow</code> and <code>byrow</code> commands.</p>
+<p>Create <code>star_wars_matrix</code> using the <code>matrix()</code> command. We need to tell R how to organize the <code>box_office</code> vector using the <code>nrow</code> and <code>byrow</code> commands.</p>
 <pre class="r"><code>star_wars_matrix &lt;- matrix(box_office,nrow=3,byrow=T)
 star_wars_matrix</code></pre>
 <pre><code>##         [,1]  [,2]
@@ -338,7 +338,7 @@ titles &lt;- c(&quot;A New Hope&quot;, &quot;The Empire Strikes Back&quot;, &quo
 </div>
 <div id="using-a-data-matrix" class="section level2">
 <h2>Using a data matrix</h2>
-<p>Once you have a data matrix, you can perform lots of different functions. For example, you can calculate the total earnings of each movie.</p>
+<p>Once you have a data matrix, you can perform lots of different analyses For example, you can calculate the total earnings of each movie.</p>
 <pre class="r"><code>worldwide_vector &lt;- rowSums(star_wars_matrix)
 worldwide_vector</code></pre>
 <pre><code>##              A New Hope The Empire Strikes Back      Return of the Jedi 
@@ -363,7 +363,7 @@ revenge_of_the_sith &lt;- c(380.3, 468.5)</code></pre>
 <p>Use <code>colnames()</code> and <code>rownames()</code> to name the data matrix.</p>
 <pre class="r"><code>colnames(star_wars_matrix2)&lt;-region
 rownames(star_wars_matrix2)&lt;-titles2</code></pre>
-<p>Combine the two data matrices into one using <code>rbind()</code></p>
+<p>Combine the two data matrices into one using <code>rbind()</code>.</p>
 <pre class="r"><code>all_wars_matrix2 &lt;- rbind(star_wars_matrix, star_wars_matrix2)
 all_wars_matrix2</code></pre>
 <pre><code>##                              US non-US
@@ -376,7 +376,7 @@ all_wars_matrix2</code></pre>
 </div>
 <div id="select-elements-in-a-data-matrix" class="section level2">
 <h2>Select elements in a data matrix</h2>
-<p>The same methods of selecting elements in a vector apply. We use <code>[]</code>.</p>
+<p>The same methods of selecting elements in a vector apply to data matrices. We use <code>[]</code>.</p>
 <pre class="r"><code>all_wars_matrix2[1,2]</code></pre>
 <pre><code>## [1] 314.4</code></pre>
 <p>We can also select values in an entire row or column. This can be useful for calculations.</p>
@@ -398,7 +398,7 @@ spring_6 &lt;- c(30.20, 30.65, 29.75)
 spring_7 &lt;- c(32.90, 32.50, 32.80)
 spring_8 &lt;- c(36.80, 36.45, 33.15)</code></pre>
 <ol start="2" style="list-style-type: decimal">
-<li>Build a data matrix that has the columns named by scientist and rows by the names of the springs.</li>
+<li>Build a data matrix that has the springs as rows and the columns as scientists.</li>
 </ol>
 <pre class="r"><code>springs &lt;- c(spring_1, spring_2, spring_3, spring_4, spring_5, spring_6, spring_7, spring_8)
 springs_matrix &lt;- matrix(springs, nrow=8, byrow = T)
@@ -413,7 +413,7 @@ springs_matrix</code></pre>
 ## [7,] 32.90 32.50 32.80
 ## [8,] 36.80 36.45 33.15</code></pre>
 <ol start="3" style="list-style-type: decimal">
-<li>Let’s name the columns and rows. Start by making two new vectors with the names.</li>
+<li>Let’s name the rows and columns. Start by making two new vectors with the names.</li>
 </ol>
 <pre class="r"><code>scientists &lt;- c(&quot;Jill&quot;, &quot;Steve&quot;, &quot;Susan&quot;)
 springs &lt;- c(&quot;Bluebell Spring&quot;, &quot;Opal Spring&quot;, &quot;Riverside Spring&quot;, &quot;Too Hot Spring&quot;, &quot;Mystery Spring&quot;, &quot;Emerald Spring&quot;, &quot;Black Spring&quot;, &quot;Pearl Spring&quot;)</code></pre>

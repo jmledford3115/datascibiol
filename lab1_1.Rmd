@@ -44,9 +44,14 @@ This first lab is tedious, so please be patient. It is important that everyone i
 ## Setup your own computer
 You are welcome to use your own computer, but in order to do so you need to install R, RStudio, and Git. If you would like to set-up your own computer, please follow the directions [here](https://jmledford3115.github.io/datascibiol/setup.html). If you are unsure about troubleshooting your own computer, **please** use the lab computers.
 
-## Create a GitHub account
-[**GitHub**](www.github.com) is a repository for programmers. Programmers upload code to repositories and make it publicly available. **Git** is software that is used for version control. It tracks changes and is especially helpful when multiple people are collaborating on a project; if a mistake is made it can be easily tracked back and retrieved. Both can be integrated with RStudio.  
+## GitHub and Git
+[**GitHub**](www.github.com) is a file stoage and management site used mostly by programmers. Programmers upload code to repositories (folders) and make it publicly available.  
 
+**Git** is software that is used for version control. It tracks changes and is especially helpful when multiple people are collaborating on a project; if a mistake is made it can be easily tracked back and retrieved. Both can be integrated with RStudio.  
+
+Most programmers use both **GitHub** and **Git** to manage their projects. However, **Git** is glitchy and hard to work with- especially in a classroom. If you want to try and use **Git**, then follow the directions [here](https://jmledford3115.github.io/datascibiol/setup.html). Otherwise, we will stick to using **GitHub**.
+
+## Create a GitHub account
 Since we will use GitHub as a repository for all assignments, we need to make an account for each student and build a new project through RStudio. Navigate to www.github.com and create a free account. [Email](mailto:jmledford@ucdavis.edu) your username to me. You will receive an email to join the repository for our course.  
 
 I have made a repository for our class titled: [FRS417-DataScienceBiologists](https://github.com/FRS417-DataScienceBiologists). Once you have accepted the invitation to join the repository, you should be able to login to GitHub and see this organization or click on the link above. You should see a directory associated with your login name. This where you will upload all of your work during the quarter.  
@@ -81,8 +86,9 @@ In RStudio, open a new markdown document: **File>New File>R Markdown**
 There is some generic information at the start of the file that we don't need. Delete lines 12 through 31 to clean things up.  
 
 In this file insert a new R code chunk by clicking on the green `insert` tab and selecting R.  
-+ The mac shortcut is option + command + i  
-+ The PC shortcut is Ctrl + Alt + i.  
+
+- The mac shortcut is option + command + i  
+- The PC shortcut is Ctrl + Alt + i.  
 
 ### Install the tidyverse
 One strength of R is that there are thousands of add-on packages that perform specialized functions. The packages are referred to as libraries.  

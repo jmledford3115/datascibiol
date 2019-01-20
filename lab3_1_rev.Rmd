@@ -12,14 +12,14 @@ output:
 ---
 
 ## Review
-In the last section you were introduced to the `tidyverse` and the core function `filter()`. Filter allows us to separate specific variables of interest from large, complex data. `filter()` works by looking through rows, but what about columns? Recall that each column is a vector, so we need the new function `select()` to separate columns of interest. As you may expect, we can use `filter()` and `select()` together to build dataframes focused on our variables of interest.
+In the last section you were introduced to the **tidyverse** and the function `filter()`. `filter()` works by looking through rows, but what about columns? Recall that each column is a vector, so we need the new function `select()` to separate columns of interest. As you may expect, we can use `filter()` and `select()` together to build data frames focused on our variables of interest.
 
 ## Resources
 - [R for Data Science](https://r4ds.had.co.nz/)
 
 ## Learning Goal
 *At the end of this exercise, you will be able to:*    
-1. Use the functions of dplyr (filter, select, arrange) to organize and sort data frames. 
+1. Use the `filter()`, `select()`, and `arrange()` functions of dplyr to organize and sort data frames. 
 
 ## Libraries
 ```{r message=FALSE, warning=FALSE}
@@ -27,25 +27,25 @@ library("tidyverse")
 ```
 
 ## Load the fish scale data
-Here we open a .csv file with data on fish scales. Since we are using the tidyverse, we open the file using read_csv. 
+Here we load a .csv file with data on fish scales. We open the file using `read_csv()`. 
 ```{r message=FALSE, warning=FALSE}
 fish <- readr::read_csv("data/Gaeta_etal_CLC_data.csv")
 ```
 
 ## Dplyr: select()
-Select allows you to build a new data frame by selecting your variable(s) of interest. Our fish data only has six variables, but this should give you some ideas especially when you have a large data frames with lots of variables.  
+Select allows you to build a new data frame by selecting your columns (variables) of interest. Our fish data only has six columns, but this should give you some ideas especially when you have large data frames with lots of columns.  
 
 We are only interested in lakeid and scalelength.
 ```{r}
 select(fish, lakeid, scalelength)
 ```
 
-The - operator is useful in select. It allows us to select everything except the specified variables.
+The `-` operator is useful in select. It allows us to select everything except the specified variables.
 ```{r}
 select(fish, -fish_id, -annnumber, -length, -radii_length_mm)
 ```
 
-For very large data frames with lots of variables, `select()` utilizes lots of different operators to make things easier. Let's say we are only interested in the variables that deal with length.
+For very large data frames with lots of variables, `select()` uses many different operators to make things easier. Let's say we are only interested in the variables that deal with length.
 ```{r}
 select(fish, contains("length"))
 ```
@@ -67,7 +67,9 @@ Some additional options to select columns based on a specific criteria include:
 Absolutely. This is one of the strengths of the tidyverse, it uses the same grammar to specify commands.
 ```{r}
 fish2 <- select(fish, lakeid, scalelength)
+```
 
+```{r}
 filter(fish2, lakeid=="AL")
 ```
 
@@ -84,10 +86,10 @@ fish%>%
 
 
 ## Dplyr: arrange()
-The `arrange()` command is a bit like a sort command in excel.
+The `arrange()` command allows us to sort values in a column.
 ```{r}
 fish %>% 
-  arrange(scalelength)
+  arrange(desc(scalelength))
 ```
 
 It can be very helpful in combination with the other functions.
@@ -97,6 +99,10 @@ fish %>%
   filter(lakeid=="AL") %>% 
   arrange(fish_id)
 ```
+
+## Practice
+1. Build a dataframe focused on the scalelengths of `fish_id` 300 and 301. Use `arrange()` to sort from smallest to largest scalelength. Use pipes!
+
 
 ## Wrap-up
 Please review the learning goals and be sure to use the code here as a reference when completing the homework.
