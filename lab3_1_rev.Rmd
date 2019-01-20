@@ -17,11 +17,11 @@ In the last section you were introduced to the `tidyverse` and the core function
 ## Resources
 - [R for Data Science](https://r4ds.had.co.nz/)
 
-## Learning Goals
+## Learning Goal
 *At the end of this exercise, you will be able to:*    
 1. Use the functions of dplyr (filter, select, arrange) to organize and sort data frames. 
 
-## Load the tidyverse
+## Libraries
 ```{r message=FALSE, warning=FALSE}
 library("tidyverse")
 ```
