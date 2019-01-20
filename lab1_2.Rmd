@@ -17,11 +17,6 @@ This shows your current version of R along with details of your operating system
 R.Version()
 ```
 
-This provides an overview of the session.
-```{r}
-sessionInfo()
-```
-
 ## Essential Information about R
 R is an open source, **scripting** language. RStudio is a GUI (graphical user interface) that is frequently used to interact with R. You need R installed in order for RStudio to work.
 
@@ -57,11 +52,6 @@ You can use R as a calculator; just type the operation into the console. Order o
 (4*12)/2
 ```
 
-Depending on your needs, R understands other functions such as sin, cos, tan, etc.
-```{r}
-cos(30)
-```
-
 Statistics are what R was originally written for, so it will pretty much do anything you need and there are thousands of packages for specialized statistics depending on your needs.
 ```{r}
 mean(4, 6, 8, 5, 6, 7, 7, 7)
@@ -85,12 +75,11 @@ Once an object has been created, you can do things with them.
 ```{r}
 treatment<-36
 control<-38
+```
 
+```{r}
 my_experiment<-treatment+control
-
 my_experiment
-
-my_experiment*2
 ```
 
 ## Nomenclature
@@ -102,8 +91,17 @@ else<-12
 
 We get an error here because `else` is a function in R. You also don't want to give names that might get confused with functions; i.e. you can assign a value to 'mean' but this could get confusing because mean is primarily used as a function. Also, because of the way R was originally written you should not use periods in your objects; i.e. my.experiment. Instead, use underscores or no spaces at all.  
 
+## Practice
+1. Create three new objects, `venom_GT`, `chiron`, and `veyron`. These are the fastest cars in the world. Assign each car to its top speed. The venom_GT can go 270, chiron is 261, and veyron is 268.
 ```{r}
-my_experiment
+venom_GT <- 270
+chiron <- 261
+veyron <- 268
+```
+
+2. Use arithmetic functions to calculate the mean top speed for the cars.
+```{r}
+(270+261+268)/3
 ```
 
 ## Types of Data
@@ -119,10 +117,6 @@ my_complex <- 2+4i
 To find out what type of data you are working with, use the class function. This is important because sometimes we will need to change the type of data to perform certain analyses.
 ```{r}
 class(my_numeric)
-class(my_integer)
-class(my_character)
-class(my_logical)
-class(my_complex)
 ```
 
 You can use the `is` and `as` functions to clarify or specify a type of data.
@@ -157,6 +151,7 @@ my_vector_string2 <- seq(1, 4, by=0.25) #seq allows you more control
 my_vector_string2
 ```
 
+## Vectors can be characters
 Another vector of famous scientists.
 ```{r}
 scientists <- c("Einstein", "physicist", "Male", "Darwin", "biologist", "Male", "Faraday", "physicist", "Male", "Curie", "chemist", "Female")
@@ -178,35 +173,41 @@ scientists_sex
 ```
 
 ## Practice
-Let's create a new numeric vector.
+Work through these examples and make adjustments to the values to experiment.
+
+1. Create a new numeric vector of values 1 through 100
 ```{r}
 new_vector <- 1:100
-new_vector[new_vector == 15] #we can ask to select only the value 15
 ```
 
-We can evaluate all numerics in our vector to determine which has a value of 15. Try some other values to experiment.
+2. We can ask to select only the value 15
+```{r}
+new_vector[new_vector == 15] 
+```
+
+3. We can evaluate all numerics in our vector to determine which has a value of 15.
 ```{r}
 new_vector == 15
 ```
 
-Now we are getting somewhere, because we can also use <, >, ==, <==, etc. Try another function to experiment.
+4. We can also use <, >, ==, <==, etc.
 ```{r}
 new_vector < 10
 ```
 
-Using the `&` symbol allows us to refine our elements of interest.
+5. If you use `[]` then you only get the values, not the logical evaluation of the entire vector.
 ```{r}
-new_vector < 10 & new_vector > 2
+new_vector[new_vector <=10]
 ```
 
-If you use `[]` then you only get the values, not the logical evaluation of the entire vector.
+6. Using the `&` symbol allows us to refine our elements of interest.
 ```{r}
-new_vector[new_vector < 10 & new_vector > 2]
+new_vector[new_vector <= 10 & new_vector >= 1]
 ```
 
-There is a distinction between the `&` symbol and the `|` symbol.
+7. There is a distinction between the `&` symbol and the `|` symbol.
 ```{r}
-new_vector[new_vector <= 10 | new_vector >= 90]
+new_vector[new_vector <= 10 | new_vector == 1]
 ```
 
 ## Wrap-up

@@ -335,26 +335,6 @@ div.tocify {
 ## 
 ## $nickname
 ## [1] &quot;Feather Spray&quot;</code></pre>
-<p>This provides an overview of the session.</p>
-<pre class="r"><code>sessionInfo()</code></pre>
-<pre><code>## R version 3.5.1 (2018-07-02)
-## Platform: x86_64-apple-darwin15.6.0 (64-bit)
-## Running under: macOS  10.14.2
-## 
-## Matrix products: default
-## BLAS: /Library/Frameworks/R.framework/Versions/3.5/Resources/lib/libRblas.0.dylib
-## LAPACK: /Library/Frameworks/R.framework/Versions/3.5/Resources/lib/libRlapack.dylib
-## 
-## locale:
-## [1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
-## 
-## attached base packages:
-## [1] stats     graphics  grDevices utils     datasets  methods   base     
-## 
-## loaded via a namespace (and not attached):
-##  [1] compiler_3.5.1  magrittr_1.5    tools_3.5.1     htmltools_0.3.6
-##  [5] yaml_2.2.0      Rcpp_1.0.0      stringi_1.2.4   rmarkdown_1.11 
-##  [9] knitr_1.20      stringr_1.3.1   digest_0.6.18   evaluate_0.12</code></pre>
 </div>
 <div id="essential-information-about-r" class="section level2">
 <h2>Essential Information about R</h2>
@@ -387,9 +367,6 @@ div.tocify {
 <pre><code>## [1] 48</code></pre>
 <pre class="r"><code>(4*12)/2</code></pre>
 <pre><code>## [1] 24</code></pre>
-<p>Depending on your needs, R understands other functions such as sin, cos, tan, etc.</p>
-<pre class="r"><code>cos(30)</code></pre>
-<pre><code>## [1] 0.1542514</code></pre>
 <p>Statistics are what R was originally written for, so it will pretty much do anything you need and there are thousands of packages for specialized statistics depending on your needs.</p>
 <pre class="r"><code>mean(4, 6, 8, 5, 6, 7, 7, 7)</code></pre>
 <pre><code>## [1] 4</code></pre>
@@ -406,22 +383,30 @@ div.tocify {
 <pre><code>## [1] 42</code></pre>
 <p>Once an object has been created, you can do things with them.</p>
 <pre class="r"><code>treatment&lt;-36
-control&lt;-38
-
-my_experiment&lt;-treatment+control
-
+control&lt;-38</code></pre>
+<pre class="r"><code>my_experiment&lt;-treatment+control
 my_experiment</code></pre>
 <pre><code>## [1] 74</code></pre>
-<pre class="r"><code>my_experiment*2</code></pre>
-<pre><code>## [1] 148</code></pre>
 </div>
 <div id="nomenclature" class="section level2">
 <h2>Nomenclature</h2>
 <p>We need to be careful about our nomenclature when we write code. R allows us to give almost any name we want to an object, but there are exceptions. For example, we don’t want to give a name to an object that is the same as a function in R.</p>
 <pre class="r"><code>else&lt;-12</code></pre>
 <p>We get an error here because <code>else</code> is a function in R. You also don’t want to give names that might get confused with functions; i.e. you can assign a value to ‘mean’ but this could get confusing because mean is primarily used as a function. Also, because of the way R was originally written you should not use periods in your objects; i.e. my.experiment. Instead, use underscores or no spaces at all.</p>
-<pre class="r"><code>my_experiment</code></pre>
-<pre><code>## [1] 74</code></pre>
+</div>
+<div id="practice" class="section level2">
+<h2>Practice</h2>
+<ol style="list-style-type: decimal">
+<li>Create three new objects, <code>venom_GT</code>, <code>chiron</code>, and <code>veyron</code>. These are the fastest cars in the world. Assign each car to its top speed. The venom_GT can go 270, chiron is 261, and veyron is 268.</li>
+</ol>
+<pre class="r"><code>venom_GT &lt;- 270
+chiron &lt;- 261
+veyron &lt;- 268</code></pre>
+<ol start="2" style="list-style-type: decimal">
+<li>Use arithmetic functions to calculate the mean top speed for the cars.</li>
+</ol>
+<pre class="r"><code>(270+261+268)/3</code></pre>
+<pre><code>## [1] 266.3333</code></pre>
 </div>
 <div id="types-of-data" class="section level2">
 <h2>Types of Data</h2>
@@ -434,14 +419,6 @@ my_complex &lt;- 2+4i</code></pre>
 <p>To find out what type of data you are working with, use the class function. This is important because sometimes we will need to change the type of data to perform certain analyses.</p>
 <pre class="r"><code>class(my_numeric)</code></pre>
 <pre><code>## [1] &quot;numeric&quot;</code></pre>
-<pre class="r"><code>class(my_integer)</code></pre>
-<pre><code>## [1] &quot;integer&quot;</code></pre>
-<pre class="r"><code>class(my_character)</code></pre>
-<pre><code>## [1] &quot;character&quot;</code></pre>
-<pre class="r"><code>class(my_logical)</code></pre>
-<pre><code>## [1] &quot;logical&quot;</code></pre>
-<pre class="r"><code>class(my_complex)</code></pre>
-<pre><code>## [1] &quot;complex&quot;</code></pre>
 <p>You can use the <code>is</code> and <code>as</code> functions to clarify or specify a type of data.</p>
 <pre class="r"><code>is.integer(my_numeric) #is my_numeric an integer?</code></pre>
 <pre><code>## [1] FALSE</code></pre>
@@ -466,6 +443,9 @@ is.integer(my_integer) #is my_numeric an integer?</code></pre>
 my_vector_string2 &lt;- seq(1, 4, by=0.25) #seq allows you more control
 my_vector_string2</code></pre>
 <pre><code>##  [1] 1.00 1.25 1.50 1.75 2.00 2.25 2.50 2.75 3.00 3.25 3.50 3.75 4.00</code></pre>
+</div>
+<div id="vectors-can-be-characters" class="section level2">
+<h2>Vectors can be characters</h2>
 <p>Another vector of famous scientists.</p>
 <pre class="r"><code>scientists &lt;- c(&quot;Einstein&quot;, &quot;physicist&quot;, &quot;Male&quot;, &quot;Darwin&quot;, &quot;biologist&quot;, &quot;Male&quot;, &quot;Faraday&quot;, &quot;physicist&quot;, &quot;Male&quot;, &quot;Curie&quot;, &quot;chemist&quot;, &quot;Female&quot;)
 scientists</code></pre>
@@ -491,13 +471,21 @@ scientists_sex</code></pre>
 <pre><code>##      Sex      Sex      Sex      Sex 
 ##   &quot;Male&quot;   &quot;Male&quot;   &quot;Male&quot; &quot;Female&quot;</code></pre>
 </div>
-<div id="practice" class="section level2">
+<div id="practice-1" class="section level2">
 <h2>Practice</h2>
-<p>Let’s create a new numeric vector.</p>
-<pre class="r"><code>new_vector &lt;- 1:100
-new_vector[new_vector == 15] #we can ask to select only the value 15</code></pre>
+<p>Work through these examples and make adjustments to the values to experiment.</p>
+<ol style="list-style-type: decimal">
+<li>Create a new numeric vector of values 1 through 100</li>
+</ol>
+<pre class="r"><code>new_vector &lt;- 1:100</code></pre>
+<ol start="2" style="list-style-type: decimal">
+<li>We can ask to select only the value 15</li>
+</ol>
+<pre class="r"><code>new_vector[new_vector == 15] </code></pre>
 <pre><code>## [1] 15</code></pre>
-<p>We can evaluate all numerics in our vector to determine which has a value of 15. Try some other values to experiment.</p>
+<ol start="3" style="list-style-type: decimal">
+<li>We can evaluate all numerics in our vector to determine which has a value of 15.</li>
+</ol>
 <pre class="r"><code>new_vector == 15</code></pre>
 <pre><code>##   [1] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
 ##  [12] FALSE FALSE FALSE  TRUE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
@@ -509,7 +497,9 @@ new_vector[new_vector == 15] #we can ask to select only the value 15</code></pre
 ##  [78] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
 ##  [89] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
 ## [100] FALSE</code></pre>
-<p>Now we are getting somewhere, because we can also use &lt;, &gt;, ==, &lt;==, etc. Try another function to experiment.</p>
+<ol start="4" style="list-style-type: decimal">
+<li>We can also use &lt;, &gt;, ==, &lt;==, etc.</li>
+</ol>
 <pre class="r"><code>new_vector &lt; 10</code></pre>
 <pre><code>##   [1]  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE FALSE FALSE
 ##  [12] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
@@ -521,25 +511,21 @@ new_vector[new_vector == 15] #we can ask to select only the value 15</code></pre
 ##  [78] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
 ##  [89] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
 ## [100] FALSE</code></pre>
-<p>Using the <code>&amp;</code> symbol allows us to refine our elements of interest.</p>
-<pre class="r"><code>new_vector &lt; 10 &amp; new_vector &gt; 2</code></pre>
-<pre><code>##   [1] FALSE FALSE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE FALSE FALSE
-##  [12] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
-##  [23] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
-##  [34] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
-##  [45] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
-##  [56] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
-##  [67] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
-##  [78] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
-##  [89] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
-## [100] FALSE</code></pre>
-<p>If you use <code>[]</code> then you only get the values, not the logical evaluation of the entire vector.</p>
-<pre class="r"><code>new_vector[new_vector &lt; 10 &amp; new_vector &gt; 2]</code></pre>
-<pre><code>## [1] 3 4 5 6 7 8 9</code></pre>
-<p>There is a distinction between the <code>&amp;</code> symbol and the <code>|</code> symbol.</p>
-<pre class="r"><code>new_vector[new_vector &lt;= 10 | new_vector &gt;= 90]</code></pre>
-<pre><code>##  [1]   1   2   3   4   5   6   7   8   9  10  90  91  92  93  94  95  96
-## [18]  97  98  99 100</code></pre>
+<ol start="5" style="list-style-type: decimal">
+<li>If you use <code>[]</code> then you only get the values, not the logical evaluation of the entire vector.</li>
+</ol>
+<pre class="r"><code>new_vector[new_vector &lt;=10]</code></pre>
+<pre><code>##  [1]  1  2  3  4  5  6  7  8  9 10</code></pre>
+<ol start="6" style="list-style-type: decimal">
+<li>Using the <code>&amp;</code> symbol allows us to refine our elements of interest.</li>
+</ol>
+<pre class="r"><code>new_vector[new_vector &lt;= 10 &amp; new_vector &gt;= 1]</code></pre>
+<pre><code>##  [1]  1  2  3  4  5  6  7  8  9 10</code></pre>
+<ol start="7" style="list-style-type: decimal">
+<li>There is a distinction between the <code>&amp;</code> symbol and the <code>|</code> symbol.</li>
+</ol>
+<pre class="r"><code>new_vector[new_vector &lt;= 10 | new_vector == 1]</code></pre>
+<pre><code>##  [1]  1  2  3  4  5  6  7  8  9 10</code></pre>
 </div>
 <div id="wrap-up" class="section level2">
 <h2>Wrap-up</h2>
