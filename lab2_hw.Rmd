@@ -18,6 +18,10 @@ library("tidyverse")
 
 ## Mammals Sleep
 For this assignment, we are going to use built-in data on mammal sleep patterns.  
+```{r}
+msleep
+```
+
 
 1. From which publication are these data taken from? Don't do an internet search; show the code that you would use to find out in R.
 
@@ -31,29 +35,22 @@ For this assignment, we are going to use built-in data on mammal sleep patterns.
 
 
 
-4. We are interested in two groups; small and large mammals. Let's define small as less than or equal to 1kg body weight and large as greater than or equal to 200kg body weight. For our study, we are interested in body weight and sleep total Make two new objects (large and small) based on these parameters. Sort the data in descending order by body weight.
+4. We are interested in two groups; small and large mammals. Let's define small as less than or equal to 1kg body weight and large as greater than or equal to 200kg body weight. For our study, we are interested in body weight and sleep total Make two new dataframes (large and small) based on these parameters. Sort the data in descending order by body weight.
 
 
 
 
 
 5. Let's try to figure out if large mammals sleep, on average, longer than small mammals. What is the average sleep duration for large mammals as we have defined them?
-
-
+```{r}
+#mean(large$sleep_total)
+```
 
 6. What is the average sleep duration for small mammals as we have defined them?
 
 
 
-7. Make two new variables in the msleep data frame: 1. the proportion of rem sleep, and 2. body weight in grams.
-
-
-
-8. What are the top five mammals with the greatest proportion of rem sleep? Include their body weights for comparison.
-
-
-
-9. Which animals sleep at least 18 hours per day? Be sure to show the name, genus, order, and sleep total. Sort by order and sleep total.
+7. Which animals sleep at least 18 hours per day? Be sure to show the name, genus, order, and sleep total. Sort by order and sleep total.
 
 
 
