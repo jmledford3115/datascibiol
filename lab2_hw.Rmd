@@ -30,11 +30,11 @@ msleep
 
 
 
-3. Make a new data frame focused on body weight, but be sure to indicate the common name and genus of each mammal. Sort the data in descending order by body weight.
+3. Make a new data frame focused on body weight, but be sure to indicate the common name and genus of each mammal.  
 
 
 
-4. We are interested in two groups; small and large mammals. Let's define small as less than or equal to 1kg body weight and large as greater than or equal to 200kg body weight. For our study, we are interested in body weight and sleep total Make two new dataframes (large and small) based on these parameters. Sort the data in descending order by body weight.
+4. We are interested in two groups; small and large mammals. Let's define small as less than or equal to 1kg body weight and large as greater than or equal to 200kg body weight. For our study, we are interested in body weight and sleep total Make two new dataframes (large and small) based on these parameters.  
 
 
 
@@ -49,7 +49,7 @@ msleep
 
 
 
-7. Which animals sleep at least 18 hours per day? Be sure to show the name, genus, order, and sleep total. Sort by order and sleep total.
+7. Which animals sleep at least 18 hours per day? Be sure to show the name, genus, order, and sleep total.  
 
 
 
