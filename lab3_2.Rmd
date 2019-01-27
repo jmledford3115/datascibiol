@@ -76,31 +76,23 @@ plot(non_tidy1)
 ```
 R cannot make sense of these data; the plot is nonsense. Even though I gave no specific plotting instructions, R should be able to produce something intelligible or ask you to identify axes.  
 
-*If you can't figure out if your data are tidy or not, you might try the plot function to see what R is "thinking".*  
-
 ## Why are data untidy? 
-Scientists frequently use excel spreadsheets that are organized to make data entry efficient. I don't think there is anything wrong with this approach, and we can easily make adjustments in R.  But, if you know that you are going to use R for analysis you might plan the spreadsheet to minimize post-processing and prevent problems.  
+Scientists frequently use excel spreadsheets that are organized to make data entry efficient. This is typically referred to as **wide format**. From an R perspective, this creates problems because R fundamentally works with vectors. If you have a column of mixed classes or values that correspond to more than a single variable then many of the important R functions will not work.  
 
-By far, the most common problem is to have column names actually represent variables.  Another way of thinking about this is that R doesn't like data in "wide" format. Our example [non_tidy1] example is wide and in order to make it tidy it needs to be transformed to "long".
+By far, the most common problem is to have **column names actually represent values of a variable**. Our `non_tidy1` example has columns a, b, c, and d that actually represent different drug trials.  
 
 ## gather()
-gather() is the function used most when dealing with non-tidy data. It allows us to transform wide data into long data.
-```{r echo=FALSE}
-non_tidy1 <- data.frame(
-  patient= c("Margaret", "Frank", "Hawkeye", "Trapper", "Radar", "Henry"),
-  a= c(72, 84, 64, 60, 74, 88),
-  b= c(74, 84, 66, 58, 72, 87),
-  c= c(80, 88, 68, 64, 78, 88),
-  d= c(68, 76, 64, 58, 70, 72)
-)
+gather() is the function used most when dealing with non-tidy data. It allows us to transform wide data into long data.  
+```{r}
 non_tidy1
 ```
+
 The syntax to gather() is a bit strange. From the [Tidyr, R for Data Science](https://r4ds.had.co.nz/tidy-data.html#unite) text, you need to know three things in order to use the function:  
 
 (1) The set of columns that represent values, not variables.  
-*In our case, these are the different drug treatments a, b, c, d.*
+*In our case, these are the different drug treatment columns a, b, c, d.*
 (2) The name of the variable whose values form the column names.  
-*This is called the key, and in our data this is the drug.*
+*This is called the key, and in our data this is the drug. What is the new column name?*
 (3) The name of the variable whose values are spread over the cells.  
 *This is called the value, and in our case is the heart rate.*
 
@@ -109,6 +101,7 @@ tidy1 <- non_tidy1 %>%
   gather(a, b, c, d, key="drug", value="heartrate")
 tidy1
 ```
+
 Now, we can reverify by doing our tidy check.  
 
 (1) each variable has its own column  
@@ -123,8 +116,22 @@ And, as a final check let's try the plot command again. I do need to tell R the 
 plot(tidy1$patient, tidy1$heartrate)
 ```
 
+## Practice
+The data below track tuberculosis infection rates by year and country.
+```{r}
+country <- c("Afghanistan", "Brazil", "China")
+`1999` <- c(745, 37737, 212258)
+`2000` <- c(2666, 80488, 213766)
+tb_data <- data.frame(country=country, `1999`=`1999`, `2000`=`2000`)
+tb_data
+```
+
+1. Are these data tidy? Why not? Identify the specific problem(s).
+
+2. Use gather() to tidy the data.
+
 ## separate()
-In our next example, I have added the sex of each patient to the data matrix. Is this data tidy? No, there is more than one value per cell in the patient column and all of the previous conditions remain violated. We need to start by separating these values.
+In our next example, we have  the sex of each patient included with their name. Are these data tidy? No, there is more than one value per cell in the patient column and the columns a, b, c, d once again represent values.
 ```{r}
 non_tidy2 <- data.frame(
   patient= c("Margaret_f", "Frank_m", "Hawkeye_m", "Trapper_m", "Radar_m", "Henry_m"),
@@ -135,7 +142,7 @@ non_tidy2 <- data.frame(
 )
 ```
 
-`separate()` needs to know which column you want to split, the names of the new columns, and what to look for in terms of breaks in the data.
+We need to start by separating the patient names from their sexes. `separate()` needs to know which column you want to split, the names of the new columns, and what to look for in terms of breaks in the data.
 ```{r}
 non_tidy2 %>% 
   separate(patient, into= c("patient", "sex"), sep = "_")
@@ -149,35 +156,12 @@ tidy2 <- non_tidy2 %>%
 tidy2
 ```
 
-## spread()
-The opposite of `gather()`. Essentially, you are making your long data wide. I only use `spread()` when I want to put data back into the format in which it was originally placed. I rarely use spread, but it can be convenient to repackage data.
-```{r}
-tidy2 %>% 
-  spread(key="drug", value="heartrate")
-```
-
 ## unite()
-The last function is `unite()`. This is the opposite of separate(). It's syntax is relatively straightforward. You only need to identify the key and the value.
+`unite()` is the opposite of separate(). It's syntax is relatively straightforward. You only need to identify the key and the value.
 ```{r}
 tidy2 %>% 
   spread(key="drug", value="heartrate") %>% 
   unite(patient_sex, patient, sex, sep="_")
-```
-
-## Rename
-The rename function is actually part of *dplyr*, but I put it here because I think of it as part of transforming untidy data.
-```{r}
-tidy2
-```
-
-Let's say I don't like the names of the columns. They can be renamed, just remember to replace or build a new object to keep things clean. (syntax is *new name* = *old name*)
-```{r}
-tidy2 %>% 
-  dplyr::rename(
-    MASH_character = patient,
-    Sex = sex,
-    Drug = drug,
-    Heartrate_bpm = heartrate)
 ```
 
 ## Practice
@@ -193,30 +177,11 @@ faces
 ```
 
 1. Are these data tidy? Why or why not?  
-*No, this dataset is not tidy.*  
 
-- each variable has its own column  
-*No, some columns contain more than one variable.*  
-- each observation has its own row  
-*No, there are three observations per row.*  
-- each value has its own cell  
-*No, some cells appear to have two values.*  
-
-2. Use `gather()` and `separate()` to tidy the data.
-```{r}
-faces_tidy <- faces %>% 
-  gather(Face_1, Face_2, Face_3, key="Face_style", value="milliseconds") %>% 
-  separate(ParticipantID_sex, c("participant_ID", "sex"), sep="_")
-```
-
-3. Use `spread()` and `unite()` to transform the data into wide format.
-```{r}
-faces_tidy %>% 
-  spread(key="Face_style", value="milliseconds") %>% 
-  unite(ParticipantID_sex, participant_ID, sex, sep= "_")
-```
+2. Tidy the data and place them into a new dataframe.
 
 ## Wrap-up
 Please review the learning goals and be sure to use the code here as a reference when completing the homework.
 
 See you next time!
+

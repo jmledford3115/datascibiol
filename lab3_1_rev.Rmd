@@ -118,7 +118,6 @@ fish %>%
 names(fish)
 ```
 
-
 ## Practice
 1. Add a new column to the fish data that is radii_length_mm divided by scalelength. Add another column that scales this number to a percentage.
 

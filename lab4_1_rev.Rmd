@@ -1,0 +1,64 @@
+---
+title: "Lab 4_1_rev"
+author: "Joel Ledford"
+date: "Winter 2019"
+output:
+  html_document:
+    theme: spacelab
+    toc: yes
+    toc_float: yes
+  pdf_document:
+    toc: yes
+---
+
+## spread()
+The opposite of `gather()`. Essentially, you are making your long data wide. You use `spread()` when you have an observation scattered across multiple rows.
+```{r}
+tidy2 %>% 
+  spread(key="drug", value="heartrate")
+```
+
+## Rename
+The rename function is actually part of *dplyr*, but I put it here because I think of it as part of transforming untidy data.
+```{r}
+tidy2
+```
+
+Let's say I don't like the names of the columns. They can be renamed, just remember to replace or build a new object to keep things clean. (syntax is *new name* = *old name*)
+```{r}
+tidy2 %>% 
+  dplyr::rename(
+    MASH_character = patient,
+    Sex = sex,
+    Drug = drug,
+    Heartrate_bpm = heartrate)
+```
+
+```{r}
+country <- c("Afghanistan", "Afghanistan", "Brazil", "Brazil", "China", "China")
+year <-  c(1999, 2000, 1999, 2000, 1999, 2000)
+rate <- c("745/19987071", "2666/20595360", "37737/172006362", "80488/174504898", "212258/1272915272", "213766/1280428583")
+tb_data <- data.frame(country=country, year=year, rate=rate)
+tb_data
+```
+
+```{r}
+tb_data %>% 
+  separate(rate, into = c("cases", "population"))
+```
+
+
+```{r}
+country <- c("Afghanistan", "Afghanistan", "Afghanistan", "Afghanistan", "Brazil", "Brazil", "Brazil", "Brazil", "China", "China", "China", "China")
+year <- c("1999", "1999", "2000", "2000", "1999", "1999", "2000", "2000", "1999", "1999", "2000", "2000")
+key <- c("cases", "population", "cases", "population", "cases", "population", "cases", "population", "cases", "population", "cases", "population")
+value <- c(745, 19987071, 2666, 20595360, 37737, 172006362, 80488, 174504898, 212258, 1272915272, 213766, 1280428583)
+
+tb_data <- data.frame(country=country, year=year, key=key, value=value)
+tb_data
+```
+
+```{r}
+tb_data %>% 
+  spread(key=key, value=value)
+```
