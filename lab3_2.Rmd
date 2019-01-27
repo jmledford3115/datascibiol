@@ -1,5 +1,5 @@
 ---
-title: "Lab 3: Working with Data, Part 4"
+title: "Tidy data"
 author: "Joel Ledford"
 date: "Winter 2019"
 output:
@@ -148,7 +148,7 @@ non_tidy2 %>%
   separate(patient, into= c("patient", "sex"), sep = "_")
 ```
 
-This is great; we have separated sex from patient. Are the data tidy? Not yet. We still need to run `gather()`.
+This is great; we have separated sex from patient. Are the data tidy? Not yet. We still need to use `gather()`.
 ```{r}
 tidy2 <- non_tidy2 %>% 
   separate(patient, into= c("patient", "sex"), sep = "_") %>% 
