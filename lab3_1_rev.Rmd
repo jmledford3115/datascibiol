@@ -17,9 +17,10 @@ In the last section you were introduced to the **tidyverse** and the function `f
 ## Resources
 - [R for Data Science](https://r4ds.had.co.nz/)
 
-## Learning Goal
+## Learning Goals
 *At the end of this exercise, you will be able to:*    
-1. Use the `filter()`, `select()`, and `arrange()` functions of dplyr to organize and sort data frames. 
+1. Use the `filter()`, `select()`, and `arrange()` functions of dplyr to organize and sort data frames.  
+2. Combine dplyr functions to organize and sort data frames using pipes.  
 
 ## Libraries
 ```{r message=FALSE, warning=FALSE}
