@@ -164,6 +164,22 @@ tidy2 %>%
   unite(patient_sex, patient, sex, sep="_")
 ```
 
+## rename()
+The rename function is actually part of *dplyr*, but I put it here because I think of it as part of transforming untidy data.
+```{r}
+tidy2
+```
+
+Let's say I don't like the names of the columns. They can be renamed, just remember to replace or build a new object to keep things clean. (syntax is *new name* = *old name*)
+```{r}
+tidy2 %>% 
+  dplyr::rename(
+    MASH_character = patient,
+    Sex = sex,
+    Drug = drug,
+    Heartrate_bpm = heartrate)
+```
+
 ## Practice
 In this example study, ten participants were asked to categorize three face styles by clicking various buttons that represent three different categories (face 1, face 2, face 3). The time it took to click a button is in milliseconds.
 ```{r}
@@ -179,6 +195,8 @@ faces
 1. Are these data tidy? Why or why not?  
 
 2. Tidy the data and place them into a new dataframe.
+
+3. Use `rename()` to rename a few columns for practice.
 
 ## Wrap-up
 Please review the learning goals and be sure to use the code here as a reference when completing the homework.

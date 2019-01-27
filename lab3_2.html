@@ -515,6 +515,68 @@ tidy2</code></pre>
 ## 5     Radar_m 74 72 78 70
 ## 6   Trapper_m 60 58 64 58</code></pre>
 </div>
+<div id="rename" class="section level2">
+<h2>rename()</h2>
+<p>The rename function is actually part of <em>dplyr</em>, but I put it here because I think of it as part of transforming untidy data.</p>
+<pre class="r"><code>tidy2</code></pre>
+<pre><code>##     patient sex drug heartrate
+## 1  Margaret   f    a        72
+## 2     Frank   m    a        84
+## 3   Hawkeye   m    a        64
+## 4   Trapper   m    a        60
+## 5     Radar   m    a        74
+## 6     Henry   m    a        88
+## 7  Margaret   f    b        74
+## 8     Frank   m    b        84
+## 9   Hawkeye   m    b        66
+## 10  Trapper   m    b        58
+## 11    Radar   m    b        72
+## 12    Henry   m    b        87
+## 13 Margaret   f    c        80
+## 14    Frank   m    c        88
+## 15  Hawkeye   m    c        68
+## 16  Trapper   m    c        64
+## 17    Radar   m    c        78
+## 18    Henry   m    c        88
+## 19 Margaret   f    d        68
+## 20    Frank   m    d        76
+## 21  Hawkeye   m    d        64
+## 22  Trapper   m    d        58
+## 23    Radar   m    d        70
+## 24    Henry   m    d        72</code></pre>
+<p>Let’s say I don’t like the names of the columns. They can be renamed, just remember to replace or build a new object to keep things clean. (syntax is <em>new name</em> = <em>old name</em>)</p>
+<pre class="r"><code>tidy2 %&gt;% 
+  dplyr::rename(
+    MASH_character = patient,
+    Sex = sex,
+    Drug = drug,
+    Heartrate_bpm = heartrate)</code></pre>
+<pre><code>##    MASH_character Sex Drug Heartrate_bpm
+## 1        Margaret   f    a            72
+## 2           Frank   m    a            84
+## 3         Hawkeye   m    a            64
+## 4         Trapper   m    a            60
+## 5           Radar   m    a            74
+## 6           Henry   m    a            88
+## 7        Margaret   f    b            74
+## 8           Frank   m    b            84
+## 9         Hawkeye   m    b            66
+## 10        Trapper   m    b            58
+## 11          Radar   m    b            72
+## 12          Henry   m    b            87
+## 13       Margaret   f    c            80
+## 14          Frank   m    c            88
+## 15        Hawkeye   m    c            68
+## 16        Trapper   m    c            64
+## 17          Radar   m    c            78
+## 18          Henry   m    c            88
+## 19       Margaret   f    d            68
+## 20          Frank   m    d            76
+## 21        Hawkeye   m    d            64
+## 22        Trapper   m    d            58
+## 23          Radar   m    d            70
+## 24          Henry   m    d            72</code></pre>
+</div>
 <div id="practice-1" class="section level2">
 <h2>Practice</h2>
 <p>In this example study, ten participants were asked to categorize three face styles by clicking various buttons that represent three different categories (face 1, face 2, face 3). The time it took to click a button is in milliseconds.</p>
@@ -539,6 +601,7 @@ faces</code></pre>
 <ol style="list-style-type: decimal">
 <li><p>Are these data tidy? Why or why not?</p></li>
 <li><p>Tidy the data and place them into a new dataframe.</p></li>
+<li><p>Use <code>rename()</code> to rename a few columns for practice.</p></li>
 </ol>
 </div>
 <div id="wrap-up" class="section level2">
