@@ -469,6 +469,38 @@ div.tocify {
 <li>Build a dataframe focused on the scalelengths of <code>fish_id</code> 300 and 301. Use <code>arrange()</code> to sort from smallest to largest scalelength. Use pipes!</li>
 </ol>
 </div>
+<div id="dplyr-mutate" class="section level2">
+<h2>Dplyr: mutate()</h2>
+<p><code>mutate()</code> is used to add new columns to a data frame. When you use mutate() the original data used are preserved. We will briefly practice <code>mutate()</code> here and come back to it in more detail later.</p>
+<pre class="r"><code>fish %&gt;% 
+  select(lakeid, length, fish_id, scalelength) %&gt;% 
+  filter(lakeid==&quot;AL&quot;) %&gt;% 
+  arrange(fish_id) %&gt;% 
+  mutate(scale_ratio=(length/scalelength))</code></pre>
+<pre><code>## # A tibble: 383 x 5
+##    lakeid length fish_id scalelength scale_ratio
+##    &lt;chr&gt;   &lt;int&gt;   &lt;int&gt;       &lt;dbl&gt;       &lt;dbl&gt;
+##  1 AL        167     299        2.70        61.9
+##  2 AL        167     299        2.70        61.9
+##  3 AL        167     299        2.70        61.9
+##  4 AL        175     300        3.02        58.0
+##  5 AL        175     300        3.02        58.0
+##  6 AL        175     300        3.02        58.0
+##  7 AL        175     300        3.02        58.0
+##  8 AL        194     301        3.34        58.0
+##  9 AL        194     301        3.34        58.0
+## 10 AL        194     301        3.34        58.0
+## # ... with 373 more rows</code></pre>
+<pre class="r"><code>names(fish)</code></pre>
+<pre><code>## [1] &quot;lakeid&quot;          &quot;fish_id&quot;         &quot;annnumber&quot;       &quot;length&quot;         
+## [5] &quot;radii_length_mm&quot; &quot;scalelength&quot;</code></pre>
+</div>
+<div id="practice-3" class="section level2">
+<h2>Practice</h2>
+<ol style="list-style-type: decimal">
+<li>Add a new column to the fish data that is radii_length_mm divided by scalelength. Add another column that scales this number to a percentage.</li>
+</ol>
+</div>
 <div id="wrap-up" class="section level2">
 <h2>Wrap-up</h2>
 <p>Please review the learning goals and be sure to use the code here as a reference when completing the homework.</p>

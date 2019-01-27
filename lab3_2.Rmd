@@ -29,12 +29,6 @@ The  quote sums above sums up much of the work in data science. Simply put, most
 2. Evaluate a dataset as tidy or untidy.  
 3. Use the functions of tidyr to transform messy data to tidy data.
 
-## Update check
-Let's make sure our software and packages are up-to-date. We should routinely make these checks. Here is a new way to make this check.
-```{r eval=FALSE, include=TRUE}
-devtools::session_info()
-```
-
 ## Load the library
 ```{r message=FALSE, warning=FALSE}
 library(tidyverse)
@@ -43,7 +37,7 @@ library(tidyverse)
 ## Tidy data
 Most data that you will encounter are organized incorrectly for work in R and, as you might expect, the tools used to transform data are a core part of the tidyverse. I will attempt to summarize the most important points below, but you should read chapter 12 of the data science text (https://r4ds.had.co.nz/tidy-data.html).  
 
-`Tidy` data in the sense of the tidyverse adheres to three conventions:   
+`Tidy` data in the sense of the tidyverse follows three conventions:   
 (1) each variable has its own column  
 (2) each observation has its own row  
 (3) each value has its own cell  

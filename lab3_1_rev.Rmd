@@ -103,6 +103,24 @@ fish %>%
 ## Practice
 1. Build a dataframe focused on the scalelengths of `fish_id` 300 and 301. Use `arrange()` to sort from smallest to largest scalelength. Use pipes!
 
+## Dplyr: mutate()
+`mutate()` is used to add new columns to a data frame. When you use mutate() the original data used are preserved. We will briefly practice `mutate()` here and come back to it in more detail later.  
+
+```{r}
+fish %>% 
+  select(lakeid, length, fish_id, scalelength) %>% 
+  filter(lakeid=="AL") %>% 
+  arrange(fish_id) %>% 
+  mutate(scale_ratio=(length/scalelength))
+```
+
+```{r}
+names(fish)
+```
+
+
+## Practice
+1. Add a new column to the fish data that is radii_length_mm divided by scalelength. Add another column that scales this number to a percentage.
 
 ## Wrap-up
 Please review the learning goals and be sure to use the code here as a reference when completing the homework.
