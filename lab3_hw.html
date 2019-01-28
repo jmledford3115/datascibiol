@@ -97,6 +97,9 @@ img {
 button.code-folding-btn:focus {
   outline: none;
 }
+summary {
+  display: list-item;
+}
 </style>
 
 
@@ -104,14 +107,74 @@ button.code-folding-btn:focus {
 <div class="container-fluid main-container">
 
 <!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
 <script>
 $(document).ready(function () {
   window.buildTabsets("TOC");
 });
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
 </script>
 
 <!-- code folding -->
-
 
 
 
@@ -134,10 +197,8 @@ $(document).ready(function () {
 </div>
 <div id="load-the-libraries" class="section level2">
 <h2>Load the libraries</h2>
-<pre class="r"><code>library(tidyverse)
-library(magrittr)
-library(skimr)</code></pre>
-<p>For this assignment we are going to work with a large dataset from the <a href="http://www.fao.org/about/en/">United Nations Food and Agriculture Organization</a> on world fisheries. The data are messy, so for this assignment I am going to provide some help. First, load the data. <strong>Read</strong> the error message.</p>
+<pre class="r"><code>library(tidyverse)</code></pre>
+<p>For this assignment we are going to work with a large dataset from the <a href="http://www.fao.org/about/en/">United Nations Food and Agriculture Organization</a> on world fisheries. The data are messy, so for this assignment I am going to provide some help. The code I use will likely be useful in the future so keep it handy. First, load the data. <strong>Read</strong> the error message.</p>
 <pre class="r"><code>fisheries &lt;- readr::read_csv(file = &quot;data/FAO_1950to2012_111914.csv&quot;) </code></pre>
 <pre><code>## Warning: Duplicated column names deduplicated: 'Species (ISSCAAP group)'
 ## =&gt; 'Species (ISSCAAP group)_1' [4], 'Species (ASFIS species)' =&gt; 'Species
@@ -151,10 +212,11 @@ library(skimr)</code></pre>
 ## )</code></pre>
 <pre><code>## See spec(...) for full column specifications.</code></pre>
 <ol style="list-style-type: decimal">
-<li><p>Reformat the data <code>as.tibble()</code> and show the column names. Do you see any potential problems with the column names? Does the error message now make more sense?</p></li>
+<li><p>Do you see any potential problems with the column names? Does the error message now make more sense?<br />
+<em>Column names are duplicated so R manipulated them to unique names</em></p></li>
 <li><p>The <code>make.names()</code> command is helpful when there are issues with column names. Notice that although the names are still cumbersome, much of the problemtatic syntax is removed.</p></li>
 </ol>
-<pre class="r"><code>names(fisheries) = make.names(names(fisheries), unique=T) #changes the vector names to intelligible by R
+<pre class="r"><code>names(fisheries) = make.names(names(fisheries), unique=T) #changes the column names
 names(fisheries)</code></pre>
 <pre><code>##  [1] &quot;Country..Country.&quot;                    
 ##  [2] &quot;Species..ASFIS.species.&quot;              
@@ -228,8 +290,7 @@ names(fisheries)</code></pre>
 ## [70] &quot;X2011&quot;                                
 ## [71] &quot;X2012&quot;</code></pre>
 <ol start="3" style="list-style-type: decimal">
-<li>Let’s rename the columns. Use <code>rename()</code> to adjust the names as follows. Double check to make sure the rename worked correctly.<br />
-</li>
+<li>Let’s rename the columns. Use <code>rename()</code> to adjust the names as follows. Double check to make sure the rename worked correctly. Make sure to replace the old fisheries object with a new one so you can keep the column names.</li>
 </ol>
 <ul>
 <li>country = Country..Country.<br />
@@ -250,31 +311,25 @@ names(fisheries)</code></pre>
 </ul>
 <ol start="4" style="list-style-type: decimal">
 <li><p>Are these data tidy? Why or why not, and, how do you know?</p></li>
-<li><p>We need to tidy the data using <code>gather()</code>. The code below will not run. I have added a bit of code that will prevent you from needing to type in each year from 1950-2012 but you need to complete the remainder.</p></li>
+<li><p>We need to tidy the data using <code>gather()</code>. The code below will not run because it is commented (#) out. I have added a bit of code that will prevent you from needing to type in each year from 1950-2012 but you need to complete the remainder <code>QQQ</code> and remove the <code>#</code>.</p></li>
 </ol>
-<pre class="r"><code>fisheries_tidy &lt;- 
-  fisheries %&gt;% 
-  gather(num_range('X',1950:2012), key='QQQ', value='QQQ')</code></pre>
+<pre class="r"><code>#fisheries_tidy &lt;- 
+#  fisheries %&gt;% 
+#  gather(num_range('X',1950:2012), key='QQQ', value='QQQ')</code></pre>
 <ol start="6" style="list-style-type: decimal">
-<li>Use <code>glimpse()</code> to look at the categories of the variables. Pay particular attention to <code>year</code> and <code>catch</code>. What do you notice?</li>
+<li><p>Use <code>glimpse()</code> to look at the categories of the variables. Pay particular attention to <code>year</code> and <code>catch</code>. What do you notice?</p></li>
+<li><p>From question 6 you should see that there are a lot of entries that are missing. In R, these are referred to as NA’s but they can be coded in different ways by the scientists in a given study. In order to make the data tidy, we need to deal with them. As a preview to our next lab, run the following code by removing the <code>#</code>. It removes the ‘X’ from the years and changes the <code>catch</code> column from a character into a numeric. This forces the blank entries to become NAs. The error “NAs introduced by coercion” indicates their replacement.</p></li>
 </ol>
-<pre class="r"><code>glimpse(fisheries_tidy)</code></pre>
-<ol start="7" style="list-style-type: decimal">
-<li><p>Are there any NAs in the data? Use whichever method you feel is best.</p></li>
-<li><p>Double check question 7. If you still come up with zero NAs, look for other ways missing data may be represented. What characters were used to represent NAs?</p></li>
-<li><p>The bit of code below is very nice. It will create new columns for <code>year</code> and <code>catch</code> but, it also converts these columns to numerics which forces the blank entries to become NAs. The error “NAs introduced by coercion” indicates their replacement.</p></li>
-</ol>
-<pre class="r"><code>fisheries_tidy %&lt;&gt;% 
-  mutate(
-    year= as.numeric(str_replace(Year, 'X', '')),
-    catch= as.numeric(str_replace(Catch, c(' F','...','-'), replacement = ''))
-    )</code></pre>
-<ol start="11" style="list-style-type: decimal">
-<li><p>Have a look now and report the number of NAs.</p></li>
-<li><p>As a final tidy step, remove the redundant untidy Count and Year columns. Also, remove region and unit. Make a new object for these data called <code>fao_tidy</code> and have a look. We could still improve these data to some degree, but for our purposes they are close.</p></li>
-<li><p>You are a fisheries scientist studying cephalopod catch during 2008-2012. Identify the top five consumers of cephalopods.</p></li>
-<li><p>Who consumes the most cuttlefish (another type of cephalopod)? Store this as a new object <code>cuttle</code>.</p></li>
-<li><p>The Atlantic Cod fishery has been very poorly managed and it is listed as a threatened species. This has been know since the mid 1990’s. Who are the top five consumers of Atlantic Cod since 1995?</p></li>
+<pre class="r"><code>#fisheries_tidy &lt;- 
+#  fisheries_tidy %&gt;% 
+#  mutate(
+#    year= as.numeric(str_replace(year, 'X', '')), #remove the X from year
+#    catch= as.numeric(str_replace(catch, c(' F','...','-'), replacement = '')) #replace character strings with NA
+#    )</code></pre>
+<ol start="8" style="list-style-type: decimal">
+<li><p>Are the data tidy? Why?</p></li>
+<li><p>You are a fisheries scientist studying cephalopod catch during 2008-2012. Identify the top five consumers (by country) of cephalopods (don’t worry about species for now). Restrict the data frame only to our variables of interest.</p></li>
+<li><p>Let’s be more specific. Who consumes the most <code>Common cuttlefish</code>? Store this as a new object <code>cuttle</code>.</p></li>
 </ol>
 </div>
 <div id="push-your-final-code-to-github" class="section level2">
