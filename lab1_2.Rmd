@@ -9,9 +9,6 @@ output:
     toc_float: yes
 ---
 
-## Review
-At this point, you should have a GitHub account and made your first push. We also installed the `tidyverse` and `nycflights13` libraries.  
-
 ## Essential Information about R
 R is an open source, **scripting** language. RStudio is a GUI (graphical user interface) that is frequently used to interact with R. You need R installed in order for RStudio to work.
 
