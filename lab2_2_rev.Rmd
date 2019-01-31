@@ -1,5 +1,5 @@
 ---
-title: "Data Frames and dplyr::filter()"
+title: "Data Frames and Tidyverse Intro"
 author: "Joel Ledford"
 date: "Winter 2019"
 output:

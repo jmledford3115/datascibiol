@@ -12,7 +12,7 @@ output:
 ---
 
 ## Setup
-At the beginning of each class, please make sure that you navigate to the class GitHub and download the `class_files` folder. In our class GitHub, you will see a directory called `class_files`. Click on the `Clone or download` button and download the files as a `.zip`. You should now have a folder called `class_files` on your computer inside of which are all of the files that we will use for today's class.  
+At the beginning of each class, please make sure that you navigate to the class [GitHub](https://github.com/FRS417-DataScienceBiologists) and download the `class_files` folder. In our class GitHub, you will see a directory called `class_files`. Click on the `Clone or download` button and download the files as a `.zip`. You should now have a folder called `class_files` on your computer inside of which are all of the files that we will use for today's class.  
 
 ## Learning Goals
 *At the end of this exercise, you will be able to:*    
