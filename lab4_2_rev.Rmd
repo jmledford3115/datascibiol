@@ -107,7 +107,7 @@ msleep %>%
 ```
 
 ## Practice
-Aren't mammals fun? Let's load up some more mammal data. This will be life history data for mammals. The data were downloaded from: http://www.esapubs.org/archive/ecol/E084/093/metadata.htm
+Aren't mammals fun? Let's load up some more mammal data. This will be life history data for mammals. The [data](http://esapubs.org/archive/ecol/E084/093/) are from: *S. K. Morgan Ernest. 2003. Life history characteristics of placental non-volant mammals. Ecology 84:3402.* 
 ```{r}
 life_history <- readr::read_csv("data/mammal_lifehistories_v2.csv")
 ```
