@@ -1,0 +1,273 @@
+---
+title: "Lab 4: Visualizing Data, Part 2"
+author: "Joel Ledford"
+date: "Winter 2019"
+output:
+  html_document:
+    theme: spacelab
+    toc: yes
+    toc_float: yes
+  pdf_document:
+    toc: yes
+---
+
+##Review
+Now that you have been introduced to `ggplot`, we need to learn how to manipulate the plots to better suit our aesthetic needs. Aesthetics can make a significant difference visually, but you can take it too far so remember that our goal is to produce clean plots that are not too distracting.  
+
+Before we learn any new plot types, let's practice manipulating the aesthetics on scatteplots, barplots, and boxplots from the previous session. We are going to use backwards engineering in these examples, so I will show you the final fancy output and then work back to a simple plot that you already know how to make.  
+
+##Load the Libraries
+```{r message=FALSE, warning=FALSE}
+library(gapminder)
+library(tidyverse)
+library(magrittr)
+library(skimr)
+```
+
+##Resources
+- [ggplot2 cheatsheet](https://www.rstudio.com/wp-content/uploads/2015/03/ggplot2-cheatsheet.pdf)
+- [R for Data Science](https://r4ds.had.co.nz/)
+- [R Cookbook](http://www.cookbook-r.com/)
+- [`ggplot` themes](https://ggplot2.tidyverse.org/reference/ggtheme.html)
+- [Rebecca Barter `ggplot` Tutorial](http://www.rebeccabarter.com/blog/2017-11-17-ggplot2_tutorial/)
+
+##Gapminder
+For these examples, we are going to revisit the gapminder data from lab 2. Have a quick look at the variables and structure of the data.
+```{r}
+names(gapminder)
+```
+
+```{r}
+glimpse(gapminder)
+```
+
+##Scatterplots
+For the first example, we will work through the code to produce the scatterplot below. It compares per capita GDP and life expectancy in 2007 with some fancy aesthetics. Have a quick look at the plot so that you know where we are going. Since this is focused on 2007, I filtered the data for that year but all other commands are associated with the ggplot output. The idea for this came from [Rebecca Barter's](http://www.rebeccabarter.com/blog/2017-11-17-ggplot2_tutorial/) awesome ggplot tutorial so if you get lost go have a look.
+```{r}
+gapminder %>%
+  filter(year==2007) %>%
+  ggplot(aes(x=gdpPercap, y=lifeExp, color=continent, size=pop))+
+  geom_point(alpha=0.75)+
+  scale_x_log10(limits = c(200, 60000))+
+  labs(title = "GDP vs. Life expectancy \n(2007)",
+       x = "GDP per capita (log 10)",
+       y = "Life expectancy",
+       size = "Population",
+       color = "Continent")+
+  scale_size(range = c(0.1, 10),
+             guide = "none")+
+  theme_linedraw()+
+  theme(legend.position = "right",
+        axis.line = element_line(color = "grey85"),
+        axis.ticks = element_line(color = "grey85"))
+```
+
+The first few lines should be relatively straightforward. We are identifying the x and y variables, coloring each point by continent, and adjusting the size of each point by population. Try removing the color and size aesthetics and look at the result. The last aesthetic in `geom_point` is alpha and that controls the transparency of the points. This can help with overplotting and also allows us to visualize differences on a fine scale because we can see the background.
+```{r}
+gapminder %>%
+  filter(year==2007) %>%
+  ggplot(aes(x=gdpPercap, y=lifeExp, color=continent, size=pop))+
+  geom_point(alpha=0.75)
+```
+
+In this example, I have re-scaled the x axis. The default is `scale_*_continuous` where the * is the x or y variable. The scale aesthetics are helpful for adjusting the plot to our range of interest. Try readjusting the x axis to 20000, 50000. In our example, we used `scale_x_log10(limits = c(200, 60000))` in order to better spread the data.
+```{r}
+gapminder %>%
+  filter(year==2007) %>%
+  ggplot(aes(x=gdpPercap, y=lifeExp, color=continent, size=pop))+
+  geom_point(alpha=0.75)+
+  scale_x_continuous(limits = c(200, 50000))
+```
+
+```{r}
+gapminder %>%
+  filter(year==2007) %>%
+  ggplot(aes(x=gdpPercap, y=lifeExp, color=continent, size=pop))+
+  geom_point(alpha=0.75)+
+  scale_x_log10(limits = c(200, 60000))
+```
+
+You will frequently want to rename axes and keys when building plots because most variable names don't make sense to people unfamiliar with the data. One thing to note here is that I use `\n` as part of the title. This is interpreted as a line break. Remove this and see how it affects the title.
+```{r}
+gapminder %>%
+  filter(year==2007) %>%
+  ggplot(aes(x=gdpPercap, y=lifeExp, color=continent, size=pop))+
+  geom_point(alpha=0.75)+
+  scale_x_log10(limits = c(200, 60000))+
+  labs(title = "GDP vs. Life expectancy \n(2007)",
+       x = "GDP per capita (log 10)",
+       y = "Life expectancy",
+       size = "Population",
+       color = "Continent")
+```
+
+Scale size specifies a discrete range for the size of the points according to population. Try adjusting the range to see the effect. `guide=none` removes the key to clean up the plot.
+```{r}
+gapminder %>%
+  filter(year==2007) %>%
+  ggplot(aes(x=gdpPercap, y=lifeExp, color=continent, size=pop))+
+  geom_point(alpha=0.75)+
+  scale_x_log10(limits = c(200, 60000))+
+  labs(title = "GDP vs. Life expectancy \n(2007)",
+       x = "GDP per capita (log 10)",
+       y = "Life expectancy",
+       size = "Population",
+       color = "Continent")+
+  scale_size(range = c(0.5, 12),
+             guide = "none")
+```
+
+This brings us to the built-in themes which are quick ways to adjust aesthetics for a uniform look. There are many built-in themes and most of their internal aesthetics are adjustable. Take a few moments to try out different examples.
+```{r}
+?theme_linedraw
+```
+
+```{r}
+gapminder %>%
+  filter(year==2007) %>%
+  ggplot(aes(x=gdpPercap, y=lifeExp, color=continent, size=pop))+
+  geom_point(alpha=0.75)+
+  scale_x_log10(limits = c(200, 60000))+
+  labs(title = "GDP vs. Life expectancy \n(2007)",
+       x = "GDP per capita (log 10)",
+       y = "Life expectancy",
+       size = "Population",
+       color = "Continent")+
+  scale_size(range = c(0.1, 10),
+             guide = "none")+
+  theme_linedraw()+
+  theme(legend.position = "right",
+        axis.line = element_line(color = "grey85"),
+        axis.ticks = element_line(color = "grey85"))
+```
+
+A nice way to try out different themes is to build the plot as a new object and then add the theme directly.
+```{r}
+plot <- gapminder %>%
+  filter(year==2007) %>%
+  ggplot(aes(x=gdpPercap, y=lifeExp, color=continent, size=pop))+
+  geom_point(alpha=0.75)+
+  scale_x_log10(limits = c(200, 60000))+
+  labs(title = "GDP vs. Life expectancy \n(2007)",
+       x = "GDP per capita (log 10)",
+       y = "Life expectancy",
+       size = "Population",
+       color = "Continent")+
+  scale_size(range = c(0.1, 10),
+             guide = "none")
+```
+
+```{r}
+plot + 
+  theme_linedraw()
+```
+
+##Barplots
+Before building barplots, let's practice our dplyr skills. Create a new object `by_continent` which summarizes population growth between 1952-2007 by continent. It is helpful to note that the data are collected in five year intervals. I also will create a new variable to make the population numbers a bit easier to read.
+```{r}
+by_continent <- 
+  gapminder %>%
+  group_by(continent, year) %>% 
+  summarize(pop_total=sum(as.numeric(pop, na.rm=TRUE)),
+            mean_life_exp=mean(lifeExp)) %>% 
+  mutate(pop_total_scaled=pop_total/1000000)
+```
+
+Barplots use the same aesthetic functions as scatterplots, but there are some differences. This page from the [R Cookbook](http://www.cookbook-r.com/Graphs/Bar_and_line_graphs_(ggplot2)/#bar-graphs) is helpful.  
+
+Here is the final output and, as before, we will work backwards. This time I will only note the significant differences from scatterplots.  
+
+How has the population grown in Africa between 1952- 2007? Has life expectancy changed over these years?
+```{r}
+by_continent %>% 
+  filter(continent=="Africa") %>%
+  ggplot(aes(x=year, y=pop_total_scaled, fill=mean_life_exp))+
+  geom_bar(stat="identity", alpha=0.85, color="black", width=3)+
+  scale_x_continuous(breaks=seq(1952,2007,5))+
+  labs(title = "Population Growth and Life Expectancy in Africa \n(1952-2007)",
+       x = "Year",
+       y = "Population (mil)",
+       fill= "Life expectancy\n(years)")+
+  theme_linedraw()+
+  theme(legend.position = "right",
+        axis.line = element_line(color = "grey85"),
+        axis.ticks = element_line(color = "grey85"))
+```
+
+The first part of this should be familiar, but it is important to note that `fill` refers to the variable in my dataframe by which I want the bars to be colored; this isn't the same as specifying a color for a bar. Under `geom_bar()`, I ask ggplot to wrap a black outline around each bar using `color`. I don't specify a color for `fill`, so the default blue is used. We can adjust any of these colors. Have a look at the options [R default colors](http://www.stat.columbia.edu/~tzheng/files/Rcolor.pdf).  
+
+Try out a few of the colors on the plot below.
+```{r}
+by_continent %>% 
+  filter(continent=="Africa") %>%
+  ggplot(aes(x=year, y=pop_total_scaled, fill=mean_life_exp))+
+  geom_bar(stat="identity", alpha=0.85, color="black", width=3)
+```
+
+I don't like that ggplot has used default breaks on the x axis. I want to see each year as a separate, discrete label. There are many ways of dealing with dates in R but we don't need to do that here. Instead, we specify a range and then the interval. Looking at the data we see that they were recorded in five year increments to that will be my tick value.
+```{r}
+by_continent %>% 
+  filter(continent=="Africa") %>%
+  ggplot(aes(x=year, y=pop_total_scaled, fill=mean_life_exp))+
+  geom_bar(stat="identity", alpha=0.85, color="black", width=3)+
+  scale_x_continuous(breaks=seq(1952,2007,5))
+```
+
+And finally, I will add new labels, a title, etc. In order to make things consistent, I use the linedraw theme to match my scatterplot.
+```{r}
+by_continent %>% 
+  filter(continent=="Africa") %>%
+  ggplot(aes(x=year, y=pop_total_scaled, fill=mean_life_exp))+
+  geom_bar(stat="identity", alpha=0.85, color="black", width=3)+
+  #geom_text(aes(label=pop_total_scaled), vjust=-0.3, size=3.5)+
+  scale_x_continuous(breaks=seq(1952,2007,5))+
+  labs(title = "Population Growth and Life Expectancy in Africa \n(1952-2007)",
+       x = "Year",
+       y = "Population (mil)",
+       fill= "Life expectancy\n(years)")+
+  theme_linedraw()+
+  theme(legend.position = "right",
+        axis.line = element_line(color = "grey85"),
+        axis.ticks = element_line(color = "grey85"))
+```
+
+##Practice
+As with scatterplots and barplots, the aesthetics for boxplots are the same. We won't use the grouped data in this case because boxplots plot distributions of data. Which African countries have the highest and lowest average life spans between 1952-2007?  
+
+Reality check. Do the math first.
+```{r}
+#Highest
+gapminder %>% 
+  filter(continent=="Africa") %>% 
+  group_by(country) %>% 
+  summarize(mean_LE=mean(lifeExp)) %>% 
+  arrange(desc(mean_LE))
+
+#Lowest
+gapminder %>% 
+  filter(continent=="Africa") %>% 
+  group_by(country) %>% 
+  summarize(mean_LE=mean(lifeExp)) %>% 
+  arrange((mean_LE))
+```
+
+Now build the plot.
+```{r}
+gapminder %>%
+  filter(continent=="Africa") %>% 
+  ggplot(aes(x = country, y = lifeExp, fill = country)) +
+  geom_boxplot(alpha= 0.75)+
+  labs(title = "Average Life Expectancy in Africa \n(1952-2007)",
+       x = "Country",
+       y = "Life expectancy (years)")+
+  theme_linedraw()+
+  theme(legend.position = "none",
+        axis.line = element_line(color = "grey85"),
+        axis.ticks = element_line(color = "grey85"),
+        axis.text.x = element_text(angle=90, hjust=1, vjust=0.45))
+```
+
+##Wrap-up
+Please review the learning goals and be sure to use the code here as a reference when completing the homework.
+
+See you next time!

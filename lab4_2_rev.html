@@ -593,35 +593,12 @@ msleep_na2</code></pre>
 <div id="practice-1" class="section level2">
 <h2>Practice</h2>
 <ol style="list-style-type: decimal">
-<li>Did replacing blanks with NA have any effect on the msleep data?</li>
+<li>Did replacing blanks with NA have any effect on the msleep data? Demonstrate this using some code.</li>
 </ol>
-<pre class="r"><code>msleep_na2 %&gt;% 
-  summarize(number_nas= sum(is.na(msleep)))</code></pre>
-<pre><code>## # A tibble: 1 x 1
-##   number_nas
-##        &lt;int&gt;
-## 1        136</code></pre>
-<pre class="r"><code>msleep %&gt;% 
-  purrr::map_df(~n_distinct(.)) %&gt;% 
-  tidyr::gather(key=&quot;variables&quot;, value=&quot;num_distinct&quot;) %&gt;% 
-  arrange(desc(num_distinct))</code></pre>
-<pre><code>## # A tibble: 11 x 2
-##    variables    num_distinct
-##    &lt;chr&gt;               &lt;int&gt;
-##  1 name                   83
-##  2 bodywt                 82
-##  3 genus                  77
-##  4 sleep_total            65
-##  5 awake                  65
-##  6 brainwt                54
-##  7 sleep_rem              33
-##  8 sleep_cycle            23
-##  9 order                  19
-## 10 conservation            7
-## 11 vore                    5</code></pre>
 </div>
-<div id="practice-2" class="section level2">
-<h2>Practice</h2>
+<div id="practice-and-homework" class="section level2">
+<h2>Practice and Homework</h2>
+<p>We will work together on the next part (time permitting) and this will end up being your homework. Make sure that you save your work and copy and paste your responses into the RMarkdown homnework file.</p>
 <p>Aren’t mammals fun? Let’s load up some more mammal data. This will be life history data for mammals. The <a href="http://esapubs.org/archive/ecol/E084/093/">data</a> are from: <em>S. K. Morgan Ernest. 2003. Life history characteristics of placental non-volant mammals. Ecology 84:3402.</em></p>
 <pre class="r"><code>life_history &lt;- readr::read_csv(&quot;data/mammal_lifehistories_v2.csv&quot;)</code></pre>
 <pre><code>## Parsed with column specification:
@@ -640,6 +617,16 @@ msleep_na2</code></pre>
 ##   `litter size` = col_double(),
 ##   `litters/year` = col_double()
 ## )</code></pre>
+<p>Rename some of the variables. Notice that I am replacing the old <code>life_history</code> data.</p>
+<pre class="r"><code>life_history &lt;- 
+  life_history %&gt;% 
+  dplyr::rename(
+          genus        = Genus,
+          wean_mass    = `wean mass`,
+          max_life     = `max. life`,
+          litter_size  = `litter size`,
+          litters_yr   = `litters/year`
+          )</code></pre>
 <ol style="list-style-type: decimal">
 <li>Explore the data using the method that you prefer. Below, I am using a new package called <code>skimr</code>. If you want to use this, make sure that it is installed.</li>
 </ol>
@@ -654,26 +641,26 @@ msleep_na2</code></pre>
 ## ── Variable type:character ───────────────────────────────────────────────────────────────────────────────────────────────────────────────
 ##  variable missing complete    n min max empty n_unique
 ##    family       0     1440 1440   6  15     0       96
-##     Genus       0     1440 1440   3  16     0      618
+##     genus       0     1440 1440   3  16     0      618
 ##     order       0     1440 1440   7  14     0       17
 ##   species       0     1440 1440   3  17     0     1191
 ## 
 ## ── Variable type:integer ─────────────────────────────────────────────────────────────────────────────────────────────────────────────────
-##   variable missing complete    n    mean    sd   p0  p25  p50    p75 p100
-##  max. life       0     1440 1440 -490.26 615.3 -999 -999 -999 147.25 1368
+##  variable missing complete    n    mean    sd   p0  p25  p50    p75 p100
+##  max_life       0     1440 1440 -490.26 615.3 -999 -999 -999 147.25 1368
 ##      hist
 ##  ▇▁▁▃▂▁▁▁
 ## 
 ## ── Variable type:numeric ─────────────────────────────────────────────────────────────────────────────────────────────────────────────────
-##      variable missing complete    n      mean         sd   p0  p25     p50
-##           AFR       0     1440 1440   -408.12     504.97 -999 -999    2.5 
-##     gestation       0     1440 1440   -287.25     455.36 -999 -999    1.05
-##   litter size       0     1440 1440    -55.63     234.88 -999    1    2.27
-##  litters/year       0     1440 1440   -477.14     500.03 -999 -999    0.38
-##          mass       0     1440 1440 383576.72 5055162.92 -999   50  403.02
-##       newborn       0     1440 1440   6703.15   90912.52 -999 -999    2.65
-##     wean mass       0     1440 1440  16048.93   5e+05    -999 -999 -999   
-##       weaning       0     1440 1440   -427.17     496.71 -999 -999    0.73
+##     variable missing complete    n      mean         sd   p0  p25     p50
+##          AFR       0     1440 1440   -408.12     504.97 -999 -999    2.5 
+##    gestation       0     1440 1440   -287.25     455.36 -999 -999    1.05
+##  litter_size       0     1440 1440    -55.63     234.88 -999    1    2.27
+##   litters_yr       0     1440 1440   -477.14     500.03 -999 -999    0.38
+##         mass       0     1440 1440 383576.72 5055162.92 -999   50  403.02
+##      newborn       0     1440 1440   6703.15   90912.52 -999 -999    2.65
+##    wean_mass       0     1440 1440  16048.93   5e+05    -999 -999 -999   
+##      weaning       0     1440 1440   -427.17     496.71 -999 -999    0.73
 ##      p75          p100     hist
 ##    15.61     210       ▆▁▁▁▁▁▇▁
 ##     4.5       21.46    ▃▁▁▁▁▁▁▇
@@ -693,104 +680,16 @@ msleep_na2</code></pre>
 ##        &lt;int&gt;
 ## 1          0</code></pre>
 <ol start="3" style="list-style-type: decimal">
-<li>Are there any missing data (NA’s) represented by different values? How much and where? In which variables do we have the most missing data? Can you think of a reason why so much data are missing in this variable?</li>
+<li><p>Are there any missing data (NA’s) represented by different values? How much and where? In which variables do we have the most missing data? Can you think of a reason why so much data are missing in this variable?</p></li>
+<li><p>Compared to the <code>msleep</code> data, we have better representation among taxa. Produce a summary that shows the number of observations by taxonomic order.</p></li>
+<li><p>Mammals have a range of life histories, including lifespan. Produce a summary of lifespan in years by order. Be sure to include the minimum, maximum, mean, standard deviation, and total n.</p></li>
+<li><p>Let’s look closely at gestation and newborns. Summarize the mean gestation, newborn mass, and weaning mass by order. Add a new column that shows mean gestation in years and sort in descending order. Which group has the longest mean gestation? What is the common name for these mammals?</p></li>
 </ol>
-<pre class="r"><code>life_history2 &lt;- 
-  life_history %&gt;% 
-  na_if(-999.0)
-life_history2</code></pre>
-<pre><code>## # A tibble: 1,440 x 13
-##    order family Genus species   mass gestation newborn weaning `wean mass`
-##    &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt;    &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;       &lt;dbl&gt;
-##  1 Arti… Antil… Anti… americ… 4.54e4      8.13   3246.    3           8900
-##  2 Arti… Bovid… Addax nasoma… 1.82e5      9.39   5480     6.5           NA
-##  3 Arti… Bovid… Aepy… melamp… 4.15e4      6.35   5093     5.63       15900
-##  4 Arti… Bovid… Alce… busela… 1.50e5      7.9   10167.    6.5           NA
-##  5 Arti… Bovid… Ammo… clarkei 2.85e4      6.8      NA    NA             NA
-##  6 Arti… Bovid… Ammo… lervia  5.55e4      5.08   3810     4             NA
-##  7 Arti… Bovid… Anti… marsup… 3.00e4      5.72   3910     4.04          NA
-##  8 Arti… Bovid… Anti… cervic… 3.75e4      5.5    3846     2.13          NA
-##  9 Arti… Bovid… Bison bison   4.98e5      8.93  20000    10.7       157500
-## 10 Arti… Bovid… Bison bonasus 5.00e5      9.14  23000.    6.6           NA
-## # ... with 1,430 more rows, and 4 more variables: AFR &lt;dbl&gt;, `max.
-## #   life` &lt;int&gt;, `litter size` &lt;dbl&gt;, `litters/year` &lt;dbl&gt;</code></pre>
-<pre class="r"><code>life_history2 %&gt;%
-  purrr::map_df(~ sum(is.na(.)))%&gt;% 
-  tidyr::gather(variables, num_nas) %&gt;% 
-  arrange(desc(num_nas))</code></pre>
-<pre><code>## # A tibble: 13 x 2
-##    variables    num_nas
-##    &lt;chr&gt;          &lt;int&gt;
-##  1 wean mass       1039
-##  2 max. life        841
-##  3 litters/year     689
-##  4 weaning          619
-##  5 AFR              607
-##  6 newborn          595
-##  7 gestation        418
-##  8 mass              85
-##  9 litter size       84
-## 10 order              0
-## 11 family             0
-## 12 Genus              0
-## 13 species            0</code></pre>
-<ol start="4" style="list-style-type: decimal">
-<li>Compared to the <code>msleep</code> data, we have better representation among taxa. Produce a summary that shows the number of observations by taxonomic order.</li>
-</ol>
-<pre class="r"><code>life_history2 %&gt;%
-  group_by(order) %&gt;% 
-  summarize(n())</code></pre>
-<pre><code>## # A tibble: 17 x 2
-##    order          `n()`
-##    &lt;chr&gt;          &lt;int&gt;
-##  1 Artiodactyla     161
-##  2 Carnivora        197
-##  3 Cetacea           55
-##  4 Dermoptera         2
-##  5 Hyracoidea         4
-##  6 Insectivora       91
-##  7 Lagomorpha        42
-##  8 Macroscelidea     10
-##  9 Perissodactyla    15
-## 10 Pholidota          7
-## 11 Primates         156
-## 12 Proboscidea        2
-## 13 Rodentia         665
-## 14 Scandentia         7
-## 15 Sirenia            5
-## 16 Tubulidentata      1
-## 17 Xenarthra         20</code></pre>
-<ol start="5" style="list-style-type: decimal">
-<li>Mammals have a range of life histories, including lifespan. Produce a summary of lifespan in years by order. Be sure to include the minimum, maximum, mean, standard deviation, and total n.</li>
-</ol>
-<pre class="r"><code>life_history2 %&gt;%
-  mutate(lifespan=`max. life`/12) %&gt;% 
-  group_by(order) %&gt;%
-  summarize(min=min(lifespan, na.rm=TRUE),
-            max=max(lifespan, na.rm=TRUE),
-            mean=mean(lifespan, na.rm=TRUE),
-            sd=sd(lifespan, na.rm=TRUE),
-            total=n())</code></pre>
-<pre><code>## # A tibble: 17 x 6
-##    order            min    max  mean     sd total
-##    &lt;chr&gt;          &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;int&gt;
-##  1 Artiodactyla    6.75  61    20.7   7.70    161
-##  2 Carnivora       5     56    21.1   9.42    197
-##  3 Cetacea        13    114    48.8  27.7      55
-##  4 Dermoptera     17.5   17.5  17.5  NA         2
-##  5 Hyracoidea     11     12.2  11.6   0.884     4
-##  6 Insectivora     1.17  13     3.85  2.90     91
-##  7 Lagomorpha      6     18     9.02  3.85     42
-##  8 Macroscelidea   3      8.75  5.69  2.39     10
-##  9 Perissodactyla 21     50    35.5  10.2      15
-## 10 Pholidota      20     20    20    NA         7
-## 11 Primates        8.83  60.5  25.7  11.0     156
-## 12 Proboscidea    70     80    75     7.07      2
-## 13 Rodentia        1     35     6.99  5.30    665
-## 14 Scandentia      2.67  12.4   8.86  5.38      7
-## 15 Sirenia        12.5   73    43.2  30.3       5
-## 16 Tubulidentata  24     24    24    NA         1
-## 17 Xenarthra       9     40    21.3   9.93     20</code></pre>
+</div>
+<div id="wrap-up" class="section level2">
+<h2>Wrap-up</h2>
+<p>Please review the learning goals and be sure to use the code here as a reference when completing the homework.</p>
+<p>See you next time!</p>
 </div>
 
 
