@@ -1,0 +1,167 @@
+---
+title: "Dealing with NA's"
+author: "Joel Ledford"
+date: "Winter 2019"
+output:
+  html_document:
+    theme: spacelab
+    toc: yes
+    toc_float: yes
+  pdf_document:
+    toc: yes
+---
+
+## Review
+In the last section we practiced wrangling untidy data using `tidyr`. We also learned the `summarize()` function and `group_by()` to produce useful summaries of our data. But, we ended the last session with the discovery of NA's and how they can impact analyses. This is a big issue in data science and we will spend the remainder of this lab learning how to manage data with missing values.  
+
+## Learning Goals
+*At the end of this exercise, you will be able to:*    
+1. Produce summaries of the number of NA's in a data set.
+2. Replace values with `NA` in a data set as appropriate.
+
+## Load the tidyverse
+```{r}
+library("tidyverse")
+```
+
+## Dealing with NA's
+In almost all scientific data, there are missing observations. These can be tricky to deal with, partly because you first need to determine how missing values were treated in the original study. Scientists use different conventions in showing missing data; some use blank spaces, others use "-", etc. Worse yet, some scientists indicate **missing data with numerics like -999.0!**  
+
+## Practice
+1. What are some possible problems if missing data are indicated by "-999.0"?
+
+## Load the `msleep` data into a new object
+```{r}
+msleep <- msleep
+```
+
+## Are there any NA's?
+Let's first check to see if our data has any NA's. is.na() is a function that determines whether a value in a data frame is or is not an NA. This is evaluated logically as TRUE or FALSE.
+```{r}
+is.na(msleep)
+```
+
+OK, what are we supposed to do with that? Unless you have a small data frame, applying the is.na function universally is not helpful but we can use the code in another way. Let's incorporate it into the `summarize()` function.
+```{r}
+msleep %>% 
+  summarize(number_nas= sum(is.na(msleep)))
+```
+
+This is better, but we still don't have any idea of where those NA's are in our data frame. If there were a systemic problem in the data it would be hard to determine. In order to do this, we need to apply the is.na function to each variable of interest.
+```{r}
+msleep %>% 
+  summarize(number_nas= sum(is.na(brainwt)))
+```
+
+What if we are working with hundreds or thousands (or more!) variables?! In order to deal with this problem efficiently we can use another package in the tidyverse called `purrr`.
+```{r}
+msleep_na <- 
+  msleep %>%
+  purrr::map_df(~ sum(is.na(.))) #map to a new data frame the sum results of the is.na function for all columns
+msleep_na
+```
+
+Don't forget that we can use `gather()` to make viewing this output easier.
+```{r}
+msleep %>% 
+  purrr::map_df(~n_distinct(.)) %>% 
+  tidyr::gather(key="variables", value="num_distinct") %>% 
+  arrange(desc(num_distinct))
+```
+
+This is much better, but we need to be careful. R can have difficulty interpreting missing data. This is especially true for categorical variables. Always do a reality check if the output doesn't make sense to you. A quick check never hurts.  
+
+You can explore a specific variable more intently using `count()`. This operates similarly to `group_by()`.
+```{r}
+msleep %>% 
+  count(conservation)
+```
+
+Adding the `sort=TRUE` option automatically makes a descending list.
+```{r}
+msleep %>% 
+  count(conservation, sort=TRUE)
+```
+
+## Replacing NA's
+Once you have an idea of how NA's are represented in the data, you can replace them with `NA` so that R can better deal with them. The bit of code below is very handy, especially if the data has NA's represented as **actual values that you want replaced** or if you want to make sure any blanks are treated as NA.
+```{r}
+msleep_na2 <- 
+  msleep %>% 
+  na_if("") #replace x data with NA
+msleep_na2
+```
+
+## Practice
+1. Did replacing blanks with NA have any effect on the msleep data?
+```{r}
+msleep_na2 %>% 
+  summarize(number_nas= sum(is.na(msleep)))
+```
+
+```{r}
+msleep %>% 
+  purrr::map_df(~n_distinct(.)) %>% 
+  tidyr::gather(key="variables", value="num_distinct") %>% 
+  arrange(desc(num_distinct))
+```
+
+## Practice
+Aren't mammals fun? Let's load up some more mammal data. This will be life history data for mammals. The data were downloaded from: http://www.esapubs.org/archive/ecol/E084/093/metadata.htm
+```{r}
+life_history <- readr::read_csv("data/mammal_lifehistories_v2.csv")
+```
+
+1. Explore the data using the method that you prefer. Below, I am using a new package called `skimr`. If you want to use this, make sure that it is installed.
+```{r}
+#install.packages("skimr")
+```
+
+```{r}
+library("skimr")
+```
+
+```{r}
+life_history %>% 
+  skimr::skim()
+```
+
+2. Run the code below. Are there any NA's in the data? Does this seem likely?
+```{r}
+msleep %>% 
+  summarize(number_nas= sum(is.na(life_history)))
+```
+
+3. Are there any missing data (NA's) represented by different values? How much and where? In which variables do we have the most missing data? Can you think of a reason why so much data are missing in this variable?
+```{r}
+life_history2 <- 
+  life_history %>% 
+  na_if(-999.0)
+life_history2
+```
+
+```{r}
+life_history2 %>%
+  purrr::map_df(~ sum(is.na(.)))%>% 
+  tidyr::gather(variables, num_nas) %>% 
+  arrange(desc(num_nas))
+```
+
+4. Compared to the `msleep` data, we have better representation among taxa. Produce a summary that shows the number of observations by taxonomic order.
+```{r}
+life_history2 %>%
+  group_by(order) %>% 
+  summarize(n())
+```
+
+5. Mammals have a range of life histories, including lifespan. Produce a summary of lifespan in years by order. Be sure to include the minimum, maximum, mean, standard deviation, and total n.
+```{r}
+life_history2 %>%
+  mutate(lifespan=`max. life`/12) %>% 
+  group_by(order) %>%
+  summarize(min=min(lifespan, na.rm=TRUE),
+            max=max(lifespan, na.rm=TRUE),
+            mean=mean(lifespan, na.rm=TRUE),
+            sd=sd(lifespan, na.rm=TRUE),
+            total=n())
+```

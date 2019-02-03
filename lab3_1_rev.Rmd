@@ -122,7 +122,4 @@ names(fish)
 ## Practice
 1. Add a new column to the fish data that is radii_length_mm divided by scalelength. Add another column that scales this number to a percentage.
 
-## Wrap-up
-Please review the learning goals and be sure to use the code here as a reference when completing the homework.
-
-See you next time!
+## Let's Take a Break!
