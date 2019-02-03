@@ -396,68 +396,9 @@ arrests</code></pre>
 <div id="practice" class="section level2">
 <h2>Practice</h2>
 <ol style="list-style-type: decimal">
-<li>Are these data tidy? Please use <code>gather()</code> to tidy the data.</li>
+<li><p>Are these data tidy? Please use <code>gather()</code> to tidy the data.</p></li>
+<li><p>Restrict the data to assualt only. Sort in ascending order.</p></li>
 </ol>
-<pre class="r"><code>arrests_tidy &lt;- 
-  arrests %&gt;% 
-  gather(Murder, Assault, Rape, key=&quot;Crime&quot;, value=&quot;per100k&quot;)</code></pre>
-<ol start="2" style="list-style-type: decimal">
-<li>Restrict the data to assualt only. Sort in ascending order.</li>
-</ol>
-<pre class="r"><code>arrests_tidy %&gt;%
-  filter(Crime==&quot;Assault&quot;) %&gt;% 
-  arrange(per100k)</code></pre>
-<pre><code>##             State   Crime per100k
-## 1    North Dakota Assault      45
-## 2          Hawaii Assault      46
-## 3         Vermont Assault      48
-## 4       Wisconsin Assault      53
-## 5            Iowa Assault      56
-## 6   New Hampshire Assault      57
-## 7       Minnesota Assault      72
-## 8   West Virginia Assault      81
-## 9           Maine Assault      83
-## 10   South Dakota Assault      86
-## 11       Nebraska Assault     102
-## 12   Pennsylvania Assault     106
-## 13       Kentucky Assault     109
-## 14        Montana Assault     109
-## 15    Connecticut Assault     110
-## 16        Indiana Assault     113
-## 17         Kansas Assault     115
-## 18          Idaho Assault     120
-## 19           Ohio Assault     120
-## 20           Utah Assault     120
-## 21     Washington Assault     145
-## 22  Massachusetts Assault     149
-## 23       Oklahoma Assault     151
-## 24       Virginia Assault     156
-## 25     New Jersey Assault     159
-## 26         Oregon Assault     159
-## 27        Wyoming Assault     161
-## 28   Rhode Island Assault     174
-## 29       Missouri Assault     178
-## 30      Tennessee Assault     188
-## 31       Arkansas Assault     190
-## 32          Texas Assault     201
-## 33       Colorado Assault     204
-## 34        Georgia Assault     211
-## 35        Alabama Assault     236
-## 36       Delaware Assault     238
-## 37       Illinois Assault     249
-## 38      Louisiana Assault     249
-## 39         Nevada Assault     252
-## 40       New York Assault     254
-## 41       Michigan Assault     255
-## 42    Mississippi Assault     259
-## 43         Alaska Assault     263
-## 44     California Assault     276
-## 45 South Carolina Assault     279
-## 46     New Mexico Assault     285
-## 47        Arizona Assault     294
-## 48       Maryland Assault     300
-## 49        Florida Assault     335
-## 50 North Carolina Assault     337</code></pre>
 </div>
 <div id="spread" class="section level2">
 <h2>spread()</h2>
@@ -505,21 +446,15 @@ L4_values &lt;- rnorm(6, mean = 20, sd = 3)</code></pre>
   data.frame(gene_id=id, type=type, L4_values=L4_values)
 gene_exp</code></pre>
 <pre><code>##   gene_id      type L4_values
-## 1   gene1 treatment  21.57343
-## 2   gene1   control  13.73255
-## 3   gene2 treatment  17.22519
-## 4   gene2   control  15.82558
-## 5   gene3 treatment  18.36804
-## 6   gene3   control  16.25227</code></pre>
+## 1   gene1 treatment  20.20065
+## 2   gene1   control  19.88360
+## 3   gene2 treatment  17.09215
+## 4   gene2   control  21.70167
+## 5   gene3 treatment  17.65104
+## 6   gene3   control  22.41913</code></pre>
 <ol start="2" style="list-style-type: decimal">
 <li>Are these data tidy? Please use <code>spread()</code> to tidy the data.</li>
 </ol>
-<pre class="r"><code>gene_exp %&gt;% 
-  spread(key=type, value=L4_values)</code></pre>
-<pre><code>##   gene_id  control treatment
-## 1   gene1 13.73255  21.57343
-## 2   gene2 15.82558  17.22519
-## 3   gene3 16.25227  18.36804</code></pre>
 </div>
 <div id="summarize" class="section level2">
 <h2>summarize()</h2>
@@ -556,26 +491,9 @@ gene_exp</code></pre>
 <div id="practice-2" class="section level2">
 <h2>Practice</h2>
 <ol style="list-style-type: decimal">
-<li>How many genera are represented in the msleep data frame?</li>
+<li><p>How many genera are represented in the msleep data frame?</p></li>
+<li><p>What are the min, max, and mean body weight for all of the mammals? Be sure to include the total n.</p></li>
 </ol>
-<pre class="r"><code>msleep %&gt;%
-  summarize(ngenera=n_distinct(genus))</code></pre>
-<pre><code>## # A tibble: 1 x 1
-##   ngenera
-##     &lt;int&gt;
-## 1      77</code></pre>
-<ol start="2" style="list-style-type: decimal">
-<li>What are the min, max, and mean body weight for all of the mammals? Be sure to include the total n.</li>
-</ol>
-<pre class="r"><code>msleep %&gt;%
-  summarize(min_bodywt=min(bodywt),
-            max_bodywt=max(bodywt),
-            mean_bodywt=mean(bodywt),
-            total=n())</code></pre>
-<pre><code>## # A tibble: 1 x 4
-##   min_bodywt max_bodywt mean_bodywt total
-##        &lt;dbl&gt;      &lt;dbl&gt;       &lt;dbl&gt; &lt;int&gt;
-## 1      0.005       6654        166.    83</code></pre>
 </div>
 <div id="group_by" class="section level2">
 <h2>group_by()</h2>
@@ -598,62 +516,10 @@ gene_exp</code></pre>
 <div id="practice-3" class="section level2">
 <h2>Practice</h2>
 <ol style="list-style-type: decimal">
-<li>Calculate mean brain weight by taxonomic order in the msleep data.</li>
-</ol>
-<pre class="r"><code>msleep %&gt;% 
-  group_by(order) %&gt;% 
-  summarize(mean_brainwt=mean(brainwt))</code></pre>
-<pre><code>## # A tibble: 19 x 2
-##    order           mean_brainwt
-##    &lt;chr&gt;                  &lt;dbl&gt;
-##  1 Afrosoricida        0.0026  
-##  2 Artiodactyla       NA       
-##  3 Carnivora          NA       
-##  4 Cetacea            NA       
-##  5 Chiroptera          0.000275
-##  6 Cingulata           0.0459  
-##  7 Didelphimorphia    NA       
-##  8 Diprotodontia      NA       
-##  9 Erinaceomorpha      0.00295 
-## 10 Hyracoidea          0.0152  
-## 11 Lagomorpha          0.0121  
-## 12 Monotremata         0.025   
-## 13 Perissodactyla      0.414   
-## 14 Pilosa             NA       
-## 15 Primates           NA       
-## 16 Proboscidea         5.16    
-## 17 Rodentia           NA       
-## 18 Scandentia          0.0025  
-## 19 Soricomorpha        0.000592</code></pre>
-<ol start="2" style="list-style-type: decimal">
+<li><p>Calculate mean brain weight by taxonomic order in the msleep data.</p></li>
 <li><p>What does <code>NA</code> mean?</p></li>
 <li><p>Try running the code again, but this time add <code>na.rm=TRUE</code>. What is the problem with Cetacea?</p></li>
 </ol>
-<pre class="r"><code>msleep %&gt;% 
-  group_by(order) %&gt;% 
-  summarize(mean_brainwt=mean(brainwt, na.rm=TRUE))</code></pre>
-<pre><code>## # A tibble: 19 x 2
-##    order           mean_brainwt
-##    &lt;chr&gt;                  &lt;dbl&gt;
-##  1 Afrosoricida        0.0026  
-##  2 Artiodactyla        0.198   
-##  3 Carnivora           0.0986  
-##  4 Cetacea           NaN       
-##  5 Chiroptera          0.000275
-##  6 Cingulata           0.0459  
-##  7 Didelphimorphia     0.0063  
-##  8 Diprotodontia       0.0114  
-##  9 Erinaceomorpha      0.00295 
-## 10 Hyracoidea          0.0152  
-## 11 Lagomorpha          0.0121  
-## 12 Monotremata         0.025   
-## 13 Perissodactyla      0.414   
-## 14 Pilosa            NaN       
-## 15 Primates            0.254   
-## 16 Proboscidea         5.16    
-## 17 Rodentia            0.00357 
-## 18 Scandentia          0.0025  
-## 19 Soricomorpha        0.000592</code></pre>
 <pre class="r"><code>msleep %&gt;% 
   filter(order==&quot;Cetacea&quot;)</code></pre>
 <pre><code>## # A tibble: 3 x 11

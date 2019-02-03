@@ -54,10 +54,18 @@ arrests
 
 ## Practice
 1. Are these data tidy? Please use `gather()` to tidy the data.
-
+```{r}
+arrests_tidy <- 
+  arrests %>% 
+  gather(Murder, Assault, Rape, key="Crime", value="per100k")
+```
 
 2. Restrict the data to assualt only. Sort in ascending order.
-
+```{r}
+arrests_tidy %>%
+  filter(Crime=="Assault") %>% 
+  arrange(per100k)
+```
 
 ## spread()
 The opposite of `gather()`. You use `spread()` when you have an observation scattered across multiple rows. In the example below, `cases` and `population` represent variable names not observations.
@@ -92,7 +100,10 @@ gene_exp
 ```
 
 2. Are these data tidy? Please use `spread()` to tidy the data.
-
+```{r}
+gene_exp %>% 
+  spread(key=type, value=L4_values)
+```
 
 ## summarize()
 summarize() will produce summary statistics for a given variable in a data frame. For example, in homework 2 you were asked to calculate the mean of the sleep total column for large and small mammals. We did this using a combination of tidyverse and base R commands, which isn't very efficient or clean. It also took two steps.
@@ -133,10 +144,19 @@ There are many other useful summary statistics, depending on your needs: sd(), m
 
 ## Practice
 1. How many genera are represented in the msleep data frame?
-
+```{r}
+msleep %>%
+  summarize(ngenera=n_distinct(genus))
+```
 
 2. What are the min, max, and mean body weight for all of the mammals? Be sure to include the total n.
-
+```{r}
+msleep %>%
+  summarize(min_bodywt=min(bodywt),
+            max_bodywt=max(bodywt),
+            mean_bodywt=mean(bodywt),
+            total=n())
+```
 
 ##group_by()
 The `summarize()` function is most useful when used in conjunction with `group_by()`. Although producing a summary of body weight for all of the mammals in the dataset is helpful, what if we were interested in body weight by feeding ecology?
@@ -151,12 +171,20 @@ msleep %>%
 
 ## Practice
 1. Calculate mean brain weight by taxonomic order in the msleep data.
-
+```{r}
+msleep %>% 
+  group_by(order) %>% 
+  summarize(mean_brainwt=mean(brainwt))
+```
 
 2. What does `NA` mean?
 
 3. Try running the code again, but this time add `na.rm=TRUE`. What is the problem with Cetacea?
-
+```{r}
+msleep %>% 
+  group_by(order) %>% 
+  summarize(mean_brainwt=mean(brainwt, na.rm=TRUE))
+```
 
 ```{r}
 msleep %>% 
