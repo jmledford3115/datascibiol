@@ -16,8 +16,8 @@ In the last section we practiced wrangling untidy data using `tidyr`. We also le
 
 ## Learning Goals
 *At the end of this exercise, you will be able to:*    
-1. Produce summaries of the number of NA's in a data set.
-2. Replace values with `NA` in a data set as appropriate.
+1. Produce summaries of the number of NA's in a data set.  
+2. Replace values with `NA` in a data set as appropriate.  
 
 ## Load the tidyverse
 ```{r}
@@ -47,10 +47,10 @@ msleep %>%
   summarize(number_nas= sum(is.na(msleep)))
 ```
 
-This is better, but we still don't have any idea of where those NA's are in our data frame. If there were a systemic problem in the data it would be hard to determine. In order to do this, we need to apply the is.na function to each variable of interest.
+This is better, but we still don't have any idea of where those NA's are in our data frame. If there were a systemic problem in the data it would be hard to determine. In order to do this, we need to apply `is.na` to each variable of interest.
 ```{r}
 msleep %>% 
-  summarize(number_nas= sum(is.na(brainwt)))
+  summarize(number_nas= sum(is.na(conservation)))
 ```
 
 What if we are working with hundreds or thousands (or more!) variables?! In order to deal with this problem efficiently we can use another package in the tidyverse called `purrr`.
@@ -64,9 +64,9 @@ msleep_na
 Don't forget that we can use `gather()` to make viewing this output easier.
 ```{r}
 msleep %>% 
-  purrr::map_df(~n_distinct(.)) %>% 
-  tidyr::gather(key="variables", value="num_distinct") %>% 
-  arrange(desc(num_distinct))
+  purrr::map_df(~ sum(is.na(.))) %>% 
+  tidyr::gather(key="variables", value="num_nas") %>% 
+  arrange(desc(num_nas))
 ```
 
 This is much better, but we need to be careful. R can have difficulty interpreting missing data. This is especially true for categorical variables. Always do a reality check if the output doesn't make sense to you. A quick check never hurts.  
@@ -82,6 +82,8 @@ Adding the `sort=TRUE` option automatically makes a descending list.
 msleep %>% 
   count(conservation, sort=TRUE)
 ```
+
+It is true that all of this is redundant, but you want to be able to run multiple checks on the data. Remember, just because your code runs without errors doesn't mean it is doing what you intended.  
 
 ## Replacing NA's
 Once you have an idea of how NA's are represented in the data, you can replace them with `NA` so that R can better deal with them. The bit of code below is very handy, especially if the data has NA's represented as **actual values that you want replaced** or if you want to make sure any blanks are treated as NA.

@@ -296,17 +296,18 @@ div.tocify {
 <div id="learning-goals" class="section level2">
 <h2>Learning Goals</h2>
 <p><em>At the end of this exercise, you will be able to:</em><br />
-1. Produce summaries of the number of NA’s in a data set. 2. Replace values with <code>NA</code> in a data set as appropriate.</p>
+1. Produce summaries of the number of NA’s in a data set.<br />
+2. Replace values with <code>NA</code> in a data set as appropriate.</p>
 </div>
 <div id="load-the-tidyverse" class="section level2">
 <h2>Load the tidyverse</h2>
 <pre class="r"><code>library(&quot;tidyverse&quot;)</code></pre>
-<pre><code>## ── Attaching packages ───────────────────────────────────────────────────────────────────────────────────────────────── tidyverse 1.2.1 ──</code></pre>
+<pre><code>## ── Attaching packages ────────────────────────────────────────────────────── tidyverse 1.2.1 ──</code></pre>
 <pre><code>## ✔ ggplot2 3.1.0     ✔ purrr   0.2.5
 ## ✔ tibble  1.4.2     ✔ dplyr   0.7.8
 ## ✔ tidyr   0.8.2     ✔ stringr 1.3.1
 ## ✔ readr   1.1.1     ✔ forcats 0.3.0</code></pre>
-<pre><code>## ── Conflicts ──────────────────────────────────────────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
+<pre><code>## ── Conflicts ───────────────────────────────────────────────────────── tidyverse_conflicts() ──
 ## ✖ dplyr::filter() masks stats::filter()
 ## ✖ dplyr::lag()    masks stats::lag()</code></pre>
 </div>
@@ -503,13 +504,13 @@ div.tocify {
 ##   number_nas
 ##        &lt;int&gt;
 ## 1        136</code></pre>
-<p>This is better, but we still don’t have any idea of where those NA’s are in our data frame. If there were a systemic problem in the data it would be hard to determine. In order to do this, we need to apply the is.na function to each variable of interest.</p>
+<p>This is better, but we still don’t have any idea of where those NA’s are in our data frame. If there were a systemic problem in the data it would be hard to determine. In order to do this, we need to apply <code>is.na</code> to each variable of interest.</p>
 <pre class="r"><code>msleep %&gt;% 
-  summarize(number_nas= sum(is.na(brainwt)))</code></pre>
+  summarize(number_nas= sum(is.na(conservation)))</code></pre>
 <pre><code>## # A tibble: 1 x 1
 ##   number_nas
 ##        &lt;int&gt;
-## 1         27</code></pre>
+## 1         29</code></pre>
 <p>What if we are working with hundreds or thousands (or more!) variables?! In order to deal with this problem efficiently we can use another package in the tidyverse called <code>purrr</code>.</p>
 <pre class="r"><code>msleep_na &lt;- 
   msleep %&gt;%
@@ -522,23 +523,23 @@ msleep_na</code></pre>
 ## # ... with 3 more variables: awake &lt;int&gt;, brainwt &lt;int&gt;, bodywt &lt;int&gt;</code></pre>
 <p>Don’t forget that we can use <code>gather()</code> to make viewing this output easier.</p>
 <pre class="r"><code>msleep %&gt;% 
-  purrr::map_df(~n_distinct(.)) %&gt;% 
-  tidyr::gather(key=&quot;variables&quot;, value=&quot;num_distinct&quot;) %&gt;% 
-  arrange(desc(num_distinct))</code></pre>
+  purrr::map_df(~ sum(is.na(.))) %&gt;% 
+  tidyr::gather(key=&quot;variables&quot;, value=&quot;num_nas&quot;) %&gt;% 
+  arrange(desc(num_nas))</code></pre>
 <pre><code>## # A tibble: 11 x 2
-##    variables    num_distinct
-##    &lt;chr&gt;               &lt;int&gt;
-##  1 name                   83
-##  2 bodywt                 82
-##  3 genus                  77
-##  4 sleep_total            65
-##  5 awake                  65
-##  6 brainwt                54
-##  7 sleep_rem              33
-##  8 sleep_cycle            23
-##  9 order                  19
-## 10 conservation            7
-## 11 vore                    5</code></pre>
+##    variables    num_nas
+##    &lt;chr&gt;          &lt;int&gt;
+##  1 sleep_cycle       51
+##  2 conservation      29
+##  3 brainwt           27
+##  4 sleep_rem         22
+##  5 vore               7
+##  6 name               0
+##  7 genus              0
+##  8 order              0
+##  9 sleep_total        0
+## 10 awake              0
+## 11 bodywt             0</code></pre>
 <p>This is much better, but we need to be careful. R can have difficulty interpreting missing data. This is especially true for categorical variables. Always do a reality check if the output doesn’t make sense to you. A quick check never hurts.</p>
 <p>You can explore a specific variable more intently using <code>count()</code>. This operates similarly to <code>group_by()</code>.</p>
 <pre class="r"><code>msleep %&gt;% 
@@ -566,6 +567,7 @@ msleep_na</code></pre>
 ## 5 en               4
 ## 6 nt               4
 ## 7 cd               2</code></pre>
+<p>It is true that all of this is redundant, but you want to be able to run multiple checks on the data. Remember, just because your code runs without errors doesn’t mean it is doing what you intended.</p>
 </div>
 <div id="replacing-nas" class="section level2">
 <h2>Replacing NA’s</h2>
@@ -638,20 +640,20 @@ msleep_na2</code></pre>
 ##  n obs: 1440 
 ##  n variables: 13 
 ## 
-## ── Variable type:character ───────────────────────────────────────────────────────────────────────────────────────────────────────────────
+## ── Variable type:character ────────────────────────────────────────────────────────────────────
 ##  variable missing complete    n min max empty n_unique
 ##    family       0     1440 1440   6  15     0       96
 ##     genus       0     1440 1440   3  16     0      618
 ##     order       0     1440 1440   7  14     0       17
 ##   species       0     1440 1440   3  17     0     1191
 ## 
-## ── Variable type:integer ─────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+## ── Variable type:integer ──────────────────────────────────────────────────────────────────────
 ##  variable missing complete    n    mean    sd   p0  p25  p50    p75 p100
 ##  max_life       0     1440 1440 -490.26 615.3 -999 -999 -999 147.25 1368
 ##      hist
 ##  ▇▁▁▃▂▁▁▁
 ## 
-## ── Variable type:numeric ─────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+## ── Variable type:numeric ──────────────────────────────────────────────────────────────────────
 ##     variable missing complete    n      mean         sd   p0  p25     p50
 ##          AFR       0     1440 1440   -408.12     504.97 -999 -999    2.5 
 ##    gestation       0     1440 1440   -287.25     455.36 -999 -999    1.05
