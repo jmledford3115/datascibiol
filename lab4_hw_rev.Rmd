@@ -19,9 +19,8 @@ Answer the following questions and complete the exercises in RMarkdown. Please e
 ```{r message=FALSE, warning=FALSE}
 library(tidyverse)
 ```
-## Practice and Homework
-We will work together on the next part (time permitting) and this will end up being your homework. Make sure that you save your work and copy and paste your responses into the RMarkdown homnework file.
 
+## Mammals Life History
 Aren't mammals fun? Let's load up some more mammal data. This will be life history data for mammals. The [data](http://esapubs.org/archive/ecol/E084/093/) are from: *S. K. Morgan Ernest. 2003. Life history characteristics of placental non-volant mammals. Ecology 84:3402.*  
 
 ```{r}
