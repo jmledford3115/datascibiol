@@ -1,5 +1,5 @@
 ---
-title: "Getting Started, Part 1"
+title: "Getting Started"
 author: "Joel Ledford"
 date: "Winter 2019"
 output:

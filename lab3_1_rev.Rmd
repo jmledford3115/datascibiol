@@ -1,5 +1,5 @@
 ---
-title: "dplyr::select(), mutate(), and pipes"
+title: "dplyr"
 author: "Joel Ledford"
 date: "Winter 2019"
 output:
