@@ -1,5 +1,5 @@
 ---
-title: "Lab 4: Visualizing Data, Part 1"
+title: "Data Visualization 1"
 author: "Joel Ledford"
 date: "Winter 2019"
 output:
@@ -12,18 +12,17 @@ output:
 ---
 
 ## Where have we been, and where are we going?
-At this point you should feel reasonably comfortable working in RStudio and using dplyr and tidyr. It is OK if you need to go back through the labs and find bits of code that work for you, but do try and force yourself to originate new chunks.  
-
-You should be able to take a relatively messy data set and make some sense out of it. The key is that you can tidy the data in R (without using excel). Dplyr and tidyr are core pieces of the tidyverse and with them you can do a lot of analysis. You are eventually going to need more functions but for now we are moving on to data visualization using `ggplot2`. Many people use R because of this package alone so it is important.
-
-At the end of the next two sessions, we are going to build a pipeline for exploratory data analysis. Consider a scenario where a perspective employer were to give you some complex data and ask for an opinion. I want you to have a set of scripts that work for you to build a basic set of analyses for nearly every type of data. A big part of this will be the generation of clean, clear, and aesthetically appealing graphs.  
+At this point you should feel reasonably comfortable working in RStudio and using dplyr and tidyr. You also know how to produce statistical summaries of data and deal with NA's. It is OK if you need to go back through the labs and find bits of code that work for you, but try and force yourself to originate new chunks.  
 
 ## Group Project
-Let's take 10 minutes to decide on groups and think about a theme for our projects. What data interest you? Make a plan on doing some judicious internet searches and building a data set that will work for your group. Think about the kinds of questions you might ask.  
+Meet with your group and decide on a data set that you will use for your project. Be prepared to discuss these data, where you found them, and what you hope to learn.  
 
-## Resources
+##Resources
 - [ggplot2 cheatsheet](https://www.rstudio.com/wp-content/uploads/2015/03/ggplot2-cheatsheet.pdf)
 - [R for Data Science](https://r4ds.had.co.nz/)
+- [R Cookbook](http://www.cookbook-r.com/)
+- [`ggplot` themes](https://ggplot2.tidyverse.org/reference/ggtheme.html)
+- [Rebecca Barter `ggplot` Tutorial](http://www.rebeccabarter.com/blog/2017-11-17-ggplot2_tutorial/)
 
 ## Learning Goals
 *At the end of this exercise, you will be able to:*    
@@ -32,10 +31,9 @@ Let's take 10 minutes to decide on groups and think about a theme for our projec
 3. Build a scatterplot using `ggplot2`.  
 4. Build a barplot using `ggplot2` and show the difference between `stat=count` and `stat=identity`.  
 
-## Load the tidyverse
+## Load the libraries
 ```{r message=FALSE, warning=FALSE}
 library(tidyverse)
-library(magrittr)
 library(skimr)
 ```
 
@@ -78,14 +76,11 @@ ggplot(data=iris, mapping=aes(x=Species, y=Petal.Length))+
 ```
 
 ## Practice
-Take a moment to practice. Use the iris data to build a scatterplot that compares sepal length vs. sepal width. Use the cheatsheet to find the correct `geom_` for a scatterplot.
-```{r}
-ggplot(data=iris, mapping=aes(x=Sepal.Length, y=Sepal.Width))+
-  geom_point()
-```
+1. Take a moment to practice. Use the iris data to build a scatterplot that compares sepal length vs. sepal width. Use the cheatsheet to find the correct `geom_` for a scatterplot.
+
 
 ## Scatterplots, barplots, and boxplots
-Now that we have a general idea of the syntax, let's start by working with three standard plots: 1) scatterplots, 2) barplots, and 3) boxplots.  
+Now that we have a general idea of the syntax, let's start by working with two standard plots: 1) scatterplots and 2) barplots.
 
 ## Data
 For the following examples, I am going to use data about vertebrate home range sizes.  
@@ -100,7 +95,8 @@ homerange <- readr::read_csv("data/Tamburelloetal_HomeRangeDatabase.csv")
 
 A little bit of cleaning to focus on the variables of interest. Good `dplyr` practice!
 ```{r}
-homerange %<>%  
+homerange <- 
+  homerange %>%  
   select(common.name, taxon, family, genus, species, mean.mass.g, log10.mass, mean.hra.m2, log10.hra, preymass, log10.preymass, trophic.guild)
 ```
 
@@ -109,7 +105,7 @@ names(homerange)
 ```
 
 ### 1. Scatter Plots
-Scatter plots are good at revealing relationships that are not readily visible in the raw data. For now, we will not add regression lines or calculate any r^2^ values (this isn't a statistics course). In this case, we are exploring whether or not there is a relationship between animal mass and homerange. We are using log transformed values because there is a very large difference in mass and homerange among the different vertebrate species in the data.
+Scatter plots are good at revealing relationships that are not readily visible in the raw data. For now, we will not add regression lines or calculate any r^2^ values. In this case, we are exploring whether or not there is a relationship between animal mass and homerange. We are using log transformed values because there is a very large difference in mass and homerange among the different  species in the data.
 ```{r}
 ggplot(data=homerange, mapping=aes(x=log10.mass, y=log10.hra)) +
   geom_point()
@@ -167,34 +163,11 @@ carni_mammals%>%
   theme(axis.text.x = element_text(angle = 60, hjust=1))
 ```
 
-### 3. Box Plots
-Let's briefly return to the `homerange` data and filter out carnivorous mammals. We can use a boxplot to visualize the differences in body mass by family.
-```{r}
-homerange %>% 
-  filter(taxon=="mammals", trophic.guild=="carnivore") %>% 
-  ggplot(aes(x=family, y=log10.mass))+
-  geom_boxplot()+
-  theme(axis.text.x = element_text(angle = 60, hjust=1))
-```
-
-What do you think those solid lines represent? Have a look at `carni_mammals` again; `count` represents the number of individuals that were measured by family. The solid lines represent single individuals.
-```{r}
-carni_mammals %>% 
-  arrange(desc(count))
-```
-
-Rebuild the blot only for Felidae (cats), Mustelidae (weasels), and Canidae (dogs) because they have the largest sample sizes.
-```{r}
-homerange %>% 
-  filter(family=="felidae" | family=="mustelidae" | family=="canidae") %>% 
-  ggplot(aes(x=family, y=log10.mass))+
-  geom_boxplot()
-```
-
 ## Practice
-Filter the `homerange` data to include `mammals` only and eliminate some of the variables.
+Filter the `homerange` data to include `mammals` only.
 ```{r}
-mammals <- homerange %>% 
+mammals <- 
+  homerange %>% 
   filter(taxon=="mammals") %>% 
   select(common.name, family, genus, species, trophic.guild, mean.mass.g, log10.mass, mean.hra.m2, log10.hra, preymass, log10.preymass)
 ```
@@ -204,56 +177,12 @@ mammals
 ```
 
 1. Are there more herbivores or carnivores in mammals? Make a bar plot that shows their relative proportions.
-```{r}
-mammals %>% 
-  ggplot(aes(x=trophic.guild))+
-  geom_bar(stat="count")
-```
 
-2. There appear to be more herbivores than carnivores. How do their masses compare? Make a boxplot that compares their masses. Use `log10.mass`.
-```{r}
-mammals %>% 
-  ggplot(aes(x=trophic.guild, y=log10.mass))+
-  geom_boxplot()
-```
 
-3. Is there a positive or negative relationship between mass and homerange? How does this compare between herbivores and carnivores? Provide examples below.  
+2. Is there a positive or negative relationship between mass and homerange? How does this compare between herbivores and carnivores? Make two plots that illustrate these eamples below.  
 
-### Carnivores
-```{r}
-mammals %>% 
-  filter(trophic.guild=="carnivore") %>% 
-  ggplot(mapping=aes(x=log10.mass, y=log10.hra)) +
-  geom_point()+
-  geom_smooth(method=lm, se=FALSE) 
-```
 
-### Herbivores
-```{r}
-mammals %>% 
-  filter(trophic.guild=="herbivore") %>% 
-  ggplot(mapping=aes(x=log10.mass, y=log10.hra)) +
-  geom_point()+
-  geom_smooth(method=lm, se=FALSE) 
-```
+3. Make a barplot that shows the masses of the top 10 smallest mammals in terms of mass. Be sure to use `stat'="identity"`.
 
-4. Wouldn't it be nice if we could make one plot, but color the points according to `trophic guild`? Run this code and have a look. Notice that I need to identify the `group` as part of the main ggplot aesthetic and then color by that group as part of the `geom_point()` aesthetic.
-```{r}
-mammals %>%
-  ggplot(mapping=aes(x=log10.mass, y=log10.hra, group=trophic.guild)) +
-  geom_point(mapping=aes(color=trophic.guild))
-```
 
-5. Make a barplot that shows the masses of the top 10 smallest mammals. Be sure to use `stat'="identity"`.
-```{r}
-mammals %>%
-  arrange(log10.mass)
-```
-
-```{r}
-mammals %>%
-  top_n(-10, log10.mass) %>%
-  ggplot(aes(x=common.name, y=log10.mass))+
-  geom_bar(stat="identity")+
-  theme(axis.text.x = element_text(angle = 60, hjust=1))
-```
+## Let's Take a Break!
