@@ -26,7 +26,7 @@ Meet with your group and decide on a data set that you will use for your project
 
 ## Learning Goals
 *At the end of this exercise, you will be able to:*    
-1. Understand and apply the syntax of building plots using `ggplot2`.
+1. Understand and apply the syntax of building plots using `ggplot2`.  
 2. Build a boxplot using `ggplot2`.  
 3. Build a scatterplot using `ggplot2`.  
 4. Build a barplot using `ggplot2` and show the difference between `stat=count` and `stat=identity`.  
@@ -159,6 +159,14 @@ This looks nice, but the x axis is a mess and needs adjustment. We make these ad
 ```{r}
 carni_mammals%>% 
   ggplot(aes(x=family, y=mean_body_wt))+
+  geom_bar(stat="identity")+
+  theme(axis.text.x = element_text(angle = 60, hjust=1))
+```
+
+We can make this a little bit better by reordering.
+```{r}
+carni_mammals%>% 
+  ggplot(aes(x=reorder(family, -mean_body_wt), y=mean_body_wt))+
   geom_bar(stat="identity")+
   theme(axis.text.x = element_text(angle = 60, hjust=1))
 ```
