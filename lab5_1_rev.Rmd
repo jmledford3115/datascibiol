@@ -171,6 +171,14 @@ carni_mammals%>%
   theme(axis.text.x = element_text(angle = 60, hjust=1))
 ```
 
+Or we can flip the coordinates.
+```{r}
+carni_mammals%>% 
+  ggplot(aes(x=reorder(family, -mean_body_wt), y=mean_body_wt))+
+  geom_bar(stat="identity")+
+  coord_flip()
+```
+
 ## Practice
 Filter the `homerange` data to include `mammals` only.
 ```{r}
