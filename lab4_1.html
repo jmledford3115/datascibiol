@@ -315,12 +315,12 @@ div.tocify {
 <div id="load-the-tidyverse" class="section level2">
 <h2>Load the tidyverse</h2>
 <pre class="r"><code>library(&quot;tidyverse&quot;)</code></pre>
-<pre><code>## ── Attaching packages ──────────────────────────────────────────────────────────────── tidyverse 1.2.1 ──</code></pre>
+<pre><code>## ── Attaching packages ─────────────────────────────────────────────────────────────────────────────────────── tidyverse 1.2.1 ──</code></pre>
 <pre><code>## ✔ ggplot2 3.1.0     ✔ purrr   0.3.0
 ## ✔ tibble  2.0.1     ✔ dplyr   0.7.8
 ## ✔ tidyr   0.8.2     ✔ stringr 1.3.1
 ## ✔ readr   1.3.1     ✔ forcats 0.3.0</code></pre>
-<pre><code>## ── Conflicts ─────────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
+<pre><code>## ── Conflicts ────────────────────────────────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
 ## ✖ dplyr::filter() masks stats::filter()
 ## ✖ dplyr::lag()    masks stats::lag()</code></pre>
 </div>
@@ -505,21 +505,21 @@ L4_values &lt;- rnorm(6, mean = 20, sd = 3)</code></pre>
   data.frame(gene_id=id, type=type, L4_values=L4_values)
 gene_exp</code></pre>
 <pre><code>##   gene_id      type L4_values
-## 1   gene1 treatment  19.18204
-## 2   gene1   control  20.83447
-## 3   gene2 treatment  18.07113
-## 4   gene2   control  24.11100
-## 5   gene3 treatment  13.12035
-## 6   gene3   control  13.87642</code></pre>
+## 1   gene1 treatment  24.15252
+## 2   gene1   control  16.78214
+## 3   gene2 treatment  21.39805
+## 4   gene2   control  21.27574
+## 5   gene3 treatment  19.21793
+## 6   gene3   control  23.01709</code></pre>
 <ol start="2" style="list-style-type: decimal">
 <li>Are these data tidy? Please use <code>spread()</code> to tidy the data.</li>
 </ol>
 <pre class="r"><code>gene_exp %&gt;% 
   spread(key=type, value=L4_values)</code></pre>
 <pre><code>##   gene_id  control treatment
-## 1   gene1 20.83447  19.18204
-## 2   gene2 24.11100  18.07113
-## 3   gene3 13.87642  13.12035</code></pre>
+## 1   gene1 16.78214  24.15252
+## 2   gene2 21.27574  21.39805
+## 3   gene3 23.01709  19.21793</code></pre>
 </div>
 <div id="summarize" class="section level2">
 <h2>summarize()</h2>

@@ -1,5 +1,5 @@
 ---
-title: "Lab 2_2"
+title: "Data Frames"
 author: "Joel Ledford"
 date: "Winter 2019"
 output:

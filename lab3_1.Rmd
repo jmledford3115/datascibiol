@@ -1,5 +1,5 @@
 ---
-title: "Lab3_1"
+title: "Tidyverse: filter, select, and pipes"
 author: "Joel Ledford"
 date: "Winter 2019"
 output:
