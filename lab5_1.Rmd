@@ -91,19 +91,14 @@ Reference: Tamburello N, Cote IM, Dulvy NK (2015) Energy and the scaling of anim
 Data: http://datadryad.org/resource/doi:10.5061/dryad.q5j65/1  
 
 ```{r message=FALSE, warning=FALSE}
-homerange <- readr::read_csv("data/Tamburelloetal_HomeRangeDatabase.csv")
-```
-
-A little bit of cleaning to focus on the variables of interest. Good `dplyr` practice!
-```{r}
 homerange <- 
-  homerange %>%  
-  select(common.name, taxon, family, genus, species, mean.mass.g, log10.mass, mean.hra.m2, log10.hra, preymass, log10.preymass, trophic.guild)
-names(homerange)
+  readr::read_csv("data/Tamburelloetal_HomeRangeDatabase.csv")
 ```
 
 ### 1. Scatter Plots
-Scatter plots are good at revealing relationships that are not readily visible in the raw data. For now, we will not add regression lines or calculate any r^2^ values. In this case, we are exploring whether or not there is a relationship between animal mass and homerange. We are using log transformed values because there is a very large difference in mass and homerange among the different  species in the data.
+Scatter plots are good at revealing relationships that are not readily visible in the raw data. For now, we will not add regression lines or calculate any r^2^ values.  
+
+In the case below, we are exploring whether or not there is a relationship between animal mass and homerange. We are using the log transformed values because there is a large difference in mass and homerange among the different species in the data.
 ```{r}
 ggplot(data=homerange, mapping=aes(x=log10.mass, y=log10.hra)) +
   geom_point()
@@ -119,63 +114,43 @@ You want to see the regression line, right?
 ```{r}
 ggplot(data=homerange, mapping=aes(x=log10.mass, y=log10.hra)) +
   geom_jitter()+
-  geom_smooth(method=lm, se=FALSE) 
+  geom_smooth(method=lm, se=FALSE) #adds the regression line, `se=TRUE` will add standard error
+```
+
+### Practice
+1. What is the relationship between log10.hra and log10.preymass? What do you notice about how ggplot treats NA's?
+```{r}
+ggplot(data=homerange, mapping=aes(x=log10.hra, y=log10.preymass)) +
+  geom_point()+
+  geom_smooth(method=lm, se=FALSE)
 ```
 
 ### 2A. Bar Plot: `stat="count"`
-When making a bar graph, the default is to count the number of observations in the specified column. This is best for categorical data and is defined by the aesthetic `stat="count"`. Here, I want to know how many carnivores vs. herbivores are in the data.  
+When making a bar graph, the default is to count the number of observations in the specified column. This is best for categorical data. Here, I want to know how many carnivores vs. herbivores are in the data.  
 
-Notice that we can use pipes and the `mapping=` function is implied by `aes` and so is often left out.  
+Notice that we can use pipes! Also, the `mapping=` function is implied by `aes` and so is often left out.  
 ```{r}
 homerange %>% 
   ggplot(aes(x=trophic.guild))+
-  geom_bar(stat="count") # I am identifying stat="count" but this isn't necessary since it is default
+  geom_bar(stat="count")
 ```
 
 ### 2B. Bar Plot: `stat="identity"`
-`stat="identity"` allows us to map a variable to the y axis so that we aren't restricted to count.  
-
-First, practice your skills by filtering out carnivorous mammals.
+`stat="identity"` allows us to map a variable to the y axis so that we aren't restricted to counts. In this example, I start by summarizing mean body weight by taxonomic class and then use pipes to build the plot.
 ```{r}
-carni_mammals <- 
-  homerange %>% 
-  filter(taxon=="mammals", 
-         trophic.guild=="carnivore")
-```
-
-Now, summarize mean body weight by family.
-```{r}
-carni_mammals_mass <- 
-  carni_mammals %>% 
-  group_by(family) %>% 
-  summarize(count=n(),
-            mean_body_wt=mean(log10.mass)) %>% 
-  arrange(desc(mean_body_wt))
-carni_mammals_mass
-```
-
-Now let's plot the data using `stat="identity"` to visualize mean body weight by family.
-```{r}
-carni_mammals_mass %>% 
-  ggplot(aes(x=family, y=mean_body_wt))+
+homerange %>%
+  group_by(class) %>% 
+  summarize(mean_body_wt=mean(log10.mass))%>% 
+  ggplot(aes(x=class, y=mean_body_wt))+
   geom_bar(stat="identity")
 ```
 
-This looks nice, but the x axis is a mess and needs adjustment. We can adjust the angle of the x-axis text by using `theme()`.
-```{r}
-carni_mammals_mass%>% 
-  ggplot(aes(x=family, y=mean_body_wt))+
-  geom_bar(stat="identity")+
-  theme(axis.text.x = element_text(angle = 60, hjust=1))
-```
-
 ## Practice
-Filter the `homerange` data to include `mammals` only.
+1. Filter the `homerange` data to include `mammals` only.
 ```{r}
 mammals <- 
   homerange %>% 
   filter(taxon=="mammals")
-mammals
 ```
 
 1. Are there more herbivores or carnivores in mammals? Make a bar plot that shows their relative numbers.
@@ -185,32 +160,7 @@ mammals %>%
   geom_bar(stat="count")
 ```
 
-2. Is there a positive or negative relationship between mass and homerange? How does this compare between herbivores and carnivores? Provide examples below.  
-
-### Carnivores
-```{r}
-mammals %>% 
-  filter(trophic.guild=="carnivore") %>% 
-  ggplot(mapping=aes(x=log10.mass, y=log10.hra)) +
-  geom_point()+
-  geom_smooth(method=lm, se=FALSE) 
-```
-
-### Herbivores
-```{r}
-mammals %>% 
-  filter(trophic.guild=="herbivore") %>% 
-  ggplot(mapping=aes(x=log10.mass, y=log10.hra)) +
-  geom_point()+
-  geom_smooth(method=lm, se=FALSE) 
-```
-
-3. Make a barplot that shows the masses of the top 10 smallest mammals in terms of mass. Be sure to use `stat'="identity"`.
-```{r}
-mammals %>%
-  arrange(log10.mass)
-```
-
+2. Make a bar plot that shows the masses of the top 10 smallest mammals in terms of mass. Be sure to use `stat'="identity"`.
 ```{r}
 mammals %>%
   top_n(-10, log10.mass) %>%
