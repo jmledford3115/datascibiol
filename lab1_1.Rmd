@@ -113,6 +113,6 @@ Since you will use your GitHub repository for your homework, we need to practice
 ## GitHub Issues
 We may encounter  issues over the next few weeks with GitHub. These will be caused mostly by user error, but sometimes weird things happen. If you are stuck, get my attention and we will sort things out.
 
-That's it, let's take a break!  
+## That's it, let's take a break!  
 
 --> On to [part 2](https://jmledford3115.github.io/datascibiol/lab1_2.html)  

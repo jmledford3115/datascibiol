@@ -12,15 +12,14 @@ output:
 ---
 
 ## Review
-At this point, I expect that you have familiarity in RStudio, GitHub (even if Git is not working for you), and basic operations in R. You understand how to do arithmetic, assign values to objects, and work with vectors or data matrices.  
-
-Part of this is learning the syntax of R and getting used to the environment. If you are confused, please [email me](mailto: jmledford@ucdavis.edu) so we can get you back on track.  
+At this point, I expect that you have familiarity in RStudio, GitHub (even if Git is not working for you), and basic operations in R. You understand how to do arithmetic, assign values to objects, and work with vectors or data matrices.
+Part of this is learning the syntax of R and getting used to the environment. If you are confused, please [email me](mailto: jmledford@ucdavis.edu) so we can get you on track.  
 
 ## Learning Goals
 *At the end of this exercise, you will be able to:*    
 1. Import .csv files as data frames.  
 2. Use summary functions to explore the contents of a data frame.  
-3. Use the filter function of dplyr to organize and sort data frames.  
+3. Use the `filter()` function of dplyr to sort data frames.  
 
 ## Libraries
 ```{r message=FALSE, warning=FALSE}
@@ -68,7 +67,8 @@ glimpse(fish)
 ## Practice
 Load the data `mammal_lifehistories_v2.csv` and place it into a new object.
 ```{r message=FALSE, warning=FALSE}
-mammals <- readr::read_csv("data/Mammal_lifehistories_v2.csv")
+mammals <- 
+  readr::read_csv("data/Mammal_lifehistories_v2.csv")
 ```
 
 1. Provide the dimensions of the data frame.
@@ -81,7 +81,7 @@ dim(mammals)
 names(mammals)
 ```
 
-3. Use str() to show the structure of the data frame and its individual columns; compare this to glimpse(). 
+3. Use `str()` to show the structure of the data frame and its individual columns; compare this to `glimpse()`. 
 ```{r}
 str(mammals)
 ```
@@ -90,7 +90,7 @@ str(mammals)
 glimpse(mammals)
 ```
 
-4. Print out the first few rows of the data using the function head().  
+4. Print out the first few rows of the data using the function `head()`.  
 ```{r}
 head(mammals)
 ```
@@ -105,7 +105,8 @@ A core package in the tidyverse is dplyr. This package allows you to transform y
 
 The first command that we will learn is `filter()`. Filter allows you to subset observations in a data frame by their values. You should still have the fish data loaded, but if not then please re-load.  
 ```{r}
-fish <- readr::read_csv("data/Gaeta_etal_CLC_data.csv")
+fish <- 
+  readr::read_csv("data/Gaeta_etal_CLC_data.csv")
 ```
 
 Let's say that we are interested only in the fish that occur in the lake labeled AL. We can use `filter()` to extract these observations to build a new data frame focused on our question.
@@ -169,4 +170,7 @@ lake_AL <- filter(fish, lakeid=="AL")
 filter(lake_AL, scalelength>=2 & scalelength<=4)
 ```
 
-That's it, let's take a break!
+## Wrap-up
+Please review the learning goals and be sure to use the code here as a reference when completing the homework.
+
+See you next time!
