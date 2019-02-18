@@ -196,6 +196,8 @@ comparativeGenomeSize<- data.frame(organism=organism, genomeSizeBP=genomeSizeBP,
 comparativeGenomeSize
 ```
 
-Notice that not only are the data neater and cleaner looking, there is also information provided about the type of data in the frame. dbl just means that the value is a type of numeric [double precision floating point](http://uc-r.github.io/integer_double/).  
+Notice that not only are the data neater and cleaner looking, there is also information provided about the type of data in the frame. `dbl` means that the value is a type of numeric [double precision floating point](http://uc-r.github.io/integer_double/).  
 
-## Let's Take a Break!
+## Let's Take a Break!  
+
+--> On to [part 2](https://jmledford3115.github.io/datascibiol/lab2_2.html)  

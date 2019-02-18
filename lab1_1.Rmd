@@ -115,4 +115,4 @@ We may encounter  issues over the next few weeks with GitHub. These will be caus
 
 That's it, let's take a break!  
 
---> On to [lab 2](https://jmledford3115.github.io/datascibiol/lab1_2.html)  
+--> On to [part 2](https://jmledford3115.github.io/datascibiol/lab1_2.html)  
