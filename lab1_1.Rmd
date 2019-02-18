@@ -17,12 +17,12 @@ There is also a growing problem of curation. As the analyses and data become mor
 Lastly, with the widespread availability of data online there is the potential for new scientific discovery or insight through exploratory data analysis. In many cases a clean, organized workflow will yield new perspectives and promising results.  
 
 ## Objectives
-The goal for this course is to help get you started learning to manage, transform, and visualize data using the R programming language. You will learn to clearly and neatly organize messy data, transform it in ways that address your questions, and communicate results in a variety of formats. The course is designed for people with **no prior programming experience**. My only caveat is that there is a substantial learning curve but, working together, we should be able to make learning R easier, interesting, and fun.
+The goal for this course is to help get you started learning to manage, transform, and visualize data using the R programming language. You will learn to clearly and neatly organize messy data, transform it in ways that address your questions, and communicate results in a variety of formats. The course is designed for people with **no prior programming experience**. There is a substantial learning curve but, working together, we should be able to make learning R easier, interesting, and fun.
 
-Why spend the time? If you are pursuing any research path in science, this class will give you a significant competitive advantage and save you countless hours as most people struggle to [learn R on their own](https://www.wired.com/2017/03/biologists-teaching-code-survive/). Even if you are not pursuing a research career, companies routinely hire data scientists (or people with skills in data science) to anlyze a variety of data.
+Why spend the time? If you are pursuing any research path in science, this class will give you a competitive advantage and save you countless hours as most people struggle to [learn R on their own](https://www.wired.com/2017/03/biologists-teaching-code-survive/). Even if you are not pursuing a research career, companies routinely hire data scientists (or people with skills in data science) to analyze a variety of data.
 
 ## Resources
-Given the open source nature of R, many resources are available online. We will use a combination of resources in the class, but key items are listed below.
+Given that R is open source, many resources are available online. We will use a combination of resources in the class, but key items are listed below.
 
 - [R for data science](https://r4ds.had.co.nz/)
 - [R cheatsheets](https://www.rstudio.com/resources/cheatsheets/)
@@ -35,7 +35,7 @@ Our campus has a wealth of expertise in data science, from working groups to ful
 - [Davis R Users Group](http://d-rug.github.io/) 
 
 ## Lab 1
-The first goal of lab 1 is to get everyone started using R, Rstudio, and GitHub. All of our work will be done in RStudio and uploaded to the class GitHub repository.  
+The goal of lab 1 is to get everyone started using R, Rstudio, and GitHub. All of our work will be done in RStudio and uploaded to the class GitHub repository.  
 
 At the start of each lab session, I will randomly pull someone's code from the class GitHub repository and use it as an example. There are many, many ways to solve the same problems in R and seeing other people's code is a great way to learn. This is not about shaming people who make mistakes!  
 
@@ -45,28 +45,26 @@ This first lab is tedious, so please be patient. It is important that everyone i
 You are welcome to use your own computer, but in order to do so you need to install R, RStudio, and Git. If you would like to set-up your own computer, please follow the directions [here](https://jmledford3115.github.io/datascibiol/setup.html). If you are unsure about troubleshooting your own computer, **please** use the lab computers.
 
 ## GitHub and Git
-[**GitHub**](www.github.com) is a file stoage and management site used mostly by programmers. Programmers upload code to repositories (folders) and make it publicly available.  
+[**GitHub**](www.github.com) is a file storage and management site used mostly by programmers. Programmers upload code to repositories (folders) and make it publicly available.  
 
 **Git** is software that is used for version control. It tracks changes and is especially helpful when multiple people are collaborating on a project; if a mistake is made it can be easily tracked back and retrieved. Both can be integrated with RStudio.  
 
-Most programmers use both **GitHub** and **Git** to manage their projects. However, **Git** is glitchy and hard to work with- especially in a classroom. If you want to try and use **Git**, then follow the directions [here](https://jmledford3115.github.io/datascibiol/setup.html). Otherwise, we will stick to using **GitHub**.
-
+Most programmers use both **GitHub** and **Git** to manage their projects. However, **Git** is glitchy and hard to work with- especially in a classroom setting. If you want to try and use **Git**, then follow the directions [here](https://jmledford3115.github.io/datascibiol/setup.html).  
 
 ## GitHub Desktop
-The easiest way to manage your GitHub repositories is to use [GitHub desktop](https://desktop.github.com/). This is a super helpful tool that will allow you to manage all of your files. Highly recommended!  
+The easiest way to manage your GitHub repositories is to use [GitHub desktop](https://desktop.github.com/). This is a  helpful tool that will allow you to manage all of your files. Highly recommended!  
 
 ## Create a GitHub account
 Since we will use GitHub as a repository for all assignments, we need to make an account for each student and build a new project through RStudio. Navigate to www.github.com and create a free account. [Email](mailto:jmledford@ucdavis.edu) your username to me. You will receive an email to join the repository for our course.  
 
 I have made a repository for our class titled: [FRS417-DataScienceBiologists](https://github.com/FRS417-DataScienceBiologists). Once you have accepted the invitation to join the repository, you should be able to login to GitHub and see this organization or click on the link above. You should see a directory associated with your login name. This where you will upload all of your work during the quarter.  
-
 ## Download `class_files`
-In our class GitHub, you will see a directory called `class_files`. Click on the `Clone or download` button and download the files as a `.zip`. You should now have a folder called `class_files` inside of which are all of the files that we will use for each class.  
+In our class GitHub, you will see a directory called `class_files`. Click on the **Clone or download** button and download the files as a `.zip`. You should now have a folder called `class_files` inside of which are all of the files that we will use for each class.  Prior to the start of each lab, you will need to download the `class files` folder.  
 
 ## RStudio
-Inside the `class_files` folder you will see a file titled `lab1_1.Rmd`. Open this file by double clicking and you should now be in RStudio. This file is what was used to generate the course webpage.  
+Inside the `class_files` folder you will see a file titled `lab1_1.Rmd`. Open this file by double clicking and you should now be in RStudio.  
 
-RStudio is an interactive working environment for R. When you first open it, you should see your screen divided into four quadrants. I will demonstrate each of these in class, but for now it is enough to know that they display different information and are very helpful as you work on code. We will use RStudio exclusively throughout the quarter.  
+RStudio is an interactive working environment for R. When you first open it, you should see your screen divided into four quadrants. I will demonstrate each of these in class, but for now it is enough to know that they display different information and are helpful as you work on code.  
 
 You need to make a folder on your computer where you will keep all of your work. You will need frequent access to the folder, so I recommend putting it in an easy to find space. I put mine on the desktop.  
 
@@ -83,7 +81,7 @@ getwd()
 ```
 
 ## RMarkdown
-RMarkdown is one of many types of files that can be created in RStudio. It is an extremely helpful way to build code because it will display the code, its output, and any text that you wish to add.
+RMarkdown is one of many types of documents that can be created in RStudio. It is an extremely helpful way to build code because it will display the code, its output, and any text that you wish to add.  
 
 In RStudio, open a new markdown document: **File>New File>R Markdown**  
 
@@ -115,4 +113,6 @@ Since you will use your GitHub repository for your homework, we need to practice
 ## GitHub Issues
 We may encounter  issues over the next few weeks with GitHub. These will be caused mostly by user error, but sometimes weird things happen. If you are stuck, get my attention and we will sort things out.
 
-That's it, let's take a break!
+That's it, let's take a break!  
+
+--> On to [lab 2](https://jmledford3115.github.io/datascibiol/lab1_2.html)  
