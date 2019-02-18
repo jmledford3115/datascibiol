@@ -56,7 +56,7 @@ life_history %>%
 
 2. Run the code below. Are there any NA's in the data? Does this seem likely?
 ```{r}
-msleep %>% 
+life_history %>% 
   summarize(number_nas= sum(is.na(life_history)))
 ```
 

@@ -199,9 +199,8 @@ $(document).ready(function () {
 <h2>Load the tidyverse</h2>
 <pre class="r"><code>library(tidyverse)</code></pre>
 </div>
-<div id="practice-and-homework" class="section level2">
-<h2>Practice and Homework</h2>
-<p>We will work together on the next part (time permitting) and this will end up being your homework. Make sure that you save your work and copy and paste your responses into the RMarkdown homnework file.</p>
+<div id="mammals-life-history" class="section level2">
+<h2>Mammals Life History</h2>
 <p>Aren’t mammals fun? Let’s load up some more mammal data. This will be life history data for mammals. The <a href="http://esapubs.org/archive/ecol/E084/093/">data</a> are from: <em>S. K. Morgan Ernest. 2003. Life history characteristics of placental non-volant mammals. Ecology 84:3402.</em></p>
 <pre class="r"><code>life_history &lt;- readr::read_csv(&quot;data/mammal_lifehistories_v2.csv&quot;)</code></pre>
 <pre><code>## Parsed with column specification:
@@ -216,7 +215,7 @@ $(document).ready(function () {
 ##   weaning = col_double(),
 ##   `wean mass` = col_double(),
 ##   AFR = col_double(),
-##   `max. life` = col_integer(),
+##   `max. life` = col_double(),
 ##   `litter size` = col_double(),
 ##   `litters/year` = col_double()
 ## )</code></pre>
@@ -241,26 +240,21 @@ $(document).ready(function () {
 ##  n obs: 1440 
 ##  n variables: 13 
 ## 
-## ── Variable type:character ──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+## ── Variable type:character ─────────────────────────────────────────────────────────────────────────────────────────────────────
 ##  variable missing complete    n min max empty n_unique
 ##    family       0     1440 1440   6  15     0       96
 ##     genus       0     1440 1440   3  16     0      618
 ##     order       0     1440 1440   7  14     0       17
 ##   species       0     1440 1440   3  17     0     1191
 ## 
-## ── Variable type:integer ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
-##  variable missing complete    n    mean    sd   p0  p25  p50    p75 p100
-##  max_life       0     1440 1440 -490.26 615.3 -999 -999 -999 147.25 1368
-##      hist
-##  ▇▁▁▃▂▁▁▁
-## 
-## ── Variable type:numeric ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+## ── Variable type:numeric ───────────────────────────────────────────────────────────────────────────────────────────────────────
 ##     variable missing complete    n      mean         sd   p0  p25     p50
 ##          AFR       0     1440 1440   -408.12     504.97 -999 -999    2.5 
 ##    gestation       0     1440 1440   -287.25     455.36 -999 -999    1.05
 ##  litter_size       0     1440 1440    -55.63     234.88 -999    1    2.27
 ##   litters_yr       0     1440 1440   -477.14     500.03 -999 -999    0.38
 ##         mass       0     1440 1440 383576.72 5055162.92 -999   50  403.02
+##     max_life       0     1440 1440   -490.26     615.3  -999 -999 -999   
 ##      newborn       0     1440 1440   6703.15   90912.52 -999 -999    2.65
 ##    wean_mass       0     1440 1440  16048.93   5e+05    -999 -999 -999   
 ##      weaning       0     1440 1440   -427.17     496.71 -999 -999    0.73
@@ -270,13 +264,14 @@ $(document).ready(function () {
 ##     3.83      14.18    ▁▁▁▁▁▁▁▇
 ##     1.15       7.5     ▇▁▁▁▁▁▁▇
 ##  7009.17       1.5e+08 ▇▁▁▁▁▁▁▁
+##   147.25    1368       ▇▁▁▃▂▁▁▁
 ##    98    2250000       ▇▁▁▁▁▁▁▁
 ##    10          1.9e+07 ▇▁▁▁▁▁▁▁
 ##     2         48       ▆▁▁▁▁▁▁▇</code></pre>
 <ol start="2" style="list-style-type: decimal">
 <li>Run the code below. Are there any NA’s in the data? Does this seem likely?</li>
 </ol>
-<pre class="r"><code>msleep %&gt;% 
+<pre class="r"><code>life_history %&gt;% 
   summarize(number_nas= sum(is.na(life_history)))</code></pre>
 <pre><code>## # A tibble: 1 x 1
 ##   number_nas

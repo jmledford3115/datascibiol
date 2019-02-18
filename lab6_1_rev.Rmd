@@ -11,6 +11,29 @@ output:
     toc: yes
 ---
 
+## Group Project
+Brief check-in with your group. Now is the time to start working on data tidying and exploration. Make a plan!  
+
+##Resources
+- [ggplot2 cheatsheet](https://www.rstudio.com/wp-content/uploads/2015/03/ggplot2-cheatsheet.pdf)
+- [R for Data Science](https://r4ds.had.co.nz/)
+- [R Cookbook](http://www.cookbook-r.com/)
+- [`ggplot` themes](https://ggplot2.tidyverse.org/reference/ggtheme.html)
+- [Rebecca Barter `ggplot` Tutorial](http://www.rebeccabarter.com/blog/2017-11-17-ggplot2_tutorial/)
+
+## Learning Goals
+*At the end of this exercise, you will be able to:*    
+1. Understand and apply the syntax of building plots using `ggplot2`.  
+2. Build a boxplot using `ggplot2`.  
+3. Build a scatterplot using `ggplot2`.  
+4. Build a barplot using `ggplot2` and show the difference between `stat=count` and `stat=identity`.  
+
+## Load the libraries
+```{r message=FALSE, warning=FALSE}
+library(tidyverse)
+library(skimr)
+```
+
 ## Aesthetics
 Now that we have practiced scatterplots, barplots, and boxplots we need to learn how to adjust their appearance to suit our needs. For these examples, I am going to use the dataset `gapminder`. This dataset includes information about economics, population, and life expectancy from countries all over the world.
 
@@ -50,7 +73,7 @@ skimr::skim(gapminder)
 ```
 
 ##Scatterplots
-For the first example, we will work through the code to produce the scatterplot below. It compares per capita GDP and life expectancy in 2007 with some fancy aesthetics. Have a quick look at the plot so that you know where we are going. Since this is focused on 2007, I filtered the data for that year but all other commands are associated with the ggplot output. The idea for this came from [Rebecca Barter's](http://www.rebeccabarter.com/blog/2017-11-17-ggplot2_tutorial/) awesome ggplot tutorial so if you get lost go have a look.
+For the first example, we will work through the code to produce the scatterplot below. It compares per capita GDP and life expectancy in 2007 with some fancy aesthetics. Have a quick look at the plot so that you know where we are going. Since this is focused on 2007, I filtered the data for that year but all other commands are associated with the ggplot output. The idea for this came from [Rebecca Barter's](http://www.rebeccabarter.com/blog/2017-11-17-ggplot2_tutorial/) ggplot tutorial so if you get lost go have a look.
 ```{r}
 gapminder %>%
   filter(year==2007) %>%
@@ -70,7 +93,7 @@ gapminder %>%
         axis.ticks = element_line(color = "grey85"))
 ```
 
-The first few lines should be relatively straightforward. We are identifying the x and y variables, coloring each point by continent, and adjusting the size of each point by population. Try removing the color and size aesthetics and look at the result. The last aesthetic in `geom_point` is alpha and that controls the transparency of the points. This can help with overplotting and also allows us to visualize differences on a fine scale because we can see the background.
+The first few lines should be relatively straightforward. We are identifying the x and y variables, coloring each point by continent, and adjusting the size of each point by population. Try removing the color and size aesthetics and look at the result. The last aesthetic in `geom_point` is alpha and that controls the transparency of the points. This can help with overplotting and also allows us to visualize differences on a finer scale because we can see the background.
 ```{r}
 gapminder %>%
   filter(year==2007) %>%
@@ -78,7 +101,7 @@ gapminder %>%
   geom_point(alpha=0.75)
 ```
 
-In this example, I have re-scaled the x axis. The default is `scale_*_continuous` where the * is the x or y variable. The scale aesthetics are helpful for adjusting the plot to our range of interest. Try readjusting the x axis to 20000, 50000. In our example, we used `scale_x_log10(limits = c(200, 60000))` in order to better spread the data.
+In this example, I have re-scaled the x axis. The default is `scale_*_continuous` where the * is the x or y variable. The scale aesthetics are helpful for adjusting the plot to our range of interest. Try readjusting the x axis to 20000, 50000 as an experiment. 
 ```{r}
 gapminder %>%
   filter(year==2007) %>%
@@ -87,6 +110,7 @@ gapminder %>%
   scale_x_continuous(limits = c(200, 50000))
 ```
 
+Because there are such large differences in per capita GDP, we can also log transform the x-axis. In our example, we used `scale_x_log10(limits = c(200, 60000))` in order to better spread the data.
 ```{r}
 gapminder %>%
   filter(year==2007) %>%
@@ -109,7 +133,7 @@ gapminder %>%
        color = "Continent")
 ```
 
-Scale size specifies a discrete range for the size of the points according to population. Try adjusting the range to see the effect. `guide=none` removes the key to clean up the plot.
+Scale size specifies a discrete range for the size of the points according to population. Try adjusting the range to see the effect. `guide=none` removes the population part of the key to clean up the plot.
 ```{r}
 gapminder %>%
   filter(year==2007) %>%
@@ -173,23 +197,22 @@ plot +
 ## Practice
 Let's continue using the `gapminder` dataset. Where appropriate, add aesthetic elements using code from the examples above.
 ```{r}
+options(scipen=999)
 glimpse(gapminder)
 ```
 
-1. What is the population for all countries on the Asian continent in 2007? Fill each bar by per capita gdp. 
+1. What is the population for all countries on the Asian continent in 2007? Show this as a barplot. Fill each bar by per capita gdp. 
 ```{r}
 gapminder %>%
   filter(year==2007, continent=="Asia") %>% 
-  ggplot(aes(x=country, y=pop, fill=gdpPercap))+
-  geom_col()+
+  ggplot(aes(x=reorder(country, -pop), y=pop))+
+  geom_col(fill="steelblue", alpha=0.8)+
   coord_flip()+
   labs(title = "Population on Asian Continent (2007)",
        x = "Population",
        y = "Country")+
-  theme_linedraw()+
-  theme(legend.position = "right",
-        axis.line = element_line(color = "grey85"),
-        axis.ticks = element_line(color = "grey85"))
+  theme_linedraw()+ 
+  theme(plot.title = element_text(size = rel(1.5), hjust = 0.5))
 ```
 
 2. Are there any outliers in question 1? Remove those and re-plot.

@@ -18,8 +18,6 @@ Now that you have been introduced to `ggplot`, we need to practice a few more pl
 - [ggplot2 cheatsheet](https://www.rstudio.com/wp-content/uploads/2015/03/ggplot2-cheatsheet.pdf)
 - [R for Data Science](https://r4ds.had.co.nz/)
 - [R Cookbook](http://www.cookbook-r.com/)
-- [`ggplot` themes](https://ggplot2.tidyverse.org/reference/ggtheme.html)
-- [Rebecca Barter `ggplot` Tutorial](http://www.rebeccabarter.com/blog/2017-11-17-ggplot2_tutorial/)
 
 ## Load the libraries
 ```{r message=FALSE, warning=FALSE}

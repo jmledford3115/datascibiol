@@ -26,7 +26,7 @@ Meet with your group and decide on a data set that you will use for your project
 
 ## Learning Goals
 *At the end of this exercise, you will be able to:*    
-1. Understand and apply the syntax of building plots using `ggplot2`.  
+1. Understand and apply the syntax of building plots using `ggplot2`.
 2. Build a boxplot using `ggplot2`.  
 3. Build a scatterplot using `ggplot2`.  
 4. Build a barplot using `ggplot2` and show the difference between `stat=count` and `stat=identity`.  
@@ -76,8 +76,11 @@ ggplot(data=iris, mapping=aes(x=Species, y=Petal.Length))+
 ```
 
 ## Practice
-1. Take a moment to practice. Use the iris data to build a scatterplot that compares sepal length vs. sepal width. Use the cheatsheet to find the correct `geom_` for a scatterplot.
-
+Take a moment to practice. Use the iris data to build a scatterplot that compares sepal length vs. sepal width. Use the cheatsheet to find the correct `geom_` for a scatterplot.
+```{r}
+ggplot(data=iris, mapping=aes(x=Sepal.Length, y=Sepal.Width))+
+  geom_point()
+```
 
 ## Scatterplots, barplots, and boxplots
 Now that we have a general idea of the syntax, let's start by working with two standard plots: 1) scatterplots and 2) barplots.
@@ -98,9 +101,6 @@ A little bit of cleaning to focus on the variables of interest. Good `dplyr` pra
 homerange <- 
   homerange %>%  
   select(common.name, taxon, family, genus, species, mean.mass.g, log10.mass, mean.hra.m2, log10.hra, preymass, log10.preymass, trophic.guild)
-```
-
-```{r}
 names(homerange)
 ```
 
@@ -135,48 +135,40 @@ homerange %>%
 ```
 
 ### 2B. Bar Plot: `stat="identity"`
-`stat="identity"` allows us to map a variable to the y axis so that we aren't restricted to count. Let's use our dplyr skills to first filter out carnivorous mammals and see which families have the highest mean body weight.
+`stat="identity"` allows us to map a variable to the y axis so that we aren't restricted to count.  
+
+First, practice your skills by filtering out carnivorous mammals.
 ```{r}
 carni_mammals <- 
   homerange %>% 
   filter(taxon=="mammals", 
-         trophic.guild=="carnivore") %>% 
+         trophic.guild=="carnivore")
+```
+
+Now, summarize mean body weight by family.
+```{r}
+carni_mammals_mass <- 
+  carni_mammals %>% 
   group_by(family) %>% 
   summarize(count=n(),
             mean_body_wt=mean(log10.mass)) %>% 
   arrange(desc(mean_body_wt))
-carni_mammals
+carni_mammals_mass
 ```
 
-Now let's plot the data using `stat="identity"` to help visualize these differences.
+Now let's plot the data using `stat="identity"` to visualize mean body weight by family.
 ```{r}
-carni_mammals%>% 
+carni_mammals_mass %>% 
   ggplot(aes(x=family, y=mean_body_wt))+
   geom_bar(stat="identity")
 ```
 
-This looks nice, but the x axis is a mess and needs adjustment. We make these adjustments using `theme()`.
+This looks nice, but the x axis is a mess and needs adjustment. We can adjust the angle of the x-axis text by using `theme()`.
 ```{r}
-carni_mammals%>% 
+carni_mammals_mass%>% 
   ggplot(aes(x=family, y=mean_body_wt))+
   geom_bar(stat="identity")+
   theme(axis.text.x = element_text(angle = 60, hjust=1))
-```
-
-We can make this a little bit better by reordering.
-```{r}
-carni_mammals%>% 
-  ggplot(aes(x=reorder(family, -mean_body_wt), y=mean_body_wt))+
-  geom_bar(stat="identity")+
-  theme(axis.text.x = element_text(angle = 60, hjust=1))
-```
-
-Or we can flip the coordinates.
-```{r}
-carni_mammals%>% 
-  ggplot(aes(x=reorder(family, -mean_body_wt), y=mean_body_wt))+
-  geom_bar(stat="identity")+
-  coord_flip()
 ```
 
 ## Practice
@@ -184,21 +176,49 @@ Filter the `homerange` data to include `mammals` only.
 ```{r}
 mammals <- 
   homerange %>% 
-  filter(taxon=="mammals") %>% 
-  select(common.name, family, genus, species, trophic.guild, mean.mass.g, log10.mass, mean.hra.m2, log10.hra, preymass, log10.preymass)
-```
-
-```{r}
+  filter(taxon=="mammals")
 mammals
 ```
 
-1. Are there more herbivores or carnivores in mammals? Make a bar plot that shows their relative proportions.
+1. Are there more herbivores or carnivores in mammals? Make a bar plot that shows their relative numbers.
+```{r}
+mammals %>% 
+  ggplot(aes(x=trophic.guild))+
+  geom_bar(stat="count")
+```
 
+2. Is there a positive or negative relationship between mass and homerange? How does this compare between herbivores and carnivores? Provide examples below.  
 
-2. Is there a positive or negative relationship between mass and homerange? How does this compare between herbivores and carnivores? Make two plots that illustrate these eamples below.  
+### Carnivores
+```{r}
+mammals %>% 
+  filter(trophic.guild=="carnivore") %>% 
+  ggplot(mapping=aes(x=log10.mass, y=log10.hra)) +
+  geom_point()+
+  geom_smooth(method=lm, se=FALSE) 
+```
 
+### Herbivores
+```{r}
+mammals %>% 
+  filter(trophic.guild=="herbivore") %>% 
+  ggplot(mapping=aes(x=log10.mass, y=log10.hra)) +
+  geom_point()+
+  geom_smooth(method=lm, se=FALSE) 
+```
 
 3. Make a barplot that shows the masses of the top 10 smallest mammals in terms of mass. Be sure to use `stat'="identity"`.
+```{r}
+mammals %>%
+  arrange(log10.mass)
+```
 
+```{r}
+mammals %>%
+  top_n(-10, log10.mass) %>%
+  ggplot(aes(x=reorder(common.name, log10.mass), y=log10.mass))+
+  geom_bar(stat="identity")+
+  coord_flip()
+```
 
 ## Let's Take a Break!
