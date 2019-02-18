@@ -107,7 +107,6 @@ fish %>%
   arrange(fish_id)
 ```
 
-## Wrap-up
-Please review the learning goals and be sure to use the code here as a reference when completing the homework.
+## That's it, let's take a break!   
 
-See you next time!
+--> On to [part 2](https://jmledford3115.github.io/datascibiol/lab3_2.html)  
