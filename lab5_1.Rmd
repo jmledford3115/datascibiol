@@ -221,4 +221,6 @@ mammals %>%
   coord_flip()
 ```
 
-## Let's Take a Break!
+## That's it, let's take a break!   
+
+--> On to [part 2](https://jmledford3115.github.io/datascibiol/lab5_2.html)  
