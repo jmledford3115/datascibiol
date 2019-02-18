@@ -292,30 +292,30 @@ div.tocify {
 <div id="essential-information-about-r" class="section level2">
 <h2>Essential Information about R</h2>
 <p>R is an open source, <strong>scripting</strong> language. RStudio is a GUI (graphical user interface) that is frequently used to interact with R. You need R installed in order for RStudio to work.</p>
-<p>Because R is a scripting language you don’t point and click to run commands. Instead, you write instructions that are used by the computer to complete an operation. This makes for excellent repeatability (good science) but makes it hard to learn at first because the instructions are very specific. R is <strong>not</strong> tolerant of typos, puntuation errors, errant spaces, or other types of mistakes.</p>
+<p>Because R is a scripting language you don’t point and click to run commands. Instead, you write instructions that are used by the computer to complete an operation. This makes for excellent repeatability but makes it hard to learn at first because the instructions are specific. R is <strong>not</strong> tolerant of typos, puntuation errors, errant spaces, or other types of mistakes.</p>
 </div>
 <div id="rmarkdown" class="section level2">
 <h2>RMarkdown</h2>
-<p>Many experienced programmers write their code directly in R with minimal annotations. This is great for them because they read R fluently. Since we are programming novices we will write our code in RMarkdown format. RMarkdown allows us to embed code in annotated chunks, including display of graphical output. The RMarkdown file can then be exported in a number of easy to read formats including html, pdf, and MS Word. If you have questions, the definitive guide is <a href="https://bookdown.org/yihui/rmarkdown/">here</a>.</p>
+<p>Experienced programmers often write their code with minimal annotations. This is great for them because they read R fluently. Since we are programming novices we will write our code in RMarkdown format. RMarkdown allows us to embed code in annotated chunks, including display of graphical output. The RMarkdown file can then be exported in a number of formats. If you have questions, the definitive guide is <a href="https://bookdown.org/yihui/rmarkdown/">here</a>.</p>
 </div>
 <div id="help" class="section level2">
 <h2>Help</h2>
-<p>R is a poweful and flexible programming language that is used by scientists worldwide. Thousands of packages are available to perform specific analyses and there is a large community of people willing to help if you have problems. Just be sure to thoroughly look for help before posting questions to openstacks or related forums.</p>
+<p>R is a flexible programming language that is used by scientists worldwide. Thousands of packages are available to perform specific analyses and there is a large community of people willing to help if you have problems. Just be sure to thoroughly look for help before posting questions to stack overflow or related forums.</p>
 <p>Adding a ‘?’ before a command will bring up the associated help document.</p>
 <pre class="r"><code>?mean</code></pre>
 </div>
 <div id="learning-goals" class="section level2">
 <h2>Learning Goals</h2>
 <p><em>At the end of this exercise, you will be able to:</em><br />
-1. Solve simple arithmetic operations in R.<br />
+1. Solve arithmetic operations in R.<br />
 2. Define an object in R; assign values to objects.<br />
 3. Learn best practices in the naming of objects and other R programming conventions.<br />
-4. Learn the differences in the types of data used in R.<br />
+4. Learn the differences between the types of data used in R.<br />
 5. Perform simple operations using vectors.</p>
 </div>
 <div id="arithmetic" class="section level2">
 <h2>Arithmetic</h2>
-<p>You can use R as a calculator; just type the operation into the console. Order of operations applies and you don’t need to add an ‘=’ sign.</p>
+<p>You can use R as a calculator; just enter the operation into a new code chunk. Order of operations applies and you don’t need to add an ‘=’ sign.</p>
 <pre class="r"><code>4*12</code></pre>
 <pre><code>## [1] 48</code></pre>
 <pre class="r"><code>(4*12)/2</code></pre>
@@ -327,7 +327,7 @@ div.tocify {
 <div id="objects" class="section level2">
 <h2>Objects</h2>
 <p>In order to access the potential of R we need to assign values or other types of data to <code>objects</code>. There is a specific format that I want you to follow, so please pay close attention.</p>
-<p>Assign a value to object ‘x’. The ‘&lt;-’ symbol is read as ‘gets’. In this case, x gets 42. Make sure that you are in the environment panel and you should see the value associated with ‘x’. On a mac, you can push <code>option</code> and <code>-</code> to automatically generate the gets symbol. Some people use the ‘=’ sign instead of &lt;- but this won’t work in all situations. Please do not use ‘=’ instead of ‘&lt;-’.</p>
+<p>Assign a value to object ‘x’. The ‘&lt;-’ symbol is read as ‘gets’. In this case, x gets 42. Make sure that you are in the environment panel and you should see the value associated with ‘x’. On a mac, you can push <code>option</code> and <code>-</code> to automatically generate the gets symbol.</p>
 <pre class="r"><code>x&lt;-42</code></pre>
 <p>To print the object to the screen, just type x. Alternatively, you can use the print command.</p>
 <pre class="r"><code>x</code></pre>
@@ -343,9 +343,9 @@ my_experiment</code></pre>
 </div>
 <div id="nomenclature" class="section level2">
 <h2>Nomenclature</h2>
-<p>We need to be careful about our nomenclature when we write code. R allows us to give almost any name we want to an object, but there are exceptions. For example, we don’t want to give a name to an object that is the same as a function in R.</p>
+<p>We need to be careful about nomenclature when we write code. R allows us to give almost any name we want to an object, but there are exceptions. For example, we don’t want to give a name to an object that is the same as a function in R.</p>
 <pre class="r"><code>else&lt;-12</code></pre>
-<p>We get an error here because <code>else</code> is a function in R. You also don’t want to give names that might get confused with functions; i.e. you can assign a value to ‘mean’ but this could get confusing because mean is primarily used as a function. Also, because of the way R was originally written you should not use periods in your objects; i.e. my.experiment. Instead, use underscores or no spaces at all.</p>
+<p>We get an error here because <code>else</code> is a function in R. You also don’t want to give names that might get confused with functions; i.e. you can assign a value to ‘mean’ but this could become confusing because mean is used as a function.</p>
 </div>
 <div id="practice" class="section level2">
 <h2>Practice</h2>
@@ -360,10 +360,15 @@ veyron &lt;- 268</code></pre>
 </ol>
 <pre class="r"><code>(270+261+268)/3</code></pre>
 <pre><code>## [1] 266.3333</code></pre>
+<ol start="3" style="list-style-type: decimal">
+<li>Use the function <code>mean()</code> to calculate the mean top speed for the cars.</li>
+</ol>
+<pre class="r"><code>mean(venom_GT, chiron, veyron)</code></pre>
+<pre><code>## [1] 270</code></pre>
 </div>
 <div id="types-of-data" class="section level2">
 <h2>Types of Data</h2>
-<p>There are five frequently used <code>classes</code> of data (we won’t use raw): 1. numeric, 2. integer, 3. character, 4. logical, 5. complex.</p>
+<p>There are five frequently used <code>classes</code> of data: 1. numeric, 2. integer, 3. character, 4. logical, 5. complex.</p>
 <pre class="r"><code>my_numeric &lt;- 42
 my_integer &lt;- 2L #adding an L automatically denotes an integer
 my_character &lt;- &quot;universe&quot;
@@ -375,13 +380,14 @@ my_complex &lt;- 2+4i</code></pre>
 <p>You can use the <code>is()</code> and <code>as()</code> functions to clarify or specify a type of data.</p>
 <pre class="r"><code>is.integer(my_numeric) #is my_numeric an integer?</code></pre>
 <pre><code>## [1] FALSE</code></pre>
-<pre class="r"><code>my_integer &lt;- as.integer(my_numeric) #create a new object specified as an integer</code></pre>
+<pre class="r"><code>my_integer &lt;- 
+  as.integer(my_numeric) #create a new object specified as an integer</code></pre>
 <pre class="r"><code>is.integer(my_integer) #is my_numeric an integer?</code></pre>
 <pre><code>## [1] TRUE</code></pre>
 </div>
 <div id="data-structures" class="section level2">
 <h2>Data Structures</h2>
-<p>In addition to the types or classes of data, R also organizes data in specific ways. These are data structures and include vectors, lists, matrices, data frames, and factors. For now, we are going to focus on <code>vectors</code>.</p>
+<p>In addition to the types or classes of data, R also organizes data in specific ways. These are called data structures and include vectors, lists, matrices, data frames, and factors. For now, we are going to focus on <code>vectors</code>.</p>
 </div>
 <div id="vectors" class="section level2">
 <h2>Vectors</h2>
@@ -401,7 +407,7 @@ my_vector_string2</code></pre>
 </div>
 <div id="identifying-vector-elements" class="section level2">
 <h2>Identifying vector elements</h2>
-<p>We can use <code>[]</code> to pull out vector elements. We just need to specify its position in the vector; i.e. day 3 is Wednesday.</p>
+<p>We can use <code>[]</code> to pull out elements in a vector. We just need to specify their position in the vector; i.e. day 3 is Wednesday.</p>
 <pre class="r"><code>days_of_the_week[3]</code></pre>
 <pre><code>## [1] &quot;Wednesday&quot;</code></pre>
 </div>

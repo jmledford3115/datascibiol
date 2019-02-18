@@ -12,13 +12,13 @@ output:
 ## Essential Information about R
 R is an open source, **scripting** language. RStudio is a GUI (graphical user interface) that is frequently used to interact with R. You need R installed in order for RStudio to work.
 
-Because R is a scripting language you don't point and click to run commands. Instead, you write instructions that are used by the computer to complete an operation. This makes for excellent repeatability (good science) but makes it hard to learn at first because the instructions are very specific. R is **not** tolerant of typos, puntuation errors, errant spaces, or other types of mistakes.
+Because R is a scripting language you don't point and click to run commands. Instead, you write instructions that are used by the computer to complete an operation. This makes for excellent repeatability but makes it hard to learn at first because the instructions are specific. R is **not** tolerant of typos, puntuation errors, errant spaces, or other types of mistakes.
 
 ## RMarkdown
-Many experienced programmers write their code directly in R with minimal annotations. This is great for them because they read R fluently. Since we are programming novices we will write our code in RMarkdown format. RMarkdown allows us to embed code in annotated chunks, including display of graphical output. The RMarkdown file can then be exported in a number of easy to read formats including html, pdf, and MS Word. If you have questions, the definitive guide is [here](https://bookdown.org/yihui/rmarkdown/).  
+Experienced programmers often write their code with minimal annotations. This is great for them because they read R fluently. Since we are programming novices we will write our code in RMarkdown format. RMarkdown allows us to embed code in annotated chunks, including display of graphical output. The RMarkdown file can then be exported in a number of formats. If you have questions, the definitive guide is [here](https://bookdown.org/yihui/rmarkdown/).  
 
 ## Help
-R is a poweful and flexible programming language that is used by scientists worldwide. Thousands of packages are available to perform specific analyses and there is a large community of people willing to help if you have problems. Just be sure to thoroughly look for help before posting questions to openstacks or related forums.
+R is a flexible programming language that is used by scientists worldwide. Thousands of packages are available to perform specific analyses and there is a large community of people willing to help if you have problems. Just be sure to thoroughly look for help before posting questions to stack overflow or related forums.
 
 Adding a '?' before a command will bring up the associated help document.
 ```{r}
@@ -27,15 +27,14 @@ Adding a '?' before a command will bring up the associated help document.
 
 ## Learning Goals
 *At the end of this exercise, you will be able to:*    
-1. Solve simple arithmetic operations in R.  
+1. Solve arithmetic operations in R.  
 2. Define an object in R; assign values to objects.  
 3. Learn best practices in the naming of objects and other R programming conventions.  
-4. Learn the differences in the types of data used in R.  
-5. Perform simple operations using vectors.
+4. Learn the differences between the types of data used in R.  
+5. Perform simple operations using vectors.  
 
 ## Arithmetic
-You can use R as a calculator; just type the operation into the console. Order of operations applies and you don't need to add an '=' sign. 
-
+You can use R as a calculator; just enter the operation into a new code chunk. Order of operations applies and you don't need to add an '=' sign.
 ```{r}
 4*12
 ```
@@ -52,7 +51,7 @@ mean(4, 6, 8, 5, 6, 7, 7, 7)
 ## Objects
 In order to access the potential of R we need to assign values or other types of data to `objects`. There is a specific format that I want you to follow, so please pay close attention.  
 
-Assign a value to object 'x'. The '<-' symbol is read as 'gets'. In this case, x gets 42. Make sure that you are in the environment panel and you should see the value associated with 'x'. On a mac, you can push `option` and `-` to automatically generate the gets symbol. Some people use the '=' sign instead of <- but this won't work in all situations. Please do not use '=' instead of '<-'.
+Assign a value to object 'x'. The '<-' symbol is read as 'gets'. In this case, x gets 42. Make sure that you are in the environment panel and you should see the value associated with 'x'. On a mac, you can push `option` and `-` to automatically generate the gets symbol.
 ```{r}
 x<-42
 ```
@@ -75,13 +74,13 @@ my_experiment
 ```
 
 ## Nomenclature
-We need to be careful about our nomenclature when we write code. R allows us to give almost any name we want to an object, but there are exceptions. For example, we don't want to give a name to an object that is the same as a function in R.
+We need to be careful about nomenclature when we write code. R allows us to give almost any name we want to an object, but there are exceptions. For example, we don't want to give a name to an object that is the same as a function in R.
 
 ```{r eval=FALSE, include=TRUE}
 else<-12
 ```
 
-We get an error here because `else` is a function in R. You also don't want to give names that might get confused with functions; i.e. you can assign a value to 'mean' but this could get confusing because mean is primarily used as a function. Also, because of the way R was originally written you should not use periods in your objects; i.e. my.experiment. Instead, use underscores or no spaces at all.  
+We get an error here because `else` is a function in R. You also don't want to give names that might get confused with functions; i.e. you can assign a value to 'mean' but this could become confusing because mean is used as a function.  
 
 ## Practice
 1. Create three new objects, `venom_GT`, `chiron`, and `veyron`. These are the fastest cars in the world. Assign each car to its top speed. The venom_GT can go 270, chiron is 261, and veyron is 268.
@@ -96,8 +95,13 @@ veyron <- 268
 (270+261+268)/3
 ```
 
+3. Use the function `mean()` to calculate the mean top speed for the cars.
+```{r}
+mean(venom_GT, chiron, veyron)
+```
+
 ## Types of Data
-There are five frequently used `classes` of data (we won't use raw): 1. numeric, 2. integer, 3. character, 4. logical, 5. complex.
+There are five frequently used `classes` of data: 1. numeric, 2. integer, 3. character, 4. logical, 5. complex.
 ```{r}
 my_numeric <- 42
 my_integer <- 2L #adding an L automatically denotes an integer
@@ -117,7 +121,8 @@ is.integer(my_numeric) #is my_numeric an integer?
 ```
 
 ```{r}
-my_integer <- as.integer(my_numeric) #create a new object specified as an integer
+my_integer <- 
+  as.integer(my_numeric) #create a new object specified as an integer
 ```
 
 ```{r}
@@ -125,7 +130,7 @@ is.integer(my_integer) #is my_numeric an integer?
 ```
 
 ## Data Structures
-In addition to the types or classes of data, R also organizes data in specific ways. These are data structures and include vectors, lists, matrices, data frames, and factors. For now, we are going to focus on `vectors`.  
+In addition to the types or classes of data, R also organizes data in specific ways. These are called data structures and include vectors, lists, matrices, data frames, and factors. For now, we are going to focus on `vectors`.  
 
 ## Vectors
 Vectors are a common way of organizing data in R. The key detail is that they contain data *of the same type*. We create vectors using the `c` command.  
@@ -153,7 +158,7 @@ my_vector_string2
 ```
 
 ## Identifying vector elements
-We can use `[]` to pull out vector elements. We just need to specify its position in the vector; i.e. day 3 is Wednesday.
+We can use `[]` to pull out elements in a vector. We just need to specify their position in the vector; i.e. day 3 is Wednesday.
 ```{r}
 days_of_the_week[3]
 ```
