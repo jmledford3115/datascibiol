@@ -12,7 +12,7 @@ output:
 ---
 
 ## Review
-Now that you have been introduced to `ggplot`, we need to practice a few more plot types and learn how to manipulate the aesthetics of plots to better suit our needs. Aesthetics can make a significant difference visually, but you can take it too far so remember that our goal is to produce clean plots that are not too distracting.  
+Now that you have been introduced to `ggplot`, we need to practice a few more plot types and learn how to manipulate the aesthetics of plots to better suit our needs. Aesthetics can make a significant difference, but you can take it too far so remember that the goal is to produce clean plots that are not too distracting.  
 
 ##Resources
 - [ggplot2 cheatsheet](https://www.rstudio.com/wp-content/uploads/2015/03/ggplot2-cheatsheet.pdf)
@@ -45,6 +45,7 @@ carni_mammals <-
 carni_mammals
 ```
 
+`geom_boxplot()` is the geom type for a standard boxplot. The center line in each box represents the median, not the mean.
 ```{r}
 carni_mammals %>% 
   ggplot(aes(x=family, y=log10.mass))+
@@ -53,7 +54,7 @@ carni_mammals %>%
 ```
 
 ## Practice
-1. What do you think those solid lines represent? Use `count` to determine which families have the largest and smallest sample sizes.
+1. What do you think the solid lines represent? Use `count()` to determine which families have the largest and smallest sample sizes.
 ```{r}
 carni_mammals %>% 
   count(family) %>% 
@@ -66,7 +67,7 @@ carni_mammals %>%
   arrange(desc(n))
 ```
 
-2. Rebuild the plot only for the top five families with the largest sample sizes. How is `ggplot` ordering families on the x-axis?
+2. Rebuild the plot for the top five families with the largest sample sizes. How is `ggplot` ordering families on the x-axis?
 ```{r}
 homerange %>% 
   filter(family=="felidae" | family=="mustelidae" | family=="canidae" | family=="soricidae" | family=="herpestidae") %>% 
@@ -77,7 +78,6 @@ homerange %>%
 3. There are more herbivores than carnivores in the homerange data, but how do their masses compare? Make a boxplot that compares their masses. Use `log10.mass`.
 ```{r}
 homerange %>% 
-  filter(taxon=="mammals") %>% 
   ggplot(aes(x=trophic.guild, y=log10.mass))+
   geom_boxplot()
 ```
@@ -85,13 +85,13 @@ homerange %>%
 ## Aesthetics: Labels
 Now that we have practiced scatterplots, barplots, and boxplots we need to learn how to adjust their appearance to suit our needs. Let's start with labelling x and y axes.  
 
-In this example, we explored the relationship between body mass and homerange.
+In this example from part 1, we explored the relationship between body mass and homerange.
 ```{r}
 ggplot(data=homerange, mapping=aes(x=log10.mass, y=log10.hra)) +
   geom_point()
 ```
 
-The plot looks clean, but it is incomplete. A reader unfamiliar with the data might have a difficult time interpreting the plot with labels. To add labels, we use the `labs` command.
+The plot looks clean, but it is incomplete. A reader unfamiliar with the data might have a difficult time interpreting the current labels. To add custom labels, we use the `labs` command.
 ```{r}
 ggplot(data=homerange, mapping=aes(x=log10.mass, y=log10.hra)) +
   geom_point()+
@@ -100,7 +100,7 @@ ggplot(data=homerange, mapping=aes(x=log10.mass, y=log10.hra)) +
        y = "Homerange (log10)")
 ```
 
-We can improve the plot further by adjusting the size and condition of the text.
+We can improve the plot further by adjusting the size and face of the text. We do this using `theme()`.
 ```{r}
 ggplot(data=homerange, mapping=aes(x=log10.mass, y=log10.hra)) +
   geom_point()+
@@ -112,7 +112,7 @@ ggplot(data=homerange, mapping=aes(x=log10.mass, y=log10.hra)) +
         axis.title=element_text(size=12))
 ```
 
-The `rel` option changes the relative size of the title to keep things consistent. Adding `hjust` allows control of title position.
+The `rel()` option changes the relative size of the title to keep things consistent. Adding `hjust` allows control of title position.
 ```{r}
 ggplot(data=homerange, mapping=aes(x=log10.mass, y=log10.hra)) +
   geom_point()+
@@ -135,7 +135,7 @@ homerange %>%
 ```
 
 ## Other Aesthetics
-There are lots of options for aesthtics. An aesthetic can be either numeric or categorical. `color` is a common option; notice that an appropriate key is displayed when you use one of the aesthetic options.
+There are lots of options for aesthtics. An aesthetic can be assigned to either numeric or categorical data. `color` is a common option; notice that an appropriate key is displayed when you use one of these options.
 ```{r}
 homerange %>% 
   ggplot(aes(x=log10.mass, y=log10.hra, color=locomotion))+
@@ -144,6 +144,8 @@ homerange %>%
 
 `size` adjusts the size of points relative to a continuous variable.
 ```{r}
+options(scipen = 999) #disable scientific notation
+
 homerange %>% 
   ggplot(aes(x=log10.mass, y=log10.hra, size=mean.mass.g))+
   geom_point()
@@ -168,7 +170,7 @@ homerange %>%
   theme(plot.title = element_text(size = rel(1.25)))
 ```
 
-2. Make a boxplot that compares thermoregulation type by mog10.mass. group and fill by class. Label the axes and provide a title.
+2. Make a boxplot that compares thermoregulation type by log10.mass. group and fill by class. Label the axes and provide a title.
 ```{r}
 homerange %>% 
   ggplot(aes(x=thermoregulation, y=log10.mass, group=class, fill=class))+
