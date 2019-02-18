@@ -197,6 +197,6 @@ new_vector[new_vector <= 10 | new_vector == 1]
 ```
 
 ## Wrap-up
-Please review the learning goals and be sure to use the code here as a reference when completing the homework.
+Please review the learning goals and be sure to use the code here as a reference when completing the homework.  
 
-See you next time!
+-->[Home](https://jmledford3115.github.io/datascibiol/)
