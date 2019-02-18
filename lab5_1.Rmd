@@ -21,12 +21,10 @@ Meet with your group and decide on a data set that you will use for your project
 - [ggplot2 cheatsheet](https://www.rstudio.com/wp-content/uploads/2015/03/ggplot2-cheatsheet.pdf)
 - [R for Data Science](https://r4ds.had.co.nz/)
 - [R Cookbook](http://www.cookbook-r.com/)
-- [`ggplot` themes](https://ggplot2.tidyverse.org/reference/ggtheme.html)
-- [Rebecca Barter `ggplot` Tutorial](http://www.rebeccabarter.com/blog/2017-11-17-ggplot2_tutorial/)
 
 ## Learning Goals
 *At the end of this exercise, you will be able to:*    
-1. Understand and apply the syntax of building plots using `ggplot2`.
+1. Understand and apply the syntax of building plots using `ggplot2`.  
 2. Build a boxplot using `ggplot2`.  
 3. Build a scatterplot using `ggplot2`.  
 4. Build a barplot using `ggplot2` and show the difference between `stat=count` and `stat=identity`.  
