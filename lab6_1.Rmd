@@ -244,3 +244,5 @@ gapminder %>%
        x = "Year",
        y = "gdpPercap")
 ```
+
+## Let's Take a Break!
