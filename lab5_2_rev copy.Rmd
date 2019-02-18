@@ -27,13 +27,17 @@ library(tidyverse)
 library(skimr)
 ```
 
-### Box Plots
-Let's briefly return to the `homerange` data and filter out carnivorous mammals. We can use a boxplot to visualize the differences in body mass by family.
+## Load the data
+**Database of vertebrate home range sizes.**  
+Reference: Tamburello N, Cote IM, Dulvy NK (2015) Energy and the scaling of animal space use. The American Naturalist 186(2):196-211. http://dx.doi.org/10.1086/682070.  
+Data: http://datadryad.org/resource/doi:10.5061/dryad.q5j65/1
 ```{r message=FALSE, warning=FALSE}
 homerange <- 
   readr::read_csv("data/Tamburelloetal_HomeRangeDatabase.csv")
 ```
 
+### Box Plots
+Let's filter out carnivorous mammals. We can use a boxplot to visualize the range of body mass by family.
 ```{r}
 carni_mammals <- 
   homerange %>% 
