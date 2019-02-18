@@ -26,9 +26,7 @@ We have eight total labs. The last two labs (9 and 10) will be devoted to gettin
 8. **Lab 8** | [part 1](https://jmledford3115.github.io/datascibiol/lab8_1.html) | [part 2](https://jmledford3115.github.io/datascibiol/lab8_2.html) | [HW 8](https://jmledford3115.github.io/datascibiol/lab8_hw.html)
 
 ## Reading
-[R for Data Science](https://r4ds.had.co.nz/), Grolemund and Wickham (2017). This book is freely available online and is an excellent resource.  
-
-There are many other resources that we will use and they will be attached in the `resources` section at the start of each lab. If you find something really helpful, please share!  
+[R for Data Science](https://r4ds.had.co.nz/), Grolemund and Wickham (2017).  
 
 ## Course Learning Goals
 *At the end of this course, you will be able to:*  

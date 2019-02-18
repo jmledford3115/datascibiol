@@ -31,7 +31,7 @@ This class is currently a freshman seminar, but it is a pilot for a formal cours
 Each lab will include a combination of worked examples and practice. Because the labs are two hours, we will divide each session into two parts. Each lab has an associated homework assignment to practice skills. If we finish early, we will spend the remainder of our time working on the homework together.  
 
 ## Equipment
-We are working in a mac-based computer lab so we can more easily use the UNIX environment. I am also much more comfortable troubleshooting the mac OS. However, you may use any computer that you would like as long it is running the current version of R and RStudio. 
+Please use the lab computers while working in lab. This makes things far easier to troubleshoot. You will need access to a computer running the latest versions of R and RStudio in order to complete the homework.  
 
 ## Grading
 Grading is **pass/ no pass** and is divided into two parts:  
@@ -43,9 +43,7 @@ Grading is **pass/ no pass** and is divided into two parts:
 3. Attendance. Although attendance is not a percentage of the grade, students are only allowed one absence during the quarter. Please [email me](mailto:jmledford@ucdavis.edu) if you need to miss a lab.
 
 ## Reading
-[R for Data Science](https://r4ds.had.co.nz/), Grolemund and Wickham (2017). This book is freely available online.  
-
-There are many other resources that we will use, and they will be attached at the start of each lab. If you find something really helpful, please share!  
+[R for Data Science](https://r4ds.had.co.nz/), Grolemund and Wickham (2017).  
 
 ## Course Learning Goals
 *At the end of this course, you will be able to:*  
@@ -61,7 +59,7 @@ There are many other resources that we will use, and they will be attached at th
 Office hours are by appointment. If there are problems with the assignments, it is important that we communicate together as a class. Please use the class email list as a first step so we all may benefit.
 
 ## About Me
-I am an LPSOE (aka. teaching professor) in the department of [Plant Biology](http://www-plb.ucdavis.edu/). My research is focused on education and spider biology. My experience in R has mostly involved statistical analysis in education and phylogenetics. I also teach part of the introductory biology series `BIS2C` (Fall and Winter) and introductory plant biology `PLB10` (Spring).
+I am an LPSOE in the department of [Plant Biology](http://www-plb.ucdavis.edu/). My research is focused on education and spider biology. My experience in R has mostly involved statistical analysis in education and phylogenetics. I also teach part of the introductory biology series `BIS2C` (Fall and Winter) and introductory plant biology `PLB10` (Spring).
 
 ## Do's and Dont's
 Learning any programming language is hard; it only gets easier with time and practice. Don't give up!  

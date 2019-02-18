@@ -100,6 +100,9 @@ img {
 button.code-folding-btn:focus {
   outline: none;
 }
+summary {
+  display: list-item;
+}
 </style>
 
 
@@ -107,14 +110,74 @@ button.code-folding-btn:focus {
 <div class="container-fluid main-container">
 
 <!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
 <script>
 $(document).ready(function () {
   window.buildTabsets("TOC");
 });
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
 </script>
 
 <!-- code folding -->
-
 
 
 
@@ -251,7 +314,7 @@ div.tocify {
 </div>
 <div id="equipment" class="section level2">
 <h2>Equipment</h2>
-<p>We are working in a mac-based computer lab so we can more easily use the UNIX environment. I am also much more comfortable troubleshooting the mac OS. However, you may use any computer that you would like as long it is running the current version of R and RStudio.</p>
+<p>Please use the lab computers while working in lab. This makes things far easier to troubleshoot. You will need access to a computer running the latest versions of R and RStudio in order to complete the homework.</p>
 </div>
 <div id="grading" class="section level2">
 <h2>Grading</h2>
@@ -264,8 +327,7 @@ div.tocify {
 </div>
 <div id="reading" class="section level2">
 <h2>Reading</h2>
-<p><a href="https://r4ds.had.co.nz/">R for Data Science</a>, Grolemund and Wickham (2017). This book is freely available online.</p>
-<p>There are many other resources that we will use, and they will be attached at the start of each lab. If you find something really helpful, please share!</p>
+<p><a href="https://r4ds.had.co.nz/">R for Data Science</a>, Grolemund and Wickham (2017).</p>
 </div>
 <div id="course-learning-goals" class="section level2">
 <h2>Course Learning Goals</h2>
@@ -281,9 +343,7 @@ div.tocify {
 </li>
 <li>Build an exploratory analysis pipeline that can be applied to a variety of data types and structures.<br />
 </li>
-<li>Import and perform basic analyses of nucleotide sequence data from GenBank.<br />
-</li>
-<li>Navigate and run command-line programs in the UNIX environment.</li>
+<li>Import and perform basic analyses of nucleotide sequence data from GenBank.</li>
 </ol>
 </div>
 <div id="office-hours" class="section level2">
@@ -292,7 +352,7 @@ div.tocify {
 </div>
 <div id="about-me" class="section level2">
 <h2>About Me</h2>
-<p>I am an LPSOE (aka. teaching professor) in the department of <a href="http://www-plb.ucdavis.edu/">Plant Biology</a>. My research is focused on education and spider biology. My experience in R has mostly involved statistical analysis in education and phylogenetics. I also teach part of the introductory biology series <code>BIS2C</code> (Fall and Winter) and introductory plant biology <code>PLB10</code> (Spring).</p>
+<p>I am an LPSOE in the department of <a href="http://www-plb.ucdavis.edu/">Plant Biology</a>. My research is focused on education and spider biology. My experience in R has mostly involved statistical analysis in education and phylogenetics. I also teach part of the introductory biology series <code>BIS2C</code> (Fall and Winter) and introductory plant biology <code>PLB10</code> (Spring).</p>
 </div>
 <div id="dos-and-donts" class="section level2">
 <h2>Do’s and Dont’s</h2>
