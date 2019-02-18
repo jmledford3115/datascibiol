@@ -51,6 +51,10 @@ You are welcome to use your own computer, but in order to do so you need to inst
 
 Most programmers use both **GitHub** and **Git** to manage their projects. However, **Git** is glitchy and hard to work with- especially in a classroom. If you want to try and use **Git**, then follow the directions [here](https://jmledford3115.github.io/datascibiol/setup.html). Otherwise, we will stick to using **GitHub**.
 
+
+## GitHub Desktop
+The easiest way to manage your GitHub repositories is to use [GitHub desktop](https://desktop.github.com/). This is a super helpful tool that will allow you to manage all of your files. Highly recommended!  
+
 ## Create a GitHub account
 Since we will use GitHub as a repository for all assignments, we need to make an account for each student and build a new project through RStudio. Navigate to www.github.com and create a free account. [Email](mailto:jmledford@ucdavis.edu) your username to me. You will receive an email to join the repository for our course.  
 
