@@ -1,5 +1,5 @@
 ---
-title: "Lab 5: Visualizing Data, Part 3"
+title: "Visualizing Data 3"
 author: "Joel Ledford"
 date: "Winter 2019"
 output:
