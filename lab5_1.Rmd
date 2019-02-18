@@ -153,14 +153,14 @@ mammals <-
   filter(taxon=="mammals")
 ```
 
-1. Are there more herbivores or carnivores in mammals? Make a bar plot that shows their relative numbers.
+2. Are there more herbivores or carnivores in mammals? Make a bar plot that shows their relative numbers.
 ```{r}
 mammals %>% 
   ggplot(aes(x=trophic.guild))+
   geom_bar(stat="count")
 ```
 
-2. Make a bar plot that shows the masses of the top 10 smallest mammals in terms of mass. Be sure to use `stat'="identity"`.
+3. Make a bar plot that shows the masses of the top 10 smallest mammals in terms of mass. Be sure to use `stat'="identity"`.
 ```{r}
 mammals %>%
   top_n(-10, log10.mass) %>%
