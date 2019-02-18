@@ -1,5 +1,5 @@
 ---
-title: "Lab 3: Working with Data, Part 3"
+title: "Lab3_1"
 author: "Joel Ledford"
 date: "Winter 2019"
 output:
@@ -11,275 +11,103 @@ output:
     toc: yes
 ---
 
-## Install a few new packages
-```{r eval=FALSE, include=TRUE}
-install.packages("magrittr")
-install.packages("skimr")
-```
-
-## Load the libraries
-```{r message=FALSE, warning=FALSE}
-library(tidyverse)
-library(magrittr)
-library(skimr)
-```
+## Review
+In the last section you were introduced to the `tidyverse` and the core function `filter()`. Filter allows us to separate specific variables of interest from large, complex data. `filter()` works by looking through rows, but what about columns? Recall that each column is essentially a vector, so we need the new function `select()` to separate columns of interest. As you may expect, we can also use them together to focus our data on the variables of interest.
 
 ## Resources
 - [R for Data Science](https://r4ds.had.co.nz/)
 
 ## Learning Goals
 *At the end of this exercise, you will be able to:*    
-1. Use the skimr package to produce new summaries of data frames.   
-2. Use the summarize() function to produce statistical summaries of variables.  
-3. Use group_by() in conjunction with summarize() to generate data frames that include statistical summaries.   
-4. Learn how to deal with NA's in a data frame, including summarizing NA's using purrr.  
+1. Use the functions of dplyr (filter, select, arrange) to organize and sort data frames. 
 
-## Tidyverse Review
-Recall that the tidyverse is a set of packages that works with a common grammar to help read, transform, model, and visualize data. So far, we have been working with dplyr which is a core package. We learned the functions filter, select, mutate, and arrange. There are a few more functions that are very helpful which we will practice today. In dplyr lingo, these functions are referred to as verbs.
+## Load the tidyverse
+```{r message=FALSE, warning=FALSE}
+library("tidyverse")
+```
 
-For these exercises, we will use the mammals sleep data that you used in your homework. Let's keep the column names for reference.
+## Load the fish scale data
+Here we open a .csv file with data on fish scales. Since we are using the tidyverse, we open the file using read_csv. 
+```{r message=FALSE, warning=FALSE}
+fish <- readr::read_csv("data/Gaeta_etal_CLC_data.csv")
+```
+
+## Dplyr: select()
+Select allows you to build a new data frame by selecting your variable(s) of interest. Our fish data only has six variables, but this should give you some ideas especially when you have a large data frames with lots of variables.  
+
+We are only interested in lakeid and scalelength.
 ```{r}
-names(msleep)
+select(fish, lakeid, scalelength)
 ```
 
-If you ever need to look at the whole data frame, you can click it in the environment or use View().
-```{r eval=FALSE, include=FALSE}
-View(msleep)
-```
-
-## Skimr
-Skimr is a package that allows for a new kind of data summary which I find appealing. It provides different information than `glimpse()`, `str()`, or `summary()` and is very helpful. I especially like the histograms and how it breaks down the different variables. Notice that it also includes a column for missing data.
+The - operator is useful in select. It allows us to select everything except the specified variables.
 ```{r}
-msleep %>% 
-  skimr::skim()
+select(fish, -fish_id, -annnumber, -length, -radii_length_mm)
 ```
 
-## Summarize
-Summarize (not to be confused with base R `summary()`) will produce summary statistics for a given variable in a data frame. For example, in the homework you were asked to calculate the mean of the sleep total column for large and small mammals. I did this using a combination of tidyverse and base R commands, which isn't very efficient or clean. It also took two steps.
+For very large data frames with lots of variables, `select()` utilizes lots of different operators to make things easier. Let's say we are only interested in the variables that deal with length.
 ```{r}
-large <- msleep %>% 
-  select(name, genus, bodywt, sleep_total) %>% 
-  filter(bodywt>=200) %>% 
-  arrange(desc(bodywt))
+select(fish, contains("length"))
 ```
 
-```{r}
-mean(large$sleep_total)
-```
-
-We can accomplish the same task using the summarize function in the tidyverse and make things cleaner.
-```{r}
-msleep %>% 
-  filter(bodywt>=200) %>%
-  summarize(mean_sleep_lg=mean(sleep_total))
-```
-
-You can also combine functions to make useful summaries for multiple variables.
-```{r}
-msleep %>% 
-    filter(bodywt>=200) %>% 
-    summarize(mean_sleep_lg = mean(sleep_total), 
-              min_sleep_lg = min(sleep_total),
-              max_sleep_lg = max(sleep_total),
-              total = n())
-```
-
-There are many other useful summary statistics, depending on your needs: sd(), min(), max(), median(), sum(), n() (returns the length of vector), first() (returns first value in vector), last() (returns last value in vector) and n_distinct() (number of distinct values in vector).
+Some additional options to select columns based on a specific criteria include:  
+1. ends_with() = Select columns that end with a character string  
+2. contains() = Select columns that contain a character string  
+3. matches() = Select columns that match a regular expression  
+4. one_of() = Select columns names that are from a group of names  
 
 ## Practice
-How many genera are represented in the msleep data frame?
+1. What are the names of the columns in the `fish` data?
 ```{r}
-msleep %>%
-  summarize(ngenera=n_distinct(genus))
+colnames(fish)
 ```
 
-What are the min, max, and mean body weight for all of the mammals in the data frame? Be sure to include the total n.
+2. We are only interested in the variables `lakeid`, `length`, and `scalelength`. Use `select()` to build a new dataframe focused on these variables.
 ```{r}
-msleep %>%
-  summarize(min_bodywt=min(bodywt),
-            max_bodywt=max(bodywt),
-            mean_bodywt=mean(bodywt),
-            total=n())
+select(fish, lakeid, length, scalelength)
 ```
 
-## Group_by()
-The group_by() function allows us to use `summarize()` for a specific group represented in our data frame. An example of this would be to produce a count of the number of species that belong to each type of feeding ecology; i.e. how many carnivores, herbivores, etc. do we have?
+## Dplyr: Can we combine filter() and select()?
+Absolutely. This is one of the strengths of the tidyverse, it uses the same grammar to specify commands.
 ```{r}
-msleep %>%
-  group_by(vore) %>% #we are grouping by feeding ecology
-  summarize(n())
+fish2 <- select(fish, lakeid, scalelength)
+
+filter(fish2, lakeid=="AL")
 ```
 
-And, if we wanted to calculate the same comprehensive summaries as in the previous example but for the specific feeding ecology of mammals we would use `group_by()`.
+## Dplyr: Pipes %>% 
+The code above works fine but there is a more efficient way. We need to learn pipes `%>%`. Pipes allow you to feed the output from one function to the input of another function. We are going to use pipes from here on to keep things cleaner. (command+shift+m)
 ```{r}
-msleep %>%
-  group_by(vore) %>% #we are grouping by feeding ecology
-  summarize(min_bodywt=min(bodywt),
-            max_bodywt=max(bodywt),
-            mean_bodywt=mean(bodywt),
-            total=n())
-```
-
-What happens when we try to summarize a variable for which we have missing data? Let's group_by order and then calculate the mean brain weight.
-```{r}
-msleep %>% 
-  group_by(order) %>% 
-  summarize(mean_brainwt=mean(brainwt))
-```
-
-Notice that for any of the mammal orders which include species with NA observations of brain weight we get an NA output. This is R's cute (read, not so cute) way of telling you that you have missing data. You can deal with the issue relatively quickly using the code below, but we need to explore how to manage NA values more thoroughly.
-```{r}
-msleep %>% 
-  group_by(order) %>% 
-  summarize(mean_brainwt=mean(brainwt, na.rm=TRUE))
-```
-
-Hey, what's wrong with Cetacea?
-```{r}
-msleep %>% 
-  filter(order=="Cetacea")
-```
-
-## Dealing with NA's
-In almost all scientific data, there are missing observations. These can be tricky to deal with, partly because you first need to determine how missing values were treated in the original study. Scientists also use different conventions in showing missing data in their data frames. Worse yet, some scientists indicate **missing data with numerics like -999.0!**  
-
-(One thing to note: R represents missing data as 'NA' but impossible to calculate values are 'NaN'.)  The Cetacea example above is a great example.
-
-Let's first check to see if our data has any NA's. is.na() is a base R function that determines whether a value in a data frame is or is not an NA. This is evaluated logically as TRUE or FALSE.
-```{r}
-is.na(msleep)
-```
-
-OK, what are we supposed to do with that? Unless you have a small data frame, applying the is.na function universally is not helpful but we can reuse the code in another way. Let's incorporate it into the summarize() function.
-```{r}
-msleep %>% 
-  summarize(number_nas= sum(is.na(msleep)))
-```
-
-This is better, but we still don't have any idea of where those NA's are in our data frame. If there were a systemic problem it would be hard to determine. In order to do this, we need to apply the is.na function to each variable of interest.
-```{r}
-msleep %>% 
-  summarize(number_nas= sum(is.na(brainwt)))
-```
-
-Er, what if we are working with hundreds or thousands (or more!) variables?! In order to deal with this problem efficiently we can use another package in the tidyverse called `purrr`.
-```{r}
-msleep %>%
-  purrr::map_df(~ sum(is.na(.))) #map to a new data frame the sum results of the is.na function for all columns
-```
-
-This is much better, but we need to be careful. R can have difficulty interpreting missing data. This is especially true for categorical variables or when you have lots of adjacent empty cells. Always do a reality check if the output doesn't make sense to you. A quick check never hurts.  
-
-You can explore a specific variable more intently using `count()`. This operates similarly to `group_by()`.
-```{r}
-msleep %>% 
-  count(conservation)
-```
-
-Adding the `sort=TRUE` option automatically makes a descending list.
-```{r}
-msleep %>% 
-  count(genus, sort=TRUE)
-```
-
-The bit of code below is very handy, especially if the data frame has NA's represented as actual values that you want replaced or if you want to make sure any strings of empty spaces are treated as NA.
-```{r}
-msleep %<>% #pipe to replace the old data frame with the new data frame
-  na_if("") #replace x data with NA
-```
-
-Notice that the pipe operator I used is slightly different. It is always a controversial issue as to when to overwrite your data, but in cases where I am fixing issues with NA's I think this is acceptable practice. When we re-run our original string, you will see there is no difference but this will be useful code for you later on so keep it in mind.
-```{r}
-msleep %>% 
-  summarize(number_nas= sum(is.na(msleep)))
-```
-
-```{r}
-msleep %>% 
-  purrr::map_df(~ n_distinct(.))
-```
-
-We are going to use the functions gather() and spread () more in the next section, but to give you a preview I have used them here to make the data fram above more readable.
-```{r}
-msleep %>% 
-  purrr::map_df(~n_distinct(.)) %>% 
-  tidyr::gather(variables, num_distinct) %>% 
-  arrange(desc(num_distinct))
+fish%>%
+  select(lakeid, scalelength)%>%
+  filter(lakeid=="AL")
 ```
 
 ## Practice
-Aren't mammals fun? Let's load up some more mammal data. This will be life history data for mammals. Readr is another package in the tidyverse that reads data into a specific format called a tibble. We have been working with tibbles since we started using the tidyverse but I didn't specify this until now. Tibbles make large data frames easier to read and the readr package allows for faster import of data, especially large data. We should try to use it as a normal command from now on even though for our data it won't make a big difference.
-
+1. Build a dataframe focused on the lakes `AL` and `AR` and looking at radii length between 2 and 4 only. Use pipes!
 ```{r}
-life_history <- readr::read_csv("data/mammal_lifehistories_v2.csv")
+fish %>% 
+  select(lakeid, radii_length_mm) %>%
+  filter(radii_length_mm>=2 & radii_length_mm<=4,
+         lakeid=="AL" | lakeid=="AR")
 ```
 
-## Data Source
-The data were downloaded from: http://www.esapubs.org/archive/ecol/E084/093/metadata.htm  
-
-1. Explore the data using the method that you prefer, but include the use of `skim()`.
-
+## Dplyr: arrange()
+The `arrange()` command is a bit like a sort command in excel.
 ```{r}
-life_history %>% 
-  names()
+fish %>% 
+  arrange(scalelength)
 ```
 
+It can be very helpful in combination with the other functions.
 ```{r}
-life_history %>% 
-  skimr::skim()
+fish %>% 
+  select(lakeid, length, fish_id, scalelength) %>% 
+  filter(lakeid=="AL") %>% 
+  arrange(fish_id)
 ```
 
-2. Are there any missing data (NA's)? If yes, how much and where? In which variables do we have the most missing data? Can you think of a reason why so much data are missing in this variable?
+## Wrap-up
+Please review the learning goals and be sure to use the code here as a reference when completing the homework.
 
-```{r}
-life_history %<>%
-  na_if(-999.0)
-```
-
-```{r}
-life_history %>% 
-  skimr::skim()
-```
-
-```{r}
-life_history %>%
-  purrr::map_df(~ sum(is.na(.)))%>% 
-  tidyr::gather(variables, num_nas) %>% 
-  arrange(desc(num_nas))
-```
-
-3. Compared to the other mammal data, we have better representation among taxa. Produce a summary that shows the number of observations by order.
-
-```{r}
-life_history %>%
-  group_by(order) %>% 
-  summarize(n())
-```
-
-4. The results of number 3 above are interesting, but n oit especially helpful. In which groups, and by what taxonomic rank, are mammals best represented? Produce a summary that shows the number of observations by order, family, genus, and species.
-
-```{r}
-life_history %>% 
-  select(order, family, Genus, species) %>% 
-  purrr::map_df(~ n_distinct(.))%>% 
-  tidyr::gather(taxonomic_rank, number)
-```
-
-5. Mammals have a range of life histories, including lifespan. Produce a summary of lifespan in years by order. Be sure to include the minimum, maximum, mean, standard deviation, and total n. Which group has the greatest standard deviation? Why is the sd of Dermoptera NA?
-```{r}
-life_history %>%
-  mutate(lifespan=`max. life`/12) %>% 
-  group_by(order) %>%
-  summarize(min=min(lifespan, na.rm=TRUE),
-            max=max(lifespan, na.rm=TRUE),
-            mean=mean(lifespan, na.rm=TRUE),
-            sd=sd(lifespan, na.rm=TRUE),
-            total=n())
-```
-
-```{r}
-life_history %>% 
-  filter(order=="Dermoptera")%>%
-  mutate(lifespan=`max. life`/12)
-```
-
+See you next time!
