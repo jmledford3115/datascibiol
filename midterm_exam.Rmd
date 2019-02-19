@@ -15,23 +15,23 @@ This exam is designed to show me what you have learned and where there are probl
 
 At the end of the exam, upload the complete .Rmd file to your GitHub repository.  
 
-1. Load the tidyverse.
+1. (1 point) Load the tidyverse.
 
-2. For these questions, we will use data about California colleges. Load the `ca_college_data.csv` as a new object called `colleges`.
+2. (2 points) For these questions, we will use data about California colleges. Load the `ca_college_data.csv` as a new object called `colleges`.
 
-3. Use your preferred function to have a look at the data and get an idea of its structure.
+3. (1 point) Use your preferred function to have a look at the data and get an idea of its structure.
 
-4. What are the column names?
+4. (1 point) What are the column names?
 
-5. Are there any NA's in the data? If so, how many are present and in which variables?
+5. (3 points) Are there any NA's in the data? If so, how many are present and in which variables?
 
-6. Which cities in California have the highest number of colleges?
+6. (3 points) Which cities in California have the highest number of colleges?
 
-7. The column `COSTT4_A` is the annual cost of each institution. Which city has the highest cost?
+7. (4 points) The column `COSTT4_A` is the annual cost of each institution. Which city has the highest cost?
 
-8. The column `ADM_RATE` is the admissions rate by college and `C150_4_POOLED` is the four-year completion rate. Use a scatterplot to show the relationship between these two variables. What does this mean?
+8. (3 points) The column `ADM_RATE` is the admissions rate by college and `C150_4_POOLED` is the four-year completion rate. Use a scatterplot to show the relationship between these two variables. What does this mean?
 
-9. The column titled `INSTNM` is the institution name. We are only interested in the University of California colleges. Run the code below and look at the output. Are all of the columns tidy? Why or why not?
+9. (1 point) The column titled `INSTNM` is the institution name. We are only interested in the University of California colleges. Run the code below and look at the output. Are all of the columns tidy? Why or why not?
 ```{r}
 #univ_calif <- 
 #  colleges %>% 
@@ -39,10 +39,10 @@ At the end of the exam, upload the complete .Rmd file to your GitHub repository.
 #univ_calif
 ```
 
-10. Use `separate()` to separate institution name into two new columns "UNIV" and "CAMPUS".
+10. (2 points)Use `separate()` to separate institution name into two new columns "UNIV" and "CAMPUS".
 
-11. As a final step, remove `Hastings College of Law` and `UC San Francisco` and store the final data frame as a new object `univ_calif_final`.
+11. (1 point) As a final step, remove `Hastings College of Law` and `UC San Francisco` and store the final data frame as a new object `univ_calif_final`.
 
-12. The column `ADM_RATE` is the admissions rate by campus. Which UC has the lowest and highest admissions rates? Please use a barplot.
+12. (3 points) The column `ADM_RATE` is the admissions rate by campus. Which UC has the lowest and highest admissions rates? Please use a barplot.
 
 ## Knit Your Output and Post to [GitHub](https://github.com/FRS417-DataScienceBiologists)
