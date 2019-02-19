@@ -161,7 +161,7 @@ homerange %>%
   labs(title = "Distribution of Homerange")
 ```
 
-3.Combine them both!
+3. Combine them both!
 ```{r}
 homerange %>% 
   ggplot(aes(x=log10.hra)) +
