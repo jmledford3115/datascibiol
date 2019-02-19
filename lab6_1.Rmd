@@ -123,14 +123,16 @@ What does the distribution of body mass look like in the homerange data? When ad
 ```{r}
 homerange %>% 
   ggplot(aes(x=log10.mass)) +
-  geom_histogram(fill="steelblue", alpha=0.8, color="black")
+  geom_histogram(fill="steelblue", alpha=0.8, color="black")+
+  labs(title = "Distribution of Body Mass")
 ```
 
 `Density plots` are similar to histograms but they use a smoothing function to make the distribution more even and clean looking. They do not use bins.
 ```{r}
 homerange %>% 
   ggplot(aes(x=log10.mass)) +
-  geom_density(fill="steelblue", alpha=0.4)
+  geom_density(fill="steelblue", alpha=0.4)+
+  labs(title = "Distribution of Body Mass")
 ```
 
 I like to see both the histogram and the density curve so I often plot them together. Note that I assign the density plot a different color.
@@ -138,7 +140,8 @@ I like to see both the histogram and the density curve so I often plot them toge
 homerange %>% 
   ggplot(aes(x=log10.mass)) +
   geom_histogram(aes(y = ..density..), binwidth = .4, fill="steelblue", alpha=0.8, color="black")+
-  geom_density(color="red")
+  geom_density(color="red")+
+  labs(title = "Distribution of Body Mass")
 ```
 
 ## Practice
@@ -146,14 +149,16 @@ homerange %>%
 ```{r}
 homerange %>% 
   ggplot(aes(x=log10.hra)) +
-  geom_histogram(fill="steelblue", alpha=0.8, color="black")
+  geom_histogram(fill="steelblue", alpha=0.8, color="black")+
+  labs(title = "Distribution of Homerange")
 ```
 
 2. Now plot the same variable using `geom_density()`.
 ```{r}
 homerange %>% 
   ggplot(aes(x=log10.hra)) +
-  geom_density(fill="steelblue", alpha=0.8, color="black")
+  geom_density(fill="steelblue", alpha=0.8, color="black")+
+  labs(title = "Distribution of Homerange")
 ```
 
 3.Combine them both!
@@ -161,7 +166,8 @@ homerange %>%
 homerange %>% 
   ggplot(aes(x=log10.hra)) +
   geom_histogram(aes(y = ..density..), binwidth = .4, fill="steelblue", alpha=0.8, color="black")+
-  geom_density(color="red")
+  geom_density(color="red")+
+  labs(title = "Distribution of Homerange")
 ```
 
 ## That's it, let's take a break!   
