@@ -33,11 +33,31 @@ Reference: Tamburello N, Cote IM, Dulvy NK (2015) Energy and the scaling of anim
 Data: http://datadryad.org/resource/doi:10.5061/dryad.q5j65/1
 ```{r message=FALSE, warning=FALSE}
 homerange <- 
-  readr::read_csv("data/Tamburelloetal_HomeRangeDatabase.csv")
+  readr::read_csv("data/Tamburelloetal_HomeRangeDatabase.csv", na = c("", " ", "NA", "#N/A", "-999"))
 ```
 
-### Box Plots
-Let's filter out carnivorous mammals. We can use a boxplot to visualize the range of body mass by family.
+Notice that by including common options for NA's, we improve the way data are read into R.
+```{r}
+glimpse(homerange)
+```
+
+## Box Plots
+Boxplots help us visualize a range of values. So, on the x-axis we typically have something categorical and the y-axis is the range. In the case below, we are plotting `log10.mass` by taxonomic class in the homerange data. `geom_boxplot()` is the geom type for a standard boxplot. The center line in each box represents the median, not the mean.
+```{r}
+homerange %>% 
+  ggplot(aes(x=class, y=log10.mass))+
+  geom_boxplot()
+```
+
+## Practice
+1. There are more herbivores than carnivores in the homerange data, but how do their masses compare? Make a boxplot that compares their masses. Use `log10.mass`.
+```{r}
+homerange %>% 
+  ggplot(aes(x=trophic.guild, y=log10.mass))+
+  geom_boxplot()
+```
+
+2. Practice your dplyr skills and filter out carnivorous mammals. 
 ```{r}
 carni_mammals <- 
   homerange %>% 
@@ -45,41 +65,12 @@ carni_mammals <-
 carni_mammals
 ```
 
-`geom_boxplot()` is the geom type for a standard boxplot. The center line in each box represents the median, not the mean.
+3. Now use a boxplot to visualize the range of body mass by family of carnivore.
 ```{r}
 carni_mammals %>% 
   ggplot(aes(x=family, y=log10.mass))+
   geom_boxplot()+
-  theme(axis.text.x = element_text(angle = 60, hjust=1))
-```
-
-## Practice
-1. What do you think the solid lines represent? Use `count()` to determine which families have the largest and smallest sample sizes.
-```{r}
-carni_mammals %>% 
-  count(family) %>% 
-  arrange((n))
-```
-
-```{r}
-carni_mammals %>% 
-  count(family) %>% 
-  arrange(desc(n))
-```
-
-2. Rebuild the plot for the top five families with the largest sample sizes. How is `ggplot` ordering families on the x-axis?
-```{r}
-homerange %>% 
-  filter(family=="felidae" | family=="mustelidae" | family=="canidae" | family=="soricidae" | family=="herpestidae") %>% 
-  ggplot(aes(x=family, y=log10.mass))+
-  geom_boxplot()
-```
-
-3. There are more herbivores than carnivores in the homerange data, but how do their masses compare? Make a boxplot that compares their masses. Use `log10.mass`.
-```{r}
-homerange %>% 
-  ggplot(aes(x=trophic.guild, y=log10.mass))+
-  geom_boxplot()
+  coord_flip()
 ```
 
 ## Aesthetics: Labels
@@ -123,7 +114,7 @@ ggplot(data=homerange, mapping=aes(x=log10.mass, y=log10.hra)) +
 ```
 
 ## Practice
-1. Make a plot that shows the number of individuals per locomotion type. Be sure to provide a title and label the axes appropriately.
+1. Make a barplot that shows the number of individuals per locomotion type. Be sure to provide a title and label the axes appropriately.
 ```{r}
 homerange %>% 
   ggplot(aes(x=locomotion))+
