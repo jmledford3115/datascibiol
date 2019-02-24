@@ -47,7 +47,7 @@ At this point you should be able to build a barplot that shows counts of observa
 
 Although we did not use it last time, `geom_col()` is the same as specifying `stat="identity"` using `geom_bar()`.     
 
-####Here is the plot using `geom_bar(stat="identity")`
+## Here is the plot using `geom_bar(stat="identity")`
 ```{r}
 homerange %>% 
   filter(family=="salmonidae") %>% #filter for salmonid fish only
@@ -55,13 +55,8 @@ homerange %>%
   geom_bar(stat="identity")
 ```
 
-####Here is the plot using `geom_col`
-```{r}
-homerange %>% 
-  filter(family=="salmonidae") %>% #filter for salmonid fish only
-  ggplot(aes(x=common.name, y=log10.mass))+
-  geom_col()
-```
+## Practice
+1. Make the same plot above, but use `geom_col()`
 
 ## Barplots and multiple variables
 Last time we explored the `fill` option in boxplots as a way to bring color to the plot; i.e. we filled by the same variable that we were plotting. What happens when we fill by a different categorical variable? 
@@ -107,19 +102,11 @@ homerange %>%
 
 ## Practice
 1. Make a barplot that shows locomotion type by `primarymethod`. Try both a stacked barplot and `position="dodge"`.
-```{r}
-homerange %>% 
-  ggplot(aes(x=locomotion, fill=primarymethod))+
-  geom_bar()+
-  labs(title = "Observations by Locomotion Type in Homerange Data",
-       x = "Locomotion",
-       fill= "Primary Method")
-```
 
 ## Histograms and Density Plots
 Histograms are frequently used by biologists; they show the distribution of continuous variables. As students, you almost certainly have seen histograms of grade distributions. Without getting into the statistics, a histogram `bins` the data and you specify the number of bins that encompass a range of observations. For something like grades, this is easy because the number of bins corresponds to the grades A-F. By default, R uses a formula to calculate the number of bins but some adjustment is often required.  
 
-What does the distribution of body mass look like in the homerange data? When adjusting binwidth note that we are using `log10.mass`.
+What does the distribution of body mass look like in the homerange data?
 ```{r}
 homerange %>% 
   ggplot(aes(x=log10.mass)) +
@@ -145,30 +132,11 @@ homerange %>%
 ```
 
 ## Practice
-1. Make a histogram of `log10.hra`. Make sure to add a title. Feel free to experiment with different bin sizes.
-```{r}
-homerange %>% 
-  ggplot(aes(x=log10.hra)) +
-  geom_histogram(fill="steelblue", alpha=0.8, color="black")+
-  labs(title = "Distribution of Homerange")
-```
+1. Make a histogram of `log10.hra`. Make sure to add a title.
 
 2. Now plot the same variable using `geom_density()`.
-```{r}
-homerange %>% 
-  ggplot(aes(x=log10.hra)) +
-  geom_density(fill="steelblue", alpha=0.8, color="black")+
-  labs(title = "Distribution of Homerange")
-```
 
 3. Combine them both!
-```{r}
-homerange %>% 
-  ggplot(aes(x=log10.hra)) +
-  geom_histogram(aes(y = ..density..), binwidth = .4, fill="steelblue", alpha=0.8, color="black")+
-  geom_density(color="red")+
-  labs(title = "Distribution of Homerange")
-```
 
 ## That's it, let's take a break!   
 

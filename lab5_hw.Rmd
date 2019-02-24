@@ -54,7 +54,7 @@ options(scipen=999) #cancels the use of scientific notation for the session
 6. What is the relationship between newborn body mass and gestation? Make a scatterplot that shows this relationship. 
 
 
-7. You should notice that because of the outliers in newborn mass, we need to make some changes. We didn't talk about this in lab, but you can use `scale_x_log10()` as a layer to correct for this issue. This will log transform the y-axis values.
+7. You should notice that because of the outliers in newborn mass, we need to make some changes. We didn't talk about this in lab, but you can use `scale_x_log10()` as a layer to correct for this issue. This will log transform the x-axis values.
 
 
 8. Now that you have the basic plot, color the points by taxonomic order.
