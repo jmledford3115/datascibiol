@@ -119,7 +119,7 @@ Access the help for RColor Brewer.
 
 The key thing to notice is that there are three different palettes: 1) sequential, 2) diverging, and 3) qualitative. Within each of these there are several selections. You can bring up the colors by using `display.brewer.pal()`. Specify the number of colors that you want and the palette name.
 ```{r}
-display.brewer.pal(3,"BrBG")
+display.brewer.pal(8,"BrBG")
 ```
 
 The [R Color Brewer](http://colorbrewer2.org/#type=sequential&scheme=BuGn&n=3) website is very helpful for getting an idea of the color palettes. To make things easy, use these two guidelines:
