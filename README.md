@@ -36,4 +36,5 @@ We have eight total labs. The last two labs (9 and 10) will be devoted to gettin
 3. Import and transform complex, messy data for analysis in R using `dplyr`, `tidyr`, and `purrr`.  
 4. Produce a variety of plots and charts to visualize results of data analysis using `ggplot2`.  
 5. Build an exploratory analysis pipeline that can be applied to a variety of data types and structures.  
-6. Import and perform basic analyses of nucleotide sequence data from GenBank.  
+
+--> Let's Get Started [lab 1](https://jmledford3115.github.io/datascibiol/lab1_1.html)  
