@@ -19,6 +19,7 @@ Answer the following questions and complete the exercises in RMarkdown. Please e
 ```{r message=FALSE, warning=FALSE}
 library(tidyverse)
 library(skimr)
+library("RColorBrewer")
 ```
 
 ## Resources
@@ -32,8 +33,6 @@ For this assignment, we are going to use the dataset [gapminder](https://cran.r-
 
 ```{r}
 library("gapminder")
-library("skimr")
-library("RColorBrewer")
 ```
 
 Please load the data into a new object called gapminder.
@@ -43,135 +42,27 @@ gapminder <-
 ```
 
 1. Explore the data using the various function you have learned. Is it tidy, are there any NA's, what are its dimensions, what are the column names, etc.
-```{r}
-glimpse(gapminder)
-```
-
-```{r}
-dim(gapminder)
-```
-
-```{r}
-names(gapminder)
-```
-
-```{r}
-head(gapminder)
-```
-
-```{r}
-skimr::skim(gapminder)
-```
 
 2. We are interested in the relationship between per capita GDP and life expectancy; i.e. does having more money help you live longer on average. Make a quick plot below to visualize this relationship.
-```{r}
-gapminder %>%
-  ggplot(aes(x=gdpPercap, y=lifeExp))+
-  geom_point()+
-  labs(title = "GDP vs. Life Expectancy",
-       x = "GDP per capita",
-       y = "Life expectancy")
-```
 
 3. There is extreme disparity in per capita GDP. Rescale the x axis to make this easier to interpret. How would you characterize the relationship?
-```{r}
-gapminder %>%
-  ggplot(aes(x=gdpPercap, y=lifeExp))+
-  geom_point()+
-  scale_x_log10()+
-  labs(title = "GDP vs. Life Expectancy",
-       x = "GDP per capita (log 10)",
-       y = "Life expectancy")
-```
 
 4. This should look pretty dense to you with significant overplotting. Try using a faceting approach to break this relationship down by year.
-```{r}
-gapminder %>%
-  ggplot(aes(x=gdpPercap, y=lifeExp))+
-  geom_point(size=0.5)+
-  scale_x_log10()+
-  facet_wrap(~year)+
-  labs(title = "GDP vs. Life Expectancy")
-```
 
 5. Simplify the comparison by comparing only 1952 and 2007. Can you come to any conclusions?
-```{r}
-gapminder %>%
-  filter(year==1952 | year==2007) %>% 
-  ggplot(aes(x=gdpPercap, y=lifeExp))+
-  geom_point()+
-  scale_x_log10()+
-  facet_grid(~year)+
-  labs(title = "GDP vs. Life Expectancy \n1952 and 2007")
-```
 
 6. Let's stick with the 1952 and 2007 comparison but make some aesthetic adjustments. First try to color by continent and adjust the size of the points by population. Add `+ scale_size(range = c(0.1, 10), guide = "none")` as a layer to clean things up a bit.
-```{r}
-gapminder %>%
-  filter(year==1952 | year==2007) %>% 
-  ggplot(aes(x=gdpPercap, y=lifeExp, color=continent, size=pop))+
-  geom_point()+
-  scale_x_log10()+
-  facet_grid(~year)+
-  labs(title = "GDP vs. Life Expectancy \n1952 and 2007")+
-  scale_size(range = c(0.1, 10),
-             guide = "none")
-```
 
 7. Although we did not introduce them in lab, ggplot has a number of built-in themes that make things easier. I like the light theme for these data, but you can see lots of options. Apply one of these to your plot above.
 ```{r}
 ?theme_light
 ```
 
-```{r}
-gapminder %>%
-  filter(year==1952 | year==2007) %>% 
-  ggplot(aes(x=gdpPercap, y=lifeExp, color=continent, size=pop))+
-  geom_point(alpha=0.8)+
-  scale_x_log10()+
-  facet_grid(~year)+
-  labs(title = "GDP vs. Life Expectancy \n1952 and 2007")+
-  scale_size(range = c(0.1, 10),
-             guide = "none")+
-  theme_light()
-```
-
 8. What is the population for all countries on the Asian continent in 2007? Show this as a barplot.
-```{r}
-gapminder %>%
-  filter(year==2007, continent=="Asia") %>% 
-  ggplot(aes(x=reorder(country, -pop), y=pop))+
-  geom_col(fill="steelblue", alpha=0.8)+
-  coord_flip()+
-  labs(title = "Population on Asian Continent (2007)",
-       x = "Population",
-       y = "Country")+
-  theme_light()+ 
-  theme(plot.title = element_text(size = rel(1.5), hjust = 0.5))
-```
 
 9. You should see that China's population is the largest with India a close second. Let's focus on China only. Make a plot that shows how population has changed over the years.
-```{r}
-gapminder %>%
-  filter(country=="China") %>% 
-  ggplot(aes(x=factor(year), y=pop))+
-  geom_bar(stat="identity")+
-  labs(title = "Population Growth in China \n1952-2007",
-       x = "Year",
-       y = "Population")
-```
 
 10. Let's compare China and India. Make a barplot that shows population growth by year using `position=dodge`. Apply a custom color theme using RColorBrewer.
-```{r}
-gapminder %>%
-  filter(country=="China" | country=="India") %>% 
-  ggplot(aes(x=factor(year), y=pop, fill=country))+
-  geom_bar(stat="identity", position="dodge")+
-  scale_fill_brewer(palette = "Paired")+
-  labs(title = "Population Growth in China and India \n1952-2007",
-       x = "Year",
-       y = "Population")
-```
 
 ## Push your final code to [GitHub](https://github.com/FRS417-DataScienceBiologists)
 Make sure that you push your code into the appropriate folder. Also, be sure that you have check the `keep md` file in the knit preferences.
