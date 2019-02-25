@@ -37,4 +37,4 @@ We have eight total labs. The last two labs (9 and 10) will be devoted to gettin
 4. Produce a variety of plots and charts to visualize results of data analysis using `ggplot2`.  
 5. Build an exploratory analysis pipeline that can be applied to a variety of data types and structures.  
 
---> Let's Get Started [lab 1](https://jmledford3115.github.io/datascibiol/lab1_1.html)  
+## Let's Get Started [lab 1](https://jmledford3115.github.io/datascibiol/lab1_1.html)  
