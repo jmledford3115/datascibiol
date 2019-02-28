@@ -88,7 +88,7 @@ homerange %>%
        fill= "Trophic Guild")
 ```
 
-We can also have the proportions of each trophic guild within taxonomic group shown side-by-side by specifying `position="dodge"`.
+We can also have counts of each trophic guild within taxonomic group shown side-by-side by specifying `position="dodge"`.
 ```{r}
 homerange %>% 
   ggplot(aes(x=taxon, fill=trophic.guild))+
@@ -98,6 +98,15 @@ homerange %>%
   labs(title = "Observations by Taxon in Homerange Data",
        x = "Taxonomic Group",
        fill= "Trophic Guild")
+```
+
+We can also scale all bars to a percentage.
+```{r}
+homerange %>% 
+  ggplot(aes(x=taxon, fill=trophic.guild))+
+  geom_bar(position = position_fill(), stat = "count")+ 
+  scale_y_continuous(labels = scales::percent)+
+  coord_flip()
 ```
 
 ## Practice
