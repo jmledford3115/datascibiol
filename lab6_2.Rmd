@@ -39,7 +39,7 @@ homerange <-
 ```
 
 ## Review color and fill options
-We have learned that there are a variety of color and fill options in `ggplot`. These are helpful in making plots more informative and visually appealing; i.e., in this scatterplot we show the relationship between mass and homerange while coloring the points by a different variable.
+We have learned that there are a variety of color and fill options in `ggplot`. These are helpful in making plots more informative and visually appealing; i.e., in this scatterplot we show the relationship between mass and homerange while coloring the points by a different variable (locomotion).
 ```{r}
 homerange %>% 
   ggplot(aes(x=log10.mass, y=log10.hra, color=locomotion))+
@@ -61,7 +61,7 @@ homerange %>%
   geom_bar()
 ```
 
-2. Make a box plot that shows the range of log10.mass by taxonomic class. Use `group` to cluster animals together by taxon and `fill` to color each box by taxon.
+2. Make a box plot that shows the range of log10.mass by taxonomic class. Use `group` to cluster animals together by taxon and `fill` to color each box by taxon. Notice what happens when you remove `group=taxon`.
 ```{r}
 homerange %>% 
   ggplot(aes(x=class, y=log10.mass, group=taxon, fill=taxon))+
@@ -152,6 +152,57 @@ homerange %>%
   ggplot(aes(x=trophic.guild, fill=class)) +
   geom_bar(alpha=0.9, position="dodge")+
   scale_fill_brewer(palette = "Dark2")
+```
+
+## Custom color palettes
+It is also possible to build custom color palettes where each factor of interest is assigned a specific color. In these cases, the package `paletteer` is helpful as it is a compilation of different palettes.
+```{r}
+library(paletteer)
+```
+
+To access the `paleteer` collection, I add it to a new object. I can then click on the object and view the palettes.
+```{r}
+colors <- 
+  paletteer::palettes_d_names
+```
+
+Here, I assign a palette within the paletteer package to `my_palette`. When I call `my_palette` I see the color codes; i.e., #FED439.
+```{r}
+my_palette <- 
+  paletteer_d(package = "ggsci", palette = "springfield_simpsons")
+my_palette
+```
+
+If I want to view the palette directly, I can build a simple barplot.
+```{r}
+barplot(rep(1,14), axes=FALSE, col=my_palette)
+```
+
+By using `scale_fill_manual()` we can use `my_palette` and our plot will show our custom colors.
+```{r}
+homerange %>%
+  ggplot(aes(x=trophic.guild, fill=class)) +
+  geom_bar(alpha=0.9, position="dodge", color="black")+
+  scale_fill_manual(values=my_palette)
+```
+
+If we want to assign specific colors to factors, we use the color codes. The codes are assigned to a new vector.
+```{r}
+class_colors <- 
+  c("#C80813", "#91331F", "#1A9993", "#FD8CC1")
+```
+
+Do you remember the names command?
+```{r}
+names(class_colors) <- 
+  c("actinopterygii", "aves", "mammalia", "reptilia")
+```
+
+```{r}
+homerange %>%
+  ggplot(aes(x=trophic.guild, fill=class)) +
+  geom_bar(alpha=0.75, position="dodge", color="black")+
+  scale_fill_manual(values=class_colors, name="Taxonomic Class")
 ```
 
 ## Wrap-up
