@@ -296,13 +296,14 @@ div.tocify {
 </div>
 <div id="rmarkdown" class="section level2">
 <h2>RMarkdown</h2>
-<p>Experienced programmers often write their code with minimal annotations. This is great for them because they read R fluently. Since we are programming novices we will write our code in RMarkdown format. RMarkdown allows us to embed code in annotated chunks, including display of graphical output. The RMarkdown file can then be exported in a number of formats. If you have questions, the definitive guide is <a href="https://bookdown.org/yihui/rmarkdown/">here</a>.</p>
+<p>Annotation of code is very important for programmers of all levels. When code is annotated, it is easy for others to understand and perhaps more importantly, easier for the person who wrote the code to understand when returning to a project days to years later. RMarkdown allows us to embed code in annotated chunks, including display of graphical output. The RMarkdown file can then be exported in a number of formats. If you have questions, the definitive guide is <a href="https://bookdown.org/yihui/rmarkdown/">here</a>.</p>
 </div>
 <div id="help" class="section level2">
 <h2>Help</h2>
-<p>R is a flexible programming language that is used by scientists worldwide. Thousands of packages are available to perform specific analyses and there is a large community of people willing to help if you have problems. Just be sure to thoroughly look for help before posting questions to stack overflow or related forums.</p>
+<p>R is a flexible programming language that is used by scientists worldwide. Thousands of packages are available to perform specific analyses and there is a large community of people willing to help if you have problems.</p>
 <p>Adding a ‘?’ before a command will bring up the associated help document.</p>
 <pre class="r"><code>?mean</code></pre>
+<p><a href="https://stackoverflow.com/">Stack Overflow</a> is an extremely helpful resource for R programming type questions. Stack Overflow questions and answers can usually be found by Googling your R related question and including ‘R’ in the search phrase. This technique also works for R error messages. Just be sure to thoroughly look for help before posting questions to Stack Overflow or related forums.</p>
 </div>
 <div id="learning-goals" class="section level2">
 <h2>Learning Goals</h2>
@@ -328,23 +329,23 @@ div.tocify {
 <h2>Objects</h2>
 <p>In order to access the potential of R we need to assign values or other types of data to <code>objects</code>. There is a specific format that I want you to follow, so please pay close attention.</p>
 <p>Assign a value to object ‘x’. The ‘&lt;-’ symbol is read as ‘gets’. In this case, x gets 42. Make sure that you are in the environment panel and you should see the value associated with ‘x’. On a mac, you can push <code>option</code> and <code>-</code> to automatically generate the gets symbol.</p>
-<pre class="r"><code>x&lt;-42</code></pre>
+<pre class="r"><code>x &lt;- 42</code></pre>
 <p>To print the object to the screen, just type x. Alternatively, you can use the print command.</p>
 <pre class="r"><code>x</code></pre>
 <pre><code>## [1] 42</code></pre>
 <pre class="r"><code>print(x)</code></pre>
 <pre><code>## [1] 42</code></pre>
 <p>Once an object has been created, you can do things with them.</p>
-<pre class="r"><code>treatment&lt;-36
-control&lt;-38</code></pre>
-<pre class="r"><code>my_experiment&lt;-treatment+control
+<pre class="r"><code>treatment &lt;- 36
+control &lt;- 38</code></pre>
+<pre class="r"><code>my_experiment &lt;- treatment + control
 my_experiment</code></pre>
 <pre><code>## [1] 74</code></pre>
 </div>
 <div id="nomenclature" class="section level2">
 <h2>Nomenclature</h2>
 <p>We need to be careful about nomenclature when we write code. R allows us to give almost any name we want to an object, but there are exceptions. For example, we don’t want to give a name to an object that is the same as a function in R.</p>
-<pre class="r"><code>else&lt;-12</code></pre>
+<pre class="r"><code>else &lt;- 12</code></pre>
 <p>We get an error here because <code>else</code> is a function in R. You also don’t want to give names that might get confused with functions; i.e. you can assign a value to ‘mean’ but this could become confusing because mean is used as a function.</p>
 </div>
 <div id="practice" class="section level2">
@@ -385,6 +386,16 @@ my_complex &lt;- 2+4i</code></pre>
 <pre class="r"><code>is.integer(my_integer) #is my_numeric an integer?</code></pre>
 <pre><code>## [1] TRUE</code></pre>
 </div>
+<div id="missing-data" class="section level2">
+<h2>Missing Data</h2>
+<p>R has a special way to designate missing data, the NA. NA values in R have specific properties which are very useful if your data contains any missing values.</p>
+<p>NA values are used to designate missing data. <code>is.na</code> or <code>anyNA</code> are useful functions when dealing with NAs in data.</p>
+<pre class="r"><code>my_missing &lt;- NA
+is.na(my_missing)</code></pre>
+<pre><code>## [1] TRUE</code></pre>
+<pre class="r"><code>anyNA(my_missing)</code></pre>
+<pre><code>## [1] TRUE</code></pre>
+</div>
 <div id="data-structures" class="section level2">
 <h2>Data Structures</h2>
 <p>In addition to the types or classes of data, R also organizes data in specific ways. These are called data structures and include vectors, lists, matrices, data frames, and factors. For now, we are going to focus on <code>vectors</code>.</p>
@@ -396,13 +407,23 @@ my_complex &lt;- 2+4i</code></pre>
 <pre class="r"><code>my_vector &lt;- c(10, 20, 30)</code></pre>
 <p>We can make character vectors as well.</p>
 <pre class="r"><code>days_of_the_week &lt;- c(&quot;Monday&quot;, &quot;Tuesday&quot;, &quot;Wednesday&quot;, &quot;Thrusday&quot;, &quot;Friday&quot;, &quot;Saturday&quot;, &quot;Sunday&quot;)</code></pre>
-<p>A convenient trick is to generate a string of numbers.</p>
-<pre class="r"><code>my_vector_string &lt;- c(1:10)
-my_vector_string</code></pre>
+<p>What if our numeric vector above had a missing value?</p>
+<pre class="r"><code>my_vector &lt;- c(10, NA, 30)
+anyNA(my_vector)</code></pre>
+<pre><code>## [1] TRUE</code></pre>
+<p>Certain functions require us to specify how we want to deal with NAs. Often if NA is included in an operation, the result is NA.</p>
+<pre class="r"><code>mean(my_vector)</code></pre>
+<pre><code>## [1] NA</code></pre>
+<p>Let’s remove the NA value.</p>
+<pre class="r"><code>mean(my_vector, na.rm = TRUE)</code></pre>
+<pre><code>## [1] 20</code></pre>
+<p>A convenient trick for creating a vector is to generate a sequence of numbers.</p>
+<pre class="r"><code>my_vector_sequence &lt;- c(1:10)
+my_vector_sequence</code></pre>
 <pre><code>##  [1]  1  2  3  4  5  6  7  8  9 10</code></pre>
 <p><code>seq</code> allows more control.</p>
-<pre class="r"><code>my_vector_string2 &lt;- seq(1, 4, by=0.25)
-my_vector_string2</code></pre>
+<pre class="r"><code>my_vector_sequence2 &lt;- seq(1, 4, by=0.25)
+my_vector_sequence2</code></pre>
 <pre><code>##  [1] 1.00 1.25 1.50 1.75 2.00 2.25 2.50 2.75 3.00 3.25 3.50 3.75 4.00</code></pre>
 </div>
 <div id="identifying-vector-elements" class="section level2">
@@ -417,7 +438,7 @@ my_vector_string2</code></pre>
 <ol style="list-style-type: decimal">
 <li>Create a new numeric vector of values 1 through 100</li>
 </ol>
-<pre class="r"><code>new_vector &lt;- 1:100</code></pre>
+<pre class="r"><code>new_vector &lt;- c(1:100)</code></pre>
 <ol start="2" style="list-style-type: decimal">
 <li>We can evaluate all numerics in our vector to determine which has a value of 15.</li>
 </ol>
@@ -449,7 +470,7 @@ my_vector_string2</code></pre>
 <ol start="4" style="list-style-type: decimal">
 <li>If you use <code>[]</code> then you only get the values, not the logical evaluation of the entire vector.</li>
 </ol>
-<pre class="r"><code>new_vector[new_vector &lt;=10]</code></pre>
+<pre class="r"><code>new_vector[new_vector &lt;= 10]</code></pre>
 <pre><code>##  [1]  1  2  3  4  5  6  7  8  9 10</code></pre>
 <ol start="5" style="list-style-type: decimal">
 <li>Using the <code>&amp;</code> symbol allows us to refine our elements of interest.</li>

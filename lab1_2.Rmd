@@ -15,15 +15,17 @@ R is an open source, **scripting** language. RStudio is a GUI (graphical user in
 Because R is a scripting language you don't point and click to run commands. Instead, you write instructions that are used by the computer to complete an operation. This makes for excellent repeatability but makes it hard to learn at first because the instructions are specific. R is **not** tolerant of typos, puntuation errors, errant spaces, or other types of mistakes.
 
 ## RMarkdown
-Experienced programmers often write their code with minimal annotations. This is great for them because they read R fluently. Since we are programming novices we will write our code in RMarkdown format. RMarkdown allows us to embed code in annotated chunks, including display of graphical output. The RMarkdown file can then be exported in a number of formats. If you have questions, the definitive guide is [here](https://bookdown.org/yihui/rmarkdown/).  
+Annotation of code is very important for programmers of all levels. When code is annotated, it is easy for others to understand and perhaps more importantly, easier for the person who wrote the code to understand when returning to a project days to years later. RMarkdown allows us to embed code in annotated chunks, including display of graphical output. The RMarkdown file can then be exported in a number of formats. If you have questions, the definitive guide is [here](https://bookdown.org/yihui/rmarkdown/).  
 
 ## Help
-R is a flexible programming language that is used by scientists worldwide. Thousands of packages are available to perform specific analyses and there is a large community of people willing to help if you have problems. Just be sure to thoroughly look for help before posting questions to stack overflow or related forums.
+R is a flexible programming language that is used by scientists worldwide. Thousands of packages are available to perform specific analyses and there is a large community of people willing to help if you have problems.
 
 Adding a '?' before a command will bring up the associated help document.
-```{r}
+```{r, message = FALSE}
 ?mean
 ```
+
+[Stack Overflow][so] is an extremely helpful resource for R programming type questions. Stack Overflow questions and answers can usually be found by Googling your R related question and including 'R' in the search phrase. This technique also works for R error messages. Just be sure to thoroughly look for help before posting questions to Stack Overflow or related forums. 
 
 ## Learning Goals
 *At the end of this exercise, you will be able to:*    
@@ -53,7 +55,7 @@ In order to access the potential of R we need to assign values or other types of
 
 Assign a value to object 'x'. The '<-' symbol is read as 'gets'. In this case, x gets 42. Make sure that you are in the environment panel and you should see the value associated with 'x'. On a mac, you can push `option` and `-` to automatically generate the gets symbol.
 ```{r}
-x<-42
+x <- 42
 ```
 
 To print the object to the screen, just type x. Alternatively, you can use the print command.
@@ -64,12 +66,12 @@ print(x)
 
 Once an object has been created, you can do things with them.
 ```{r}
-treatment<-36
-control<-38
+treatment <- 36
+control <- 38
 ```
 
 ```{r}
-my_experiment<-treatment+control
+my_experiment <- treatment + control
 my_experiment
 ```
 
@@ -77,7 +79,7 @@ my_experiment
 We need to be careful about nomenclature when we write code. R allows us to give almost any name we want to an object, but there are exceptions. For example, we don't want to give a name to an object that is the same as a function in R.
 
 ```{r eval=FALSE, include=TRUE}
-else<-12
+else <- 12
 ```
 
 We get an error here because `else` is a function in R. You also don't want to give names that might get confused with functions; i.e. you can assign a value to 'mean' but this could become confusing because mean is used as a function.  
@@ -129,6 +131,16 @@ my_integer <-
 is.integer(my_integer) #is my_numeric an integer?
 ```
 
+## Missing Data
+R has a special way to designate missing data, the NA. NA values in R have specific properties which are very useful if your data contains any missing values. 
+
+NA values are used to designate missing data. `is.na` or `anyNA` are useful functions when dealing with NAs in data. 
+```{r}
+my_missing <- NA
+is.na(my_missing)
+anyNA(my_missing)
+```
+
 ## Data Structures
 In addition to the types or classes of data, R also organizes data in specific ways. These are called data structures and include vectors, lists, matrices, data frames, and factors. For now, we are going to focus on `vectors`.  
 
@@ -145,16 +157,33 @@ We can make character vectors as well.
 days_of_the_week <- c("Monday", "Tuesday", "Wednesday", "Thrusday", "Friday", "Saturday", "Sunday")
 ```
 
-A convenient trick is to generate a string of numbers.
+What if our numeric vector above had a missing value?
 ```{r}
-my_vector_string <- c(1:10)
-my_vector_string
+my_vector <- c(10, NA, 30)
+anyNA(my_vector)
+```
+
+Certain functions require us to specify how we want to deal with NAs. Often if NA is included in an operation, the result is NA.
+```{r}
+mean(my_vector)
+```
+
+Let's remove the NA value.
+```{r}
+mean(my_vector, na.rm = TRUE)
+```
+
+
+A convenient trick for creating a vector is to generate a sequence of numbers.
+```{r}
+my_vector_sequence <- c(1:10)
+my_vector_sequence
 ```
 
 `seq` allows more control.
 ```{r}
-my_vector_string2 <- seq(1, 4, by=0.25)
-my_vector_string2
+my_vector_sequence2 <- seq(1, 4, by=0.25)
+my_vector_sequence2
 ```
 
 ## Identifying vector elements
@@ -168,7 +197,7 @@ Work through these examples and make adjustments to the values to experiment.
 
 1. Create a new numeric vector of values 1 through 100
 ```{r}
-new_vector <- 1:100
+new_vector <- c(1:100)
 ```
 
 2. We can evaluate all numerics in our vector to determine which has a value of 15.
@@ -183,7 +212,7 @@ new_vector < 10
 
 4. If you use `[]` then you only get the values, not the logical evaluation of the entire vector.
 ```{r}
-new_vector[new_vector <=10]
+new_vector[new_vector <= 10]
 ```
 
 5. Using the `&` symbol allows us to refine our elements of interest.
@@ -200,3 +229,5 @@ new_vector[new_vector <= 10 | new_vector == 1]
 Please review the learning goals and be sure to use the code here as a reference when completing the homework.  
 
 -->[Home](https://jmledford3115.github.io/datascibiol/)
+
+[so]: https://stackoverflow.com/ 
