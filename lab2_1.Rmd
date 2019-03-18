@@ -39,7 +39,7 @@ box_office
 
 Create `star_wars_matrix` using the `matrix()` command. We need to tell R how to organize the `box_office` vector using the `nrow` and `byrow` commands.
 ```{r}
-star_wars_matrix <- matrix(box_office,nrow=3,byrow=T)
+star_wars_matrix <- matrix(box_office, nrow = 3, byrow = T)
 star_wars_matrix
 ```
 
