@@ -12,7 +12,7 @@ output:
 ## Background
 In nearly every field of science, our ability to generate data has exceeded our capacity for analysis. For me, this means that there is the potential for loss to science; many important discoveries may go unnoticed because we are unable to efficiently analyze data.
 
-There is also a growing problem of curation. As the analyses and data become more complex, research labs have a problem of storing and managing data such that it can be used in future analyses or shared with colleagues. As students, postdocs, and visiting scientists come and go in labs, there is often a mess left behind where data are inefficiently stored and analytical scripts are hard to interpret.
+There is also a growing problem of curation and reproducibility. As the analyses and data become more complex, research labs have a problem of managing data and analysis such that data can be used in future analyses or shared with colleagues. As students, postdocs, and visiting scientists come and go in labs, or even as an individual moves between projects, there is often a mess left behind where data are inefficiently stored, analysis was not documented, or in the worse case scenario, sloppy copy/paste type errors cause wasted days to months. Effectively stored data along with a documented, reproducible, work flow will allow for high-quality analysis, error prevention and time savings, and smooth and efficient collaboration with others or even with yourself months to years in the future.  
 
 Lastly, with the widespread availability of data online there is the potential for new scientific discovery or insight through exploratory data analysis. In many cases a clean, organized workflow will yield new perspectives and promising results.  
 
