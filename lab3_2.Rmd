@@ -11,7 +11,7 @@ output:
     toc: yes
 ---
 
-> **For Big-Data Scientists, ‘Janitor Work’ Is Key Hurdle to Insights.**  
+> **For Big-Data Scientists, "Janitor Work" Is Key Hurdle to Insights.**  
 > "Data scientists, according to interviews and expert estimates, spend from 50 percent to 80 percent of their time mired in the mundane labor of collecting and preparing data, before it can be explored for useful information."  
 > [New York Times (2014)](http://www.nytimes.com/2014/08/18/technology/for-big-data-scientists-hurdle-to-insights-is-janitor-work.html)
 

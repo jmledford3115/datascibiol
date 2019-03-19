@@ -214,7 +214,7 @@ $(document).ready(function () {
 <ol style="list-style-type: decimal">
 <li><p>Do you see any potential problems with the column names? Does the error message now make more sense?<br />
 <em>Column names are duplicated so R manipulated them to unique names</em></p></li>
-<li><p>The <code>make.names()</code> command is helpful when there are issues with column names. Notice that although the names are still cumbersome, much of the problemtatic syntax is removed.</p></li>
+<li><p>The <code>make.names()</code> command is helpful when there are issues with column names. Notice that although the names are still cumbersome, much of the problematic syntax is removed.</p></li>
 </ol>
 <pre class="r"><code>names(fisheries) = make.names(names(fisheries), unique=T) #changes the column names
 names(fisheries)</code></pre>
@@ -318,13 +318,13 @@ names(fisheries)</code></pre>
 #  gather(num_range('X',1950:2012), key='QQQ', value='QQQ')</code></pre>
 <ol start="6" style="list-style-type: decimal">
 <li><p>Use <code>glimpse()</code> to look at the categories of the variables. Pay particular attention to <code>year</code> and <code>catch</code>. What do you notice?</p></li>
-<li><p>From question 6 you should see that there are a lot of entries that are missing. In R, these are referred to as NA’s but they can be coded in different ways by the scientists in a given study. In order to make the data tidy, we need to deal with them. As a preview to our next lab, run the following code by removing the <code>#</code>. It removes the ‘X’ from the years and changes the <code>catch</code> column from a character into a numeric. This forces the blank entries to become NAs. The error “NAs introduced by coercion” indicates their replacement.</p></li>
+<li><p>From question 6 you should see that there are a lot of entries that are missing. In R, these are referred to as NA’s but they can be coded in different ways by the scientists in a given study. In order to make the data tidy, we need to deal with them. As a preview to our next lab, run the following code by removing the <code>#</code>. It removes the ‘X’ from the years and changes the <code>catch</code> column from a character into a numeric. This forces the blank entries to become NAs. The warning “NAs introduced by coercion” indicates their replacement.</p></li>
 </ol>
 <pre class="r"><code>#fisheries_tidy &lt;- 
 #  fisheries_tidy %&gt;% 
 #  mutate(
-#    year= as.numeric(str_replace(year, 'X', '')), #remove the X from year
-#    catch= as.numeric(str_replace(catch, c(' F','...','-'), replacement = '')) #replace character strings with NA
+#    year = as.numeric(str_replace(year, 'X', '')), #remove the X from year
+#    catch = as.numeric(str_replace(catch, c(' F','...','-'), replacement = '')) 
 #    )</code></pre>
 <ol start="8" style="list-style-type: decimal">
 <li><p>Are the data tidy? Why?</p></li>

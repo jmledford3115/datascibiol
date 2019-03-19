@@ -291,7 +291,7 @@ div.tocify {
 
 <div id="review" class="section level2">
 <h2>Review</h2>
-<p>In the last section you were introduced to the <code>tidyverse</code> and the core function <code>filter()</code>. Filter allows us to separate specific variables of interest from large, complex data. <code>filter()</code> works by looking through rows, but what about columns? Recall that each column is essentially a vector, so we need the new function <code>select()</code> to separate columns of interest. As you may expect, we can also use them together to focus our data on the variables of interest.</p>
+<p>In the last section you were introduced to the <code>tidyverse</code> and the core function <code>filter()</code>. Filter allows us to separate variables with specific attributes of interest from large, complex data. <code>filter()</code> works by looking through rows, but what about columns? Recall that each column is essentially a vector, so we need the new function <code>select()</code> to separate columns of interest. As you may expect, we can also use them together to focus our data on the variables and values of interest.</p>
 </div>
 <div id="resources" class="section level2">
 <h2>Resources</h2>
@@ -331,7 +331,7 @@ div.tocify {
 ##  8 AL            3.34
 ##  9 AL            3.34
 ## 10 AL            3.34
-## # … with 4,023 more rows</code></pre>
+## # ... with 4,023 more rows</code></pre>
 <p>The - operator is useful in select. It allows us to select everything except the specified variables.</p>
 <pre class="r"><code>select(fish, -fish_id, -annnumber, -length, -radii_length_mm)</code></pre>
 <pre><code>## # A tibble: 4,033 x 2
@@ -347,7 +347,7 @@ div.tocify {
 ##  8 AL            3.34
 ##  9 AL            3.34
 ## 10 AL            3.34
-## # … with 4,023 more rows</code></pre>
+## # ... with 4,023 more rows</code></pre>
 <p>For very large data frames with lots of variables, <code>select()</code> utilizes lots of different operators to make things easier. Let’s say we are only interested in the variables that deal with length.</p>
 <pre class="r"><code>select(fish, contains(&quot;length&quot;))</code></pre>
 <pre><code>## # A tibble: 4,033 x 3
@@ -363,7 +363,7 @@ div.tocify {
 ##  8    194            3.34        3.34
 ##  9    194            2.97        3.34
 ## 10    194            2.29        3.34
-## # … with 4,023 more rows</code></pre>
+## # ... with 4,023 more rows</code></pre>
 <p>Some additional options to select columns based on a specific criteria include:<br />
 1. ends_with() = Select columns that end with a character string<br />
 2. contains() = Select columns that contain a character string<br />
@@ -395,7 +395,7 @@ div.tocify {
 ##  8 AL        194        3.34
 ##  9 AL        194        3.34
 ## 10 AL        194        3.34
-## # … with 4,023 more rows</code></pre>
+## # ... with 4,023 more rows</code></pre>
 </div>
 <div id="dplyr-can-we-combine-filter-and-select" class="section level2">
 <h2>Dplyr: Can we combine filter() and select()?</h2>
@@ -416,14 +416,14 @@ filter(fish2, lakeid==&quot;AL&quot;)</code></pre>
 ##  8 AL            3.34
 ##  9 AL            3.34
 ## 10 AL            3.34
-## # … with 373 more rows</code></pre>
+## # ... with 373 more rows</code></pre>
 </div>
 <div id="dplyr-pipes" class="section level2">
 <h2>Dplyr: Pipes %&gt;%</h2>
 <p>The code above works fine but there is a more efficient way. We need to learn pipes <code>%&gt;%</code>. Pipes allow you to feed the output from one function to the input of another function. We are going to use pipes from here on to keep things cleaner. (command+shift+m)</p>
-<pre class="r"><code>fish%&gt;%
-  select(lakeid, scalelength)%&gt;%
-  filter(lakeid==&quot;AL&quot;)</code></pre>
+<pre class="r"><code>fish %&gt;%
+  select(lakeid, scalelength) %&gt;%
+  filter(lakeid == &quot;AL&quot;)</code></pre>
 <pre><code>## # A tibble: 383 x 2
 ##    lakeid scalelength
 ##    &lt;chr&gt;        &lt;dbl&gt;
@@ -437,7 +437,7 @@ filter(fish2, lakeid==&quot;AL&quot;)</code></pre>
 ##  8 AL            3.34
 ##  9 AL            3.34
 ## 10 AL            3.34
-## # … with 373 more rows</code></pre>
+## # ... with 373 more rows</code></pre>
 </div>
 <div id="practice-1" class="section level2">
 <h2>Practice</h2>
@@ -446,8 +446,8 @@ filter(fish2, lakeid==&quot;AL&quot;)</code></pre>
 </ol>
 <pre class="r"><code>fish %&gt;% 
   select(lakeid, radii_length_mm) %&gt;%
-  filter(radii_length_mm&gt;=2 &amp; radii_length_mm&lt;=4,
-         lakeid==&quot;AL&quot; | lakeid==&quot;AR&quot;)</code></pre>
+  filter(radii_length_mm &gt;= 2 &amp; radii_length_mm &lt;= 4,
+         lakeid == &quot;AL&quot; | lakeid == &quot;AR&quot;)</code></pre>
 <pre><code>## # A tibble: 253 x 2
 ##    lakeid radii_length_mm
 ##    &lt;chr&gt;            &lt;dbl&gt;
@@ -461,7 +461,7 @@ filter(fish2, lakeid==&quot;AL&quot;)</code></pre>
 ##  8 AL                2.29
 ##  9 AL                3.72
 ## 10 AL                3.23
-## # … with 243 more rows</code></pre>
+## # ... with 243 more rows</code></pre>
 </div>
 <div id="dplyr-arrange" class="section level2">
 <h2>Dplyr: arrange()</h2>
@@ -481,8 +481,25 @@ filter(fish2, lakeid==&quot;AL&quot;)</code></pre>
 ##  8 WS         155 1            128           0.579       1.41 
 ##  9 BO         391 EDGE         107           1.43        1.43 
 ## 10 BO         391 1            107           0.695       1.43 
-## # … with 4,023 more rows</code></pre>
-<p>It can be very helpful in combination with the other functions.</p>
+## # ... with 4,023 more rows</code></pre>
+<p>To sort in decreasing order, wrap the variable name in <code>desc()</code>.</p>
+<pre class="r"><code>fish %&gt;% 
+  arrange(desc(scalelength))</code></pre>
+<pre><code>## # A tibble: 4,033 x 6
+##    lakeid fish_id annnumber length radii_length_mm scalelength
+##    &lt;chr&gt;    &lt;dbl&gt; &lt;chr&gt;      &lt;dbl&gt;           &lt;dbl&gt;       &lt;dbl&gt;
+##  1 WS         180 EDGE         403           11.0         11.0
+##  2 WS         180 16           403           10.6         11.0
+##  3 WS         180 15           403           10.3         11.0
+##  4 WS         180 14           403            9.93        11.0
+##  5 WS         180 13           403            9.56        11.0
+##  6 WS         180 12           403            9.17        11.0
+##  7 WS         180 11           403            8.62        11.0
+##  8 WS         180 10           403            8.15        11.0
+##  9 WS         180 9            403            7.49        11.0
+## 10 WS         180 8            403            6.97        11.0
+## # ... with 4,023 more rows</code></pre>
+<p><code>arrange()</code> can be very helpful in combination with the other functions.</p>
 <pre class="r"><code>fish %&gt;% 
   select(lakeid, length, fish_id, scalelength) %&gt;% 
   filter(lakeid==&quot;AL&quot;) %&gt;% 
@@ -500,7 +517,7 @@ filter(fish2, lakeid==&quot;AL&quot;)</code></pre>
 ##  8 AL        194     301        3.34
 ##  9 AL        194     301        3.34
 ## 10 AL        194     301        3.34
-## # … with 373 more rows</code></pre>
+## # ... with 373 more rows</code></pre>
 </div>
 <div id="thats-it-lets-take-a-break" class="section level2">
 <h2>That’s it, let’s take a break!</h2>
