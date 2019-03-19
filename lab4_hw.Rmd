@@ -57,7 +57,7 @@ life_history %>%
 2. Run the code below. Are there any NA's in the data? Does this seem likely?
 ```{r}
 life_history %>% 
-  summarize(number_nas= sum(is.na(life_history)))
+  summarize(number_nas = sum(is.na(life_history)))
 ```
 
 3. Are there any missing data (NA's) represented by different values? How much and where? In which variables do we have the most missing data? Can you think of a reason why so much data are missing in this variable?
@@ -70,6 +70,8 @@ life_history %>%
 
 
 6. Let's look closely at gestation and newborns. Summarize the mean gestation, newborn mass, and weaning mass by order. Add a new column that shows mean gestation in years and sort in descending order. Which group has the longest mean gestation? What is the common name for these mammals?
+
+7. To save us the hassle in the future, how could we tell R how NA values are represented in our data file when we read it in? 
 
 
 ## Push your final code to [GitHub](https://github.com/FRS417-DataScienceBiologists)

@@ -25,10 +25,10 @@ library("tidyverse")
 ```
 
 ## Dealing with NA's
-In almost all scientific data, there are missing observations. These can be tricky to deal with, partly because you first need to determine how missing values were treated in the original study. Scientists use different conventions in showing missing data; some use blank spaces, others use "-", etc. Worse yet, some scientists indicate **missing data with numerics like -999.0!**  
+In almost all scientific data, there are missing observations. These can be tricky to deal with, partly because you first need to determine how missing values were treated in the original study. Scientists use different conventions in showing missing data; some use blank spaces, others use "-", etc. Unfourtunately, sometimes **missing data is indicated with numerics like -999.0 or zero!**, though this can be required in some situations (for example raster data). Often, a combination of methods are used. It is up to the data analyst to find out how missing values are represented in the data set and to deal with them appropriately. 
 
 ## Practice
-1. What are some possible problems if missing data are indicated by "-999.0"?
+1. What are some possible problems if missing data are indicated by "-999.0" or "0"?
 
 ## Load the `msleep` data into a new object
 ```{r}
@@ -45,14 +45,20 @@ is.na(msleep)
 OK, what are we supposed to do with that? Unless you have a small data frame, applying the is.na function universally is not helpful but we can use the code in another way. Let's incorporate it into the `summarize()` function.
 ```{r}
 msleep %>% 
-  summarize(number_nas= sum(is.na(msleep)))
+  summarize(number_nas = sum(is.na(msleep)))
 ```
 
 This is better, but we still don't have any idea of where those NA's are in our data frame. If there were a systemic problem in the data it would be hard to determine. In order to do this, we need to apply `is.na` to each variable of interest.
 ```{r}
 msleep %>% 
-  summarize(number_nas= sum(is.na(conservation)))
+  summarize(number_nas = sum(is.na(conservation)))
 ```
+
+The common `summary()` function in base R will tally NAs by variable, but only for categorical/factor, numeric, integer, or logical columns. What about any NA values in the character columns?
+```{r}
+summary(msleep)
+```
+
 
 What if we are working with hundreds or thousands (or more!) variables?! In order to deal with this problem efficiently we can use another package in the tidyverse called `purrr`.
 ```{r}
@@ -66,11 +72,11 @@ Don't forget that we can use `gather()` to make viewing this output easier.
 ```{r}
 msleep %>% 
   purrr::map_df(~ sum(is.na(.))) %>% 
-  tidyr::gather(key="variables", value="num_nas") %>% 
+  tidyr::gather(key = "variables", value = "num_nas") %>% 
   arrange(desc(num_nas))
 ```
 
-This is much better, but we need to be careful. R can have difficulty interpreting missing data. This is especially true for categorical variables. Always do a reality check if the output doesn't make sense to you. A quick check never hurts.  
+This is much better, but we need to be careful. R can have difficulty interpreting missing data. This is especially true for categorical variables. Always do a reality check if the output doesn't make sense to you. A quick check never hurts and can save you from waisting time in the future or from drawing false conclusions.  
 
 You can explore a specific variable more intently using `count()`. This operates similarly to `group_by()`.
 ```{r}
@@ -81,13 +87,13 @@ msleep %>%
 Adding the `sort=TRUE` option automatically makes a descending list.
 ```{r}
 msleep %>% 
-  count(conservation, sort=TRUE)
+  count(conservation, sort = TRUE)
 ```
 
 It is true that all of this is redundant, but you want to be able to run multiple checks on the data. Remember, just because your code runs without errors doesn't mean it is doing what you intended.  
 
 ## Replacing NA's
-Once you have an idea of how NA's are represented in the data, you can replace them with `NA` so that R can better deal with them. The bit of code below is very handy, especially if the data has NA's represented as **actual values that you want replaced** or if you want to make sure any blanks are treated as NA.
+The bit of code below is very handy, especially if the data has NA's represented as **actual values that you want replaced** or if you want to make sure any blanks are treated as NA. As was mentioned in Lab 1, NAs have special properties in R, so if your data has missing observations, it is important all missing values are represented with NA. 
 ```{r}
 msleep_na2 <- 
   msleep %>% 
@@ -137,10 +143,10 @@ life_history %>%
   skimr::skim()
 ```
 
-2. Run the code below. Are there any NA's in the data? Does this seem likely?
+2. Run the code below. Are there any NA's in the data? Does this seem likely? Do the mean values above make sense for this data?
 ```{r}
 msleep %>% 
-  summarize(number_nas= sum(is.na(life_history)))
+  summarize(number_nas = sum(is.na(life_history)))
 ```
 
 3. Are there any missing data (NA's) represented by different values? How much and where? In which variables do we have the most missing data? Can you think of a reason why so much data are missing in this variable?
@@ -153,6 +159,8 @@ msleep %>%
 
 
 6. Let's look closely at gestation and newborns. Summarize the mean gestation, newborn mass, and weaning mass by order. Add a new column that shows mean gestation in years and sort in descending order. Which group has the longest mean gestation? What is the common name for these mammals?
+
+7. To save us the hassle in the future, how could we tell R how NA values are represented in our data file when we read it in? 
 
 
 ## Wrap-up
