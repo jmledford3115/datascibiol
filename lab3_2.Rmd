@@ -64,7 +64,7 @@ non_tidy1
 Let's assess whether or not these data are tidy.  
 
 (1) each variable has its own column  
-*No. The columns are actually variables.*  
+*No. The columns are actually variables (treatment a, b, c, or d).*  
 (2) each observation has its own row  
 *No. The observations are grouped in a single row by patient.*  
 (3) each value has its own cell  
@@ -98,7 +98,7 @@ The syntax to gather() is a bit strange. From the [Tidyr, R for Data Science](ht
 
 ```{r}
 tidy1 <- non_tidy1 %>% 
-  gather(a, b, c, d, key="drug", value="heartrate")
+  gather(a, b, c, d, key = "drug", value = "heartrate")
 tidy1
 ```
 
@@ -122,7 +122,7 @@ The data below track tuberculosis infection rates by year and country.
 country <- c("Afghanistan", "Brazil", "China")
 `1999` <- c(745, 37737, 212258)
 `2000` <- c(2666, 80488, 213766)
-tb_data <- data.frame(country=country, `1999`=`1999`, `2000`=`2000`)
+tb_data <- data.frame(country = country, `1999`=`1999`, `2000`=`2000`)
 tb_data
 ```
 
@@ -131,7 +131,7 @@ tb_data
 2. Use gather() to tidy the data.
 
 ## separate()
-In our next example, we have  the sex of each patient included with their name. Are these data tidy? No, there is more than one value per cell in the patient column and the columns a, b, c, d once again represent values.
+In our next example, we have the sex of each patient included with their name. Are these data tidy? No, there is more than one value per cell in the patient column and the columns a, b, c, d once again represent values.
 ```{r}
 non_tidy2 <- data.frame(
   patient= c("Margaret_f", "Frank_m", "Hawkeye_m", "Trapper_m", "Radar_m", "Henry_m"),
@@ -140,6 +140,7 @@ non_tidy2 <- data.frame(
   c= c(80, 88, 68, 64, 78, 88),
   d= c(68, 76, 64, 58, 70, 72)
 )
+non_tidy2
 ```
 
 We need to start by separating the patient names from their sexes. `separate()` needs to know which column you want to split, the names of the new columns, and what to look for in terms of breaks in the data.
@@ -152,15 +153,15 @@ This is great; we have separated sex from patient. Are the data tidy? Not yet. W
 ```{r}
 tidy2 <- non_tidy2 %>% 
   separate(patient, into= c("patient", "sex"), sep = "_") %>% 
-  gather(a, b, c, d, key="drug", value="heartrate")
+  gather(a, b, c, d, key = "drug", value = "heartrate")
 tidy2
 ```
 
 ## unite()
-`unite()` is the opposite of separate(). It's syntax is relatively straightforward. You only need to identify the key and the value.
+`unite()` is the opposite of separate(). Its syntax is relatively straightforward. You only need to identify the key and the value.
 ```{r}
-tidy2 %>% 
-  spread(key="drug", value="heartrate") %>% 
+non_tidy2 %>% 
+  separate(patient, into= c("patient", "sex"), sep = "_") %>% 
   unite(patient_sex, patient, sex, sep="_")
 ```
 
