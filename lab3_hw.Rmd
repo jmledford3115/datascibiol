@@ -30,7 +30,7 @@ fisheries <- readr::read_csv(file = "data/FAO_1950to2012_111914.csv")
 *Column names are duplicated so R manipulated them to unique names*
 
 
-2. The `make.names()` command is helpful when there are issues with column names. Notice that although the names are still cumbersome, much of the problemtatic syntax is removed.
+2. The `make.names()` command is helpful when there are issues with column names. Notice that although the names are still cumbersome, much of the problematic syntax is removed.
 ```{r}
 names(fisheries) = make.names(names(fisheries), unique=T) #changes the column names
 names(fisheries)
@@ -61,13 +61,13 @@ names(fisheries)
 
 
 
-7. From question 6 you should see that there are a lot of entries that are missing. In R, these are referred to as NA's but they can be coded in different ways by the scientists in a given study. In order to make the data tidy, we need to deal with them. As a preview to our next lab, run the following code by removing the `#`. It removes the 'X' from the years and changes the `catch` column from a character into a numeric. This forces the blank entries to become NAs. The error "NAs introduced by coercion" indicates their replacement.
+7. From question 6 you should see that there are a lot of entries that are missing. In R, these are referred to as NA's but they can be coded in different ways by the scientists in a given study. In order to make the data tidy, we need to deal with them. As a preview to our next lab, run the following code by removing the `#`. It removes the 'X' from the years and changes the `catch` column from a character into a numeric. This forces the blank entries to become NAs. The warning "NAs introduced by coercion" indicates their replacement.
 ```{r}
 #fisheries_tidy <- 
 #  fisheries_tidy %>% 
 #  mutate(
-#    year= as.numeric(str_replace(year, 'X', '')), #remove the X from year
-#    catch= as.numeric(str_replace(catch, c(' F','...','-'), replacement = '')) #replace character strings with NA
+#    year = as.numeric(str_replace(year, 'X', '')), #remove the X from year
+#    catch = as.numeric(str_replace(catch, c(' F','...','-'), replacement = '')) 
 #    )
 ```
 
