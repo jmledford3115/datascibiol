@@ -234,20 +234,26 @@ $(document).ready(function () {
 </ol>
 <pre class="r"><code>#install.packages(&quot;skimr&quot;)</code></pre>
 <pre class="r"><code>library(&quot;skimr&quot;)</code></pre>
+<pre><code>## Warning: package 'skimr' was built under R version 3.5.3</code></pre>
+<pre><code>## 
+## Attaching package: 'skimr'</code></pre>
+<pre><code>## The following object is masked from 'package:stats':
+## 
+##     filter</code></pre>
 <pre class="r"><code>life_history %&gt;% 
   skimr::skim()</code></pre>
 <pre><code>## Skim summary statistics
 ##  n obs: 1440 
 ##  n variables: 13 
 ## 
-## ── Variable type:character ──────────────────────────────────────────────────────────────────────────────
+## -- Variable type:character --------------------------------------------------------------------------------------------------------
 ##  variable missing complete    n min max empty n_unique
 ##    family       0     1440 1440   6  15     0       96
 ##     genus       0     1440 1440   3  16     0      618
 ##     order       0     1440 1440   7  14     0       17
 ##   species       0     1440 1440   3  17     0     1191
 ## 
-## ── Variable type:numeric ────────────────────────────────────────────────────────────────────────────────
+## -- Variable type:numeric ----------------------------------------------------------------------------------------------------------
 ##     variable missing complete    n      mean         sd   p0  p25     p50
 ##          AFR       0     1440 1440   -408.12     504.97 -999 -999    2.5 
 ##    gestation       0     1440 1440   -287.25     455.36 -999 -999    1.05
@@ -259,20 +265,20 @@ $(document).ready(function () {
 ##    wean_mass       0     1440 1440  16048.93   5e+05    -999 -999 -999   
 ##      weaning       0     1440 1440   -427.17     496.71 -999 -999    0.73
 ##      p75          p100     hist
-##    15.61     210       ▆▁▁▁▁▁▇▁
-##     4.5       21.46    ▃▁▁▁▁▁▁▇
-##     3.83      14.18    ▁▁▁▁▁▁▁▇
-##     1.15       7.5     ▇▁▁▁▁▁▁▇
-##  7009.17       1.5e+08 ▇▁▁▁▁▁▁▁
-##   147.25    1368       ▇▁▁▃▂▁▁▁
-##    98    2250000       ▇▁▁▁▁▁▁▁
-##    10          1.9e+07 ▇▁▁▁▁▁▁▁
-##     2         48       ▆▁▁▁▁▁▁▇</code></pre>
+##    15.61     210       &lt;U+2586&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2587&gt;&lt;U+2581&gt;
+##     4.5       21.46    &lt;U+2583&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2587&gt;
+##     3.83      14.18    &lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2587&gt;
+##     1.15       7.5     &lt;U+2587&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2587&gt;
+##  7009.17       1.5e+08 &lt;U+2587&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt;
+##   147.25    1368       &lt;U+2587&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2583&gt;&lt;U+2582&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt;
+##    98    2250000       &lt;U+2587&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt;
+##    10          1.9e+07 &lt;U+2587&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt;
+##     2         48       &lt;U+2586&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2587&gt;</code></pre>
 <ol start="2" style="list-style-type: decimal">
 <li>Run the code below. Are there any NA’s in the data? Does this seem likely?</li>
 </ol>
 <pre class="r"><code>life_history %&gt;% 
-  summarize(number_nas= sum(is.na(life_history)))</code></pre>
+  summarize(number_nas = sum(is.na(life_history)))</code></pre>
 <pre><code>## # A tibble: 1 x 1
 ##   number_nas
 ##        &lt;int&gt;
@@ -282,6 +288,7 @@ $(document).ready(function () {
 <li><p>Compared to the <code>msleep</code> data, we have better representation among taxa. Produce a summary that shows the number of observations by taxonomic order.</p></li>
 <li><p>Mammals have a range of life histories, including lifespan. Produce a summary of lifespan in years by order. Be sure to include the minimum, maximum, mean, standard deviation, and total n.</p></li>
 <li><p>Let’s look closely at gestation and newborns. Summarize the mean gestation, newborn mass, and weaning mass by order. Add a new column that shows mean gestation in years and sort in descending order. Which group has the longest mean gestation? What is the common name for these mammals?</p></li>
+<li><p>To save us the hassle in the future, how could we tell R how NA values are represented in our data file when we read it in?</p></li>
 </ol>
 </div>
 <div id="push-your-final-code-to-github" class="section level2">

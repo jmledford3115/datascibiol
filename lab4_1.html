@@ -315,14 +315,14 @@ div.tocify {
 <div id="load-the-tidyverse" class="section level2">
 <h2>Load the tidyverse</h2>
 <pre class="r"><code>library(&quot;tidyverse&quot;)</code></pre>
-<pre><code>## ── Attaching packages ──────────────────────────────────────────────────────────────────────────────── tidyverse 1.2.1 ──</code></pre>
-<pre><code>## ✔ ggplot2 3.1.0       ✔ purrr   0.3.0  
-## ✔ tibble  2.0.1       ✔ dplyr   0.8.0.1
-## ✔ tidyr   0.8.2       ✔ stringr 1.4.0  
-## ✔ readr   1.3.1       ✔ forcats 0.4.0</code></pre>
-<pre><code>## ── Conflicts ─────────────────────────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
-## ✖ dplyr::filter() masks stats::filter()
-## ✖ dplyr::lag()    masks stats::lag()</code></pre>
+<pre><code>## -- Attaching packages ------------------------------------------------------------------------------------------ tidyverse 1.2.1 --</code></pre>
+<pre><code>## v ggplot2 3.1.0       v purrr   0.3.1  
+## v tibble  2.0.1       v dplyr   0.8.0.1
+## v tidyr   0.8.3       v stringr 1.4.0  
+## v readr   1.3.1       v forcats 0.4.0</code></pre>
+<pre><code>## -- Conflicts --------------------------------------------------------------------------------------------- tidyverse_conflicts() --
+## x dplyr::filter() masks stats::filter()
+## x dplyr::lag()    masks stats::lag()</code></pre>
 </div>
 <div id="tidyr" class="section level2">
 <h2>Tidyr</h2>
@@ -335,129 +335,75 @@ div.tocify {
 <div id="gather" class="section level2">
 <h2>gather()</h2>
 <p>Recall that we use <code>gather()</code> when our column names actually represent variables. A classic example would be that the column names represent observations of a variable.</p>
-<pre class="r"><code>?USArrests</code></pre>
-<pre class="r"><code>arrests &lt;- 
-  USArrests %&gt;% 
-  mutate(State=rownames(USArrests)) %&gt;% 
-  select(State, Murder, Assault, Rape)
-arrests</code></pre>
-<pre><code>##             State Murder Assault Rape
-## 1         Alabama   13.2     236 21.2
-## 2          Alaska   10.0     263 44.5
-## 3         Arizona    8.1     294 31.0
-## 4        Arkansas    8.8     190 19.5
-## 5      California    9.0     276 40.6
-## 6        Colorado    7.9     204 38.7
-## 7     Connecticut    3.3     110 11.1
-## 8        Delaware    5.9     238 15.8
-## 9         Florida   15.4     335 31.9
-## 10        Georgia   17.4     211 25.8
-## 11         Hawaii    5.3      46 20.2
-## 12          Idaho    2.6     120 14.2
-## 13       Illinois   10.4     249 24.0
-## 14        Indiana    7.2     113 21.0
-## 15           Iowa    2.2      56 11.3
-## 16         Kansas    6.0     115 18.0
-## 17       Kentucky    9.7     109 16.3
-## 18      Louisiana   15.4     249 22.2
-## 19          Maine    2.1      83  7.8
-## 20       Maryland   11.3     300 27.8
-## 21  Massachusetts    4.4     149 16.3
-## 22       Michigan   12.1     255 35.1
-## 23      Minnesota    2.7      72 14.9
-## 24    Mississippi   16.1     259 17.1
-## 25       Missouri    9.0     178 28.2
-## 26        Montana    6.0     109 16.4
-## 27       Nebraska    4.3     102 16.5
-## 28         Nevada   12.2     252 46.0
-## 29  New Hampshire    2.1      57  9.5
-## 30     New Jersey    7.4     159 18.8
-## 31     New Mexico   11.4     285 32.1
-## 32       New York   11.1     254 26.1
-## 33 North Carolina   13.0     337 16.1
-## 34   North Dakota    0.8      45  7.3
-## 35           Ohio    7.3     120 21.4
-## 36       Oklahoma    6.6     151 20.0
-## 37         Oregon    4.9     159 29.3
-## 38   Pennsylvania    6.3     106 14.9
-## 39   Rhode Island    3.4     174  8.3
-## 40 South Carolina   14.4     279 22.5
-## 41   South Dakota    3.8      86 12.8
-## 42      Tennessee   13.2     188 26.9
-## 43          Texas   12.7     201 25.5
-## 44           Utah    3.2     120 22.9
-## 45        Vermont    2.2      48 11.2
-## 46       Virginia    8.5     156 20.7
-## 47     Washington    4.0     145 26.2
-## 48  West Virginia    5.7      81  9.3
-## 49      Wisconsin    2.6      53 10.8
-## 50        Wyoming    6.8     161 15.6</code></pre>
+<pre class="r"><code>datasets::USPersonalExpenditure</code></pre>
+<pre><code>##                       1940   1945  1950 1955  1960
+## Food and Tobacco    22.200 44.500 59.60 73.2 86.80
+## Household Operation 10.500 15.500 29.00 36.5 46.20
+## Medical and Health   3.530  5.760  9.71 14.0 21.10
+## Personal Care        1.040  1.980  2.45  3.4  5.40
+## Private Education    0.341  0.974  1.80  2.6  3.64</code></pre>
+<pre class="r"><code>?USPersonalExpenditure</code></pre>
+<pre><code>## starting httpd help server ... done</code></pre>
+<p>Here we add a new column with Year, which are stored as rownames above. <code>mutate()</code> is a tidyverse verb we have not discussed yet, but it is used to create new variables. The USPersonalExpenditures data also needs to be converted to a data frame before we can use the tidyverse functions, because it comes as a matrix.</p>
+<pre class="r"><code>expenditures &lt;- 
+  USPersonalExpenditure %&gt;% 
+  as.data.frame() %&gt;% 
+  mutate(Expenditure = rownames(USPersonalExpenditure))
+expenditures</code></pre>
+<pre><code>##     1940   1945  1950 1955  1960         Expenditure
+## 1 22.200 44.500 59.60 73.2 86.80    Food and Tobacco
+## 2 10.500 15.500 29.00 36.5 46.20 Household Operation
+## 3  3.530  5.760  9.71 14.0 21.10  Medical and Health
+## 4  1.040  1.980  2.45  3.4  5.40       Personal Care
+## 5  0.341  0.974  1.80  2.6  3.64   Private Education</code></pre>
 </div>
 <div id="practice" class="section level2">
 <h2>Practice</h2>
 <ol style="list-style-type: decimal">
-<li>Are these data tidy? Please use <code>gather()</code> to tidy the data.</li>
+<li>Are these data tidy? Please use <code>gather()</code> to tidy the data. Here we use back ticks on the column names so R does not confuse them with numerical indices.</li>
 </ol>
-<pre class="r"><code>arrests_tidy &lt;- 
-  arrests %&gt;% 
-  gather(Murder, Assault, Rape, key=&quot;Crime&quot;, value=&quot;per100k&quot;)</code></pre>
+<pre class="r"><code>expenditures_tidy &lt;- 
+  expenditures %&gt;% 
+  gather(`1940`, `1945`, `1950`, `1955`, `1960`, key = &quot;Year&quot;, value = &quot;Billions&quot;)
+expenditures_tidy</code></pre>
+<pre><code>##            Expenditure Year Billions
+## 1     Food and Tobacco 1940   22.200
+## 2  Household Operation 1940   10.500
+## 3   Medical and Health 1940    3.530
+## 4        Personal Care 1940    1.040
+## 5    Private Education 1940    0.341
+## 6     Food and Tobacco 1945   44.500
+## 7  Household Operation 1945   15.500
+## 8   Medical and Health 1945    5.760
+## 9        Personal Care 1945    1.980
+## 10   Private Education 1945    0.974
+## 11    Food and Tobacco 1950   59.600
+## 12 Household Operation 1950   29.000
+## 13  Medical and Health 1950    9.710
+## 14       Personal Care 1950    2.450
+## 15   Private Education 1950    1.800
+## 16    Food and Tobacco 1955   73.200
+## 17 Household Operation 1955   36.500
+## 18  Medical and Health 1955   14.000
+## 19       Personal Care 1955    3.400
+## 20   Private Education 1955    2.600
+## 21    Food and Tobacco 1960   86.800
+## 22 Household Operation 1960   46.200
+## 23  Medical and Health 1960   21.100
+## 24       Personal Care 1960    5.400
+## 25   Private Education 1960    3.640</code></pre>
 <ol start="2" style="list-style-type: decimal">
-<li>Restrict the data to assualt only. Sort in ascending order.</li>
+<li>Restrict the data to medical and health expenditures only. Sort in ascending order.</li>
 </ol>
-<pre class="r"><code>arrests_tidy %&gt;%
-  filter(Crime==&quot;Assault&quot;) %&gt;% 
-  arrange(per100k)</code></pre>
-<pre><code>##             State   Crime per100k
-## 1    North Dakota Assault      45
-## 2          Hawaii Assault      46
-## 3         Vermont Assault      48
-## 4       Wisconsin Assault      53
-## 5            Iowa Assault      56
-## 6   New Hampshire Assault      57
-## 7       Minnesota Assault      72
-## 8   West Virginia Assault      81
-## 9           Maine Assault      83
-## 10   South Dakota Assault      86
-## 11       Nebraska Assault     102
-## 12   Pennsylvania Assault     106
-## 13       Kentucky Assault     109
-## 14        Montana Assault     109
-## 15    Connecticut Assault     110
-## 16        Indiana Assault     113
-## 17         Kansas Assault     115
-## 18          Idaho Assault     120
-## 19           Ohio Assault     120
-## 20           Utah Assault     120
-## 21     Washington Assault     145
-## 22  Massachusetts Assault     149
-## 23       Oklahoma Assault     151
-## 24       Virginia Assault     156
-## 25     New Jersey Assault     159
-## 26         Oregon Assault     159
-## 27        Wyoming Assault     161
-## 28   Rhode Island Assault     174
-## 29       Missouri Assault     178
-## 30      Tennessee Assault     188
-## 31       Arkansas Assault     190
-## 32          Texas Assault     201
-## 33       Colorado Assault     204
-## 34        Georgia Assault     211
-## 35        Alabama Assault     236
-## 36       Delaware Assault     238
-## 37       Illinois Assault     249
-## 38      Louisiana Assault     249
-## 39         Nevada Assault     252
-## 40       New York Assault     254
-## 41       Michigan Assault     255
-## 42    Mississippi Assault     259
-## 43         Alaska Assault     263
-## 44     California Assault     276
-## 45 South Carolina Assault     279
-## 46     New Mexico Assault     285
-## 47        Arizona Assault     294
-## 48       Maryland Assault     300
-## 49        Florida Assault     335
-## 50 North Carolina Assault     337</code></pre>
+<pre class="r"><code>expenditures_tidy %&gt;%
+  filter(Expenditure == &quot;Medical and Health&quot;) %&gt;% 
+  arrange(Billions)</code></pre>
+<pre><code>##          Expenditure Year Billions
+## 1 Medical and Health 1940     3.53
+## 2 Medical and Health 1945     5.76
+## 3 Medical and Health 1950     9.71
+## 4 Medical and Health 1955    14.00
+## 5 Medical and Health 1960    21.10</code></pre>
 </div>
 <div id="spread" class="section level2">
 <h2>spread()</h2>
@@ -484,7 +430,7 @@ tb_data</code></pre>
 ## 12       China 2000 population 1280428583</code></pre>
 <p>When using <code>spread()</code> the <code>key</code> is the variable that you are spreading.</p>
 <pre class="r"><code>tb_data %&gt;% 
-  spread(key=key, value=value)</code></pre>
+  spread(key = key, value = value)</code></pre>
 <pre><code>##       country year  cases population
 ## 1 Afghanistan 1999    745   19987071
 ## 2 Afghanistan 2000   2666   20595360
@@ -502,47 +448,63 @@ tb_data</code></pre>
 type &lt;- c(&quot;treatment&quot;, &quot;control&quot;, &quot;treatment&quot;, &quot;control&quot;,&quot;treatment&quot;, &quot;control&quot;)
 L4_values &lt;- rnorm(6, mean = 20, sd = 3)</code></pre>
 <pre class="r"><code>gene_exp &lt;- 
-  data.frame(gene_id=id, type=type, L4_values=L4_values)
+  data.frame(gene_id = id, type = type, L4_values = L4_values)
 gene_exp</code></pre>
 <pre><code>##   gene_id      type L4_values
-## 1   gene1 treatment  23.84811
-## 2   gene1   control  23.76714
-## 3   gene2 treatment  22.63851
-## 4   gene2   control  24.68999
-## 5   gene3 treatment  20.25318
-## 6   gene3   control  16.26605</code></pre>
+## 1   gene1 treatment  22.39907
+## 2   gene1   control  26.06465
+## 3   gene2 treatment  18.61749
+## 4   gene2   control  11.44768
+## 5   gene3 treatment  13.33440
+## 6   gene3   control  18.76336</code></pre>
 <ol start="2" style="list-style-type: decimal">
 <li>Are these data tidy? Please use <code>spread()</code> to tidy the data.</li>
 </ol>
 <pre class="r"><code>gene_exp %&gt;% 
-  spread(key=type, value=L4_values)</code></pre>
+  spread(key = type, value = L4_values)</code></pre>
 <pre><code>##   gene_id  control treatment
-## 1   gene1 23.76714  23.84811
-## 2   gene2 24.68999  22.63851
-## 3   gene3 16.26605  20.25318</code></pre>
+## 1   gene1 26.06465  22.39907
+## 2   gene2 11.44768  18.61749
+## 3   gene3 18.76336  13.33440</code></pre>
 </div>
 <div id="summarize" class="section level2">
 <h2>summarize()</h2>
 <p>summarize() will produce summary statistics for a given variable in a data frame. For example, in homework 2 you were asked to calculate the mean of the sleep total column for large and small mammals. We did this using a combination of tidyverse and base R commands, which isn’t very efficient or clean. It also took two steps.</p>
+<pre class="r"><code>msleep</code></pre>
+<pre><code>## # A tibble: 83 x 11
+##    name  genus vore  order conservation sleep_total sleep_rem sleep_cycle
+##    &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;              &lt;dbl&gt;     &lt;dbl&gt;       &lt;dbl&gt;
+##  1 Chee~ Acin~ carni Carn~ lc                  12.1      NA        NA    
+##  2 Owl ~ Aotus omni  Prim~ &lt;NA&gt;                17         1.8      NA    
+##  3 Moun~ Aplo~ herbi Rode~ nt                  14.4       2.4      NA    
+##  4 Grea~ Blar~ omni  Sori~ lc                  14.9       2.3       0.133
+##  5 Cow   Bos   herbi Arti~ domesticated         4         0.7       0.667
+##  6 Thre~ Brad~ herbi Pilo~ &lt;NA&gt;                14.4       2.2       0.767
+##  7 Nort~ Call~ carni Carn~ vu                   8.7       1.4       0.383
+##  8 Vesp~ Calo~ &lt;NA&gt;  Rode~ &lt;NA&gt;                 7        NA        NA    
+##  9 Dog   Canis carni Carn~ domesticated        10.1       2.9       0.333
+## 10 Roe ~ Capr~ herbi Arti~ lc                   3        NA        NA    
+## # ... with 73 more rows, and 3 more variables: awake &lt;dbl&gt;, brainwt &lt;dbl&gt;,
+## #   bodywt &lt;dbl&gt;</code></pre>
 <pre class="r"><code>?msleep</code></pre>
 <p>From homework 2.</p>
 <pre class="r"><code>large &lt;- msleep %&gt;% 
   select(name, genus, bodywt, sleep_total) %&gt;% 
-  filter(bodywt&gt;=200) %&gt;% 
+  filter(bodywt &gt;= 200) %&gt;% 
   arrange(desc(bodywt))</code></pre>
 <pre class="r"><code>mean(large$sleep_total)</code></pre>
 <pre><code>## [1] 3.3</code></pre>
 <p>We can accomplish the same task using the <code>summarize()</code> function in the tidyverse and make things cleaner.</p>
 <pre class="r"><code>msleep %&gt;% 
-  filter(bodywt&gt;=200) %&gt;%
-  summarize(mean_sleep_lg=mean(sleep_total))</code></pre>
+  filter(bodywt &gt;= 200) %&gt;%
+  summarize(mean_sleep_lg = mean(sleep_total))</code></pre>
 <pre><code>## # A tibble: 1 x 1
 ##   mean_sleep_lg
 ##           &lt;dbl&gt;
 ## 1           3.3</code></pre>
 <p>You can also combine functions to make useful summaries for multiple variables.</p>
 <pre class="r"><code>msleep %&gt;% 
-    filter(bodywt&gt;=200) %&gt;% 
+    filter(bodywt &gt;= 200) %&gt;% 
     summarize(mean_sleep_lg = mean(sleep_total), 
               min_sleep_lg = min(sleep_total),
               max_sleep_lg = max(sleep_total),
@@ -559,7 +521,7 @@ gene_exp</code></pre>
 <li>How many genera are represented in the msleep data frame?</li>
 </ol>
 <pre class="r"><code>msleep %&gt;%
-  summarize(ngenera=n_distinct(genus))</code></pre>
+  summarize(ngenera = n_distinct(genus))</code></pre>
 <pre><code>## # A tibble: 1 x 1
 ##   ngenera
 ##     &lt;int&gt;
@@ -568,10 +530,10 @@ gene_exp</code></pre>
 <li>What are the min, max, and mean body weight for all of the mammals? Be sure to include the total n.</li>
 </ol>
 <pre class="r"><code>msleep %&gt;%
-  summarize(min_bodywt=min(bodywt),
-            max_bodywt=max(bodywt),
-            mean_bodywt=mean(bodywt),
-            total=n())</code></pre>
+  summarize(min_bodywt = min(bodywt),
+            max_bodywt = max(bodywt),
+            mean_bodywt = mean(bodywt),
+            total = n())</code></pre>
 <pre><code>## # A tibble: 1 x 4
 ##   min_bodywt max_bodywt mean_bodywt total
 ##        &lt;dbl&gt;      &lt;dbl&gt;       &lt;dbl&gt; &lt;int&gt;
@@ -582,9 +544,9 @@ gene_exp</code></pre>
 <p>The <code>summarize()</code> function is most useful when used in conjunction with <code>group_by()</code>. Although producing a summary of body weight for all of the mammals in the dataset is helpful, what if we were interested in body weight by feeding ecology?</p>
 <pre class="r"><code>msleep %&gt;%
   group_by(vore) %&gt;% #we are grouping by feeding ecology
-  summarize(min_bodywt=min(bodywt),
-            max_bodywt=max(bodywt),
-            mean_bodywt=mean(bodywt),
+  summarize(min_bodywt = min(bodywt),
+            max_bodywt = max(bodywt),
+            mean_bodywt = mean(bodywt),
             total=n())</code></pre>
 <pre><code>## # A tibble: 5 x 5
 ##   vore    min_bodywt max_bodywt mean_bodywt total
@@ -602,7 +564,7 @@ gene_exp</code></pre>
 </ol>
 <pre class="r"><code>msleep %&gt;% 
   group_by(order) %&gt;% 
-  summarize(mean_brainwt=mean(brainwt))</code></pre>
+  summarize(mean_brainwt = mean(brainwt))</code></pre>
 <pre><code>## # A tibble: 19 x 2
 ##    order           mean_brainwt
 ##    &lt;chr&gt;                  &lt;dbl&gt;
@@ -631,7 +593,7 @@ gene_exp</code></pre>
 </ol>
 <pre class="r"><code>msleep %&gt;% 
   group_by(order) %&gt;% 
-  summarize(mean_brainwt=mean(brainwt, na.rm=TRUE))</code></pre>
+  summarize(mean_brainwt = mean(brainwt, na.rm = TRUE))</code></pre>
 <pre><code>## # A tibble: 19 x 2
 ##    order           mean_brainwt
 ##    &lt;chr&gt;                  &lt;dbl&gt;
@@ -655,14 +617,14 @@ gene_exp</code></pre>
 ## 18 Scandentia          0.0025  
 ## 19 Soricomorpha        0.000592</code></pre>
 <pre class="r"><code>msleep %&gt;% 
-  filter(order==&quot;Cetacea&quot;)</code></pre>
+  filter(order == &quot;Cetacea&quot;)</code></pre>
 <pre><code>## # A tibble: 3 x 11
 ##   name  genus vore  order conservation sleep_total sleep_rem sleep_cycle
 ##   &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;              &lt;dbl&gt;     &lt;dbl&gt;       &lt;dbl&gt;
-## 1 Pilo… Glob… carni Ceta… cd                   2.7       0.1          NA
-## 2 Comm… Phoc… carni Ceta… vu                   5.6      NA            NA
-## 3 Bott… Turs… carni Ceta… &lt;NA&gt;                 5.2      NA            NA
-## # … with 3 more variables: awake &lt;dbl&gt;, brainwt &lt;dbl&gt;, bodywt &lt;dbl&gt;</code></pre>
+## 1 Pilo~ Glob~ carni Ceta~ cd                   2.7       0.1          NA
+## 2 Comm~ Phoc~ carni Ceta~ vu                   5.6      NA            NA
+## 3 Bott~ Turs~ carni Ceta~ &lt;NA&gt;                 5.2      NA            NA
+## # ... with 3 more variables: awake &lt;dbl&gt;, brainwt &lt;dbl&gt;, bodywt &lt;dbl&gt;</code></pre>
 </div>
 <div id="thats-it-lets-take-a-break" class="section level2">
 <h2>That’s it, let’s take a break!</h2>
