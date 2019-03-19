@@ -315,6 +315,11 @@ div.tocify {
 <pre class="r"><code>getwd()</code></pre>
 <p>Here we open a .csv file with data on fish scales. Since we are using the tidyverse, we open the file using <code>read_csv</code>. <code>readr</code> is a package/library included in the tidyverse set of packages. We can specify the function and package with the <code>::</code> symbol. This becomes important if you have multiple packages loaded which contain functions with the same name.</p>
 <pre class="r"><code>fish &lt;- readr::read_csv(&quot;data/Gaeta_etal_CLC_data.csv&quot;)</code></pre>
+<p>A note about data frames created with tidyverse functions: they are a special type of data frame called a tibble. A tibble is also a data frame, but has additional properties to make printing the data nicer. Some R functions don’t work with tibbles and the tibble can be converted to a data frame with <code>as.data.frame()</code>.</p>
+<pre class="r"><code>class(fish)</code></pre>
+<pre><code>## [1] &quot;spec_tbl_df&quot; &quot;tbl_df&quot;      &quot;tbl&quot;         &quot;data.frame&quot;</code></pre>
+<pre class="r"><code>class(as.data.frame(fish))</code></pre>
+<pre><code>## [1] &quot;data.frame&quot;</code></pre>
 </div>
 <div id="summary-functions" class="section level2">
 <h2>Summary functions</h2>

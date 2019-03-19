@@ -42,6 +42,13 @@ Here we open a .csv file with data on fish scales. Since we are using the tidyve
 fish <- readr::read_csv("data/Gaeta_etal_CLC_data.csv")
 ```
 
+A note about data frames created with tidyverse functions: they are a special type of data frame called a tibble. A tibble is also a data frame, but has additional properties to make printing the data nicer. Some R functions don't work with tibbles and the tibble can be converted to a data frame with `as.data.frame()`.
+```{r}
+class(fish)
+class(as.data.frame(fish))
+```
+
+
 ## Summary functions
 Once data have been uploaded, you may want to get an idea of its contents and dimensions. This may seem self-evident for small files but this is a big help for large data files.
 ```{r}
