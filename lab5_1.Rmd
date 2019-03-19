@@ -53,6 +53,8 @@ The syntax used by ggplot takes some practice to get used to, especially for cus
 
 We start by calling the ggplot function, identifying the data, and specifying the axes. We then add the `geom` type to describe which type of plot we want to make. Each `geom_` works with specific types of data and R is capable of building plots of single variables, multiple variables, and even maps. Lastly, we add aesthetics.
 
+ggplot works best with tidy data, so it is sometimes necessary to tidy data before plotting. We will start with tidy data for simplicity. 
+
 ## Example
 To make things easy, let's start with some built in data.
 ```{r}
@@ -62,21 +64,21 @@ names(iris)
 
 To make a plot, we need to first specify the data and map the aesthetics. The aesthetics include how each variable in our dataset will be used. In the example below, I am using the aes() function to identify the x and y variables in the plot.
 ```{r}
-ggplot(data=iris, mapping=aes(x=Species, y=Petal.Length))
+ggplot(data = iris, mapping = aes(x = Species, y = Petal.Length))
 ```
 
-Notice that we have a nice background, labeled axes, and even values of our variables- but no plot. This is because we need to tell ggplot what type of plot we want to make. This is called the geometry or `geom()`.
+Notice that we have a nice background, labeled axes, and even values of our variables- but no plot. This is because we need to tell ggplot what type of plot we want to make. This is called the geometry or `geom()`. There are many types of `geom`, see the ggplot [cheatsheet](https://www.rstudio.com/wp-content/uploads/2015/03/ggplot2-cheatsheet.pdf).
 
 Here we specify that we want a boxplot, indicated by `geom_boxplot()`.
 ```{r}
-ggplot(data=iris, mapping=aes(x=Species, y=Petal.Length))+
+ggplot(data = iris, mapping = aes(x = Species, y = Petal.Length)) +
   geom_boxplot()
 ```
 
 ## Practice
 Take a moment to practice. Use the iris data to build a scatterplot that compares sepal length vs. sepal width. Use the cheatsheet to find the correct `geom_` for a scatterplot.
 ```{r}
-ggplot(data=iris, mapping=aes(x=Sepal.Length, y=Sepal.Width))+
+ggplot(data = iris, mapping = aes(x = Sepal.Length, y = Sepal.Width)) +
   geom_point()
 ```
 
@@ -95,18 +97,20 @@ homerange <-
   readr::read_csv("data/Tamburelloetal_HomeRangeDatabase.csv")
 ```
 
+As a follow up to lab 4, view the homerange data frame by opening it in R (click on it in the Environment tab). Are there grey italicized NA values? The NAs in the csv file are indicated by NA, which the `read_csv()` function uses as a default NA indicator. If our data file used something else, we would need to specify it above. 
+
 ### 1. Scatter Plots
 Scatter plots are good at revealing relationships that are not readily visible in the raw data. For now, we will not add regression lines or calculate any r^2^ values.  
 
 In the case below, we are exploring whether or not there is a relationship between animal mass and homerange. We are using the log transformed values because there is a large difference in mass and homerange among the different species in the data.
 ```{r}
-ggplot(data=homerange, mapping=aes(x=log10.mass, y=log10.hra)) +
+ggplot(data = homerange, mapping = aes(x = log10.mass, y = log10.hra)) +
   geom_point()
 ```
 
 In big data sets with lots of similar values, overplotting can be an issue. `geom_jitter()` is similar to `geom_point()` but it helps with overplotting by adding some random noise to the data and separating some of the individual points.
 ```{r}
-ggplot(data=homerange, mapping=aes(x=log10.mass, y=log10.hra)) +
+ggplot(data = homerange, mapping = aes(x = log10.mass, y = log10.hra)) +
   geom_jitter()
 ```
 
@@ -120,9 +124,9 @@ ggplot(data=homerange, mapping=aes(x=log10.mass, y=log10.hra)) +
 ### Practice
 1. What is the relationship between log10.hra and log10.preymass? What do you notice about how ggplot treats NA's?
 ```{r}
-ggplot(data=homerange, mapping=aes(x=log10.hra, y=log10.preymass)) +
+ggplot(data = homerange, mapping = aes(x = log10.hra, y = log10.preymass)) +
   geom_point()+
-  geom_smooth(method=lm, se=FALSE)
+  geom_smooth(method = lm, se = FALSE)
 ```
 
 ### 2A. Bar Plot: `stat="count"`
@@ -131,8 +135,8 @@ When making a bar graph, the default is to count the number of observations in t
 Notice that we can use pipes! Also, the `mapping=` function is implied by `aes` and so is often left out.  
 ```{r}
 homerange %>% 
-  ggplot(aes(x=trophic.guild))+
-  geom_bar(stat="count")
+  ggplot(aes(x = trophic.guild))+
+  geom_bar(stat = "count")
 ```
 
 ### 2B. Bar Plot: `stat="identity"`
@@ -140,9 +144,9 @@ homerange %>%
 ```{r}
 homerange %>%
   group_by(class) %>% 
-  summarize(mean_body_wt=mean(log10.mass))%>% 
-  ggplot(aes(x=class, y=mean_body_wt))+
-  geom_bar(stat="identity")
+  summarize(mean_body_wt = mean(log10.mass)) %>% 
+  ggplot(aes(x = class, y = mean_body_wt)) +
+  geom_bar(stat = "identity")
 ```
 
 ## Practice
@@ -150,22 +154,22 @@ homerange %>%
 ```{r}
 mammals <- 
   homerange %>% 
-  filter(taxon=="mammals")
+  filter(taxon == "mammals")
 ```
 
 2. Are there more herbivores or carnivores in mammals? Make a bar plot that shows their relative numbers.
 ```{r}
 mammals %>% 
-  ggplot(aes(x=trophic.guild))+
-  geom_bar(stat="count")
+  ggplot(aes(x = trophic.guild)) +
+  geom_bar(stat = "count")
 ```
 
 3. Make a bar plot that shows the masses of the top 10 smallest mammals in terms of mass. Be sure to use `stat'="identity"`.
 ```{r}
 mammals %>%
   top_n(-10, log10.mass) %>%
-  ggplot(aes(x=reorder(common.name, log10.mass), y=log10.mass))+
-  geom_bar(stat="identity")+
+  ggplot(aes(x = reorder(common.name, log10.mass), y = log10.mass)) +
+  geom_bar(stat = "identity") +
   coord_flip()
 ```
 
