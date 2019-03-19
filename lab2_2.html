@@ -313,8 +313,13 @@ div.tocify {
 <p>R allows us to import a wide variety of data types. The most common type of file is a .csv file which stands for comma separated values. Spreadsheets are often developed in Excel then saved as .csv files for use in R. There are packages that allow you to open excel files and many other formats but .csv is the most common.</p>
 <p>To open a .csv file, be sure that you are in the correct working directory.</p>
 <pre class="r"><code>getwd()</code></pre>
-<p>Here we open a .csv file with data on fish scales. Since we are using the tidyverse, we open the file using read_csv.</p>
+<p>Here we open a .csv file with data on fish scales. Since we are using the tidyverse, we open the file using <code>read_csv</code>. <code>readr</code> is a package/library included in the tidyverse set of packages. We can specify the function and package with the <code>::</code> symbol. This becomes important if you have multiple packages loaded which contain functions with the same name.</p>
 <pre class="r"><code>fish &lt;- readr::read_csv(&quot;data/Gaeta_etal_CLC_data.csv&quot;)</code></pre>
+<p>A note about data frames created with tidyverse functions: they are a special type of data frame called a tibble. A tibble is also a data frame, but has additional properties to make printing the data nicer. Some R functions don’t work with tibbles and the tibble can be converted to a data frame with <code>as.data.frame()</code>.</p>
+<pre class="r"><code>class(fish)</code></pre>
+<pre><code>## [1] &quot;spec_tbl_df&quot; &quot;tbl_df&quot;      &quot;tbl&quot;         &quot;data.frame&quot;</code></pre>
+<pre class="r"><code>class(as.data.frame(fish))</code></pre>
+<pre><code>## [1] &quot;data.frame&quot;</code></pre>
 </div>
 <div id="summary-functions" class="section level2">
 <h2>Summary functions</h2>
@@ -385,12 +390,12 @@ div.tocify {
 <pre class="r"><code>glimpse(fish)</code></pre>
 <pre><code>## Observations: 4,033
 ## Variables: 6
-## $ lakeid          &lt;chr&gt; &quot;AL&quot;, &quot;AL&quot;, &quot;AL&quot;, &quot;AL&quot;, &quot;AL&quot;, &quot;AL&quot;, &quot;AL&quot;, &quot;AL&quot;, …
-## $ fish_id         &lt;dbl&gt; 299, 299, 299, 300, 300, 300, 300, 301, 301, 301…
-## $ annnumber       &lt;chr&gt; &quot;EDGE&quot;, &quot;2&quot;, &quot;1&quot;, &quot;EDGE&quot;, &quot;3&quot;, &quot;2&quot;, &quot;1&quot;, &quot;EDGE&quot;,…
-## $ length          &lt;dbl&gt; 167, 167, 167, 175, 175, 175, 175, 194, 194, 194…
-## $ radii_length_mm &lt;dbl&gt; 2.697443, 2.037518, 1.311795, 3.015477, 2.670733…
-## $ scalelength     &lt;dbl&gt; 2.697443, 2.697443, 2.697443, 3.015477, 3.015477…</code></pre>
+## $ lakeid          &lt;chr&gt; &quot;AL&quot;, &quot;AL&quot;, &quot;AL&quot;, &quot;AL&quot;, &quot;AL&quot;, &quot;AL&quot;, &quot;AL&quot;, &quot;AL&quot;...
+## $ fish_id         &lt;dbl&gt; 299, 299, 299, 300, 300, 300, 300, 301, 301, 3...
+## $ annnumber       &lt;chr&gt; &quot;EDGE&quot;, &quot;2&quot;, &quot;1&quot;, &quot;EDGE&quot;, &quot;3&quot;, &quot;2&quot;, &quot;1&quot;, &quot;EDGE...
+## $ length          &lt;dbl&gt; 167, 167, 167, 175, 175, 175, 175, 194, 194, 1...
+## $ radii_length_mm &lt;dbl&gt; 2.697443, 2.037518, 1.311795, 3.015477, 2.6707...
+## $ scalelength     &lt;dbl&gt; 2.697443, 2.697443, 2.697443, 3.015477, 3.0154...</code></pre>
 </div>
 <div id="practice" class="section level2">
 <h2>Practice</h2>
@@ -447,19 +452,19 @@ div.tocify {
 <pre class="r"><code>glimpse(mammals)</code></pre>
 <pre><code>## Observations: 1,440
 ## Variables: 13
-## $ order          &lt;chr&gt; &quot;Artiodactyla&quot;, &quot;Artiodactyla&quot;, &quot;Artiodactyla&quot;, &quot;…
-## $ family         &lt;chr&gt; &quot;Antilocapridae&quot;, &quot;Bovidae&quot;, &quot;Bovidae&quot;, &quot;Bovidae&quot;…
-## $ Genus          &lt;chr&gt; &quot;Antilocapra&quot;, &quot;Addax&quot;, &quot;Aepyceros&quot;, &quot;Alcelaphus&quot;…
-## $ species        &lt;chr&gt; &quot;americana&quot;, &quot;nasomaculatus&quot;, &quot;melampus&quot;, &quot;busela…
-## $ mass           &lt;dbl&gt; 45375.0, 182375.0, 41480.0, 150000.0, 28500.0, 55…
-## $ gestation      &lt;dbl&gt; 8.13, 9.39, 6.35, 7.90, 6.80, 5.08, 5.72, 5.50, 8…
-## $ newborn        &lt;dbl&gt; 3246.36, 5480.00, 5093.00, 10166.67, -999.00, 381…
-## $ weaning        &lt;dbl&gt; 3.00, 6.50, 5.63, 6.50, -999.00, 4.00, 4.04, 2.13…
-## $ `wean mass`    &lt;dbl&gt; 8900, -999, 15900, -999, -999, -999, -999, -999, …
-## $ AFR            &lt;dbl&gt; 13.53, 27.27, 16.66, 23.02, -999.00, 14.89, 10.23…
-## $ `max. life`    &lt;dbl&gt; 142, 308, 213, 240, -999, 251, 228, 255, 300, 324…
-## $ `litter size`  &lt;dbl&gt; 1.85, 1.00, 1.00, 1.00, 1.00, 1.37, 1.00, 1.00, 1…
-## $ `litters/year` &lt;dbl&gt; 1.00, 0.99, 0.95, -999.00, -999.00, 2.00, -999.00…</code></pre>
+## $ order          &lt;chr&gt; &quot;Artiodactyla&quot;, &quot;Artiodactyla&quot;, &quot;Artiodactyla&quot;,...
+## $ family         &lt;chr&gt; &quot;Antilocapridae&quot;, &quot;Bovidae&quot;, &quot;Bovidae&quot;, &quot;Bovida...
+## $ Genus          &lt;chr&gt; &quot;Antilocapra&quot;, &quot;Addax&quot;, &quot;Aepyceros&quot;, &quot;Alcelaphu...
+## $ species        &lt;chr&gt; &quot;americana&quot;, &quot;nasomaculatus&quot;, &quot;melampus&quot;, &quot;buse...
+## $ mass           &lt;dbl&gt; 45375.0, 182375.0, 41480.0, 150000.0, 28500.0, ...
+## $ gestation      &lt;dbl&gt; 8.13, 9.39, 6.35, 7.90, 6.80, 5.08, 5.72, 5.50,...
+## $ newborn        &lt;dbl&gt; 3246.36, 5480.00, 5093.00, 10166.67, -999.00, 3...
+## $ weaning        &lt;dbl&gt; 3.00, 6.50, 5.63, 6.50, -999.00, 4.00, 4.04, 2....
+## $ `wean mass`    &lt;dbl&gt; 8900, -999, 15900, -999, -999, -999, -999, -999...
+## $ AFR            &lt;dbl&gt; 13.53, 27.27, 16.66, 23.02, -999.00, 14.89, 10....
+## $ `max. life`    &lt;dbl&gt; 142, 308, 213, 240, -999, 251, 228, 255, 300, 3...
+## $ `litter size`  &lt;dbl&gt; 1.85, 1.00, 1.00, 1.00, 1.00, 1.37, 1.00, 1.00,...
+## $ `litters/year` &lt;dbl&gt; 1.00, 0.99, 0.95, -999.00, -999.00, 2.00, -999....</code></pre>
 <ol start="4" style="list-style-type: decimal">
 <li>Print out the first few rows of the data using the function <code>head()</code>.</li>
 </ol>
@@ -467,13 +472,13 @@ div.tocify {
 <pre><code>## # A tibble: 6 x 13
 ##   order family Genus species   mass gestation newborn weaning `wean mass`
 ##   &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt;    &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;       &lt;dbl&gt;
-## 1 Arti… Antil… Anti… americ…  45375      8.13   3246.    3           8900
-## 2 Arti… Bovid… Addax nasoma… 182375      9.39   5480     6.5         -999
-## 3 Arti… Bovid… Aepy… melamp…  41480      6.35   5093     5.63       15900
-## 4 Arti… Bovid… Alce… busela… 150000      7.9   10167.    6.5         -999
-## 5 Arti… Bovid… Ammo… clarkei  28500      6.8    -999  -999           -999
-## 6 Arti… Bovid… Ammo… lervia   55500      5.08   3810     4           -999
-## # … with 4 more variables: AFR &lt;dbl&gt;, `max. life` &lt;dbl&gt;, `litter
+## 1 Arti~ Antil~ Anti~ americ~  45375      8.13   3246.    3           8900
+## 2 Arti~ Bovid~ Addax nasoma~ 182375      9.39   5480     6.5         -999
+## 3 Arti~ Bovid~ Aepy~ melamp~  41480      6.35   5093     5.63       15900
+## 4 Arti~ Bovid~ Alce~ busela~ 150000      7.9   10167.    6.5         -999
+## 5 Arti~ Bovid~ Ammo~ clarkei  28500      6.8    -999  -999           -999
+## 6 Arti~ Bovid~ Ammo~ lervia   55500      5.08   3810     4           -999
+## # ... with 4 more variables: AFR &lt;dbl&gt;, `max. life` &lt;dbl&gt;, `litter
 ## #   size` &lt;dbl&gt;, `litters/year` &lt;dbl&gt;</code></pre>
 <ol start="5" style="list-style-type: decimal">
 <li>Print out the last few rows using the function <code>tail()</code>.</li>
@@ -482,13 +487,13 @@ div.tocify {
 <pre><code>## # A tibble: 6 x 13
 ##   order family Genus species  mass gestation newborn weaning `wean mass`
 ##   &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt;   &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;       &lt;dbl&gt;
-## 1 Xena… Dasyp… Zaed… pichiy   1500      2       105     1.5         -999
-## 2 Xena… Megal… Chol… hoffma…  4750      9.41    387.    0.69        -999
-## 3 Xena… Megal… Chol… didact…  6070      8.67    355.    2.5         -999
-## 4 Xena… Myrme… Cycl… didact…  5070      8.92   -999     5           -999
-## 5 Xena… Myrme… Myrm… tridac… 28500      6.19   1491.    1.83        -999
-## 6 Xena… Myrme… Tama… tetrad…  5030      5.22   -999  -999           -999
-## # … with 4 more variables: AFR &lt;dbl&gt;, `max. life` &lt;dbl&gt;, `litter
+## 1 Xena~ Dasyp~ Zaed~ pichiy   1500      2       105     1.5         -999
+## 2 Xena~ Megal~ Chol~ hoffma~  4750      9.41    387.    0.69        -999
+## 3 Xena~ Megal~ Chol~ didact~  6070      8.67    355.    2.5         -999
+## 4 Xena~ Myrme~ Cycl~ didact~  5070      8.92   -999     5           -999
+## 5 Xena~ Myrme~ Myrm~ tridac~ 28500      6.19   1491.    1.83        -999
+## 6 Xena~ Myrme~ Tama~ tetrad~  5030      5.22   -999  -999           -999
+## # ... with 4 more variables: AFR &lt;dbl&gt;, `max. life` &lt;dbl&gt;, `litter
 ## #   size` &lt;dbl&gt;, `litters/year` &lt;dbl&gt;</code></pre>
 </div>
 <div id="dplyr-filter" class="section level2">
@@ -507,7 +512,7 @@ div.tocify {
 ##   scalelength = col_double()
 ## )</code></pre>
 <p>Let’s say that we are interested only in the fish that occur in the lake labeled AL. We can use <code>filter()</code> to extract these observations to build a new data frame focused on our question.</p>
-<pre class="r"><code>filter(fish, lakeid==&quot;AL&quot;)</code></pre>
+<pre class="r"><code>filter(fish, lakeid == &quot;AL&quot;)</code></pre>
 <pre><code>## # A tibble: 383 x 6
 ##    lakeid fish_id annnumber length radii_length_mm scalelength
 ##    &lt;chr&gt;    &lt;dbl&gt; &lt;chr&gt;      &lt;dbl&gt;           &lt;dbl&gt;       &lt;dbl&gt;
@@ -521,9 +526,9 @@ div.tocify {
 ##  8 AL         301 EDGE         194            3.34        3.34
 ##  9 AL         301 3            194            2.97        3.34
 ## 10 AL         301 2            194            2.29        3.34
-## # … with 373 more rows</code></pre>
+## # ... with 373 more rows</code></pre>
 <p>Similarly, if we are only interested in fish with a length greater than or equal to 350 we can use <code>filter()</code> to do this work.</p>
-<pre class="r"><code>filter(fish, length&gt;=350)</code></pre>
+<pre class="r"><code>filter(fish, length &gt;= 350)</code></pre>
 <pre><code>## # A tibble: 890 x 6
 ##    lakeid fish_id annnumber length radii_length_mm scalelength
 ##    &lt;chr&gt;    &lt;dbl&gt; &lt;chr&gt;      &lt;dbl&gt;           &lt;dbl&gt;       &lt;dbl&gt;
@@ -537,9 +542,9 @@ div.tocify {
 ##  8 AL         306 4            350            3.75        6.94
 ##  9 AL         306 3            350            2.93        6.94
 ## 10 AL         306 2            350            2.14        6.94
-## # … with 880 more rows</code></pre>
+## # ... with 880 more rows</code></pre>
 <p>Filtering allows all of the expected operators; i.e. &gt;, &gt;=, &lt;, &lt;=, != (not equal), and == (equal). It also allows us to extract multiple values simultaneously.</p>
-<pre class="r"><code>filter(fish, lakeid==&quot;AL&quot; &amp; length&gt;350)</code></pre>
+<pre class="r"><code>filter(fish, lakeid == &quot;AL&quot; &amp; length &gt; 350)</code></pre>
 <pre><code>## # A tibble: 314 x 6
 ##    lakeid fish_id annnumber length radii_length_mm scalelength
 ##    &lt;chr&gt;    &lt;dbl&gt; &lt;chr&gt;      &lt;dbl&gt;           &lt;dbl&gt;       &lt;dbl&gt;
@@ -553,11 +558,11 @@ div.tocify {
 ##  8 AL         307 7            353            5.44        7.55
 ##  9 AL         307 6            353            5.06        7.55
 ## 10 AL         307 5            353            4.37        7.55
-## # … with 304 more rows</code></pre>
+## # ... with 304 more rows</code></pre>
 <p>When we use the ‘&amp;’ above, we are asking for a specific filter: provide only those data for which both lakeid=AL AND length is greater than 350. Filter will use other operators, but always keep in mind that you are asking for something very specific.</p>
-<p>Rules: &amp; is “and”, | is “or”, and ! is “not”.</p>
+<p>Rules: &amp; is âandâ, | is âorâ, and ! is ânotâ.</p>
 <p>Notice that the code below generates a data frame larger than the one above because it includes non AL lakes.</p>
-<pre class="r"><code>filter(fish, lakeid==&quot;AL&quot; | length&lt;350)</code></pre>
+<pre class="r"><code>filter(fish, lakeid == &quot;AL&quot; | length &lt; 350)</code></pre>
 <pre><code>## # A tibble: 3,468 x 6
 ##    lakeid fish_id annnumber length radii_length_mm scalelength
 ##    &lt;chr&gt;    &lt;dbl&gt; &lt;chr&gt;      &lt;dbl&gt;           &lt;dbl&gt;       &lt;dbl&gt;
@@ -571,7 +576,7 @@ div.tocify {
 ##  8 AL         301 EDGE         194            3.34        3.34
 ##  9 AL         301 3            194            2.97        3.34
 ## 10 AL         301 2            194            2.29        3.34
-## # … with 3,458 more rows</code></pre>
+## # ... with 3,458 more rows</code></pre>
 <p>If you want to filter multiple values in the same variable you can use the <code>%in%</code> operator. This is a useful way to simplify your code.</p>
 <pre class="r"><code>filter(fish, length %in% c(167, 175))</code></pre>
 <pre><code>## # A tibble: 18 x 6
@@ -596,9 +601,9 @@ div.tocify {
 ## 17 RD         103 2            167           2.10         2.80
 ## 18 RD         103 1            167           1.31         2.80</code></pre>
 <p>But, be careful when reading the code like a human; why does this not work? How would you correct the problem?</p>
-<pre class="r"><code>filter(fish, length==167 &amp; length==175)</code></pre>
+<pre class="r"><code>filter(fish, length == 167 &amp; length == 175)</code></pre>
 <pre><code>## # A tibble: 0 x 6
-## # … with 6 variables: lakeid &lt;chr&gt;, fish_id &lt;dbl&gt;, annnumber &lt;chr&gt;,
+## # ... with 6 variables: lakeid &lt;chr&gt;, fish_id &lt;dbl&gt;, annnumber &lt;chr&gt;,
 ## #   length &lt;dbl&gt;, radii_length_mm &lt;dbl&gt;, scalelength &lt;dbl&gt;</code></pre>
 </div>
 <div id="practice-1" class="section level2">
@@ -606,7 +611,7 @@ div.tocify {
 <ol style="list-style-type: decimal">
 <li>Filter the <code>fish</code> data to include the samples from lake <code>DY</code>.</li>
 </ol>
-<pre class="r"><code>filter(fish, lakeid==&quot;DY&quot;)</code></pre>
+<pre class="r"><code>filter(fish, lakeid == &quot;DY&quot;)</code></pre>
 <pre><code>## # A tibble: 355 x 6
 ##    lakeid fish_id annnumber length radii_length_mm scalelength
 ##    &lt;chr&gt;    &lt;dbl&gt; &lt;chr&gt;      &lt;dbl&gt;           &lt;dbl&gt;       &lt;dbl&gt;
@@ -620,11 +625,11 @@ div.tocify {
 ##  8 DY         360 3            233           2.24         3.85
 ##  9 DY         360 2            233           1.71         3.85
 ## 10 DY         360 1            233           0.832        3.85
-## # … with 345 more rows</code></pre>
+## # ... with 345 more rows</code></pre>
 <ol start="2" style="list-style-type: decimal">
 <li>Filter the data to include all lakes except AL.</li>
 </ol>
-<pre class="r"><code>filter(fish, !lakeid==&quot;AL&quot;)</code></pre>
+<pre class="r"><code>filter(fish, !lakeid == &quot;AL&quot;)</code></pre>
 <pre><code>## # A tibble: 3,650 x 6
 ##    lakeid fish_id annnumber length radii_length_mm scalelength
 ##    &lt;chr&gt;    &lt;dbl&gt; &lt;chr&gt;      &lt;dbl&gt;           &lt;dbl&gt;       &lt;dbl&gt;
@@ -638,7 +643,7 @@ div.tocify {
 ##  8 AR         271 5            220            3.13        3.50
 ##  9 AR         271 4            220            2.86        3.50
 ## 10 AR         271 3            220            2.63        3.50
-## # … with 3,640 more rows</code></pre>
+## # ... with 3,640 more rows</code></pre>
 <ol start="3" style="list-style-type: decimal">
 <li>Filter the data to include all lakes except AL and DY.</li>
 </ol>
@@ -656,11 +661,11 @@ div.tocify {
 ##  8 AR         271 5            220            3.13        3.50
 ##  9 AR         271 4            220            2.86        3.50
 ## 10 AR         271 3            220            2.63        3.50
-## # … with 3,285 more rows</code></pre>
+## # ... with 3,285 more rows</code></pre>
 <ol start="4" style="list-style-type: decimal">
 <li>Filter the data to include all fish with a scale length greater than or equal to 11.</li>
 </ol>
-<pre class="r"><code>filter(fish, scalelength&gt;=11)</code></pre>
+<pre class="r"><code>filter(fish, scalelength &gt;= 11)</code></pre>
 <pre><code>## # A tibble: 17 x 6
 ##    lakeid fish_id annnumber length radii_length_mm scalelength
 ##    &lt;chr&gt;    &lt;dbl&gt; &lt;chr&gt;      &lt;dbl&gt;           &lt;dbl&gt;       &lt;dbl&gt;
@@ -684,8 +689,8 @@ div.tocify {
 <ol start="5" style="list-style-type: decimal">
 <li>Filter the data to include fish only from lake AL and with a scalelength greater than or equal to 2 and less than or equal to 4.</li>
 </ol>
-<pre class="r"><code>lake_AL &lt;- filter(fish, lakeid==&quot;AL&quot;)
-filter(lake_AL, scalelength&gt;=2 &amp; scalelength&lt;=4)</code></pre>
+<pre class="r"><code>lake_AL &lt;- filter(fish, lakeid == &quot;AL&quot;)
+filter(lake_AL, scalelength &gt;= 2 &amp; scalelength &lt;= 4)</code></pre>
 <pre><code>## # A tibble: 11 x 6
 ##    lakeid fish_id annnumber length radii_length_mm scalelength
 ##    &lt;chr&gt;    &lt;dbl&gt; &lt;chr&gt;      &lt;dbl&gt;           &lt;dbl&gt;       &lt;dbl&gt;

@@ -39,7 +39,7 @@ box_office
 
 Create `star_wars_matrix` using the `matrix()` command. We need to tell R how to organize the `box_office` vector using the `nrow` and `byrow` commands.
 ```{r}
-star_wars_matrix <- matrix(box_office,nrow=3,byrow=T)
+star_wars_matrix <- matrix(box_office, nrow = 3, byrow = T)
 star_wars_matrix
 ```
 
@@ -52,12 +52,12 @@ titles <- c("A New Hope", "The Empire Strikes Back", "Return of the Jedi")
 
 Name the columns using `colnames()` with the vector region.
 ```{r}
-colnames(star_wars_matrix)<-region
+colnames(star_wars_matrix) <- region
 ```
 
 Name the rows using `rownames()` with the vector titles.
 ```{r}
-rownames(star_wars_matrix)<-titles
+rownames(star_wars_matrix) <- titles
 ```
 
 Print star_wars_matrix.
@@ -66,7 +66,7 @@ star_wars_matrix
 ```
 
 ## Using a data matrix
-Once you have a data matrix, you can perform lots of different analyses For example, you can calculate the total earnings of each movie.
+Once you have a data matrix, you can perform lots of different analyses. For example, you can calculate the total earnings of each movie.
 ```{r}
 worldwide_vector <- rowSums(star_wars_matrix)
 worldwide_vector
@@ -74,7 +74,7 @@ worldwide_vector
 
 And even add a new column to reflect this calculation. `cbind()` adds columns.
 ```{r}
-all_wars_matrix <- cbind(star_wars_matrix,worldwide_vector)
+all_wars_matrix <- cbind(star_wars_matrix, worldwide_vector)
 all_wars_matrix
 ```
 We can combine additional data. `rbind()` adds rows. Create three new vectors for the new movies.
@@ -91,7 +91,7 @@ box_office2 <- c(the_phantom_menace, attack_of_the_clones, revenge_of_the_sith)
 
 Use the `matrix()` command to organize the `box_office2` vector.
 ```{r}
-star_wars_matrix2 <- matrix(box_office2,nrow=3,byrow=T)
+star_wars_matrix2 <- matrix(box_office2, nrow = 3, byrow = T)
 ```
 
 Create a new vector that will be used for naming. We can re-use region.
@@ -101,8 +101,8 @@ titles2 <- c("The Phantom Menace", "Attack of the Clones", "Revenge of the Sith"
 
 Use `colnames()` and `rownames()` to name the data matrix.
 ```{r}
-colnames(star_wars_matrix2)<-region
-rownames(star_wars_matrix2)<-titles2
+colnames(star_wars_matrix2) <- region
+rownames(star_wars_matrix2) <- titles2
 ```
 
 Combine the two data matrices into one using `rbind()`.
@@ -117,7 +117,7 @@ The same methods of selecting elements in a vector apply to data matrices. We us
 all_wars_matrix2[1,2]
 ```
 
-We can also select values in an entire row or column. This can be useful for calculations.
+We can also select values in an entire row or column. This can be useful for calculations. Here we calculate the mean of the entire second column. 
 ```{r}
 non_us_earnings <- all_wars_matrix2[ ,2]
 mean(non_us_earnings)
@@ -173,26 +173,20 @@ springs_matrix2
 ## Data Frames
 A data frame is a fancy way of saying data table with one caveat; the data in a data frame can be of multiple classes. This should make good sense as we often want to analyze relationships between numerical values, logical values, integers, etc. and this isn't possible in a data matrix.
 
-Load the tidyverse.
-```{r echo=T, message=FALSE, warning=FALSE}
-library(tidyverse)
-options(scipen = 999)
-```
-
 Here is a vector of organisms.
 ```{r}
-organism<-c("Human","Mouse","Fruit Fly", "Roundworm","Yeast")
+organism <- c("Human","Mouse","Fruit Fly", "Roundworm","Yeast")
 ```
 
 Here are the data.
 ```{r}
-genomeSizeBP<-c(3000000000,3000000000,135600000,97000000,12100000)
-estGeneCount<-c(30000,30000,13061,19099,6034)
+genomeSizeBP <- c(3000000000,3000000000,135600000,97000000,12100000)
+estGeneCount <- c(30000,30000,13061,19099,6034)
 ```
 
 Instead of using the matrix command, we will combine the data using `data.frame()`.
 ```{r}
-comparativeGenomeSize<- data.frame(organism=organism, genomeSizeBP=genomeSizeBP, estGeneCount=estGeneCount)
+comparativeGenomeSize <- data.frame(organism = organism, genomeSizeBP = genomeSizeBP, estGeneCount = estGeneCount)
 comparativeGenomeSize
 ```
 
