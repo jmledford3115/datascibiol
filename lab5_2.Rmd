@@ -33,10 +33,10 @@ Reference: Tamburello N, Cote IM, Dulvy NK (2015) Energy and the scaling of anim
 Data: http://datadryad.org/resource/doi:10.5061/dryad.q5j65/1
 ```{r message=FALSE, warning=FALSE}
 homerange <- 
-  readr::read_csv("data/Tamburelloetal_HomeRangeDatabase.csv", na = c("", " ", "NA", "#N/A", "-999"))
+  readr::read_csv("data/Tamburelloetal_HomeRangeDatabase.csv")
 ```
 
-Notice that by including common options for NA's, we improve the way data are read into R.
+Notice that the homerange data has "NA" in the csv file and this is the default NA indicator for read_csv, but other functions have different defaults so it's always good to check. 
 ```{r}
 glimpse(homerange)
 ```
