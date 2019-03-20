@@ -45,7 +45,7 @@ datasets::USPersonalExpenditure
 ?USPersonalExpenditure
 ```
 
-Here we add a new column with Year, which are stored as rownames above. `mutate()` is a tidyverse verb we have not discussed yet, but it is used to create new variables. The USPersonalExpenditures data also needs to be converted to a data frame before we can use the tidyverse functions, because it comes as a matrix.
+Here we add a new column of expenditure types, which are stored as rownames above, with `mutate()`. The USPersonalExpenditures data also needs to be converted to a data frame before we can use the tidyverse functions, because it comes as a matrix.
 ```{r}
 expenditures <- 
   USPersonalExpenditure %>% 
