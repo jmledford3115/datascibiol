@@ -313,7 +313,7 @@ return_jedi &lt;- c(309.306, 165.8)</code></pre>
 box_office</code></pre>
 <pre><code>## [1] 460.998 314.400 290.475 247.900 309.306 165.800</code></pre>
 <p>Create <code>star_wars_matrix</code> using the <code>matrix()</code> command. We need to tell R how to organize the <code>box_office</code> vector using the <code>nrow</code> and <code>byrow</code> commands.</p>
-<pre class="r"><code>star_wars_matrix &lt;- matrix(box_office,nrow=3,byrow=T)
+<pre class="r"><code>star_wars_matrix &lt;- matrix(box_office, nrow = 3, byrow = T)
 star_wars_matrix</code></pre>
 <pre><code>##         [,1]  [,2]
 ## [1,] 460.998 314.4
@@ -326,9 +326,9 @@ star_wars_matrix</code></pre>
 <pre class="r"><code>region &lt;- c(&quot;US&quot;, &quot;non-US&quot;)
 titles &lt;- c(&quot;A New Hope&quot;, &quot;The Empire Strikes Back&quot;, &quot;Return of the Jedi&quot;)</code></pre>
 <p>Name the columns using <code>colnames()</code> with the vector region.</p>
-<pre class="r"><code>colnames(star_wars_matrix)&lt;-region</code></pre>
+<pre class="r"><code>colnames(star_wars_matrix) &lt;- region</code></pre>
 <p>Name the rows using <code>rownames()</code> with the vector titles.</p>
-<pre class="r"><code>rownames(star_wars_matrix)&lt;-titles</code></pre>
+<pre class="r"><code>rownames(star_wars_matrix) &lt;- titles</code></pre>
 <p>Print star_wars_matrix.</p>
 <pre class="r"><code>star_wars_matrix</code></pre>
 <pre><code>##                              US non-US
@@ -338,13 +338,13 @@ titles &lt;- c(&quot;A New Hope&quot;, &quot;The Empire Strikes Back&quot;, &quo
 </div>
 <div id="using-a-data-matrix" class="section level2">
 <h2>Using a data matrix</h2>
-<p>Once you have a data matrix, you can perform lots of different analyses For example, you can calculate the total earnings of each movie.</p>
+<p>Once you have a data matrix, you can perform lots of different analyses. For example, you can calculate the total earnings of each movie.</p>
 <pre class="r"><code>worldwide_vector &lt;- rowSums(star_wars_matrix)
 worldwide_vector</code></pre>
 <pre><code>##              A New Hope The Empire Strikes Back      Return of the Jedi 
 ##                 775.398                 538.375                 475.106</code></pre>
 <p>And even add a new column to reflect this calculation. <code>cbind()</code> adds columns.</p>
-<pre class="r"><code>all_wars_matrix &lt;- cbind(star_wars_matrix,worldwide_vector)
+<pre class="r"><code>all_wars_matrix &lt;- cbind(star_wars_matrix, worldwide_vector)
 all_wars_matrix</code></pre>
 <pre><code>##                              US non-US worldwide_vector
 ## A New Hope              460.998  314.4          775.398
@@ -357,12 +357,12 @@ revenge_of_the_sith &lt;- c(380.3, 468.5)</code></pre>
 <p>Combine the new movies into a single vector as before.</p>
 <pre class="r"><code>box_office2 &lt;- c(the_phantom_menace, attack_of_the_clones, revenge_of_the_sith)</code></pre>
 <p>Use the <code>matrix()</code> command to organize the <code>box_office2</code> vector.</p>
-<pre class="r"><code>star_wars_matrix2 &lt;- matrix(box_office2,nrow=3,byrow=T)</code></pre>
+<pre class="r"><code>star_wars_matrix2 &lt;- matrix(box_office2, nrow = 3, byrow = T)</code></pre>
 <p>Create a new vector that will be used for naming. We can re-use region.</p>
 <pre class="r"><code>titles2 &lt;- c(&quot;The Phantom Menace&quot;, &quot;Attack of the Clones&quot;, &quot;Revenge of the Sith&quot;)</code></pre>
 <p>Use <code>colnames()</code> and <code>rownames()</code> to name the data matrix.</p>
-<pre class="r"><code>colnames(star_wars_matrix2)&lt;-region
-rownames(star_wars_matrix2)&lt;-titles2</code></pre>
+<pre class="r"><code>colnames(star_wars_matrix2) &lt;- region
+rownames(star_wars_matrix2) &lt;- titles2</code></pre>
 <p>Combine the two data matrices into one using <code>rbind()</code>.</p>
 <pre class="r"><code>all_wars_matrix2 &lt;- rbind(star_wars_matrix, star_wars_matrix2)
 all_wars_matrix2</code></pre>
@@ -379,7 +379,7 @@ all_wars_matrix2</code></pre>
 <p>The same methods of selecting elements in a vector apply to data matrices. We use <code>[]</code>.</p>
 <pre class="r"><code>all_wars_matrix2[1,2]</code></pre>
 <pre><code>## [1] 314.4</code></pre>
-<p>We can also select values in an entire row or column. This can be useful for calculations.</p>
+<p>We can also select values in an entire row or column. This can be useful for calculations. Here we calculate the mean of the entire second column.</p>
 <pre class="r"><code>non_us_earnings &lt;- all_wars_matrix2[ ,2]
 mean(non_us_earnings)</code></pre>
 <pre><code>## [1] 347.9667</code></pre>
@@ -461,23 +461,20 @@ springs_matrix2</code></pre>
 <div id="data-frames" class="section level2">
 <h2>Data Frames</h2>
 <p>A data frame is a fancy way of saying data table with one caveat; the data in a data frame can be of multiple classes. This should make good sense as we often want to analyze relationships between numerical values, logical values, integers, etc. and this isn’t possible in a data matrix.</p>
-<p>Load the tidyverse.</p>
-<pre class="r"><code>library(tidyverse)
-options(scipen = 999)</code></pre>
 <p>Here is a vector of organisms.</p>
-<pre class="r"><code>organism&lt;-c(&quot;Human&quot;,&quot;Mouse&quot;,&quot;Fruit Fly&quot;, &quot;Roundworm&quot;,&quot;Yeast&quot;)</code></pre>
+<pre class="r"><code>organism &lt;- c(&quot;Human&quot;,&quot;Mouse&quot;,&quot;Fruit Fly&quot;, &quot;Roundworm&quot;,&quot;Yeast&quot;)</code></pre>
 <p>Here are the data.</p>
-<pre class="r"><code>genomeSizeBP&lt;-c(3000000000,3000000000,135600000,97000000,12100000)
-estGeneCount&lt;-c(30000,30000,13061,19099,6034)</code></pre>
+<pre class="r"><code>genomeSizeBP &lt;- c(3000000000,3000000000,135600000,97000000,12100000)
+estGeneCount &lt;- c(30000,30000,13061,19099,6034)</code></pre>
 <p>Instead of using the matrix command, we will combine the data using <code>data.frame()</code>.</p>
-<pre class="r"><code>comparativeGenomeSize&lt;- data.frame(organism=organism, genomeSizeBP=genomeSizeBP, estGeneCount=estGeneCount)
+<pre class="r"><code>comparativeGenomeSize &lt;- data.frame(organism = organism, genomeSizeBP = genomeSizeBP, estGeneCount = estGeneCount)
 comparativeGenomeSize</code></pre>
 <pre><code>##    organism genomeSizeBP estGeneCount
-## 1     Human   3000000000        30000
-## 2     Mouse   3000000000        30000
-## 3 Fruit Fly    135600000        13061
-## 4 Roundworm     97000000        19099
-## 5     Yeast     12100000         6034</code></pre>
+## 1     Human    3.000e+09        30000
+## 2     Mouse    3.000e+09        30000
+## 3 Fruit Fly    1.356e+08        13061
+## 4 Roundworm    9.700e+07        19099
+## 5     Yeast    1.210e+07         6034</code></pre>
 <p>Notice that not only are the data neater and cleaner looking, there is also information provided about the type of data in the frame. <code>dbl</code> means that the value is a type of numeric <a href="http://uc-r.github.io/integer_double/">double precision floating point</a>.</p>
 </div>
 <div id="thats-it-lets-take-a-break" class="section level2">

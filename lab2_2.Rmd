@@ -37,10 +37,17 @@ To open a .csv file, be sure that you are in the correct working directory.
 getwd()
 ```
 
-Here we open a .csv file with data on fish scales. Since we are using the tidyverse, we open the file using read_csv. 
+Here we open a .csv file with data on fish scales. Since we are using the tidyverse, we open the file using `read_csv`. `readr` is a package/library included in the tidyverse set of packages. We can specify the function and package with the `::` symbol. This becomes important if you have multiple packages loaded which contain functions with the same name. 
 ```{r message=FALSE, warning=FALSE}
 fish <- readr::read_csv("data/Gaeta_etal_CLC_data.csv")
 ```
+
+A note about data frames created with tidyverse functions: they are a special type of data frame called a tibble. A tibble is also a data frame, but has additional properties to make printing the data nicer. Some R functions don't work with tibbles and the tibble can be converted to a data frame with `as.data.frame()`.
+```{r}
+class(fish)
+class(as.data.frame(fish))
+```
+
 
 ## Summary functions
 Once data have been uploaded, you may want to get an idea of its contents and dimensions. This may seem self-evident for small files but this is a big help for large data files.
@@ -111,17 +118,17 @@ fish <-
 
 Let's say that we are interested only in the fish that occur in the lake labeled AL. We can use `filter()` to extract these observations to build a new data frame focused on our question.
 ```{r}
-filter(fish, lakeid=="AL")
+filter(fish, lakeid == "AL")
 ```
 
 Similarly, if we are only interested in fish with a length greater than or equal to 350 we can use `filter()` to do this work.
 ```{r}
-filter(fish, length>=350)
+filter(fish, length >= 350)
 ```
 
 Filtering allows all of the expected operators; i.e. >, >=, <, <=, != (not equal), and == (equal).  It also allows us to extract multiple values simultaneously.
 ```{r}
-filter(fish, lakeid=="AL" & length>350)
+filter(fish, lakeid == "AL" & length > 350)
 ```
 
 When we use the '&' above, we are asking for a specific filter: provide only those data for which both lakeid=AL AND length is greater than 350. Filter will use other operators, but always keep in mind that you are asking for something very specific.  
@@ -130,7 +137,7 @@ Rules: & is “and”, | is “or”, and ! is “not”.
 
 Notice that the code below generates a data frame larger than the one above because it includes non AL lakes.
 ```{r}
-filter(fish, lakeid=="AL" | length<350)
+filter(fish, lakeid == "AL" | length < 350)
 ```
 
 If you want to filter multiple values in the same variable you can use the `%in%` operator. This is a useful way to simplify your code.
@@ -140,18 +147,18 @@ filter(fish, length %in% c(167, 175))
 
 But, be careful when reading the code like a human; why does this not work? How would you correct the problem?
 ```{r}
-filter(fish, length==167 & length==175)
+filter(fish, length == 167 & length == 175)
 ```
 
 ## Practice
 1. Filter the `fish` data to include the samples from lake `DY`.
 ```{r}
-filter(fish, lakeid=="DY")
+filter(fish, lakeid == "DY")
 ```
 
 2. Filter the data to include all lakes except AL.
 ```{r}
-filter(fish, !lakeid=="AL")
+filter(fish, !lakeid == "AL")
 ```
 
 3. Filter the data to include all lakes except AL and DY.
@@ -161,13 +168,13 @@ filter(fish, !lakeid %in% c("AL", "DY"))
 
 4. Filter the data to include all fish with a scale length greater than or equal to 11.
 ```{r}
-filter(fish, scalelength>=11)
+filter(fish, scalelength >= 11)
 ```
 
 5. Filter the data to include fish only from lake AL and with a scalelength greater than or equal to 2 and less than or equal to 4.
 ```{r}
-lake_AL <- filter(fish, lakeid=="AL")
-filter(lake_AL, scalelength>=2 & scalelength<=4)
+lake_AL <- filter(fish, lakeid == "AL")
+filter(lake_AL, scalelength >= 2 & scalelength <= 4)
 ```
 
 ## Wrap-up
