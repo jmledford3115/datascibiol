@@ -36,7 +36,7 @@ homerange <-
   readr::read_csv("data/Tamburelloetal_HomeRangeDatabase.csv")
 ```
 
-Notice that the homerange data has "NA" in the csv file and this is the default NA indicator for read_csv, but other functions have different defaults so it's always good to check. 
+Notice that the homerange data has "NA" in the csv file and this is the default NA indicator for read_csv, but other functions have different defaults so it's always good to check by reading the help file and knowing which indicators you have in your data set. 
 ```{r}
 glimpse(homerange)
 ```
