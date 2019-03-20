@@ -81,7 +81,7 @@ summary(hbirds)
 
 ## Adding Rows
 
-We can add a new birds data with the `rbind()` function, known as row bind. it will bind our new vector to our data frame row-wise.
+We can add a new bird's data with the `rbind()` function, known as row bind. It will bind our new vector to our data frame row-wise.
 ```{r}
 new_bird <- c(3.6, 3.9, "Female")
 hbirds <- rbind(hbirds, new_bird)
