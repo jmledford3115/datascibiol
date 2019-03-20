@@ -19,7 +19,7 @@ Part of this is learning the syntax of R and getting used to the environment. If
 *At the end of this exercise, you will be able to:*    
 1. Import .csv files as data frames.  
 2. Use summary functions to explore the contents of a data frame.  
-3. Use the `filter()` function of dplyr to sort data frames.  
+3. Use the `filter()` function of dplyr to sort data frames. 
 
 ## Libraries
 ```{r message=FALSE, warning=FALSE}
@@ -55,13 +55,20 @@ Once data have been uploaded, you may want to get an idea of its contents and di
 nrow(fish) #the number of rows
 ncol(fish) #the number of columns
 dim(fish) #total dimensions
-colnames(fish) #column names
+names(fish) #column names
 ```
 
 There are many other useful summary functions, all of which work a bit differently. I didn't try to make the joke about fish heads and tails on purpose, but here it is anyway.
 ```{r}
-head(fish)
-tail(fish)
+# print the first n rows of the data frame
+head(fish, n = 10)
+# print the last n rows of the data frame
+tail(fish, n = 10)
+```
+
+We can also click on the `fish` data frame in the Environment tab or type View(fish).
+```{r}
+View(fish)
 ```
 
 `summary()` and `str()` are classic functions used by many R programmers. `glimpse()` is part of the tidyverse.
@@ -107,7 +114,7 @@ head(mammals)
 tail(mammals)
 ```
 
-## Dplyr: filter()
+## dplyr: filter()
 A core package in the tidyverse is dplyr. This package allows you to transform your data in many different ways including filtering, subsetting, and reordering. This helps keep your data cleaner, easier to work with, and easier for other people to understand.  
 
 The first command that we will learn is `filter()`. Filter allows you to subset observations in a data frame by their values. You should still have the fish data loaded, but if not then please re-load.  
@@ -133,7 +140,7 @@ filter(fish, lakeid == "AL" & length > 350)
 
 When we use the '&' above, we are asking for a specific filter: provide only those data for which both lakeid=AL AND length is greater than 350. Filter will use other operators, but always keep in mind that you are asking for something very specific.  
 
-Rules: & is “and”, | is “or”, and ! is “not”.
+Rules: & is "and", | is "or", and ! is "not".
 
 Notice that the code below generates a data frame larger than the one above because it includes non AL lakes.
 ```{r}

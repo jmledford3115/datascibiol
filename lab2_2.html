@@ -330,30 +330,42 @@ div.tocify {
 <pre><code>## [1] 6</code></pre>
 <pre class="r"><code>dim(fish) #total dimensions</code></pre>
 <pre><code>## [1] 4033    6</code></pre>
-<pre class="r"><code>colnames(fish) #column names</code></pre>
+<pre class="r"><code>names(fish) #column names</code></pre>
 <pre><code>## [1] &quot;lakeid&quot;          &quot;fish_id&quot;         &quot;annnumber&quot;       &quot;length&quot;         
 ## [5] &quot;radii_length_mm&quot; &quot;scalelength&quot;</code></pre>
 <p>There are many other useful summary functions, all of which work a bit differently. I didn’t try to make the joke about fish heads and tails on purpose, but here it is anyway.</p>
-<pre class="r"><code>head(fish)</code></pre>
-<pre><code>## # A tibble: 6 x 6
-##   lakeid fish_id annnumber length radii_length_mm scalelength
-##   &lt;chr&gt;    &lt;dbl&gt; &lt;chr&gt;      &lt;dbl&gt;           &lt;dbl&gt;       &lt;dbl&gt;
-## 1 AL         299 EDGE         167            2.70        2.70
-## 2 AL         299 2            167            2.04        2.70
-## 3 AL         299 1            167            1.31        2.70
-## 4 AL         300 EDGE         175            3.02        3.02
-## 5 AL         300 3            175            2.67        3.02
-## 6 AL         300 2            175            2.14        3.02</code></pre>
-<pre class="r"><code>tail(fish)</code></pre>
-<pre><code>## # A tibble: 6 x 6
-##   lakeid fish_id annnumber length radii_length_mm scalelength
-##   &lt;chr&gt;    &lt;dbl&gt; &lt;chr&gt;      &lt;dbl&gt;           &lt;dbl&gt;       &lt;dbl&gt;
-## 1 WS         180 6            403            5.41        11.0
-## 2 WS         180 5            403            4.98        11.0
-## 3 WS         180 4            403            4.22        11.0
-## 4 WS         180 3            403            3.04        11.0
-## 5 WS         180 2            403            2.03        11.0
-## 6 WS         180 1            403            1.19        11.0</code></pre>
+<pre class="r"><code># print the first n rows of the data frame
+head(fish, n = 10)</code></pre>
+<pre><code>## # A tibble: 10 x 6
+##    lakeid fish_id annnumber length radii_length_mm scalelength
+##    &lt;chr&gt;    &lt;dbl&gt; &lt;chr&gt;      &lt;dbl&gt;           &lt;dbl&gt;       &lt;dbl&gt;
+##  1 AL         299 EDGE         167            2.70        2.70
+##  2 AL         299 2            167            2.04        2.70
+##  3 AL         299 1            167            1.31        2.70
+##  4 AL         300 EDGE         175            3.02        3.02
+##  5 AL         300 3            175            2.67        3.02
+##  6 AL         300 2            175            2.14        3.02
+##  7 AL         300 1            175            1.23        3.02
+##  8 AL         301 EDGE         194            3.34        3.34
+##  9 AL         301 3            194            2.97        3.34
+## 10 AL         301 2            194            2.29        3.34</code></pre>
+<pre class="r"><code># print the last n rows of the data frame
+tail(fish, n = 10)</code></pre>
+<pre><code>## # A tibble: 10 x 6
+##    lakeid fish_id annnumber length radii_length_mm scalelength
+##    &lt;chr&gt;    &lt;dbl&gt; &lt;chr&gt;      &lt;dbl&gt;           &lt;dbl&gt;       &lt;dbl&gt;
+##  1 WS         180 10           403            8.15        11.0
+##  2 WS         180 9            403            7.49        11.0
+##  3 WS         180 8            403            6.97        11.0
+##  4 WS         180 7            403            6.24        11.0
+##  5 WS         180 6            403            5.41        11.0
+##  6 WS         180 5            403            4.98        11.0
+##  7 WS         180 4            403            4.22        11.0
+##  8 WS         180 3            403            3.04        11.0
+##  9 WS         180 2            403            2.03        11.0
+## 10 WS         180 1            403            1.19        11.0</code></pre>
+<p>We can also click on the <code>fish</code> data frame in the Environment tab or type View(fish).</p>
+<pre class="r"><code>View(fish)</code></pre>
 <p><code>summary()</code> and <code>str()</code> are classic functions used by many R programmers. <code>glimpse()</code> is part of the tidyverse.</p>
 <pre class="r"><code>summary(fish)</code></pre>
 <pre><code>##     lakeid             fish_id       annnumber             length     
@@ -497,7 +509,7 @@ div.tocify {
 ## #   size` &lt;dbl&gt;, `litters/year` &lt;dbl&gt;</code></pre>
 </div>
 <div id="dplyr-filter" class="section level2">
-<h2>Dplyr: filter()</h2>
+<h2>dplyr: filter()</h2>
 <p>A core package in the tidyverse is dplyr. This package allows you to transform your data in many different ways including filtering, subsetting, and reordering. This helps keep your data cleaner, easier to work with, and easier for other people to understand.</p>
 <p>The first command that we will learn is <code>filter()</code>. Filter allows you to subset observations in a data frame by their values. You should still have the fish data loaded, but if not then please re-load.</p>
 <pre class="r"><code>fish &lt;- 
@@ -560,7 +572,7 @@ div.tocify {
 ## 10 AL         307 5            353            4.37        7.55
 ## # ... with 304 more rows</code></pre>
 <p>When we use the ‘&amp;’ above, we are asking for a specific filter: provide only those data for which both lakeid=AL AND length is greater than 350. Filter will use other operators, but always keep in mind that you are asking for something very specific.</p>
-<p>Rules: &amp; is âandâ, | is âorâ, and ! is ânotâ.</p>
+<p>Rules: &amp; is “and”, | is “or”, and ! is “not”.</p>
 <p>Notice that the code below generates a data frame larger than the one above because it includes non AL lakes.</p>
 <pre class="r"><code>filter(fish, lakeid == &quot;AL&quot; | length &lt; 350)</code></pre>
 <pre><code>## # A tibble: 3,468 x 6
