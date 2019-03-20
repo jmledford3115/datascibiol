@@ -18,9 +18,9 @@ At the beginning of each class, please make sure that you navigate to the class 
 *At the end of this exercise, you will be able to:*    
 1. Combine a series of vectors into a data frame.  
 2. Name columns and rows in a data frame.  
-3. Select columns and rows and use summary functions.
-4. Change data classes of columns in the data frame. 
-4. Write your data frame to a csv file!
+3. Select columns and rows and use summary functions.   
+4. Change data classes of columns in the data frame.  
+5. Write your data frame to a csv file!  
 
 ## Data Frame
 Last time, you learned how to work with vectors. Today we will organize the vectors into a new type of data structure called a data frame. The data frame is the most common way to store data within R. You can think of a data frame as similar to an Excel spreadsheet. A data frame can store data of different types. 
@@ -79,7 +79,7 @@ We can also summarize our entire data frame with the`summary()` function.
 summary(hbirds)
 ```
 
-## Adding rows
+## Adding Rows
 
 We can add a new birds data with the `rbind()` function, known as row bind. it will bind our new vector to our data frame row-wise.
 ```{r}
