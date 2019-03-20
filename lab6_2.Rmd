@@ -35,22 +35,22 @@ Reference: Tamburello N, Cote IM, Dulvy NK (2015) Energy and the scaling of anim
 Data: http://datadryad.org/resource/doi:10.5061/dryad.q5j65/1  
 ```{r}
 homerange <- 
-  readr::read_csv("data/Tamburelloetal_HomeRangeDatabase.csv", na = c("", " ", "NA", "#N/A", "-999", "\\"))
+  readr::read_csv("data/Tamburelloetal_HomeRangeDatabase.csv", na = c("", "NA", "\\"))
 ```
 
 ## Review color and fill options
 We have learned that there are a variety of color and fill options in `ggplot`. These are helpful in making plots more informative and visually appealing; i.e., in this scatterplot we show the relationship between mass and homerange while coloring the points by a different variable (locomotion).
 ```{r}
 homerange %>% 
-  ggplot(aes(x=log10.mass, y=log10.hra, color=locomotion))+
+  ggplot(aes(x = log10.mass, y = log10.hra, color = locomotion)) +
   geom_point()
 ```
 
 We can change the color of the points universally instead of using `fill`, but we need to put this into a different layer and specify the exact color. Notice the different options! Experiment by adjusting them.
 ```{r}
 homerange %>% 
-  ggplot(aes(x=log10.mass, y=log10.hra))+
-  geom_point(shape = 21, colour = "black", fill = "steelblue", size = 2.5, stroke = 0.5, alpha=0.75)
+  ggplot(aes(x = log10.mass, y = log10.hra)) +
+  geom_point(shape = 21, colour = "black", fill = "steelblue", size = 2.5, stroke = 0.5, alpha = 0.75)
 ```
 
 ## Practice
@@ -72,9 +72,9 @@ homerange %>%
 There are many options for adjusting the x and y axes. For details, look over examples in the [R Cookbook](http://www.cookbook-r.com/). To adjust limits, we can use the `xlim` and `ylim` commands. When you do this, any data outside the specified ranges are not plotted.
 ```{r}
 homerange %>% 
-  ggplot(aes(x=log10.mass, y=log10.hra, color=locomotion))+
-  geom_point()+
-  xlim(0, 4)+
+  ggplot(aes(x = log10.mass, y = log10.hra, color = locomotion)) +
+  geom_point() +
+  xlim(0, 4) +
   ylim(1, 6)
 ```
 
@@ -119,7 +119,7 @@ Access the help for RColor Brewer.
 
 The key thing to notice is that there are three different palettes: 1) sequential, 2) diverging, and 3) qualitative. Within each of these there are several selections. You can bring up the colors by using `display.brewer.pal()`. Specify the number of colors that you want and the palette name.
 ```{r}
-display.brewer.pal(8,"BrBG")
+display.brewer.pal(8, "BrBG")
 ```
 
 The [R Color Brewer](http://colorbrewer2.org/#type=sequential&scheme=BuGn&n=3) website is very helpful for getting an idea of the color palettes. To make things easy, use these two guidelines:
@@ -129,19 +129,19 @@ The [R Color Brewer](http://colorbrewer2.org/#type=sequential&scheme=BuGn&n=3) w
 
 ```{r}
 homerange %>% 
-  ggplot(aes(x=log10.mass, y=log10.hra, color=locomotion))+
-  geom_point(size=1.5, alpha=0.8)+
+  ggplot(aes(x = log10.mass, y = log10.hra, color = locomotion)) +
+  geom_point(size = 1.5, alpha = 0.8) +
   scale_colour_brewer(palette = "Dark2")
 ```
 
 ```{r}
 homerange %>% 
-  ggplot(aes(x=thermoregulation, fill=thermoregulation))+
+  ggplot(aes(x = thermoregulation, fill = thermoregulation)) +
   geom_bar()+
   labs(title = "Thermoregulation Counts",
        x = "Thermoregulation Type",
        y = "# Individuals")+ 
-  theme(plot.title = element_text(size = rel(1.25)))+
+  theme(plot.title = element_text(size = rel(1.25))) +
   scale_fill_brewer(palette = "Dark2")
 ```
 
@@ -175,15 +175,15 @@ my_palette
 
 If I want to view the palette directly, I can build a simple barplot.
 ```{r}
-barplot(rep(1,14), axes=FALSE, col=my_palette)
+barplot(rep(1,14), axes = FALSE, col = my_palette)
 ```
 
 By using `scale_fill_manual()` we can use `my_palette` and our plot will show our custom colors.
 ```{r}
 homerange %>%
-  ggplot(aes(x=trophic.guild, fill=class)) +
-  geom_bar(alpha=0.9, position="dodge", color="black")+
-  scale_fill_manual(values=my_palette)
+  ggplot(aes(x = trophic.guild, fill = class)) +
+  geom_bar(alpha = 0.9, position = "dodge", color = "black") +
+  scale_fill_manual(values = my_palette)
 ```
 
 If we want to assign specific colors to factors, we use the color codes. The codes are assigned to a new vector.
@@ -200,9 +200,9 @@ names(class_colors) <-
 
 ```{r}
 homerange %>%
-  ggplot(aes(x=trophic.guild, fill=class)) +
-  geom_bar(alpha=0.75, position="dodge", color="black")+
-  scale_fill_manual(values=class_colors, name="Taxonomic Class")
+  ggplot(aes(x = trophic.guild, fill = class)) +
+  geom_bar(alpha = 0.75, position = "dodge", color = "black") +
+  scale_fill_manual(values = class_colors, name = "Taxonomic Class")
 ```
 
 ## Wrap-up
