@@ -20,8 +20,8 @@ output:
 *At the end of this exercise, you will be able to:*    
 1. Build stacked barplots of categorical variables.  
 2. Build side-by-side barplots using `position= "dodge"`.  
-3. Customize colors in plots using `RColorBrewer` and `paletteer`.  
-4. Build histograms and density plots.  
+3. Build histograms and density plots.  
+4. Create new categories with `case_when()`.
 
 ## Load the libraries
 ```{r message=FALSE, warning=FALSE}
@@ -39,8 +39,10 @@ Data: http://datadryad.org/resource/doi:10.5061/dryad.q5j65/1
 
 ```{r message=FALSE, warning=FALSE}
 homerange <- 
-  readr::read_csv("data/Tamburelloetal_HomeRangeDatabase.csv", na = c("", " ", "NA", "#N/A", "-999", "\\"))
+  readr::read_csv("data/Tamburelloetal_HomeRangeDatabase.csv", na = c("", "NA", "\\"))
 ```
+
+Note that when making this tutorial, we noticed a stray backtick in a cell under the primary method category. We want to set this to NA, so we include it in the list of NA indicators we have in our data (`"\\"`). Two backticks are required because the backtick is a special escape character in R. 
 
 ## Barplots revisited
 At this point you should be able to build a barplot that shows counts of observations in a variable using `geom_bar()`. But, you should also be able to use `stat="identity"` to specify both x and y axes.  
@@ -50,17 +52,17 @@ Although we did not use it last time, `geom_col()` is the same as specifying `st
 ## Here is the plot using `geom_bar(stat="identity")`
 ```{r}
 homerange %>% 
-  filter(family=="salmonidae") %>% #filter for salmonid fish only
-  ggplot(aes(x=common.name, y=log10.mass))+
-  geom_bar(stat="identity")
+  filter(family == "salmonidae") %>% #filter for salmonid fish only
+  ggplot(aes(x = common.name, y = log10.mass)) +
+  geom_bar(stat = "identity")
 ```
 
 ## Practice
 1. Make the same plot above, but use `geom_col()`
 ```{r}
 homerange %>% 
-  filter(family=="salmonidae") %>% #filter for salmonid fish only
-  ggplot(aes(x=common.name, y=log10.mass))+
+  filter(family == "salmonidae") %>% #filter for salmonid fish only
+  ggplot(aes(x = common.name, y = log10.mass)) +
   geom_col()
 ```
 
@@ -76,9 +78,9 @@ homerange %>%
 Now let's make a barplot of these data.
 ```{r}
 homerange %>% 
-  ggplot(aes(x=taxon))+
-  geom_bar(alpha=0.9, na.rm=TRUE)+
-  coord_flip()+
+  ggplot(aes(x = taxon)) +
+  geom_bar(alpha = 0.9, na.rm = TRUE) +
+  coord_flip() +
   labs(title = "Observations by Taxon in Homerange Data",
        x = "Taxonomic Group")
 ```
@@ -86,21 +88,21 @@ homerange %>%
 By specifying `fill=trophic.guild` we build a stacked bar plot that shows the proportion of a given taxonomic group that is an herbivore or carnivore.
 ```{r}
 homerange %>% 
-  ggplot(aes(x=taxon, fill=trophic.guild))+
-  geom_bar(alpha=0.9, na.rm=T)+
-  coord_flip()+
+  ggplot(aes(x = taxon, fill = trophic.guild)) +
+  geom_bar(alpha = 0.9, na.rm = T) +
+  coord_flip() +
   labs(title = "Observations by Taxon in Homerange Data",
        x = "Taxonomic Group",
-       fill= "Trophic Guild")
+       fill = "Trophic Guild")
 ```
 
 We can also have counts of each trophic guild within taxonomic group shown side-by-side by specifying `position="dodge"`.
 ```{r}
 homerange %>% 
-  ggplot(aes(x=taxon, fill=trophic.guild))+
-  geom_bar(alpha=0.9, na.rm=T, position="dodge")+
+  ggplot(aes(x = taxon, fill = trophic.guild)) +
+  geom_bar(alpha = 0.9, na.rm = T, position = "dodge") +
   theme(legend.position = "right",
-        axis.text.x = element_text(angle = 60, hjust=1))+
+        axis.text.x = element_text(angle = 60, hjust = 1)) +
   labs(title = "Observations by Taxon in Homerange Data",
        x = "Taxonomic Group",
        fill= "Trophic Guild")
@@ -109,7 +111,7 @@ homerange %>%
 We can also scale all bars to a percentage (or proportion).
 ```{r}
 homerange %>% 
-  ggplot(aes(x=taxon, fill=trophic.guild))+
+  ggplot(aes(x = taxon, fill = trophic.guild))+
   geom_bar(position = position_fill(), stat = "count")+ 
   scale_y_continuous(labels = scales::percent)+
   coord_flip()
@@ -131,16 +133,16 @@ Histograms are frequently used by biologists; they show the distribution of cont
 What does the distribution of body mass look like in the homerange data?
 ```{r}
 homerange %>% 
-  ggplot(aes(x=log10.mass)) +
-  geom_histogram(fill="steelblue", alpha=0.8, color="black")+
+  ggplot(aes(x = log10.mass)) +
+  geom_histogram(fill = "steelblue", alpha = 0.8, color = "black")+
   labs(title = "Distribution of Body Mass")
 ```
 
 `Density plots` are similar to histograms but they use a smoothing function to make the distribution more even and clean looking. They do not use bins.
 ```{r}
 homerange %>% 
-  ggplot(aes(x=log10.mass)) +
-  geom_density(fill="steelblue", alpha=0.4)+
+  ggplot(aes(x = log10.mass)) +
+  geom_density(fill = "steelblue", alpha  =0.4)+
   labs(title = "Distribution of Body Mass")
 ```
 
@@ -148,8 +150,8 @@ I like to see both the histogram and the density curve so I often plot them toge
 ```{r message=FALSE}
 homerange %>% 
   ggplot(aes(x=log10.mass)) +
-  geom_histogram(aes(y = ..density..), binwidth = .4, fill="steelblue", alpha=0.8, color="black")+
-  geom_density(color="red")+
+  geom_histogram(aes(y = ..density..), binwidth = .4, fill = "steelblue", alpha = 0.8, color = "black")+
+  geom_density(color = "red")+
   labs(title = "Distribution of Body Mass")
 ```
 
@@ -178,6 +180,28 @@ homerange %>%
   geom_density(color="red")+
   labs(title = "Distribution of Homerange")
 ```
+
+## Create Categories with mutate and case_when()
+
+`case_when()` is a very handy function from `dplyr` which allows us to calculate a new variable from other variables. We use `case_when()` within `mutate()` to do this.`case_when()` allows us to specify multiple conditions. Let's reclassify the body mass variable into a new factor variable with small, medium, and large animals. 
+```{r}
+homerange <- homerange %>% 
+             mutate(mass_category = case_when(log10.mass <= 1.75 ~ "small",
+                                              log10.mass > 1.75 & log10.mass <= 2.75 ~ "medium",
+                                              log10.mass > 2.75 ~ "large"))
+```
+
+Here we check how the newly created body mass categories compare across trophic guild. 
+```{r}
+homerange %>% 
+  ggplot(aes(x = mass_category, fill = trophic.guild)) +
+  geom_bar(alpha = 0.9, na.rm = T) +
+  coord_flip() +
+  labs(title = "Observations by Taxon and Mass Category in Homerange Data",
+       x = "Mass Category",
+       fill = "Trophic Guild")
+```
+
 
 ## That's it, let's take a break!   
 
