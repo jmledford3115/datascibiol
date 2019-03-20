@@ -150,7 +150,7 @@ hsprings
 mean(hsprings$temp_C)
 ```
 
-6. What is the class of the scientist column. Use and R command to see all the unique levels.
+6. What is the class of the scientist column. Use an R command to see all the unique levels.
 ```{r}
 class(hsprings$scientist)
 levels(hsprings$scientist)
