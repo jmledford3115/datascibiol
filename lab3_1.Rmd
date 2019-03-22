@@ -1,5 +1,5 @@
 ---
-title: "Tidyverse: filter, select, and pipes"
+title: "Tidyverse: filter, select, pipes, and mutate"
 author: "Joel Ledford"
 date: "Winter 2019"
 output:
@@ -20,6 +20,7 @@ In the last section you were introduced to the `tidyverse` and the core function
 ## Learning Goals
 *At the end of this exercise, you will be able to:*    
 1. Use the functions of dplyr (filter, select, arrange) to organize and sort data frames. 
+2. Use `mutate()` to calculate a new column from existing columns.
 
 ## Load the tidyverse
 ```{r message=FALSE, warning=FALSE}
@@ -32,7 +33,7 @@ Here we open a .csv file with data on fish scales. Since we are using the tidyve
 fish <- readr::read_csv("data/Gaeta_etal_CLC_data.csv")
 ```
 
-## Dplyr: select()
+## dplyr: select()
 Select allows you to build a new data frame by selecting your variable(s) of interest. Our fish data only has six variables, but this should give you some ideas especially when you have a large data frames with lots of variables.  
 
 We are only interested in lakeid and scalelength.
@@ -59,7 +60,7 @@ Some additional options to select columns based on a specific criteria include:
 ## Practice
 1. What are the names of the columns in the `fish` data?
 ```{r}
-colnames(fish)
+names(fish)
 ```
 
 2. We are only interested in the variables `lakeid`, `length`, and `scalelength`. Use `select()` to build a new dataframe focused on these variables.
@@ -67,15 +68,15 @@ colnames(fish)
 select(fish, lakeid, length, scalelength)
 ```
 
-## Dplyr: Can we combine filter() and select()?
+## dplyr: Can we combine filter() and select()?
 Absolutely. This is one of the strengths of the tidyverse, it uses the same grammar to specify commands.
 ```{r}
 fish2 <- select(fish, lakeid, scalelength)
 
-filter(fish2, lakeid=="AL")
+filter(fish2, lakeid == "AL")
 ```
 
-## Dplyr: Pipes %>% 
+## dplyr: Pipes %>% 
 The code above works fine but there is a more efficient way. We need to learn pipes `%>%`. Pipes allow you to feed the output from one function to the input of another function. We are going to use pipes from here on to keep things cleaner. (command+shift+m)
 ```{r}
 fish %>%
@@ -92,7 +93,7 @@ fish %>%
          lakeid == "AL" | lakeid == "AR")
 ```
 
-## Dplyr: arrange()
+## dplyr: arrange()
 The `arrange()` command is a bit like a sort command in excel.
 ```{r}
 fish %>% 
@@ -105,7 +106,6 @@ fish %>%
   arrange(desc(scalelength))
 ```
 
-
 `arrange()` can be very helpful in combination with the other functions.
 ```{r}
 fish %>% 
@@ -113,6 +113,27 @@ fish %>%
   filter(lakeid=="AL") %>% 
   arrange(fish_id)
 ```
+
+## dplyr: mutate()
+
+Mutate allows us to create a new variable from existing variables in our data frame. Let's convert the length variable from cm to inches and create a new variable called length_in.
+```{r}
+fish %>% 
+  mutate(length_in = length * 0.394) %>% 
+  select(fish_id, length, length_in)
+```
+
+Note that if we had called our new variable length, R would overwrite the old variable. 
+
+## Practice
+
+Use `mutate()` to calculate the half length of each fish: length_half = length/2. Select only fish_id, length, and length_half, use pipes.
+```{r}
+fish %>% 
+  mutate(length_half = length/2) %>% 
+  select(fish_id, length, length_half)
+```
+
 
 ## That's it, let's take a break!   
 
