@@ -11,180 +11,158 @@ output:
     toc: yes
 ---
 
-## Review
-At this point, I expect that you have familiarity in RStudio, GitHub (even if Git is not working for you), and basic operations in R. You understand how to do arithmetic, assign values to objects, and work with vectors or data matrices.
-Part of this is learning the syntax of R and getting used to the environment. If you are confused, please [email me](mailto: jmledford@ucdavis.edu) so we can get you on track.  
+## Setup
+At the beginning of each class, please make sure that you navigate to the class [GitHub](https://github.com/FRS417-DataScienceBiologists) and download the `class_files` folder. In our class GitHub, you will see a directory called `class_files`. Click on the `Clone or download` button and download the files as a `.zip`. You should now have a folder called `class_files` on your computer inside of which are all of the files that we will use for today's class.  
 
 ## Learning Goals
 *At the end of this exercise, you will be able to:*    
-1. Import .csv files as data frames.  
-2. Use summary functions to explore the contents of a data frame.  
-3. Use the `filter()` function of dplyr to sort data frames. 
+1. Combine a series of vectors into a data frame.  
+2. Name columns and rows in a data frame.  
+3. Select columns and rows and use summary functions.   
+4. Change data classes of columns in the data frame.  
+5. Write your data frame to a csv file!  
 
-## Libraries
-```{r message=FALSE, warning=FALSE}
-library("tidyverse")
-```
+## Data Frame
+Last time, you learned how to work with vectors. Today we will organize the vectors into a new type of data structure called a data frame. The data frame is the most common way to store data within R. You can think of a data frame as similar to an Excel spreadsheet. A data frame can store data of different types. 
 
-## Data Frames
-For the remainder of the course, we will work exclusively with data frames. Recall that data frames allow us to store multiple classes of data. Last time, you were shown how to build data frames using the `data.frame()` command. However, scientists often make their data available as supplementary material associated with a publication. As data scientists, we can capitalize on this by importing data directly into R.
-
-## Loading Data into Data Frames
-R allows us to import a wide variety of data types. The most common type of file is a .csv file which stands for comma separated values. Spreadsheets are often developed in Excel then saved as .csv files for use in R. There are packages that allow you to open excel files and many other formats but .csv is the most common.
-
-To open a .csv file, be sure that you are in the correct working directory.
-```{r echo=T, results='hide'}
-getwd()
-```
-
-Here we open a .csv file with data on fish scales. Since we are using the tidyverse, we open the file using `read_csv`. `readr` is a package/library included in the tidyverse set of packages. We can specify the function and package with the `::` symbol. This becomes important if you have multiple packages loaded which contain functions with the same name. 
-```{r message=FALSE, warning=FALSE}
-fish <- readr::read_csv("data/Gaeta_etal_CLC_data.csv")
-```
-
-A note about data frames created with tidyverse functions: they are a special type of data frame called a tibble. A tibble is also a data frame, but has additional properties to make printing the data nicer. Some R functions don't work with tibbles and the tibble can be converted to a data frame with `as.data.frame()`.
+Let's build three separate vectors of length (in), weight (oz), and sex of three different ruby throated hummingbirds.
 ```{r}
-class(fish)
-class(as.data.frame(fish))
+Length <- c(3.2, 3.7, 3.4)
+Weight <- c(2.9, 4.0, 3.1)
+Sex <- c("Male", "Female", "Male")
+```
+
+Here we combine our three vectors to create a data frame with the function `data.frame()`.
+```{r}
+hbirds <- data.frame(Length, Weight, Sex)
+hbirds
+```
+
+Notice that not only are the data neat and clean looking, there is also information provided about the type of data in the frame. `dbl` means that the value is a type of numeric [double precision floating point](http://uc-r.github.io/integer_double/).
+
+What are the column names of our data frame? Notice that R defaulted to using the names of our vectors, but we could name them something else when creating the data frame, or rename them later.
+```{r}
+names(hbirds)
+```
+
+Let's use lowercase names when we create the data frame. We just changed to lowercase here, but we could use any names we wish.
+```{r}
+hbirds <- data.frame(length = Length, weight = Weight, sex = Sex)
+names(hbirds)
+```
+
+## Renaming Column Names
+We should rename the length and width column so we can remember the units. Recall from lab 1 that we can index a vector with `[]`. We don't need to rename sex, so we will index the column names for only the first and second column.
+```{r}
+names(hbirds)[1:2] <- c("length_in", "weight_oz")
+names(hbirds)
+```
+
+## Accessing Data Frame Columns and Rows 
+
+The same methods of selecting elements in a vector apply to data frames. We use `[]`. But now we have two positions where the first applies to the rows, and the second to the columns. 
+```{r}
+hbirds[1,]
+hbirds[,1]
+```
+
+We can also select values in an entire column using the `$` sign. This can be useful for calculations. Here we calculate the mean of all of the birds weights. 
+```{r}
+w <- hbirds$weight_oz
+mean(w)
+```
+
+## Summaries
+
+We can also summarize our entire data frame with the`summary()` function.
+```{r}
+summary(hbirds)
+```
+
+## Adding Rows
+
+We can add a new bird's data with the `rbind()` function, known as row bind. It will bind our new vector to our data frame row-wise.
+```{r}
+new_bird <- c(3.6, 3.9, "Female")
+hbirds <- rbind(hbirds, new_bird)
+hbirds
 ```
 
 
-## Summary functions
-Once data have been uploaded, you may want to get an idea of its contents and dimensions. This may seem self-evident for small files but this is a big help for large data files.
+## Adding Columns
+
+What if we come across more data and we want to add it to our data frame? We can do that with the `$` operator.
 ```{r}
-nrow(fish) #the number of rows
-ncol(fish) #the number of columns
-dim(fish) #total dimensions
-names(fish) #column names
+hbirds$neighborhood <- c("Lakewood", "Brentwood", "Lakewood", "Scenic Heights")
+hbirds
+summary(hbirds)
 ```
 
-There are many other useful summary functions, all of which work a bit differently. I didn't try to make the joke about fish heads and tails on purpose, but here it is anyway.
+## Changing Column Classes
+
+Great, we added our new column, but it's a character and not a factor. A factor is a special type of character vector with predefined levels. 
+
 ```{r}
-# print the first n rows of the data frame
-head(fish, n = 10)
-# print the last n rows of the data frame
-tail(fish, n = 10)
+class(hbirds$neighborhood)
+hbirds$neighborhood <- as.factor(hbirds$neighborhood)
+class(hbirds$neighborhood)
+levels(hbirds$neighborhood)
+summary(hbirds)
 ```
 
-We can also click on the `fish` data frame in the Environment tab or type View(fish).
-```{r}
-View(fish)
-```
 
-`summary()` and `str()` are classic functions used by many R programmers. `glimpse()` is part of the tidyverse.
+## Writing Data to File
+
+We should save our hbirds data frame so we can use it again later! There are many ways to save data in R, here we write our data frame to a csv file. We use  `row.names = FALSE` to avoid row numbers from printing out. 
 ```{r}
-summary(fish)
-str(fish)
-glimpse(fish)
+write.csv(hbirds, "hbirds_data.csv", row.names = FALSE)
 ```
 
 ## Practice
-Load the data `mammal_lifehistories_v2.csv` and place it into a new object.
-```{r message=FALSE, warning=FALSE}
-mammals <- 
-  readr::read_csv("data/Mammal_lifehistories_v2.csv")
-```
-
-1. Provide the dimensions of the data frame.
+1. Below are data collected by three scientists (Jill, Steve, Susan in order) measuring temperatures of three hot springs near Mono Lake.
 ```{r}
-dim(mammals)
+temp <- c(36.25, 35.40, 35.30, 35.15, 35.35, 33.35, 30.70, 29.65, 29.20)
+name <- c("Jill","Susan", "Steve", "Jill","Susan", "Steve", "Jill","Susan", "Steve")
+spring <- c("Buckeye", "Buckeye", "Buckeye", "Benton", "Benton", "Benton", "Travertine", "Travertine", "Travertine")
+
 ```
 
-2. Check the column names in the data frame. 
+2. Build a data frame called `hsprings` with the above data. Name the temperature column `temp_C`. Print out the data frame. 
 ```{r}
-names(mammals)
+hsprings <- data.frame(temp_C = temp, name, spring)
+hsprings
 ```
 
-3. Use `str()` to show the structure of the data frame and its individual columns; compare this to `glimpse()`. 
+3. Change the column titled `name` to `scientist`, leave the other column names the same. Print out the data frame names.
 ```{r}
-str(mammals)
+names(hsprings)[2] <- c("scientist")
+names(hsprings)
 ```
 
+4. Our scientists forgot to record the depth data for each spring. Here it is as a vector, add it as a new column called depth_ft: `c(4.15, 4.13, 4.12, 3.21, 3.23, 3.20, 5.67, 5.65, 5.66)`. Print out the data frame.
 ```{r}
-glimpse(mammals)
+hsprings$depth_ft <- c(4.15, 4.13, 4.12, 3.21, 3.23, 3.20, 5.67, 5.65, 5.66)
+hsprings
 ```
 
-4. Print out the first few rows of the data using the function `head()`.  
+5. Calculate the mean temperature of all of the temperature measurements.
 ```{r}
-head(mammals)
+mean(hsprings$temp_C)
 ```
 
-5. Print out the last few rows using the function `tail()`.
+6. What is the class of the scientist column. Use an R command to see all the unique levels.
 ```{r}
-tail(mammals)
+class(hsprings$scientist)
+levels(hsprings$scientist)
 ```
 
-## dplyr: filter()
-A core package in the tidyverse is dplyr. This package allows you to transform your data in many different ways including filtering, subsetting, and reordering. This helps keep your data cleaner, easier to work with, and easier for other people to understand.  
-
-The first command that we will learn is `filter()`. Filter allows you to subset observations in a data frame by their values. You should still have the fish data loaded, but if not then please re-load.  
+7. Save your hot springs data as a csv file! Do not allow row names. 
 ```{r}
-fish <- 
-  readr::read_csv("data/Gaeta_etal_CLC_data.csv")
+write.csv(hsprings, "hsprings_data.csv", row.names = FALSE)
 ```
 
-Let's say that we are interested only in the fish that occur in the lake labeled AL. We can use `filter()` to extract these observations to build a new data frame focused on our question.
-```{r}
-filter(fish, lakeid == "AL")
-```
+  
 
-Similarly, if we are only interested in fish with a length greater than or equal to 350 we can use `filter()` to do this work.
-```{r}
-filter(fish, length >= 350)
-```
+## That's it, let's take a break!   
 
-Filtering allows all of the expected operators; i.e. >, >=, <, <=, != (not equal), and == (equal).  It also allows us to extract multiple values simultaneously.
-```{r}
-filter(fish, lakeid == "AL" & length > 350)
-```
-
-When we use the '&' above, we are asking for a specific filter: provide only those data for which both lakeid=AL AND length is greater than 350. Filter will use other operators, but always keep in mind that you are asking for something very specific.  
-
-Rules: & is "and", | is "or", and ! is "not".
-
-Notice that the code below generates a data frame larger than the one above because it includes non AL lakes.
-```{r}
-filter(fish, lakeid == "AL" | length < 350)
-```
-
-If you want to filter multiple values in the same variable you can use the `%in%` operator. This is a useful way to simplify your code.
-```{r}
-filter(fish, length %in% c(167, 175))
-```
-
-But, be careful when reading the code like a human; why does this not work? How would you correct the problem?
-```{r}
-filter(fish, length == 167 & length == 175)
-```
-
-## Practice
-1. Filter the `fish` data to include the samples from lake `DY`.
-```{r}
-filter(fish, lakeid == "DY")
-```
-
-2. Filter the data to include all lakes except AL.
-```{r}
-filter(fish, !lakeid == "AL")
-```
-
-3. Filter the data to include all lakes except AL and DY.
-```{r}
-filter(fish, !lakeid %in% c("AL", "DY"))
-```
-
-4. Filter the data to include all fish with a scale length greater than or equal to 11.
-```{r}
-filter(fish, scalelength >= 11)
-```
-
-5. Filter the data to include fish only from lake AL and with a scalelength greater than or equal to 2 and less than or equal to 4.
-```{r}
-lake_AL <- filter(fish, lakeid == "AL")
-filter(lake_AL, scalelength >= 2 & scalelength <= 4)
-```
-
-## Wrap-up
-Please review the learning goals and be sure to use the code here as a reference when completing the homework.
-
--->[Home](https://jmledford3115.github.io/datascibiol/)
+--> On to [part 2](https://jmledford3115.github.io/datascibiol/lab2_2.html)  

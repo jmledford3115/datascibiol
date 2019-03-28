@@ -20,7 +20,7 @@ output:
 
 Shiny is an R package which makes it easy to design interactive web applications without knowing any html, css, or java script. First we need to make sure we have shiny installed and loaded.  
 ```{r, eval = FALSE}
-install.packages("shiny")
+#install.packages("shiny")
 library(shiny)
 ```
 

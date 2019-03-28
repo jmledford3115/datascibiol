@@ -1,0 +1,190 @@
+---
+title: "Data Frames"
+author: "Joel Ledford"
+date: "Winter 2019"
+output:
+  html_document:
+    theme: spacelab
+    toc: yes
+    toc_float: yes
+  pdf_document:
+    toc: yes
+---
+
+## Review
+At this point, I expect that you have familiarity in RStudio, GitHub (even if Git is not working for you), and basic operations in R. You understand how to do arithmetic, assign values to objects, and work with vectors or data matrices.
+Part of this is learning the syntax of R and getting used to the environment. If you are confused, please [email me](mailto: jmledford@ucdavis.edu) so we can get you on track.  
+
+## Learning Goals
+*At the end of this exercise, you will be able to:*    
+1. Import .csv files as data frames.  
+2. Use summary functions to explore the contents of a data frame.  
+3. Use the `filter()` function of dplyr to sort data frames. 
+
+## Libraries
+```{r message=FALSE, warning=FALSE}
+library("tidyverse")
+```
+
+## Data Frames
+For the remainder of the course, we will work exclusively with data frames. Recall that data frames allow us to store multiple classes of data. Last time, you were shown how to build data frames using the `data.frame()` command. However, scientists often make their data available as supplementary material associated with a publication. As data scientists, we can capitalize on this by importing data directly into R.
+
+## Loading Data into Data Frames
+R allows us to import a wide variety of data types. The most common type of file is a .csv file which stands for comma separated values. Spreadsheets are often developed in Excel then saved as .csv files for use in R. There are packages that allow you to open excel files and many other formats but .csv is the most common.
+
+To open a .csv file, be sure that you are in the correct working directory.
+```{r echo=T, results='hide'}
+getwd()
+```
+
+Here we open a .csv file with data on fish scales. Since we are using the tidyverse, we open the file using `read_csv`. `readr` is a package/library included in the tidyverse set of packages. We can specify the function and package with the `::` symbol. This becomes important if you have multiple packages loaded which contain functions with the same name. 
+```{r message=FALSE, warning=FALSE}
+fish <- readr::read_csv("data/Gaeta_etal_CLC_data.csv")
+```
+
+A note about data frames created with tidyverse functions: they are a special type of data frame called a tibble. A tibble is also a data frame, but has additional properties to make printing the data nicer. Some R functions don't work with tibbles and the tibble can be converted to a data frame with `as.data.frame()`.
+```{r}
+class(fish)
+class(as.data.frame(fish))
+```
+
+
+## Summary functions
+Once data have been uploaded, you may want to get an idea of its contents and dimensions. This may seem self-evident for small files but this is a big help for large data files.
+```{r}
+nrow(fish) #the number of rows
+ncol(fish) #the number of columns
+dim(fish) #total dimensions
+names(fish) #column names
+```
+
+There are many other useful summary functions, all of which work a bit differently. I didn't try to make the joke about fish heads and tails on purpose, but here it is anyway.
+```{r}
+# print the first n rows of the data frame
+head(fish, n = 10)
+# print the last n rows of the data frame
+tail(fish, n = 10)
+```
+
+We can also click on the `fish` data frame in the Environment tab or type View(fish).
+```{r}
+View(fish)
+```
+
+`summary()` and `str()` are classic functions used by many R programmers. `glimpse()` is part of the tidyverse.
+```{r}
+summary(fish)
+str(fish)
+glimpse(fish)
+```
+
+## Practice
+Load the data `mammal_lifehistories_v2.csv` and place it into a new object.
+```{r message=FALSE, warning=FALSE}
+mammals <- 
+  readr::read_csv("data/Mammal_lifehistories_v2.csv")
+```
+
+1. Provide the dimensions of the data frame.
+```{r}
+dim(mammals)
+```
+
+2. Check the column names in the data frame. 
+```{r}
+names(mammals)
+```
+
+3. Use `str()` to show the structure of the data frame and its individual columns; compare this to `glimpse()`. 
+```{r}
+str(mammals)
+```
+
+```{r}
+glimpse(mammals)
+```
+
+4. Print out the first few rows of the data using the function `head()`.  
+```{r}
+head(mammals)
+```
+
+5. Print out the last few rows using the function `tail()`.
+```{r}
+tail(mammals)
+```
+
+## dplyr: filter()
+A core package in the tidyverse is dplyr. This package allows you to transform your data in many different ways including filtering, subsetting, and reordering. This helps keep your data cleaner, easier to work with, and easier for other people to understand.  
+
+The first command that we will learn is `filter()`. Filter allows you to subset observations in a data frame by their values. You should still have the fish data loaded, but if not then please re-load.  
+```{r}
+fish <- 
+  readr::read_csv("data/Gaeta_etal_CLC_data.csv")
+```
+
+Let's say that we are interested only in the fish that occur in the lake labeled AL. We can use `filter()` to extract these observations to build a new data frame focused on our question.
+```{r}
+filter(fish, lakeid == "AL")
+```
+
+Similarly, if we are only interested in fish with a length greater than or equal to 350 we can use `filter()` to do this work.
+```{r}
+filter(fish, length >= 350)
+```
+
+Filtering allows all of the expected operators; i.e. >, >=, <, <=, != (not equal), and == (equal).  It also allows us to extract multiple values simultaneously.
+```{r}
+filter(fish, lakeid == "AL" & length > 350)
+```
+
+When we use the '&' above, we are asking for a specific filter: provide only those data for which both lakeid=AL AND length is greater than 350. Filter will use other operators, but always keep in mind that you are asking for something very specific.  
+
+Rules: & is "and", | is "or", and ! is "not".
+
+Notice that the code below generates a data frame larger than the one above because it includes non AL lakes.
+```{r}
+filter(fish, lakeid == "AL" | length < 350)
+```
+
+If you want to filter multiple values in the same variable you can use the `%in%` operator. This is a useful way to simplify your code.
+```{r}
+filter(fish, length %in% c(167, 175))
+```
+
+But, be careful when reading the code like a human; why does this not work? How would you correct the problem?
+```{r}
+filter(fish, length == 167 & length == 175)
+```
+
+## Practice
+1. Filter the `fish` data to include the samples from lake `DY`.
+```{r}
+filter(fish, lakeid == "DY")
+```
+
+2. Filter the data to include all lakes except AL.
+```{r}
+filter(fish, !lakeid == "AL")
+```
+
+3. Filter the data to include all lakes except AL and DY.
+```{r}
+filter(fish, !lakeid %in% c("AL", "DY"))
+```
+
+4. Filter the data to include all fish with a scale length greater than or equal to 11.
+```{r}
+filter(fish, scalelength >= 11)
+```
+
+5. Filter the data to include fish only from lake AL and with a scalelength greater than or equal to 2 and less than or equal to 4.
+```{r}
+lake_AL <- filter(fish, lakeid == "AL")
+filter(lake_AL, scalelength >= 2 & scalelength <= 4)
+```
+
+## Wrap-up
+Please review the learning goals and be sure to use the code here as a reference when completing the homework.
+
+-->[Home](https://jmledford3115.github.io/datascibiol/)
