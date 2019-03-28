@@ -137,4 +137,4 @@ Congratulations, you made your first shiny app!
 
 ## That's it, let's take a break!   
 
---> On to [part 2](https://jmledford3115.github.io/datascibiol/lab6_2.html)  
+--> On to [part 2](https://jmledford3115.github.io/datascibiol/lab7_2.html)  
