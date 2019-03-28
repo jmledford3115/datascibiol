@@ -289,439 +289,187 @@ div.tocify {
 </div>
 
 
-<div id="review" class="section level2">
-<h2>Review</h2>
-<p>At this point, I expect that you have familiarity in RStudio, GitHub (even if Git is not working for you), and basic operations in R. You understand how to do arithmetic, assign values to objects, and work with vectors or data matrices. Part of this is learning the syntax of R and getting used to the environment. If you are confused, please <a href="mailto:%20jmledford@ucdavis.edu">email me</a> so we can get you on track.</p>
+<div id="setup" class="section level2">
+<h2>Setup</h2>
+<p>At the beginning of each class, please make sure that you navigate to the class <a href="https://github.com/FRS417-DataScienceBiologists">GitHub</a> and download the <code>class_files</code> folder. In our class GitHub, you will see a directory called <code>class_files</code>. Click on the <code>Clone or download</code> button and download the files as a <code>.zip</code>. You should now have a folder called <code>class_files</code> on your computer inside of which are all of the files that we will use for today’s class.</p>
 </div>
 <div id="learning-goals" class="section level2">
 <h2>Learning Goals</h2>
 <p><em>At the end of this exercise, you will be able to:</em><br />
-1. Import .csv files as data frames.<br />
-2. Use summary functions to explore the contents of a data frame.<br />
-3. Use the <code>filter()</code> function of dplyr to sort data frames.</p>
+1. Combine a series of vectors into a data frame.<br />
+2. Name columns and rows in a data frame.<br />
+3. Select columns and rows and use summary functions.<br />
+4. Change data classes of columns in the data frame.<br />
+5. Write your data frame to a csv file!</p>
 </div>
-<div id="libraries" class="section level2">
-<h2>Libraries</h2>
-<pre class="r"><code>library(&quot;tidyverse&quot;)</code></pre>
+<div id="data-frame" class="section level2">
+<h2>Data Frame</h2>
+<p>Last time, you learned how to work with vectors. Today we will organize the vectors into a new type of data structure called a data frame. The data frame is the most common way to store data within R. You can think of a data frame as similar to an Excel spreadsheet. A data frame can store data of different types.</p>
+<p>Let’s build three separate vectors of length (in), weight (oz), and sex of three different ruby throated hummingbirds.</p>
+<pre class="r"><code>Length &lt;- c(3.2, 3.7, 3.4)
+Weight &lt;- c(2.9, 4.0, 3.1)
+Sex &lt;- c(&quot;Male&quot;, &quot;Female&quot;, &quot;Male&quot;)</code></pre>
+<p>Here we combine our three vectors to create a data frame with the function <code>data.frame()</code>.</p>
+<pre class="r"><code>hbirds &lt;- data.frame(Length, Weight, Sex)
+hbirds</code></pre>
+<pre><code>##   Length Weight    Sex
+## 1    3.2    2.9   Male
+## 2    3.7    4.0 Female
+## 3    3.4    3.1   Male</code></pre>
+<p>Notice that not only are the data neat and clean looking, there is also information provided about the type of data in the frame. <code>dbl</code> means that the value is a type of numeric <a href="http://uc-r.github.io/integer_double/">double precision floating point</a>.</p>
+<p>What are the column names of our data frame? Notice that R defaulted to using the names of our vectors, but we could name them something else when creating the data frame, or rename them later.</p>
+<pre class="r"><code>names(hbirds)</code></pre>
+<pre><code>## [1] &quot;Length&quot; &quot;Weight&quot; &quot;Sex&quot;</code></pre>
+<p>Let’s use lowercase names when we create the data frame. We just changed to lowercase here, but we could use any names we wish.</p>
+<pre class="r"><code>hbirds &lt;- data.frame(length = Length, weight = Weight, sex = Sex)
+names(hbirds)</code></pre>
+<pre><code>## [1] &quot;length&quot; &quot;weight&quot; &quot;sex&quot;</code></pre>
 </div>
-<div id="data-frames" class="section level2">
-<h2>Data Frames</h2>
-<p>For the remainder of the course, we will work exclusively with data frames. Recall that data frames allow us to store multiple classes of data. Last time, you were shown how to build data frames using the <code>data.frame()</code> command. However, scientists often make their data available as supplementary material associated with a publication. As data scientists, we can capitalize on this by importing data directly into R.</p>
+<div id="renaming-column-names" class="section level2">
+<h2>Renaming Column Names</h2>
+<p>We should rename the length and width column so we can remember the units. Recall from lab 1 that we can index a vector with <code>[]</code>. We don’t need to rename sex, so we will index the column names for only the first and second column.</p>
+<pre class="r"><code>names(hbirds)[1:2] &lt;- c(&quot;length_in&quot;, &quot;weight_oz&quot;)
+names(hbirds)</code></pre>
+<pre><code>## [1] &quot;length_in&quot; &quot;weight_oz&quot; &quot;sex&quot;</code></pre>
 </div>
-<div id="loading-data-into-data-frames" class="section level2">
-<h2>Loading Data into Data Frames</h2>
-<p>R allows us to import a wide variety of data types. The most common type of file is a .csv file which stands for comma separated values. Spreadsheets are often developed in Excel then saved as .csv files for use in R. There are packages that allow you to open excel files and many other formats but .csv is the most common.</p>
-<p>To open a .csv file, be sure that you are in the correct working directory.</p>
-<pre class="r"><code>getwd()</code></pre>
-<p>Here we open a .csv file with data on fish scales. Since we are using the tidyverse, we open the file using <code>read_csv</code>. <code>readr</code> is a package/library included in the tidyverse set of packages. We can specify the function and package with the <code>::</code> symbol. This becomes important if you have multiple packages loaded which contain functions with the same name.</p>
-<pre class="r"><code>fish &lt;- readr::read_csv(&quot;data/Gaeta_etal_CLC_data.csv&quot;)</code></pre>
-<p>A note about data frames created with tidyverse functions: they are a special type of data frame called a tibble. A tibble is also a data frame, but has additional properties to make printing the data nicer. Some R functions don’t work with tibbles and the tibble can be converted to a data frame with <code>as.data.frame()</code>.</p>
-<pre class="r"><code>class(fish)</code></pre>
-<pre><code>## [1] &quot;spec_tbl_df&quot; &quot;tbl_df&quot;      &quot;tbl&quot;         &quot;data.frame&quot;</code></pre>
-<pre class="r"><code>class(as.data.frame(fish))</code></pre>
-<pre><code>## [1] &quot;data.frame&quot;</code></pre>
+<div id="accessing-data-frame-columns-and-rows" class="section level2">
+<h2>Accessing Data Frame Columns and Rows</h2>
+<p>The same methods of selecting elements in a vector apply to data frames. We use <code>[]</code>. But now we have two positions where the first applies to the rows, and the second to the columns.</p>
+<pre class="r"><code>hbirds[1,]</code></pre>
+<pre><code>##   length_in weight_oz  sex
+## 1       3.2       2.9 Male</code></pre>
+<pre class="r"><code>hbirds[,1]</code></pre>
+<pre><code>## [1] 3.2 3.7 3.4</code></pre>
+<p>We can also select values in an entire column using the <code>$</code> sign. This can be useful for calculations. Here we calculate the mean of all of the birds weights.</p>
+<pre class="r"><code>w &lt;- hbirds$weight_oz
+mean(w)</code></pre>
+<pre><code>## [1] 3.333333</code></pre>
 </div>
-<div id="summary-functions" class="section level2">
-<h2>Summary functions</h2>
-<p>Once data have been uploaded, you may want to get an idea of its contents and dimensions. This may seem self-evident for small files but this is a big help for large data files.</p>
-<pre class="r"><code>nrow(fish) #the number of rows</code></pre>
-<pre><code>## [1] 4033</code></pre>
-<pre class="r"><code>ncol(fish) #the number of columns</code></pre>
-<pre><code>## [1] 6</code></pre>
-<pre class="r"><code>dim(fish) #total dimensions</code></pre>
-<pre><code>## [1] 4033    6</code></pre>
-<pre class="r"><code>names(fish) #column names</code></pre>
-<pre><code>## [1] &quot;lakeid&quot;          &quot;fish_id&quot;         &quot;annnumber&quot;       &quot;length&quot;         
-## [5] &quot;radii_length_mm&quot; &quot;scalelength&quot;</code></pre>
-<p>There are many other useful summary functions, all of which work a bit differently. I didn’t try to make the joke about fish heads and tails on purpose, but here it is anyway.</p>
-<pre class="r"><code># print the first n rows of the data frame
-head(fish, n = 10)</code></pre>
-<pre><code>## # A tibble: 10 x 6
-##    lakeid fish_id annnumber length radii_length_mm scalelength
-##    &lt;chr&gt;    &lt;dbl&gt; &lt;chr&gt;      &lt;dbl&gt;           &lt;dbl&gt;       &lt;dbl&gt;
-##  1 AL         299 EDGE         167            2.70        2.70
-##  2 AL         299 2            167            2.04        2.70
-##  3 AL         299 1            167            1.31        2.70
-##  4 AL         300 EDGE         175            3.02        3.02
-##  5 AL         300 3            175            2.67        3.02
-##  6 AL         300 2            175            2.14        3.02
-##  7 AL         300 1            175            1.23        3.02
-##  8 AL         301 EDGE         194            3.34        3.34
-##  9 AL         301 3            194            2.97        3.34
-## 10 AL         301 2            194            2.29        3.34</code></pre>
-<pre class="r"><code># print the last n rows of the data frame
-tail(fish, n = 10)</code></pre>
-<pre><code>## # A tibble: 10 x 6
-##    lakeid fish_id annnumber length radii_length_mm scalelength
-##    &lt;chr&gt;    &lt;dbl&gt; &lt;chr&gt;      &lt;dbl&gt;           &lt;dbl&gt;       &lt;dbl&gt;
-##  1 WS         180 10           403            8.15        11.0
-##  2 WS         180 9            403            7.49        11.0
-##  3 WS         180 8            403            6.97        11.0
-##  4 WS         180 7            403            6.24        11.0
-##  5 WS         180 6            403            5.41        11.0
-##  6 WS         180 5            403            4.98        11.0
-##  7 WS         180 4            403            4.22        11.0
-##  8 WS         180 3            403            3.04        11.0
-##  9 WS         180 2            403            2.03        11.0
-## 10 WS         180 1            403            1.19        11.0</code></pre>
-<p>We can also click on the <code>fish</code> data frame in the Environment tab or type View(fish).</p>
-<pre class="r"><code>View(fish)</code></pre>
-<p><code>summary()</code> and <code>str()</code> are classic functions used by many R programmers. <code>glimpse()</code> is part of the tidyverse.</p>
-<pre class="r"><code>summary(fish)</code></pre>
-<pre><code>##     lakeid             fish_id       annnumber             length     
-##  Length:4033        Min.   :  1.0   Length:4033        Min.   : 58.0  
-##  Class :character   1st Qu.:156.0   Class :character   1st Qu.:253.0  
-##  Mode  :character   Median :267.0   Mode  :character   Median :299.0  
-##                     Mean   :258.3                      Mean   :293.3  
-##                     3rd Qu.:376.0                      3rd Qu.:342.0  
-##                     Max.   :478.0                      Max.   :420.0  
-##  radii_length_mm    scalelength     
-##  Min.   : 0.4569   Min.   : 0.6282  
-##  1st Qu.: 2.3252   1st Qu.: 4.2596  
-##  Median : 3.5380   Median : 5.4062  
-##  Mean   : 3.6589   Mean   : 5.3821  
-##  3rd Qu.: 4.8229   3rd Qu.: 6.4145  
-##  Max.   :11.0258   Max.   :11.0258</code></pre>
-<pre class="r"><code>str(fish)</code></pre>
-<pre><code>## Classes 'spec_tbl_df', 'tbl_df', 'tbl' and 'data.frame': 4033 obs. of  6 variables:
-##  $ lakeid         : chr  &quot;AL&quot; &quot;AL&quot; &quot;AL&quot; &quot;AL&quot; ...
-##  $ fish_id        : num  299 299 299 300 300 300 300 301 301 301 ...
-##  $ annnumber      : chr  &quot;EDGE&quot; &quot;2&quot; &quot;1&quot; &quot;EDGE&quot; ...
-##  $ length         : num  167 167 167 175 175 175 175 194 194 194 ...
-##  $ radii_length_mm: num  2.7 2.04 1.31 3.02 2.67 ...
-##  $ scalelength    : num  2.7 2.7 2.7 3.02 3.02 ...
-##  - attr(*, &quot;spec&quot;)=
-##   .. cols(
-##   ..   lakeid = col_character(),
-##   ..   fish_id = col_double(),
-##   ..   annnumber = col_character(),
-##   ..   length = col_double(),
-##   ..   radii_length_mm = col_double(),
-##   ..   scalelength = col_double()
-##   .. )</code></pre>
-<pre class="r"><code>glimpse(fish)</code></pre>
-<pre><code>## Observations: 4,033
-## Variables: 6
-## $ lakeid          &lt;chr&gt; &quot;AL&quot;, &quot;AL&quot;, &quot;AL&quot;, &quot;AL&quot;, &quot;AL&quot;, &quot;AL&quot;, &quot;AL&quot;, &quot;AL&quot;...
-## $ fish_id         &lt;dbl&gt; 299, 299, 299, 300, 300, 300, 300, 301, 301, 3...
-## $ annnumber       &lt;chr&gt; &quot;EDGE&quot;, &quot;2&quot;, &quot;1&quot;, &quot;EDGE&quot;, &quot;3&quot;, &quot;2&quot;, &quot;1&quot;, &quot;EDGE...
-## $ length          &lt;dbl&gt; 167, 167, 167, 175, 175, 175, 175, 194, 194, 1...
-## $ radii_length_mm &lt;dbl&gt; 2.697443, 2.037518, 1.311795, 3.015477, 2.6707...
-## $ scalelength     &lt;dbl&gt; 2.697443, 2.697443, 2.697443, 3.015477, 3.0154...</code></pre>
+<div id="summaries" class="section level2">
+<h2>Summaries</h2>
+<p>We can also summarize our entire data frame with the<code>summary()</code> function.</p>
+<pre class="r"><code>summary(hbirds)</code></pre>
+<pre><code>##    length_in       weight_oz         sex   
+##  Min.   :3.200   Min.   :2.900   Female:1  
+##  1st Qu.:3.300   1st Qu.:3.000   Male  :2  
+##  Median :3.400   Median :3.100             
+##  Mean   :3.433   Mean   :3.333             
+##  3rd Qu.:3.550   3rd Qu.:3.550             
+##  Max.   :3.700   Max.   :4.000</code></pre>
+</div>
+<div id="adding-rows" class="section level2">
+<h2>Adding Rows</h2>
+<p>We can add a new bird’s data with the <code>rbind()</code> function, known as row bind. It will bind our new vector to our data frame row-wise.</p>
+<pre class="r"><code>new_bird &lt;- c(3.6, 3.9, &quot;Female&quot;)
+hbirds &lt;- rbind(hbirds, new_bird)
+hbirds</code></pre>
+<pre><code>##   length_in weight_oz    sex
+## 1       3.2       2.9   Male
+## 2       3.7         4 Female
+## 3       3.4       3.1   Male
+## 4       3.6       3.9 Female</code></pre>
+</div>
+<div id="adding-columns" class="section level2">
+<h2>Adding Columns</h2>
+<p>What if we come across more data and we want to add it to our data frame? We can do that with the <code>$</code> operator.</p>
+<pre class="r"><code>hbirds$neighborhood &lt;- c(&quot;Lakewood&quot;, &quot;Brentwood&quot;, &quot;Lakewood&quot;, &quot;Scenic Heights&quot;)
+hbirds</code></pre>
+<pre><code>##   length_in weight_oz    sex   neighborhood
+## 1       3.2       2.9   Male       Lakewood
+## 2       3.7         4 Female      Brentwood
+## 3       3.4       3.1   Male       Lakewood
+## 4       3.6       3.9 Female Scenic Heights</code></pre>
+<pre class="r"><code>summary(hbirds)</code></pre>
+<pre><code>##   length_in          weight_oz             sex    neighborhood      
+##  Length:4           Length:4           Female:2   Length:4          
+##  Class :character   Class :character   Male  :2   Class :character  
+##  Mode  :character   Mode  :character              Mode  :character</code></pre>
+</div>
+<div id="changing-column-classes" class="section level2">
+<h2>Changing Column Classes</h2>
+<p>Great, we added our new column, but it’s a character and not a factor. A factor is a special type of character vector with predefined levels.</p>
+<pre class="r"><code>class(hbirds$neighborhood)</code></pre>
+<pre><code>## [1] &quot;character&quot;</code></pre>
+<pre class="r"><code>hbirds$neighborhood &lt;- as.factor(hbirds$neighborhood)
+class(hbirds$neighborhood)</code></pre>
+<pre><code>## [1] &quot;factor&quot;</code></pre>
+<pre class="r"><code>levels(hbirds$neighborhood)</code></pre>
+<pre><code>## [1] &quot;Brentwood&quot;      &quot;Lakewood&quot;       &quot;Scenic Heights&quot;</code></pre>
+<pre class="r"><code>summary(hbirds)</code></pre>
+<pre><code>##   length_in          weight_oz             sex            neighborhood
+##  Length:4           Length:4           Female:2   Brentwood     :1    
+##  Class :character   Class :character   Male  :2   Lakewood      :2    
+##  Mode  :character   Mode  :character              Scenic Heights:1</code></pre>
+</div>
+<div id="writing-data-to-file" class="section level2">
+<h2>Writing Data to File</h2>
+<p>We should save our hbirds data frame so we can use it again later! There are many ways to save data in R, here we write our data frame to a csv file. We use <code>row.names = FALSE</code> to avoid row numbers from printing out.</p>
+<pre class="r"><code>write.csv(hbirds, &quot;hbirds_data.csv&quot;, row.names = FALSE)</code></pre>
 </div>
 <div id="practice" class="section level2">
 <h2>Practice</h2>
-<p>Load the data <code>mammal_lifehistories_v2.csv</code> and place it into a new object.</p>
-<pre class="r"><code>mammals &lt;- 
-  readr::read_csv(&quot;data/Mammal_lifehistories_v2.csv&quot;)</code></pre>
 <ol style="list-style-type: decimal">
-<li>Provide the dimensions of the data frame.</li>
+<li>Below are data collected by three scientists (Jill, Steve, Susan in order) measuring temperatures of three hot springs near Mono Lake.</li>
 </ol>
-<pre class="r"><code>dim(mammals)</code></pre>
-<pre><code>## [1] 1440   13</code></pre>
+<pre class="r"><code>temp &lt;- c(36.25, 35.40, 35.30, 35.15, 35.35, 33.35, 30.70, 29.65, 29.20)
+name &lt;- c(&quot;Jill&quot;,&quot;Susan&quot;, &quot;Steve&quot;, &quot;Jill&quot;,&quot;Susan&quot;, &quot;Steve&quot;, &quot;Jill&quot;,&quot;Susan&quot;, &quot;Steve&quot;)
+spring &lt;- c(&quot;Buckeye&quot;, &quot;Buckeye&quot;, &quot;Buckeye&quot;, &quot;Benton&quot;, &quot;Benton&quot;, &quot;Benton&quot;, &quot;Travertine&quot;, &quot;Travertine&quot;, &quot;Travertine&quot;)</code></pre>
 <ol start="2" style="list-style-type: decimal">
-<li>Check the column names in the data frame.</li>
+<li>Build a data frame called <code>hsprings</code> with the above data. Name the temperature column <code>temp_C</code>. Print out the data frame.</li>
 </ol>
-<pre class="r"><code>names(mammals)</code></pre>
-<pre><code>##  [1] &quot;order&quot;        &quot;family&quot;       &quot;Genus&quot;        &quot;species&quot;     
-##  [5] &quot;mass&quot;         &quot;gestation&quot;    &quot;newborn&quot;      &quot;weaning&quot;     
-##  [9] &quot;wean mass&quot;    &quot;AFR&quot;          &quot;max. life&quot;    &quot;litter size&quot; 
-## [13] &quot;litters/year&quot;</code></pre>
+<pre class="r"><code>hsprings &lt;- data.frame(temp_C = temp, name, spring)
+hsprings</code></pre>
+<pre><code>##   temp_C  name     spring
+## 1  36.25  Jill    Buckeye
+## 2  35.40 Susan    Buckeye
+## 3  35.30 Steve    Buckeye
+## 4  35.15  Jill     Benton
+## 5  35.35 Susan     Benton
+## 6  33.35 Steve     Benton
+## 7  30.70  Jill Travertine
+## 8  29.65 Susan Travertine
+## 9  29.20 Steve Travertine</code></pre>
 <ol start="3" style="list-style-type: decimal">
-<li>Use <code>str()</code> to show the structure of the data frame and its individual columns; compare this to <code>glimpse()</code>.</li>
+<li>Change the column titled <code>name</code> to <code>scientist</code>, leave the other column names the same. Print out the data frame names.</li>
 </ol>
-<pre class="r"><code>str(mammals)</code></pre>
-<pre><code>## Classes 'spec_tbl_df', 'tbl_df', 'tbl' and 'data.frame': 1440 obs. of  13 variables:
-##  $ order       : chr  &quot;Artiodactyla&quot; &quot;Artiodactyla&quot; &quot;Artiodactyla&quot; &quot;Artiodactyla&quot; ...
-##  $ family      : chr  &quot;Antilocapridae&quot; &quot;Bovidae&quot; &quot;Bovidae&quot; &quot;Bovidae&quot; ...
-##  $ Genus       : chr  &quot;Antilocapra&quot; &quot;Addax&quot; &quot;Aepyceros&quot; &quot;Alcelaphus&quot; ...
-##  $ species     : chr  &quot;americana&quot; &quot;nasomaculatus&quot; &quot;melampus&quot; &quot;buselaphus&quot; ...
-##  $ mass        : num  45375 182375 41480 150000 28500 ...
-##  $ gestation   : num  8.13 9.39 6.35 7.9 6.8 5.08 5.72 5.5 8.93 9.14 ...
-##  $ newborn     : num  3246 5480 5093 10167 -999 ...
-##  $ weaning     : num  3 6.5 5.63 6.5 -999 ...
-##  $ wean mass   : num  8900 -999 15900 -999 -999 ...
-##  $ AFR         : num  13.5 27.3 16.7 23 -999 ...
-##  $ max. life   : num  142 308 213 240 -999 251 228 255 300 324 ...
-##  $ litter size : num  1.85 1 1 1 1 1.37 1 1 1 1 ...
-##  $ litters/year: num  1 0.99 0.95 -999 -999 2 -999 1.89 1 1 ...
-##  - attr(*, &quot;spec&quot;)=
-##   .. cols(
-##   ..   order = col_character(),
-##   ..   family = col_character(),
-##   ..   Genus = col_character(),
-##   ..   species = col_character(),
-##   ..   mass = col_double(),
-##   ..   gestation = col_double(),
-##   ..   newborn = col_double(),
-##   ..   weaning = col_double(),
-##   ..   `wean mass` = col_double(),
-##   ..   AFR = col_double(),
-##   ..   `max. life` = col_double(),
-##   ..   `litter size` = col_double(),
-##   ..   `litters/year` = col_double()
-##   .. )</code></pre>
-<pre class="r"><code>glimpse(mammals)</code></pre>
-<pre><code>## Observations: 1,440
-## Variables: 13
-## $ order          &lt;chr&gt; &quot;Artiodactyla&quot;, &quot;Artiodactyla&quot;, &quot;Artiodactyla&quot;,...
-## $ family         &lt;chr&gt; &quot;Antilocapridae&quot;, &quot;Bovidae&quot;, &quot;Bovidae&quot;, &quot;Bovida...
-## $ Genus          &lt;chr&gt; &quot;Antilocapra&quot;, &quot;Addax&quot;, &quot;Aepyceros&quot;, &quot;Alcelaphu...
-## $ species        &lt;chr&gt; &quot;americana&quot;, &quot;nasomaculatus&quot;, &quot;melampus&quot;, &quot;buse...
-## $ mass           &lt;dbl&gt; 45375.0, 182375.0, 41480.0, 150000.0, 28500.0, ...
-## $ gestation      &lt;dbl&gt; 8.13, 9.39, 6.35, 7.90, 6.80, 5.08, 5.72, 5.50,...
-## $ newborn        &lt;dbl&gt; 3246.36, 5480.00, 5093.00, 10166.67, -999.00, 3...
-## $ weaning        &lt;dbl&gt; 3.00, 6.50, 5.63, 6.50, -999.00, 4.00, 4.04, 2....
-## $ `wean mass`    &lt;dbl&gt; 8900, -999, 15900, -999, -999, -999, -999, -999...
-## $ AFR            &lt;dbl&gt; 13.53, 27.27, 16.66, 23.02, -999.00, 14.89, 10....
-## $ `max. life`    &lt;dbl&gt; 142, 308, 213, 240, -999, 251, 228, 255, 300, 3...
-## $ `litter size`  &lt;dbl&gt; 1.85, 1.00, 1.00, 1.00, 1.00, 1.37, 1.00, 1.00,...
-## $ `litters/year` &lt;dbl&gt; 1.00, 0.99, 0.95, -999.00, -999.00, 2.00, -999....</code></pre>
+<pre class="r"><code>names(hsprings)[2] &lt;- c(&quot;scientist&quot;)
+names(hsprings)</code></pre>
+<pre><code>## [1] &quot;temp_C&quot;    &quot;scientist&quot; &quot;spring&quot;</code></pre>
 <ol start="4" style="list-style-type: decimal">
-<li>Print out the first few rows of the data using the function <code>head()</code>.</li>
+<li>Our scientists forgot to record the depth data for each spring. Here it is as a vector, add it as a new column called depth_ft: <code>c(4.15, 4.13, 4.12, 3.21, 3.23, 3.20, 5.67, 5.65, 5.66)</code>. Print out the data frame.</li>
 </ol>
-<pre class="r"><code>head(mammals)</code></pre>
-<pre><code>## # A tibble: 6 x 13
-##   order family Genus species   mass gestation newborn weaning `wean mass`
-##   &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt;    &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;       &lt;dbl&gt;
-## 1 Arti~ Antil~ Anti~ americ~  45375      8.13   3246.    3           8900
-## 2 Arti~ Bovid~ Addax nasoma~ 182375      9.39   5480     6.5         -999
-## 3 Arti~ Bovid~ Aepy~ melamp~  41480      6.35   5093     5.63       15900
-## 4 Arti~ Bovid~ Alce~ busela~ 150000      7.9   10167.    6.5         -999
-## 5 Arti~ Bovid~ Ammo~ clarkei  28500      6.8    -999  -999           -999
-## 6 Arti~ Bovid~ Ammo~ lervia   55500      5.08   3810     4           -999
-## # ... with 4 more variables: AFR &lt;dbl&gt;, `max. life` &lt;dbl&gt;, `litter
-## #   size` &lt;dbl&gt;, `litters/year` &lt;dbl&gt;</code></pre>
+<pre class="r"><code>hsprings$depth_ft &lt;- c(4.15, 4.13, 4.12, 3.21, 3.23, 3.20, 5.67, 5.65, 5.66)
+hsprings</code></pre>
+<pre><code>##   temp_C scientist     spring depth_ft
+## 1  36.25      Jill    Buckeye     4.15
+## 2  35.40     Susan    Buckeye     4.13
+## 3  35.30     Steve    Buckeye     4.12
+## 4  35.15      Jill     Benton     3.21
+## 5  35.35     Susan     Benton     3.23
+## 6  33.35     Steve     Benton     3.20
+## 7  30.70      Jill Travertine     5.67
+## 8  29.65     Susan Travertine     5.65
+## 9  29.20     Steve Travertine     5.66</code></pre>
 <ol start="5" style="list-style-type: decimal">
-<li>Print out the last few rows using the function <code>tail()</code>.</li>
+<li>Calculate the mean temperature of all of the temperature measurements.</li>
 </ol>
-<pre class="r"><code>tail(mammals)</code></pre>
-<pre><code>## # A tibble: 6 x 13
-##   order family Genus species  mass gestation newborn weaning `wean mass`
-##   &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt;   &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;       &lt;dbl&gt;
-## 1 Xena~ Dasyp~ Zaed~ pichiy   1500      2       105     1.5         -999
-## 2 Xena~ Megal~ Chol~ hoffma~  4750      9.41    387.    0.69        -999
-## 3 Xena~ Megal~ Chol~ didact~  6070      8.67    355.    2.5         -999
-## 4 Xena~ Myrme~ Cycl~ didact~  5070      8.92   -999     5           -999
-## 5 Xena~ Myrme~ Myrm~ tridac~ 28500      6.19   1491.    1.83        -999
-## 6 Xena~ Myrme~ Tama~ tetrad~  5030      5.22   -999  -999           -999
-## # ... with 4 more variables: AFR &lt;dbl&gt;, `max. life` &lt;dbl&gt;, `litter
-## #   size` &lt;dbl&gt;, `litters/year` &lt;dbl&gt;</code></pre>
+<pre class="r"><code>mean(hsprings$temp_C)</code></pre>
+<pre><code>## [1] 33.37222</code></pre>
+<ol start="6" style="list-style-type: decimal">
+<li>What is the class of the scientist column. Use an R command to see all the unique levels.</li>
+</ol>
+<pre class="r"><code>class(hsprings$scientist)</code></pre>
+<pre><code>## [1] &quot;factor&quot;</code></pre>
+<pre class="r"><code>levels(hsprings$scientist)</code></pre>
+<pre><code>## [1] &quot;Jill&quot;  &quot;Steve&quot; &quot;Susan&quot;</code></pre>
+<ol start="7" style="list-style-type: decimal">
+<li>Save your hot springs data as a csv file! Do not allow row names.</li>
+</ol>
+<pre class="r"><code>write.csv(hsprings, &quot;hsprings_data.csv&quot;, row.names = FALSE)</code></pre>
 </div>
-<div id="dplyr-filter" class="section level2">
-<h2>dplyr: filter()</h2>
-<p>A core package in the tidyverse is dplyr. This package allows you to transform your data in many different ways including filtering, subsetting, and reordering. This helps keep your data cleaner, easier to work with, and easier for other people to understand.</p>
-<p>The first command that we will learn is <code>filter()</code>. Filter allows you to subset observations in a data frame by their values. You should still have the fish data loaded, but if not then please re-load.</p>
-<pre class="r"><code>fish &lt;- 
-  readr::read_csv(&quot;data/Gaeta_etal_CLC_data.csv&quot;)</code></pre>
-<pre><code>## Parsed with column specification:
-## cols(
-##   lakeid = col_character(),
-##   fish_id = col_double(),
-##   annnumber = col_character(),
-##   length = col_double(),
-##   radii_length_mm = col_double(),
-##   scalelength = col_double()
-## )</code></pre>
-<p>Let’s say that we are interested only in the fish that occur in the lake labeled AL. We can use <code>filter()</code> to extract these observations to build a new data frame focused on our question.</p>
-<pre class="r"><code>filter(fish, lakeid == &quot;AL&quot;)</code></pre>
-<pre><code>## # A tibble: 383 x 6
-##    lakeid fish_id annnumber length radii_length_mm scalelength
-##    &lt;chr&gt;    &lt;dbl&gt; &lt;chr&gt;      &lt;dbl&gt;           &lt;dbl&gt;       &lt;dbl&gt;
-##  1 AL         299 EDGE         167            2.70        2.70
-##  2 AL         299 2            167            2.04        2.70
-##  3 AL         299 1            167            1.31        2.70
-##  4 AL         300 EDGE         175            3.02        3.02
-##  5 AL         300 3            175            2.67        3.02
-##  6 AL         300 2            175            2.14        3.02
-##  7 AL         300 1            175            1.23        3.02
-##  8 AL         301 EDGE         194            3.34        3.34
-##  9 AL         301 3            194            2.97        3.34
-## 10 AL         301 2            194            2.29        3.34
-## # ... with 373 more rows</code></pre>
-<p>Similarly, if we are only interested in fish with a length greater than or equal to 350 we can use <code>filter()</code> to do this work.</p>
-<pre class="r"><code>filter(fish, length &gt;= 350)</code></pre>
-<pre><code>## # A tibble: 890 x 6
-##    lakeid fish_id annnumber length radii_length_mm scalelength
-##    &lt;chr&gt;    &lt;dbl&gt; &lt;chr&gt;      &lt;dbl&gt;           &lt;dbl&gt;       &lt;dbl&gt;
-##  1 AL         306 EDGE         350            6.94        6.94
-##  2 AL         306 10           350            6.46        6.94
-##  3 AL         306 9            350            6.16        6.94
-##  4 AL         306 8            350            5.88        6.94
-##  5 AL         306 7            350            5.42        6.94
-##  6 AL         306 6            350            4.90        6.94
-##  7 AL         306 5            350            4.46        6.94
-##  8 AL         306 4            350            3.75        6.94
-##  9 AL         306 3            350            2.93        6.94
-## 10 AL         306 2            350            2.14        6.94
-## # ... with 880 more rows</code></pre>
-<p>Filtering allows all of the expected operators; i.e. &gt;, &gt;=, &lt;, &lt;=, != (not equal), and == (equal). It also allows us to extract multiple values simultaneously.</p>
-<pre class="r"><code>filter(fish, lakeid == &quot;AL&quot; &amp; length &gt; 350)</code></pre>
-<pre><code>## # A tibble: 314 x 6
-##    lakeid fish_id annnumber length radii_length_mm scalelength
-##    &lt;chr&gt;    &lt;dbl&gt; &lt;chr&gt;      &lt;dbl&gt;           &lt;dbl&gt;       &lt;dbl&gt;
-##  1 AL         307 EDGE         353            7.55        7.55
-##  2 AL         307 13           353            7.28        7.55
-##  3 AL         307 12           353            6.98        7.55
-##  4 AL         307 11           353            6.73        7.55
-##  5 AL         307 10           353            6.48        7.55
-##  6 AL         307 9            353            6.22        7.55
-##  7 AL         307 8            353            5.92        7.55
-##  8 AL         307 7            353            5.44        7.55
-##  9 AL         307 6            353            5.06        7.55
-## 10 AL         307 5            353            4.37        7.55
-## # ... with 304 more rows</code></pre>
-<p>When we use the ‘&amp;’ above, we are asking for a specific filter: provide only those data for which both lakeid=AL AND length is greater than 350. Filter will use other operators, but always keep in mind that you are asking for something very specific.</p>
-<p>Rules: &amp; is “and”, | is “or”, and ! is “not”.</p>
-<p>Notice that the code below generates a data frame larger than the one above because it includes non AL lakes.</p>
-<pre class="r"><code>filter(fish, lakeid == &quot;AL&quot; | length &lt; 350)</code></pre>
-<pre><code>## # A tibble: 3,468 x 6
-##    lakeid fish_id annnumber length radii_length_mm scalelength
-##    &lt;chr&gt;    &lt;dbl&gt; &lt;chr&gt;      &lt;dbl&gt;           &lt;dbl&gt;       &lt;dbl&gt;
-##  1 AL         299 EDGE         167            2.70        2.70
-##  2 AL         299 2            167            2.04        2.70
-##  3 AL         299 1            167            1.31        2.70
-##  4 AL         300 EDGE         175            3.02        3.02
-##  5 AL         300 3            175            2.67        3.02
-##  6 AL         300 2            175            2.14        3.02
-##  7 AL         300 1            175            1.23        3.02
-##  8 AL         301 EDGE         194            3.34        3.34
-##  9 AL         301 3            194            2.97        3.34
-## 10 AL         301 2            194            2.29        3.34
-## # ... with 3,458 more rows</code></pre>
-<p>If you want to filter multiple values in the same variable you can use the <code>%in%</code> operator. This is a useful way to simplify your code.</p>
-<pre class="r"><code>filter(fish, length %in% c(167, 175))</code></pre>
-<pre><code>## # A tibble: 18 x 6
-##    lakeid fish_id annnumber length radii_length_mm scalelength
-##    &lt;chr&gt;    &lt;dbl&gt; &lt;chr&gt;      &lt;dbl&gt;           &lt;dbl&gt;       &lt;dbl&gt;
-##  1 AL         299 EDGE         167           2.70         2.70
-##  2 AL         299 2            167           2.04         2.70
-##  3 AL         299 1            167           1.31         2.70
-##  4 AL         300 EDGE         175           3.02         3.02
-##  5 AL         300 3            175           2.67         3.02
-##  6 AL         300 2            175           2.14         3.02
-##  7 AL         300 1            175           1.23         3.02
-##  8 BO         397 EDGE         175           2.67         2.67
-##  9 BO         397 3            175           2.39         2.67
-## 10 BO         397 2            175           1.59         2.67
-## 11 BO         397 1            175           0.830        2.67
-## 12 LSG         45 EDGE         175           3.21         3.21
-## 13 LSG         45 3            175           2.92         3.21
-## 14 LSG         45 2            175           2.44         3.21
-## 15 LSG         45 1            175           1.60         3.21
-## 16 RD         103 EDGE         167           2.80         2.80
-## 17 RD         103 2            167           2.10         2.80
-## 18 RD         103 1            167           1.31         2.80</code></pre>
-<p>But, be careful when reading the code like a human; why does this not work? How would you correct the problem?</p>
-<pre class="r"><code>filter(fish, length == 167 &amp; length == 175)</code></pre>
-<pre><code>## # A tibble: 0 x 6
-## # ... with 6 variables: lakeid &lt;chr&gt;, fish_id &lt;dbl&gt;, annnumber &lt;chr&gt;,
-## #   length &lt;dbl&gt;, radii_length_mm &lt;dbl&gt;, scalelength &lt;dbl&gt;</code></pre>
-</div>
-<div id="practice-1" class="section level2">
-<h2>Practice</h2>
-<ol style="list-style-type: decimal">
-<li>Filter the <code>fish</code> data to include the samples from lake <code>DY</code>.</li>
-</ol>
-<pre class="r"><code>filter(fish, lakeid == &quot;DY&quot;)</code></pre>
-<pre><code>## # A tibble: 355 x 6
-##    lakeid fish_id annnumber length radii_length_mm scalelength
-##    &lt;chr&gt;    &lt;dbl&gt; &lt;chr&gt;      &lt;dbl&gt;           &lt;dbl&gt;       &lt;dbl&gt;
-##  1 DY         359 EDGE         124           1.68         1.68
-##  2 DY         359 2            124           1.35         1.68
-##  3 DY         359 1            124           0.594        1.68
-##  4 DY         360 EDGE         233           3.85         3.85
-##  5 DY         360 6            233           3.34         3.85
-##  6 DY         360 5            233           3.03         3.85
-##  7 DY         360 4            233           2.60         3.85
-##  8 DY         360 3            233           2.24         3.85
-##  9 DY         360 2            233           1.71         3.85
-## 10 DY         360 1            233           0.832        3.85
-## # ... with 345 more rows</code></pre>
-<ol start="2" style="list-style-type: decimal">
-<li>Filter the data to include all lakes except AL.</li>
-</ol>
-<pre class="r"><code>filter(fish, !lakeid == &quot;AL&quot;)</code></pre>
-<pre><code>## # A tibble: 3,650 x 6
-##    lakeid fish_id annnumber length radii_length_mm scalelength
-##    &lt;chr&gt;    &lt;dbl&gt; &lt;chr&gt;      &lt;dbl&gt;           &lt;dbl&gt;       &lt;dbl&gt;
-##  1 AR         269 EDGE         140            2.01        2.01
-##  2 AR         269 1            140            1.48        2.01
-##  3 AR         270 EDGE         193            2.66        2.66
-##  4 AR         270 3            193            2.39        2.66
-##  5 AR         270 2            193            2.03        2.66
-##  6 AR         270 1            193            1.42        2.66
-##  7 AR         271 EDGE         220            3.50        3.50
-##  8 AR         271 5            220            3.13        3.50
-##  9 AR         271 4            220            2.86        3.50
-## 10 AR         271 3            220            2.63        3.50
-## # ... with 3,640 more rows</code></pre>
-<ol start="3" style="list-style-type: decimal">
-<li>Filter the data to include all lakes except AL and DY.</li>
-</ol>
-<pre class="r"><code>filter(fish, !lakeid %in% c(&quot;AL&quot;, &quot;DY&quot;))</code></pre>
-<pre><code>## # A tibble: 3,295 x 6
-##    lakeid fish_id annnumber length radii_length_mm scalelength
-##    &lt;chr&gt;    &lt;dbl&gt; &lt;chr&gt;      &lt;dbl&gt;           &lt;dbl&gt;       &lt;dbl&gt;
-##  1 AR         269 EDGE         140            2.01        2.01
-##  2 AR         269 1            140            1.48        2.01
-##  3 AR         270 EDGE         193            2.66        2.66
-##  4 AR         270 3            193            2.39        2.66
-##  5 AR         270 2            193            2.03        2.66
-##  6 AR         270 1            193            1.42        2.66
-##  7 AR         271 EDGE         220            3.50        3.50
-##  8 AR         271 5            220            3.13        3.50
-##  9 AR         271 4            220            2.86        3.50
-## 10 AR         271 3            220            2.63        3.50
-## # ... with 3,285 more rows</code></pre>
-<ol start="4" style="list-style-type: decimal">
-<li>Filter the data to include all fish with a scale length greater than or equal to 11.</li>
-</ol>
-<pre class="r"><code>filter(fish, scalelength &gt;= 11)</code></pre>
-<pre><code>## # A tibble: 17 x 6
-##    lakeid fish_id annnumber length radii_length_mm scalelength
-##    &lt;chr&gt;    &lt;dbl&gt; &lt;chr&gt;      &lt;dbl&gt;           &lt;dbl&gt;       &lt;dbl&gt;
-##  1 WS         180 EDGE         403           11.0         11.0
-##  2 WS         180 16           403           10.6         11.0
-##  3 WS         180 15           403           10.3         11.0
-##  4 WS         180 14           403            9.93        11.0
-##  5 WS         180 13           403            9.56        11.0
-##  6 WS         180 12           403            9.17        11.0
-##  7 WS         180 11           403            8.62        11.0
-##  8 WS         180 10           403            8.15        11.0
-##  9 WS         180 9            403            7.49        11.0
-## 10 WS         180 8            403            6.97        11.0
-## 11 WS         180 7            403            6.24        11.0
-## 12 WS         180 6            403            5.41        11.0
-## 13 WS         180 5            403            4.98        11.0
-## 14 WS         180 4            403            4.22        11.0
-## 15 WS         180 3            403            3.04        11.0
-## 16 WS         180 2            403            2.03        11.0
-## 17 WS         180 1            403            1.19        11.0</code></pre>
-<ol start="5" style="list-style-type: decimal">
-<li>Filter the data to include fish only from lake AL and with a scalelength greater than or equal to 2 and less than or equal to 4.</li>
-</ol>
-<pre class="r"><code>lake_AL &lt;- filter(fish, lakeid == &quot;AL&quot;)
-filter(lake_AL, scalelength &gt;= 2 &amp; scalelength &lt;= 4)</code></pre>
-<pre><code>## # A tibble: 11 x 6
-##    lakeid fish_id annnumber length radii_length_mm scalelength
-##    &lt;chr&gt;    &lt;dbl&gt; &lt;chr&gt;      &lt;dbl&gt;           &lt;dbl&gt;       &lt;dbl&gt;
-##  1 AL         299 EDGE         167            2.70        2.70
-##  2 AL         299 2            167            2.04        2.70
-##  3 AL         299 1            167            1.31        2.70
-##  4 AL         300 EDGE         175            3.02        3.02
-##  5 AL         300 3            175            2.67        3.02
-##  6 AL         300 2            175            2.14        3.02
-##  7 AL         300 1            175            1.23        3.02
-##  8 AL         301 EDGE         194            3.34        3.34
-##  9 AL         301 3            194            2.97        3.34
-## 10 AL         301 2            194            2.29        3.34
-## 11 AL         301 1            194            1.55        3.34</code></pre>
-</div>
-<div id="wrap-up" class="section level2">
-<h2>Wrap-up</h2>
-<p>Please review the learning goals and be sure to use the code here as a reference when completing the homework.</p>
-<p>–&gt;<a href="https://jmledford3115.github.io/datascibiol/">Home</a></p>
+<div id="thats-it-lets-take-a-break" class="section level2">
+<h2>That’s it, let’s take a break!</h2>
+<p>–&gt; On to <a href="https://jmledford3115.github.io/datascibiol/lab2_2.html">part 2</a></p>
 </div>
 
 

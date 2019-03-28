@@ -234,7 +234,6 @@ $(document).ready(function () {
 </ol>
 <pre class="r"><code>#install.packages(&quot;skimr&quot;)</code></pre>
 <pre class="r"><code>library(&quot;skimr&quot;)</code></pre>
-<pre><code>## Warning: package 'skimr' was built under R version 3.5.3</code></pre>
 <pre><code>## 
 ## Attaching package: 'skimr'</code></pre>
 <pre><code>## The following object is masked from 'package:stats':
@@ -246,14 +245,14 @@ $(document).ready(function () {
 ##  n obs: 1440 
 ##  n variables: 13 
 ## 
-## -- Variable type:character --------------------------------------------------------------------------------------------------------
+## ── Variable type:character ──────────────────────────────────────────────────────────────────────────────────────────────────
 ##  variable missing complete    n min max empty n_unique
 ##    family       0     1440 1440   6  15     0       96
 ##     genus       0     1440 1440   3  16     0      618
 ##     order       0     1440 1440   7  14     0       17
 ##   species       0     1440 1440   3  17     0     1191
 ## 
-## -- Variable type:numeric ----------------------------------------------------------------------------------------------------------
+## ── Variable type:numeric ────────────────────────────────────────────────────────────────────────────────────────────────────
 ##     variable missing complete    n      mean         sd   p0  p25     p50
 ##          AFR       0     1440 1440   -408.12     504.97 -999 -999    2.5 
 ##    gestation       0     1440 1440   -287.25     455.36 -999 -999    1.05
@@ -265,15 +264,15 @@ $(document).ready(function () {
 ##    wean_mass       0     1440 1440  16048.93   5e+05    -999 -999 -999   
 ##      weaning       0     1440 1440   -427.17     496.71 -999 -999    0.73
 ##      p75          p100     hist
-##    15.61     210       &lt;U+2586&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2587&gt;&lt;U+2581&gt;
-##     4.5       21.46    &lt;U+2583&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2587&gt;
-##     3.83      14.18    &lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2587&gt;
-##     1.15       7.5     &lt;U+2587&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2587&gt;
-##  7009.17       1.5e+08 &lt;U+2587&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt;
-##   147.25    1368       &lt;U+2587&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2583&gt;&lt;U+2582&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt;
-##    98    2250000       &lt;U+2587&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt;
-##    10          1.9e+07 &lt;U+2587&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt;
-##     2         48       &lt;U+2586&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2587&gt;</code></pre>
+##    15.61     210       ▆▁▁▁▁▁▇▁
+##     4.5       21.46    ▃▁▁▁▁▁▁▇
+##     3.83      14.18    ▁▁▁▁▁▁▁▇
+##     1.15       7.5     ▇▁▁▁▁▁▁▇
+##  7009.17       1.5e+08 ▇▁▁▁▁▁▁▁
+##   147.25    1368       ▇▁▁▃▂▁▁▁
+##    98    2250000       ▇▁▁▁▁▁▁▁
+##    10          1.9e+07 ▇▁▁▁▁▁▁▁
+##     2         48       ▆▁▁▁▁▁▁▇</code></pre>
 <ol start="2" style="list-style-type: decimal">
 <li>Run the code below. Are there any NA’s in the data? Does this seem likely?</li>
 </ol>

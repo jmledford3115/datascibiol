@@ -331,7 +331,7 @@ div.tocify {
 ##  8 AL            3.34
 ##  9 AL            3.34
 ## 10 AL            3.34
-## # ... with 4,023 more rows</code></pre>
+## # … with 4,023 more rows</code></pre>
 <p>The - operator is useful in select. It allows us to select everything except the specified variables.</p>
 <pre class="r"><code>select(fish, -fish_id, -annnumber, -length, -radii_length_mm)</code></pre>
 <pre><code>## # A tibble: 4,033 x 2
@@ -347,7 +347,7 @@ div.tocify {
 ##  8 AL            3.34
 ##  9 AL            3.34
 ## 10 AL            3.34
-## # ... with 4,023 more rows</code></pre>
+## # … with 4,023 more rows</code></pre>
 <p>For very large data frames with lots of variables, <code>select()</code> utilizes lots of different operators to make things easier. Let’s say we are only interested in the variables that deal with length.</p>
 <pre class="r"><code>select(fish, contains(&quot;length&quot;))</code></pre>
 <pre><code>## # A tibble: 4,033 x 3
@@ -363,7 +363,7 @@ div.tocify {
 ##  8    194            3.34        3.34
 ##  9    194            2.97        3.34
 ## 10    194            2.29        3.34
-## # ... with 4,023 more rows</code></pre>
+## # … with 4,023 more rows</code></pre>
 <p>Some additional options to select columns based on a specific criteria include:<br />
 1. ends_with() = Select columns that end with a character string<br />
 2. contains() = Select columns that contain a character string<br />
@@ -395,7 +395,7 @@ div.tocify {
 ##  8 AL        194        3.34
 ##  9 AL        194        3.34
 ## 10 AL        194        3.34
-## # ... with 4,023 more rows</code></pre>
+## # … with 4,023 more rows</code></pre>
 </div>
 <div id="dplyr-can-we-combine-filter-and-select" class="section level2">
 <h2>dplyr: Can we combine filter() and select()?</h2>
@@ -416,7 +416,7 @@ filter(fish2, lakeid == &quot;AL&quot;)</code></pre>
 ##  8 AL            3.34
 ##  9 AL            3.34
 ## 10 AL            3.34
-## # ... with 373 more rows</code></pre>
+## # … with 373 more rows</code></pre>
 </div>
 <div id="dplyr-pipes" class="section level2">
 <h2>dplyr: Pipes %&gt;%</h2>
@@ -437,7 +437,7 @@ filter(fish2, lakeid == &quot;AL&quot;)</code></pre>
 ##  8 AL            3.34
 ##  9 AL            3.34
 ## 10 AL            3.34
-## # ... with 373 more rows</code></pre>
+## # … with 373 more rows</code></pre>
 </div>
 <div id="practice-1" class="section level2">
 <h2>Practice</h2>
@@ -461,7 +461,7 @@ filter(fish2, lakeid == &quot;AL&quot;)</code></pre>
 ##  8 AL                2.29
 ##  9 AL                3.72
 ## 10 AL                3.23
-## # ... with 243 more rows</code></pre>
+## # … with 243 more rows</code></pre>
 </div>
 <div id="dplyr-arrange" class="section level2">
 <h2>dplyr: arrange()</h2>
@@ -481,7 +481,7 @@ filter(fish2, lakeid == &quot;AL&quot;)</code></pre>
 ##  8 WS         155 1            128           0.579       1.41 
 ##  9 BO         391 EDGE         107           1.43        1.43 
 ## 10 BO         391 1            107           0.695       1.43 
-## # ... with 4,023 more rows</code></pre>
+## # … with 4,023 more rows</code></pre>
 <p>To sort in decreasing order, wrap the variable name in <code>desc()</code>.</p>
 <pre class="r"><code>fish %&gt;% 
   arrange(desc(scalelength))</code></pre>
@@ -498,7 +498,7 @@ filter(fish2, lakeid == &quot;AL&quot;)</code></pre>
 ##  8 WS         180 10           403            8.15        11.0
 ##  9 WS         180 9            403            7.49        11.0
 ## 10 WS         180 8            403            6.97        11.0
-## # ... with 4,023 more rows</code></pre>
+## # … with 4,023 more rows</code></pre>
 <p><code>arrange()</code> can be very helpful in combination with the other functions.</p>
 <pre class="r"><code>fish %&gt;% 
   select(lakeid, length, fish_id, scalelength) %&gt;% 
@@ -517,7 +517,7 @@ filter(fish2, lakeid == &quot;AL&quot;)</code></pre>
 ##  8 AL        194     301        3.34
 ##  9 AL        194     301        3.34
 ## 10 AL        194     301        3.34
-## # ... with 373 more rows</code></pre>
+## # … with 373 more rows</code></pre>
 </div>
 <div id="dplyr-mutate" class="section level2">
 <h2>dplyr: mutate()</h2>
@@ -538,7 +538,7 @@ filter(fish2, lakeid == &quot;AL&quot;)</code></pre>
 ##  8     301    194      76.4
 ##  9     301    194      76.4
 ## 10     301    194      76.4
-## # ... with 4,023 more rows</code></pre>
+## # … with 4,023 more rows</code></pre>
 <p>Note that if we had called our new variable length, R would overwrite the old variable.</p>
 </div>
 <div id="practice-2" class="section level2">
@@ -560,7 +560,7 @@ filter(fish2, lakeid == &quot;AL&quot;)</code></pre>
 ##  8     301    194        97  
 ##  9     301    194        97  
 ## 10     301    194        97  
-## # ... with 4,023 more rows</code></pre>
+## # … with 4,023 more rows</code></pre>
 </div>
 <div id="thats-it-lets-take-a-break" class="section level2">
 <h2>That’s it, let’s take a break!</h2>
