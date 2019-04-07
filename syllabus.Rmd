@@ -53,6 +53,8 @@ Grading is **pass/ no pass** and is divided into two parts:
 3. Import and transform complex, messy data for analysis in R using `dplyr`, `tidyr`, and `purrr`.  
 4. Produce a variety of plots and charts to visualize results of data analysis using `ggplot2`.  
 5. Build an exploratory analysis pipeline that can be applied to a variety of data types and structures.  
+6. Use Shiny to build an interactive application.  
+7. Use geospacial data to produce distribution maps.  
 
 ## Office Hours
 Office hours are by appointment. If there are problems with the assignments, it is important that we communicate together as a class. Please use the class email list as a first step so we all may benefit.
