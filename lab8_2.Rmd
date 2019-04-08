@@ -28,9 +28,17 @@ There are many packages and techniques for working with spatial data in R. We wi
 #devtools::install_github("dkahle/ggmap")
 ```
 
+```{r}
+#install.packages("rgeos")
+#install.packages("rgdal")
+```
+
+
 ```{r, message = FALSE}
 library(ggmap)
 library(tidyverse)
+library(rgeos)
+library(rgdal)
 ```
 
 Let's also load our processed data from the first part of this lab.
@@ -95,6 +103,8 @@ In the data folder there is a file titled `CA_Counties_TIGER2016.shp`. This is a
 #install.packages("sp")
 library(raster)
 library(sp)
+#install.packages("rgdal")
+library(rgdal)
 ```
 
 ```{r}
