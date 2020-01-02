@@ -58,7 +58,7 @@ Grading is divided into three parts:
 Office hours are by appointment. If there are problems with the assignments, it is important that we communicate together as a class. Please use the class email list as a first step so we all may benefit.
 
 ## About Me
-I am an LPSOE in the department of [Plant Biology](http://www-plb.ucdavis.edu/). My research is focused on education and spider biology. My experience in R has mostly involved statistical analysis in education and phylogenetics. I also teach part of the introductory biology series `BIS2C` (Fall and Winter) and introductory plant biology `PLB10` (Spring).
+I am an assistant teaching professor in the department of [Plant Biology](http://www-plb.ucdavis.edu/). My research is focused on education and spider biology. My experience in R has mostly involved statistical analysis in education and phylogenetics. I also teach part of the introductory biology series `BIS2C` (Fall and Winter) and introductory plant biology `PLB10` (Spring).
 
 ## Do's and Dont's
 Learning any programming language is hard; it only gets easier with time and practice. Don't give up!  
