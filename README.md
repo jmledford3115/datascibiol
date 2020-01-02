@@ -17,7 +17,7 @@ This class is designed for students with *no background in computer programming,
 Please read the course syllabus [here.](https://jmledford3115.github.io/datascibiol/syllabus.html)  
 
 ## Lab Schedule and Homework  
-We have eight total labs. The last two labs (9 and 10) will be devoted to getting final projects complete and preparing presentations.  
+We have eight total labs. The last two labs (9 and 10) will be devoted to getting final projects complete and preparing presentations. New labs will be added each week.  
 
 1. **Lab 1** | [part 1](https://jmledford3115.github.io/datascibiol/lab1_1.html) | [part 2](https://jmledford3115.github.io/datascibiol/lab1_2.html) | [HW 1](https://jmledford3115.github.io/datascibiol/lab1_hw.html)  
 
