@@ -30,3 +30,5 @@ Download the latest version of RStudio [here](https://www.rstudio.com/) and inst
 
 ### 3. Download the most recent version of GitHub Desktop and install
 GitHub is the website where we will upload all of our work, including homework and class files. GitHub Desktop is a [GUI](https://www.computerhope.com/jargon/g/gui.htm) interface that allows us to keep track of changes (version control) and upload.  
+
+-->[Home](https://jmledford3115.github.io/datascibiol/)  

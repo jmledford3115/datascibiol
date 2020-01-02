@@ -51,24 +51,23 @@ You are welcome to use your own computer, but in order to do so you need to inst
 
 Most programmers use both **GitHub** and **Git** to manage their projects. However, **Git** is glitchy and hard to work with- especially in a classroom setting. If you want to try and use **Git**, then follow the directions [here](https://jmledford3115.github.io/datascibiol/setup.html).  
 
-## GitHub Desktop
-The easiest way to manage your GitHub repositories is to use [GitHub desktop](https://desktop.github.com/). This is a  helpful tool that will allow you to manage all of your files. Highly recommended!  
-
 ## Create a GitHub account
 Since we will use GitHub as a repository for all assignments, we need to make an account for each student and build a new project through RStudio. Navigate to www.github.com and create a free account. [Email](mailto:jmledford@ucdavis.edu) your username to me. You will receive an email to join the repository for our course.  
 
-I have made a repository for our class titled: [FRS417-DataScienceBiologists](https://github.com/FRS417-DataScienceBiologists). Once you have accepted the invitation to join the repository, you should be able to login to GitHub and see this organization or click on the link above. You should see a directory associated with your login name. This where you will upload all of your work during the quarter.  
-## Download `class_files`
-In our class GitHub, you will see a directory called `class_files`. Click on the **Clone or download** button and download the files as a `.zip`. You should now have a folder called `class_files` inside of which are all of the files that we will use for each class.  Prior to the start of each lab, you will need to download the `class files` folder.  
+I have made a repository for our class titled: [BIS15-W20-DataScienceBiologists](https://github.com/FRS417-DataScienceBiologists). Once you have accepted the invitation to join the repository, you should be able to login to GitHub and see this organization or click on the link above. You should see a directory associated with your login name. This where you will upload all of your work during the quarter.  
+
+## GitHub Desktop
+The easiest way to manage your GitHub repositories is to use [GitHub desktop](https://desktop.github.com/). This is a  helpful tool that will allow you to manage all of your files. Highly recommended! Once installed, open the program and login using your GitHub account.  
+
+## Clone `class_files` and `your folder`
+In our class GitHub, you will see a directory called `class_files`. From within GitHub Desktop, clone this folder to your desktop. Next, clone the folder assigned to your username to the desktop. At the start of each class you will need to repeat this process.  
 
 ## RStudio
 Inside the `class_files` folder you will see a file titled `lab1_1.Rmd`. Open this file by double clicking and you should now be in RStudio.  
 
 RStudio is an interactive working environment for R. When you first open it, you should see your screen divided into four quadrants. I will demonstrate each of these in class, but for now it is enough to know that they display different information and are helpful as you work on code.  
 
-You need to make a folder on your computer where you will keep all of your work. You will need frequent access to the folder, so I recommend putting it in an easy to find space. I put mine on the desktop.  
-
-Please run the following code to check your current working directory.
+Please run the following code to check your current working directory.  
 ```{r}
 getwd()
 ```

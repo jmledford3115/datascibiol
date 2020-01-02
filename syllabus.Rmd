@@ -73,3 +73,5 @@ Learning any programming language is hard; it only gets easier with time and pra
 + Please *don't* miss class or get behind on the homework.  
 
 I am very open to suggestions, especially when it comes to relevant and interesting examples. If you find data that are especially interesting to you please let me know and I will do my best to incorporate it into class examples. Most of all, have fun learning R and if you are not then let me know!  
+
+-->[Home](https://jmledford3115.github.io/datascibiol/)
