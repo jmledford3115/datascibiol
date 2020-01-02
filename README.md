@@ -4,16 +4,19 @@ This is the course page for BIS 015, **Introduction to Data Science for Biologis
 ## Class Times and Contact Information
 + Fridays, 2:10-4:00p, 2102 SCC
 + [Joel Ledford](mailto:jmledford@ucdavis.edu)
-+ Office: 2220 Life Sciences, Department of Plant Biology
++ Office: 2220 Life Sciences, Department of Plant Biology  
 
-## Course Summary
+## Teaching Assistant  
++ [Rebecca Godwin](mailto:rgodwin@ucdavis.edu)  
+
+## Course Summary  
 In BIS 015, you will be introduced to the fundamentals of data science with emphasis on data frequently used by biologists. We will use the R software environment to develop and practice key skills including data management, transformation, analysis, and visualization. Practical examples will span a range of disciplines including social science, ecology, evolution, and genetics. Labs will use a problem-solving approach where students build on previously learned skills culminating in a small, group-based project presented at the end of the quarter. 
 
 This class is designed for students with *no background in computer programming, R, or statistics*. My assumption is that you know how to turn a computer on and use a mouse- that's it!  
 
-Please read the course syllabus [here.](https://jmledford3115.github.io/datascibiol/syllabus.html)
+Please read the course syllabus [here.](https://jmledford3115.github.io/datascibiol/syllabus.html)  
 
-## Lab Schedule and Homework
+## Lab Schedule and Homework  
 We have eight total labs. The last two labs (9 and 10) will be devoted to getting final projects complete and preparing presentations.  
 
 1. **Lab 1** | [part 1](https://jmledford3115.github.io/datascibiol/lab1_1.html) | [part 2](https://jmledford3115.github.io/datascibiol/lab1_2.html) | [HW 1](https://jmledford3115.github.io/datascibiol/lab1_hw.html)  
@@ -25,10 +28,10 @@ We have eight total labs. The last two labs (9 and 10) will be devoted to gettin
 7. **Lab 7** | [part 1](https://jmledford3115.github.io/datascibiol/lab7_1.html) | [part 2](https://jmledford3115.github.io/datascibiol/lab7_2.html) | [HW 7](https://jmledford3115.github.io/datascibiol/lab7_hw.html)
 8. **Lab 8** | [part 1](https://jmledford3115.github.io/datascibiol/lab8_1.html) | [part 2](https://jmledford3115.github.io/datascibiol/lab8_2.html) | [HW 8](https://jmledford3115.github.io/datascibiol/lab8_hw.html)
 
-## Reading
+## Reading  
 [R for Data Science](https://r4ds.had.co.nz/), Grolemund and Wickham (2017).  
 
-## Course Learning Goals
+## Course Learning Goals  
 *At the end of this course, you will be able to:*  
 
 1. Use R and RStudio to perform basic analyses including arithmetic and basic statistics.  
