@@ -1,7 +1,7 @@
 ---
 title: "Setup Instructions"
 author: "Joel Ledford"
-date: "Winter 2019"
+date: "Winter 2020"
 output:
   html_document:
     theme: spacelab

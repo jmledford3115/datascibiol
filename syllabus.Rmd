@@ -1,5 +1,5 @@
 ---
-title: "BIS 015L Syllabus"
+title: "BIS 015 Syllabus"
 author: "Joel Ledford"
 date: "Winter 2020"
 output:
@@ -21,7 +21,7 @@ output:
 > [Wired Magazine (2017)](https://www.wired.com/2017/03/biologists-teaching-code-survive/)
 
 ## Course Summary
-In BIS 015L, you will be introduced to the fundamentals of data science with emphasis on data frequently used by biologists. We will use the R software environment to develop and practice key skills including data management, transformation, analysis, and visualization. Examples will span a range of disciplines including social science, ecology, evolution, and genetics. Labs will use a problem-solving approach where students build on previously learned skills culminating in a small, group-based project. 
+In BIS 015, you will be introduced to the fundamentals of data science with emphasis on data frequently used by biologists. We will use the R software environment to develop and practice key skills including data management, transformation, analysis, and visualization. Examples will span a range of disciplines including social science, ecology, evolution, and genetics. Labs will use a problem-solving approach where students build on previously learned skills culminating in a small, group-based project. 
 
 This class is designed for students with *no background in computer programming, R, or statistics*. My assumption is that you know how to turn a computer on and use a mouse- that's it!  
 
