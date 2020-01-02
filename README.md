@@ -2,12 +2,12 @@
 This is the course page for FRS 417, **Introduction to Data Science for Biologists** at UC Davis.
 
 ## Class Times and Contact Information
-+ Fridays, 1:10-3:00p, 2103 SCC
++ Fridays, 2:10-4:00p, 2102 SCC
 + [Joel Ledford](mailto:jmledford@ucdavis.edu)
 + Office: 2220 Life Sciences, Department of Plant Biology
 
 ## Course Summary
-In FRS 417, you will be introduced to the fundamentals of data science with emphasis on data frequently used by biologists. We will use the R software environment to develop and practice key skills including data management, transformation, analysis, and visualization. Practical examples will span a range of disciplines including social science, ecology, evolution, and genetics. Labs will use a problem-solving approach where students build on previously learned skills culminating in a small, group-based project presented at the end of the quarter. 
+In BIS 015, you will be introduced to the fundamentals of data science with emphasis on data frequently used by biologists. We will use the R software environment to develop and practice key skills including data management, transformation, analysis, and visualization. Practical examples will span a range of disciplines including social science, ecology, evolution, and genetics. Labs will use a problem-solving approach where students build on previously learned skills culminating in a small, group-based project presented at the end of the quarter. 
 
 This class is designed for students with *no background in computer programming, R, or statistics*. My assumption is that you know how to turn a computer on and use a mouse- that's it!  
 
