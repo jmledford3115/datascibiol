@@ -1,12 +1,19 @@
 ---
 title: "Dummy Push"
 author: "Your Name"
-date: "1/12/2019"
+date: "1/10/2020"
 output: html_document
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Install Packages
+```{r}
+options(repos = c(CRAN = "http://cran.rstudio.com"))
+#install.packages("tidyverse")
+#install.packages("nycflights13")
 ```
 
 ## Working directory
@@ -26,7 +33,6 @@ library(tidyverse)
 ```
 
 ## nycflights13
-All flights.
 ```{r}
 flights
 ```

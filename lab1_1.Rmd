@@ -72,7 +72,7 @@ Please run the following code to check your current working directory.
 getwd()
 ```
 
-If you find that you are not in the folder that you created, please navigate to it: Session>Set Working Directory>Choose Directory.
+If you find that you are not in the correct folder, please navigate to it: Session>Set Working Directory>Choose Directory.
 
 Re-run the code below to confirm.
 ```{r}
@@ -100,17 +100,17 @@ install.packages("tidyverse")
 ```
 
 ## Push files to GitHub
-You can use your repository to store all of your notes and work. All you need to do is go back to your GitHub directory in your web browser and click `Upload files`. Once there, you can drag and drop any files directly into your repository. But, in order for the upload to complete you need to add a short message in the box beneath `Commit changes`. Once the message is added, click `Commit changes` and your upload will be complete.
+You can use your repository to store all of your notes and work. If you setup GitHub Desktop correctly, then you will see that it has automatically tracked your changes. Clicking the `Commit to master` button in the bottom left corner means that you are recording a waypoint in your edits locally. Once this is done, you need to upload your changes to GitHub. This is done by cliking `Push origin`. Once you have pushed your changes you can double check by looking on GitHub.  
 
 ## Practice
 Since you will use your GitHub repository for your homework, we need to practice.  
 
 1. Navigate to the `class_files` folder that you downloaded and find the file `dummy_push`. Open this file and save a copy to your working directory using: File>Save As.  Change the name of the file to `dummy_push_*` where the `*` is your last name. You can also remove my name and add yours in the `author:` field at the top of the document.  
 
-2. Once this is finished, `push` this file to your GitHub directory using the instructions above. After a few moments, you should be able to see this file in GitHub.
+2. Once this is finished, `push` this file to your GitHub directory using the instructions above. After a few moments, you should be able to see this file in GitHub.  
 
 ## GitHub Issues
-We may encounter  issues over the next few weeks with GitHub. These will be caused mostly by user error, but sometimes weird things happen. If you are stuck, get my attention and we will sort things out.
+We may encounter  issues over the next few weeks with GitHub. These will be caused mostly by user error, but sometimes weird things happen. If you are stuck, get my attention and we will sort things out.  
 
 ## That's it, let's take a break!  
 
