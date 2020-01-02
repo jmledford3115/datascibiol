@@ -88,21 +88,10 @@ We get an error here because `else` is a function in R. You also don't want to g
 
 ## Practice
 1. Create three new objects, `venom_GT`, `chiron`, and `veyron`. These are the fastest cars in the world. Assign each car to its top speed. The venom_GT can go 270, chiron is 261, and veyron is 268.
-```{r}
-venom_GT <- 270
-chiron <- 261
-veyron <- 268
-```
 
 2. Use arithmetic to calculate the mean top speed for the cars.
-```{r}
-(270+261+268)/3
-```
 
 3. Use the function `mean()` to calculate the mean top speed for the cars.
-```{r}
-mean(venom_GT, chiron, veyron)
-```
 
 ## Types of Data
 There are five frequently used `classes` of data: 1. numeric, 2. integer, 3. character, 4. logical, 5. complex.
@@ -175,7 +164,6 @@ Let's remove the NA value.
 mean(my_vector, na.rm = TRUE)
 ```
 
-
 A convenient trick for creating a vector is to generate a sequence of numbers.
 ```{r}
 my_vector_sequence <- c(1:10)
@@ -189,7 +177,7 @@ my_vector_sequence2
 ```
 
 ## Identifying vector elements
-We can use `[]` to pull out elements in a vector. We just need to specify their position in the vector; i.e. day 3 is Wednesday.
+We can use `[]` to pull out elements in a vector. We just need to specify their position in the vector; i.e. day 3 is Wednesday.  
 ```{r}
 days_of_the_week[3]
 ```
@@ -198,34 +186,22 @@ days_of_the_week[3]
 Work through these examples and make adjustments to the values to experiment.
 
 1. Create a new numeric vector of values 1 through 100
-```{r}
-new_vector <- c(1:100)
-```
+
 
 2. We can evaluate all numerics in our vector to determine which has a value of 15.
-```{r}
-new_vector == 15
-```
+
 
 3. We can also use operators such as <, >, ==, <==, etc.
-```{r}
-new_vector < 10
-```
+
 
 4. If you use `[]` then you only get the values, not the logical evaluation of the entire vector.
-```{r}
-new_vector[new_vector <= 10]
-```
+
 
 5. Using the `&` symbol allows us to refine our elements of interest.
-```{r}
-new_vector[new_vector <= 10 & new_vector >= 1]
-```
+
 
 6. There is a distinction between the `&` symbol and the `|` symbol.
-```{r}
-new_vector[new_vector <= 10 | new_vector == 1]
-```
+
 
 ## Wrap-up
 Please review the learning goals and be sure to use the code here as a reference when completing the homework.  
