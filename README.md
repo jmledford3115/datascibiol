@@ -1,5 +1,5 @@
 ## Welcome!
-This is the course page for FRS 417, **Introduction to Data Science for Biologists** at UC Davis.
+This is the course page for BIS 015, **Introduction to Data Science for Biologists** at UC Davis.
 
 ## Class Times and Contact Information
 + Fridays, 2:10-4:00p, 2102 SCC
