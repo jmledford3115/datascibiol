@@ -40,11 +40,13 @@ Please use the lab computers while working in lab. This makes things far easier 
 ## Grading  
 Grading is divided into three parts:  
 
-1. Weekly homework assignments (70%). Each assignment must be completed and uploaded to GitHub prior to the next lab. I will randomly pull an example from GitHub to discuss with the class to see alternate solutions and address issues. You must complete all homework assignments to receive a passing grade in the course.  
+1. Weekly homework assignments (60%). Each assignment must be completed and uploaded to GitHub prior to the next lab. I will randomly pull an example from GitHub to discuss with the class to see alternate solutions and address issues. You must complete all homework assignments to receive a passing grade in the course.  
 
-2. Class project (30%). As part of the class, you will form a group to explore a project in data science. The project may be based on any available data of interest to the group, and should highlight skills learned in the labs. The group will present their results during the last lab session.  
+2. Midterm (10%). The midterm will help us keep one another accountable. The exam will likely be take-home, depending on our progress.  
 
-3. Attendance. Although attendance is not a percentage of the grade, students are only allowed one absence during the quarter. Please [email me](mailto:jmledford@ucdavis.edu) if you need to miss a lab.  
+3. Class project (30%). As part of the class, you will form a group to explore a project in data science. The project may be based on any available data of interest to the group, and should highlight skills learned in the labs. The group will present their results during the last lab session.  
+
+4. Attendance. Attendance is mandatory. Students are only allowed one absence during the quarter. Please [email me](mailto:jmledford@ucdavis.edu) if you need to miss a lab.  
 
 ## Reading  
 [R for Data Science](https://r4ds.had.co.nz/), Grolemund and Wickham (2017).  
