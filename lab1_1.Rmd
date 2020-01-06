@@ -95,8 +95,9 @@ In this file insert a new R code chunk by clicking on the green `insert` tab and
 One strength of R is that there are thousands of add-on packages that perform specialized functions. The packages are referred to as libraries.  
 
 In this class, we will routinely use the library called the **tidyverse**. Libraries need to be installed in order to work, and whenever you update R you also need to update all of the packages that you use.
-```{r eval=FALSE, include=TRUE}
-install.packages("tidyverse")
+
+```{r}
+if (!require('tidyverse')) install.packages('tidyverse'); library('tidyverse')
 ```
 
 ## Push files to GitHub
