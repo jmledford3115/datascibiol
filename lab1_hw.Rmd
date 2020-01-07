@@ -45,6 +45,14 @@ c. Calculate how much you won or lost in roulette over the week.
 d. Build a `total_week` vector to show how much you lost or won on each day over the week. Which days seem lucky or unlucky for you?
 
 
-e. Should you stick to blackjack or roulette? Write a program that verifies this below.
+e. Should you stick to blackjack or roulette? Write a program that verifies this below.  
+
+6. Rebecca's problem
+```{r}
+n<-5
+t<-4
+n+t
+```
+
 
 ## Push your final code to [GitHub](https://github.com/FRS417-DataScienceBiologists)
