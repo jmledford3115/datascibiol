@@ -409,18 +409,19 @@ summary {
 <li><p>Did any of the results in #1 surprise you? Write two programs that calculate each expression such that the result for the first example is 4 and the second example is 16.</p></li>
 <li><p>Make a new object <code>pi</code> as 3.14159265359.</p></li>
 <li><p>Is <code>pi</code> an integer or numeric? Why? Show your code.</p></li>
-<li><p>You have decided to use your new analytical powers in R to become a professional gambler. Here are your winnings and losses this week.</p></li>
+<li><p>You have decided to use your new analytical powers in R to become a professional gambler. Here are your winnings and losses this week. Note that you don’t gamble on the weekends!</p></li>
 </ol>
-<pre class="r"><code>blackjack &lt;- c(140, -20, 70, -120, 240)
-roulette &lt;- c(60, 50, 120, -300, 10)</code></pre>
+<pre class="r"><code>blackjack &lt;- c(140, -20, 70, -120, 240, NA, NA)
+roulette &lt;- c(60, 50, 120, -300, 10, NA, NA)</code></pre>
 <ol style="list-style-type: lower-alpha">
-<li>Build a new vector called <code>days</code> for the days of the week (Monday through Friday).</li>
+<li>Build a new vector called <code>days</code> for the days of the week.</li>
 </ol>
 <p>We will use <code>days</code> to name the elements in the poker and roulette vectors.</p>
 <pre class="r"><code>names(blackjack) &lt;- days
 names(roulette) &lt;- days</code></pre>
 <ol start="2" style="list-style-type: lower-alpha">
 <li><p>Calculate how much you won or lost in blackjack over the week.</p></li>
+<li><p>What is your interpretation of this result? What do you need to do to address the problem? Recalculate how much you won or lost in blackjack over the week.</p></li>
 <li><p>Calculate how much you won or lost in roulette over the week.</p></li>
 <li><p>Build a <code>total_week</code> vector to show how much you lost or won on each day over the week. Which days seem lucky or unlucky for you?</p></li>
 <li><p>Should you stick to blackjack or roulette? Write a program that verifies this below.</p></li>

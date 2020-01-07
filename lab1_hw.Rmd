@@ -21,13 +21,13 @@ Answer the following questions and complete the exercises in RMarkdown. Please e
 
 4. Is `pi` an integer or numeric? Why? Show your code.  
 
-5. You have decided to use your new analytical powers in R to become a professional gambler. Here are your winnings and losses this week.
+5. You have decided to use your new analytical powers in R to become a professional gambler. Here are your winnings and losses this week. Note that you don't gamble on the weekends!  
 ```{r, eval=F, echo=T}
-blackjack <- c(140, -20, 70, -120, 240)
-roulette <- c(60, 50, 120, -300, 10)
+blackjack <- c(140, -20, 70, -120, 240, NA, NA)
+roulette <- c(60, 50, 120, -300, 10, NA, NA)
 ```
 
-a. Build a new vector called `days` for the days of the week (Monday through Friday). 
+a. Build a new vector called `days` for the days of the week. 
 
 
 We will use `days` to name the elements in the poker and roulette vectors.
@@ -36,23 +36,18 @@ names(blackjack) <- days
 names(roulette) <- days
 ```
 
-b. Calculate how much you won or lost in blackjack over the week.
+b. Calculate how much you won or lost in blackjack over the week.  
 
 
-c. Calculate how much you won or lost in roulette over the week.  
+c. What is your interpretation of this result? What do you need to do to address the problem? Recalculate how much you won or lost in blackjack over the week.  
 
 
-d. Build a `total_week` vector to show how much you lost or won on each day over the week. Which days seem lucky or unlucky for you?
+d. Calculate how much you won or lost in roulette over the week.  
 
 
-e. Should you stick to blackjack or roulette? Write a program that verifies this below.  
+e. Build a `total_week` vector to show how much you lost or won on each day over the week. Which days seem lucky or unlucky for you?
 
-6. Rebecca's problem
-```{r}
-n<-5
-t<-4
-n+t
-```
 
+f. Should you stick to blackjack or roulette? Write a program that verifies this below.  
 
 ## Push your final code to [GitHub](https://github.com/FRS417-DataScienceBiologists)
