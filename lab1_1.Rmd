@@ -54,16 +54,16 @@ Most programmers use both **GitHub** and **Git** to manage their projects. Howev
 ## Create a GitHub account
 Since we will use GitHub as a repository for all assignments, we need to make an account for each student and build a new project through RStudio. Navigate to www.github.com and create a free account. [Email](mailto:jmledford@ucdavis.edu) your username to me. You will receive an email to join the repository for our course.  
 
-I have made a repository for our class titled: [BIS15-W20-DataScienceBiologists](https://github.com/FRS417-DataScienceBiologists). Once you have accepted the invitation to join the repository, you should be able to login to GitHub and see this organization or click on the link above. You should see a directory associated with your login name. This where you will upload all of your work during the quarter.  
+I have made a repository for our class titled: [BIS15-W20-DataScienceBiologists](https://github.com/FRS417-DataScienceBiologists). Once you have accepted the invitation to join the repository, you should be able to login to GitHub and see this organization or click on the link above. This where you will upload all of your work during the quarter.  
 
 ## GitHub Desktop
 The easiest way to manage your GitHub repositories is to use [GitHub desktop](https://desktop.github.com/). This is a  helpful tool that will allow you to manage all of your files. Highly recommended! Once installed, open the program and login using your GitHub account.  
 
-## Clone `class_files` and `your folder`
-In our class GitHub, you will see a directory called `class_files`. From within GitHub Desktop, clone this folder to your desktop. Next, clone the folder assigned to your username to the desktop. At the start of each class you will need to repeat this process.  
+## Clone `BIS15-W20-DataScienceBiologists`
+In our class GitHub, you will see a directory called `BIS15-W20-DataScienceBiologists`. From within GitHub Desktop, clone this folder to your desktop. At the start of each class you will need to repeat this process.  
 
 ## RStudio
-Inside the `class_files` folder you will see a file titled `lab1_1.Rmd`. Open this file by double clicking and you should now be in RStudio.  
+Inside the `BIS15-W20-DataScienceBiologists` folder you will see a folder called `class files`. Within this there is a file titled `lab1_1.Rmd`. Open this file by double clicking and you should now be in RStudio.  
 
 RStudio is an interactive working environment for R. When you first open it, you should see your screen divided into four quadrants. I will demonstrate each of these in class, but for now it is enough to know that they display different information and are helpful as you work on code.  
 
@@ -106,9 +106,16 @@ You can use your repository to store all of your notes and work. If you setup Gi
 ## Practice
 Since you will use your GitHub repository for your homework, we need to practice.  
 
-1. Navigate to the `class_files` folder that you downloaded and find the file `dummy_push`. Open this file and save a copy to your working directory using: File>Save As.  Change the name of the file to `dummy_push_*` where the `*` is your last name. You can also remove my name and add yours in the `author:` field at the top of the document.  
-
-2. Once this is finished, `push` this file to your GitHub directory using the instructions above. After a few moments, you should be able to see this file in GitHub.  
+1. Open the `BIS15-W20-DataScienceBiologists` on your desktop.  
+2. Make a new folder in this directory titled by your `first_last` name.  
+3. Navigate to `class_files`.  
+4. Copy the file called `dummy_push`.  
+5. Paste `dummy_push` into your new folder.  
+6. Open `dummy_push` and run the code.  
+7. Add your name under `author` at the top of the page.  
+8. Save this file.  
+9. Knit following class instructions.  
+10. `Commit` and `push` this file to your GitHub directory. After a few moments, you should be able to see this file in GitHub.  
 
 ## GitHub Issues
 We may encounter  issues over the next few weeks with GitHub. These will be caused mostly by user error, but sometimes weird things happen. If you are stuck, get my attention and we will sort things out.  
