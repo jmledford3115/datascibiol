@@ -14,10 +14,43 @@ R is an open source, **scripting** language. RStudio is a GUI (graphical user in
 
 Because R is a scripting language you don't point and click to run commands. Instead, you write instructions that are used by the computer to complete an operation. This makes for excellent repeatability but makes it hard to learn at first because the instructions are specific. R is **not** tolerant of typos, puntuation errors, errant spaces, or other types of mistakes.
 
+## Install the tidyverse
+One strength of R is that there are thousands of add-on packages that perform specialized functions. The packages are referred to as libraries.  
+
+In this class, we will routinely use the library called the **tidyverse**. Libraries need to be installed in order to work, and whenever you update R you also need to update all of the packages that you use. In class, the tidyverse is pre-installed but at home you will need to install the package.  
+```{r}
+#install.packages("tidyverse")
+```
+
+Here is another clever option.  
+```{r}
+#if (!require('tidyverse')) install.packages('tidyverse'); library('tidyverse')
+```
+
+## Call the library
+In order for the tidyverse or any other library to become active, it needs to be `called`.  
+```{r}
+library("tidyverse")
+```
+
 ## RMarkdown
 Annotation of code is very important for programmers of all levels. When code is annotated, it is easy for others to understand and perhaps more importantly, easier for the person who wrote the code to understand when returning to a project days to years later. RMarkdown allows us to embed code in annotated chunks, including display of graphical output. The RMarkdown file can then be exported in a number of formats. If you have questions, the definitive guide is [here](https://bookdown.org/yihui/rmarkdown/).  
 
 I *love* RMarkdown. Spend some time learning to effectively use it for notes and reports.  
+
+## Practice
+RMarkdown is one of many types of documents that can be created in RStudio. It is an extremely helpful way to build code because it will display the code, its output, and any text that you wish to add.  
+
+1. In RStudio, open a new markdown document: **File>New File>R Markdown**  
+2. There is some generic information at the start of the file that we don't need. Delete lines 12 through 31 to clean things up. 3. Insert a new R code chunk by clicking on the green `insert` tab and selecting R. 
+4. Copy and paste the following into the new code chunk.  
+
+```{r}
+ggplot(mtcars, aes(x = factor(cyl))) +
+    geom_bar()
+```
+
+5. Now `knit` the file together using the knit button at the top of the page.  
 
 ## Help
 R is a flexible programming language that is used by scientists worldwide. Thousands of packages are available to perform specific analyses and there is a large community of people willing to help if you have problems.
@@ -72,10 +105,8 @@ treatment <- 36
 control <- 38
 ```
 
-```{r}
-my_experiment <- treatment + control
-my_experiment
-```
+## Practice
+1. Make a new object `my_experiment` that is the sum of the treatment and control.  
 
 ## Nomenclature
 We need to be careful about nomenclature when we write code. R allows us to give almost any name we want to an object, but there are exceptions. For example, we don't want to give a name to an object that is the same as a function in R.
@@ -162,6 +193,11 @@ mean(my_vector)
 Let's remove the NA value.
 ```{r}
 mean(my_vector, na.rm = TRUE)
+```
+
+Another way.  
+```{r}
+my_new_vector <- na.omit(my_vector)
 ```
 
 A convenient trick for creating a vector is to generate a sequence of numbers.

@@ -1583,7 +1583,7 @@ div.tocify {
 <h2>GitHub and Git</h2>
 <p><a href="www.github.com"><strong>GitHub</strong></a> is a file storage and management site used mostly by programmers. Programmers upload code to repositories (folders) and make it publicly available.</p>
 <p><strong>Git</strong> is software that is used for version control. It tracks changes and is especially helpful when multiple people are collaborating on a project; if a mistake is made it can be easily tracked back and retrieved. Both can be integrated with RStudio.</p>
-<p>Most programmers use both <strong>GitHub</strong> and <strong>Git</strong> to manage their projects. However, <strong>Git</strong> is glitchy and hard to work with- especially in a classroom setting. If you want to try and use <strong>Git</strong>, then follow the directions <a href="https://jmledford3115.github.io/datascibiol/setup.html">here</a>.</p>
+<p>Most programmers use both <strong>GitHub</strong> and <strong>Git</strong> to manage their projects. However, <strong>Git</strong> is glitchy and hard to work with- especially in a classroom setting.</p>
 </div>
 <div id="create-a-github-account" class="section level2">
 <h2>Create a GitHub account</h2>
@@ -1605,37 +1605,10 @@ div.tocify {
 <p>Please run the following code to check your current working directory.</p>
 <pre class="r"><code>getwd()</code></pre>
 <pre><code>## [1] &quot;/Users/jmledford/Desktop/datascibiol&quot;</code></pre>
-<p>If you find that you are not in the correct folder, please navigate to it: Session&gt;Set Working Directory&gt;Choose Directory.</p>
+<p>If you find that you are not in the correct folder, please navigate to it: Session&gt;Set Working Directory&gt;Choose Directory. You want to be in the <code>BIS15-W20-DataScienceBiologists</code> folder.</p>
 <p>Re-run the code below to confirm.</p>
 <pre class="r"><code>getwd()</code></pre>
 <pre><code>## [1] &quot;/Users/jmledford/Desktop/datascibiol&quot;</code></pre>
-</div>
-<div id="rmarkdown" class="section level2">
-<h2>RMarkdown</h2>
-<p>RMarkdown is one of many types of documents that can be created in RStudio. It is an extremely helpful way to build code because it will display the code, its output, and any text that you wish to add.</p>
-<p>In RStudio, open a new markdown document: <strong>File&gt;New File&gt;R Markdown</strong></p>
-<p>There is some generic information at the start of the file that we don’t need. Delete lines 12 through 31 to clean things up.</p>
-<p>In this file insert a new R code chunk by clicking on the green <code>insert</code> tab and selecting R.</p>
-<ul>
-<li>The mac shortcut is option + command + i<br />
-</li>
-<li>The PC shortcut is Ctrl + Alt + i.</li>
-</ul>
-<div id="install-the-tidyverse" class="section level3">
-<h3>Install the tidyverse</h3>
-<p>One strength of R is that there are thousands of add-on packages that perform specialized functions. The packages are referred to as libraries.</p>
-<p>In this class, we will routinely use the library called the <strong>tidyverse</strong>. Libraries need to be installed in order to work, and whenever you update R you also need to update all of the packages that you use.</p>
-<pre class="r"><code>if (!require('tidyverse')) install.packages('tidyverse'); library('tidyverse')</code></pre>
-<pre><code>## Loading required package: tidyverse</code></pre>
-<pre><code>## ── Attaching packages ──────────────────────────────────────────────────────────────────────────────────────── tidyverse 1.3.0 ──</code></pre>
-<pre><code>## ✓ ggplot2 3.2.1     ✓ purrr   0.3.3
-## ✓ tibble  2.1.3     ✓ dplyr   0.8.3
-## ✓ tidyr   1.0.0     ✓ stringr 1.4.0
-## ✓ readr   1.3.1     ✓ forcats 0.4.0</code></pre>
-<pre><code>## ── Conflicts ─────────────────────────────────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
-## x dplyr::filter() masks stats::filter()
-## x dplyr::lag()    masks stats::lag()</code></pre>
-</div>
 </div>
 <div id="push-files-to-github" class="section level2">
 <h2>Push files to GitHub</h2>
@@ -1663,12 +1636,9 @@ div.tocify {
 </li>
 <li>Knit following class instructions.<br />
 </li>
-<li><code>Commit</code> and <code>push</code> this file to your GitHub directory. After a few moments, you should be able to see this file in GitHub.</li>
+<li><code>Commit</code> and <code>push</code> this file to your GitHub directory. After a few moments, you should be able to see this file in GitHub.<br />
+## GitHub Issues We may encounter issues over the next few weeks with GitHub. These will be caused mostly by user error, but sometimes weird things happen. If you are stuck, get my attention and we will sort things out.</li>
 </ol>
-</div>
-<div id="github-issues" class="section level2">
-<h2>GitHub Issues</h2>
-<p>We may encounter issues over the next few weeks with GitHub. These will be caused mostly by user error, but sometimes weird things happen. If you are stuck, get my attention and we will sort things out.</p>
 </div>
 <div id="thats-it-lets-take-a-break" class="section level2">
 <h2>That’s it, let’s take a break!</h2>

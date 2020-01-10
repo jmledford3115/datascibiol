@@ -49,7 +49,7 @@ You are welcome to use your own computer, but in order to do so you need to inst
 
 **Git** is software that is used for version control. It tracks changes and is especially helpful when multiple people are collaborating on a project; if a mistake is made it can be easily tracked back and retrieved. Both can be integrated with RStudio.  
 
-Most programmers use both **GitHub** and **Git** to manage their projects. However, **Git** is glitchy and hard to work with- especially in a classroom setting. If you want to try and use **Git**, then follow the directions [here](https://jmledford3115.github.io/datascibiol/setup.html).  
+Most programmers use both **GitHub** and **Git** to manage their projects. However, **Git** is glitchy and hard to work with- especially in a classroom setting.    
 
 ## Create a GitHub account
 Since we will use GitHub as a repository for all assignments, we need to make an account for each student and build a new project through RStudio. Navigate to www.github.com and create a free account. [Email](mailto:jmledford@ucdavis.edu) your username to me. You will receive an email to join the repository for our course.  
@@ -72,32 +72,11 @@ Please run the following code to check your current working directory.
 getwd()
 ```
 
-If you find that you are not in the correct folder, please navigate to it: Session>Set Working Directory>Choose Directory.
+If you find that you are not in the correct folder, please navigate to it: Session>Set Working Directory>Choose Directory. You want to be in the `BIS15-W20-DataScienceBiologists` folder.  
 
 Re-run the code below to confirm.
 ```{r}
 getwd()
-```
-
-## RMarkdown
-RMarkdown is one of many types of documents that can be created in RStudio. It is an extremely helpful way to build code because it will display the code, its output, and any text that you wish to add.  
-
-In RStudio, open a new markdown document: **File>New File>R Markdown**  
-
-There is some generic information at the start of the file that we don't need. Delete lines 12 through 31 to clean things up.  
-
-In this file insert a new R code chunk by clicking on the green `insert` tab and selecting R.  
-
-- The mac shortcut is option + command + i  
-- The PC shortcut is Ctrl + Alt + i.  
-
-### Install the tidyverse
-One strength of R is that there are thousands of add-on packages that perform specialized functions. The packages are referred to as libraries.  
-
-In this class, we will routinely use the library called the **tidyverse**. Libraries need to be installed in order to work, and whenever you update R you also need to update all of the packages that you use.
-
-```{r}
-if (!require('tidyverse')) install.packages('tidyverse'); library('tidyverse')
 ```
 
 ## Push files to GitHub
@@ -116,7 +95,6 @@ Since you will use your GitHub repository for your homework, we need to practice
 8. Save this file.  
 9. Knit following class instructions.  
 10. `Commit` and `push` this file to your GitHub directory. After a few moments, you should be able to see this file in GitHub.  
-
 ## GitHub Issues
 We may encounter  issues over the next few weeks with GitHub. These will be caused mostly by user error, but sometimes weird things happen. If you are stuck, get my attention and we will sort things out.  
 
