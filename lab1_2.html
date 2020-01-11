@@ -1540,6 +1540,15 @@ div.tocify {
 </div>
 
 
+<div id="learning-goals" class="section level2">
+<h2>Learning Goals</h2>
+<p><em>At the end of this exercise, you will be able to:</em><br />
+1. Solve arithmetic operations in R.<br />
+2. Define an object in R; assign values to objects.<br />
+3. Learn best practices in the naming of objects and other R programming conventions.<br />
+4. Learn the differences between the types of data used in R.<br />
+5. Perform simple operations using vectors.</p>
+</div>
 <div id="essential-information-about-r" class="section level2">
 <h2>Essential Information about R</h2>
 <p>R is an open source, <strong>scripting</strong> language. RStudio is a GUI (graphical user interface) that is frequently used to interact with R. You need R installed in order for RStudio to work.</p>
@@ -1555,12 +1564,12 @@ div.tocify {
 <h2>Call the library</h2>
 <p>In order for the tidyverse or any other library to become active, it needs to be <code>called</code>.</p>
 <pre class="r"><code>library(&quot;tidyverse&quot;)</code></pre>
-<pre><code>## ── Attaching packages ─────────────────────────────────────── tidyverse 1.3.0 ──</code></pre>
+<pre><code>## ── Attaching packages ──────────────────────────────────────────────────────────────────────────────────────── tidyverse 1.3.0 ──</code></pre>
 <pre><code>## ✓ ggplot2 3.2.1     ✓ purrr   0.3.3
 ## ✓ tibble  2.1.3     ✓ dplyr   0.8.3
 ## ✓ tidyr   1.0.0     ✓ stringr 1.4.0
 ## ✓ readr   1.3.1     ✓ forcats 0.4.0</code></pre>
-<pre><code>## ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+<pre><code>## ── Conflicts ─────────────────────────────────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
 ## x dplyr::filter() masks stats::filter()
 ## x dplyr::lag()    masks stats::lag()</code></pre>
 </div>
@@ -1591,15 +1600,6 @@ div.tocify {
 <pre class="r"><code>?mean</code></pre>
 <p><a href="https://stackoverflow.com/">Stack Overflow</a> is an extremely helpful resource for R programming type questions. Stack Overflow questions and answers can usually be found by Googling your R related question and including ‘R’ in the search phrase. This technique also works for R error messages. Just be sure to thoroughly look for help before posting questions to Stack Overflow or related forums.</p>
 </div>
-<div id="learning-goals" class="section level2">
-<h2>Learning Goals</h2>
-<p><em>At the end of this exercise, you will be able to:</em><br />
-1. Solve arithmetic operations in R.<br />
-2. Define an object in R; assign values to objects.<br />
-3. Learn best practices in the naming of objects and other R programming conventions.<br />
-4. Learn the differences between the types of data used in R.<br />
-5. Perform simple operations using vectors.</p>
-</div>
 <div id="arithmetic" class="section level2">
 <h2>Arithmetic</h2>
 <p>You can use R as a calculator; just enter the operation into a new code chunk. Order of operations applies and you don’t need to add an ‘=’ sign.</p>
@@ -1616,10 +1616,8 @@ div.tocify {
 <p>In order to access the potential of R we need to assign values or other types of data to <code>objects</code>. There is a specific format that I want you to follow, so please pay close attention.</p>
 <p>Assign a value to object ‘x’. The ‘&lt;-’ symbol is read as ‘gets’. In this case, x gets 42. Make sure that you are in the environment panel and you should see the value associated with ‘x’. On a mac, you can push <code>option</code> and <code>-</code> to automatically generate the gets symbol.</p>
 <pre class="r"><code>x &lt;- 42</code></pre>
-<p>To print the object to the screen, just type x. Alternatively, you can use the print command.</p>
+<p>To print the object to the screen, just type x.</p>
 <pre class="r"><code>x</code></pre>
-<pre><code>## [1] 42</code></pre>
-<pre class="r"><code>print(x)</code></pre>
 <pre><code>## [1] 42</code></pre>
 <p>Once an object has been created, you can do things with them.</p>
 <pre class="r"><code>treatment &lt;- 36
@@ -1630,6 +1628,9 @@ control &lt;- 38</code></pre>
 <ol style="list-style-type: decimal">
 <li>Make a new object <code>my_experiment</code> that is the sum of the treatment and control.</li>
 </ol>
+<pre class="r"><code>my_experiment &lt;- sum(treatment, control)
+my_experiment</code></pre>
+<pre><code>## [1] 74</code></pre>
 </div>
 <div id="nomenclature" class="section level2">
 <h2>Nomenclature</h2>
@@ -1640,10 +1641,22 @@ control &lt;- 38</code></pre>
 <div id="practice-2" class="section level2">
 <h2>Practice</h2>
 <ol style="list-style-type: decimal">
-<li><p>Create three new objects, <code>venom_GT</code>, <code>chiron</code>, and <code>veyron</code>. These are the fastest cars in the world. Assign each car to its top speed. The venom_GT can go 270, chiron is 261, and veyron is 268.</p></li>
-<li><p>Use arithmetic to calculate the mean top speed for the cars.</p></li>
-<li><p>Use the function <code>mean()</code> to calculate the mean top speed for the cars.</p></li>
+<li>Create three new objects, <code>venom_GT</code>, <code>chiron</code>, and <code>veyron</code>. These are the fastest cars in the world. Assign each car to its top speed. The venom_GT can go 270, chiron is 261, and veyron is 268.</li>
 </ol>
+<pre class="r"><code>venom_GT &lt;- 270
+chiron &lt;- 261
+veyron &lt;- 268</code></pre>
+<ol start="2" style="list-style-type: decimal">
+<li>Use arithmetic to calculate the mean top speed for the cars.</li>
+</ol>
+<pre class="r"><code>(270+261+268)/3</code></pre>
+<pre><code>## [1] 266.3333</code></pre>
+<ol start="3" style="list-style-type: decimal">
+<li>Use the function <code>mean()</code> to calculate the mean top speed for the cars.</li>
+</ol>
+<pre class="r"><code>car_speed_vector &lt;- c(270,261,268)
+mean(car_speed_vector)</code></pre>
+<pre><code>## [1] 266.3333</code></pre>
 </div>
 <div id="types-of-data" class="section level2">
 <h2>Types of Data</h2>
@@ -1668,8 +1681,8 @@ my_complex &lt;- 2+4i</code></pre>
 <h2>Missing Data</h2>
 <p>R has a special way to designate missing data, the NA. NA values in R have specific properties which are very useful if your data contains any missing values.</p>
 <p>NA values are used to designate missing data. <code>is.na</code> or <code>anyNA</code> are useful functions when dealing with NAs in data.</p>
-<pre class="r"><code>my_missing &lt;- NA
-is.na(my_missing)</code></pre>
+<pre class="r"><code>my_missing &lt;- NA</code></pre>
+<pre class="r"><code>is.na(my_missing)</code></pre>
 <pre><code>## [1] TRUE</code></pre>
 <pre class="r"><code>anyNA(my_missing)</code></pre>
 <pre><code>## [1] TRUE</code></pre>
@@ -1716,13 +1729,52 @@ my_vector_sequence2</code></pre>
 <h2>Practice</h2>
 <p>Work through these examples and make adjustments to the values to experiment.</p>
 <ol style="list-style-type: decimal">
-<li><p>Create a new numeric vector of values 1 through 100</p></li>
-<li><p>We can evaluate all numerics in our vector to determine which has a value of 15.</p></li>
-<li><p>We can also use operators such as &lt;, &gt;, ==, &lt;==, etc.</p></li>
-<li><p>If you use <code>[]</code> then you only get the values, not the logical evaluation of the entire vector.</p></li>
-<li><p>Using the <code>&amp;</code> symbol allows us to refine our elements of interest.</p></li>
-<li><p>There is a distinction between the <code>&amp;</code> symbol and the <code>|</code> symbol.</p></li>
+<li>Create a new numeric vector of values 1 through 100</li>
 </ol>
+<pre class="r"><code>my_new_vector_sequence &lt;- c(1:100)
+my_new_vector_sequence</code></pre>
+<pre><code>##   [1]   1   2   3   4   5   6   7   8   9  10  11  12  13  14  15  16  17  18
+##  [19]  19  20  21  22  23  24  25  26  27  28  29  30  31  32  33  34  35  36
+##  [37]  37  38  39  40  41  42  43  44  45  46  47  48  49  50  51  52  53  54
+##  [55]  55  56  57  58  59  60  61  62  63  64  65  66  67  68  69  70  71  72
+##  [73]  73  74  75  76  77  78  79  80  81  82  83  84  85  86  87  88  89  90
+##  [91]  91  92  93  94  95  96  97  98  99 100</code></pre>
+<ol start="2" style="list-style-type: decimal">
+<li>We can evaluate all numerics in our vector to determine which has a value of 15.</li>
+</ol>
+<pre class="r"><code>my_new_vector_sequence==15</code></pre>
+<pre><code>##   [1] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+##  [13] FALSE FALSE  TRUE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+##  [25] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+##  [37] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+##  [49] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+##  [61] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+##  [73] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+##  [85] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+##  [97] FALSE FALSE FALSE FALSE</code></pre>
+<ol start="3" style="list-style-type: decimal">
+<li>We can also use operators such as &lt;, &gt;, ==, &lt;==, etc. Which values are less than or equal to 15?</li>
+</ol>
+<pre class="r"><code>my_new_vector_sequence&lt;=15</code></pre>
+<pre><code>##   [1]  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE
+##  [13]  TRUE  TRUE  TRUE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+##  [25] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+##  [37] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+##  [49] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+##  [61] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+##  [73] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+##  [85] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+##  [97] FALSE FALSE FALSE FALSE</code></pre>
+<ol start="4" style="list-style-type: decimal">
+<li>If you use <code>[]</code> then you only get the values, not the logical evaluation of the entire vector.</li>
+</ol>
+<pre class="r"><code>my_new_vector_sequence[my_new_vector_sequence&lt;=15]</code></pre>
+<pre><code>##  [1]  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15</code></pre>
+<ol start="5" style="list-style-type: decimal">
+<li>Using the <code>&amp;</code> symbol allows us to refine our elements of interest.</li>
+</ol>
+<pre class="r"><code>my_new_vector_sequence[my_new_vector_sequence &lt;= 15 &amp; my_new_vector_sequence &gt;= 1]</code></pre>
+<pre><code>##  [1]  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15</code></pre>
 </div>
 <div id="wrap-up" class="section level2">
 <h2>Wrap-up</h2>

@@ -45,7 +45,7 @@ This first lab is tedious, so please be patient. It is important that everyone i
 You are welcome to use your own computer, but in order to do so you need to install R, RStudio, and GitHub Desktop. If you would like to set-up your own computer, please follow the directions [here](https://jmledford3115.github.io/datascibiol/setup.html). If you are unsure about troubleshooting your own computer, **please** use the lab computers.  
 
 ## GitHub
-[**GitHub**](www.github.com) is a file storage and management site used mostly by programmers. Programmers upload code to repositories (folders) and make it publicly available.  
+[**GitHub**](www.github.com) is a file storage and management site used mostly by programmers. Programmers upload code to repositories (folders) and make it publicly available. We will use Github to store our work in BIS 15.  
 
 ## Create a GitHub account
 Since we will use GitHub as a repository for all assignments, we need to make an account for each student and build a new project through RStudio. Navigate to www.github.com and create a free account. [Email](mailto:jmledford@ucdavis.edu) your username to me. You will receive an email to join the repository for our course.  
@@ -55,20 +55,20 @@ I have made a repository for our class titled: [BIS15-W20-DataScienceBiologists]
 ## Make Your Own Repository  
 1. Go to [GitHub](www.github.com) and login.  
 2. Create a new repository.  
-3. Under repository name title it "BIS15W2020_your first initial and lastname. Mine would look like this: BIS15W2020_jledford  
+3. Under repository name title it `BIS15W2020_your first initial and lastname`. Mine would look like this: BIS15W2020_jledford  
 4. Default settings are fine, but do click "Initialize this repository with a README"  
 5. Once the repository is made, click on settings in the top right  
-6. On left toolbar click "Collaborators"  
+6. On the left toolbar click "Collaborators"  
 7. Add "rlgodwin28" and "jmledford3115" as collaborators.  
 
 ## GitHub Desktop
 The easiest way to manage your GitHub repositories is to use [GitHub desktop](https://desktop.github.com/). This is a  helpful tool that will allow you to manage all of your files. Highly recommended! Once installed, open the program and login using your GitHub account.  
 
 ## Clone `BIS15-W20-DataScienceBiologists`
-In our class GitHub, you will see a directory called `BIS15-W20-DataScienceBiologists`. From within GitHub Desktop, clone this folder to your desktop. Also clone your new personal repository. At the start of each class you will need to repeat this process.  
+In our class GitHub, you will see a directory called `BIS15-W20-DataScienceBiologists`. From within GitHub Desktop, clone this folder to your desktop. Also clone your new personal repository `BIS15W2020_your first initial and lastname`. At the start of each class you will need to repeat this process.  
 
 ## RStudio
-Inside the `BIS15-W20-DataScienceBiologists` folder you will see a folder called `class files`. Within this there is a file titled `lab1_1.Rmd`. Open this file by double clicking and you should now be in RStudio.  
+Inside the `BIS15-W20-DataScienceBiologists` folder you will see a folder called `class files`. Within this there are several files. Copy and paste all of these files into your personal repository `BIS15W2020_your first initial and lastname`.  
 
 RStudio is an interactive working environment for R. When you first open it, you should see your screen divided into four quadrants. I will demonstrate each of these in class, but for now it is enough to know that they display different information and are helpful as you work on code.  
 
@@ -77,7 +77,7 @@ Please run the following code to check your current working directory.
 getwd()
 ```
 
-If you find that you are not in the correct folder, please navigate to it: Session>Set Working Directory>Choose Directory. You want to be in the `BIS15-W20-DataScienceBiologists` folder.  
+If you find that you are not in the correct folder, please navigate to it: Session>Set Working Directory>Choose Directory. You want to be in your personal repository `BIS15W2020_your first initial and lastname`.   
 
 Re-run the code below to confirm.
 ```{r}

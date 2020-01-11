@@ -9,6 +9,14 @@ output:
     toc_float: yes
 ---
 
+## Learning Goals  
+*At the end of this exercise, you will be able to:*    
+1. Solve arithmetic operations in R.  
+2. Define an object in R; assign values to objects.  
+3. Learn best practices in the naming of objects and other R programming conventions.  
+4. Learn the differences between the types of data used in R.  
+5. Perform simple operations using vectors.  
+
 ## Essential Information about R
 R is an open source, **scripting** language. RStudio is a GUI (graphical user interface) that is frequently used to interact with R. You need R installed in order for RStudio to work.
 
@@ -55,14 +63,6 @@ Adding a '?' before a command will bring up the associated help document.
 
 [Stack Overflow][so] is an extremely helpful resource for R programming type questions. Stack Overflow questions and answers can usually be found by Googling your R related question and including 'R' in the search phrase. This technique also works for R error messages. Just be sure to thoroughly look for help before posting questions to Stack Overflow or related forums. 
 
-## Learning Goals
-*At the end of this exercise, you will be able to:*    
-1. Solve arithmetic operations in R.  
-2. Define an object in R; assign values to objects.  
-3. Learn best practices in the naming of objects and other R programming conventions.  
-4. Learn the differences between the types of data used in R.  
-5. Perform simple operations using vectors.  
-
 ## Arithmetic
 You can use R as a calculator; just enter the operation into a new code chunk. Order of operations applies and you don't need to add an '=' sign.
 ```{r}
@@ -86,10 +86,9 @@ Assign a value to object 'x'. The '<-' symbol is read as 'gets'. In this case, x
 x <- 42
 ```
 
-To print the object to the screen, just type x. Alternatively, you can use the print command.
+To print the object to the screen, just type x.
 ```{r}
 x
-print(x)
 ```
 
 Once an object has been created, you can do things with them.
@@ -101,9 +100,13 @@ control <- 38
 ## Practice
 1. Make a new object `my_experiment` that is the sum of the treatment and control.  
 
-## Nomenclature
-We need to be careful about nomenclature when we write code. R allows us to give almost any name we want to an object, but there are exceptions. For example, we don't want to give a name to an object that is the same as a function in R.
+```{r}
+my_experiment <- sum(treatment, control)
+my_experiment
+```
 
+## Nomenclature
+We need to be careful about nomenclature when we write code. R allows us to give almost any name we want to an object, but there are exceptions. For example, we don't want to give a name to an object that is the same as a function in R.  
 ```{r eval=FALSE, include=TRUE}
 else <- 12
 ```
@@ -112,10 +115,22 @@ We get an error here because `else` is a function in R. You also don't want to g
 
 ## Practice
 1. Create three new objects, `venom_GT`, `chiron`, and `veyron`. These are the fastest cars in the world. Assign each car to its top speed. The venom_GT can go 270, chiron is 261, and veyron is 268.
+```{r}
+venom_GT <- 270
+chiron <- 261
+veyron <- 268
+```
 
 2. Use arithmetic to calculate the mean top speed for the cars.
+```{r}
+(270+261+268)/3
+```
 
 3. Use the function `mean()` to calculate the mean top speed for the cars.
+```{r}
+car_speed_vector <- c(270,261,268)
+mean(car_speed_vector)
+```
 
 ## Types of Data
 There are five frequently used `classes` of data: 1. numeric, 2. integer, 3. character, 4. logical, 5. complex.
@@ -152,7 +167,13 @@ R has a special way to designate missing data, the NA. NA values in R have speci
 NA values are used to designate missing data. `is.na` or `anyNA` are useful functions when dealing with NAs in data. 
 ```{r}
 my_missing <- NA
+```
+
+```{r}
 is.na(my_missing)
+```
+
+```{r}
 anyNA(my_missing)
 ```
 
@@ -167,12 +188,12 @@ A numeric vector.
 my_vector <- c(10, 20, 30)
 ```
 
-We can make character vectors as well.
+We can make character vectors as well.  
 ```{r}
 days_of_the_week <- c("Monday", "Tuesday", "Wednesday", "Thrusday", "Friday", "Saturday", "Sunday")
 ```
 
-What if our numeric vector above had a missing value?
+What if our numeric vector above had a missing value?  
 ```{r}
 my_vector <- c(10, NA, 30)
 anyNA(my_vector)
@@ -215,22 +236,30 @@ days_of_the_week[3]
 Work through these examples and make adjustments to the values to experiment.
 
 1. Create a new numeric vector of values 1 through 100
-
+```{r}
+my_new_vector_sequence <- c(1:100)
+my_new_vector_sequence
+```
 
 2. We can evaluate all numerics in our vector to determine which has a value of 15.
+```{r}
+my_new_vector_sequence==15
+```
 
-
-3. We can also use operators such as <, >, ==, <==, etc.
-
+3. We can also use operators such as <, >, ==, <==, etc. Which values are less than or equal to 15?  
+```{r}
+my_new_vector_sequence<=15
+```
 
 4. If you use `[]` then you only get the values, not the logical evaluation of the entire vector.
-
+```{r}
+my_new_vector_sequence[my_new_vector_sequence<=15]
+```
 
 5. Using the `&` symbol allows us to refine our elements of interest.
-
-
-6. There is a distinction between the `&` symbol and the `|` symbol.
-
+```{r}
+my_new_vector_sequence[my_new_vector_sequence <= 15 & my_new_vector_sequence >= 1]
+```
 
 ## Wrap-up
 Please review the learning goals and be sure to use the code here as a reference when completing the homework.  
