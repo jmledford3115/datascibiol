@@ -34,6 +34,9 @@ Our campus has a wealth of expertise in data science, from working groups to ful
 - [Data Science Initiative, UC Davis](http://dsi.ucdavis.edu/)  
 - [Davis R Users Group](http://d-rug.github.io/) 
 
+## Help!  
+When you need help with homework or a class topic, please visit and post on our [class discussion board](https://piazza.com/uc_davis/winter2020/bis015l/home#) first. We are here to support you and everyone should participate, please. You can even post anonymously!  
+
 ## Lab 1
 The goal of lab 1 is to get everyone started using R, Rstudio, and GitHub. All of our work will be done in RStudio and uploaded to the class GitHub repository.  
 
