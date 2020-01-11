@@ -1564,12 +1564,12 @@ div.tocify {
 <h2>Call the library</h2>
 <p>In order for the tidyverse or any other library to become active, it needs to be <code>called</code>.</p>
 <pre class="r"><code>library(&quot;tidyverse&quot;)</code></pre>
-<pre><code>## ── Attaching packages ──────────────────────────────────────────────────────────────────────────────────────── tidyverse 1.3.0 ──</code></pre>
+<pre><code>## ── Attaching packages ──────────────────────────────────────────────────────────────────── tidyverse 1.3.0 ──</code></pre>
 <pre><code>## ✓ ggplot2 3.2.1     ✓ purrr   0.3.3
 ## ✓ tibble  2.1.3     ✓ dplyr   0.8.3
 ## ✓ tidyr   1.0.0     ✓ stringr 1.4.0
 ## ✓ readr   1.3.1     ✓ forcats 0.4.0</code></pre>
-<pre><code>## ── Conflicts ─────────────────────────────────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
+<pre><code>## ── Conflicts ─────────────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
 ## x dplyr::filter() masks stats::filter()
 ## x dplyr::lag()    masks stats::lag()</code></pre>
 </div>
@@ -1709,7 +1709,13 @@ anyNA(my_vector)</code></pre>
 <pre class="r"><code>mean(my_vector, na.rm = TRUE)</code></pre>
 <pre><code>## [1] 20</code></pre>
 <p>Another way.</p>
-<pre class="r"><code>my_new_vector &lt;- na.omit(my_vector)</code></pre>
+<pre class="r"><code>my_new_vector &lt;- na.omit(my_vector)
+my_new_vector</code></pre>
+<pre><code>## [1] 10 30
+## attr(,&quot;na.action&quot;)
+## [1] 2
+## attr(,&quot;class&quot;)
+## [1] &quot;omit&quot;</code></pre>
 <p>A convenient trick for creating a vector is to generate a sequence of numbers.</p>
 <pre class="r"><code>my_vector_sequence &lt;- c(1:10)
 my_vector_sequence</code></pre>

@@ -212,6 +212,7 @@ mean(my_vector, na.rm = TRUE)
 Another way.  
 ```{r}
 my_new_vector <- na.omit(my_vector)
+my_new_vector
 ```
 
 A convenient trick for creating a vector is to generate a sequence of numbers.
