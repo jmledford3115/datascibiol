@@ -1550,26 +1550,23 @@ div.tocify {
 <p>One strength of R is that there are thousands of add-on packages that perform specialized functions. The packages are referred to as libraries.</p>
 <p>In this class, we will routinely use the library called the <strong>tidyverse</strong>. Libraries need to be installed in order to work, and whenever you update R you also need to update all of the packages that you use. In class, the tidyverse is pre-installed but at home you will need to install the package.</p>
 <pre class="r"><code>#install.packages(&quot;tidyverse&quot;)</code></pre>
-<p>Here is another clever option.</p>
-<pre class="r"><code>#if (!require('tidyverse')) install.packages('tidyverse'); library('tidyverse')</code></pre>
 </div>
 <div id="call-the-library" class="section level2">
 <h2>Call the library</h2>
 <p>In order for the tidyverse or any other library to become active, it needs to be <code>called</code>.</p>
 <pre class="r"><code>library(&quot;tidyverse&quot;)</code></pre>
-<pre><code>## ── Attaching packages ──────────────────────────────────────────────────────────────────────────────────────── tidyverse 1.3.0 ──</code></pre>
+<pre><code>## ── Attaching packages ─────────────────────────────────────── tidyverse 1.3.0 ──</code></pre>
 <pre><code>## ✓ ggplot2 3.2.1     ✓ purrr   0.3.3
 ## ✓ tibble  2.1.3     ✓ dplyr   0.8.3
 ## ✓ tidyr   1.0.0     ✓ stringr 1.4.0
 ## ✓ readr   1.3.1     ✓ forcats 0.4.0</code></pre>
-<pre><code>## ── Conflicts ─────────────────────────────────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
+<pre><code>## ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
 ## x dplyr::filter() masks stats::filter()
 ## x dplyr::lag()    masks stats::lag()</code></pre>
 </div>
 <div id="rmarkdown" class="section level2">
 <h2>RMarkdown</h2>
 <p>Annotation of code is very important for programmers of all levels. When code is annotated, it is easy for others to understand and perhaps more importantly, easier for the person who wrote the code to understand when returning to a project days to years later. RMarkdown allows us to embed code in annotated chunks, including display of graphical output. The RMarkdown file can then be exported in a number of formats. If you have questions, the definitive guide is <a href="https://bookdown.org/yihui/rmarkdown/">here</a>.</p>
-<p>I <em>love</em> RMarkdown. Spend some time learning to effectively use it for notes and reports.</p>
 </div>
 <div id="practice" class="section level2">
 <h2>Practice</h2>

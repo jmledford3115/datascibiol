@@ -22,11 +22,6 @@ In this class, we will routinely use the library called the **tidyverse**. Libra
 #install.packages("tidyverse")
 ```
 
-Here is another clever option.  
-```{r}
-#if (!require('tidyverse')) install.packages('tidyverse'); library('tidyverse')
-```
-
 ## Call the library
 In order for the tidyverse or any other library to become active, it needs to be `called`.  
 ```{r}
@@ -35,8 +30,6 @@ library("tidyverse")
 
 ## RMarkdown
 Annotation of code is very important for programmers of all levels. When code is annotated, it is easy for others to understand and perhaps more importantly, easier for the person who wrote the code to understand when returning to a project days to years later. RMarkdown allows us to embed code in annotated chunks, including display of graphical output. The RMarkdown file can then be exported in a number of formats. If you have questions, the definitive guide is [here](https://bookdown.org/yihui/rmarkdown/).  
-
-I *love* RMarkdown. Spend some time learning to effectively use it for notes and reports.  
 
 ## Practice
 RMarkdown is one of many types of documents that can be created in RStudio. It is an extremely helpful way to build code because it will display the code, its output, and any text that you wish to add.  
