@@ -44,23 +44,28 @@ This first lab is tedious, so please be patient. It is important that everyone i
 ## Setup your own computer
 You are welcome to use your own computer, but in order to do so you need to install R, RStudio, and GitHub Desktop. If you would like to set-up your own computer, please follow the directions [here](https://jmledford3115.github.io/datascibiol/setup.html). If you are unsure about troubleshooting your own computer, **please** use the lab computers.  
 
-## GitHub and Git
+## GitHub
 [**GitHub**](www.github.com) is a file storage and management site used mostly by programmers. Programmers upload code to repositories (folders) and make it publicly available.  
-
-**Git** is software that is used for version control. It tracks changes and is especially helpful when multiple people are collaborating on a project; if a mistake is made it can be easily tracked back and retrieved. Both can be integrated with RStudio.  
-
-Most programmers use both **GitHub** and **Git** to manage their projects. However, **Git** is glitchy and hard to work with- especially in a classroom setting.    
 
 ## Create a GitHub account
 Since we will use GitHub as a repository for all assignments, we need to make an account for each student and build a new project through RStudio. Navigate to www.github.com and create a free account. [Email](mailto:jmledford@ucdavis.edu) your username to me. You will receive an email to join the repository for our course.  
 
-I have made a repository for our class titled: [BIS15-W20-DataScienceBiologists](https://github.com/FRS417-DataScienceBiologists). Once you have accepted the invitation to join the repository, you should be able to login to GitHub and see this organization or click on the link above. This where you will upload all of your work during the quarter.  
+I have made a repository for our class titled: [BIS15-W20-DataScienceBiologists](https://github.com/FRS417-DataScienceBiologists). Once you have accepted the invitation to join the repository, you should be able to login to GitHub and see this organization or click on the link above.  
+
+## Make Your Own Repository  
+1. Go to [GitHub](www.github.com) and login.  
+2. Create a new repository.  
+3. Under repository name title it "BIS15W2020_your first initial and lastname. Mine would look like this: BIS15W2020_jledford  
+4. Default settings are fine, but do click "Initialize this repository with a README"  
+5. Once the repository is made, click on settings in the top right  
+6. On left toolbar click "Collaborators"  
+7. Add "rlgodwin28" and "jmledford3115" as collaborators.  
 
 ## GitHub Desktop
 The easiest way to manage your GitHub repositories is to use [GitHub desktop](https://desktop.github.com/). This is a  helpful tool that will allow you to manage all of your files. Highly recommended! Once installed, open the program and login using your GitHub account.  
 
 ## Clone `BIS15-W20-DataScienceBiologists`
-In our class GitHub, you will see a directory called `BIS15-W20-DataScienceBiologists`. From within GitHub Desktop, clone this folder to your desktop. At the start of each class you will need to repeat this process.  
+In our class GitHub, you will see a directory called `BIS15-W20-DataScienceBiologists`. From within GitHub Desktop, clone this folder to your desktop. Also clone your new personal repository. At the start of each class you will need to repeat this process.  
 
 ## RStudio
 Inside the `BIS15-W20-DataScienceBiologists` folder you will see a folder called `class files`. Within this there is a file titled `lab1_1.Rmd`. Open this file by double clicking and you should now be in RStudio.  
@@ -85,16 +90,16 @@ You can use your repository to store all of your notes and work. If you setup Gi
 ## Practice
 Since you will use your GitHub repository for your homework, we need to practice.  
 
-1. Open the `BIS15-W20-DataScienceBiologists` on your desktop.  
-2. Make a new folder in this directory titled by your `first_last` name.  
-3. Navigate to `class_files`.  
-4. Copy the file called `dummy_push`.  
-5. Paste `dummy_push` into your new folder.  
-6. Open `dummy_push` and run the code.  
-7. Add your name under `author` at the top of the page.  
+1. Navigate to the `BIS15-W20-DataScienceBiologists` folder on your computer.  
+2. Open the folder called `class_files`.  
+3. Copy all of the files in this folder.  
+4. Paste the files into **your** repository.  
+5. Open `dummy_push` in your repository and run the code.  
+6. Add your name under `author` at the top of the page.  
 8. Save this file.  
 9. Knit following class instructions.  
-10. `Commit` and `push` this file to your GitHub directory. After a few moments, you should be able to see this file in GitHub.  
+10. Use GitHub Desktop to first `Commit` and then `push` to your GitHub repository.    
+
 ## GitHub Issues
 We may encounter  issues over the next few weeks with GitHub. These will be caused mostly by user error, but sometimes weird things happen. If you are stuck, get my attention and we will sort things out.  
 
