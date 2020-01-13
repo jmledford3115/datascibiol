@@ -94,9 +94,17 @@ all_harry_potter_matrix
 ```
 
 ## Practice
-1. What are the total earnings for each of the movies?  
+1. What are the total earnings for each of the movies?
+```{r}
+total_earnings <- colSums(all_harry_potter_matrix)
+total_earnings
+```
 
 2. Add this information to the data matrix. Hint: you are adding a row, not a column.  
+```{r}
+all_harry_potter_matrix <- rbind(all_harry_potter_matrix, total_earnings)
+all_harry_potter_matrix
+```
 
 ## Select elements in a data matrix
 The same methods of selecting elements in a vector apply to data matrices. We use `[]`. The following selects the value in the first column, second row.
@@ -128,8 +136,12 @@ spring_7 <- c(32.90, 32.50, 32.80)
 spring_8 <- c(36.80, 36.45, 33.15)
 ```
 
-1. Build a data matrix that has the springs as rows and the columns as scientists.  
-
+1. Build a data matrix that has the springs as rows and the columns as scientists.
+```{r}
+springs <- c(spring_1, spring_2, spring_3, spring_4, spring_5, spring_6, spring_7, spring_8)
+springs_matrix <- matrix(springs, nrow=8, byrow = T)
+springs_matrix
+```
 
 Let's name the rows and columns. Start by making two new vectors with the names.
 ```{r}
@@ -137,16 +149,24 @@ scientists <- c("Jill", "Steve", "Susan")
 springs <- c("Bluebell Spring", "Opal Spring", "Riverside Spring", "Too Hot Spring", "Mystery Spring", "Emerald Spring", "Black Spring", "Pearl Spring")
 ```
 
-2. Use `colnames()` and `rownames()` to name the columns and rows.  
+2. Use `colnames()` and `rownames()` to name the columns and rows.
+```{r}
+colnames(springs_matrix) <- scientists
+rownames(springs_matrix) <- springs
+springs_matrix
+```
 
 Calculate the mean temperature of all three springs. Notice the command `rowMeans`.
 ```{r}
-#mean_vector <- rowMeans(springs_matrix)
-#mean_vector
+mean_vector <- rowMeans(springs_matrix)
+mean_vector
 ```
 
-3. Add `mean_vector` as a new column.  
-
+3. Add `mean_vector` as a new column.
+```{r}
+springs_matrix2 <- cbind(springs_matrix, mean_vector)
+springs_matrix2
+```
 
 ## That's it, let's take a break!   
 

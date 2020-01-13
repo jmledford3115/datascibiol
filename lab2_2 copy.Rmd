@@ -120,21 +120,39 @@ name <- c("Jill","Susan", "Steve", "Jill","Susan", "Steve", "Jill","Susan", "Ste
 spring <- c("Buckeye", "Buckeye", "Buckeye", "Benton", "Benton", "Benton", "Travertine", "Travertine", "Travertine")
 ```
 
-1. Build a data frame called `hsprings` with the above data. Name the temperature column `temp_C`. Print out the data frame.  
+1. Build a data frame called `hsprings` with the above data. Name the temperature column `temp_C`. Print out the data frame. 
+```{r}
+hsprings <- data.frame(temp_C = temp, name, spring)
+hsprings
+```
 
-2. Change the column titled `name` to `scientist`, leave the other column names the same. Print out the data frame names.  
+2. Change the column titled `name` to `scientist`, leave the other column names the same. Print out the data frame names.
+```{r}
+names(hsprings)[2] <- c("scientist")
+hsprings
+```
 
 3. Our scientists forgot to record the depth data for each spring. Here it is as a vector, add it as a new column called depth_ft: `c(4.15, 4.13, 4.12, 3.21, 3.23, 3.20, 5.67, 5.65, 5.66)`. Print out the data frame.
-
+```{r}
+hsprings$depth_ft <- c(4.15, 4.13, 4.12, 3.21, 3.23, 3.20, 5.67, 5.65, 5.66)
+hsprings
+```
 
 4. Calculate the mean temperature of all of the temperature measurements.
+```{r}
+mean(hsprings$temp_C)
+```
 
-
-5. What is the class of the scientist column? Use the `levels()` command to see all the unique levels.  
-
+5. What is the class of the scientist column? Use an R command to see all the unique levels.
+```{r}
+class(hsprings$scientist)
+levels(hsprings$scientist)
+```
 
 6. Save your hot springs data as a csv file! Do not allow row names. 
-
+```{r}
+write.csv(hsprings, "hsprings_data.csv", row.names = FALSE)
+```
 
 ## That's it, let's take a break!   
 
