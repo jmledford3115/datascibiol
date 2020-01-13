@@ -136,6 +136,7 @@ spring <- c("Buckeye", "Buckeye", "Buckeye", "Benton", "Benton", "Benton", "Trav
 6. Save your hot springs data as a csv file! Do not allow row names. 
 
 
-## That's it, let's take a break!   
+## Wrap-up
+Please review the learning goals and be sure to use the code here as a reference when completing the homework.  
 
---> On to [part 2](https://jmledford3115.github.io/datascibiol/lab2_2.html)  
+-->[Home](https://jmledford3115.github.io/datascibiol/)
