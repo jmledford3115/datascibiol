@@ -11,6 +11,11 @@ output:
     toc: yes
 ---
 
+## Load tidyverse
+```{r}
+library("tidyverse")
+```
+
 ## Learning Goals
 *At the end of this exercise, you will be able to:*    
 1. Combine a series of vectors into a data frame.  
@@ -77,6 +82,12 @@ We can also summarize our entire data frame with the`summary()` function.
 summary(hbirds)
 ```
 
+## Glimpse
+`glimpse()` is another useful summary function.
+```{r}
+glimpse(hbirds)
+```
+
 ## Adding Rows
 We can add a new bird's data with the `rbind()` function, known as row bind. It will bind our new vector to our data frame row-wise.
 ```{r}
@@ -101,9 +112,15 @@ Great, we added our new column, but it's a character and not a factor. A factor 
 ```{r}
 class(hbirds$neighborhood)
 hbirds$neighborhood <- as.factor(hbirds$neighborhood)
+```
+
+```{r}
 class(hbirds$neighborhood)
+```
+
+`levels()` will give you a list of the different levels within a factor.  
+```{r}
 levels(hbirds$neighborhood)
-hbirds
 ```
 
 ## Writing Data to File

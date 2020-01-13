@@ -1540,6 +1540,18 @@ div.tocify {
 </div>
 
 
+<div id="load-tidyverse" class="section level2">
+<h2>Load tidyverse</h2>
+<pre class="r"><code>library(&quot;tidyverse&quot;)</code></pre>
+<pre><code>## ── Attaching packages ─────────────────────────────────────── tidyverse 1.3.0 ──</code></pre>
+<pre><code>## ✓ ggplot2 3.2.1     ✓ purrr   0.3.3
+## ✓ tibble  2.1.3     ✓ dplyr   0.8.3
+## ✓ tidyr   1.0.0     ✓ stringr 1.4.0
+## ✓ readr   1.3.1     ✓ forcats 0.4.0</code></pre>
+<pre><code>## ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+## x dplyr::filter() masks stats::filter()
+## x dplyr::lag()    masks stats::lag()</code></pre>
+</div>
 <div id="learning-goals" class="section level2">
 <h2>Learning Goals</h2>
 <p><em>At the end of this exercise, you will be able to:</em><br />
@@ -1604,6 +1616,16 @@ mean(w)</code></pre>
 ##             3rd Qu.:3.550   3rd Qu.:3.550  
 ##             Max.   :3.700   Max.   :4.000</code></pre>
 </div>
+<div id="glimpse" class="section level2">
+<h2>Glimpse</h2>
+<p><code>glimpse()</code> is another useful summary function.</p>
+<pre class="r"><code>glimpse(hbirds)</code></pre>
+<pre><code>## Observations: 3
+## Variables: 3
+## $ sex       &lt;fct&gt; Male, Female, Male
+## $ length_in &lt;dbl&gt; 3.2, 3.7, 3.4
+## $ weight_oz &lt;dbl&gt; 2.9, 4.0, 3.1</code></pre>
+</div>
 <div id="adding-rows" class="section level2">
 <h2>Adding Rows</h2>
 <p>We can add a new bird’s data with the <code>rbind()</code> function, known as row bind. It will bind our new vector to our data frame row-wise.</p>
@@ -1634,17 +1656,12 @@ hbirds</code></pre>
 <p>Great, we added our new column, but it’s a character and not a factor. A factor is a special type of character vector with predefined levels.</p>
 <pre class="r"><code>class(hbirds$neighborhood)</code></pre>
 <pre><code>## [1] &quot;character&quot;</code></pre>
-<pre class="r"><code>hbirds$neighborhood &lt;- as.factor(hbirds$neighborhood)
-class(hbirds$neighborhood)</code></pre>
+<pre class="r"><code>hbirds$neighborhood &lt;- as.factor(hbirds$neighborhood)</code></pre>
+<pre class="r"><code>class(hbirds$neighborhood)</code></pre>
 <pre><code>## [1] &quot;factor&quot;</code></pre>
+<p><code>levels()</code> will give you a list of the different levels within a factor.</p>
 <pre class="r"><code>levels(hbirds$neighborhood)</code></pre>
 <pre><code>## [1] &quot;Brentwood&quot;      &quot;Lakewood&quot;       &quot;Scenic Heights&quot;</code></pre>
-<pre class="r"><code>hbirds</code></pre>
-<pre><code>##      sex length_in weight_oz   neighborhood
-## 1   Male       3.2       2.9       Lakewood
-## 2 Female       3.7         4      Brentwood
-## 3   Male       3.4       3.1       Lakewood
-## 4 Female       3.6       3.9 Scenic Heights</code></pre>
 </div>
 <div id="writing-data-to-file" class="section level2">
 <h2>Writing Data to File</h2>
