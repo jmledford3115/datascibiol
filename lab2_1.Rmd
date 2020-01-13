@@ -129,6 +129,9 @@ spring_8 <- c(36.80, 36.45, 33.15)
 ```
 
 1. Build a data matrix that has the springs as rows and the columns as scientists.  
+```{r}
+
+```
 
 
 Let's name the rows and columns. Start by making two new vectors with the names.
@@ -138,6 +141,9 @@ springs <- c("Bluebell Spring", "Opal Spring", "Riverside Spring", "Too Hot Spri
 ```
 
 2. Use `colnames()` and `rownames()` to name the columns and rows.  
+```{r}
+
+```
 
 Calculate the mean temperature of all three springs. Notice the command `rowMeans`.
 ```{r}
@@ -146,6 +152,9 @@ Calculate the mean temperature of all three springs. Notice the command `rowMean
 ```
 
 3. Add `mean_vector` as a new column.  
+```{r}
+
+```
 
 
 ## That's it, let's take a break!   
