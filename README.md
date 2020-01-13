@@ -28,6 +28,9 @@ We have eight total labs. The last two labs (9 and 10) will be devoted to gettin
 ## Reading  
 [R for Data Science](https://r4ds.had.co.nz/), Grolemund and Wickham (2017).  
 
+## Setup Your Computer  
+Easy [setup instructions](https://jmledford3115.github.io/datascibiol/setup.html) for your personal computer.  
+
 ## Course Learning Goals  
 *At the end of this course, you will be able to:*  
 
