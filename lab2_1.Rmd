@@ -28,6 +28,9 @@ At the beginning of each class, please make sure that you complete the following
 6. Copy the files for today's lab from the class repository and paste them into your repository.  
 7. Open today's lab in RStudio.
 
+## Class Discussion Page  
++ [BIS15 Piazza](https://piazza.com/uc_davis/winter2020/bis015l/home)  
+
 ## Homework 1 Review  
 Let's take a few minutes to compare solutions with your lab  partner. You should be especially mindful of alternate solutions; generally, the code that is the shortest in terms of lines is best. Make sure that your code is knitted and in your Github repository, please.  
 
