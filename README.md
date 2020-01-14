@@ -1,5 +1,5 @@
 ## Welcome!
-This is the course page for BIS 015, **Introduction to Data Science for Biologists** at UC Davis.
+This is the course page for BIS 015L, **Introduction to Data Science for Biologists** at UC Davis.
 
 ## Class Times and Contact Information
 + Fridays, 2:10-4:00p, 2102 SCC
@@ -10,7 +10,7 @@ This is the course page for BIS 015, **Introduction to Data Science for Biologis
 + [Rebecca Godwin](mailto:rgodwin@ucdavis.edu)  
 
 ## Class Discussion Page  
-+ [BIS15 Piazza](https://piazza.com/uc_davis/winter2020/bis015l/home)  
++ [BIS15L Piazza](https://piazza.com/uc_davis/winter2020/bis015l/home)  
 
 ## Course Summary  
 In BIS 015, you will be introduced to the fundamentals of data science with emphasis on data frequently used by biologists. We will use the R software environment to develop and practice key skills including data management, transformation, analysis, and visualization. Practical examples will span a range of disciplines including social science, ecology, evolution, and genetics. Labs will use a problem-solving approach where students build on previously learned skills culminating in a small, group-based project presented at the end of the quarter. 
