@@ -1,0 +1,74 @@
+---
+title: "Lab 2: Data Matrices & Data Frames"
+author: "Joel Ledford"
+date: "Winter 2020"
+output: ioslides_presentation
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+library("jpeg")
+```
+
+## Setup
+1. Login to the lab computer.  
+2. Open Github Desktop (it should be pre-installed) and login.  
+3. Clone your repository to the desktop or somewhere convenient to access.  
+4. Navigate to github.com and login.  
+5. Go to the class repository `BIS15-W20-DataScienceBiologists`, click the `Clone or download` button then `Download zip` to the desktop.  
+6. Copy the files for today's lab from the class repository and paste them into **your** repository.  
+7. Open today's lab in RStudio.  
+
+## Homework
+- Take 5 minutes or so to double check that your homework is complete and uploaded.
+- Suggestion: have a lab partner have a look at your repository. 
+- Have a look at Lily's solution.  
+```{r}
+blackjack <- c(140, -20, 70, -120, 240, NA, NA)
+roulette <- c(60, 50, 120, -300, 10, NA, NA)
+days <- c("M", "Tu","W","Th","F","S","Su")
+names(blackjack) <- days
+names(roulette) <- days
+days <- c("M", "Tu","W","Th","F","S","Su")
+names(blackjack) <- days
+blackjack <- c(140, -20, 70, -120, 240, NA, NA)
+new_blackjack <- na.omit(blackjack)
+roulette <- c(60, 50, 120, -300, 10, NA, NA)
+new_roulette <- na.omit(roulette)
+```
+
+```{r echo=TRUE}
+b <- sum(new_blackjack)
+r <- sum(new_roulette)
+if (b < r) {print("roulette")} 
+if (r < b) {print("blackjack")}
+```
+
+## Branches
+- I add comments to your code using a new branch in github.  
+- You see this as a `pull request`.  
+- You can decide whether or not to accept the changes.  
+
+## Mini-Review from last time
+1. What is the association between `R` and `R Studio`?  
+2. What is the association between `github.com` and `GitHub Desktop`?  
+3. What is an `object` in R? 
+4. Which two `classes` of data do you think will be used most?
+5. What is a `vector` in R?  
+
+## Vectors
+- I think of vectors as rows in a spreadsheet.  
+- R makes guesses on the class of data in a vector, but may be wrong.  
+```{r echo=TRUE}
+new_vector <- c(2, 4, 6) #what if these were sample numbers?
+class(new_vector)
+```
+
+```{r echo=TRUE}
+new_vector <- as.factor(new_vector)
+class(new_vector)
+```
+
+## Last Logistics
+- BIS 098 is P/NP.  
+- If you want BIS15L, please see me for a CRN.  
