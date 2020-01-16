@@ -33,7 +33,6 @@ Easy [setup instructions](https://jmledford3115.github.io/datascibiol/setup.html
 
 ## Course Learning Goals  
 *At the end of this course, you will be able to:*  
-
 1. Use R and RStudio to perform basic analyses including arithmetic and basic statistics.  
 2. Work with multiple types of data in R and RStudio including vectors, data frames, and nucleotide sequences.  
 3. Import and transform complex, messy data for analysis in R using `dplyr`, `tidyr`, and `purrr`.  

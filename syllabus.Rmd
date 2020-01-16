@@ -38,7 +38,7 @@ Each lab will include a combination of worked examples and group practice. Becau
 Please use the lab computers while working in lab. This makes things far easier to troubleshoot. You will need access to a computer running the latest versions of R and RStudio in order to complete the homework.    
 
 ## Grading  
-Grading is divided into four parts:  
+Grading is currently P/NP. Grading is divided into four parts:  
 
 1. **Weekly homework assignments (60%)**. Each assignment must be completed and uploaded to GitHub prior to the next lab. I will randomly pull an example from GitHub to discuss with the class to see alternate solutions and address issues. You must complete all homework assignments to receive a passing grade in the course.  
 
