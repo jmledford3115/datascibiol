@@ -12,7 +12,7 @@ output:
 ---
 
 ## Load tidyverse
-```{r}
+```{r message=FALSE, warning=FALSE}
 library("tidyverse")
 ```
 
