@@ -1,15 +1,17 @@
-## Welcome!
+## Welcome!  
 This is the course page for BIS 015L, **Introduction to Data Science for Biologists** at UC Davis.
 
-## Class Times and Contact Information
-+ Fridays, 2:10-4:00p, 2102 SCC
+## Class Times  
+The class meets two times per week. This quarter, our schedule is:  
++ Mondays, 2:10-4:00p, 2102 SCC  
++ Fridays, 2:10-4:00p, 2102 SCC  
+
+## Contact Information  
 + [Joel Ledford](mailto:jmledford@ucdavis.edu)
 + Office: 2220 Life Sciences, Department of Plant Biology  
 
-## Teaching Assistant  
-+ [Rebecca Godwin](mailto:rgodwin@ucdavis.edu)  
-
 ## Class Discussion Page  
+We use a class discussion page on Piazza which allows us to post R code.  
 + [BIS15L Piazza](https://piazza.com/uc_davis/winter2020/bis015l/home)  
 
 ## Course Summary  
@@ -19,8 +21,8 @@ This class is designed for students with *no background in computer programming,
 
 Please read the course syllabus [here.](https://jmledford3115.github.io/datascibiol/syllabus.html)  
 
-## Lab Schedule and Homework  
-We have eight total labs. The last two labs (9 and 10) will be devoted to getting final projects complete and preparing presentations. New labs will be added each week.  
+## Lab Schedule
+We have nine labs, each of which run for one week. The last two labs (9 and 10) will be devoted to getting final projects complete and preparing presentations. New labs will be added each week.  
 
 1. **Lab 1** | [part 1](https://jmledford3115.github.io/datascibiol/lab1_1.html) | [part 2](https://jmledford3115.github.io/datascibiol/lab1_2.html) | [HW 1](https://jmledford3115.github.io/datascibiol/lab1_hw.html)  
 2. **Lab 2** | [part 1](https://jmledford3115.github.io/datascibiol/lab2_1.html) | [part 2](https://jmledford3115.github.io/datascibiol/lab2_2.html) | [HW 2](https://jmledford3115.github.io/datascibiol/lab2_hw.html)  
