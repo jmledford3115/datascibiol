@@ -97,7 +97,7 @@ all_harry_potter_matrix
 ```
 
 ## Practice
-1. What are the total earnings for each of the movies?  
+1. What are the total earnings for each of the regions?  
 
 2. Add this information to the data matrix. Hint: you are adding a row, not a column.  
 
