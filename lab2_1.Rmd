@@ -21,12 +21,12 @@ output:
 ## Setup
 At the beginning of each class, please make sure that you complete the following:  
 1. Login to the lab computer.  
-2. If you are using [Github Desktop][gd], download, install, and login to the program.  
+2. Open Github Desktop (it should be pre-installed) and login.  
 3. Clone your repository to the desktop or somewhere convenient to access.  
-4. Navigate to [GitHub][gh] and login.  
-5. Go to the [class repository][BIS15], click the `Clone or download` button then `Download zip` to the desktop.  
-6. Copy the files for today's lab from the class repository and paste them into your repository.  
-7. Open today's lab in RStudio.
+4. Navigate to github.com and login.  
+5. Go to the class repository `BIS15-W20-DataScienceBiologists`, click the `Clone or download` button then `Download zip` to the desktop.  
+6. Copy the files for today's lab from the class repository and paste them into **your** repository.  
+7. Open today's lab in RStudio.  
 
 ## Class Discussion Page  
 + [BIS15 Piazza](https://piazza.com/uc_davis/winter2020/bis015l/home)  
