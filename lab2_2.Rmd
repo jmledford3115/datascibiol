@@ -49,7 +49,7 @@ names(hbirds)
 
 Let's use lowercase names when we create the data frame. We just changed to lowercase here, but we could use any names we wish.
 ```{r}
-hbirds <- data.frame(sex = Sex,length_in = Length, weight_oz = Weight)
+hbirds <- data.frame(sex = Sex,length_in = Length, weight_oz = Weight) #renaming will become more helpful in later labs
 names(hbirds)
 ```
 
