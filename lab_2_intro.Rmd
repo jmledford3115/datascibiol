@@ -69,6 +69,6 @@ new_vector <- as.factor(new_vector)
 class(new_vector)
 ```
 
-## Last Logistics
+## Logistics
 - BIS 098 is P/NP.  
 - If you want BIS15L, please see me for a CRN.  
