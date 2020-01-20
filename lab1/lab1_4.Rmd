@@ -1,7 +1,7 @@
 ---
-title: "Lab 1 Homework"
-author: "What is Your Name?"
-date: "Winter 2020"
+title: "Lab 1"
+author: "Please Add Your Name Here"
+date: "Please Add the Date Here"
 output:
   html_document:
     theme: spacelab
@@ -9,7 +9,7 @@ output:
 ---
 
 ## Instructions
-Answer the following questions and complete the exercises in RMarkdown. Please embed all of your code, keep track of your versions using git, and push your final work to our [GitHub repository](https://github.com/FRS417-DataScienceBiologists). I will randomly select a few examples of student work at the start of each session to use as examples so be sure that your code is working to the best of your ability.  
+Answer the following questions and complete the exercises in RMarkdown. Please embed all of your code and push your final work to your repository. Your final lab report should be organized, clean, and run free from errors. Remember, you must remove the `#` for the included code chunks to run.  
 
 1. Navigate to the R console and calculate the following expressions.  
   + 5 - 3 * 2  
@@ -23,8 +23,8 @@ Answer the following questions and complete the exercises in RMarkdown. Please e
 
 5. You have decided to use your new analytical powers in R to become a professional gambler. Here are your winnings and losses this week. Note that you don't gamble on the weekends!  
 ```{r}
-blackjack <- c(140, -20, 70, -120, 240, NA, NA)
-roulette <- c(60, 50, 120, -300, 10, NA, NA)
+#blackjack <- c(140, -20, 70, -120, 240, NA, NA)
+#roulette <- c(60, 50, 120, -300, 10, NA, NA)
 ```
 
 a. Build a new vector called `days` for the days of the week. 
@@ -32,8 +32,8 @@ a. Build a new vector called `days` for the days of the week.
 
 We will use `days` to name the elements in the poker and roulette vectors.
 ```{r}
-names(blackjack) <- days
-names(roulette) <- days
+#names(blackjack) <- days
+#names(roulette) <- days
 ```
 
 b. Calculate how much you won or lost in blackjack over the week.  

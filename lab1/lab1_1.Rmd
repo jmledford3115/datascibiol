@@ -1,7 +1,5 @@
 ---
 title: "Getting Started"
-author: "Joel Ledford"
-date: "Winter 2020"
 output:
   html_document:
     theme: spacelab
@@ -31,6 +29,7 @@ Our campus has a wealth of expertise in data science, from working groups to a f
 
 ## Help!  
 When you need help with homework or a class topic, please visit and post on our [class discussion board](https://piazza.com/uc_davis/winter2020/bis015l/home#) first. We are here to support you and everyone should participate, please.  
+
 ## Lab 1
 The goal of lab 1 is to get everyone started using R, Rstudio, and GitHub. All of our work will be done in RStudio and uploaded to the class GitHub repository. This first lab is tedious, so please be patient. It is important that everyone is set-up correctly before they leave today. In the spirit of the R universe, our class is a community. If you see someone struggling, please give them some help.  
 
@@ -38,7 +37,7 @@ The goal of lab 1 is to get everyone started using R, Rstudio, and GitHub. All o
 You are welcome to use your own computer, but in order to do so you need to install R, RStudio, and GitHub Desktop. If you would like to set-up your own computer, please follow the directions [here](https://jmledford3115.github.io/datascibiol/setup.html). If you are unsure about troubleshooting your own computer, **please** use the lab computers.  
 
 ## GitHub
-[**GitHub**](www.github.com) is a file storage and management site used by programmers. Programmers upload code to repositories (folders) and make it publicly available. We will use Github to store our work in BIS 15.  
+[**GitHub**](www.github.com) is a file storage and management site used by programmers. Programmers upload code to repositories (folders) and make it publicly available. We will use Github to store our work in BIS 15L.  
 
 ## Create a GitHub account
 Since we will use GitHub as a repository for assignments, we need to make an account for each student and build a new project through RStudio. Navigate to [GitHub](www.github.com) and create a free account. [Email](mailto:jmledford@ucdavis.edu) your username to me.  
@@ -46,36 +45,39 @@ Since we will use GitHub as a repository for assignments, we need to make an acc
 I have made a repository for our class [BIS15-W20-DataScienceBiologists](https://github.com/jmledford3115/BIS15-W20-DataScienceBiologists). You should **Star** this repository for future reference.  
 
 ## Make Your Own Repository  
-1. Go to [GitHub](www.github.com) and login.  
+1. Go to [github.com](www.github.com) and login.  
 2. Create a new repository.  
-3. Under repository name title it `BIS15W2020_your first initial and lastname`. Mine would look like this: BIS15W2020_jledford  
-4. Default settings are fine, but do click "Initialize this repository with a README"  
-5. Once the repository is made, click on settings in the top right  
-6. On the left toolbar click "Collaborators"  
+3. Under repository name, use the title `BIS15W2020_your first initial and lastname`. Mine would look like this: BIS15W2020_jledford  
+4. Default settings are fine, but do click "Initialize this repository with a README".    
+5. Once the repository is made, click on settings in the top right.  
+6. On the left toolbar click "Collaborators".  
 7. Add "rlgodwin28" and "jmledford3115" as collaborators.  
 
 ## GitHub Desktop
-One way to manage your GitHub repositories is to use [GitHub desktop](https://desktop.github.com/). This is a  helpful tool that will allow you to manage all of your files. Once installed, open the program and login using your GitHub account.  
+One way to manage your GitHub repositories is to use [GitHub desktop](https://desktop.github.com/). This is a  helpful tool that will allow you to manage all of your files. Open the program and login using your GitHub account.  
 
 ## Clone Your Repository `BIS15W2020_your first initial and lastname`  
 In GitHub desktop, you will see your personal repository as an option under clone repository. Clone your repository to the desktop.  
 
-## Download `BIS15-W20-DataScienceBiologists`
-Find the class repository [BIS15-W20-DataScienceBiologists](https://github.com/jmledford3115/BIS15-W20-DataScienceBiologists) at github.com. Click the `Clone or download` button then `Download zip` to the desktop. When you open this .zip file you will see all of the class files.  
+## Download `BIS15-W20-DataScienceBiologists`  
+Find the class repository [BIS15-W20-DataScienceBiologists](https://github.com/jmledford3115/BIS15-W20-DataScienceBiologists) at [github.com](www.github.com). Click the `Clone or download` button then `Download zip` to the desktop. When you open this .zip file you will see all of the class files.  
 
 ## Copy
-Copy all of the files for lab 1 in  `BIS15-W20-DataScienceBiologists` and paste them into your repository on the desktop. This will allow you to make changes and take notes as we progress.  
+Copy all of the files for lab 1 in `BIS15-W20-DataScienceBiologists` and paste them into your repository on the desktop. This makes your own personal copy and will allow you to make changes and take notes as we progress.  
+
+## Open lab1_1.rmd  
+Now that you have your own copy, open the file lab1_1.rmd. You should now be in RStudio.  
 
 ## Using GitHub
 You will use your repository to store all of your notes and work. There are three terms that we need to define:  
-1. `Commit` takes a snapshot of your current progress  
-2. `Pull` this is the same as download   
-3. `Push` this is the same as upload  
+1. `Commit` takes a snapshot of your current progress.    
+2. `Pull` this is the same as download.     
+3. `Push` this is the same as upload.    
 
-If you setup GitHub Desktop, then you will see that it automatically tracks your changes. Clicking the `Commit to master` button in the bottom left corner means that you are recording a snapshot of your edits locally. Once this is done, you need to upload your changes to GitHub. This is done by cliking `Push origin`. Once you have pushed your changes you can double check by looking on github.com.    
+If you setup [GitHub desktop](https://desktop.github.com/), then you will see that it automatically tracks your changes. Clicking the `Commit to master` button in the bottom left corner means that you are recording a snapshot of your edits locally. Once this is done, you need to upload your changes to GitHub. This is done by cliking `Push origin`. Once you have pushed your changes you can double check by looking on github.com.    
 
 ## Working Directory  
-RStudio is an interactive working environment for R. When you first open it, you should see your screen divided into four quadrants. I will demonstrate each of these in class, but for now it is enough to know that they display different information and are helpful as you work on code.  
+RStudio is an interactive working environment for R. When you first open it, you should see your screen divided into four quadrants. I will demonstrate each of these in lab, but for now it is enough to know that they display different information and are helpful as you work on code.  
 
 Please run the following code to check your current working directory.  
 ```{r}
@@ -104,4 +106,4 @@ We will encounter issues over the next few weeks with GitHub. These will be caus
 
 ## That's it, let's take a break!  
 
---> On to [part 2](https://jmledford3115.github.io/datascibiol/lab1_2.html)  
+-->[Home](https://jmledford3115.github.io/datascibiol/)

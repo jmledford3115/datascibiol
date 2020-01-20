@@ -1,7 +1,5 @@
 ---
-title: "Data Types and Structures"
-author: "Joel Ledford"
-date: "Winter 2020"
+title: "RMarkdown and Data Types"
 output:
   html_document:
     theme: spacelab
@@ -22,38 +20,30 @@ R is an open source, **scripting** language. RStudio is a GUI (graphical user in
 
 Because R is a scripting language you don't point and click to run commands. Instead, you write instructions that are used by the computer to complete an operation. This makes for excellent repeatability but makes it hard to learn at first because the instructions are specific. R is **not** tolerant of typos, puntuation errors, errant spaces, or other types of mistakes.
 
-## Install the tidyverse
-One strength of R is that there are thousands of add-on packages that perform specialized functions. The packages are referred to as libraries.  
-
-In this class, we will routinely use the library called the **tidyverse**. Libraries need to be installed in order to work, and whenever you update R you also need to update all of the packages that you use. In class, the tidyverse is pre-installed but at home you will need to install the package.  
-```{r}
-#install.packages("tidyverse")
-```
-
-## Call the library
-In order for the tidyverse or any other library to become active, it needs to be `called`.  
-```{r}
-library("tidyverse")
-```
-
 ## RMarkdown
-Annotation of code is very important for programmers of all levels. When code is annotated, it is easy for others to understand and perhaps more importantly, easier for the person who wrote the code to understand when returning to a project days to years later. RMarkdown allows us to embed code in annotated chunks, including display of graphical output. The RMarkdown file can then be exported in a number of formats. If you have questions, the definitive guide is [here](https://bookdown.org/yihui/rmarkdown/).  
+Annotation of code is important for programmers of all levels. When code is annotated, it is easy for others to understand and perhaps more importantly, easier for the person who wrote the code to understand when returning to a project days to years later. RMarkdown allows us to embed code in annotated chunks, show the results of analyses, and display graphical output all in one file.  
+
+The RMarkdown file can then be exported in a number of formats. If you have questions, the definitive guide is [here](https://bookdown.org/yihui/rmarkdown/).  
 
 Here is a great [tutorial on RMarkdown](https://www.markdowntutorial.com/).  
 
 ## Practice
-RMarkdown is one of many types of documents that can be created in RStudio. It is an extremely helpful way to build code because it will display the code, its output, and any text that you wish to add.  
+RMarkdown is one of many types of documents that can be created in RStudio and is the one we will use most frequently in BIS 15L.  
 
 1. In RStudio, open a new markdown document: **File>New File>R Markdown**  
-2. There is some generic information at the start of the file that we don't need. Delete lines 12 through 31 to clean things up. 3. Insert a new R code chunk by clicking on the green `insert` tab and selecting R. 
-4. Copy and paste the following into the new code chunk.  
+2. There is some generic information at the start of the file that we don't need. Delete lines 12 through 31 to clean things up.  
+3. Copy and paste the following two pieces of code into the document (include the gray code "chunks".)    
+
+```{r message=FALSE, warning=FALSE}
+library("tidyverse")
+```
 
 ```{r}
 ggplot(mtcars, aes(x = factor(cyl))) +
     geom_bar()
 ```
 
-5. Now `knit` the file together using the knit button at the top of the page.  
+5. Now `knit` the file to html using the knit button at the top of the page.  
 
 ## Help
 R is a flexible programming language that is used by scientists worldwide. Thousands of packages are available to perform specific analyses and there is a large community of people willing to help if you have problems.
@@ -100,8 +90,7 @@ control <- 38
 ```
 
 ## Practice
-1. Make a new object `my_experiment` that is the sum of the treatment and control.  
-
+1. Make a new object `my_experiment` that is the sum of the treatment and control objects above.  
 ```{r}
 my_experiment <- sum(treatment, control)
 my_experiment
@@ -178,94 +167,6 @@ is.na(my_missing)
 ```{r}
 anyNA(my_missing)
 ```
-
-## Data Structures
-In addition to the types or classes of data, R also organizes data in specific ways. These are called data structures and include vectors, lists, matrices, data frames, and factors. For now, we are going to focus on `vectors`.  
-
-## Vectors
-Vectors are a common way of organizing data in R. The key detail is that they contain data *of the same type*. We create vectors using the `c` command.  
-
-A numeric vector.
-```{r}
-my_vector <- c(10, 20, 30)
-```
-
-We can make character vectors as well.  
-```{r}
-days_of_the_week <- c("Monday", "Tuesday", "Wednesday", "Thrusday", "Friday", "Saturday", "Sunday")
-```
-
-What if our numeric vector above had a missing value?  
-```{r}
-my_vector <- c(10, NA, 30)
-anyNA(my_vector)
-```
-
-Certain functions require us to specify how we want to deal with NAs. Often if NA is included in an operation, the result is NA.
-```{r}
-mean(my_vector)
-```
-
-Let's remove the NA value.
-```{r}
-mean(my_vector, na.rm = TRUE)
-```
-
-Another way.  
-```{r}
-my_new_vector <- na.omit(my_vector)
-my_new_vector
-```
-
-A convenient trick for creating a vector is to generate a sequence of numbers.
-```{r}
-my_vector_sequence <- c(1:10)
-my_vector_sequence
-```
-
-`seq` allows more control.
-```{r}
-my_vector_sequence2 <- seq(1, 4, by=0.25)
-my_vector_sequence2
-```
-
-## Identifying vector elements
-We can use `[]` to pull out elements in a vector. We just need to specify their position in the vector; i.e. day 3 is Wednesday.  
-```{r}
-days_of_the_week[3]
-```
-
-## Practice
-Work through these examples and make adjustments to the values to experiment.
-
-1. Create a new numeric vector of values 1 through 100
-```{r}
-my_new_vector_sequence <- c(1:100)
-my_new_vector_sequence
-```
-
-2. We can evaluate all numerics in our vector to determine which has a value of 15.
-```{r}
-my_new_vector_sequence==15
-```
-
-3. We can also use operators such as <, >, ==, <==, etc. Which values are less than or equal to 15?  
-```{r}
-my_new_vector_sequence<=15
-```
-
-4. If you use `[]` then you only get the values, not the logical evaluation of the entire vector.
-```{r}
-my_new_vector_sequence[my_new_vector_sequence<=15]
-```
-
-5. Using the `&` symbol allows us to refine our elements of interest.
-```{r}
-my_new_vector_sequence[my_new_vector_sequence <= 15 & my_new_vector_sequence >= 1]
-```
-
-## Wrap-up
-Please review the learning goals and be sure to use the code here as a reference when completing the homework.  
 
 -->[Home](https://jmledford3115.github.io/datascibiol/)
 

@@ -1,7 +1,5 @@
 ---
-title: "Tidyverse: filter, select, pipes, and mutate"
-author: "Joel Ledford"
-date: "Winter 2019"
+title: "Tidyverse 1"
 output:
   html_document:
     theme: spacelab
@@ -10,6 +8,48 @@ output:
   pdf_document:
     toc: yes
 ---
+
+## Learning Goals
+*At the end of this exercise, you will be able to:*    
+1. Import .csv files as data frames.  
+2. Use summary functions to explore the contents of a data frame.  
+3. Use the `filter()` function of dplyr to sort data frames.  
+
+## Review
+At this point, I expect that you have familiarity in RStudio, GitHub, and basic operations in R. You understand how to do arithmetic, assign values to objects, and work with vectors or data matrices. If you are confused or need some extra help, please [email me](mailto: jmledford@ucdavis.edu).  
+
+## Load the tidyverse
+```{r message=FALSE, warning=FALSE}
+library("tidyverse")
+```
+
+## Data Frames
+For the remainder of the course, we will work exclusively with data frames. Recall that data frames store multiple classes of data. Last time, you were shown how to build data frames using the `data.frame()` command. However, scientists often make their data available as supplementary material associated with a publication. As data scientists, we capitalize on this by importing data directly into R.  
+
+## Importing Data
+R allows us to import a wide variety of data types. The most common type of file is a .csv file which stands for comma separated values. Spreadsheets are often developed in Excel then saved as .csv files for use in R. There are packages that allow you to open excel files and many other formats directly but .csv is the most common.  
+
+To import any file, first make sure that you are in the correct working directory. If you are not in the correct directory, R will not "see" the file.
+```{r}
+getwd()
+```
+
+## Load Fish Scale Data
+Here we open a .csv file with data on fish scales. Since we are using the tidyverse, we open the file using `read_csv()`. `readr` is included in the tidyverse set of packages. We can specify the function and package with the `::` symbol. This becomes important if you have multiple packages loaded which contain functions with the same name. 
+```{r message=FALSE, warning=FALSE}
+fish <- readr::read_csv("data/Gaeta_etal_CLC_data.csv")
+```
+
+
+
+
+
+
+
+
+
+
+
 
 ## Review
 In the last section you were introduced to the `tidyverse` and the core function `filter()`. Filter allows us to separate variables with specific attributes of interest from large, complex data. `filter()` works by looking through rows, but what about columns? Recall that each column is essentially a vector, so we need the new function `select()` to separate columns of interest. As you may expect, we can also use them together to focus our data on the variables and values of interest.
