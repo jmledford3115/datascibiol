@@ -36,143 +36,128 @@ getwd()
 
 ## Load Fish Scale Data
 Here we open a .csv file with data on fish scales. Since we are using the tidyverse, we open the file using `read_csv()`. `readr` is included in the tidyverse set of packages. We can specify the function and package with the `::` symbol. This becomes important if you have multiple packages loaded which contain functions with the same name. 
-```{r message=FALSE, warning=FALSE}
+```{r}
 fish <- readr::read_csv("data/Gaeta_etal_CLC_data.csv")
 ```
 
-
-
-
-
-
-
-
-
-
-
-
-## Review
-In the last section you were introduced to the `tidyverse` and the core function `filter()`. Filter allows us to separate variables with specific attributes of interest from large, complex data. `filter()` works by looking through rows, but what about columns? Recall that each column is essentially a vector, so we need the new function `select()` to separate columns of interest. As you may expect, we can also use them together to focus our data on the variables and values of interest.
-
-## Resources
-- [R for Data Science](https://r4ds.had.co.nz/)
-
-## Learning Goals
-*At the end of this exercise, you will be able to:*    
-1. Use the functions of dplyr (filter, select, arrange) to organize and sort data frames. 
-2. Use `mutate()` to calculate a new column from existing columns.
-
-## Load the tidyverse
-```{r message=FALSE, warning=FALSE}
-library("tidyverse")
-```
-
-## Load the fish scale data
-Here we open a .csv file with data on fish scales. Since we are using the tidyverse, we open the file using read_csv. 
-```{r message=FALSE, warning=FALSE}
-fish <- readr::read_csv("data/Gaeta_etal_CLC_data.csv")
-```
-
-## dplyr: select()
-Select allows you to build a new data frame by selecting your variable(s) of interest. Our fish data only has six variables, but this should give you some ideas especially when you have a large data frames with lots of variables.  
-
-We are only interested in lakeid and scalelength.
+## Summary functions
+Once data have been uploaded, you may want to get an idea of its contents and dimensions. This may seem self-evident for small files but this is a big help for large data files.
 ```{r}
-select(fish, lakeid, scalelength)
+nrow(fish) #the number of rows
 ```
 
-The - operator is useful in select. It allows us to select everything except the specified variables.
 ```{r}
-select(fish, -fish_id, -annnumber, -length, -radii_length_mm)
+ncol(fish) #the number of columns
 ```
 
-For very large data frames with lots of variables, `select()` utilizes lots of different operators to make things easier. Let's say we are only interested in the variables that deal with length.
 ```{r}
-select(fish, contains("length"))
+dim(fish) #total dimensions
 ```
 
-Some additional options to select columns based on a specific criteria include:  
-1. ends_with() = Select columns that end with a character string  
-2. contains() = Select columns that contain a character string  
-3. matches() = Select columns that match a regular expression  
-4. one_of() = Select columns names that are from a group of names  
-
-## Practice
-1. What are the names of the columns in the `fish` data?
 ```{r}
-names(fish)
+names(fish) #column names
 ```
 
-2. We are only interested in the variables `lakeid`, `length`, and `scalelength`. Use `select()` to build a new dataframe focused on these variables.
+There are many other useful summary functions, all of which work a bit differently. I didn't try to make the joke about fish heads and tails on purpose, but here it is anyway.
 ```{r}
-select(fish, lakeid, length, scalelength)
+head(fish, n = 10) # print the first n rows of the data frame
 ```
 
-## dplyr: Can we combine filter() and select()?
-Absolutely. This is one of the strengths of the tidyverse, it uses the same grammar to specify commands.
 ```{r}
-fish2 <- select(fish, lakeid, scalelength)
-
-filter(fish2, lakeid == "AL")
+tail(fish, n = 10) # print the last n rows of the data frame
 ```
 
-## dplyr: Pipes %>% 
-The code above works fine but there is a more efficient way. We need to learn pipes `%>%`. Pipes allow you to feed the output from one function to the input of another function. We are going to use pipes from here on to keep things cleaner. (command+shift+m)
+We can also click on the `fish` data frame in the Environment tab or type View(fish).
 ```{r}
-fish %>%
-  select(lakeid, scalelength) %>%
-  filter(lakeid == "AL")
+View(fish)
+```
+
+`summary()` and `str()` are classic functions used by many R programmers. `glimpse()` is part of the tidyverse.
+```{r}
+summary(fish)
+```
+
+```{r}
+str(fish)
+```
+
+```{r}
+glimpse(fish)
 ```
 
 ## Practice
-1. Build a dataframe focused on the lakes `AL` and `AR` and looking at radii length between 2 and 4 only. Use pipes!
+Load the data `mammal_lifehistories_v2.csv` and place it into a new object called `mammals`.
 ```{r}
-fish %>% 
-  select(lakeid, radii_length_mm) %>%
-  filter(radii_length_mm >= 2 & radii_length_mm <= 4,
-         lakeid == "AL" | lakeid == "AR")
+mammals <- readr::read_csv("data/Mammal_lifehistories_v2.csv")
 ```
 
-## dplyr: arrange()
-The `arrange()` command is a bit like a sort command in excel.
+1. Provide the dimensions of the data frame.
 ```{r}
-fish %>% 
-  arrange(scalelength)
+dim(mammals)
 ```
 
-To sort in decreasing order, wrap the variable name in `desc()`.
+2. Check the column names in the data frame. 
 ```{r}
-fish %>% 
-  arrange(desc(scalelength))
+names(mammals)
 ```
 
-`arrange()` can be very helpful in combination with the other functions.
+3. Use `str()` to show the structure of the data frame and its individual columns; compare this to `glimpse()`. 
 ```{r}
-fish %>% 
-  select(lakeid, length, fish_id, scalelength) %>% 
-  filter(lakeid=="AL") %>% 
-  arrange(fish_id)
+str(mammals)
 ```
 
-## dplyr: mutate()
-
-Mutate allows us to create a new variable from existing variables in our data frame. Let's convert the length variable from cm to inches and create a new variable called length_in.
 ```{r}
-fish %>% 
-  mutate(length_in = length * 0.394) %>% 
-  select(fish_id, length, length_in)
+glimpse(mammals)
 ```
 
-Note that if we had called our new variable length, R would overwrite the old variable. 
-
-## Practice
-
-Use `mutate()` to calculate the half length of each fish: length_half = length/2. Select only fish_id, length, and length_half, use pipes.
+4. Print out the first few rows of the data using the function `head()`.  
 ```{r}
-fish %>% 
-  mutate(length_half = length/2) %>% 
-  select(fish_id, length, length_half)
+head(mammals)
 ```
+
+5. Print out the last few rows using the function `tail()`.
+```{r}
+tail(mammals)
+```
+
+## Tidyverse
+The [tidyverse](www.tidyverse.org) is a collection of packages that make workflows in R easier. The packages operate more intuitively than base R commands. Although not universal, the tidyverse has been adopted by many R users.  
+![*Data Science Workflow in the Tidyverse.*](tidyverse1.png)  
+
+## dplyr: filter()
+A core package in the tidyverse is dplyr. This package allows you to transform your data in many different ways including filtering, subsetting, and reordering. Dplyr allows you to parse out data of interest from a larger data frame.  
+
+The first command that we will learn is `filter()`. Filter allows you to subset observations in a data frame by their values. You should still have the fish data loaded, but if not then please re-load.  
+```{r}
+fish <- 
+  readr::read_csv("data/Gaeta_etal_CLC_data.csv")
+```
+
+Let's say that we are interested only in the fish that occur in the lake labeled AL. We can use `filter()` to extract these observations to build a new data frame focused on our question.
+```{r}
+filter(fish, lakeid == "AL")
+```
+
+Similarly, if we are only interested in fish with a length greater than or equal to 350 we can use `filter()` to do this work.
+```{r}
+filter(fish, length >= 350)
+```
+
+Filtering allows all of the expected operators; i.e. >, >=, <, <=, != (not equal), and == (equal).  It also allows us to extract multiple values simultaneously.
+```{r}
+filter(fish, lakeid == "AL" & length > 350) #only the fish that have lakeid AL AND length >350
+```
+
+
+
+
+
+
+
+
+
+
+
 
 
 ## That's it, let's take a break!   
