@@ -12,14 +12,9 @@ output:
 ## Background
 In nearly every field of science, our ability to generate data has exceeded our capacity for analysis. For me, this means that there is the potential for loss to science; many important discoveries may go unnoticed because we are unable to efficiently analyze data.
 
-There is also a growing problem of curation and reproducibility. As the analyses and data become more complex, research labs have a problem of managing data and analysis such that data can be used in future analyses or shared with colleagues. As students, postdocs, and visiting scientists come and go in labs, or even as an individual moves between projects, there is often a mess left behind where data are inefficiently stored, analysis was not documented, or in the worse case scenario, sloppy copy/paste type errors cause wasted days to months. Effectively stored data along with a documented, reproducible, work flow will allow for high-quality analysis, error prevention and time savings, and smooth and efficient collaboration with others or even with yourself months to years in the future.  
+Why spend the time? If you are pursuing any research path in science, this class will give you a competitive advantage and save you countless hours as most people struggle to [learn R on their own](https://www.wired.com/2017/03/biologists-teaching-code-survive/). Even if you are not pursuing a research career, you will likely use the skills you learn as part of your education at UC Davis.  
 
-Lastly, with the widespread availability of data online there is the potential for new scientific discovery or insight through exploratory data analysis. In many cases a clean, organized workflow will yield new perspectives and promising results.  
-
-## Objectives
-The goal for this course is to help get you started learning to manage, transform, and visualize data using the R programming language. You will learn to clearly and neatly organize messy data, transform it in ways that address your questions, and communicate results in a variety of formats. The course is designed for people with **no prior programming experience**. There is a substantial learning curve but, working together, we should be able to make learning R easier, interesting, and fun.
-
-Why spend the time? If you are pursuing any research path in science, this class will give you a competitive advantage and save you countless hours as most people struggle to [learn R on their own](https://www.wired.com/2017/03/biologists-teaching-code-survive/). Even if you are not pursuing a research career, companies routinely hire data scientists (or people with skills in data science) to analyze a variety of data.
+The goal for this course is to help get you started learning to manage, transform, and visualize data using the R programming language. You will learn to clearly and neatly organize messy data, transform it in ways that address your questions, and communicate results in a variety of formats. The course is designed for people with **no prior programming experience**. There is a substantial learning curve but, working together, we should be able to make learning R easier, interesting, and fun.  
 
 ## Resources
 Given that R is open source, many resources are available online. We will use a combination of resources in the class, but key items are listed below.
@@ -29,26 +24,21 @@ Given that R is open source, many resources are available online. We will use a 
 - [RStudio keyboard shortcuts](https://support.rstudio.com/hc/en-us/articles/200711853-Keyboard-Shortcuts)
 
 ## Data Science at UC Davis
-Our campus has a wealth of expertise in data science, from working groups to full initiatives. Should your interests progress, here are some links. They offer regular workshops and maintain archives.
+Our campus has a wealth of expertise in data science, from working groups to a full initiative. Should your interests progress, here are some links. They offer regular workshops and maintain archives.  
 
 - [Data Science Initiative, UC Davis](http://dsi.ucdavis.edu/)  
 - [Davis R Users Group](http://d-rug.github.io/) 
 
 ## Help!  
-When you need help with homework or a class topic, please visit and post on our [class discussion board](https://piazza.com/uc_davis/winter2020/bis015l/home#) first. We are here to support you and everyone should participate, please. You can even post anonymously!  
-
+When you need help with homework or a class topic, please visit and post on our [class discussion board](https://piazza.com/uc_davis/winter2020/bis015l/home#) first. We are here to support you and everyone should participate, please.  
 ## Lab 1
-The goal of lab 1 is to get everyone started using R, Rstudio, and GitHub. All of our work will be done in RStudio and uploaded to the class GitHub repository.  
-
-At the start of each lab session, I will randomly pull someone's code from the class GitHub repository and use it as an example. There are many, many ways to solve the same problems in R and seeing other people's code is a great way to learn. This is not about shaming people who make mistakes!  
-
-This first lab is tedious, so please be patient. It is important that everyone is set-up correctly before they leave today. In the spirit of the R universe, our class is a community. If you see someone struggling, please give them some help.  
+The goal of lab 1 is to get everyone started using R, Rstudio, and GitHub. All of our work will be done in RStudio and uploaded to the class GitHub repository. This first lab is tedious, so please be patient. It is important that everyone is set-up correctly before they leave today. In the spirit of the R universe, our class is a community. If you see someone struggling, please give them some help.  
 
 ## Setup your own computer
 You are welcome to use your own computer, but in order to do so you need to install R, RStudio, and GitHub Desktop. If you would like to set-up your own computer, please follow the directions [here](https://jmledford3115.github.io/datascibiol/setup.html). If you are unsure about troubleshooting your own computer, **please** use the lab computers.  
 
 ## GitHub
-[**GitHub**](www.github.com) is a file storage and management site used mostly by programmers. Programmers upload code to repositories (folders) and make it publicly available. We will use Github to store our work in BIS 15.  
+[**GitHub**](www.github.com) is a file storage and management site used by programmers. Programmers upload code to repositories (folders) and make it publicly available. We will use Github to store our work in BIS 15.  
 
 ## Create a GitHub account
 Since we will use GitHub as a repository for assignments, we need to make an account for each student and build a new project through RStudio. Navigate to [GitHub](www.github.com) and create a free account. [Email](mailto:jmledford@ucdavis.edu) your username to me.  
@@ -67,14 +57,14 @@ I have made a repository for our class [BIS15-W20-DataScienceBiologists](https:/
 ## GitHub Desktop
 One way to manage your GitHub repositories is to use [GitHub desktop](https://desktop.github.com/). This is a  helpful tool that will allow you to manage all of your files. Once installed, open the program and login using your GitHub account.  
 
-## Clone `BIS15-W20-DataScienceBiologists`
-In GitHub desktop, you will see a repository called `BIS15-W20-DataScienceBiologists`. Clone this repository to your desktop.  
+## Clone Your Repository `BIS15W2020_your first initial and lastname`  
+In GitHub desktop, you will see your personal repository as an option under clone repository. Clone your repository to the desktop.  
 
-## Clone `BIS15W2020_your first initial and lastname`  
-In GitHub desktop, you will also see your personal repository. Clone this repository to your desktop.  
+## Download `BIS15-W20-DataScienceBiologists`
+Find the class repository [BIS15-W20-DataScienceBiologists](https://github.com/jmledford3115/BIS15-W20-DataScienceBiologists) at github.com. Click the `Clone or download` button then `Download zip` to the desktop. When you open this .zip file you will see all of the class files.  
 
 ## Copy
-Copy all of the files from lab 1 in the `BIS15-W20-DataScienceBiologists` and paste them into your repository. This will allow you to make changes and take notes as we progress.  
+Copy all of the files for lab 1 in  `BIS15-W20-DataScienceBiologists` and paste them into your repository on the desktop. This will allow you to make changes and take notes as we progress.  
 
 ## Using GitHub
 You will use your repository to store all of your notes and work. There are three terms that we need to define:  
