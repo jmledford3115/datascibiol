@@ -1,5 +1,5 @@
 ---
-title: "Tidyverse 1"
+title: "Importing Data and Dplyr: `filter()`"
 output:
   html_document:
     theme: spacelab
@@ -11,9 +11,9 @@ output:
 
 ## Learning Goals
 *At the end of this exercise, you will be able to:*    
-1. Import .csv files as data frames.  
-2. Use summary functions to explore the contents of a data frame.  
-3. Use the `filter()` function of dplyr to sort data frames.  
+1. Import .csv files as data frames using `read_csv()`.  
+2. Use summary functions to explore the dimensions, structure, and contents of a data frame.  
+3. Use the `filter()` command of dplyr to sort data frames.  
 
 ## Review
 At this point, I expect that you have familiarity in RStudio, GitHub, and basic operations in R. You understand how to do arithmetic, assign values to objects, and work with vectors or data matrices. If you are confused or need some extra help, please [email me](mailto: jmledford@ucdavis.edu).  
@@ -69,7 +69,7 @@ tail(fish, n = 10) # print the last n rows of the data frame
 
 We can also click on the `fish` data frame in the Environment tab or type View(fish).
 ```{r}
-View(fish)
+#View(fish)
 ```
 
 `summary()` and `str()` are classic functions used by many R programmers. `glimpse()` is part of the tidyverse.
@@ -86,39 +86,17 @@ glimpse(fish)
 ```
 
 ## Practice
-Load the data `mammal_lifehistories_v2.csv` and place it into a new object called `mammals`.
-```{r}
-mammals <- readr::read_csv("data/Mammal_lifehistories_v2.csv")
-```
+1. Load the data `mammal_lifehistories_v2.csv` and place it into a new object called `mammals`.
 
-1. Provide the dimensions of the data frame.
-```{r}
-dim(mammals)
-```
+2. Provide the dimensions of the data frame.
 
-2. Check the column names in the data frame. 
-```{r}
-names(mammals)
-```
+3. Check the column names in the data frame. 
 
-3. Use `str()` to show the structure of the data frame and its individual columns; compare this to `glimpse()`. 
-```{r}
-str(mammals)
-```
+4. Use `str()` to show the structure of the data frame and its individual columns; compare this to `glimpse()`. 
 
-```{r}
-glimpse(mammals)
-```
+5. Print out the first few rows of the data using the function `head()`.  
 
-4. Print out the first few rows of the data using the function `head()`.  
-```{r}
-head(mammals)
-```
-
-5. Print out the last few rows using the function `tail()`.
-```{r}
-tail(mammals)
-```
+6. Print out the last few rows using the function `tail()`.
 
 ## Tidyverse
 The [tidyverse](www.tidyverse.org) is a collection of packages that make workflows in R easier. The packages operate more intuitively than base R commands. Although not universal, the tidyverse has been adopted by many R users.  
@@ -148,18 +126,41 @@ Filtering allows all of the expected operators; i.e. >, >=, <, <=, != (not equal
 filter(fish, lakeid == "AL" & length > 350) #only the fish that have lakeid AL AND length >350
 ```
 
+When we use the '&' above, we are asking for a specific filter: provide only those data for which both lakeid=AL AND length is greater than 350. Filter will use other operators, but always keep in mind that you are asking for something very specific.  
+
+Rules: & is "and", | is "or", and ! is "not".  
+
+Notice that the code below generates a data frame larger than the one above because it includes non AL lakes.
+```{r}
+filter(fish, lakeid == "AL" | length < 350)
+```
+
+If you want to filter multiple values in the same variable you can use the `%in%` operator. This is a useful way to simplify your code.
+```{r}
+filter(fish, length %in% c(167, 175))
+```
+
+But, be careful when reading the code like a human; why does this not work? How would you correct the problem?
+```{r}
+filter(fish, length == 167 & length == 175)
+```
+
+## Practice
+1. Filter the `fish` data to include the samples from lake `DY`.
 
 
+2. Filter the data to include all lakes except AL.
 
 
+3. Filter the data to include all lakes except AL and DY.
 
 
+4. Filter the data to include all fish with a scale length greater than or equal to 11.
 
 
-
-
+5. Filter the data to include fish only from lake AL and with a scalelength greater than or equal to 2 and less than or equal to 4.
 
 
 ## That's it, let's take a break!   
 
---> On to [part 2](https://jmledford3115.github.io/datascibiol/lab3_2.html)  
+-->[Home](https://jmledford3115.github.io/datascibiol/)
