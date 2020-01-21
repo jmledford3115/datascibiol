@@ -1,7 +1,5 @@
 ---
-title: "Tidy Data"
-author: "Joel Ledford"
-date: "Winter 2019"
+title: "Tidyverse: `select()`, pipes ` %>%`, and `mutate()`"
 output:
   html_document:
     theme: spacelab
@@ -11,195 +9,111 @@ output:
     toc: yes
 ---
 
-> **For Big-Data Scientists, "Janitor Work" Is Key Hurdle to Insights.**  
-> "Data scientists, according to interviews and expert estimates, spend from 50 percent to 80 percent of their time mired in the mundane labor of collecting and preparing data, before it can be explored for useful information."  
-> [New York Times (2014)](http://www.nytimes.com/2014/08/18/technology/for-big-data-scientists-hurdle-to-insights-is-janitor-work.html)
-
-## Overview
-The  quote sums above sums up much of the work in data science. Simply put, most of the data that you end up working with will be messy, disorganized, and not **tidy**. By the end of the course, you will become a master of wrangling messy data into tidy data that are organized and ready for analysis.
-
-## Resources
-- [dplyr-tidyr tutorial](http://tclavelle.github.io/dplyr-tidyr-tutorial/)
-- [Data wrangling cheatsheet (`dplyr`,`tidyr`)](http://ucsb-bren.github.io/refs/cheatsheets/data-wrangling-cheatsheet.pdf)
-- [Tidyr, R for Data Science](https://r4ds.had.co.nz/tidy-data.html#unite)
-
-## Learning Goals
+## Learning Goals  
 *At the end of this exercise, you will be able to:*    
-1. Explain the difference between tidy and messy data.  
-2. Evaluate a dataset as tidy or untidy.  
-3. Use the functions of tidyr to transform messy data to tidy data.
+1. Use the functions of dplyr (filter, select, arrange) to organize and sort data frames.  
+2. Use `mutate()` to calculate a new column from existing columns.  
 
-## Load the library
+## Review
+In the last lab you were introduced to the tidyverse and the core function `filter()`. Filter allows us to separate variables with specific attributes of interest from large, complex data. `filter()` works by looking through rows, but what about columns? We need the new function `select()` to separate columns of interest. As you may expect, we will use `filter()` and `select()` together to focus on the variables and values of interest.  
+
+## Load the tidyverse
 ```{r message=FALSE, warning=FALSE}
-library(tidyverse)
+library("tidyverse")
 ```
 
-## Tidy data
-Most data that you will encounter are organized incorrectly for work in R and, as you might expect, the tools used to transform data are a core part of the tidyverse. I will attempt to summarize the most important points below, but you should read chapter 12 of the data science text (https://r4ds.had.co.nz/tidy-data.html).  
-
-`Tidy` data in the sense of the tidyverse follows three conventions:   
-(1) each variable has its own column  
-(2) each observation has its own row  
-(3) each value has its own cell  
-
-This is summarized in the image below.  
-![*Tidy Data.*](tidy-1.png)
-I think this, and many other, explanations of tidy data are good but they don't emphasize a key point: R was built around working with vectors (which are stored as columns) and this is inherent in how it uses data. So, in order for many of the functions in R to work data need to be organized accordingly. The package used to tidy data is called **tidyr** and is a core part of the tidyverse.  
-
-## Tidyr
-+ `gather()` and `spread()` convert data between wide and long format  
-+ `separate()` and `unite()` separates or unites information in columns  
-
-The following data are results from a drug trial that shows the effect of four different treatments on six patients. The values represent resting heart rate.
-```{r}
-non_tidy1 <- data.frame(
-  patient= c("Margaret", "Frank", "Hawkeye", "Trapper", "Radar", "Henry"),
-  a= c(72, 84, 64, 60, 74, 88),
-  b= c(74, 84, 66, 58, 72, 87),
-  c= c(80, 88, 68, 64, 78, 88),
-  d= c(68, 76, 64, 58, 70, 72)
-)
-non_tidy1
-```
-Let's assess whether or not these data are tidy.  
-
-(1) each variable has its own column  
-*No. The columns are actually variables (treatment a, b, c, or d).*  
-(2) each observation has its own row  
-*No. The observations are grouped in a single row by patient.*  
-(3) each value has its own cell  
-*Yes. There are no unusual combinations of data in each cell.*    
-
-Because rules 1 and 2 are violated, these data are **not** tidy. We need to use tidyr to make them useable in R. As a final demonstration, let's plot these data. We haven't covered plots yet but this is a good first example.
-```{r}
-plot(non_tidy1)
-```
-R cannot make sense of these data; the plot is nonsense. Even though I gave no specific plotting instructions, R should be able to produce something intelligible or ask you to identify axes.  
-
-## Why are data untidy? 
-Scientists frequently use excel spreadsheets that are organized to make data entry efficient. This is typically referred to as **wide format**. From an R perspective, this creates problems because R fundamentally works with vectors. If you have a column of mixed classes or values that correspond to more than a single variable then many of the important R functions will not work.  
-
-By far, the most common problem is to have **column names actually represent values of a variable**. Our `non_tidy1` example has columns a, b, c, and d that actually represent different drug trials.  
-
-## gather()
-gather() is the function used most when dealing with non-tidy data. It allows us to transform wide data into long data.  
-```{r}
-non_tidy1
+## Load the fish scale data
+```{r message=FALSE, warning=FALSE}
+fish <- readr::read_csv("data/Gaeta_etal_CLC_data.csv")
 ```
 
-The syntax to gather() is a bit strange. From the [Tidyr, R for Data Science](https://r4ds.had.co.nz/tidy-data.html#unite) text, you need to know three things in order to use the function:  
-
-(1) The set of columns that represent values, not variables.  
-*In our case, these are the different drug treatment columns a, b, c, d.*
-(2) The name of the variable whose values form the column names.  
-*This is called the key, and in our data this is the drug. What is the new column name?*
-(3) The name of the variable whose values are spread over the cells.  
-*This is called the value, and in our case is the heart rate.*
-
 ```{r}
-tidy1 <- non_tidy1 %>% 
-  gather(a, b, c, d, key = "drug", value = "heartrate")
-tidy1
+names(fish)
 ```
 
-Now, we can reverify by doing our tidy check.  
+## dplyr: select()
+Select allows you to build a new data frame by selecting your variable(s) of interest. Our fish data has six variables, but this should give you some ideas especially when you have a large data frames with lots of variables.  
 
-(1) each variable has its own column  
-*Yes. Patient, drug, and heartrate are separated into individual columns.*  
-(2) each observation has its own row  
-*Yes. Each row has exactly one observation broken down by drug.*  
-(3) each value has its own cell  
-*Yes. There are no unusual combinations of data in each cell.*   
-
-And, as a final check let's try the plot command again. I do need to tell R the x and y axes.
+What if we are only interested in lakeid and scalelength.
 ```{r}
-plot(tidy1$patient, tidy1$heartrate)
+select(fish, lakeid, scalelength)
+```
+
+The - operator is useful in select. It allows us to select everything except the specified variables.
+```{r}
+select(fish, -fish_id, -annnumber, -length, -radii_length_mm)
+```
+
+For very large data frames with lots of variables, `select()` utilizes lots of different operators to make things easier. Let's say we are only interested in the variables that deal with length.
+```{r}
+select(fish, contains("length"))
+```
+
+Some additional options to select columns based on a specific criteria include:  
+1. ends_with() = Select columns that end with a character string  
+2. contains() = Select columns that contain a character string  
+3. matches() = Select columns that match a regular expression  
+4. one_of() = Select columns names that are from a group of names  
+
+## Practice
+1. What are the names of the columns in the `fish` data?
+
+2. We are only interested in the variables `lakeid`, `length`, and `scalelength`. Use `select()` to build a new dataframe focused on these variables.
+
+3. Repeat #2 above using the `-` operator.  
+
+## dplyr: Can we combine filter() and select()?
+Absolutely. This is one of the strengths of the tidyverse, it uses the same grammar to specify commands.
+```{r}
+fish2 <- select(fish, lakeid, scalelength)
+filter(fish2, lakeid == "AL")
+```
+
+## dplyr: Pipes %>% 
+The code above works fine but there is a more efficient way. We need to learn pipes `%>%`. Pipes allow you to feed the output from one function to the input of another function. We are going to use pipes from here on to keep things cleaner. (command+shift+m)
+```{r}
+fish %>%
+  select(lakeid, scalelength) %>%
+  filter(lakeid == "AL")
 ```
 
 ## Practice
-The data below track tuberculosis infection rates by year and country.
+1. Build a dataframe focused on the lakes `AL` and `AR` and looking at radii length between 2 and 4 only. Use pipes!  
+
+## dplyr: arrange()
+The `arrange()` command is a bit like a sort command in excel.
 ```{r}
-country <- c("Afghanistan", "Brazil", "China")
-`1999` <- c(745, 37737, 212258)
-`2000` <- c(2666, 80488, 213766)
-tb_data <- data.frame(country = country, `1999`=`1999`, `2000`=`2000`)
-tb_data
+fish %>% 
+  arrange(scalelength)
 ```
 
-1. Are these data tidy? Why not? Identify the specific problem(s).
-
-2. Use gather() to tidy the data.
-
-## separate()
-In our next example, we have the sex of each patient included with their name. Are these data tidy? No, there is more than one value per cell in the patient column and the columns a, b, c, d once again represent values.
+To sort in decreasing order, wrap the variable name in `desc()`.
 ```{r}
-non_tidy2 <- data.frame(
-  patient= c("Margaret_f", "Frank_m", "Hawkeye_m", "Trapper_m", "Radar_m", "Henry_m"),
-  a= c(72, 84, 64, 60, 74, 88),
-  b= c(74, 84, 66, 58, 72, 87),
-  c= c(80, 88, 68, 64, 78, 88),
-  d= c(68, 76, 64, 58, 70, 72)
-)
-non_tidy2
+fish %>% 
+  arrange(desc(scalelength))
 ```
 
-We need to start by separating the patient names from their sexes. `separate()` needs to know which column you want to split, the names of the new columns, and what to look for in terms of breaks in the data.
+`arrange()` can be very helpful in combination with the other functions.
 ```{r}
-non_tidy2 %>% 
-  separate(patient, into= c("patient", "sex"), sep = "_")
+fish %>% 
+  select(lakeid, length, fish_id, scalelength) %>% 
+  filter(lakeid=="AL") %>% 
+  arrange(fish_id)
 ```
 
-This is great; we have separated sex from patient. Are the data tidy? Not yet. We still need to use `gather()`.
+## dplyr: mutate()  
+Mutate allows us to create a new variable from existing variables in our data frame. Let's convert the length variable from cm to inches and create a new variable called length_in.  
 ```{r}
-tidy2 <- non_tidy2 %>% 
-  separate(patient, into= c("patient", "sex"), sep = "_") %>% 
-  gather(a, b, c, d, key = "drug", value = "heartrate")
-tidy2
+fish %>% 
+  mutate(length_in = length * 0.394) %>% 
+  select(fish_id, length, length_in)
 ```
 
-## unite()
-`unite()` is the opposite of separate(). Its syntax is relatively straightforward. You only need to identify the key and the value.
-```{r}
-non_tidy2 %>% 
-  separate(patient, into= c("patient", "sex"), sep = "_") %>% 
-  unite(patient_sex, patient, sex, sep="_")
-```
-
-## rename()
-The rename function is actually part of *dplyr*, but I put it here because I think of it as part of transforming untidy data.
-```{r}
-tidy2
-```
-
-Let's say I don't like the names of the columns. They can be renamed, just remember to replace or build a new object to keep things clean. (syntax is *new name* = *old name*)
-```{r}
-tidy2 %>% 
-  dplyr::rename(
-    MASH_character = patient,
-    Sex = sex,
-    Drug = drug,
-    Heartrate_bpm = heartrate)
-```
+Note that if we had called our new variable length, R would overwrite the old variable. 
 
 ## Practice
-In this example study, ten participants were asked to categorize three face styles by clicking various buttons that represent three different categories (face 1, face 2, face 3). The time it took to click a button is in milliseconds.
-```{r}
-faces <- data.frame(
-  ParticipantID_sex = c("001_m", "002_f", "003_f", "004_f", "005_m", "006_f", "007_m", "008_m", "009_m", "010_f"),
-  Face_1 = c(411,723,325,456,579,612,709,513,527,379),
-  Face_2 = c(123,300,400,500,600,654,789,906,413,567),
-  Face_3 = c(1457,1000,569,896,956,2345,780,599,1023,678)
-)
-faces
-```
+1. Use `mutate()` to calculate the half length of each fish: length_half = length/2. Select only fish_id, length, and length_half, use pipes.
 
-1. Are these data tidy? Why or why not?  
-
-2. Tidy the data and place them into a new dataframe.
-
-3. Use `rename()` to rename a few columns for practice.
-
-## Wrap-up
-Please review the learning goals and be sure to use the code here as a reference when completing the homework.
+## That's it, let's take a break!   
 
 -->[Home](https://jmledford3115.github.io/datascibiol/)

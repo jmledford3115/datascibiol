@@ -50,4 +50,4 @@ e. Build a `total_week` vector to show how much you lost or won on each day over
 
 f. Should you stick to blackjack or roulette? Write a program that verifies this below.  
 
-## Push your final code to GitHub
+## Push your final code to GitHub!
