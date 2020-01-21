@@ -38,7 +38,7 @@ I often add links to my RMarkdown files. For a website, include the page name in
 
 Email is similar, but you need to include `mailto:` in the parentheses. Here is my email: [Joel Ledford](jmledford@ucdavis.edu)    
 
-## Code chunks
+## Code Chunks
 All R code is inserted between two gray bars called a code chunk. You can insert a new code chunk by clicking "Insert>R" at the top of the page. On a Mac, the shortcut is `option+command+i`.  
 
 ## Knit
