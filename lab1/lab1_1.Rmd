@@ -34,7 +34,7 @@ The goal of lab 1 is to get everyone started using R, Rstudio, and GitHub. All o
 ## Setup your own computer
 You are welcome to use your own computer, but in order to do so you need to install R, RStudio, and GitHub Desktop. If you would like to set-up your own computer, please follow the directions [here](https://jmledford3115.github.io/datascibiol/setup.html). If you are unsure about troubleshooting your own computer, **please** use the lab computers.  
 
-## Open R  
+## R  
 Double click to open R (not RStudio) and find the carrot `>`. This is where commands are entered. Because R is a scripting language you don't point and click to run commands. Instead, you write instructions that are used by the computer to complete an operation. This makes it hard to learn at first because the instructions are specific. R is **not** tolerant of typos, puntuation errors, errant spaces, or other types of mistakes.  
 
 ## Arithmetic
