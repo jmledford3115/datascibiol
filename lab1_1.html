@@ -9,7 +9,6 @@
 <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
-<meta name="author" content="Joel Ledford" />
 
 
 <title>Getting Started</title>
@@ -1534,8 +1533,6 @@ div.tocify {
 
 
 <h1 class="title toc-ignore">Getting Started</h1>
-<h4 class="author">Joel Ledford</h4>
-<h4 class="date">Winter 2020</h4>
 
 </div>
 
@@ -1543,13 +1540,7 @@ div.tocify {
 <div id="background" class="section level2">
 <h2>Background</h2>
 <p>In nearly every field of science, our ability to generate data has exceeded our capacity for analysis. For me, this means that there is the potential for loss to science; many important discoveries may go unnoticed because we are unable to efficiently analyze data.</p>
-<p>There is also a growing problem of curation and reproducibility. As the analyses and data become more complex, research labs have a problem of managing data and analysis such that data can be used in future analyses or shared with colleagues. As students, postdocs, and visiting scientists come and go in labs, or even as an individual moves between projects, there is often a mess left behind where data are inefficiently stored, analysis was not documented, or in the worse case scenario, sloppy copy/paste type errors cause wasted days to months. Effectively stored data along with a documented, reproducible, work flow will allow for high-quality analysis, error prevention and time savings, and smooth and efficient collaboration with others or even with yourself months to years in the future.</p>
-<p>Lastly, with the widespread availability of data online there is the potential for new scientific discovery or insight through exploratory data analysis. In many cases a clean, organized workflow will yield new perspectives and promising results.</p>
-</div>
-<div id="objectives" class="section level2">
-<h2>Objectives</h2>
 <p>The goal for this course is to help get you started learning to manage, transform, and visualize data using the R programming language. You will learn to clearly and neatly organize messy data, transform it in ways that address your questions, and communicate results in a variety of formats. The course is designed for people with <strong>no prior programming experience</strong>. There is a substantial learning curve but, working together, we should be able to make learning R easier, interesting, and fun.</p>
-<p>Why spend the time? If you are pursuing any research path in science, this class will give you a competitive advantage and save you countless hours as most people struggle to <a href="https://www.wired.com/2017/03/biologists-teaching-code-survive/">learn R on their own</a>. Even if you are not pursuing a research career, companies routinely hire data scientists (or people with skills in data science) to analyze a variety of data.</p>
 </div>
 <div id="resources" class="section level2">
 <h2>Resources</h2>
@@ -1560,9 +1551,9 @@ div.tocify {
 <li><a href="https://support.rstudio.com/hc/en-us/articles/200711853-Keyboard-Shortcuts">RStudio keyboard shortcuts</a></li>
 </ul>
 </div>
-<div id="data-science-at-uc-davis" class="section level2">
-<h2>Data Science at UC Davis</h2>
-<p>Our campus has a wealth of expertise in data science, from working groups to full initiatives. Should your interests progress, here are some links. They offer regular workshops and maintain archives.</p>
+<div id="uc-davis" class="section level2">
+<h2>UC Davis</h2>
+<p>Our campus has a wealth of expertise in data science, from working groups to a full initiative. Should your interests progress, here are some links. They offer regular workshops and maintain archives.</p>
 <ul>
 <li><a href="http://dsi.ucdavis.edu/">Data Science Initiative, UC Davis</a><br />
 </li>
@@ -1571,103 +1562,118 @@ div.tocify {
 </div>
 <div id="help" class="section level2">
 <h2>Help!</h2>
-<p>When you need help with homework or a class topic, please visit and post on our <a href="https://piazza.com/uc_davis/winter2020/bis015l/home#">class discussion board</a> first. We are here to support you and everyone should participate, please. You can even post anonymously!</p>
+<p>When you need help with homework or a class topic, please visit and post on our <a href="https://piazza.com/uc_davis/winter2020/bis015l/home#">class discussion board</a> first. We are here to support you and everyone should participate, please.</p>
 </div>
-<div id="lab-1" class="section level2">
-<h2>Lab 1</h2>
-<p>The goal of lab 1 is to get everyone started using R, Rstudio, and GitHub. All of our work will be done in RStudio and uploaded to the class GitHub repository.</p>
-<p>At the start of each lab session, I will randomly pull someone’s code from the class GitHub repository and use it as an example. There are many, many ways to solve the same problems in R and seeing other people’s code is a great way to learn. This is not about shaming people who make mistakes!</p>
-<p>This first lab is tedious, so please be patient. It is important that everyone is set-up correctly before they leave today. In the spirit of the R universe, our class is a community. If you see someone struggling, please give them some help.</p>
+<div id="lab-1-goals" class="section level2">
+<h2>Lab 1 Goals</h2>
+<p>The goal of lab 1 is to get everyone started using R, Rstudio, and GitHub. All of our work will be done in RStudio and uploaded to the class GitHub repository. This first lab is tedious, so please be patient. It is important that everyone is set-up correctly before they leave today. In the spirit of the R universe, our class is a community. If you see someone struggling, please give them some help.</p>
 </div>
 <div id="setup-your-own-computer" class="section level2">
 <h2>Setup your own computer</h2>
 <p>You are welcome to use your own computer, but in order to do so you need to install R, RStudio, and GitHub Desktop. If you would like to set-up your own computer, please follow the directions <a href="https://jmledford3115.github.io/datascibiol/setup.html">here</a>. If you are unsure about troubleshooting your own computer, <strong>please</strong> use the lab computers.</p>
 </div>
+<div id="open-r" class="section level2">
+<h2>Open R</h2>
+<p>Double click to open R (not RStudio) and find the carrot <code>&gt;</code>. This is where commands are entered. Because R is a scripting language you don’t point and click to run commands. Instead, you write instructions that are used by the computer to complete an operation. This makes it hard to learn at first because the instructions are specific. R is <strong>not</strong> tolerant of typos, puntuation errors, errant spaces, or other types of mistakes.</p>
+</div>
+<div id="arithmetic" class="section level2">
+<h2>Arithmetic</h2>
+<p>You can use R as a calculator; just enter the expression and press return. Experiment by evaluating the following expression.</p>
+<pre class="r"><code>4*12</code></pre>
+<pre><code>## [1] 48</code></pre>
+<p>Order of operations applies and you don’t need to add an ‘=’ sign.</p>
+<pre class="r"><code>(4*12)/2</code></pre>
+<pre><code>## [1] 24</code></pre>
+<p>Statistics are what R was originally written for and there are thousands of packages for specialized statistics depending on your needs.</p>
+<pre class="r"><code>mean(4, 6, 8, 5, 6, 7, 7, 7)</code></pre>
+<pre><code>## [1] 4</code></pre>
+</div>
+<div id="practice" class="section level2">
+<h2>Practice</h2>
+<ol style="list-style-type: decimal">
+<li>Test out the arithmetic capabilities of R; experiment by doing addition, subtraction, multiplication, and division.</li>
+</ol>
+<pre class="r"><code>2+2</code></pre>
+<pre><code>## [1] 4</code></pre>
+<pre class="r"><code>4-2</code></pre>
+<pre><code>## [1] 2</code></pre>
+<pre class="r"><code>2*3</code></pre>
+<pre><code>## [1] 6</code></pre>
+<pre class="r"><code>6/2</code></pre>
+<pre><code>## [1] 3</code></pre>
+</div>
+<div id="r-and-rstudio" class="section level2">
+<h2>R and RStudio</h2>
+<p>R is an open source, <strong>scripting</strong> language. RStudio is a GUI (graphical user interface) that is used to interact with R. You need to have R installed in order for RStudio to work. On the desktop, you should see a file titled <code>lab1_1.Rmd</code>. Open this file by double clicking; you should now be in RMarkdown.</p>
+<p>When you first open RStudio, you should see your screen divided into four quadrants. I will demonstrate each of these in lab, but for now it is enough to know that they display different information and are helpful to manage your work.</p>
+</div>
+<div id="working-directory" class="section level2">
+<h2>Working Directory</h2>
+<p>Before you begin any project in RStudio, it is important that you are in the correct “working directory”. This is the folder on your computer where you are currently working; it is the location where RStudio will save all of your work.<br />
+Run the following code by clicking the small green arrow to check your current working directory.</p>
+<pre class="r"><code>getwd()</code></pre>
+<pre><code>## [1] &quot;/Users/jmledford/Desktop/datascibiol/lab1&quot;</code></pre>
+<p>If you are not in the <strong>lab 1 folder</strong>, please navigate to it: Session&gt;Set Working Directory&gt;Choose Directory&gt;Desktop&gt;lab1.</p>
+<p>Re-run the code below to confirm.</p>
+<pre class="r"><code>getwd()</code></pre>
+<pre><code>## [1] &quot;/Users/jmledford/Desktop/datascibiol/lab1&quot;</code></pre>
+</div>
 <div id="github" class="section level2">
 <h2>GitHub</h2>
-<p><a href="www.github.com"><strong>GitHub</strong></a> is a file storage and management site used mostly by programmers. Programmers upload code to repositories (folders) and make it publicly available. We will use Github to store our work in BIS 15.</p>
+<p><a href="www.github.com"><strong>GitHub</strong></a> is a file storage and management site used by programmers. Programmers upload code to repositories (folders) and make it publicly available. We will use Github to store our work in BIS 15L.</p>
 </div>
 <div id="create-a-github-account" class="section level2">
 <h2>Create a GitHub account</h2>
-<p>Since we will use GitHub as a repository for assignments, we need to make an account for each student and build a new project through RStudio. Navigate to <a href="www.github.com">GitHub</a> and create a free account. <a href="mailto:jmledford@ucdavis.edu">Email</a> your username to me.</p>
+<p>Since we will use GitHub for assignments, you need to have an account and make a repository for BIS 15L. Navigate to <a href="github.com">GitHub</a> and create a free account. <a href="mailto:jmledford@ucdavis.edu">Email</a> your username to me.</p>
 <p>I have made a repository for our class <a href="https://github.com/jmledford3115/BIS15-W20-DataScienceBiologists">BIS15-W20-DataScienceBiologists</a>. You should <strong>Star</strong> this repository for future reference.</p>
 </div>
 <div id="make-your-own-repository" class="section level2">
 <h2>Make Your Own Repository</h2>
 <ol style="list-style-type: decimal">
-<li>Go to <a href="www.github.com">GitHub</a> and login.<br />
+<li>Go to <a href="www.github.com">github.com</a> and login.<br />
 </li>
 <li>Create a new repository.<br />
 </li>
-<li>Under repository name title it <code>BIS15W2020_your first initial and lastname</code>. Mine would look like this: BIS15W2020_jledford<br />
+<li>Under repository name, use the title <code>BIS15W2020_your first initial and lastname</code>. Mine would look like this: BIS15W2020_jledford<br />
 </li>
-<li>Default settings are fine, but do click “Initialize this repository with a README”<br />
+<li>Default settings are fine, but do click “Initialize this repository with a README”.<br />
 </li>
-<li>Once the repository is made, click on settings in the top right<br />
+<li>Once the repository is made, click on settings in the top right.<br />
 </li>
-<li>On the left toolbar click “Collaborators”<br />
+<li>On the left toolbar click “Collaborators”.<br />
 </li>
-<li>Add “rlgodwin28” and “jmledford3115” as collaborators.</li>
+<li>Add “jmledford3115” as a collaborator.</li>
 </ol>
 </div>
 <div id="github-desktop" class="section level2">
 <h2>GitHub Desktop</h2>
-<p>One way to manage your GitHub repositories is to use <a href="https://desktop.github.com/">GitHub desktop</a>. This is a helpful tool that will allow you to manage all of your files. Once installed, open the program and login using your GitHub account.</p>
+<p>One way to manage your GitHub repositories is to use <a href="https://desktop.github.com/">GitHub desktop</a>. This is a helpful tool that will allow you to manage all of your files. Open the program and login using your GitHub account.</p>
 </div>
-<div id="clone-bis15-w20-datasciencebiologists" class="section level2">
-<h2>Clone <code>BIS15-W20-DataScienceBiologists</code></h2>
-<p>In GitHub desktop, you will see a repository called <code>BIS15-W20-DataScienceBiologists</code>. Clone this repository to your desktop.</p>
-</div>
-<div id="clone-bis15w2020_your-first-initial-and-lastname" class="section level2">
-<h2>Clone <code>BIS15W2020_your first initial and lastname</code></h2>
-<p>In GitHub desktop, you will also see your personal repository. Clone this repository to your desktop.</p>
-</div>
-<div id="copy" class="section level2">
-<h2>Copy</h2>
-<p>Copy all of the files from lab 1 in the <code>BIS15-W20-DataScienceBiologists</code> and paste them into your repository. This will allow you to make changes and take notes as we progress.</p>
+<div id="clone-your-repository" class="section level2">
+<h2>Clone Your Repository</h2>
+<p>In GitHub desktop, you will see your personal repository as an option under <code>clone repository</code>. Clone your repository to the desktop. Copy and paste the <code>lab1</code> folder from the desktop into your personal repository. By doing this, you have created your own personal copies of lab materials for lab 1.</p>
 </div>
 <div id="using-github" class="section level2">
 <h2>Using GitHub</h2>
 <p>You will use your repository to store all of your notes and work. There are three terms that we need to define:<br />
-1. <code>Commit</code> takes a snapshot of your current progress<br />
-2. <code>Pull</code> this is the same as download<br />
-3. <code>Push</code> this is the same as upload</p>
-<p>If you setup GitHub Desktop, then you will see that it automatically tracks your changes. Clicking the <code>Commit to master</code> button in the bottom left corner means that you are recording a snapshot of your edits locally. Once this is done, you need to upload your changes to GitHub. This is done by cliking <code>Push origin</code>. Once you have pushed your changes you can double check by looking on github.com.</p>
+1. <code>Commit</code> takes a snapshot of your current progress.<br />
+2. <code>Pull</code> this is the same as download.<br />
+3. <code>Push</code> this is the same as upload.</p>
+<p>If you setup <a href="https://desktop.github.com/">GitHub desktop</a>, then you will see that it automatically tracks your changes. Clicking the <code>Commit to master</code> button in the bottom left corner means that you are recording a snapshot of your edits locally. Once this is done, you need to upload your changes to GitHub. This is done by cliking <code>Push origin</code>. Once you have pushed your changes you can double check by looking at your repository on github.com.</p>
 </div>
-<div id="working-directory" class="section level2">
-<h2>Working Directory</h2>
-<p>RStudio is an interactive working environment for R. When you first open it, you should see your screen divided into four quadrants. I will demonstrate each of these in class, but for now it is enough to know that they display different information and are helpful as you work on code.</p>
-<p>Please run the following code to check your current working directory.</p>
-<pre class="r"><code>getwd()</code></pre>
-<pre><code>## [1] &quot;/Users/jmledford/Desktop/datascibiol&quot;</code></pre>
-<p>If you find that you are not in the correct folder, please navigate to it: Session&gt;Set Working Directory&gt;Choose Directory. You want to be in your personal repository <code>BIS15W2020_your first initial and lastname</code>.</p>
-<p>Re-run the code below to confirm.</p>
-<pre class="r"><code>getwd()</code></pre>
-<pre><code>## [1] &quot;/Users/jmledford/Desktop/datascibiol&quot;</code></pre>
-</div>
-<div id="practice" class="section level2">
+<div id="practice-1" class="section level2">
 <h2>Practice</h2>
-<p>Since you will use your GitHub repository for your homework, we need to practice.</p>
-<ol style="list-style-type: decimal">
-<li>Navigate to your repository and find the file <code>dummy_push</code><br />
-</li>
-<li>Open <code>dummy_push</code><br />
-</li>
-<li>Add your name under <code>author</code> at the top of the page<br />
-</li>
-<li>Save this file<br />
-</li>
-<li><code>Knit</code> the file following class instructions</li>
-<li>Use GitHub Desktop to first <code>Commit to master</code> and then <code>Push origin</code> to your GitHub repository.</li>
-</ol>
-</div>
-<div id="github-issues" class="section level2">
-<h2>GitHub Issues</h2>
-<p>We will encounter issues over the next few weeks with GitHub. These will be caused mostly by user error, but sometimes weird things happen. If you are stuck, get my attention and we will sort things out.</p>
+<p>Since you will use your GitHub repository for your homework, we need to practice.<br />
+1. Navigate to your repository and find the file <code>dummy_push</code>.<br />
+2. Open <code>dummy_push</code>.<br />
+6. Add your name under <code>author</code> at the top of the page.<br />
+8. Save this file.<br />
+9. <code>Knit</code> the file following class instructions.<br />
+10. Use GitHub Desktop to first <code>Commit to master</code> and then <code>Push origin</code> to your GitHub repository.</p>
 </div>
 <div id="thats-it-lets-take-a-break" class="section level2">
 <h2>That’s it, let’s take a break!</h2>
-<p>–&gt; On to <a href="https://jmledford3115.github.io/datascibiol/lab1_2.html">part 2</a></p>
+<p>–&gt;<a href="https://jmledford3115.github.io/datascibiol/">Home</a></p>
 </div>
 
 

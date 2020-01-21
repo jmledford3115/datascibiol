@@ -9,30 +9,44 @@ output:
 
 ## Learning Goals  
 *At the end of this exercise, you will be able to:*    
-1. Solve arithmetic operations in R.  
+1. Use RMarkdown to "knit" an hrml file.  
 2. Define an object in R; assign values to objects.  
 3. Learn best practices in the naming of objects and other R programming conventions.  
 4. Learn the differences between the types of data used in R.  
 5. Perform simple operations using vectors.  
 
-## Essential Information about R
-R is an open source, **scripting** language. RStudio is a GUI (graphical user interface) that is frequently used to interact with R. You need R installed in order for RStudio to work.
-
-Because R is a scripting language you don't point and click to run commands. Instead, you write instructions that are used by the computer to complete an operation. This makes for excellent repeatability but makes it hard to learn at first because the instructions are specific. R is **not** tolerant of typos, puntuation errors, errant spaces, or other types of mistakes.
-
 ## RMarkdown
 Annotation of code is important for programmers of all levels. When code is annotated, it is easy for others to understand and perhaps more importantly, easier for the person who wrote the code to understand when returning to a project days to years later. RMarkdown allows us to embed code in annotated chunks, show the results of analyses, and display graphical output all in one file.  
 
-The RMarkdown file can then be exported in a number of formats. If you have questions, the definitive guide is [here](https://bookdown.org/yihui/rmarkdown/).  
+The RMarkdown file can then be exported in a number of formats. If you have questions, the definitive guide to RMarkdown is [here](https://bookdown.org/yihui/rmarkdown/).  
 
 Here is a great [tutorial on RMarkdown](https://www.markdowntutorial.com/).  
 
-## Practice
+## RMarkdown Basics
 RMarkdown is one of many types of documents that can be created in RStudio and is the one we will use most frequently in BIS 15L.  
 
-1. In RStudio, open a new markdown document: **File>New File>R Markdown**  
-2. There is some generic information at the start of the file that we don't need. Delete lines 12 through 31 to clean things up.  
-3. Copy and paste the following two pieces of code into the document (include the gray code "chunks".)    
+1. In RStudio, open a new markdown document: **File>New File>R Markdown** and title it "RMarkdown Practice".  
+2. At the top of the page, the hear includes information about the title, author, date, and output. You can edit these fields, but avoid editing output for now.   
+3. There is some generic information at the start of the file that we don't need. Delete lines 12 through 31 to clean things up.  
+4. Hold on to this file, we will use it shortly.  
+
+## Titles and Text
+Have a look at the format of this document; titles are indicated by a `#`. Larger numbers of `#'s` reduce the size of the font. Text with no `#'s` is smallest and not bold. To emphasize words, you can use _italics_ or **bold**. A line break is indicated by two spaces.  
+
+## Links
+I often add links to my RMarkdown files. For a website, include the page name in `[]` and the website address in `()`. [BIS 15 Webpage](https://jmledford3115.github.io/datascibiol/)    
+
+Email is similar, but you need to include `mailto:` in the parentheses. Here is my email: [Joel Ledford](jmledford@ucdavis.edu)    
+
+## Code chunks
+All R code is inserted between two gray bars called a code chunk. You can insert a new code chunk by clicking "Insert>R" at the top of the page. On a Mac, the shortcut is `option+command+i`.  
+
+## Knit
+In order to make the html file, you need to "Knit" the file. Knitting just means build the file. If you click "Knit" now, it will knit the lab.  
+
+## Practice
+1. Go back to your "RMarkdown Practice" file and experiment with titles, text, and syntax.  
+2. Copy and paste the following two pieces of code into the document (include the gray code "chunks").      
 
 ```{r message=FALSE, warning=FALSE}
 library("tidyverse")
@@ -44,31 +58,7 @@ ggplot(mtcars, aes(x = factor(cyl))) +
 ```
 
 5. Now `knit` the file to html using the knit button at the top of the page.  
-
-## Help
-R is a flexible programming language that is used by scientists worldwide. Thousands of packages are available to perform specific analyses and there is a large community of people willing to help if you have problems.
-
-Adding a '?' before a command will bring up the associated help document.
-```{r, message = FALSE}
-?mean
-```
-
-[Stack Overflow][so] is an extremely helpful resource for R programming type questions. Stack Overflow questions and answers can usually be found by Googling your R related question and including 'R' in the search phrase. This technique also works for R error messages. Just be sure to thoroughly look for help before posting questions to Stack Overflow or related forums. 
-
-## Arithmetic
-You can use R as a calculator; just enter the operation into a new code chunk. Order of operations applies and you don't need to add an '=' sign.
-```{r}
-4*12
-```
-
-```{r}
-(4*12)/2
-```
-
-Statistics are what R was originally written for, so it will pretty much do anything you need and there are thousands of packages for specialized statistics depending on your needs.
-```{r}
-mean(4, 6, 8, 5, 6, 7, 7, 7)
-```
+6. Lastly, commit and push this file to your GitHub repository.  
 
 ## Objects
 In order to access the potential of R we need to assign values or other types of data to `objects`. There is a specific format that I want you to follow, so please pay close attention.  
@@ -89,8 +79,8 @@ treatment <- 36
 control <- 38
 ```
 
-## Practice
-1. Make a new object `my_experiment` that is the sum of the treatment and control objects above.  
+
+Here we make a new object `my_experiment` that is the sum of the treatment and control.  
 ```{r}
 my_experiment <- sum(treatment, control)
 my_experiment
@@ -168,6 +158,5 @@ is.na(my_missing)
 anyNA(my_missing)
 ```
 
+## That's it, let's take a break!  
 -->[Home](https://jmledford3115.github.io/datascibiol/)
-
-[so]: https://stackoverflow.com/ 

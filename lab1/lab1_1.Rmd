@@ -10,8 +10,6 @@ output:
 ## Background
 In nearly every field of science, our ability to generate data has exceeded our capacity for analysis. For me, this means that there is the potential for loss to science; many important discoveries may go unnoticed because we are unable to efficiently analyze data.
 
-Why spend the time? If you are pursuing any research path in science, this class will give you a competitive advantage and save you countless hours as most people struggle to [learn R on their own](https://www.wired.com/2017/03/biologists-teaching-code-survive/). Even if you are not pursuing a research career, you will likely use the skills you learn as part of your education at UC Davis.  
-
 The goal for this course is to help get you started learning to manage, transform, and visualize data using the R programming language. You will learn to clearly and neatly organize messy data, transform it in ways that address your questions, and communicate results in a variety of formats. The course is designed for people with **no prior programming experience**. There is a substantial learning curve but, working together, we should be able to make learning R easier, interesting, and fun.  
 
 ## Resources
@@ -21,7 +19,7 @@ Given that R is open source, many resources are available online. We will use a 
 - [R cheatsheets](https://www.rstudio.com/resources/cheatsheets/)
 - [RStudio keyboard shortcuts](https://support.rstudio.com/hc/en-us/articles/200711853-Keyboard-Shortcuts)
 
-## Data Science at UC Davis
+## UC Davis
 Our campus has a wealth of expertise in data science, from working groups to a full initiative. Should your interests progress, here are some links. They offer regular workshops and maintain archives.  
 
 - [Data Science Initiative, UC Davis](http://dsi.ucdavis.edu/)  
@@ -30,17 +28,64 @@ Our campus has a wealth of expertise in data science, from working groups to a f
 ## Help!  
 When you need help with homework or a class topic, please visit and post on our [class discussion board](https://piazza.com/uc_davis/winter2020/bis015l/home#) first. We are here to support you and everyone should participate, please.  
 
-## Lab 1
+## Lab 1 Goals
 The goal of lab 1 is to get everyone started using R, Rstudio, and GitHub. All of our work will be done in RStudio and uploaded to the class GitHub repository. This first lab is tedious, so please be patient. It is important that everyone is set-up correctly before they leave today. In the spirit of the R universe, our class is a community. If you see someone struggling, please give them some help.  
 
 ## Setup your own computer
 You are welcome to use your own computer, but in order to do so you need to install R, RStudio, and GitHub Desktop. If you would like to set-up your own computer, please follow the directions [here](https://jmledford3115.github.io/datascibiol/setup.html). If you are unsure about troubleshooting your own computer, **please** use the lab computers.  
 
+## Open R  
+Double click to open R (not RStudio) and find the carrot `>`. This is where commands are entered. Because R is a scripting language you don't point and click to run commands. Instead, you write instructions that are used by the computer to complete an operation. This makes it hard to learn at first because the instructions are specific. R is **not** tolerant of typos, puntuation errors, errant spaces, or other types of mistakes.  
+
+## Arithmetic
+You can use R as a calculator; just enter the expression and press return.  Experiment by evaluating the following expression.
+```{r}
+4*12
+```
+
+Order of operations applies and you don't need to add an '=' sign.
+```{r}
+(4*12)/2
+```
+
+Statistics are what R was originally written for and there are thousands of packages for specialized statistics depending on your needs.
+```{r}
+mean(4, 6, 8, 5, 6, 7, 7, 7)
+```
+
+## Practice
+1. Test out the arithmetic capabilities of R; experiment by doing addition, subtraction, multiplication, and division.  
+```{r}
+2+2
+4-2
+2*3
+6/2
+```
+
+## R and RStudio
+R is an open source, **scripting** language. RStudio is a GUI (graphical user interface) that is used to interact with R. You need to have R installed in order for RStudio to work. On the desktop, you should see a file titled `lab1_1.Rmd`. Open this file by double clicking; you should now be in RMarkdown.  
+
+When you first open RStudio, you should see your screen divided into four quadrants. I will demonstrate each of these in lab, but for now it is enough to know that they display different information and are helpful to manage your work.  
+
+## Working Directory  
+Before you begin any project in RStudio, it is important that you are in the correct "working directory". This is the folder on your computer where you are currently working; it is the location where RStudio will save all of your work.  
+Run the following code by clicking the small green arrow to check your current working directory.  
+```{r}
+getwd()
+```
+
+If you are not in the **lab 1 folder**, please navigate to it: Session>Set Working Directory>Choose Directory>Desktop>lab1.  
+
+Re-run the code below to confirm.
+```{r}
+getwd()
+```
+
 ## GitHub
 [**GitHub**](www.github.com) is a file storage and management site used by programmers. Programmers upload code to repositories (folders) and make it publicly available. We will use Github to store our work in BIS 15L.  
 
 ## Create a GitHub account
-Since we will use GitHub as a repository for assignments, we need to make an account for each student and build a new project through RStudio. Navigate to [GitHub](www.github.com) and create a free account. [Email](mailto:jmledford@ucdavis.edu) your username to me.  
+Since we will use GitHub for assignments, you need to have an account and make a repository for BIS 15L. Navigate to [GitHub](github.com) and create a free account. [Email](mailto:jmledford@ucdavis.edu) your username to me.  
 
 I have made a repository for our class [BIS15-W20-DataScienceBiologists](https://github.com/jmledford3115/BIS15-W20-DataScienceBiologists). You should **Star** this repository for future reference.  
 
@@ -51,22 +96,13 @@ I have made a repository for our class [BIS15-W20-DataScienceBiologists](https:/
 4. Default settings are fine, but do click "Initialize this repository with a README".    
 5. Once the repository is made, click on settings in the top right.  
 6. On the left toolbar click "Collaborators".  
-7. Add "rlgodwin28" and "jmledford3115" as collaborators.  
+7. Add "jmledford3115" as a collaborator.  
 
 ## GitHub Desktop
 One way to manage your GitHub repositories is to use [GitHub desktop](https://desktop.github.com/). This is a  helpful tool that will allow you to manage all of your files. Open the program and login using your GitHub account.  
 
-## Clone Your Repository `BIS15W2020_your first initial and lastname`  
-In GitHub desktop, you will see your personal repository as an option under clone repository. Clone your repository to the desktop.  
-
-## Download `BIS15-W20-DataScienceBiologists`  
-Find the class repository [BIS15-W20-DataScienceBiologists](https://github.com/jmledford3115/BIS15-W20-DataScienceBiologists) at [github.com](www.github.com). Click the `Clone or download` button then `Download zip` to the desktop. When you open this .zip file you will see all of the class files.  
-
-## Copy
-Copy all of the files for lab 1 in `BIS15-W20-DataScienceBiologists` and paste them into your repository on the desktop. This makes your own personal copy and will allow you to make changes and take notes as we progress.  
-
-## Open lab1_1.rmd  
-Now that you have your own copy, open the file lab1_1.rmd. You should now be in RStudio.  
+## Clone Your Repository  
+In GitHub desktop, you will see your personal repository as an option under `clone repository`. Clone your repository to the desktop. Copy and paste the `lab1` folder from the desktop into your personal repository. By doing this, you have created your own personal copies of lab materials for lab 1.    
 
 ## Using GitHub
 You will use your repository to store all of your notes and work. There are three terms that we need to define:  
@@ -74,36 +110,16 @@ You will use your repository to store all of your notes and work. There are thre
 2. `Pull` this is the same as download.     
 3. `Push` this is the same as upload.    
 
-If you setup [GitHub desktop](https://desktop.github.com/), then you will see that it automatically tracks your changes. Clicking the `Commit to master` button in the bottom left corner means that you are recording a snapshot of your edits locally. Once this is done, you need to upload your changes to GitHub. This is done by cliking `Push origin`. Once you have pushed your changes you can double check by looking on github.com.    
-
-## Working Directory  
-RStudio is an interactive working environment for R. When you first open it, you should see your screen divided into four quadrants. I will demonstrate each of these in lab, but for now it is enough to know that they display different information and are helpful as you work on code.  
-
-Please run the following code to check your current working directory.  
-```{r}
-getwd()
-```
-
-If you find that you are not in the correct folder, please navigate to it: Session>Set Working Directory>Choose Directory. You want to be in your personal repository `BIS15W2020_your first initial and lastname`.   
-
-Re-run the code below to confirm.
-```{r}
-getwd()
-```
+If you setup [GitHub desktop](https://desktop.github.com/), then you will see that it automatically tracks your changes. Clicking the `Commit to master` button in the bottom left corner means that you are recording a snapshot of your edits locally. Once this is done, you need to upload your changes to GitHub. This is done by cliking `Push origin`. Once you have pushed your changes you can double check by looking at your repository on github.com.    
 
 ## Practice
 Since you will use your GitHub repository for your homework, we need to practice.  
-
-1. Navigate to your repository and find the file `dummy_push`  
-2. Open `dummy_push`  
-6. Add your name under `author` at the top of the page  
-8. Save this file  
-9. `Knit` the file following class instructions
+1. Navigate to your repository and find the file `dummy_push`.    
+2. Open `dummy_push`.  
+6. Add your name under `author` at the top of the page.    
+8. Save this file.  
+9. `Knit` the file following class instructions.  
 10. Use GitHub Desktop to first `Commit to master` and then `Push origin` to your GitHub repository.    
 
-## GitHub Issues
-We will encounter issues over the next few weeks with GitHub. These will be caused mostly by user error, but sometimes weird things happen. If you are stuck, get my attention and we will sort things out.  
-
 ## That's it, let's take a break!  
-
 -->[Home](https://jmledford3115.github.io/datascibiol/)

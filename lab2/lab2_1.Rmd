@@ -1,5 +1,5 @@
 ---
-title: "Data Matrices"
+title: "Data Structures: Vectors & Data Matrices"
 output:
   html_document:
     theme: spacelab
@@ -11,6 +11,7 @@ output:
 
 ## Learning Goals
 *At the end of this exercise, you will be able to:*    
+1. Define data structures and provide examples of vectors, lists, matrices, and data frames.  
 1. Combine a series of vectors into a data matrix.  
 2. Name columns and rows in a data matrix.  
 3. Select values and use summary functions in a data matrix.  
@@ -26,11 +27,81 @@ At the beginning of each class, please make sure that you complete the following
 6. Copy the files for today's lab from the class repository and paste them into **your** repository.  
 7. Open today's lab in RStudio.  
 
-## Homework 1 Review  
-Let's take a few minutes to compare solutions with your lab  partner. You should be especially mindful of alternate solutions; generally, the code that is the shortest in terms of lines is best. Make sure that your code is knitted and in your Github repository, please.  
+## Data Structures
+In addition to classes of data, R also organizes data in different ways. These are called data structures and include vectors, lists, matrices, data frames, and factors. For now, we will focus on `vectors`.  
 
-## Data Matrix
-Last time, you learned how to work with vectors. Today we will organize the vectors into a new type of data structure called a data matrix. Like vectors, data matrices are restricted to *data of the same type*. In the short example below, we will build a new data matrix using the matrix command.  
+## Vectors
+Vectors are a common way of organizing data in R.  We create vectors using the `c` command.  
+
+A numeric vector.
+```{r}
+my_vector <- c(10, 20, 30)
+```
+
+A character vector. Characters always have quotes and may be referred to as "strings".
+```{r}
+days_of_the_week <- c("Monday", "Tuesday", "Wednesday", "Thrusday", "Friday", "Saturday", "Sunday")
+```
+
+What if our numeric vector above had a missing value?
+```{r}
+my_vector <- c(10, NA, 30)
+anyNA(my_vector)
+```
+
+Certain functions require us to specify how we want to deal with NAs. Often if NA is included in an operation, the result is NA.
+```{r}
+mean(my_vector)
+```
+
+Let's remove the NA value.
+```{r}
+mean(my_vector, na.rm = TRUE)
+```
+
+A convenient trick for creating a vector is to generate a sequence of numbers.
+```{r}
+my_vector_sequence <- c(1:10)
+my_vector_sequence
+```
+
+`seq` allows more control.
+```{r}
+my_vector_sequence2 <- seq(1, 4, by=0.25)
+my_vector_sequence2
+```
+
+## Identifying vector elements
+We can use `[]` to pull out elements in a vector. We just need to specify their position in the vector; i.e. day 3 is Wednesday.
+```{r}
+days_of_the_week[3]
+```
+
+## Practice
+Work through these examples and make adjustments to the values to experiment.
+
+1. Create a new numeric vector of values 1 through 100
+```{r}
+new_vector <- c(1:100)
+```
+
+2. We can evaluate all numerics in our vector to determine which has a value of 15.
+```{r}
+new_vector == 15
+```
+
+3. We can also use operators such as <, >, ==, <==, etc.
+```{r}
+new_vector < 10
+```
+
+4. If you use `[]` then you only get the values, not the logical evaluation of the entire vector.
+```{r}
+new_vector[new_vector <= 10]
+```
+
+## Data Matrices
+Data matrices are a series of stacked vectors, similar to a data table. In the example below, we will build a new data matrix using the matrix command.  
 
 Box office earnings for Harry Potter movies (in millions!). Notice that these are separate vectors.
 ```{r}
@@ -166,10 +237,5 @@ springs_matrix2 <- cbind(springs_matrix, mean_vector)
 springs_matrix2
 ```
 
-## That's it, let's take a break!   
-
---> On to [part 2](https://jmledford3115.github.io/datascibiol/lab2_2.html)  
-
-[gh]: www.github.com  
-[gd]: https://desktop.github.com/
-[BIS15]: https://github.com/jmledford3115/BIS15-W20-DataScienceBiologists
+## That's it, let's take a break!  
+-->[Home](https://jmledford3115.github.io/datascibiol/)
