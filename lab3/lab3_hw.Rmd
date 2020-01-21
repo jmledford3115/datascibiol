@@ -1,7 +1,7 @@
 ---
 title: "Lab 3 Homework"
 author: "Please Add Your Name Here"
-date: "Winter 2020"
+date: "Please Add the Date Here"
 output:
   html_document:
     theme: spacelab

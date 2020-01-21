@@ -1,7 +1,7 @@
 ---
 title: "Lab 2 Homework"
-author: "Joel Ledford"
-date: "Winter 2020"
+author: "Please Add Your Name Here"
+date: "Please Add the Date Here"
 output:
   html_document:
     theme: spacelab
@@ -9,7 +9,7 @@ output:
 ---
 
 ## Instructions
-Answer the following questions and complete the exercises in RMarkdown. Please embed all of your code and push your final work to our [GitHub repository](https://github.com/FRS417-DataScienceBiologists). I will randomly select a few examples of student work at the start of each session to use as examples so be sure that your code is working to the best of your ability.
+Answer the following questions and complete the exercises in RMarkdown. Please embed all of your code and push your final work to your repository. Your final lab report should be organized, clean, and run free from errors. Remember, you must remove the `#` for the included code chunks to run.  
 
 ## Load the tidyverse
 ```{r}
@@ -53,5 +53,5 @@ msleep
 
 11. Which animals are the sleepiest? Which sleep least 18 hours per day?  
 
-
-## Push your final code to GitHub
+## Push your final code to GitHub!
+Please be sure that you have check the `keep md` file in the knit preferences.  
