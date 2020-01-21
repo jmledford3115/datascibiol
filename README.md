@@ -22,9 +22,9 @@ Please read the [course syllabus](https://jmledford3115.github.io/datascibiol/sy
 ## Lab Schedule and Homework  
 We have eight total labs. The last two labs (9 and 10) will be devoted to getting final projects complete and preparing presentations. New labs will be added each week.  
 
-1. **Lab 1** | [Getting Started](https://jmledford3115.github.io/datascibiol/lab1_1.html) | [RMarkdown and Data Types](https://jmledford3115.github.io/datascibiol/lab1_2.html) | [HW 1](https://jmledford3115.github.io/datascibiol/lab1_hw.html)  
-2. **Lab 2** | [Data Structures: Vectors & Data Matrices](https://jmledford3115.github.io/datascibiol/lab2_1.html) | [Data Structures: Data Frames](https://jmledford3115.github.io/datascibiol/lab2_2.html) | [HW 2](https://jmledford3115.github.io/datascibiol/lab2_hw.html)  
-3. **Lab 3** | [Importing Data and Dplyr: `filter()`](https://jmledford3115.github.io/datascibiol/lab3_1.html) | [Tidyverse: `select()`, pipes ` %>%`, and `mutate()`](https://jmledford3115.github.io/datascibiol/lab3_2.html) | [HW 3](https://jmledford3115.github.io/datascibiol/lab3_hw.html)  
+1. **Lab 1** | [part 1](https://jmledford3115.github.io/datascibiol/lab1_1.html) | [part 2](https://jmledford3115.github.io/datascibiol/lab1_2.html) | [HW 1](https://jmledford3115.github.io/datascibiol/lab1_hw.html)  
+2. **Lab 2** | [part 1](https://jmledford3115.github.io/datascibiol/lab2_1.html) | [part 2](https://jmledford3115.github.io/datascibiol/lab2_2.html) | [HW 2](https://jmledford3115.github.io/datascibiol/lab2_hw.html)  
+3. **Lab 3** | [part 1](https://jmledford3115.github.io/datascibiol/lab3_1.html) | [part 2](https://jmledford3115.github.io/datascibiol/lab3_2.html) | [HW 3](https://jmledford3115.github.io/datascibiol/lab3_hw.html)  
 
 ## Reading  
 [R for Data Science](https://r4ds.had.co.nz/), Grolemund and Wickham (2017).  
