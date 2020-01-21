@@ -9,8 +9,10 @@ output:
   word_document:
     toc: yes
 ---    
+```{r echo=FALSE, fig.align="center", out.width="40%"}
+knitr::include_graphics("images/learn_to_code.png")
+```
 
-## Why Do I Need This?
 > **Want to Make it as a Biologist? Better Learn to Code**  
 > "In biology, big data is the thing. Every day, biologists go into the lab to coax data out of living matter—more and more data, with the advent of biological tools like Crispr/Cas9..."We cannot manually look through 15,000 data points anymore," Udeshi says. To analyze it all, biologists need to write programs specifically tailored for their experiments."  
 > [Wired Magazine (2017)](https://www.wired.com/2017/03/biologists-teaching-code-survive/)
