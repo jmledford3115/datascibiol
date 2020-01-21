@@ -9,7 +9,6 @@
 <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
-<meta name="author" content="Joel Ledford" />
 
 
 <title>Data Frames</title>
@@ -1534,8 +1533,6 @@ div.tocify {
 
 
 <h1 class="title toc-ignore">Data Frames</h1>
-<h4 class="author">Joel Ledford</h4>
-<h4 class="date">Winter 2020</h4>
 
 </div>
 
@@ -1572,7 +1569,7 @@ hbirds</code></pre>
 <pre class="r"><code>names(hbirds)</code></pre>
 <pre><code>## [1] &quot;Sex&quot;    &quot;Length&quot; &quot;Weight&quot;</code></pre>
 <p>Let’s use lowercase names when we create the data frame. We just changed to lowercase here, but we could use any names we wish.</p>
-<pre class="r"><code>hbirds &lt;- data.frame(sex = Sex,length_in = Length, weight_oz = Weight)
+<pre class="r"><code>hbirds &lt;- data.frame(sex = Sex,length_in = Length, weight_oz = Weight) #renaming will become more helpful in later labs
 names(hbirds)</code></pre>
 <pre><code>## [1] &quot;sex&quot;       &quot;length_in&quot; &quot;weight_oz&quot;</code></pre>
 <pre class="r"><code>hbirds</code></pre>
@@ -1667,13 +1664,66 @@ hbirds</code></pre>
 name &lt;- c(&quot;Jill&quot;,&quot;Susan&quot;, &quot;Steve&quot;, &quot;Jill&quot;,&quot;Susan&quot;, &quot;Steve&quot;, &quot;Jill&quot;,&quot;Susan&quot;, &quot;Steve&quot;)
 spring &lt;- c(&quot;Buckeye&quot;, &quot;Buckeye&quot;, &quot;Buckeye&quot;, &quot;Benton&quot;, &quot;Benton&quot;, &quot;Benton&quot;, &quot;Travertine&quot;, &quot;Travertine&quot;, &quot;Travertine&quot;)</code></pre>
 <ol style="list-style-type: decimal">
-<li><p>Build a data frame called <code>hsprings</code> with the above data. Name the temperature column <code>temp_C</code>. Print out the data frame.</p></li>
-<li><p>Change the column titled <code>name</code> to <code>scientist</code>, leave the other column names the same. Print out the data frame names.</p></li>
-<li><p>Our scientists forgot to record the depth data for each spring. Here it is as a vector, add it as a new column called depth_ft: <code>c(4.15, 4.13, 4.12, 3.21, 3.23, 3.20, 5.67, 5.65, 5.66)</code>. Print out the data frame.</p></li>
-<li><p>Calculate the mean temperature of all of the temperature measurements.</p></li>
-<li><p>What is the class of the scientist column? Use the <code>levels()</code> command to see all the unique levels.</p></li>
-<li><p>Save your hot springs data as a csv file! Do not allow row names.</p></li>
+<li>Build a data frame called <code>hsprings</code> with the above data. Name the temperature column <code>temp_C</code>. Print out the data frame.</li>
 </ol>
+<pre class="r"><code>hsprings &lt;- data.frame(temp_C = temp, name, spring)
+hsprings</code></pre>
+<pre><code>##   temp_C  name     spring
+## 1  36.25  Jill    Buckeye
+## 2  35.40 Susan    Buckeye
+## 3  35.30 Steve    Buckeye
+## 4  35.15  Jill     Benton
+## 5  35.35 Susan     Benton
+## 6  33.35 Steve     Benton
+## 7  30.70  Jill Travertine
+## 8  29.65 Susan Travertine
+## 9  29.20 Steve Travertine</code></pre>
+<ol start="2" style="list-style-type: decimal">
+<li>Change the column titled <code>name</code> to <code>scientist</code>, leave the other column names the same. Print out the data frame names.</li>
+</ol>
+<pre class="r"><code>names(hsprings)[2] &lt;- c(&quot;scientist&quot;)
+hsprings</code></pre>
+<pre><code>##   temp_C scientist     spring
+## 1  36.25      Jill    Buckeye
+## 2  35.40     Susan    Buckeye
+## 3  35.30     Steve    Buckeye
+## 4  35.15      Jill     Benton
+## 5  35.35     Susan     Benton
+## 6  33.35     Steve     Benton
+## 7  30.70      Jill Travertine
+## 8  29.65     Susan Travertine
+## 9  29.20     Steve Travertine</code></pre>
+<ol start="3" style="list-style-type: decimal">
+<li>Our scientists forgot to record the depth data for each spring. Here it is as a vector, add it as a new column called depth_ft: <code>c(4.15, 4.13, 4.12, 3.21, 3.23, 3.20, 5.67, 5.65, 5.66)</code>. Print out the data frame.</li>
+</ol>
+<pre class="r"><code>hsprings$depth_ft &lt;- c(4.15, 4.13, 4.12, 3.21, 3.23, 3.20, 5.67, 5.65, 5.66)
+hsprings</code></pre>
+<pre><code>##   temp_C scientist     spring depth_ft
+## 1  36.25      Jill    Buckeye     4.15
+## 2  35.40     Susan    Buckeye     4.13
+## 3  35.30     Steve    Buckeye     4.12
+## 4  35.15      Jill     Benton     3.21
+## 5  35.35     Susan     Benton     3.23
+## 6  33.35     Steve     Benton     3.20
+## 7  30.70      Jill Travertine     5.67
+## 8  29.65     Susan Travertine     5.65
+## 9  29.20     Steve Travertine     5.66</code></pre>
+<ol start="4" style="list-style-type: decimal">
+<li>Calculate the mean temperature of all of the temperature measurements.</li>
+</ol>
+<pre class="r"><code>mean(hsprings$temp_C)</code></pre>
+<pre><code>## [1] 33.37222</code></pre>
+<ol start="5" style="list-style-type: decimal">
+<li>What is the class of the scientist column? Use an R command to see all the unique levels.</li>
+</ol>
+<pre class="r"><code>class(hsprings$scientist)</code></pre>
+<pre><code>## [1] &quot;factor&quot;</code></pre>
+<pre class="r"><code>levels(hsprings$scientist)</code></pre>
+<pre><code>## [1] &quot;Jill&quot;  &quot;Steve&quot; &quot;Susan&quot;</code></pre>
+<ol start="6" style="list-style-type: decimal">
+<li>Save your hot springs data as a csv file! Do not allow row names.</li>
+</ol>
+<pre class="r"><code>write.csv(hsprings, &quot;hsprings_data.csv&quot;, row.names = FALSE)</code></pre>
 </div>
 <div id="wrap-up" class="section level2">
 <h2>Wrap-up</h2>

@@ -9,7 +9,6 @@
 <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
-<meta name="author" content="Joel Ledford" />
 
 
 <title>Data Matrices</title>
@@ -1534,8 +1533,6 @@ div.tocify {
 
 
 <h1 class="title toc-ignore">Data Matrices</h1>
-<h4 class="author">Joel Ledford</h4>
-<h4 class="date">Winter 2020</h4>
 
 </div>
 
@@ -1558,12 +1555,6 @@ div.tocify {
 5. Go to the class repository <code>BIS15-W20-DataScienceBiologists</code>, click the <code>Clone or download</code> button then <code>Download zip</code> to the desktop.<br />
 6. Copy the files for today’s lab from the class repository and paste them into <strong>your</strong> repository.<br />
 7. Open today’s lab in RStudio.</p>
-</div>
-<div id="class-discussion-page" class="section level2">
-<h2>Class Discussion Page</h2>
-<ul>
-<li><a href="https://piazza.com/uc_davis/winter2020/bis015l/home">BIS15 Piazza</a></li>
-</ul>
 </div>
 <div id="homework-1-review" class="section level2">
 <h2>Homework 1 Review</h2>
@@ -1647,9 +1638,27 @@ all_harry_potter_matrix</code></pre>
 <div id="practice" class="section level2">
 <h2>Practice</h2>
 <ol style="list-style-type: decimal">
-<li><p>What are the total earnings for each of the regions?</p></li>
-<li><p>Add this information to the data matrix. Hint: you are adding a row, not a column.</p></li>
+<li>What are the total earnings for each of the regions?</li>
 </ol>
+<pre class="r"><code>total_earnings &lt;- colSums(all_harry_potter_matrix)
+total_earnings</code></pre>
+<pre><code>##     US non-US global 
+## 2389.7 5332.9 7722.6</code></pre>
+<ol start="2" style="list-style-type: decimal">
+<li>Add this information to the data matrix. Hint: you are adding a row, not a column.</li>
+</ol>
+<pre class="r"><code>all_harry_potter_matrix &lt;- rbind(all_harry_potter_matrix, total_earnings)
+all_harry_potter_matrix</code></pre>
+<pre><code>##                          US non-US global
+## Philosophers_Stone    317.5  657.1  974.6
+## Chamber_of_Secrets    261.9  616.9  878.8
+## Prisoner_of_Azkaban   249.5  547.1  796.6
+## Goblet_of_Fire        290.0  606.8  896.8
+## Order_of_the_Phoenix  292.0  647.8  939.8
+## Half_Blood_Prince     301.9  632.4  934.3
+## Deathly_Hallows_1     295.9  664.3  960.2
+## Deathly_Hallows_2     381.0  960.5 1341.5
+## total_earnings       2389.7 5332.9 7722.6</code></pre>
 </div>
 <div id="select-elements-in-a-data-matrix" class="section level2">
 <h2>Select elements in a data matrix</h2>
@@ -1662,7 +1671,7 @@ all_harry_potter_matrix</code></pre>
 <p>We can also select values in an entire row or column. This can be useful for calculations. Here we calculate the mean of the entire second column.</p>
 <pre class="r"><code>non_us_earnings &lt;- all_harry_potter_matrix[ ,2]
 mean(non_us_earnings)</code></pre>
-<pre><code>## [1] 666.6125</code></pre>
+<pre><code>## [1] 1185.089</code></pre>
 </div>
 <div id="practice-1" class="section level2">
 <h2>Practice</h2>
@@ -1678,18 +1687,57 @@ spring_8 &lt;- c(36.80, 36.45, 33.15)</code></pre>
 <ol style="list-style-type: decimal">
 <li>Build a data matrix that has the springs as rows and the columns as scientists.</li>
 </ol>
+<pre class="r"><code>springs &lt;- c(spring_1, spring_2, spring_3, spring_4, spring_5, spring_6, spring_7, spring_8)
+springs_matrix &lt;- matrix(springs, nrow=8, byrow = T)
+springs_matrix</code></pre>
+<pre><code>##       [,1]  [,2]  [,3]
+## [1,] 36.25 35.40 35.30
+## [2,] 35.15 35.35 33.35
+## [3,] 30.70 29.65 29.20
+## [4,] 39.70 40.05 38.65
+## [5,] 31.85 31.40 29.30
+## [6,] 30.20 30.65 29.75
+## [7,] 32.90 32.50 32.80
+## [8,] 36.80 36.45 33.15</code></pre>
 <p>Let’s name the rows and columns. Start by making two new vectors with the names.</p>
 <pre class="r"><code>scientists &lt;- c(&quot;Jill&quot;, &quot;Steve&quot;, &quot;Susan&quot;)
 springs &lt;- c(&quot;Bluebell Spring&quot;, &quot;Opal Spring&quot;, &quot;Riverside Spring&quot;, &quot;Too Hot Spring&quot;, &quot;Mystery Spring&quot;, &quot;Emerald Spring&quot;, &quot;Black Spring&quot;, &quot;Pearl Spring&quot;)</code></pre>
 <ol start="2" style="list-style-type: decimal">
 <li>Use <code>colnames()</code> and <code>rownames()</code> to name the columns and rows.</li>
 </ol>
+<pre class="r"><code>colnames(springs_matrix) &lt;- scientists
+rownames(springs_matrix) &lt;- springs
+springs_matrix</code></pre>
+<pre><code>##                   Jill Steve Susan
+## Bluebell Spring  36.25 35.40 35.30
+## Opal Spring      35.15 35.35 33.35
+## Riverside Spring 30.70 29.65 29.20
+## Too Hot Spring   39.70 40.05 38.65
+## Mystery Spring   31.85 31.40 29.30
+## Emerald Spring   30.20 30.65 29.75
+## Black Spring     32.90 32.50 32.80
+## Pearl Spring     36.80 36.45 33.15</code></pre>
 <p>Calculate the mean temperature of all three springs. Notice the command <code>rowMeans</code>.</p>
-<pre class="r"><code>#mean_vector &lt;- rowMeans(springs_matrix)
-#mean_vector</code></pre>
+<pre class="r"><code>mean_vector &lt;- rowMeans(springs_matrix)
+mean_vector</code></pre>
+<pre><code>##  Bluebell Spring      Opal Spring Riverside Spring   Too Hot Spring 
+##         35.65000         34.61667         29.85000         39.46667 
+##   Mystery Spring   Emerald Spring     Black Spring     Pearl Spring 
+##         30.85000         30.20000         32.73333         35.46667</code></pre>
 <ol start="3" style="list-style-type: decimal">
 <li>Add <code>mean_vector</code> as a new column.</li>
 </ol>
+<pre class="r"><code>springs_matrix2 &lt;- cbind(springs_matrix, mean_vector)
+springs_matrix2</code></pre>
+<pre><code>##                   Jill Steve Susan mean_vector
+## Bluebell Spring  36.25 35.40 35.30    35.65000
+## Opal Spring      35.15 35.35 33.35    34.61667
+## Riverside Spring 30.70 29.65 29.20    29.85000
+## Too Hot Spring   39.70 40.05 38.65    39.46667
+## Mystery Spring   31.85 31.40 29.30    30.85000
+## Emerald Spring   30.20 30.65 29.75    30.20000
+## Black Spring     32.90 32.50 32.80    32.73333
+## Pearl Spring     36.80 36.45 33.15    35.46667</code></pre>
 </div>
 <div id="thats-it-lets-take-a-break" class="section level2">
 <h2>That’s it, let’s take a break!</h2>

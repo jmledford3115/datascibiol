@@ -1,7 +1,5 @@
 ---
 title: "Data Matrices"
-author: "Joel Ledford"
-date: "Winter 2020"
 output:
   html_document:
     theme: spacelab
@@ -27,9 +25,6 @@ At the beginning of each class, please make sure that you complete the following
 5. Go to the class repository `BIS15-W20-DataScienceBiologists`, click the `Clone or download` button then `Download zip` to the desktop.  
 6. Copy the files for today's lab from the class repository and paste them into **your** repository.  
 7. Open today's lab in RStudio.  
-
-## Class Discussion Page  
-+ [BIS15 Piazza](https://piazza.com/uc_davis/winter2020/bis015l/home)  
 
 ## Homework 1 Review  
 Let's take a few minutes to compare solutions with your lab  partner. You should be especially mindful of alternate solutions; generally, the code that is the shortest in terms of lines is best. Make sure that your code is knitted and in your Github repository, please.  
@@ -98,8 +93,16 @@ all_harry_potter_matrix
 
 ## Practice
 1. What are the total earnings for each of the regions?  
+```{r}
+total_earnings <- colSums(all_harry_potter_matrix)
+total_earnings
+```
 
 2. Add this information to the data matrix. Hint: you are adding a row, not a column.  
+```{r}
+all_harry_potter_matrix <- rbind(all_harry_potter_matrix, total_earnings)
+all_harry_potter_matrix
+```
 
 ## Select elements in a data matrix
 The same methods of selecting elements in a vector apply to data matrices. We use `[]`. The following selects the value in the first column, second row.
@@ -133,9 +136,10 @@ spring_8 <- c(36.80, 36.45, 33.15)
 
 1. Build a data matrix that has the springs as rows and the columns as scientists.  
 ```{r}
-
+springs <- c(spring_1, spring_2, spring_3, spring_4, spring_5, spring_6, spring_7, spring_8)
+springs_matrix <- matrix(springs, nrow=8, byrow = T)
+springs_matrix
 ```
-
 
 Let's name the rows and columns. Start by making two new vectors with the names.
 ```{r}
@@ -145,20 +149,22 @@ springs <- c("Bluebell Spring", "Opal Spring", "Riverside Spring", "Too Hot Spri
 
 2. Use `colnames()` and `rownames()` to name the columns and rows.  
 ```{r}
-
+colnames(springs_matrix) <- scientists
+rownames(springs_matrix) <- springs
+springs_matrix
 ```
 
 Calculate the mean temperature of all three springs. Notice the command `rowMeans`.
 ```{r}
-#mean_vector <- rowMeans(springs_matrix)
-#mean_vector
+mean_vector <- rowMeans(springs_matrix)
+mean_vector
 ```
 
 3. Add `mean_vector` as a new column.  
 ```{r}
-
+springs_matrix2 <- cbind(springs_matrix, mean_vector)
+springs_matrix2
 ```
-
 
 ## That's it, let's take a break!   
 
