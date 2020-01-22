@@ -9,11 +9,6 @@ output:
     toc: yes
 ---
 
-## Load tidyverse
-```{r message=FALSE, warning=FALSE}
-library("tidyverse")
-```
-
 ## Learning Goals
 *At the end of this exercise, you will be able to:*    
 1. Combine a series of vectors into a data frame.  
@@ -21,6 +16,11 @@ library("tidyverse")
 3. Select columns and rows and use summary functions.   
 4. Change data classes of columns in the data frame.  
 5. Write your data frame to a csv file!  
+
+## Load tidyverse
+```{r message=FALSE, warning=FALSE}
+library("tidyverse")
+```
 
 ## Data Frame
 During the first part of lab, you learned how to work with vectors. Today we will organize the vectors into a new type of data structure called a **data frame**. The data frame is the most common way to organize data within R. You can think of a data frame as similar to an Excel spreadsheet. A data frame can store data of different types. 
