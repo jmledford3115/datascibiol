@@ -1,5 +1,5 @@
 ---
-title: "Lab 1"
+title: "Lab 1 Homework"
 author: "Please Add Your Name Here"
 date: "Please Add the Date Here"
 output:
