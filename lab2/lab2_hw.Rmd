@@ -54,4 +54,4 @@ msleep
 11. Which animals are the sleepiest? Which sleep least 18 hours per day?  
 
 ## Push your final code to GitHub!
-Please be sure that you have check the `keep md` file in the knit preferences.  
+Please be sure that you check the `keep md` file in the knit preferences.  

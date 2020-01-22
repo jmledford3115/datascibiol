@@ -56,4 +56,4 @@ Data: http://datadryad.org/resource/doi:10.5061/dryad.q5j65/1
 12. What is the `hra.mass.ratio` for an ostrich? Show your work, please.  
 
 ## Push your final code to GitHub!
-Please be sure that you have check the `keep md` file in the knit preferences.  
+Please be sure that you check the `keep md` file in the knit preferences.   
