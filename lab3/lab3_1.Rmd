@@ -16,7 +16,7 @@ output:
 3. Use the `filter()` command of dplyr to sort data frames.  
 
 ## Review
-At this point, I expect that you have familiarity in RStudio, GitHub, and basic operations in R. You understand how to do arithmetic, assign values to objects, and work with vectors or data matrices. If you are confused or need some extra help, please [email me](mailto: jmledford@ucdavis.edu).  
+At this point, I expect that you have familiarity in RStudio, GitHub, and basic operations in R. You understand how to do arithmetic, assign values to objects, and work with vectors, data matrices, and data frames. If you are confused or need some extra help, please [email me](mailto: jmledford@ucdavis.edu).  
 
 ## Load the tidyverse
 ```{r message=FALSE, warning=FALSE}
