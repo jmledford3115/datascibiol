@@ -1,0 +1,45 @@
+---
+title: "Lab 3: Tidyverse"
+author: "Joel Ledford"
+date: "Winter 2020"
+output: ioslides_presentation
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+library("jpeg")
+```
+
+## Setup
+1. Login to the lab computer.  
+2. Open Github Desktop (it should be pre-installed) and login.  
+3. Clone your repository to the desktop or somewhere convenient to access.  
+4. Navigate to github.com and login.  
+5. Go to the class repository `BIS15-W20-DataScienceBiologists`, click the `Clone or download` button then `Download zip` to the desktop.  
+6. Copy the files for today's lab from the class repository and paste them into **your** repository.  
+7. Open today's lab in RStudio.  
+
+## Homework
+- Take 5 minutes or so to double check that your homework is complete and uploaded.
+- Suggestion: have a lab partner have a look at your repository on github.com. 
+
+## Mini-Review from last time
+1. What is your workflow? Where do you go when you get stuck?  
+2. How is a data matrix different than a vector?  
+3. What are the advantages of data frames?  
+
+## RMarkdown
+- Focus on generating crystal clear, organized reports.  
+- Some new syntax, tips, and tricks.
+
+## Base R vs. tidyverse
+- You have been learning "base R coding".
+- It is not intuitive, but can be helpful.
+- Keeping track of data classes and understanding vectors is essential.  
+- Tidyverse is designed to be more intuitive.
+
+## Tidyverse  
+- A set of connected packages united by common, intuitive language.
+```{r out.width = "100%", fig.align = "center"}
+knitr::include_graphics("tidyverse1.png")
+```
