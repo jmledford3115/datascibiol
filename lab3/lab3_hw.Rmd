@@ -51,7 +51,7 @@ Data: http://datadryad.org/resource/doi:10.5061/dryad.q5j65/1
 10. What is the lowest mass for birds with a `hra.mass.ratio` greater than or equal to 4.0?
 
 
-11. Do a search online; what is the common name of the bird from #8 above? Place a link in your markdown file that takes us to a webpage with information on its biology.  
+11. Do a search online; what is the common name of the bird from #10 above? Place a link in your markdown file that takes us to a webpage with information on its biology.  
 
 12. What is the `hra.mass.ratio` for an ostrich? Show your work, please.  
 
