@@ -9,6 +9,8 @@ output:
     toc: yes
 ---
 
+## Next time explain this better
+
 ## Learning Goals  
 *At the end of this exercise, you will be able to:*    
 1. Use the functions of dplyr (filter, select, arrange) to organize and sort data frames.  
