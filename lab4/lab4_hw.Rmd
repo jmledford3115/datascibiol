@@ -1,0 +1,113 @@
+---
+title: "Lab 4 Homework"
+author: "Please Add Your Name Here"
+date: "Please Add the Date Here"
+output:
+  html_document:
+    theme: spacelab
+    toc: no
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Instructions
+Answer the following questions and complete the exercises in RMarkdown. Please embed all of your code and push your final work to your repository. Your final lab report should be organized, clean, and run free from errors. Remember, you must remove the `#` for the included code chunks to run.  
+
+## Load the libraries
+```{r message=FALSE, warning=FALSE}
+library(tidyverse)
+```
+
+For this assignment we are going to work with a large dataset from the [United Nations Food and Agriculture Organization](http://www.fao.org/about/en/) on world fisheries. The data are messy, so for this assignment I am going to provide some help. The code I use will likely be useful in the future so keep it handy. First, load the data. **Read** the error message.  
+
+```{r}
+fisheries <- 
+  readr::read_csv(file = "FAO_1950to2012_111914.csv") 
+```
+
+1. What are the names of the columns? Do you see any potential problems with the column names?
+```{r}
+names(fisheries)
+```
+
+2. What is the structure of the data? Show the classes of each variable. Country, ISSCAAP group#, ASFIS species#, and FAO major fishing area should all be factors. How will you address this? Show your work.
+```{r}
+glimpse(fisheries)
+```
+
+```{r}
+fisheries$Country <- as.factor(fisheries$Country)
+fisheries$`ISSCAAP group#` <- as.factor(fisheries$`ISSCAAP group#`)
+fisheries$`ASFIS species#` <- as.factor(fisheries$`ASFIS species#`)
+fisheries$`FAO major fishing area` <- as.factor(fisheries$`FAO major fishing area`)
+```
+
+```{r}
+glimpse(fisheries)
+```
+
+3. How many countries are represented in the data? Provide a count.
+```{r}
+fisheries %>% 
+  summarize(ncountries = n_distinct(Country))
+```
+
+4. Use `rename()` to rename the columns and make them easier to use. The new column names should be:  
++ country
++ commname
++ ASFIS_sciname
++ ASFIS_spcode
++ ISSCAAP_spgroup
++ ISSCAAP_spgroupname
++ FAO_area
++ unit
+
+```{r}
+names(fisheries)
+```
+
+```{r}
+fisheries_rename <- fisheries %>% 
+  rename(country=Country,
+         commname=`Common name`,
+         ASFIS_sciname=`ASFIS species name`,
+         ASFIS_spcode=`ASFIS species#`,
+         ISSCAAP_spgroup=`ISSCAAP group#`,
+         ISSCAAP_spgroupname=`ISSCAAP taxonomic group`,
+         FAO_area=`FAO major fishing area`,
+         unit=Measure)
+names(fisheries_rename)
+```
+
+4. Are these data tidy? Why or why not, and, how do you know? Use the appropriate pivot function to tidy the data. Remove the NA's.  
+```{r}
+fisheries_rename %>% 
+  pivot_longer(-c(country,commname,ASFIS_sciname,ASFIS_spcode,ISSCAAP_spgroup,ISSCAAP_spgroupname,FAO_area,unit),
+               names_to = "year",
+               values_to = "catch",
+               values_drop_na = TRUE)
+```
+
+
+```{r}
+#fisheries_tidy <- 
+#  fisheries_tidy %>% 
+#  mutate(
+#    year = as.numeric(str_replace(year, 'X', '')), #remove the X from year
+#    catch = as.numeric(str_replace(catch, c(' F','...','-'), replacement = '')) 
+#    )
+```
+
+8. Are the data tidy? Why?  
+
+
+9. You are a fisheries scientist studying cephalopod catch during 2008-2012. Identify the top five consumers (by country) of cephalopods (don't worry about species for now). Restrict the data frame only to our variables of interest.
+
+
+10. Let's be more specific. Who consumes the most `Common cuttlefish`? Store this as a new object `cuttle`.
+
+
+## Push your final code to [GitHub](https://github.com/FRS417-DataScienceBiologists)
+Make sure that you push your code into the appropriate folder. Also, be sure that you have check the `keep md` file in the knit preferences.
