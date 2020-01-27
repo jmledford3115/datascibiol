@@ -16,15 +16,15 @@ output:
 ## Learning Goals
 *At the end of this exercise, you will be able to:*    
 1. Explain the difference between tidy and messy data.  
-2. Evaluate a dataset as tidy or untidy.  
-3. Use the functions of tidyr to transform messy data to tidy data.  
+2. Evaluate a dataset as tidy or messy.    
+3. Use the `pivot_longer()` function of tidyr to transform data from wide to long format.  
+4. Use `separate()` to split observations within a column.  
 
 ## Overview
 The  quote sums above sums up much of the work in data science. Simply put, most of the data that you end up working with will be messy, disorganized, and not **tidy**. By the end of the course, you will learn multiple ways of wrangling messy data into tidy data that are ready for analysis.  
 
 ## Resources
 - [tidyr `pivot_longer()`](https://tidyr.tidyverse.org/reference/pivot_longer.html)  
-- [tidyr `pivot_wider()`](https://tidyr.tidyverse.org/reference/pivot_wider.html)  
 - [pivoting](https://cran.r-project.org/web/packages/tidyr/vignettes/pivot.html)  
 
 ## Load the tidyverse

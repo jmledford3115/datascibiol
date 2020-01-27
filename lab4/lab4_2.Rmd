@@ -1,0 +1,198 @@
+---
+title: "Tidy Data 2 and Summarize"
+output:
+  html_document:
+    theme: spacelab
+    toc: yes
+    toc_float: yes
+  pdf_document:
+    toc: yes
+---
+
+## Group Project
+Let's take 10 minutes to decide on groups and think about a theme for our projects. What data interest you? Make a plan on doing some internet searches and selecting a data set that will work for your group. Think about the kinds of questions you might ask.  
+
+## Resources
+- [dplyr-tidyr tutorial](http://tclavelle.github.io/dplyr-tidyr-tutorial/)
+- [Data wrangling cheatsheet (`dplyr`,`tidyr`)](http://ucsb-bren.github.io/refs/cheatsheets/data-wrangling-cheatsheet.pdf)
+- [Tidyr, R for Data Science](https://r4ds.had.co.nz/tidy-data.html#unite)
+
+## Learning Goals
+*At the end of this exercise, you will be able to:*    
+1. Explain the difference between tidy and messy data.  
+2. Evaluate a dataset as tidy or untidy.  
+3. Use the `spread()` function of tidyr to transform messy data to tidy data. 
+4. Use `summarize()` and `group_by()` to produce statistical summaries of data.
+
+## Review
+Last time we learned the fundamentals of tidy data and used the `gather()` function to wrangle one type of frequently encountered untidy data. Today we will use the `spread()` function to deal with a second type of untidy data.  
+
+## Load the tidyverse
+```{r}
+library("tidyverse")
+```
+
+## Tidyr
++ `gather()` and `spread()` convert data between wide and long format  
++ `separate()` and `unite()` separates or unites information in columns 
+
+## gather()
+Recall that we use `gather()` when our column names actually represent variables. A classic example would be that the column names represent observations of a variable.
+```{r}
+datasets::USPersonalExpenditure
+?USPersonalExpenditure
+```
+
+Here we add a new column of expenditure types, which are stored as rownames above, with `mutate()`. The USPersonalExpenditures data also needs to be converted to a data frame before we can use the tidyverse functions, because it comes as a matrix.
+```{r}
+expenditures <- 
+  USPersonalExpenditure %>% 
+  as.data.frame() %>% 
+  mutate(Expenditure = rownames(USPersonalExpenditure))
+expenditures
+```
+
+## Practice
+1. Are these data tidy? Please use `gather()` to tidy the data. Here we use back ticks on the column names so R does not confuse them with numerical indices.
+```{r}
+expenditures_tidy <- 
+  expenditures %>% 
+  gather(`1940`, `1945`, `1950`, `1955`, `1960`, key = "Year", value = "Billions")
+expenditures_tidy
+```
+
+2. Restrict the data to medical and health expenditures only. Sort in ascending order.
+```{r}
+expenditures_tidy %>%
+  filter(Expenditure == "Medical and Health") %>% 
+  arrange(Billions)
+```
+
+## spread()
+The opposite of `gather()`. You use `spread()` when you have an observation scattered across multiple rows. In the example below, `cases` and `population` represent variable names not observations.
+```{r}
+country <- c("Afghanistan", "Afghanistan", "Afghanistan", "Afghanistan", "Brazil", "Brazil", "Brazil", "Brazil", "China", "China", "China", "China")
+year <- c("1999", "1999", "2000", "2000", "1999", "1999", "2000", "2000", "1999", "1999", "2000", "2000")
+key <- c("cases", "population", "cases", "population", "cases", "population", "cases", "population", "cases", "population", "cases", "population")
+value <- c(745, 19987071, 2666, 20595360, 37737, 172006362, 80488, 174504898, 212258, 1272915272, 213766, 1280428583)
+
+tb_data <- data.frame(country=country, year=year, key=key, value=value)
+tb_data
+```
+
+When using `spread()` the `key` is the variable that you are spreading.
+```{r}
+tb_data %>% 
+  spread(key = key, value = value)
+```
+
+## Practice
+1. Run the following to build the `gene_exp` data frame.
+```{r}
+id <- c("gene1", "gene1", "gene2", "gene2", "gene3", "gene3")
+type <- c("treatment", "control", "treatment", "control","treatment", "control")
+L4_values <- rnorm(6, mean = 20, sd = 3)
+```
+
+```{r}
+gene_exp <- 
+  data.frame(gene_id = id, type = type, L4_values = L4_values)
+gene_exp
+```
+
+2. Are these data tidy? Please use `spread()` to tidy the data.
+```{r}
+gene_exp %>% 
+  spread(key = type, value = L4_values)
+```
+
+## summarize()
+summarize() will produce summary statistics for a given variable in a data frame. For example, in homework 2 you were asked to calculate the mean of the sleep total column for large and small mammals. We did this using a combination of tidyverse and base R commands, which isn't very efficient or clean. It also took two steps.
+```{r}
+msleep
+?msleep
+```
+
+From homework 2.
+```{r}
+large <- msleep %>% 
+  select(name, genus, bodywt, sleep_total) %>% 
+  filter(bodywt >= 200) %>% 
+  arrange(desc(bodywt))
+```
+
+```{r}
+mean(large$sleep_total)
+```
+
+We can accomplish the same task using the `summarize()` function in the tidyverse and make things cleaner.
+```{r}
+msleep %>% 
+  filter(bodywt >= 200) %>%
+  summarize(mean_sleep_lg = mean(sleep_total))
+```
+
+You can also combine functions to make useful summaries for multiple variables.
+```{r}
+msleep %>% 
+    filter(bodywt >= 200) %>% 
+    summarize(mean_sleep_lg = mean(sleep_total), 
+              min_sleep_lg = min(sleep_total),
+              max_sleep_lg = max(sleep_total),
+              total = n())
+```
+
+There are many other useful summary statistics, depending on your needs: sd(), min(), max(), median(), sum(), n() (returns the length of vector), first() (returns first value in vector), last() (returns last value in vector) and n_distinct() (number of distinct values in vector).
+
+## Practice
+1. How many genera are represented in the msleep data frame?
+```{r}
+msleep %>%
+  summarize(ngenera = n_distinct(genus))
+```
+
+2. What are the min, max, and mean body weight for all of the mammals? Be sure to include the total n.
+```{r}
+msleep %>%
+  summarize(min_bodywt = min(bodywt),
+            max_bodywt = max(bodywt),
+            mean_bodywt = mean(bodywt),
+            total = n())
+```
+
+##group_by()
+The `summarize()` function is most useful when used in conjunction with `group_by()`. Although producing a summary of body weight for all of the mammals in the dataset is helpful, what if we were interested in body weight by feeding ecology?
+```{r}
+msleep %>%
+  group_by(vore) %>% #we are grouping by feeding ecology
+  summarize(min_bodywt = min(bodywt),
+            max_bodywt = max(bodywt),
+            mean_bodywt = mean(bodywt),
+            total=n())
+```
+
+## Practice
+1. Calculate mean brain weight by taxonomic order in the msleep data.
+```{r}
+msleep %>% 
+  group_by(order) %>% 
+  summarize(mean_brainwt = mean(brainwt))
+```
+
+2. What does `NA` mean?
+
+3. Try running the code again, but this time add `na.rm=TRUE`. What is the problem with Cetacea?
+```{r}
+msleep %>% 
+  group_by(order) %>% 
+  summarize(mean_brainwt = mean(brainwt, na.rm = TRUE))
+```
+
+```{r}
+msleep %>% 
+  filter(order == "Cetacea")
+```
+
+## That's it, let's take a break!   
+
+--> On to [part 2](https://jmledford3115.github.io/datascibiol/lab4_2.html)  
