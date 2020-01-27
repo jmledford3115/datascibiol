@@ -1,5 +1,5 @@
 ---
-title: "Tidyr: Tidy Data & Pivoting"
+title: "Tidyr 1: Tidy data and `pivot_long()`"
 output:
   html_document:
     theme: spacelab
@@ -174,7 +174,6 @@ heartrate2 %>%
 
 2. `unite()` is the opposite of separate(). Its syntax is straightforward. You only need to give a new column name and then list the columns to combine with a separation character.  Give it a try below by recombining patient and sex from `heartrate3`.  
 
-## Wrap-up
-Please review the learning goals and be sure to use the code here as a reference when completing the homework.
+## That's it, let's take a break!   
 
 -->[Home](https://jmledford3115.github.io/datascibiol/)
