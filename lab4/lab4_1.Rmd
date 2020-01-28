@@ -49,7 +49,7 @@ Scientists frequently use spreadsheets that are organized to make data entry eff
 ## Example 1: column names are data
 The following data show results from a drug trial with four treatments on six patients. The values represent resting heart rate.  
 ```{r}
-heartrate <- readr::read_csv("heartrate.csv")
+heartrate <- readr::read_csv("data/heartrate.csv")
 heartrate
 ```
 
@@ -80,7 +80,7 @@ heartrate %>%
 ## Example 2: some column names are data
 Some (but not all) of the column names are data. We also have NA's.
 ```{r}
-billboard <- readr::read_csv("billboard.csv")
+billboard <- readr::read_csv("data/billboard.csv")
 billboard
 ```
 
@@ -129,7 +129,7 @@ billboard %>%
 ## Example 3: more than one variable in a column name
 In this case, there are two observations in each column name.
 ```{r}
-qpcr_untidy <- readr::read_csv("qpcr_untidy.csv")
+qpcr_untidy <- readr::read_csv("data/qpcr_untidy.csv")
 qpcr_untidy
 ```
 
@@ -146,7 +146,7 @@ qpcr_untidy %>%
 ## Example 4: more than one value or observation in a row
 This is often caused by an entry error, but R will not be able to work with it unless the values are separated. This doesn't use `pivot_longer()` but is a common problem.  
 ```{r}
-length_data <- readr::read_csv("length_data.csv")
+length_data <- readr::read_csv("data/length_data.csv")
 length_data
 ```
 
@@ -159,7 +159,7 @@ length_data %>%
 ## separate()
 In our last example, we have the sex of each patient included with their name. Are these data tidy? No, there is more than one value per cell in the patient column and the columns a, b, c, d once again represent values.
 ```{r}
-heartrate2 <- readr::read_csv("heartrate2.csv")
+heartrate2 <- readr::read_csv("data/heartrate2.csv")
 heartrate2
 ```
 

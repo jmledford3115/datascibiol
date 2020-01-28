@@ -1583,7 +1583,7 @@ div.tocify {
 <div id="example-1-column-names-are-data" class="section level2">
 <h2>Example 1: column names are data</h2>
 <p>The following data show results from a drug trial with four treatments on six patients. The values represent resting heart rate.</p>
-<pre class="r"><code>heartrate &lt;- readr::read_csv(&quot;heartrate.csv&quot;)</code></pre>
+<pre class="r"><code>heartrate &lt;- readr::read_csv(&quot;data/heartrate.csv&quot;)</code></pre>
 <pre><code>## Parsed with column specification:
 ## cols(
 ##   patient = col_character(),
@@ -1641,7 +1641,7 @@ div.tocify {
 <div id="example-2-some-column-names-are-data" class="section level2">
 <h2>Example 2: some column names are data</h2>
 <p>Some (but not all) of the column names are data. We also have NA’s.</p>
-<pre class="r"><code>billboard &lt;- readr::read_csv(&quot;billboard.csv&quot;)</code></pre>
+<pre class="r"><code>billboard &lt;- readr::read_csv(&quot;data/billboard.csv&quot;)</code></pre>
 <pre><code>## Parsed with column specification:
 ## cols(
 ##   .default = col_double(),
@@ -1767,7 +1767,7 @@ billboard3</code></pre>
 <div id="example-3-more-than-one-variable-in-a-column-name" class="section level2">
 <h2>Example 3: more than one variable in a column name</h2>
 <p>In this case, there are two observations in each column name.</p>
-<pre class="r"><code>qpcr_untidy &lt;- readr::read_csv(&quot;qpcr_untidy.csv&quot;)</code></pre>
+<pre class="r"><code>qpcr_untidy &lt;- readr::read_csv(&quot;data/qpcr_untidy.csv&quot;)</code></pre>
 <pre><code>## Parsed with column specification:
 ## cols(
 ##   gene = col_character(),
@@ -1816,7 +1816,7 @@ billboard3</code></pre>
 <div id="example-4-more-than-one-value-or-observation-in-a-row" class="section level2">
 <h2>Example 4: more than one value or observation in a row</h2>
 <p>This is often caused by an entry error, but R will not be able to work with it unless the values are separated. This doesn’t use <code>pivot_longer()</code> but is a common problem.</p>
-<pre class="r"><code>length_data &lt;- readr::read_csv(&quot;length_data.csv&quot;)</code></pre>
+<pre class="r"><code>length_data &lt;- readr::read_csv(&quot;data/length_data.csv&quot;)</code></pre>
 <pre><code>## Parsed with column specification:
 ## cols(
 ##   sample = col_character(),
@@ -1850,7 +1850,7 @@ billboard3</code></pre>
 <div id="separate" class="section level2">
 <h2>separate()</h2>
 <p>In our last example, we have the sex of each patient included with their name. Are these data tidy? No, there is more than one value per cell in the patient column and the columns a, b, c, d once again represent values.</p>
-<pre class="r"><code>heartrate2 &lt;- readr::read_csv(&quot;heartrate2.csv&quot;)</code></pre>
+<pre class="r"><code>heartrate2 &lt;- readr::read_csv(&quot;data/heartrate2.csv&quot;)</code></pre>
 <pre><code>## Parsed with column specification:
 ## cols(
 ##   patient = col_character(),

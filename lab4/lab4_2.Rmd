@@ -55,7 +55,7 @@ expenditures
 ## pivot_wider()
 The opposite of `pivot_longer()`. You use `pivot_wider()` when you have an observation scattered across multiple rows. In the example below, `cases` and `population` represent variable names not observations.
 ```{r}
-tb_data <- read_csv("tb_data.csv")
+tb_data <- read_csv("data/tb_data.csv")
 tb_data
 ```
 
@@ -118,6 +118,13 @@ msleep %>%
               min_sleep_lg = min(sleep_total),
               max_sleep_lg = max(sleep_total),
               total = n())
+```
+
+`n_distinct()` is a very handy way of cleanly presenting the number of distinct observations. Here we show the number of distinct genera over 200 in body weight.
+```{r}
+msleep %>% 
+  filter(bodywt >= 200) %>% 
+  summarise(n_genera=n_distinct(genus))
 ```
 
 There are many other useful summary statistics, depending on your needs: sd(), min(), max(), median(), sum(), n() (returns the length of vector), first() (returns first value in vector), last() (returns last value in vector) and n_distinct() (number of distinct values in vector).
