@@ -1,5 +1,7 @@
 ---
 title: "Tidyr 2: `pivot_wider()`, `summarize()`, and `group_by()`"
+author: "Your_Name"
+date: "Winter 2019"
 output:
   html_document:
     theme: spacelab

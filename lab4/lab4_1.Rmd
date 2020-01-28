@@ -1,5 +1,7 @@
 ---
 title: "Tidyr 1: Tidy data and `pivot_long()`"
+author: "Your_Name"
+date: "Winter 2019"
 output:
   html_document:
     theme: spacelab
