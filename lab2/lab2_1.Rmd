@@ -172,19 +172,19 @@ total_earnings
 
 2. Add this information to the data matrix. Hint: you are adding a row, not a column.  
 ```{r}
-all_harry_potter_matrix <- rbind(all_harry_potter_matrix, total_earnings)
-all_harry_potter_matrix
+final_harry_potter_matrix <- rbind(all_harry_potter_matrix, total_earnings)
+final_harry_potter_matrix
 ```
 
 ## Select elements in a data matrix
 The same methods of selecting elements in a vector apply to data matrices. We use `[]`. The following selects the value in the first column, second row.
 ```{r}
-all_harry_potter_matrix[1,2]
+final_harry_potter_matrix[1,2]
 ```
 
 Adding a colon `:` selects the specified elements in a column.  
 ```{r}
-all_harry_potter_matrix[1:4]
+final_harry_potter_matrix[1:4]
 ```
 
 We can also select values in an entire row or column. This can be useful for calculations. Here we calculate the mean of the entire second column. 

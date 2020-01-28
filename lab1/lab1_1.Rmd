@@ -13,8 +13,10 @@ In nearly every field of science, our ability to generate data has exceeded our 
 The goal for this course is to help get you started learning to manage, transform, and visualize data using the R programming language. You will learn to clearly and neatly organize messy data, transform it in ways that address your questions, and communicate results in a variety of formats. The course is designed for people with **no prior programming experience**. There is a substantial learning curve but, working together, we should be able to make learning R easier, interesting, and fun.  
 
 ## Resources
-Given that R is open source, many resources are available online. We will use a combination of resources in the class, but key items are listed below.
+Given that R is open source, many resources are available online. We will use a combination of resources in the class, but key items are listed below.  
 
+- [Class Website](https://jmledford3115.github.io/datascibiol/)
+- [Class Discussion Board](https://piazza.com/uc_davis/winter2020/bis015l/home#)
 - [R for data science](https://r4ds.had.co.nz/)
 - [R cheatsheets](https://www.rstudio.com/resources/cheatsheets/)
 - [RStudio keyboard shortcuts](https://support.rstudio.com/hc/en-us/articles/200711853-Keyboard-Shortcuts)

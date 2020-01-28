@@ -1720,8 +1720,8 @@ total_earnings</code></pre>
 <ol start="2" style="list-style-type: decimal">
 <li>Add this information to the data matrix. Hint: you are adding a row, not a column.</li>
 </ol>
-<pre class="r"><code>all_harry_potter_matrix &lt;- rbind(all_harry_potter_matrix, total_earnings)
-all_harry_potter_matrix</code></pre>
+<pre class="r"><code>final_harry_potter_matrix &lt;- rbind(all_harry_potter_matrix, total_earnings)
+final_harry_potter_matrix</code></pre>
 <pre><code>##                          US non-US global
 ## Philosophers_Stone    317.5  657.1  974.6
 ## Chamber_of_Secrets    261.9  616.9  878.8
@@ -1736,15 +1736,15 @@ all_harry_potter_matrix</code></pre>
 <div id="select-elements-in-a-data-matrix" class="section level2">
 <h2>Select elements in a data matrix</h2>
 <p>The same methods of selecting elements in a vector apply to data matrices. We use <code>[]</code>. The following selects the value in the first column, second row.</p>
-<pre class="r"><code>all_harry_potter_matrix[1,2]</code></pre>
+<pre class="r"><code>final_harry_potter_matrix[1,2]</code></pre>
 <pre><code>## [1] 657.1</code></pre>
 <p>Adding a colon <code>:</code> selects the specified elements in a column.</p>
-<pre class="r"><code>all_harry_potter_matrix[1:4]</code></pre>
+<pre class="r"><code>final_harry_potter_matrix[1:4]</code></pre>
 <pre><code>## [1] 317.5 261.9 249.5 290.0</code></pre>
 <p>We can also select values in an entire row or column. This can be useful for calculations. Here we calculate the mean of the entire second column.</p>
 <pre class="r"><code>non_us_earnings &lt;- all_harry_potter_matrix[ ,2]
 mean(non_us_earnings)</code></pre>
-<pre><code>## [1] 1185.089</code></pre>
+<pre><code>## [1] 666.6125</code></pre>
 </div>
 <div id="practice-2" class="section level2">
 <h2>Practice</h2>
