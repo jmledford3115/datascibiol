@@ -1666,13 +1666,118 @@ div.tocify {
 <div id="practice" class="section level2">
 <h2>Practice</h2>
 <ol style="list-style-type: decimal">
-<li><p>Load the data <code>mammal_lifehistories_v2.csv</code> and place it into a new object called <code>mammals</code>.</p></li>
-<li><p>Provide the dimensions of the data frame.</p></li>
-<li><p>Check the column names in the data frame.</p></li>
-<li><p>Use <code>str()</code> to show the structure of the data frame and its individual columns; compare this to <code>glimpse()</code>.</p></li>
-<li><p>Print out the first few rows of the data using the function <code>head()</code>.</p></li>
-<li><p>Print out the last few rows using the function <code>tail()</code>.</p></li>
+<li>Load the data <code>mammal_lifehistories_v2.csv</code> and place it into a new object called <code>mammals</code>.</li>
 </ol>
+<pre class="r"><code>mammals &lt;- 
+  readr::read_csv(&quot;data/mammal_lifehistories_v2.csv&quot;)</code></pre>
+<pre><code>## Parsed with column specification:
+## cols(
+##   order = col_character(),
+##   family = col_character(),
+##   Genus = col_character(),
+##   species = col_character(),
+##   mass = col_double(),
+##   gestation = col_double(),
+##   newborn = col_double(),
+##   weaning = col_double(),
+##   `wean mass` = col_double(),
+##   AFR = col_double(),
+##   `max. life` = col_double(),
+##   `litter size` = col_double(),
+##   `litters/year` = col_double()
+## )</code></pre>
+<ol start="2" style="list-style-type: decimal">
+<li>Provide the dimensions of the data frame.</li>
+</ol>
+<pre class="r"><code>dim(mammals)</code></pre>
+<pre><code>## [1] 1440   13</code></pre>
+<ol start="3" style="list-style-type: decimal">
+<li>Check the column names in the data frame.</li>
+</ol>
+<pre class="r"><code>names(mammals)</code></pre>
+<pre><code>##  [1] &quot;order&quot;        &quot;family&quot;       &quot;Genus&quot;        &quot;species&quot;      &quot;mass&quot;        
+##  [6] &quot;gestation&quot;    &quot;newborn&quot;      &quot;weaning&quot;      &quot;wean mass&quot;    &quot;AFR&quot;         
+## [11] &quot;max. life&quot;    &quot;litter size&quot;  &quot;litters/year&quot;</code></pre>
+<ol start="4" style="list-style-type: decimal">
+<li>Use <code>str()</code> to show the structure of the data frame and its individual columns; compare this to <code>glimpse()</code>.</li>
+</ol>
+<pre class="r"><code>str(mammals)</code></pre>
+<pre><code>## Classes 'spec_tbl_df', 'tbl_df', 'tbl' and 'data.frame': 1440 obs. of  13 variables:
+##  $ order       : chr  &quot;Artiodactyla&quot; &quot;Artiodactyla&quot; &quot;Artiodactyla&quot; &quot;Artiodactyla&quot; ...
+##  $ family      : chr  &quot;Antilocapridae&quot; &quot;Bovidae&quot; &quot;Bovidae&quot; &quot;Bovidae&quot; ...
+##  $ Genus       : chr  &quot;Antilocapra&quot; &quot;Addax&quot; &quot;Aepyceros&quot; &quot;Alcelaphus&quot; ...
+##  $ species     : chr  &quot;americana&quot; &quot;nasomaculatus&quot; &quot;melampus&quot; &quot;buselaphus&quot; ...
+##  $ mass        : num  45375 182375 41480 150000 28500 ...
+##  $ gestation   : num  8.13 9.39 6.35 7.9 6.8 5.08 5.72 5.5 8.93 9.14 ...
+##  $ newborn     : num  3246 5480 5093 10167 -999 ...
+##  $ weaning     : num  3 6.5 5.63 6.5 -999 ...
+##  $ wean mass   : num  8900 -999 15900 -999 -999 ...
+##  $ AFR         : num  13.5 27.3 16.7 23 -999 ...
+##  $ max. life   : num  142 308 213 240 -999 251 228 255 300 324 ...
+##  $ litter size : num  1.85 1 1 1 1 1.37 1 1 1 1 ...
+##  $ litters/year: num  1 0.99 0.95 -999 -999 2 -999 1.89 1 1 ...
+##  - attr(*, &quot;spec&quot;)=
+##   .. cols(
+##   ..   order = col_character(),
+##   ..   family = col_character(),
+##   ..   Genus = col_character(),
+##   ..   species = col_character(),
+##   ..   mass = col_double(),
+##   ..   gestation = col_double(),
+##   ..   newborn = col_double(),
+##   ..   weaning = col_double(),
+##   ..   `wean mass` = col_double(),
+##   ..   AFR = col_double(),
+##   ..   `max. life` = col_double(),
+##   ..   `litter size` = col_double(),
+##   ..   `litters/year` = col_double()
+##   .. )</code></pre>
+<pre class="r"><code>glimpse(mammals)</code></pre>
+<pre><code>## Observations: 1,440
+## Variables: 13
+## $ order          &lt;chr&gt; &quot;Artiodactyla&quot;, &quot;Artiodactyla&quot;, &quot;Artiodactyla&quot;, &quot;Artio…
+## $ family         &lt;chr&gt; &quot;Antilocapridae&quot;, &quot;Bovidae&quot;, &quot;Bovidae&quot;, &quot;Bovidae&quot;, &quot;Bo…
+## $ Genus          &lt;chr&gt; &quot;Antilocapra&quot;, &quot;Addax&quot;, &quot;Aepyceros&quot;, &quot;Alcelaphus&quot;, &quot;Am…
+## $ species        &lt;chr&gt; &quot;americana&quot;, &quot;nasomaculatus&quot;, &quot;melampus&quot;, &quot;buselaphus&quot;…
+## $ mass           &lt;dbl&gt; 45375.0, 182375.0, 41480.0, 150000.0, 28500.0, 55500.0…
+## $ gestation      &lt;dbl&gt; 8.13, 9.39, 6.35, 7.90, 6.80, 5.08, 5.72, 5.50, 8.93, …
+## $ newborn        &lt;dbl&gt; 3246.36, 5480.00, 5093.00, 10166.67, -999.00, 3810.00,…
+## $ weaning        &lt;dbl&gt; 3.00, 6.50, 5.63, 6.50, -999.00, 4.00, 4.04, 2.13, 10.…
+## $ `wean mass`    &lt;dbl&gt; 8900, -999, 15900, -999, -999, -999, -999, -999, 15750…
+## $ AFR            &lt;dbl&gt; 13.53, 27.27, 16.66, 23.02, -999.00, 14.89, 10.23, 20.…
+## $ `max. life`    &lt;dbl&gt; 142, 308, 213, 240, -999, 251, 228, 255, 300, 324, 300…
+## $ `litter size`  &lt;dbl&gt; 1.85, 1.00, 1.00, 1.00, 1.00, 1.37, 1.00, 1.00, 1.00, …
+## $ `litters/year` &lt;dbl&gt; 1.00, 0.99, 0.95, -999.00, -999.00, 2.00, -999.00, 1.8…</code></pre>
+<ol start="5" style="list-style-type: decimal">
+<li>Print out the first few rows of the data using the function <code>head()</code>.</li>
+</ol>
+<pre class="r"><code>head(mammals)</code></pre>
+<pre><code>## # A tibble: 6 x 13
+##   order family Genus species   mass gestation newborn weaning `wean mass`    AFR
+##   &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt;    &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;       &lt;dbl&gt;  &lt;dbl&gt;
+## 1 Arti… Antil… Anti… americ…  45375      8.13   3246.    3           8900   13.5
+## 2 Arti… Bovid… Addax nasoma… 182375      9.39   5480     6.5         -999   27.3
+## 3 Arti… Bovid… Aepy… melamp…  41480      6.35   5093     5.63       15900   16.7
+## 4 Arti… Bovid… Alce… busela… 150000      7.9   10167.    6.5         -999   23.0
+## 5 Arti… Bovid… Ammo… clarkei  28500      6.8    -999  -999           -999 -999  
+## 6 Arti… Bovid… Ammo… lervia   55500      5.08   3810     4           -999   14.9
+## # … with 3 more variables: `max. life` &lt;dbl&gt;, `litter size` &lt;dbl&gt;,
+## #   `litters/year` &lt;dbl&gt;</code></pre>
+<ol start="6" style="list-style-type: decimal">
+<li>Print out the last few rows using the function <code>tail()</code>.</li>
+</ol>
+<pre class="r"><code>tail(mammals)</code></pre>
+<pre><code>## # A tibble: 6 x 13
+##   order family Genus species  mass gestation newborn weaning `wean mass`    AFR
+##   &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt;   &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;       &lt;dbl&gt;  &lt;dbl&gt;
+## 1 Xena… Dasyp… Zaed… pichiy   1500      2       105     1.5         -999   10.5
+## 2 Xena… Megal… Chol… hoffma…  4750      9.41    387.    0.69        -999   30.1
+## 3 Xena… Megal… Chol… didact…  6070      8.67    355.    2.5         -999   36  
+## 4 Xena… Myrme… Cycl… didact…  5070      8.92   -999     5           -999 -999  
+## 5 Xena… Myrme… Myrm… tridac… 28500      6.19   1491.    1.83        -999   39  
+## 6 Xena… Myrme… Tama… tetrad…  5030      5.22   -999  -999           -999   12  
+## # … with 3 more variables: `max. life` &lt;dbl&gt;, `litter size` &lt;dbl&gt;,
+## #   `litters/year` &lt;dbl&gt;</code></pre>
 </div>
 <div id="tidyverse" class="section level2">
 <h2>Tidyverse</h2>
@@ -1792,12 +1897,101 @@ div.tocify {
 <div id="practice-1" class="section level2">
 <h2>Practice</h2>
 <ol style="list-style-type: decimal">
-<li><p>Filter the <code>fish</code> data to include the samples from lake <code>DY</code>.</p></li>
-<li><p>Filter the data to include all lakes except AL.</p></li>
-<li><p>Filter the data to include all lakes except AL and DY.</p></li>
-<li><p>Filter the data to include all fish with a scale length greater than or equal to 11.</p></li>
-<li><p>Filter the data to include fish only from lake AL and with a scalelength greater than or equal to 2 and less than or equal to 4.</p></li>
+<li>Filter the <code>fish</code> data to include the samples from lake <code>DY</code>.</li>
 </ol>
+<pre class="r"><code>filter(fish, lakeid == &quot;DY&quot;)</code></pre>
+<pre><code>## # A tibble: 355 x 6
+##    lakeid fish_id annnumber length radii_length_mm scalelength
+##    &lt;chr&gt;    &lt;dbl&gt; &lt;chr&gt;      &lt;dbl&gt;           &lt;dbl&gt;       &lt;dbl&gt;
+##  1 DY         359 EDGE         124           1.68         1.68
+##  2 DY         359 2            124           1.35         1.68
+##  3 DY         359 1            124           0.594        1.68
+##  4 DY         360 EDGE         233           3.85         3.85
+##  5 DY         360 6            233           3.34         3.85
+##  6 DY         360 5            233           3.03         3.85
+##  7 DY         360 4            233           2.60         3.85
+##  8 DY         360 3            233           2.24         3.85
+##  9 DY         360 2            233           1.71         3.85
+## 10 DY         360 1            233           0.832        3.85
+## # … with 345 more rows</code></pre>
+<ol start="2" style="list-style-type: decimal">
+<li>Filter the data to include all lakes except AL.</li>
+</ol>
+<pre class="r"><code>filter(fish, lakeid != &quot;AL&quot;)</code></pre>
+<pre><code>## # A tibble: 3,650 x 6
+##    lakeid fish_id annnumber length radii_length_mm scalelength
+##    &lt;chr&gt;    &lt;dbl&gt; &lt;chr&gt;      &lt;dbl&gt;           &lt;dbl&gt;       &lt;dbl&gt;
+##  1 AR         269 EDGE         140            2.01        2.01
+##  2 AR         269 1            140            1.48        2.01
+##  3 AR         270 EDGE         193            2.66        2.66
+##  4 AR         270 3            193            2.39        2.66
+##  5 AR         270 2            193            2.03        2.66
+##  6 AR         270 1            193            1.42        2.66
+##  7 AR         271 EDGE         220            3.50        3.50
+##  8 AR         271 5            220            3.13        3.50
+##  9 AR         271 4            220            2.86        3.50
+## 10 AR         271 3            220            2.63        3.50
+## # … with 3,640 more rows</code></pre>
+<ol start="3" style="list-style-type: decimal">
+<li>Filter the data to include all lakes except AL and DY.</li>
+</ol>
+<pre class="r"><code>filter(fish, lakeid != &quot;AL&quot; &amp; lakeid != &quot;DY&quot;)</code></pre>
+<pre><code>## # A tibble: 3,295 x 6
+##    lakeid fish_id annnumber length radii_length_mm scalelength
+##    &lt;chr&gt;    &lt;dbl&gt; &lt;chr&gt;      &lt;dbl&gt;           &lt;dbl&gt;       &lt;dbl&gt;
+##  1 AR         269 EDGE         140            2.01        2.01
+##  2 AR         269 1            140            1.48        2.01
+##  3 AR         270 EDGE         193            2.66        2.66
+##  4 AR         270 3            193            2.39        2.66
+##  5 AR         270 2            193            2.03        2.66
+##  6 AR         270 1            193            1.42        2.66
+##  7 AR         271 EDGE         220            3.50        3.50
+##  8 AR         271 5            220            3.13        3.50
+##  9 AR         271 4            220            2.86        3.50
+## 10 AR         271 3            220            2.63        3.50
+## # … with 3,285 more rows</code></pre>
+<ol start="4" style="list-style-type: decimal">
+<li>Filter the data to include all fish with a scale length greater than or equal to 11.</li>
+</ol>
+<pre class="r"><code>filter(fish, scalelength&gt;=11)</code></pre>
+<pre><code>## # A tibble: 17 x 6
+##    lakeid fish_id annnumber length radii_length_mm scalelength
+##    &lt;chr&gt;    &lt;dbl&gt; &lt;chr&gt;      &lt;dbl&gt;           &lt;dbl&gt;       &lt;dbl&gt;
+##  1 WS         180 EDGE         403           11.0         11.0
+##  2 WS         180 16           403           10.6         11.0
+##  3 WS         180 15           403           10.3         11.0
+##  4 WS         180 14           403            9.93        11.0
+##  5 WS         180 13           403            9.56        11.0
+##  6 WS         180 12           403            9.17        11.0
+##  7 WS         180 11           403            8.62        11.0
+##  8 WS         180 10           403            8.15        11.0
+##  9 WS         180 9            403            7.49        11.0
+## 10 WS         180 8            403            6.97        11.0
+## 11 WS         180 7            403            6.24        11.0
+## 12 WS         180 6            403            5.41        11.0
+## 13 WS         180 5            403            4.98        11.0
+## 14 WS         180 4            403            4.22        11.0
+## 15 WS         180 3            403            3.04        11.0
+## 16 WS         180 2            403            2.03        11.0
+## 17 WS         180 1            403            1.19        11.0</code></pre>
+<ol start="5" style="list-style-type: decimal">
+<li>Filter the data to include fish only from lake AL and with a scalelength greater than or equal to 2 and less than or equal to 4.</li>
+</ol>
+<pre class="r"><code>filter(fish, lakeid==&quot;AL&quot; &amp; scalelength&gt;=2 &amp; scalelength&lt;=4)</code></pre>
+<pre><code>## # A tibble: 11 x 6
+##    lakeid fish_id annnumber length radii_length_mm scalelength
+##    &lt;chr&gt;    &lt;dbl&gt; &lt;chr&gt;      &lt;dbl&gt;           &lt;dbl&gt;       &lt;dbl&gt;
+##  1 AL         299 EDGE         167            2.70        2.70
+##  2 AL         299 2            167            2.04        2.70
+##  3 AL         299 1            167            1.31        2.70
+##  4 AL         300 EDGE         175            3.02        3.02
+##  5 AL         300 3            175            2.67        3.02
+##  6 AL         300 2            175            2.14        3.02
+##  7 AL         300 1            175            1.23        3.02
+##  8 AL         301 EDGE         194            3.34        3.34
+##  9 AL         301 3            194            2.97        3.34
+## 10 AL         301 2            194            2.29        3.34
+## 11 AL         301 1            194            1.55        3.34</code></pre>
 </div>
 <div id="thats-it-lets-take-a-break" class="section level2">
 <h2>That’s it, let’s take a break!</h2>

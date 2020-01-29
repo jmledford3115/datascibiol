@@ -27,10 +27,6 @@ library("tidyverse")
 fish <- readr::read_csv("data/Gaeta_etal_CLC_data.csv")
 ```
 
-```{r}
-names(fish)
-```
-
 ## dplyr: select()
 Select allows you to build a new data frame by selecting your variable(s) of interest. Our fish data has six variables, but this should give you some ideas especially when you have a large data frames with lots of variables.  
 
@@ -57,10 +53,19 @@ Some additional options to select columns based on a specific criteria include:
 
 ## Practice
 1. What are the names of the columns in the `fish` data?
+```{r}
+names(fish)
+```
 
 2. We are only interested in the variables `lakeid`, `length`, and `scalelength`. Use `select()` to build a new dataframe focused on these variables.
+```{r}
+select(fish, lakeid, length, scalelength)
+```
 
 3. Repeat #2 above using the `-` operator.  
+```{r}
+select(fish, -fish_id, -annnumber, -radii_length_mm)
+```
 
 ## dplyr: Can we combine filter() and select()?
 Absolutely. This is one of the strengths of the tidyverse, it uses the same grammar to specify commands.
@@ -79,6 +84,11 @@ fish %>%
 
 ## Practice
 1. Build a dataframe focused on the lakes `AL` and `AR` and looking at radii length between 2 and 4 only. Use pipes!  
+```{r}
+fish %>% 
+  filter(lakeid=="AL" | lakeid=="AR") %>% 
+  filter(radii_length_mm>=2 & radii_length_mm<=4)
+```
 
 ## dplyr: arrange()
 The `arrange()` command is a bit like a sort command in excel.
@@ -113,6 +123,11 @@ Note that if we had called our new variable length, R would overwrite the old va
 
 ## Practice
 1. Use `mutate()` to calculate the half length of each fish: length_half = length/2. Select only fish_id, length, and length_half, use pipes.
+```{r}
+fish %>% 
+  mutate(length_half=length/2) %>% 
+  select(fish_id, length, length_half)
+```
 
 ## That's it, let's take a break!   
 

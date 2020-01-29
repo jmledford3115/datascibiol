@@ -1554,9 +1554,6 @@ div.tocify {
 <div id="load-the-fish-scale-data" class="section level2">
 <h2>Load the fish scale data</h2>
 <pre class="r"><code>fish &lt;- readr::read_csv(&quot;data/Gaeta_etal_CLC_data.csv&quot;)</code></pre>
-<pre class="r"><code>names(fish)</code></pre>
-<pre><code>## [1] &quot;lakeid&quot;          &quot;fish_id&quot;         &quot;annnumber&quot;       &quot;length&quot;         
-## [5] &quot;radii_length_mm&quot; &quot;scalelength&quot;</code></pre>
 </div>
 <div id="dplyr-select" class="section level2">
 <h2>dplyr: select()</h2>
@@ -1618,10 +1615,47 @@ div.tocify {
 <div id="practice" class="section level2">
 <h2>Practice</h2>
 <ol style="list-style-type: decimal">
-<li><p>What are the names of the columns in the <code>fish</code> data?</p></li>
-<li><p>We are only interested in the variables <code>lakeid</code>, <code>length</code>, and <code>scalelength</code>. Use <code>select()</code> to build a new dataframe focused on these variables.</p></li>
-<li><p>Repeat #2 above using the <code>-</code> operator.</p></li>
+<li>What are the names of the columns in the <code>fish</code> data?</li>
 </ol>
+<pre class="r"><code>names(fish)</code></pre>
+<pre><code>## [1] &quot;lakeid&quot;          &quot;fish_id&quot;         &quot;annnumber&quot;       &quot;length&quot;         
+## [5] &quot;radii_length_mm&quot; &quot;scalelength&quot;</code></pre>
+<ol start="2" style="list-style-type: decimal">
+<li>We are only interested in the variables <code>lakeid</code>, <code>length</code>, and <code>scalelength</code>. Use <code>select()</code> to build a new dataframe focused on these variables.</li>
+</ol>
+<pre class="r"><code>select(fish, lakeid, length, scalelength)</code></pre>
+<pre><code>## # A tibble: 4,033 x 3
+##    lakeid length scalelength
+##    &lt;chr&gt;   &lt;dbl&gt;       &lt;dbl&gt;
+##  1 AL        167        2.70
+##  2 AL        167        2.70
+##  3 AL        167        2.70
+##  4 AL        175        3.02
+##  5 AL        175        3.02
+##  6 AL        175        3.02
+##  7 AL        175        3.02
+##  8 AL        194        3.34
+##  9 AL        194        3.34
+## 10 AL        194        3.34
+## # … with 4,023 more rows</code></pre>
+<ol start="3" style="list-style-type: decimal">
+<li>Repeat #2 above using the <code>-</code> operator.</li>
+</ol>
+<pre class="r"><code>select(fish, -fish_id, -annnumber, -radii_length_mm)</code></pre>
+<pre><code>## # A tibble: 4,033 x 3
+##    lakeid length scalelength
+##    &lt;chr&gt;   &lt;dbl&gt;       &lt;dbl&gt;
+##  1 AL        167        2.70
+##  2 AL        167        2.70
+##  3 AL        167        2.70
+##  4 AL        175        3.02
+##  5 AL        175        3.02
+##  6 AL        175        3.02
+##  7 AL        175        3.02
+##  8 AL        194        3.34
+##  9 AL        194        3.34
+## 10 AL        194        3.34
+## # … with 4,023 more rows</code></pre>
 </div>
 <div id="dplyr-can-we-combine-filter-and-select" class="section level2">
 <h2>dplyr: Can we combine filter() and select()?</h2>
@@ -1669,6 +1703,23 @@ filter(fish2, lakeid == &quot;AL&quot;)</code></pre>
 <ol style="list-style-type: decimal">
 <li>Build a dataframe focused on the lakes <code>AL</code> and <code>AR</code> and looking at radii length between 2 and 4 only. Use pipes!</li>
 </ol>
+<pre class="r"><code>fish %&gt;% 
+  filter(lakeid==&quot;AL&quot; | lakeid==&quot;AR&quot;) %&gt;% 
+  filter(radii_length_mm&gt;=2 &amp; radii_length_mm&lt;=4)</code></pre>
+<pre><code>## # A tibble: 253 x 6
+##    lakeid fish_id annnumber length radii_length_mm scalelength
+##    &lt;chr&gt;    &lt;dbl&gt; &lt;chr&gt;      &lt;dbl&gt;           &lt;dbl&gt;       &lt;dbl&gt;
+##  1 AL         299 EDGE         167            2.70        2.70
+##  2 AL         299 2            167            2.04        2.70
+##  3 AL         300 EDGE         175            3.02        3.02
+##  4 AL         300 3            175            2.67        3.02
+##  5 AL         300 2            175            2.14        3.02
+##  6 AL         301 EDGE         194            3.34        3.34
+##  7 AL         301 3            194            2.97        3.34
+##  8 AL         301 2            194            2.29        3.34
+##  9 AL         302 4            324            3.72        6.07
+## 10 AL         302 3            324            3.23        6.07
+## # … with 243 more rows</code></pre>
 </div>
 <div id="dplyr-arrange" class="section level2">
 <h2>dplyr: arrange()</h2>
@@ -1753,6 +1804,23 @@ filter(fish2, lakeid == &quot;AL&quot;)</code></pre>
 <ol style="list-style-type: decimal">
 <li>Use <code>mutate()</code> to calculate the half length of each fish: length_half = length/2. Select only fish_id, length, and length_half, use pipes.</li>
 </ol>
+<pre class="r"><code>fish %&gt;% 
+  mutate(length_half=length/2) %&gt;% 
+  select(fish_id, length, length_half)</code></pre>
+<pre><code>## # A tibble: 4,033 x 3
+##    fish_id length length_half
+##      &lt;dbl&gt;  &lt;dbl&gt;       &lt;dbl&gt;
+##  1     299    167        83.5
+##  2     299    167        83.5
+##  3     299    167        83.5
+##  4     300    175        87.5
+##  5     300    175        87.5
+##  6     300    175        87.5
+##  7     300    175        87.5
+##  8     301    194        97  
+##  9     301    194        97  
+## 10     301    194        97  
+## # … with 4,023 more rows</code></pre>
 </div>
 <div id="thats-it-lets-take-a-break" class="section level2">
 <h2>That’s it, let’s take a break!</h2>
