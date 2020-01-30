@@ -22,36 +22,36 @@ For this assignment, we are going to use built-in data on mammal sleep patterns.
 msleep
 ```
 
-1. From which publication are these data taken from? Don't do an internet search; show the code that you would use to find out in R.
+**1. From which publication are these data taken from? Don't do an internet search; show the code that you would use to find out in R.**
 
-2. Put these data into a new object `sleep`. Make sure they are organized as a data frame.  
-
-
-3. Show a list of the column names is this data frame.
+**2. Put these data into a new object `sleep`. Make sure they are organized as a data frame.**  
 
 
-4. Use `glimpse()` to summarize the data in `sleep`.
+**3. Show a list of the column names is this data frame.**
 
 
-5. Use `summary()` to summarize the data in `sleep`.
+**4. Use `glimpse()` to summarize the data in `sleep`.**
 
 
-6. Print out the first column of the data frame and then print out the first row.
+**5. Use `summary()` to summarize the data in `sleep`.**
 
 
-7. We are interested in two groups; small and large mammals. Let's define small as less than or equal to 1kg body weight and large as greater than or equal to 200kg body weight. Make two new dataframes (large and small) based on these parameters.  
+**6. Print out the first column of the data frame and then print out the first row.**
 
 
-8. What is the mean weight for both the large and small mammals?
+**7. We are interested in two groups; small and large mammals. Let's define small as less than or equal to 1kg body weight and large as greater than or equal to 200kg body weight. Make two new dataframes (large and small) based on these parameters.**  
 
 
-9. Let's try to figure out if large mammals sleep, on average, longer than small mammals. What is the average sleep duration for large mammals as we have defined them?
+**8. What is the mean weight for both the large and small mammals?**
 
 
-10. What is the average sleep duration for small mammals as we have defined them?
+**9. Let's try to figure out if large mammals sleep, on average, longer than small mammals. What is the average sleep duration for large mammals as we have defined them?**
 
 
-11. Which animals are the sleepiest? Which sleep least 18 hours per day?  
+**10. What is the average sleep duration for small mammals as we have defined them?**
+
+
+**11. Which animals are the sleepiest? Which sleep least 18 hours per day?**  
 
 ## Push your final code to GitHub!
 Please be sure that you check the `keep md` file in the knit preferences.  

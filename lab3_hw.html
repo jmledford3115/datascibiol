@@ -395,7 +395,7 @@ summary {
 
 <div id="instructions" class="section level2">
 <h2>Instructions</h2>
-<p>Answer the following questions and complete the exercises in RMarkdown. Please embed all of your code and push your final work to your repository. Your final lab report should be organized, clean, and run free from errors. Remember, you must remove the <code>#</code> for the included code chunks to run.</p>
+<p>Answer the following questions and complete the exercises in RMarkdown. Please embed all of your code and push your final work to your repository. Your final lab report should be organized, clean, and run free from errors. Remember, you must remove any <code>#</code> for the included code chunks to run.</p>
 </div>
 <div id="load-the-tidyverse" class="section level2">
 <h2>Load the tidyverse</h2>
@@ -407,20 +407,18 @@ summary {
 <p><strong>Database of vertebrate home range sizes.</strong><br />
 Reference: Tamburello N, Cote IM, Dulvy NK (2015) Energy and the scaling of animal space use. The American Naturalist 186(2):196-211. <a href="http://dx.doi.org/10.1086/682070" class="uri">http://dx.doi.org/10.1086/682070</a>.<br />
 Data: <a href="http://datadryad.org/resource/doi:10.5061/dryad.q5j65/1" class="uri">http://datadryad.org/resource/doi:10.5061/dryad.q5j65/1</a></p>
-<ol style="list-style-type: decimal">
-<li><p>Load the data into a new object called <code>homerange</code>.</p></li>
-<li><p>Use <code>spec()</code> to see the full details of the columns.</p></li>
-<li><p>Explore the data. Show the dimensions, column names, classes for each variable, and a statistical summary. Keep these as separate code chunks.</p></li>
-<li><p>Are there NA’s in your data? Show the code that you would use to verify this, please.</p></li>
-<li><p>Change the class of the variables <code>taxon</code> and <code>order</code> to factors and display their levels.</p></li>
-<li><p>Make a new dataframe <code>deer</code> that is limited to the mean mass, log10 mass, family, genus, and species of deer in the database. The family for deer is cervidae. Arrange the data in descending order by log10 mass. Which is the largest deer?</p></li>
-<li><p>As measured by the data, which snake species has the smallest homerange? Show all of your work, please. Look this species up online and tell me about it!</p></li>
-<li><p>You suspect that homerange and mass are correlated in birds. We need a ratio that facilitates exploration of this prediction. First, build a new dataframe called <code>hra_ratio</code> that is limited to genus, species, mean.mass.g, log10.mass, log10.hra. Arrange it in ascending order by mean mass in grams.</p></li>
-<li><p>Replace the existing <code>hra_ratio</code> dataframe with a new dataframe that adds a column calculating the ratio of log 10 hra to log 10 mass. Call it <code>hra.mass.ratio</code>. Arrange it in descending order by mean mass in grams.</p></li>
-<li><p>What is the lowest mass for birds with a <code>hra.mass.ratio</code> greater than or equal to 4.0?</p></li>
-<li><p>Do a search online; what is the common name of the bird from #10 above? Place a link in your markdown file that takes us to a webpage with information on its biology.</p></li>
-<li><p>What is the <code>hra.mass.ratio</code> for an ostrich? Show your work, please.</p></li>
-</ol>
+<p><strong>1. Load the data into a new object called <code>homerange</code>.</strong></p>
+<p><strong>2. Use <code>spec()</code> to see the full details of the columns.</strong></p>
+<p><strong>3. Explore the data. Show the dimensions, column names, classes for each variable, and a statistical summary. Keep these as separate code chunks.</strong></p>
+<p><strong>4. Are there NA’s in your data? Show the code that you would use to verify this, please.</strong></p>
+<p><strong>5. Change the class of the variables <code>taxon</code> and <code>order</code> to factors and display their levels.</strong></p>
+<p><strong>6. Make a new dataframe <code>deer</code> that is limited to the mean mass, log10 mass, family, genus, and species of deer in the database. The family for deer is cervidae. Arrange the data in descending order by log10 mass. Which is the largest deer?</strong></p>
+<p><strong>7. As measured by the data, which snake species has the smallest homerange? Show all of your work, please. Look this species up online and tell me about it!</strong></p>
+<p><strong>8. You suspect that homerange and mass are correlated in birds. We need a ratio that facilitates exploration of this prediction. First, build a new dataframe called <code>hra_ratio</code> that is limited to genus, species, mean.mass.g, log10.mass, log10.hra. Arrange it in ascending order by mean mass in grams.</strong></p>
+<p><strong>9. Replace the existing <code>hra_ratio</code> dataframe with a new dataframe that adds a column calculating the ratio of log 10 hra to log 10 mass. Call it <code>hra.mass.ratio</code>. Arrange it in descending order by mean mass in grams.</strong></p>
+<p><strong>10. What is the lowest mass for birds with a <code>hra.mass.ratio</code> greater than or equal to 4.0?</strong></p>
+<p><strong>11. Do a search online; what is the common name of the bird from #10 above? Place a link in your markdown file that takes us to a webpage with information on its biology.</strong></p>
+<p><strong>12. What is the <code>hra.mass.ratio</code> for an ostrich? Show your work, please.</strong></p>
 </div>
 <div id="push-your-final-code-to-github" class="section level2">
 <h2>Push your final code to GitHub!</h2>
