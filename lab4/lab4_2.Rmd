@@ -31,7 +31,7 @@ Last time we learned the fundamentals of tidy data and used the `pivot_longer()`
 library("tidyverse")
 ```
 
-## pivot_longer()
+## `pivot_longer()`
 Recall that we use `pivot_longer()` when our column names actually represent variables. A classic example would be that the column names represent observations of a variable.
 ```{r}
 datasets::USPersonalExpenditure
@@ -52,7 +52,7 @@ expenditures
 
 2. Restrict the data to medical and health expenditures only. Sort in ascending order.
 
-## pivot_wider()
+## `pivot_wider()`
 The opposite of `pivot_longer()`. You use `pivot_wider()` when you have an observation scattered across multiple rows. In the example below, `cases` and `population` represent variable names not observations.
 ```{r}
 tb_data <- read_csv("data/tb_data.csv")
@@ -69,8 +69,8 @@ tb_data %>%
 ## Practice
 1. Load the `gene_exp.csv` data as a new object `gene_exp`. Are these data tidy? Use `pivot_wider()` to tidy the data.
 
-## rename()
-The `rename()` function is actually part of *dplyr*, but I put it here because I think of it as part of transforming untidy data.
+## `rename()`
+The `rename()` function is actually part of *dplyr*, but I put it here because I think of it as part of transforming untidy data. Remember, youcan still rename columns as part of `select()`.
 ```{r}
 tb_data %>% 
   pivot_wider(names_from = "key",
@@ -83,7 +83,7 @@ tb_data %>%
   )
 ```
 
-## summarize()
+## `summarize()`
 `summarize()` will produce summary statistics for a given variable in a data frame. For example, in homework 2 you were asked to calculate the mean of the sleep total column for large and small mammals. We did this using a combination of tidyverse and base R commands, which isn't very efficient or clean. We can do better!  
 ```{r}
 msleep
@@ -147,6 +147,26 @@ msleep %>%
             max_bodywt = max(bodywt),
             mean_bodywt = mean(bodywt),
             total=n())
+```
+
+`count()` is an easy way of determining how many observations you have within a column. It effectively acts like a combination of `group_by()` and `n()`.
+```{r}
+msleep %>% 
+  count(order, sort = T)
+```
+
+You can also use `count()` across multiple variables.
+```{r}
+msleep %>% 
+  count(order, vore, sort = TRUE)
+```
+
+`add_count()` adds a new column to the dataframe.
+```{r}
+msleep %>% 
+  select(name:order) %>% 
+  add_count(order) %>% 
+  top_n(-5) #the bottom 5 
 ```
 
 ## Practice

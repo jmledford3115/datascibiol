@@ -156,7 +156,7 @@ length_data %>%
   unnest(length)
 ```
 
-## separate()
+## `separate()`
 In our last example, we have the sex of each patient included with their name. Are these data tidy? No, there is more than one value per cell in the patient column and the columns a, b, c, d once again represent values.
 ```{r}
 heartrate2 <- readr::read_csv("data/heartrate2.csv")
