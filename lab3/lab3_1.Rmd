@@ -1,5 +1,5 @@
 ---
-title: "Importing Data and Dplyr: `filter()`"
+title: "Transforming data 1: Importing Data and Dplyr: `select()`"
 output:
   html_document:
     theme: spacelab
@@ -13,10 +13,10 @@ output:
 *At the end of this exercise, you will be able to:*    
 1. Import .csv files as data frames using `read_csv()`.  
 2. Use summary functions to explore the dimensions, structure, and contents of a data frame.  
-3. Use the `filter()` command of dplyr to sort data frames.  
+3. Use the `select()` command of dplyr to sort data frames.  
 
 ## Review
-At this point, I expect that you have familiarity in RStudio, GitHub, and basic operations in R. You understand how to do arithmetic, assign values to objects, and work with vectors, data matrices, and data frames. If you are confused or need some extra help, please [email me](mailto: jmledford@ucdavis.edu).  
+At this point, you should have familiarity in RStudio, GitHub, and basic operations in R. You understand how to do arithmetic, assign values to objects, and work with vectors, data matrices, and data frames. If you are confused or need some extra help, review labs 1-2 and please [email me](mailto: jmledford@ucdavis.edu).  
 
 ## Load the tidyverse
 ```{r message=FALSE, warning=FALSE}
@@ -24,7 +24,7 @@ library("tidyverse")
 ```
 
 ## Data Frames
-For the remainder of the course, we will work exclusively with data frames. Recall that data frames store multiple classes of data. Last time, you were shown how to build data frames using the `data.frame()` command. However, scientists often make their data available as supplementary material associated with a publication. As data scientists, we capitalize on this by importing data directly into R.  
+For the remainder of the course, we will work exclusively with data frames. Recall that data frames store multiple classes of data. Last time, you were shown how to build data frames using the `data.frame()` command. However, scientists often make their data available as supplementary material associated with a publication. This is excellent scientific practice as it insures repeatability by showing exactly how analyses were performed. As data scientists, we capitalize on this by importing data directly into R.  
 
 ## Importing Data
 R allows us to import a wide variety of data types. The most common type of file is a .csv file which stands for comma separated values. Spreadsheets are often developed in Excel then saved as .csv files for use in R. There are packages that allow you to open excel files and many other formats directly but .csv is the most common.  
@@ -34,14 +34,18 @@ To import any file, first make sure that you are in the correct working director
 getwd()
 ```
 
-## Load Fish Scale Data
-Here we open a .csv file with data on fish scales. Since we are using the tidyverse, we open the file using `read_csv()`. `readr` is included in the tidyverse set of packages. We can specify the function and package with the `::` symbol. This becomes important if you have multiple packages loaded which contain functions with the same name. 
+## Load the data
+Here we open a .csv file. Since we are using the tidyverse, we open the file using `read_csv()`. `readr` is included in the tidyverse set of packages. We specify the package and function with the `::` symbol. This becomes important if you have multiple packages loaded that contain functions with the same name.  
+
+These data are from: Gaeta J., G. Sass, S. Carpenter. 2012. Biocomplexity at North Temperate Lakes LTER: Coordinated Field Studies: Large Mouth Bass Growth 2006. Environmental Data Initiative.  [link](https://portal.edirepository.org/nis/mapbrowse?scope=knb-lter-ntl&identifier=267)  
 ```{r}
 fish <- readr::read_csv("data/Gaeta_etal_CLC_data.csv")
 ```
 
+Notice that when the data are imported, you are presented with a message that tells you how R interpreted the column classes. This is also where error messages would appear if there were problems.  
+
 ## Summary functions
-Once data have been uploaded, you may want to get an idea of its contents and dimensions. This may seem self-evident for small files but this is a big help for large data files.
+Once data have been uploaded, you may want to get an idea of its structure, contents, and dimensions. I routinely run one or more of these commands when data are imported.  
 ```{r}
 nrow(fish) #the number of rows
 ```
@@ -58,7 +62,6 @@ dim(fish) #total dimensions
 names(fish) #column names
 ```
 
-There are many other useful summary functions, all of which work a bit differently. I didn't try to make the joke about fish heads and tails on purpose, but here it is anyway.
 ```{r}
 head(fish, n = 10) # print the first n rows of the data frame
 ```
@@ -88,8 +91,7 @@ glimpse(fish)
 ## Practice
 1. Load the data `mammal_lifehistories_v2.csv` and place it into a new object called `mammals`.
 ```{r}
-mammals <- 
-  readr::read_csv("data/mammal_lifehistories_v2.csv")
+mammals <- readr::read_csv("data/mammal_lifehistories_v2.csv")
 ```
 
 2. Provide the dimensions of the data frame.
@@ -111,87 +113,136 @@ str(mammals)
 glimpse(mammals)
 ```
 
-5. Print out the first few rows of the data using the function `head()`.  
+5. Print out the first few rows of the data using the function `head()` and the last few rows using the function `tail()`.  
 ```{r}
 head(mammals)
 ```
 
-6. Print out the last few rows using the function `tail()`.
-```{r}
-tail(mammals)
-```
-
 ## Tidyverse
-The [tidyverse](www.tidyverse.org) is a collection of packages that make workflows in R easier. The packages operate more intuitively than base R commands. Although not universal, the tidyverse has been adopted by many R users.  
+The [tidyverse](www.tidyverse.org) is a collection of packages that make workflows in R easier. The packages operate more intuitively than base R commands and share a common organizational philospohy. Although not universal, the tidyverse has been adopted by most R users.  
 ![*Data Science Workflow in the Tidyverse.*](tidyverse1.png)  
 
-## dplyr: filter()
-A core package in the tidyverse is dplyr. This package allows you to transform your data in many different ways including filtering, subsetting, and reordering. Dplyr allows you to parse out data of interest from a larger data frame.  
+## `tibble()`
+If you have background in R, you probably encountered issues with data frames. Tibbles solve these problems and act just like data frames.  When you import data using `readr::read_csv()` you are making a tibble. Have a look  at the comparison below.   
 
-The first command that we will learn is `filter()`. Filter allows you to subset observations in a data frame by their values. You should still have the fish data loaded, but if not then please re-load.  
+Making a new data frame using `data.frame()`.
 ```{r}
-fish <- 
-  readr::read_csv("data/Gaeta_etal_CLC_data.csv")
+data.frame(sample = letters[1:5], value=1:5)
 ```
 
-Let's say that we are interested only in the fish that occur in the lake labeled AL. We can use `filter()` to extract these observations to build a new data frame focused on our question.
+Making a new tibble using `tibble()`. What do you notice? When importing data as tibbles, strings are interpreted as strings not as factors.  
 ```{r}
-filter(fish, lakeid == "AL")
+tibble(sample = letters[1:5], value=1:5)
 ```
 
-Similarly, if we are only interested in fish with a length greater than or equal to 350 we can use `filter()` to do this work.
+## dplyr
+`dplyr` is used to transform data frames by extracting, rearranging, and summarizing data such that they are focused on our question of interest. This is very helpful,  especially when wrangling large data, and makes dplyr one of most frequently used packages in the tidyverse. The two functions we will use most are `select()` and `filter()`.  
+
+## `select()`
+Select allows you to pull out columns of interest from a dataframe. To do this, just add the names of the columns to the `select()` command. The order in which you add them, will determine the order in which they appear in the output.
 ```{r}
-filter(fish, length >= 350)
+names(fish)
 ```
 
-Filtering allows all of the expected operators; i.e. >, >=, <, <=, != (not equal), and == (equal).  It also allows us to extract multiple values simultaneously.
+We are only interested in lakeid and scalelength.
 ```{r}
-filter(fish, lakeid == "AL" & length > 350) #only the fish that have lakeid AL AND length >350
+select(fish, lakeid, scalelength)
 ```
 
-When we use the '&' above, we are asking for a specific filter: provide only those data for which both lakeid=AL AND length is greater than 350. Filter will use other operators, but always keep in mind that you are asking for something very specific.  
-
-Rules: & is "and", | is "or", and ! is "not".  
-
-Notice that the code below generates a data frame larger than the one above because it includes non AL lakes.
+To add a range of columns use `start_col:end_col`.
 ```{r}
-filter(fish, lakeid == "AL" | length < 350)
+select(fish, fish_id:length)
 ```
 
-If you want to filter multiple values in the same variable you can use the `%in%` operator. This is a useful way to simplify your code.
+The - operator is useful in select. It allows us to select everything except the specified variables.
 ```{r}
-filter(fish, length %in% c(167, 175))
+select(fish, -fish_id, -annnumber, -length, -radii_length_mm)
 ```
 
-But, be careful when reading the code like a human; why does this not work? How would you correct the problem?
+For very large data frames with lots of variables, `select()` utilizes lots of different operators to make things easier. Let's say we are only interested in the variables that deal with length.
 ```{r}
-filter(fish, length == 167 & length == 175)
+select(fish, contains("length"))
+```
+
+When columns are sequentially named, `starts_with()` makes selecting columns easier.
+```{r}
+select(fish, starts_with("radii"))
+```
+
+Options to select columns based on a specific criteria include:  
+1. ends_with() = Select columns that end with a character string  
+2. contains() = Select columns that contain a character string  
+3. matches() = Select columns that match a regular expression  
+4. one_of() = Select columns names that are from a group of names  
+
+We won't cover regex in this class, but the following code is helpful when you know that a column contains a letter (in this case "a") followed by a subsequent string (in this case "er").  
+```{r}
+select(fish, matches("a.+er"))
+```
+
+You can also select columns based on the class of data.  
+```{r}
+select_if(fish, is.numeric)
+```
+
+To select all columns that are *not* a class of data, you need to add a `~`.
+```{r}
+select_if(fish, ~!is.numeric(.))
 ```
 
 ## Practice
-1. Filter the `fish` data to include the samples from lake `DY`.
+1. What are the names of the columns in the `mammals` data? To which classes of data do the columns belong?
 ```{r}
-filter(fish, lakeid == "DY")
+names(mammals)
+glimpse(mammals)
 ```
 
-2. Filter the data to include all lakes except AL.
+2. We are only interested in the variables `Genus`, `species`, and `mass`. Use `select()` to build a new dataframe focused on these variables.
 ```{r}
-filter(fish, lakeid != "AL")
+select(mammals, species, Genus, mass)
 ```
 
-3. Filter the data to include all lakes except AL and DY.
+3. Reconsider your answer to #2 above, reorder the column names to reflect the taxonomic heirarchy.
 ```{r}
-filter(fish, lakeid != "AL" & lakeid != "DY")
+select(mammals, Genus, species, mass)
 ```
 
-4. Filter the data to include all fish with a scale length greater than or equal to 11.
+4. What if we only wanted to exclude `order` and `family`? Use the `-` operator to make the code efficient.
 ```{r}
-filter(fish, scalelength>=11)
+select(mammals, -order, -family)
 ```
 
-5. Filter the data to include fish only from lake AL and with a scalelength greater than or equal to 2 and less than or equal to 4.
+4. Select the columns that include "mass" as part of the name.  
 ```{r}
-filter(fish, lakeid=="AL" & scalelength>=2 & scalelength<=4)
+select(mammals, contains("mass"))
+```
+
+5. Select all of the columns that are of class `character`.  
+
+## Renaming columns
+`rename()` is a function within dplyr used to change column names, but you can also do this within select.  
+
+An example using `rename()`.
+```{r}
+rename(mammals, genus="Genus")
+```
+
+An example within `select()`.
+```{r}
+select(mammals, genus=Genus, species, mass )
+```
+
+## Other
+Here are two examples of code that are super helpful to have in your bag of tricks.  
+
+Imported data frames often have a mix of lower and uppercase column names. Use `toupper()` or `tolower()` to fix this issue. I always try to use lowercase to  keep things consistent.  
+```{r}
+select_all(mammals, tolower)
+```
+
+When naming columns, blank spaces are often added (don't do this, please). Here is a trick to remove these.
+```{r}
+select_all(mammals, ~str_replace(., " ", "_"))
 ```
 
 ## That's it, let's take a break!   
