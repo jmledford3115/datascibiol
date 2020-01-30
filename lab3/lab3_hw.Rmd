@@ -45,7 +45,7 @@ Data: http://datadryad.org/resource/doi:10.5061/dryad.q5j65/1
 8. You suspect that homerange and mass are correlated in birds. We need a ratio that facilitates exploration of this prediction. First, build a new dataframe called `hra_ratio` that is limited to genus, species, mean.mass.g, log10.mass, log10.hra. Arrange it in ascending order by mean mass in grams.  
 
 
-9. Replace the existing `hra_ratio` dataframe with a new dataframe that adds a column calculating the ratio of log 10 hra to log 10 mass. Call it `hra.mass.ratio`. Arrange it in descending order by mean mass in grams.  
+9. Replace the existing `hra_ratio` dataframe with a new dataframe that adds a column calculating the ratio of log 10 hra to log 10 mass. Call it `hra.mass.ratio`. Arrange `hra_ratio` in descending order by mean mass in grams.  
 
 
 10. What is the lowest mass for birds with a `hra.mass.ratio` greater than or equal to 4.0?
