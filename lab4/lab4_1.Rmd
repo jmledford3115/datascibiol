@@ -46,6 +46,12 @@ This is summarized in the image below. The package used to tidy data is called *
 ## `pivot_longer()`  
 Scientists frequently use spreadsheets that are organized to make data entry efficient. This is often referred to as **wide format**. Unfortunately, the wide format creates a problem because column names may actually represent values of a variable. The command `pivot_longer()` shifts data from wide to long format.   
 
+Rules:  
++ `pivot_longer`(cols, names_to, values_to)
++ `cols` - Columns to pivot to longer format
++ `names_to` - Name of the new column; it will contain the column names of gathered columns as values
++ `values_to` - Name of the new column; it will contain the data stored in the values of gathered columns
+
 ## Example 1: column names are data
 The following data show results from a drug trial with four treatments on six patients. The values represent resting heart rate.  
 ```{r}
@@ -64,7 +70,7 @@ Let's assess whether or not these data are tidy.
 To fix this problem, we need to reshape the table to long format while keeping track of column names and values. We do this using `pivot_longer()`. Notice that the dimensions of the data frame change.  
 ```{r}
 heartrate %>% 
-  pivot_longer(-patient, 
+  pivot_longer(-patient, #patient does not pivot
                names_to = "drug", 
                values_to = "heartrate"
                )

@@ -1579,6 +1579,8 @@ div.tocify {
 <div id="pivot_longer" class="section level2">
 <h2><code>pivot_longer()</code></h2>
 <p>Scientists frequently use spreadsheets that are organized to make data entry efficient. This is often referred to as <strong>wide format</strong>. Unfortunately, the wide format creates a problem because column names may actually represent values of a variable. The command <code>pivot_longer()</code> shifts data from wide to long format.</p>
+<p>Rules:<br />
++ <code>pivot_longer</code>(cols, names_to, values_to) + <code>cols</code> - Columns to pivot to longer format + <code>names_to</code> - Name of the new column; it will contain the column names of gathered columns as values + <code>values_to</code> - Name of the new column; it will contain the data stored in the values of gathered columns</p>
 </div>
 <div id="example-1-column-names-are-data" class="section level2">
 <h2>Example 1: column names are data</h2>
@@ -1611,7 +1613,7 @@ div.tocify {
 <em>Yes. There are no unusual combinations of data in each cell.</em></p>
 <p>To fix this problem, we need to reshape the table to long format while keeping track of column names and values. We do this using <code>pivot_longer()</code>. Notice that the dimensions of the data frame change.</p>
 <pre class="r"><code>heartrate %&gt;% 
-  pivot_longer(-patient, 
+  pivot_longer(-patient, #patient does not pivot
                names_to = &quot;drug&quot;, 
                values_to = &quot;heartrate&quot;
                )</code></pre>

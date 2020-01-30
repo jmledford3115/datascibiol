@@ -1567,7 +1567,7 @@ div.tocify {
 <pre><code>## ── Attaching packages ─────────────────────────────────────────────────────────────────────────────────────── tidyverse 1.3.0 ──</code></pre>
 <pre><code>## ✓ ggplot2 3.2.1     ✓ purrr   0.3.3
 ## ✓ tibble  2.1.3     ✓ dplyr   0.8.3
-## ✓ tidyr   1.0.0     ✓ stringr 1.4.0
+## ✓ tidyr   1.0.2     ✓ stringr 1.4.0
 ## ✓ readr   1.3.1     ✓ forcats 0.4.0</code></pre>
 <pre><code>## ── Conflicts ────────────────────────────────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
 ## x dplyr::filter() masks stats::filter()
@@ -1600,13 +1600,17 @@ expenditures</code></pre>
 <div id="practice" class="section level2">
 <h2>Practice</h2>
 <ol style="list-style-type: decimal">
-<li><p>Are these data tidy? Please use <code>gather()</code> to tidy the data. Here we use back ticks on the column names so R does not confuse them with numerical indices.</p></li>
+<li><p>Are these data tidy? Please use <code>pivot_longer()</code> to tidy the data. Here we use back ticks on the column names so R does not confuse them with numerical indices.</p></li>
 <li><p>Restrict the data to medical and health expenditures only. Sort in ascending order.</p></li>
 </ol>
 </div>
 <div id="pivot_wider" class="section level2">
 <h2><code>pivot_wider()</code></h2>
 <p>The opposite of <code>pivot_longer()</code>. You use <code>pivot_wider()</code> when you have an observation scattered across multiple rows. In the example below, <code>cases</code> and <code>population</code> represent variable names not observations.</p>
+<p>Rules:<br />
++ <code>pivot_wider</code>(names_from, values_from)<br />
++ <code>names_from</code> - Values in the <code>names_from</code> column will become new column names<br />
++ <code>values_from</code> - Cell values will be taken from the <code>values_from</code> column</p>
 <pre class="r"><code>tb_data &lt;- read_csv(&quot;data/tb_data.csv&quot;)</code></pre>
 <pre><code>## Parsed with column specification:
 ## cols(
@@ -1633,7 +1637,7 @@ expenditures</code></pre>
 ## 12 China        2000 population 1280428583</code></pre>
 <p>When using <code>pivot_wider()</code> we use <code>names_from</code> to identify the variables (new column names) and <code>values_from</code> to identify the values associated with the new columns.</p>
 <pre class="r"><code>tb_data %&gt;% 
-  pivot_wider(names_from = &quot;key&quot;,
+  pivot_wider(names_from = &quot;key&quot;, #the observations under key will become new columns
               values_from = &quot;value&quot;)</code></pre>
 <pre><code>## # A tibble: 6 x 4
 ##   country      year  cases population
