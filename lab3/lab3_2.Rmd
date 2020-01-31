@@ -204,6 +204,7 @@ mammals_ohno <-
 mammals_ohno[,1:4]
 ```
 
+Here I correct for the incorrectly added random characters - save this code, it's particularly useful!
 ```{r}
 mammals_corr <- 
   mammals_ohno %>%
@@ -211,7 +212,10 @@ mammals_corr <-
   mutate_all(str_trim)
 
 mammals_corr[,1:4]
+
 ```
+
+
 
 ## That's it, let's take a break!   
 
