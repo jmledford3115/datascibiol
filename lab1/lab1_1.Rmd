@@ -15,6 +15,7 @@ The goal for this course is to help get you started learning to manage, transfor
 ## Resources
 Given that R is open source, many resources are available online. We will use a combination of resources in the class, but key items are listed below.  
 
+- [Joel's email](jmledford@ucdavis.edu)  
 - [Class Website](https://jmledford3115.github.io/datascibiol/)
 - [Class Discussion Board](https://piazza.com/uc_davis/winter2020/bis015l/home#)
 - [R for data science](https://r4ds.had.co.nz/)
