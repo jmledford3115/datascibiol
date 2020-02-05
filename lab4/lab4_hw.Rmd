@@ -22,25 +22,25 @@ library(tidyverse)
 
 For this assignment we are going to work with a large dataset from the [United Nations Food and Agriculture Organization](http://www.fao.org/about/en/) on world fisheries. First, load the data.  
 
-1. Load the data `FAO_1950to2012_111914.csv` as a new object titled `fisheries`.
+**1. Load the data `FAO_1950to2012_111914.csv` as a new object titled `fisheries`.**
 
 
-2. What are the names of the columns? Do you see any potential problems with the column names?
+**2. What are the names of the columns? Do you see any potential problems with the column names?**
 
 
-3. What is the structure of the data? Show the classes of each variable.
+**3. What is the structure of the data? Show the classes of each variable.**
 
 
-4. Think about the classes. Will any present problems? Make any changes you think are necessary below.
+**4. Think about the classes. Will any present problems? Make any changes you think are necessary below.**
 
 
-5. How many countries are represented in the data? Provide a count.
+**5. How many countries are represented in the data? Provide a count.**
 
 
-6. What are the names of the countries?
+**6. What are the names of the countries?**
 
 
-7. Use `rename()` to rename the columns and make them easier to use. The new column names should be:  
+**7. Use `rename()` to rename the columns and make them easier to use. The new column names should be:**  
 + country
 + commname
 + ASFIS_sciname
@@ -50,34 +50,34 @@ For this assignment we are going to work with a large dataset from the [United N
 + FAO_area
 + unit
 
-8. Are these data tidy? Why or why not, and, how do you know? Use the appropriate pivot function to tidy the data. Remove the NA's. Put the tidy data frame into a new object `fisheries_tidy`.  
+**8. Are these data tidy? Why or why not, and, how do you know? Use the appropriate pivot function to tidy the data. Remove the NA's. Put the tidy data frame into a new object `fisheries_tidy`.**  
 
 
-9. Refocus the data only to include country, ISSCAAP_spgroupname, ASFIS_spcode, ASFIS_sciname, year, and catch.
+**9. Refocus the data only to include country, ISSCAAP_spgroupname, ASFIS_spcode, ASFIS_sciname, year, and catch.**
 
 
-10. Re-check the classes of `fisheries_tidy2`. Notice that "catch" is shown as a character! This is a problem because we will want to treat it as a numeric. How will you deal with this?
+**10. Re-check the classes of `fisheries_tidy2`. Notice that "catch" is shown as a character! This is a problem because we will want to treat it as a numeric. How will you deal with this?**
 
 
-11. Based on the ASFIS_spcode, how many distinct taxa were caught as part of these data?
+**11. Based on the ASFIS_spcode, how many distinct taxa were caught as part of these data?**
 
 
-12. Which country had the largest overall catch in the year 2000?
+**12. Which country had the largest overall catch in the year 2000?**
 
 
-13. Which country caught the most sardines (_Sardina_) between the years 1990-2000?
+**13. Which country caught the most sardines (_Sardina_) between the years 1990-2000?**
 
 
-14. Which five countries caught the most cephalopods between 2008-2012?
+**14. Which five countries caught the most cephalopods between 2008-2012?**
 
 
-15. Given the top five countries from question 12 above, which species was the highest catch total? The lowest?
+**15. Given the top five countries from question 14 above, which species was the highest catch total? The lowest?**
 
 
-16. In some cases, the taxonomy of the fish being caught is unclear. Make a new data frame called `coastal_fish` that shows the taxonomic composition of "Miscellaneous coastal fishes" within the ISSCAAP_spgroupname column.
+**16. In some cases, the taxonomy of the fish being caught is unclear. Make a new data frame called `coastal_fish` that shows the taxonomic composition of "Miscellaneous coastal fishes" within the ISSCAAP_spgroupname column.**
 
 
-17. Use the data to do at least one exploratory analysis of your choice. What can you learn?
+**17. Use the data to do at least one exploratory analysis of your choice. What can you learn?**
 
 ## Push your final code to GitHub!
 Please be sure that you check the `keep md` file in the knit preferences.   
