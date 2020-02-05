@@ -221,7 +221,6 @@ life_history3 <-
                   na = c("NA", " ", ".", "-999")) #all NA, blank spaces, .,and -999 are treated as NA
 ```
 
-## Wrap-up
-Please review the learning goals and be sure to use the code here as a reference when completing the homework.
+## That's it, let's take a break!   
 
 -->[Home](https://jmledford3115.github.io/datascibiol/)
