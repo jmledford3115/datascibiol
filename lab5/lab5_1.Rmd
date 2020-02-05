@@ -97,7 +97,7 @@ msleep %>%
   purrr::map_df(~ sum(is.na(.))) #map to a new data frame the sum results of the is.na function for all columns
 ```
 
-Don't forget that we can use `gather()` to make viewing this output easier.
+Don't forget that we can use `pivot_longer()` to make viewing this output easier.
 ```{r}
 msleep %>% 
   purrr::map_df(~ sum(is.na(.))) %>% 
