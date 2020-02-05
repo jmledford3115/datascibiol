@@ -71,7 +71,7 @@ For this assignment we are going to work with a large dataset from the [United N
 14. Which five countries caught the most cephalopods between 2008-2012?
 
 
-15. Given the top five countries from question 12 above, which species was the highest catch total? The lowest?
+15. Given the top five countries from question 14 above, which species was the highest catch total? The lowest?
 
 
 16. In some cases, the taxonomy of the fish being caught is unclear. Make a new data frame called `coastal_fish` that shows the taxonomic composition of "Miscellaneous coastal fishes" within the ISSCAAP_spgroupname column.
