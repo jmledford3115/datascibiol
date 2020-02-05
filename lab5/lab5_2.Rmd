@@ -24,13 +24,11 @@ Meet with your group and decide on a data set that you will use for your project
 
 ##Resources
 - [ggplot2 cheatsheet](https://www.rstudio.com/wp-content/uploads/2015/03/ggplot2-cheatsheet.pdf)
-- [R for Data Science](https://r4ds.had.co.nz/)
-- [R Cookbook](http://www.cookbook-r.com/)
 
 ## Load the libraries
 ```{r message=FALSE, warning=FALSE}
 library(tidyverse)
-library(skimr)
+library(naniar)
 ```
 
 ## Grammar of Graphics
@@ -75,11 +73,8 @@ ggplot(data = iris, mapping = aes(x = Species, y = Petal.Length)) +
 ```
 
 ## Practice
-Take a moment to practice. Use the iris data to build a scatterplot that compares sepal length vs. sepal width. Use the cheatsheet to find the correct `geom_` for a scatterplot.
-```{r}
-ggplot(data = iris, mapping = aes(x = Sepal.Length, y = Sepal.Width)) +
-  geom_point()
-```
+1. Use the iris data to build a scatterplot that compares sepal length vs. sepal width. Use the cheatsheet or help to find the correct `geom_` for a scatterplot.
+
 
 ## Scatterplots, barplots, and boxplots
 Now that we have a general idea of the syntax, let's start by working with two standard plots: 1) scatterplots and 2) barplots.
@@ -96,7 +91,9 @@ homerange <-
   readr::read_csv("data/Tamburelloetal_HomeRangeDatabase.csv")
 ```
 
-As a follow up to lab 4, view the homerange data frame by opening it in R (click on it in the Environment tab). Are there gray italicized NA values? The NAs in the .csv file are indicated by NA, which the `read_csv()` function uses as a default NA indicator. If our data file used something else, we would need to specify it above. 
+## Practice
+1. Does the homerange data have any NAs? Do a quick exploratory analysis of your choice below.
+
 
 ### 1. Scatter Plots
 Scatter plots are good at revealing relationships that are not readily visible in the raw data. For now, we will not add regression lines or calculate any r^2^ values.  
@@ -121,11 +118,8 @@ ggplot(data=homerange, mapping=aes(x=log10.mass, y=log10.hra)) +
 ```
 
 ### Practice
-1. What is the relationship between log10.hra and log10.preymass? What do you notice about how ggplot treats NA's?
-```{r}
-ggplot(data = homerange, mapping = aes(x = log10.hra, y = log10.preymass)) +
-  geom_point()
-```
+1. What is the relationship between log10.hra and log10.preymass? What do you notice about how ggplot treats NAs?
+
 
 ### 2A. Bar Plot: `stat="count"`
 When making a bar graph, the default is to count the number of observations in the specified column. This is best for categorical data. Here, I want to know how many carnivores vs. herbivores are in the data.  
@@ -149,27 +143,13 @@ homerange %>%
 
 ## Practice
 1. Filter the `homerange` data to include `mammals` only.
-```{r}
-mammals <- 
-  homerange %>% 
-  filter(taxon == "mammals")
-```
+
 
 2. Are there more herbivores or carnivores in mammals? Make a bar plot that shows their relative numbers.
-```{r}
-mammals %>% 
-  ggplot(aes(x = trophic.guild)) +
-  geom_bar(stat = "count")
-```
+
 
 3. Make a bar plot that shows the masses of the top 10 smallest mammals in terms of mass. Be sure to use `stat'="identity"`.
-```{r}
-mammals %>%
-  top_n(-10, log10.mass) %>%
-  ggplot(aes(x = reorder(common.name, log10.mass), y = log10.mass)) +
-  geom_bar(stat = "identity") +
-  coord_flip()
-```
+
 
 ## That's it, let's take a break!   
 
