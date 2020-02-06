@@ -1,0 +1,78 @@
+---
+title: "Lab 5 Homework"
+author: "Please Add Your Name Here"
+date: "Please Add the Date Here"
+output:
+  html_document:
+    theme: spacelab
+    toc: no
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Instructions
+Answer the following questions and complete the exercises in RMarkdown. Please embed all of your code and push your final work to your repository. Your final lab report should be organized, clean, and run free from errors. Remember, you must remove the `#` for the included code chunks to run.  
+
+## Libraries
+```{r}
+library(tidyverse)
+library(naniar)
+library(skimr)
+```
+
+## Data
+For this homework, we will use two different data sets. Please load `amniota` and `amphibio`.  
+
+### `amniota` data
+Myhrvold N, Baldridge E, Chan B, Sivam D, Freeman DL, Ernest SKM (2015). “An amniote life-history
+database to perform comparative analyses with birds, mammals, and reptiles.” _Ecology_, *96*, 3109.
+doi: 10.1890/15-0846.1 (URL: https://doi.org/10.1890/15-0846.1).
+```{r}
+amniota <- 
+  readr::read_csv("data/amniota.csv")
+```
+
+### `amphibio` data
+Oliveira BF, São-Pedro VA, Santos-Barrera G, Penone C, Costa GC (2017). “AmphiBIO, a global database
+for amphibian ecological traits.” _Scientific Data_, *4*, 170123. doi: 10.1038/sdata.2017.123 (URL:
+https://doi.org/10.1038/sdata.2017.123).
+```{r}
+amphibio <- 
+  readr::read_csv("data/amphibio.csv")
+```
+
+## Questions  
+**1. First, do some exploratory analysis of both data sets. What is the structure, column names, and dimensions?**  
+
+
+**2. How many total NAs are in each data set? Do these values make sense? Are NAs represented by any other values?**   
+
+
+**3. Make any necessary replacements in the data such that all NAs appear as "NA".**   
+
+
+**4. Use the package `naniar` to produce a summary, including percentages, of missing data in each column for both data sets.**  
+
+
+**5. For the `amniota` data, calculate the number of NAs in the `egg_mass_g` column sorted by taxonomic class; i.e. how many NAs are present in the `egg_mass_g` column in birds, mammals, and reptiles? Does this results make sense biologically? How do these results affect your interpretation of NAs?**  
+
+
+**6. Which taxonomic classes are represented in the data? Summarize this in a chart then make a barplot that shows the proportion of observations in each taxonomic class.**
+
+
+**7. Let's explore the taxonomic composition of the data a bit more. How many genera are represented by taxonomic class? Present this as a data table and bar plot.**
+
+
+**8. Lastly, how many species are represented in each taxonomic class? Present this as a data table and bar plot.**
+
+
+**9. The `amphibio` data includes information on ecology. Each species is classified as fossorial, terrestrial, aquatic, or arboreal. How many species are in each of these categories? Make a bar plot to visualize these results. Which category is most/ least represented in the data?**
+
+
+**10. For the amphibio data, we are interested to know if body size is correlated with litter size? Make a plot that shows this relationship. You should notice that there are outliers. Can you think of a way to identify the outliers for both body size and litter size? What happens when you then re-plot the data?**
+
+
+## Push your final code to GitHub!
+Please be sure that you check the `keep md` file in the knit preferences. 
