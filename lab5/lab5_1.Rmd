@@ -207,10 +207,19 @@ life_history %>%
   naniar::replace_with_na(replace = list(newborn = -999, weaning= -999))
 ```
 
-All columns
+## Visualizing NAs
+There is another package `visdat` that can be used to visualize the proportion of different classes of data, including missing data.
 ```{r}
-life_history %>% 
-  replace_with_na_all(condition = ~.x == -999)
+#install.packages("vidat)
+library(visdat)
+```
+
+```{r}
+vis_dat(life_history) #classes of data
+```
+
+```{r}
+vis_miss(life_history)
 ```
 
 ## Dealing with NA's in advance
