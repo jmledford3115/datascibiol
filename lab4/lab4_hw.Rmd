@@ -32,6 +32,7 @@ For this assignment we are going to work with a large dataset from the [United N
 
 
 4. Think about the classes. Will any present problems? Make any changes you think are necessary below.
+#This question is really vague. I thought you were refering to changing the years to numerics but then you asked students to convert catch to numeric later on in the hw. I know you want students to think it through but I can't tell what type of changes you expect. I spent a very long time on this question
 
 
 5. How many countries are represented in the data? Provide a count.
@@ -59,19 +60,23 @@ For this assignment we are going to work with a large dataset from the [United N
 10. Re-check the classes of `fisheries_tidy2`. Notice that "catch" is shown as a character! This is a problem because we will want to treat it as a numeric. How will you deal with this?
 
 
+
 11. Based on the ASFIS_spcode, how many distinct taxa were caught as part of these data?
 
 
 12. Which country had the largest overall catch in the year 2000?
 
 
+
 13. Which country caught the most sardines (_Sardina_) between the years 1990-2000?
+#For this question I think it would be important to explicitly teach filter(str_detect). I did filter(contains) and it took me a long time to figure out why it wasnt working
 
 
 14. Which five countries caught the most cephalopods between 2008-2012?
 
 
-15. Given the top five countries from question 12 above, which species was the highest catch total? The lowest?
+15 Given the top five countries from question 12 above, which species was the highest catch total? The lowest?
+#I think this needs to be reworded. I dont know if I should filter for cephalopods or all species. I dont know if I should ony look in the 5 countries or all of the countries. Is this only for 2008-2012?
 
 
 16. In some cases, the taxonomy of the fish being caught is unclear. Make a new data frame called `coastal_fish` that shows the taxonomic composition of "Miscellaneous coastal fishes" within the ISSCAAP_spgroupname column.
