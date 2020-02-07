@@ -45,7 +45,7 @@ Data: http://datadryad.org/resource/doi:10.5061/dryad.q5j65/1
 **6. Make a new dataframe `deer` that is limited to the mean mass, log10 mass, family, genus, and species of deer in the database. The family for deer is cervidae. Arrange the data in descending order by log10 mass. Which is the largest deer?**  
 
 
-**7. As measured by the data, which snake species has the smallest homerange? Show all of your work, please. Look this species up online and tell me about it!**   
+**7. As measured by the data, which snake species has the smallest homerange? Show all of your work, please. Look this species up online and tell me about it!** **Snake is found in taxon column**    
 
 
 **8. You suspect that homerange and mass are correlated in birds. We need a ratio that facilitates exploration of this prediction. First, build a new dataframe called `hra_ratio` that is limited to genus, species, mean.mass.g, log10.mass, log10.hra. Arrange it in ascending order by mean mass in grams.**  
