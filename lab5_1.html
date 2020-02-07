@@ -1942,18 +1942,6 @@ glimpse(msleep)</code></pre>
 ## 10 Roe … Capr… herbi Arti… lc                   3        NA        NA      21  
 ## # … with 73 more rows, and 2 more variables: brainwt &lt;dbl&gt;, bodywt &lt;dbl&gt;</code></pre>
 <p>Let’s say we want to treat “domesticated” as NA in the conservation column. For this, we use <code>mutate()</code>.</p>
-<pre class="r"><code>msleep %&gt;% 
-  count(conservation, sort = TRUE)</code></pre>
-<pre><code>## # A tibble: 7 x 2
-##   conservation     n
-##   &lt;chr&gt;        &lt;int&gt;
-## 1 &lt;NA&gt;            29
-## 2 lc              27
-## 3 domesticated    10
-## 4 vu               7
-## 5 en               4
-## 6 nt               4
-## 7 cd               2</code></pre>
 <pre class="r"><code>msleep %&gt;%  
   mutate(conservation = na_if(conservation, &quot;domesticated&quot;))%&gt;% 
   count(conservation, sort = TRUE) #previously there were only 29 NAs</code></pre>

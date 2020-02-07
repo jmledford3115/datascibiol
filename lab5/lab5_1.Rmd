@@ -134,11 +134,6 @@ msleep %>%
 
 Let's say we want to treat "domesticated" as NA in the conservation column. For this, we use `mutate()`.
 ```{r}
-msleep %>% 
-  count(conservation, sort = TRUE)
-```
-
-```{r}
 msleep %>%  
   mutate(conservation = na_if(conservation, "domesticated"))%>% 
   count(conservation, sort = TRUE) #previously there were only 29 NAs
