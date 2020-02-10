@@ -11,13 +11,14 @@ output:
 
 ## Learning Goals
 *At the end of this exercise, you will be able to:*    
-1. Produce summaries of the number of NA's in a data set.  
-2. Replace values with `NA` in a data set as appropriate.  
+1. Define `NA` and describe how they are treated in R.  
+2. Produce summaries of the number of NA's in a data set.   
+3. Replace values with `NA` in a data set as appropriate.  
 
 ## Review
 In the last section we practiced wrangling untidy data using `tidyr`. We also learned the `summarize()` function and `group_by()` to produce useful summaries of our data. But, we ended the last session with the discovery of NA's and how they can impact analyses. This is a big issue in data science and we will spend the remainder of this lab learning how to manage data with missing values.  
 
-## Install `naniar` and `skimr`
+## Install `naniar` and `skimr` if necessary
 ```{r}
 #install.packages("naniar")
 #install.packages("skimr")
@@ -31,20 +32,27 @@ library("skimr")
 ```
 
 ## Dealing with NA's
-In almost all scientific data, there are missing observations. These can be tricky to deal with, partly because you first need to determine how missing values were treated in the original study. Scientists use different conventions in showing missing data; some use blank spaces, others use "-", etc. Unfourtunately, sometimes **missing data is indicated with numerics like -999.0 or zero!**, though this can be required in some situations (for example raster data). Often, a combination of methods are used. It is up to the data analyst to find out how missing values are represented in the data set and to deal with them appropriately. 
+In almost all large data sets, there are missing observations. These can be tricky to deal with, partly because you first need to determine how missing values were treated in the original study. In a given data set, NA might represent values that are unrecorded because they are unknown or missing. But, they can also represent data that are not applicable.  
+
+Scientists use different conventions in showing missing data; some use blank spaces, others use "-", etc. Unfourtunately, sometimes **missing data is indicated with numerics like -999.0 or zero!**, though this can be required in some situations (for example raster data). Often, a combination of methods are used. It is up to the data analyst to find out how missing values are represented in the data set and to deal with them appropriately. 
 
 ## Practice
 For the following, we will use life history data for mammals. The [data](http://esapubs.org/archive/ecol/E084/093/) are from:  
 **S. K. Morgan Ernest. 2003. Life history characteristics of placental non-volant mammals. Ecology 84:3402.**  
 
-1. Load the mammals life history data. Do you see any NA's?
+1. Load the mammals life history data. Do you see any NA's?  
 ```{r}
-life_history <- 
-  readr::read_csv("data/mammal_lifehistories_v2.csv")
-life_history
+life_history <- readr::read_csv("data/mammal_lifehistories_v2.csv")
 ```
 
-2. What are the possible problems if missing data are indicated by "-999.0" or "0"?
+```{r}
+glimpse(life_history)
+```
+
+2. What are the possible problems if missing data are indicated by values such as "-999.0" or "0"?  
+
+
+3. How do you think we will end up dealing with NAs in the `life_history` data?  
 
 
 ## For the following examples, we will use the built-in `msleep` data
@@ -80,13 +88,21 @@ summary(msleep)
 
 ## Practice
 1. Load the data `import_export.csv` and store it as a new object `import_export`.
-
+```{r}
+import_export <- 
+  readr::read_csv("data/import_export.csv")
+```
 
 2. Are there NAs in the data? Evaluate this logically (true/false).
-
+```{r}
+is.na(import_export)
+```
 
 3. How many total NAs are present?
-
+```{r}
+import_export %>% 
+  summarize(number_nas = sum(is.na(import_export)))
+```
 
 ## NAs in large datasets using `purr`
 What if we are working with hundreds or thousands (or more!) variables?! In order to deal with this problem efficiently we can use another package in the tidyverse called `purrr`.  
@@ -132,7 +148,7 @@ msleep %>%
   na_if("-999")
 ```
 
-Let's say we want to treat "domesticated" as NA in the conservation column. For this, we use `mutate()`.
+Let's say we want to treat "domesticated" as NA in the conservation column. For this, we use `mutate()` and `na_if()`.
 ```{r}
 msleep %>%  
   mutate(conservation = na_if(conservation, "domesticated"))%>% 
@@ -162,7 +178,10 @@ life_history %>%
 ```
 
 2. Reconsider the practice question from the beginning of the lab. Are there any NA's in the data? Does this seem likely? Do the mean values from the `skim()` output above make sense?  
-
+```{r}
+life_history %>% 
+  summarize(number_nas = sum(is.na(life_history)))
+```
 
 3. Replace the entries that represent NA's in the data using `na_if()`. Double check your work and compare to #2 above.
 ```{r}
@@ -171,8 +190,20 @@ life_history2 <-
   na_if("-999")
 ```
 
-4. In which variable are the most NAs in the data frame?
+```{r}
+life_history2 %>% 
+  summarize(number_nas = sum(is.na(life_history2)))
+```
 
+4. In which variable are the most NAs in the data frame?
+```{r}
+life_history2 %>% 
+  purrr::map_df(~ sum(is.na(.))) %>% 
+  pivot_longer(everything(),
+    names_to= "variables",
+    values_to = "num_nas") %>% 
+  arrange(desc(num_nas))
+```
 
 ## `naniar`
 `naniar` is a package that is built to manage NAs. Many of the functions it performs can be performed using tidyverse functions above, but it does provide some interesting options.
@@ -200,21 +231,6 @@ This shows replacement within the newborn and weaning columns.
 ```{r}
 life_history %>% 
   naniar::replace_with_na(replace = list(newborn = -999, weaning= -999))
-```
-
-## Visualizing NAs
-There is another package `visdat` that can be used to visualize the proportion of different classes of data, including missing data.
-```{r}
-#install.packages("vidat)
-library(visdat)
-```
-
-```{r}
-vis_dat(life_history) #classes of data
-```
-
-```{r}
-vis_miss(life_history)
 ```
 
 ## Dealing with NA's in advance
