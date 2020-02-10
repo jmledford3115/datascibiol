@@ -1,5 +1,5 @@
 ---
-title: "Data Visualization: `ggplot`"
+title: "Data Visualization: `ggplot` part 1"
 output:
   html_document:
     theme: spacelab
