@@ -15,7 +15,7 @@ output:
 2. Customize labels on axes using `labs` and `themes`.  
 3. Use `color`, `fill`, and `group` to customize plots and improve overall aesthetics.  
 
-##Resources
+## Resources
 - [ggplot2 cheatsheet](https://www.rstudio.com/wp-content/uploads/2015/03/ggplot2-cheatsheet.pdf)
 - [`ggplot` themes](https://ggplot2.tidyverse.org/reference/ggtheme.html)
 

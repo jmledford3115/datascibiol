@@ -19,7 +19,7 @@ output:
 ## Resources
 - [ggplot2 cheatsheet](https://www.rstudio.com/wp-content/uploads/2015/03/ggplot2-cheatsheet.pdf)
 
-## Load the libraries
+## Libraries
 ```{r message=FALSE, warning=FALSE}
 library(tidyverse)
 options(scipen=999) #cancels the use of scientific notation for the session
