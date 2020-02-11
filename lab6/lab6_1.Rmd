@@ -15,21 +15,16 @@ output:
 2. Customize labels on axes using `labs` and `themes`.  
 3. Use `color`, `fill`, and `group` to customize plots and improve overall aesthetics.  
 
-## Review
-Now that you have been introduced to `ggplot`, let's practice a few more plot types and learn how to manipulate the aesthetics of plots to better suit our needs. Aesthetics can make a significant difference, but you can take it too far so remember that the goal is to produce clean plots that are not distracting.  
-
 ##Resources
 - [ggplot2 cheatsheet](https://www.rstudio.com/wp-content/uploads/2015/03/ggplot2-cheatsheet.pdf)
 - [`ggplot` themes](https://ggplot2.tidyverse.org/reference/ggtheme.html)
-- [Rebecca Barter `ggplot` Tutorial](http://www.rebeccabarter.com/blog/2017-11-17-ggplot2_tutorial/)
 
-## Load the libraries
+## Libraries
 ```{r message=FALSE, warning=FALSE}
 library(tidyverse)
-library(skimr)
 ```
 
-## Load the data
+## Data
 **Database of vertebrate home range sizes.**  
 Reference: Tamburello N, Cote IM, Dulvy NK (2015) Energy and the scaling of animal space use. The American Naturalist 186(2):196-211. http://dx.doi.org/10.1086/682070.  
 Data: http://datadryad.org/resource/doi:10.5061/dryad.q5j65/1
@@ -37,8 +32,9 @@ Data: http://datadryad.org/resource/doi:10.5061/dryad.q5j65/1
 homerange <- readr::read_csv("data/Tamburelloetal_HomeRangeDatabase.csv")
 ```
 
-Notice that the homerange data has "NA" in the csv file and this is the default NA indicator for read_csv, but other functions have different defaults so it's always good to check by reading the help file and knowing which indicators you have in your data set.  
+Remember to be mindful of NAs in the data; know how they are represented and how R has interpreted them.
 ```{r}
+anyNA(homerange)
 glimpse(homerange)
 ```
 
@@ -108,7 +104,7 @@ ggplot(data = homerange, mapping = aes(x = log10.mass, y = log10.hra)) +
   labs(title = "Mass vs. Homerange",
        x = "Mass (log10)",
        y = "Homerange (log10)")+ 
-  theme(plot.title = element_text(size = rel(2), hjust = 0.5))
+  theme(plot.title = element_text(size = rel(1.5), hjust = 0.5))
 ```
 
 ## Practice
@@ -116,11 +112,18 @@ ggplot(data = homerange, mapping = aes(x = log10.mass, y = log10.hra)) +
 
 
 ## Other Aesthetics
-There are lots of options for aesthtics. An aesthetic can be assigned to either numeric or categorical data. `color` is a common option; notice that an appropriate key is displayed when you use one of these options.
+There are lots of options for aesthtics. An aesthetic can be assigned to either numeric or categorical data. `color` is a common option; notice that a key is displayed when you use this option. Because color is included within the main `ggplot` command, it will color the points based on the category to which they belong.
 ```{r}
 homerange %>% 
   ggplot(aes(x = log10.mass, y = log10.hra, color = locomotion)) +
   geom_point()
+```
+
+Adding color within `geom_point()` changes the color of all of the points.
+```{r}
+homerange %>% 
+  ggplot(aes(x = log10.mass, y = log10.hra)) +
+  geom_point(color = "orange")
 ```
 
 `size` adjusts the size of points relative to a continuous variable.
