@@ -181,12 +181,12 @@ homerange %>%
 ```
 
 ## Faceting: `facet_grid()`
-As you can imagine, there are lots of options for faceting. Another useful facet type is `facet_grid`. This can be helpful when you facet by only a few variables.
+As you can imagine, there are lots of options for faceting. Another useful facet type is `facet_grid`. This can be helpful when you want to facet by multiple categorical variables.  
 ```{r}
 homerange %>% 
   ggplot(aes(x = log10.mass)) +
   geom_histogram() +
-  facet_grid(~thermoregulation)
+  facet_grid(~thermoregulation + locomotion)
 ```
 
 ## Practice
