@@ -24,6 +24,9 @@ output:
 library(tidyverse)
 ```
 
+## Review
+In the last lab you were introduced to `ggplot`. Let's build on this by exploring more geom types and adding some aesthetics.  
+
 ## Data
 **Database of vertebrate home range sizes.**  
 Reference: Tamburello N, Cote IM, Dulvy NK (2015) Energy and the scaling of animal space use. The American Naturalist 186(2):196-211. http://dx.doi.org/10.1086/682070.  
@@ -112,7 +115,7 @@ ggplot(data = homerange, mapping = aes(x = log10.mass, y = log10.hra)) +
 
 
 ## Other Aesthetics
-There are lots of options for aesthtics. An aesthetic can be assigned to either numeric or categorical data. `color` is a common option; notice that a key is displayed when you use this option. Because color is included within the main `ggplot` command, it will color the points based on the category to which they belong.
+There are lots of options for aesthtics. An aesthetic can be assigned to either numeric or categorical data. `color` is a common option. Because color is included within the main `ggplot` command, it will color the points based on the category to which they belong and add a key.
 ```{r}
 homerange %>% 
   ggplot(aes(x = log10.mass, y = log10.hra, color = locomotion)) +

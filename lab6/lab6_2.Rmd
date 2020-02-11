@@ -34,36 +34,19 @@ Data: http://datadryad.org/resource/doi:10.5061/dryad.q5j65/1
 homerange <- readr::read_csv("data/Tamburelloetal_HomeRangeDatabase.csv", na = c("", "NA", "\\"))
 ```
 
-Note that when making this tutorial, we noticed a stray backtick in a cell under the primary method category. We want to set this to NA, so we include it in the list of NA indicators we have in our data (`"\\"`). Two backticks are required because the backtick is a special escape character in R. 
+Note that when making this tutorial, we noticed a stray backtick in a cell under the primary method category. We want to set this to NA, so we include it in the list of NA indicators we have in our data (`"\\"`).
 ```{r}
 homerange %>% 
   count(primarymethod)
 ```
 
-## Barplots revisited
-At this point you should be able to build a barplot that shows counts of observations in a variable using `geom_bar()`. But, you should also be able to use `stat="identity"` to specify both x and y axes.  
-
-Although we did not use it last time, `geom_col()` is the same as specifying `stat="identity"` using `geom_bar()`.     
-
-## Here is the plot using `geom_bar(stat="identity")`
-```{r}
-homerange %>% 
-  filter(family == "salmonidae") %>% #filter for salmonid fish only
-  ggplot(aes(x = common.name, y = log10.mass)) +
-  geom_bar(stat = "identity")
-```
-
-## Practice
-1. Make the same plot above, but use `geom_col()`
-
-
 ## Barplots and multiple variables
-Last time we explored the `fill` option in boxplots as a way to bring color to the plot; i.e. we filled by the same variable that we were plotting. What happens when we fill by a different categorical variable? 
+Last time we explored the `fill` option in boxplots as a way to bring color to the plot; i.e. we filled by the same variable that we were plotting. What happens when we fill by a different categorical variable?  
 
 Let's start by counting how many obervations we have in each taxonomic group.
 ```{r}
 homerange %>% 
-  count(taxon)
+  count(taxon, sort=T)
 ```
 
 Now let's make a barplot of these data.
@@ -109,7 +92,7 @@ homerange %>%
        fill= "Trophic Guild")
 ```
 
-We can also scale all bars to a percentage (or proportion).
+We can also scale all bars to a percentage.
 ```{r}
 homerange %>% 
   ggplot(aes(x = taxon, fill = trophic.guild))+
@@ -188,6 +171,32 @@ homerange %>%
 
 3. Isolate the small `range_category` and plot the range of `log10.mass` by taxonomic class.
 
+## Faceting: `facet_wrap()`
+Faceting is one of the most amazing features of ggplot. It allows you to make multi-panel plots for easy comparison. Here, I am making histograms of log10.mass for every taxon. We read the `~` in the `facet_wrap()` layer as `by`.
+```{r}
+homerange %>% 
+  ggplot(aes(x = log10.mass)) +
+  geom_histogram() +
+  facet_wrap(~taxon)
+```
+
+## Faceting: `facet_grid()`
+As you can imagine, there are lots of options for faceting. Another useful facet type is `facet_grid`. This can be helpful when you facet by only a few variables.
+```{r}
+homerange %>% 
+  ggplot(aes(x = log10.mass)) +
+  geom_histogram() +
+  facet_grid(~thermoregulation)
+```
+
+## Practice
+1. Use faceting to produce density distributions of log10.mass by taxonomic class.
+```{r}
+homerange %>% 
+  ggplot(aes(x=log10.mass))+
+  geom_density(fill="steelblue", alpha=0.4)+
+  facet_wrap(~class)
+```
 
 ## That's it, let's take a break!   
 
