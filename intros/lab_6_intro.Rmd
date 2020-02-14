@@ -1,0 +1,35 @@
+---
+title: "Lab 6: `ggplot` parts 2 and 3"
+author: "Joel Ledford"
+date: "Winter 2020"
+output: ioslides_presentation
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+library("jpeg")
+```
+
+## Setup
+1. Login to the lab computer.  
+2. Open Github Desktop (it should be pre-installed) and login.  
+3. **Clone your repository** to the desktop or somewhere convenient to access.  
+4. Navigate to github.com and login.  
+5. Go to the class repository `BIS15-W20-DataScienceBiologists`, click the `Clone or download` button then `Download zip` to the desktop.  
+6. **Copy the files** for today's lab from the class repository and paste them into **your** repository.  
+7. Open today's lab in RStudio.  
+
+## Homework
+- Take 5 minutes or so to double check that your homework is complete and uploaded.
+- Suggestion: have a lab partner have a look at your repository on github.com. 
+- How does your repository look?  
+
+## Group Projects
+- Discuss with your partner: which data?
+- Whip around each group.
+
+## Expectations
+- Each project should showcase the range of skills you have developed.  
+- The question or theme shoud be clear.  
+- The repository should be clean, organized, and free from errors.  
+- Presentations will be ~5-7 minutes.
