@@ -1,5 +1,6 @@
 ---
 title: "Tidyr 2: `pivot_wider()`, `summarize()`, and `group_by()`"
+date: "`r Sys.Date()`"
 output:
   html_document:
     theme: spacelab

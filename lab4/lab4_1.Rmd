@@ -1,5 +1,6 @@
 ---
 title: "Tidyr 1: Tidy data and `pivot_long()`"
+date: "`r Sys.Date()`"
 output:
   html_document:
     theme: spacelab

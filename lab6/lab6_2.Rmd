@@ -1,5 +1,6 @@
 ---
 title: "Data Visualization: `ggplot` part 3"
+date: "`r Sys.Date()`"
 output:
   html_document:
     theme: spacelab

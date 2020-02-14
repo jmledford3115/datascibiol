@@ -1,5 +1,6 @@
 ---
 title: "Data Structures: Vectors & Data Matrices"
+date: "`r Sys.Date()`"
 output:
   html_document:
     theme: spacelab
