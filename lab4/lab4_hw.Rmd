@@ -69,15 +69,17 @@ For this assignment we are going to work with a large dataset from the [United N
 
 
 **14. Which five countries caught the most cephalopods between 2008-2012?**
+#How to find cephalopods seemed to trip a lot of people up. They tended to search for 'cephalopod', which is not unlogical, but not effective. I suppose we want them to examine the data but maybe give them a hist to think carefully about how they choose to filter for this data?
 
 
 **15. Given the top five countries from question 14 above, which species was the highest catch total? The lowest?**
 
 
 **16. In some cases, the taxonomy of the fish being caught is unclear. Make a new data frame called `coastal_fish` that shows the taxonomic composition of "Miscellaneous coastal fishes" within the ISSCAAP_spgroupname column.**
-
+#Here you grouped by taxon which many of them didn't think to do. Perhaps a little hint here about being sure that the data we're producing is readable/useful? Might encourage them to think about grouping things into a more readable output? Just a thought.
 
 **17. Use the data to do at least one exploratory analysis of your choice. What can you learn?**
+#No real comment here, other than some of them did some fun things and I loved it!
 
 ## Push your final code to GitHub!
 Please be sure that you check the `keep md` file in the knit preferences.   
