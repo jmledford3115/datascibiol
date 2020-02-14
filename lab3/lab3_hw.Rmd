@@ -58,7 +58,7 @@ Data: http://datadryad.org/resource/doi:10.5061/dryad.q5j65/1
 
 
 **11. Do a search online; what is the common name of the bird from #10 above? Place a link in your markdown file that takes us to a webpage with information on its biology.**  
-
+#"bird from #10" was frequently interpreted as #10 on the list of birds by students. Possibly rephrase to "Search online for the common name of the bird in your answer from #10" or something similar
 
 **12. What is the `hra.mass.ratio` for an ostrich? Show your work, please.**  
 
