@@ -232,6 +232,20 @@ shinyApp(ui, server)
 Whew! We made it! We created a nice looking app with `shinydashboard`. And now we can easily see how even a basic shiny app can become messy and why it's always helpful to include lots of annotations.  
 
 ## Practice
+### `amniota` data
+Myhrvold N, Baldridge E, Chan B, Sivam D, Freeman DL, Ernest SKM (2015). “An amniote life-history
+database to perform comparative analyses with birds, mammals, and reptiles.” _Ecology_, *96*, 3109.
+doi: 10.1890/15-0846.1 (URL: https://doi.org/10.1890/15-0846.1).
+```{r}
+amniota <- readr::read_csv("data/amniota.csv", na = c("", "-999")
+```
+
+```{r}
+glimpse(amniota)
+
+amniota %>% 
+  count(gestation_d)
+```
 
 
 ## That's it, let's take a break!   
