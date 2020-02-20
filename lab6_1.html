@@ -10,6 +10,7 @@
 
 
 
+<meta name="date" content="2020-02-19" />
 
 <title>Data Visualization: ggplot part 2</title>
 
@@ -1533,6 +1534,7 @@ div.tocify {
 
 
 <h1 class="title toc-ignore">Data Visualization: <code>ggplot</code> part 2</h1>
+<h4 class="date">2020-02-19</h4>
 
 </div>
 
@@ -1543,11 +1545,21 @@ div.tocify {
 1. Produce boxplots using <code>ggplot.</code><br />
 2. Customize labels on axes using <code>labs</code> and <code>themes</code>.<br />
 3. Use <code>color</code>, <code>fill</code>, and <code>group</code> to customize plots and improve overall aesthetics.</p>
-<p>##Resources - <a href="https://www.rstudio.com/wp-content/uploads/2015/03/ggplot2-cheatsheet.pdf">ggplot2 cheatsheet</a> - <a href="https://ggplot2.tidyverse.org/reference/ggtheme.html"><code>ggplot</code> themes</a></p>
+</div>
+<div id="resources" class="section level2">
+<h2>Resources</h2>
+<ul>
+<li><a href="https://www.rstudio.com/wp-content/uploads/2015/03/ggplot2-cheatsheet.pdf">ggplot2 cheatsheet</a></li>
+<li><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html"><code>ggplot</code> themes</a></li>
+</ul>
 </div>
 <div id="libraries" class="section level2">
 <h2>Libraries</h2>
 <pre class="r"><code>library(tidyverse)</code></pre>
+</div>
+<div id="review" class="section level2">
+<h2>Review</h2>
+<p>In the last lab you were introduced to <code>ggplot</code>. Let’s build on this by exploring more geom types and adding some aesthetics.</p>
 </div>
 <div id="data" class="section level2">
 <h2>Data</h2>
@@ -1657,7 +1669,7 @@ Data: <a href="http://datadryad.org/resource/doi:10.5061/dryad.q5j65/1" class="u
 </div>
 <div id="other-aesthetics" class="section level2">
 <h2>Other Aesthetics</h2>
-<p>There are lots of options for aesthtics. An aesthetic can be assigned to either numeric or categorical data. <code>color</code> is a common option; notice that a key is displayed when you use this option. Because color is included within the main <code>ggplot</code> command, it will color the points based on the category to which they belong.</p>
+<p>There are lots of options for aesthtics. An aesthetic can be assigned to either numeric or categorical data. <code>color</code> is a common option. Because color is included within the main <code>ggplot</code> command, it will color the points based on the category to which they belong and add a key.</p>
 <pre class="r"><code>homerange %&gt;% 
   ggplot(aes(x = log10.mass, y = log10.hra, color = locomotion)) +
   geom_point()</code></pre>

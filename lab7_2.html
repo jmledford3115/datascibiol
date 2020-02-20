@@ -10,7 +10,7 @@
 
 
 
-<meta name="date" content="2020-02-18" />
+<meta name="date" content="2020-02-19" />
 
 <title>Intro to Shiny Part 2</title>
 
@@ -1534,7 +1534,7 @@ div.tocify {
 
 
 <h1 class="title toc-ignore">Intro to Shiny Part 2</h1>
-<h4 class="date">2020-02-18</h4>
+<h4 class="date">2020-02-19</h4>
 
 </div>
 
@@ -1550,7 +1550,8 @@ div.tocify {
 #&gt; ── Conflicts ────────────────────────────────────────────────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
 #&gt; x dplyr::filter() masks stats::filter()
 #&gt; x dplyr::lag()    masks stats::lag()
-library(&quot;shiny&quot;)</code></pre>
+library(&quot;shiny&quot;)
+library(&quot;naniar&quot;)</code></pre>
 </div>
 <div id="learning-goals" class="section level2">
 <h2>Learning Goals</h2>
@@ -1624,8 +1625,7 @@ shinyApp(ui, server)</code></pre>
 <p>We now have a functional app which does several things, but the layout doesn’t look very nice. We can change that with many different methods, but shiny dashboards are simple to use and offer a lot of functionality for making apps look professional quickly. First we need to install the <code>shinydashboard</code> package.</p>
 <pre class="r"><code>#install.packages(&quot;shinydashboard&quot;)</code></pre>
 <p>When working with any package on shiny ui appearance, it’s important to know how the ui is laid out. The ui is laid out in a bootstrap grid pattern with 12 columns that can be subdivided into rows. The grid is contained in the <code>fluidPage()</code> of our current app. We won’t use <code>fluidPage()</code> with <code>shinydashboard</code> but rather <code>dashboardPage()</code>. A shiny dashboard contains a minimum of a header, a sidebar, and a body. The <code>dashboardPage()</code> still contains the bootstrap grid.</p>
-<pre class="r"><code>library(shiny)
-library(shinydashboard)
+<pre class="r"><code>library(shinydashboard)
 #&gt; 
 #&gt; Attaching package: 'shinydashboard'
 #&gt; The following object is masked from 'package:graphics':
@@ -1751,6 +1751,103 @@ server &lt;- function(input, output, session) {
 shinyApp(ui, server)</code></pre>
 <div style="width: 100% ; height: 400px ; text-align: center; box-sizing: border-box; -moz-box-sizing: border-box; -webkit-box-sizing: border-box;" class="muted well">Shiny applications not supported in static R Markdown documents</div>
 <p>Whew! We made it! We created a nice looking app with <code>shinydashboard</code>. And now we can easily see how even a basic shiny app can become messy and why it’s always helpful to include lots of annotations.</p>
+</div>
+<div id="practice-1" class="section level2">
+<h2>Practice</h2>
+<p>We will use data from a study on vertebrate community composition and impacts from defaunation in Gabon, Africa.</p>
+<p>Reference: Koerner SE, Poulsen JR, Blanchard EJ, Okouyi J, Clark CJ. Vertebrate community composition and diversity declines along a defaunation gradient radiating from rural villages in Gabon. <em>Journal of Applied Ecology</em>. 2016.</p>
+<ol style="list-style-type: decimal">
+<li>Load <code>IvindoData_DryadVersion.csv</code> and use the function(s) of your choice to get an idea of the overall structure, including its dimensions, column names, variable classes, etc. As part of this, determine if NAs are present and how they are treated.</li>
+</ol>
+<pre class="r"><code>gabon &lt;- readr::read_csv(&quot;data/IvindoData_DryadVersion.csv&quot;)
+#&gt; Parsed with column specification:
+#&gt; cols(
+#&gt;   .default = col_double(),
+#&gt;   HuntCat = col_character(),
+#&gt;   LandUse = col_character()
+#&gt; )
+#&gt; See spec(...) for full column specifications.</code></pre>
+<pre class="r"><code>names(gabon)
+#&gt;  [1] &quot;TransectID&quot;              &quot;Distance&quot;               
+#&gt;  [3] &quot;HuntCat&quot;                 &quot;NumHouseholds&quot;          
+#&gt;  [5] &quot;LandUse&quot;                 &quot;Veg_Rich&quot;               
+#&gt;  [7] &quot;Veg_Stems&quot;               &quot;Veg_liana&quot;              
+#&gt;  [9] &quot;Veg_DBH&quot;                 &quot;Veg_Canopy&quot;             
+#&gt; [11] &quot;Veg_Understory&quot;          &quot;RA_Apes&quot;                
+#&gt; [13] &quot;RA_Birds&quot;                &quot;RA_Elephant&quot;            
+#&gt; [15] &quot;RA_Monkeys&quot;              &quot;RA_Rodent&quot;              
+#&gt; [17] &quot;RA_Ungulate&quot;             &quot;Rich_AllSpecies&quot;        
+#&gt; [19] &quot;Evenness_AllSpecies&quot;     &quot;Diversity_AllSpecies&quot;   
+#&gt; [21] &quot;Rich_BirdSpecies&quot;        &quot;Evenness_BirdSpecies&quot;   
+#&gt; [23] &quot;Diversity_BirdSpecies&quot;   &quot;Rich_MammalSpecies&quot;     
+#&gt; [25] &quot;Evenness_MammalSpecies&quot;  &quot;Diversity_MammalSpecies&quot;</code></pre>
+<pre class="r"><code>glimpse(gabon)
+#&gt; Observations: 24
+#&gt; Variables: 26
+#&gt; $ TransectID              &lt;dbl&gt; 1, 2, 2, 3, 4, 5, 6, 7, 8, 9, 13, 14, 15, 16,…
+#&gt; $ Distance                &lt;dbl&gt; 7.14, 17.31, 18.32, 20.85, 15.95, 17.47, 24.0…
+#&gt; $ HuntCat                 &lt;chr&gt; &quot;Moderate&quot;, &quot;None&quot;, &quot;None&quot;, &quot;None&quot;, &quot;None&quot;, &quot;…
+#&gt; $ NumHouseholds           &lt;dbl&gt; 54, 54, 29, 29, 29, 29, 29, 54, 25, 73, 46, 5…
+#&gt; $ LandUse                 &lt;chr&gt; &quot;Park&quot;, &quot;Park&quot;, &quot;Park&quot;, &quot;Logging&quot;, &quot;Park&quot;, &quot;P…
+#&gt; $ Veg_Rich                &lt;dbl&gt; 16.67, 15.75, 16.88, 12.44, 17.13, 16.50, 14.…
+#&gt; $ Veg_Stems               &lt;dbl&gt; 31.20, 37.44, 32.33, 29.39, 36.00, 29.22, 31.…
+#&gt; $ Veg_liana               &lt;dbl&gt; 5.78, 13.25, 4.75, 9.78, 13.25, 12.88, 8.38, …
+#&gt; $ Veg_DBH                 &lt;dbl&gt; 49.57, 34.59, 42.82, 36.62, 41.52, 44.07, 51.…
+#&gt; $ Veg_Canopy              &lt;dbl&gt; 3.78, 3.75, 3.43, 3.75, 3.88, 2.50, 4.00, 4.0…
+#&gt; $ Veg_Understory          &lt;dbl&gt; 2.89, 3.88, 3.00, 2.75, 3.25, 3.00, 2.38, 2.7…
+#&gt; $ RA_Apes                 &lt;dbl&gt; 1.87, 0.00, 4.49, 12.93, 0.00, 2.48, 3.78, 6.…
+#&gt; $ RA_Birds                &lt;dbl&gt; 52.66, 52.17, 37.44, 59.29, 52.62, 38.64, 42.…
+#&gt; $ RA_Elephant             &lt;dbl&gt; 0.00, 0.86, 1.33, 0.56, 1.00, 0.00, 1.11, 0.4…
+#&gt; $ RA_Monkeys              &lt;dbl&gt; 38.59, 28.53, 41.82, 19.85, 41.34, 43.29, 46.…
+#&gt; $ RA_Rodent               &lt;dbl&gt; 4.22, 6.04, 1.06, 3.66, 2.52, 1.83, 3.10, 1.2…
+#&gt; $ RA_Ungulate             &lt;dbl&gt; 2.66, 12.41, 13.86, 3.71, 2.53, 13.75, 3.10, …
+#&gt; $ Rich_AllSpecies         &lt;dbl&gt; 22, 20, 22, 19, 20, 22, 23, 19, 19, 19, 21, 2…
+#&gt; $ Evenness_AllSpecies     &lt;dbl&gt; 0.793, 0.773, 0.740, 0.681, 0.811, 0.786, 0.8…
+#&gt; $ Diversity_AllSpecies    &lt;dbl&gt; 2.452, 2.314, 2.288, 2.006, 2.431, 2.429, 2.5…
+#&gt; $ Rich_BirdSpecies        &lt;dbl&gt; 11, 10, 11, 8, 8, 10, 11, 11, 11, 9, 11, 11, …
+#&gt; $ Evenness_BirdSpecies    &lt;dbl&gt; 0.732, 0.704, 0.688, 0.559, 0.799, 0.771, 0.8…
+#&gt; $ Diversity_BirdSpecies   &lt;dbl&gt; 1.756, 1.620, 1.649, 1.162, 1.660, 1.775, 1.9…
+#&gt; $ Rich_MammalSpecies      &lt;dbl&gt; 11, 10, 11, 11, 12, 12, 12, 8, 8, 10, 10, 11,…
+#&gt; $ Evenness_MammalSpecies  &lt;dbl&gt; 0.736, 0.705, 0.650, 0.619, 0.736, 0.694, 0.7…
+#&gt; $ Diversity_MammalSpecies &lt;dbl&gt; 1.764, 1.624, 1.558, 1.484, 1.829, 1.725, 1.9…</code></pre>
+<ol start="2" style="list-style-type: decimal">
+<li>Build an app that re-creates the plots shown on page 810 of this paper. It compares the relative abundance % to the distance from villages in rural Gabon. Use shiny dashboard and add aesthetics to the plot.</li>
+</ol>
+<pre class="r"><code>ui &lt;- dashboardPage(
+  dashboardHeader(title = &quot;Relative Abundance&quot;),
+  dashboardSidebar(disable = T),
+  dashboardBody(
+  fluidRow(
+  box(title = &quot;Plot Options&quot;, width = 3,
+  selectInput(&quot;x&quot;, &quot;Select RA Taxon&quot;, choices = c(&quot;RA_Apes&quot;, &quot;RA_Birds&quot;, &quot;RA_Elephant&quot;, &quot;RA_Monkeys&quot;, &quot;RA_Rodent&quot;, &quot;RA_Ungulate&quot;), 
+              selected = &quot;RA_Apes&quot;),
+      hr(),
+      helpText(&quot;Reference: Koerner SE, Poulsen JR, Blanchard EJ, Okouyi J, Clark CJ. Vertebrate community composition and diversity declines along a defaunation gradient radiating from rural villages in Gabon. Journal of Applied Ecology. 2016.&quot;)
+  ), # close the first box
+  box(title = &quot;Relative Abundance %&quot;, width = 6,
+  plotOutput(&quot;plot&quot;, width = &quot;600px&quot;, height = &quot;500px&quot;)
+  ) # close the second box
+  ) # close the row
+  ) # close the dashboard body
+) # close the ui
+
+server &lt;- function(input, output, session) { 
+  
+  output$plot &lt;- renderPlot({
+    gabon %&gt;% 
+    ggplot(aes_string(x = &quot;Distance&quot;, y = input$x)) +
+  geom_point(size=4)+
+  geom_smooth(method=lm, se=T)+
+  scale_x_continuous(breaks=seq(0, 30, by = 5))+ theme_light(base_size = 18)
+  })
+  
+  # stop the app when we close it
+  session$onSessionEnded(stopApp)
+
+  }
+
+shinyApp(ui, server)</code></pre>
+<div style="width: 100% ; height: 400px ; text-align: center; box-sizing: border-box; -moz-box-sizing: border-box; -webkit-box-sizing: border-box;" class="muted well">Shiny applications not supported in static R Markdown documents</div>
 </div>
 <div id="thats-it-lets-take-a-break" class="section level2">
 <h2>That’s it, let’s take a break!</h2>

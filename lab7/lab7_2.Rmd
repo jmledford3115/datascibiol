@@ -20,6 +20,7 @@ knitr::opts_chunk$set(
 ```{r}
 library("tidyverse")
 library("shiny")
+library("naniar")
 ```
 
 ## Learning Goals
@@ -99,7 +100,6 @@ We now have a functional app which does several things, but the layout doesn't l
 
 When working with any package on shiny ui appearance, it's important to know how the ui is laid out. The ui is laid out in a bootstrap grid pattern with 12 columns that can be subdivided into rows. The grid is contained in the `fluidPage()` of our current app. We won't use `fluidPage()` with `shinydashboard` but rather `dashboardPage()`. A shiny dashboard contains a minimum of a header, a sidebar, and a body. The `dashboardPage()` still contains the bootstrap grid.  
 ```{r}
-library(shiny)
 library(shinydashboard)
 
 ui <- dashboardPage(
@@ -232,21 +232,60 @@ shinyApp(ui, server)
 Whew! We made it! We created a nice looking app with `shinydashboard`. And now we can easily see how even a basic shiny app can become messy and why it's always helpful to include lots of annotations.  
 
 ## Practice
-### `amniota` data
-Myhrvold N, Baldridge E, Chan B, Sivam D, Freeman DL, Ernest SKM (2015). “An amniote life-history
-database to perform comparative analyses with birds, mammals, and reptiles.” _Ecology_, *96*, 3109.
-doi: 10.1890/15-0846.1 (URL: https://doi.org/10.1890/15-0846.1).
+We will use data from a study on vertebrate community composition and impacts from defaunation in Gabon, Africa.  
+
+Reference: Koerner SE, Poulsen JR, Blanchard EJ, Okouyi J, Clark CJ. Vertebrate community composition and diversity declines along a defaunation gradient radiating from rural villages in Gabon. _Journal of Applied Ecology_. 2016.  
+
+1. Load `IvindoData_DryadVersion.csv` and use the function(s) of your choice to get an idea of the overall structure, including its dimensions, column names, variable classes, etc. As part of this, determine if NAs are present and how they are treated.
 ```{r}
-amniota <- readr::read_csv("data/amniota.csv", na = c("", "-999")
+gabon <- readr::read_csv("data/IvindoData_DryadVersion.csv")
 ```
 
 ```{r}
-glimpse(amniota)
-
-amniota %>% 
-  count(gestation_d)
+names(gabon)
 ```
 
+```{r}
+glimpse(gabon)
+```
+
+2. Build an app that re-creates the plots shown on page 810 of this paper. It compares the relative abundance % to the distance from villages in rural Gabon. Use shiny dashboard and add aesthetics to the plot.  
+```{r}
+ui <- dashboardPage(
+  dashboardHeader(title = "Relative Abundance"),
+  dashboardSidebar(disable = T),
+  dashboardBody(
+  fluidRow(
+  box(title = "Plot Options", width = 3,
+  selectInput("x", "Select RA Taxon", choices = c("RA_Apes", "RA_Birds", "RA_Elephant", "RA_Monkeys", "RA_Rodent", "RA_Ungulate"), 
+              selected = "RA_Apes"),
+      hr(),
+      helpText("Reference: Koerner SE, Poulsen JR, Blanchard EJ, Okouyi J, Clark CJ. Vertebrate community composition and diversity declines along a defaunation gradient radiating from rural villages in Gabon. Journal of Applied Ecology. 2016.")
+  ), # close the first box
+  box(title = "Relative Abundance %", width = 6,
+  plotOutput("plot", width = "600px", height = "500px")
+  ) # close the second box
+  ) # close the row
+  ) # close the dashboard body
+) # close the ui
+
+server <- function(input, output, session) { 
+  
+  output$plot <- renderPlot({
+    gabon %>% 
+    ggplot(aes_string(x = "Distance", y = input$x)) +
+  geom_point(size=4)+
+  geom_smooth(method=lm, se=T)+
+  scale_x_continuous(breaks=seq(0, 30, by = 5))+ theme_light(base_size = 18)
+  })
+  
+  # stop the app when we close it
+  session$onSessionEnded(stopApp)
+
+  }
+
+shinyApp(ui, server)
+```
 
 ## That's it, let's take a break!   
 
