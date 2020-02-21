@@ -57,6 +57,8 @@ server <- function(input, output, session) {}
 shinyApp(ui, server)
 ```
 
+Hi stop to close the shiny app
+
 For the rest of the lab we will work together to build the example app.
 
 ## Shiny Inputs
@@ -101,6 +103,8 @@ shinyApp(ui, server)
 Great, we now have our user inputs set up! Now we need to work with those inputs so R can make the plot. This can be the tricky part. The processing is done in the server function. The ui passes the names of our choices via an object called `inputs` to the server function. We need to access our inputs by their names with the `$` symbol. To get the x input we type `input$x` and y is `input$y`.  
 
 All reactive inputs need to be wrapped in a reactive environment called a reactive function. Reactivity is the core of shiny. See the cheat sheet for [reactive environment types](https://shiny.rstudio.com/images/shiny-cheatsheet.pdf). Let's wrap our reactive input values in a reactive function on the server side and run our app as a test. What happens? Are we doing anything with the inputs yet? What happens if you remove the reactive function from the server side and run the app? 
+
+#The reactive function doesn't appear to be changing the output for me. But maybe I don't know what I'm looking for?
 ```{r}
 ui <- fluidPage(
     selectInput("x", "Select X Variable", choices = c("Sepal.Length", "Sepal.Width", "Petal.Length", "Petal.Width"), 
