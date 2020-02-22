@@ -1,6 +1,5 @@
 ---
 title: "Data Visualization: `ggplot` part 3"
-date: "`r Sys.Date()`"
 output:
   html_document:
     theme: spacelab
@@ -20,9 +19,12 @@ output:
 ## Resources
 - [ggplot2 cheatsheet](https://www.rstudio.com/wp-content/uploads/2015/03/ggplot2-cheatsheet.pdf)
 
-## Libraries
+## Load the libraries
 ```{r message=FALSE, warning=FALSE}
 library(tidyverse)
+```
+
+```{r}
 options(scipen=999) #cancels the use of scientific notation for the session
 ```
 
@@ -35,19 +37,41 @@ Data: http://datadryad.org/resource/doi:10.5061/dryad.q5j65/1
 homerange <- readr::read_csv("data/Tamburelloetal_HomeRangeDatabase.csv", na = c("", "NA", "\\"))
 ```
 
-Note that when making this tutorial, we noticed a stray backtick in a cell under the primary method category. We want to set this to NA, so we include it in the list of NA indicators we have in our data (`"\\"`).
+Note that when making this tutorial, we noticed a stray backtick in a cell under the primary method category. We want to set this to NA, so we include it in the list of NA indicators we have in our data (`"\\"`). Two backticks are required because the backtick is a special escape character in R. 
 ```{r}
 homerange %>% 
   count(primarymethod)
 ```
 
+## Barplots revisited
+At this point you should be able to build a barplot that shows counts of observations in a variable using `geom_bar()`. But, you should also be able to use `stat="identity"` to specify both x and y axes.  
+
+Although we did not use it last time, `geom_col()` is the same as specifying `stat="identity"` using `geom_bar()`.     
+
+## Here is the plot using `geom_bar(stat="identity")`
+```{r}
+homerange %>% 
+  filter(family == "salmonidae") %>% #filter for salmonid fish only
+  ggplot(aes(x = common.name, y = log10.mass)) +
+  geom_bar(stat = "identity")
+```
+
+## Practice
+1. Make the same plot above, but use `geom_col()`
+```{r}
+homerange %>% 
+  filter(family == "salmonidae") %>% #filter for salmonid fish only
+  ggplot(aes(x = common.name, y = log10.mass)) +
+  geom_col()
+```
+
 ## Barplots and multiple variables
-Last time we explored the `fill` option in boxplots as a way to bring color to the plot; i.e. we filled by the same variable that we were plotting. What happens when we fill by a different categorical variable?  
+Last time we explored the `fill` option in boxplots as a way to bring color to the plot; i.e. we filled by the same variable that we were plotting. What happens when we fill by a different categorical variable? 
 
 Let's start by counting how many obervations we have in each taxonomic group.
 ```{r}
 homerange %>% 
-  count(taxon, sort=T)
+  count(taxon)
 ```
 
 Now let's make a barplot of these data.
@@ -93,7 +117,7 @@ homerange %>%
        fill= "Trophic Guild")
 ```
 
-We can also scale all bars to a percentage.
+We can also scale all bars to a percentage (or proportion).
 ```{r}
 homerange %>% 
   ggplot(aes(x = taxon, fill = trophic.guild))+
@@ -104,7 +128,13 @@ homerange %>%
 
 ## Practice
 1. Make a barplot that shows locomotion type by `primarymethod`. Try both a stacked barplot and `position="dodge"`.
-
+```{r}
+homerange %>% 
+  ggplot(aes(x=class, fill=primarymethod))+
+  geom_bar(position = position_fill())+ 
+  scale_y_continuous(labels = scales::percent)+
+  coord_flip()
+```
 
 ## Histograms and Density Plots
 Histograms are frequently used by biologists; they show the distribution of continuous variables. As students, you almost certainly have seen histograms of grade distributions. Without getting into the statistics, a histogram `bins` the data and you specify the number of bins that encompass a range of observations. For something like grades, this is easy because the number of bins corresponds to the grades A-F. By default, R uses a formula to calculate the number of bins but some adjustment is often required.  
@@ -136,13 +166,29 @@ homerange %>%
 
 ## Practice
 1. Make a histogram of `log10.hra`. Make sure to add a title.
-
+```{r}
+homerange %>% 
+  ggplot(aes(x=log10.hra)) +
+  geom_histogram(fill="steelblue", alpha=0.8, color="black")+
+  labs(title = "Distribution of Homerange")
+```
 
 2. Now plot the same variable using `geom_density()`.
-
+```{r}
+homerange %>% 
+  ggplot(aes(x=log10.hra)) +
+  geom_density(fill="steelblue", alpha=0.8, color="black")+
+  labs(title = "Distribution of Homerange")
+```
 
 3. Combine them both!
-
+```{r}
+homerange %>% 
+  ggplot(aes(x=log10.hra)) +
+  geom_histogram(aes(y = ..density..), binwidth = .4, fill="steelblue", alpha=0.8, color="black")+
+  geom_density(color="red")+
+  labs(title = "Distribution of Homerange")
+```
 
 ## Create Categories with mutate and case_when()
 `case_when()` is a very handy function from `dplyr` which allows us to calculate a new variable from other variables. We use `case_when()` within `mutate()` to do this.`case_when()` allows us to specify multiple conditions. Let's reclassify the body mass variable into a new factor variable with small, medium, and large animals. 
@@ -166,37 +212,39 @@ homerange %>%
 
 ## Practice
 1. Use case_when() to make a new column `range_category` that breaks down `log10.hra` into very small, small, medium, and large classes based on quartile.
+```{r}
+summary(homerange$log10.hra)
+```
+
+```{r}
+#install.packages("gtools")
+library(gtools)
+quartiles <- quantcut(homerange$log10.hra)
+table(quartiles)
+```
+
+```{r}
+homerange <- 
+  homerange %>% 
+  mutate(range_category = case_when(log10.hra <3.65 ~ "very small",
+                                    log10.hra >=3.65 & log10.hra <4.59 ~ "small",
+                                    log10.hra >=4.59 & log10.hra <=6.02 ~ "medium",
+                                    log10.hra >=6.02 ~ "large"))
+```
 
 2. How many and which taxonomic classes are represented in each of the `range_category` classes?
-
+```{r}
+homerange %>% 
+  ggplot(aes(x=range_category, fill=class))+
+  geom_bar(position="dodge")
+```
 
 3. Isolate the small `range_category` and plot the range of `log10.mass` by taxonomic class.
-
-## Faceting: `facet_wrap()`
-Faceting is one of the most amazing features of ggplot. It allows you to make multi-panel plots for easy comparison. Here, I am making histograms of log10.mass for every taxon. We read the `~` in the `facet_wrap()` layer as `by`.
 ```{r}
 homerange %>% 
-  ggplot(aes(x = log10.mass)) +
-  geom_histogram() +
-  facet_wrap(~taxon)
-```
-
-## Faceting: `facet_grid()`
-As you can imagine, there are lots of options for faceting. Another useful facet type is `facet_grid`. This can be helpful when you want to facet by multiple categorical variables.  
-```{r}
-homerange %>% 
-  ggplot(aes(x = log10.mass)) +
-  geom_histogram() +
-  facet_grid(~thermoregulation + locomotion)
-```
-
-## Practice
-1. Use faceting to produce density distributions of log10.mass by taxonomic class.
-```{r}
-homerange %>% 
-  ggplot(aes(x=log10.mass))+
-  geom_density(fill="steelblue", alpha=0.4)+
-  facet_wrap(~class)
+  filter(range_category=="small") %>% 
+  ggplot(aes(x=class, y=log10.mass, fill=class)) +
+  geom_boxplot(alpha=0.75)
 ```
 
 ## That's it, let's take a break!   

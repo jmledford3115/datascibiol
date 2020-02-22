@@ -1,6 +1,5 @@
 ---
 title: "Data Visualization: `ggplot` part 2"
-date: "`r Sys.Date()`"
 output:
   html_document:
     theme: spacelab
@@ -16,19 +15,21 @@ output:
 2. Customize labels on axes using `labs` and `themes`.  
 3. Use `color`, `fill`, and `group` to customize plots and improve overall aesthetics.  
 
-## Resources
+## Review
+Now that you have been introduced to `ggplot`, let's practice a few more plot types and learn how to manipulate the aesthetics of plots to better suit our needs. Aesthetics can make a significant difference, but you can take it too far so remember that the goal is to produce clean plots that are not distracting.  
+
+##Resources
 - [ggplot2 cheatsheet](https://www.rstudio.com/wp-content/uploads/2015/03/ggplot2-cheatsheet.pdf)
 - [`ggplot` themes](https://ggplot2.tidyverse.org/reference/ggtheme.html)
+- [Rebecca Barter `ggplot` Tutorial](http://www.rebeccabarter.com/blog/2017-11-17-ggplot2_tutorial/)
 
-## Libraries
+## Load the libraries
 ```{r message=FALSE, warning=FALSE}
 library(tidyverse)
+library(skimr)
 ```
 
-## Review
-In the last lab you were introduced to `ggplot`. Let's build on this by exploring more geom types and adding some aesthetics.  
-
-## Data
+## Load the data
 **Database of vertebrate home range sizes.**  
 Reference: Tamburello N, Cote IM, Dulvy NK (2015) Energy and the scaling of animal space use. The American Naturalist 186(2):196-211. http://dx.doi.org/10.1086/682070.  
 Data: http://datadryad.org/resource/doi:10.5061/dryad.q5j65/1
@@ -36,9 +37,8 @@ Data: http://datadryad.org/resource/doi:10.5061/dryad.q5j65/1
 homerange <- readr::read_csv("data/Tamburelloetal_HomeRangeDatabase.csv")
 ```
 
-Remember to be mindful of NAs in the data; know how they are represented and how R has interpreted them.
+Notice that the homerange data has "NA" in the csv file and this is the default NA indicator for read_csv, but other functions have different defaults so it's always good to check by reading the help file and knowing which indicators you have in your data set.  
 ```{r}
-anyNA(homerange)
 glimpse(homerange)
 ```
 
@@ -63,13 +63,44 @@ homerange %>%
 
 ## Practice
 1. There are more herbivores than carnivores in the homerange data, but how do their masses compare? Make a summary and boxplot that compares their masses. Use `log10.mass`.
+```{r}
+homerange %>% 
+  group_by(trophic.guild) %>% 
+  summarize(min_log10.mass=min(log10.mass),
+            max_log10.mass=max(log10.mass),
+            mean_log10.mass=mean(log10.mass),
+            median_log10.mass=median(log10.mass),
+            total_n=n())
+```
 
+```{r}
+homerange %>% 
+  ggplot(aes(x = trophic.guild, y = log10.mass)) +
+  geom_boxplot()
+```
 
 2. Have a closer look at carnivorous mammals. Summarize and visualize the range of log10.mass by family.
-
+```{r}
+homerange %>% 
+  filter(taxon == "mammals" & trophic.guild == "carnivore") %>% 
+  summarize(min_log10.mass=min(log10.mass),
+            max_log10.mass=max(log10.mass),
+            mean_log10.mass=mean(log10.mass),
+            median_log10.mass=median(log10.mass),
+            total_n=n()) %>% 
+  pivot_longer(cols=everything(),
+               names_to="measure",
+               values_to = "value")
+```
 
 3. Now use a boxplot to visualize the range of body mass by family of carnivore.
-
+```{r}
+homerange %>% 
+  filter(taxon == "mammals" & trophic.guild == "carnivore") %>%
+  ggplot(aes(x = family, y = log10.mass)) +
+  geom_boxplot()+
+  coord_flip()
+```
 
 ## Aesthetics: Labels
 Now that we have practiced scatterplots, barplots, and boxplots we need to learn how to adjust their appearance to suit our needs. Let's start with labelling x and y axes.  
@@ -108,26 +139,27 @@ ggplot(data = homerange, mapping = aes(x = log10.mass, y = log10.hra)) +
   labs(title = "Mass vs. Homerange",
        x = "Mass (log10)",
        y = "Homerange (log10)")+ 
-  theme(plot.title = element_text(size = rel(1.5), hjust = 0.5))
+  theme(plot.title = element_text(size = rel(2), hjust = 0.5))
 ```
 
 ## Practice
 1. Make a barplot that shows the number of individuals per locomotion type. Be sure to provide a title and label the axes appropriately.
-
+```{r}
+homerange %>% 
+  ggplot(aes(x = locomotion)) +
+  geom_bar() +
+  labs(title = "Locomotion Type",
+       x = "Locomotion Type",
+       y = "# Individuals")+ 
+  theme(plot.title = element_text(size = rel(1.5)))
+```
 
 ## Other Aesthetics
-There are lots of options for aesthtics. An aesthetic can be assigned to either numeric or categorical data. `color` is a common option. Because color is included within the main `ggplot` command, it will color the points based on the category to which they belong and add a key.
+There are lots of options for aesthtics. An aesthetic can be assigned to either numeric or categorical data. `color` is a common option; notice that an appropriate key is displayed when you use one of these options.
 ```{r}
 homerange %>% 
   ggplot(aes(x = log10.mass, y = log10.hra, color = locomotion)) +
   geom_point()
-```
-
-Adding color within `geom_point()` changes the color of all of the points.
-```{r}
-homerange %>% 
-  ggplot(aes(x = log10.mass, y = log10.hra)) +
-  geom_point(color = "orange")
 ```
 
 `size` adjusts the size of points relative to a continuous variable.
@@ -148,10 +180,26 @@ homerange %>%
 
 ## Practice
 1. Make a barplot that shows counts of ectotherms and endotherms. Label the axes, provide a title, and fill by thermoregulation type.
-
+```{r}
+homerange %>% 
+  ggplot(aes(x = thermoregulation, fill = thermoregulation)) +
+  geom_bar()+
+  labs(title = "Thermoregulation Counts",
+       x = "Thermoregulation Type",
+       y = "# Individuals")+ 
+  theme(plot.title = element_text(size = rel(1.25)))
+```
 
 2. Make a boxplot that compares thermoregulation type by log10.mass. Group and fill by class. Label the axes and provide a title.
-
+```{r}
+homerange %>% 
+  ggplot(aes(x = thermoregulation, y = log10.mass, group = class, fill = class))+
+  geom_boxplot()+
+  labs(title = "Thermoregulation vs. Log10 Mass by Taxonomic Class",
+       x = "Thermoregulation Type",
+       y = "log10.mass")+ 
+  theme(plot.title = element_text(size = rel(1.25)))
+```
 
 ## That's it, let's take a break!   
 
