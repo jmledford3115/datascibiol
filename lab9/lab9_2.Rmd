@@ -1,0 +1,162 @@
+---
+title: "Intro to Spatial Data 2"
+date: "`r Sys.Date()`"
+output:
+  html_document:
+    theme: spacelab
+    toc: yes
+    toc_float: yes
+  pdf_document:
+    toc: yes
+---
+
+## Learning Goals
+*At the end of this exercise, you will be able to:*  
+1. Map spatial data in R.    
+ 
+## Resources
+[Overview of Cooordinate Reference Systems in R](https://www.nceas.ucsb.edu/~frazier/RSpatialGuides/OverviewCoordinateReferenceSystems.pdf)
+
+## Spatial Data in R
+
+There are many packages and techniques for working with spatial data in R. We will cover just some of the basics. One nice package is `ggmap`, which allows us to get base maps from Google Maps, OpenStreetMap, and Stamen Maps. It also works well with `ggplot2`. Let's install and load the development version of `ggmap` using `devtools`. We will also load the `tidyverse`.
+
+```{r, message = FALSE}
+#install.packages("devtools")
+library(devtools)
+devtools::install_github("dkahle/ggmap")
+```
+
+```{r}
+#install.packages("rgeos")
+#install.packages("rgdal")
+```
+
+
+```{r, message = FALSE}
+library(ggmap)
+library(tidyverse)
+library(rgeos)
+library(rgdal)
+```
+
+Let's also load our processed data from the first part of this lab.
+```{r, message = FALSE}
+spiders <- read_csv("spiders_with_locs.csv")
+```
+
+## Create Base Map
+
+Our goal here is to plot the spiders locations from the columns which contain the latitude and longitude. First, we need to get a base map for plotting our points on. We could plot them without a base map, but that wouldn't give us any context as to where they are in space. To get a base map we specify a min and max of each x and y coordinate, and create a bounding box. We set the bounding box to a little outside our min and max locations with `f = 0.05`. 
+
+```{r}
+spiders %>% 
+  select(Latitude, Longitude) %>% 
+  summary()
+```
+
+```{r}
+lat <- c(34.67, 44.51)
+long <- c(-124.1, -115.5)
+bbox <- make_bbox(long, lat, f = 0.05)
+```
+
+Let's get a base map for our bounding box area. Google base maps require an API key and to enter credit card information. We will use the other non-google base maps for now.  
+```{r}
+b <- get_map(bbox, maptype = "terrain", source = "stamen")
+ggmap(b)
+```
+
+## Adding Points to Base Map
+
+`ggmap` works well with `ggplot2`. To add our points we only need to specify the x and y location similar to how we made charts in previous labs. 
+```{r}
+ggmap(b) + 
+  geom_point(data = spiders, aes(Longitude, Latitude), size = 2, alpha = 0.7) +
+           labs(x = "Longitude", y = "Latitude", title = "Spider Locations")
+```
+
+
+## Practice
+
+Map the spider locations with a different type of basemap. What happens if you try to use a google source map? Experiment with different display options for the points. 
+
+```{r}
+b <- get_map(bbox, maptype = "toner-lite", source = "stamen")
+ggmap(b) + 
+  geom_point(data = spiders, aes(Longitude, Latitude), size = 2, alpha = 0.7) +
+  labs(x = "Longitude", y = "Latitude", title = "Spider Locations")
+```
+
+```{r}
+g <- get_map(bbox, maptype = "toner-2010", source = "stamen")
+ggmap(g) + 
+  geom_point(data = spiders, aes(Longitude, Latitude), color = "red", size = 2, alpha = 0.7) +
+  labs(x = "Longitude", y = "Latitude", title = "Spider Locations")
+```
+
+## Shapefiles
+
+In the data folder there is a file titled `CA_Counties_TIGER2016.shp`. This is a publicly available shapefile downloaded from the [California Open Data Portal](https://data.ca.gov/dataset/ca-geographic-boundaries). A shapefile is a format for storing polygon, line, or point information for use in ArcGIS or other mapping software including R. To load the shapefile we will need the `raster` and `sp` packages. We will read the file in as a shapefile and use `spTransform()` to tell R the projection is in lat/long. 
+```{r}
+#install.packages("raster")
+#install.packages("sp")
+library(raster)
+library(sp)
+#install.packages("rgdal")
+library(rgdal)
+```
+
+```{r}
+c <- shapefile("data/CA_counties/CA_Counties_TIGER2016.shp") %>% 
+  spTransform(CRS("+proj=longlat +datum=WGS84"))
+
+class(c)
+```
+  
+The `shapefile()` function created a SpatialPolygonsDataFrame from our file. We can take a quick look at it with the base `plot()` function.
+```{r}
+plot(c)
+```
+
+We want to convert the SpatialPolygonsDataFrame into a format we can use with `ggplot2`. To do this we will use the function `tidy()` from the `broom` package in the `tidyverse`. `tidy()` has a method for SpatialPolygonsDataFrame, we just need to tell it which column corresponds to the county. We can access the data in the counties layer with the `@data` command. 
+```{r, warning = FALSE}
+#install.packages("maptools")
+library("maptools")
+
+head(c@data)
+ct <- broom::tidy(c, region = "NAME")
+head(ct)
+```
+
+
+## Practice
+
+What is the class of the `nc` object? Which columns specify the polygon geometry?
+```{r}
+class(ct)
+```
+
+## Adding Shapefile Data Layer
+
+Let's add the counties shapefile to our current map with the spider locations. We need to make sure to tell ggplot which column in our polygon data frame corresponds to the polygon group. 
+
+```{r}
+
+ggmap(b) + geom_polygon(data = ct, aes(x = long, y = lat, group = id), 
+                        fill = NA, color = "brown", alpha = 0.8, size = 0.2) +
+           geom_point(data = spiders, aes(Longitude, Latitude), size = 2, alpha = 0.7) +
+           labs(x = "Longitude", y = "Latitude", title = "Spider Locations")
+```
+
+## Practice
+
+What happens if we remove the group argument from within `geom_polygon()` above. Why does this happen?
+
+```{r}
+ggmap(b) + geom_polygon(data = ct, aes(x = long, y = lat), 
+                        fill = NA, color = "brown", alpha = 0.8, size = 0.2) +
+           geom_point(data = spiders, aes(Longitude, Latitude), size = 2, alpha = 0.7) +
+           labs(x = "Longitude", y = "Latitude", title = "Spider Locations")
+```
+
