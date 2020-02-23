@@ -37,4 +37,7 @@ We have eight total labs. The last two labs (9 and 10) will be devoted to gettin
 ## Setup Your Computer  
 Easy [setup instructions](https://jmledford3115.github.io/datascibiol/setup.html) for your personal computer.  
 
+## About the Class  
+This class has been developed with the generous help of Dr. Katherine Ransom, Rebecca Godwin, and the students of BIS 15L! If you see errors or have suggestions, please make a pull request on GitHub. Thank you!  
+
 ## Let's Get Started [lab 1](https://jmledford3115.github.io/datascibiol/lab1_1.html)  
