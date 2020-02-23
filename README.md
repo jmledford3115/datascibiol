@@ -38,6 +38,6 @@ We have eight total labs. The last two labs (9 and 10) will be devoted to gettin
 Easy [setup instructions](https://jmledford3115.github.io/datascibiol/setup.html) for your personal computer.  
 
 ## About the Class  
-This class has been developed with the generous help of Dr. Katherine Ransom, Rebecca Godwin, and the students of BIS 15L! If you see errors or have suggestions, please make a pull request on GitHub. Thank you!  
+This class has been developed with the generous help of Katherine Ransom, Rebecca Godwin, and the students of BIS 15L! If you see errors or have suggestions, please make a pull request on [GitHub](https://github.com/jmledford3115/datascibiol). Thank you!  
 
-## Let's Get Started [lab 1](https://jmledford3115.github.io/datascibiol/lab1_1.html)  
+## Let's Get Started! [lab 1](https://jmledford3115.github.io/datascibiol/lab1_1.html)  
