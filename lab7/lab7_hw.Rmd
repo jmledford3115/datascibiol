@@ -16,6 +16,10 @@ knitr::opts_chunk$set(echo = TRUE)
 Answer the following questions and complete the exercises in RMarkdown. Please embed all of your code and push your final work to your repository. Your final lab report should be organized, clean, and run free from errors. Remember, you must remove the `#` for any included code chunks to run.  
 
 ## Libraries
+```{r}
+if (!require("tidyverse")) install.packages('tidyverse')
+```
+
 ```{r message=FALSE, warning=FALSE}
 library(tidyverse)
 library(shiny)
