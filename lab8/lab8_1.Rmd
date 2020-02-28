@@ -1,0 +1,186 @@
+---
+title: "Intro to GenBank and BLAST"
+date: "`r Sys.Date()`"
+output:
+  html_document:
+    theme: spacelab
+    toc: yes
+    toc_float: yes
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+## Learning Goals
+*At the end of this exercise, you will be able to:*  
+1. Search the GenBank database for nucelotide data.  
+2. Do searches of the GenBank database using both accession numbers and key terms. 
+3. Write downloaded sequences to a .fasta file.
+
+## Resources  
+- [GenBank Main Page](https://www.ncbi.nlm.nih.gov/genbank)  
+- [NCBI BLAST](https://blast.ncbi.nlm.nih.gov/Blast.cgi)  
+- [How to Read a BLAST Report](https://ftp.ncbi.nlm.nih.gov/pub/factsheets/HowTo_BLAST_NewResultPage.pdf)  
+
+## GenBank
+
+We are going to begin class outside of R today. Follow the above link to the GenBank main page.  
+
+GenBank is a sequence database which holds a collection of all publicly available DNA sequences. It is part of a multinational group of databases along with the DNA Database of Japan (DDBJ) and the European Nutcleotide Archive (ENA). These three organizations share data on a daily basis. 
+
+Follow the link to the "Entrez Nucleotide" page. We are going to search for sequences. In the search bar at the top of the page type "Ummidia". 
+
+## BLASTn
+
+With BLASTn we can take a sequence we have acquired (perhaps through sequencing) and search GenBank for similar sequences. One common application of this is to check new sequences for contamination. Go to the NCBI BLAST link above, then click "Nucleotide BLAST". In your data folder is a file called "Ummidia.fasta". Open this file in your text editor. This file contains 28 mitochondrial DNA nucleotide sequences (for the cytochrome oxidase I gene) in what is called `fasta` format. The fasta format is commonly used for nucleotide sequence analysis. Copy one of these sequences, beginning with the carrot `>` through the end of the sequence (before the next carrot) and paste it into the `Query Sequence Box`. We will now do a search with the deafult settings.
+
+## Practice
+1. What are the results and what do you think they mean?  
+
+
+2. Notice that all sequences have a unique accession number. How do you think those are used by biologists and why are they important?
+
+
+## GenBank in R using "ape"
+
+SeqinR (Sequences in R) and ape (Analysis of Phylogenetics and Evolution) are packages which include many utilities for dealing with sequence data in R. 
+```{r cars}
+#install.packages("seqinr")
+#install.packages("ape")
+```
+
+```{r}
+library(ape)
+library(seqinr)
+```
+
+We can use ape to search the GenBank database just like we did using the web portal. We use the function `read.GenBank()` to read nucleotide sequences into R using accession numbers as arguments. Take a look at the help page and usage options for this function.
+```{r}
+?read.GenBank()
+```
+
+The NCBI accession number for the DEN-1 Dengue virus genome sequence is `NC_001477`. We can use `read.GenBank()` to retrieve this sequence. 
+```{r}
+dengueseq <- read.GenBank("NC_001477")
+dengueseq
+```
+
+Note that this has given us the sequence in a binary format, but looking at this output gives us some infomration about the sequence to include it's length and base composition. Let's look at the "list" that the sequence is stored in
+```{r}
+dengueseq$NC_001477
+```
+
+Well that is not very useful at all! Fortuantely, we can pull the sequence as a character object using the following code:
+```{r}
+dengueseq <- read.GenBank("NC_001477", as.character = TRUE)
+dengueseq
+```
+
+
+That's a little better, now we can see the nucleotides that make up the sequence stored as a vector. Let's try fetching multiple sequences at once and storing them as a DNAbin object. This is a list of accession numbers for RAG1 sequences for a group of lizards. We're going to store this list as a vector which will then be used to import all of the sequences using `read.Genbank()`.  
+
+**Accession numbers**
+```{r}
+lizards_accession_numbers <- c("JF806202", "HM161150", "FJ356743", "JF806205", "JQ073190", 	"GU457971", "FJ356741", "JF806207", "JF806210", "AY662592", "AY662591","FJ356748", "JN112660",  "AY662594", "JN112661", "HQ876437", "HQ876434", "AY662590", "FJ356740","JF806214", "JQ073188", "FJ356749", "JQ073189", "JF806216", "AY662598", "JN112653", "JF806204","FJ356747", "FJ356744", "HQ876440", "JN112651", "JF806215","JF806209")
+```
+
+
+**Import from GenBank**  
+Looking at this new object again we see some basic information on the sequences we've pulled from the database.
+```{r}
+lizards_sequences <- read.GenBank(lizards_accession_numbers)
+lizards_sequences
+```
+
+Let's explore this data just a little bit. We can use functions like `str()`, `attributes()`, `names()`, and `attr()` to get different kinds of information to include our accession numbers, the contents of the data, and a list of the included species. Try each of these functions and compare the output. 
+
+## Practice
+1. Use `str()` to explore lizards_sequences.
+```{r}
+str(lizards_sequences)
+```
+
+2. Use `names()` to explore lizards_sequences.
+```{r}
+names(lizards_sequences)
+```
+
+3. Use `attributes()` to explore lizards_sequences.
+```{r}
+attributes(lizards_sequences)
+```
+
+4. Use `attr()` to explore lizards_sequences.
+```{r}
+attr(lizards_sequences, "species")
+```
+
+This data would probably be easier to read if we made a vector that matched up accession numbers with species. Let's do that! We'll add the name of the gene we're looking at for good measure. This is good practice, especially if you want to add other sequences later.
+```{r}
+lizards_sequences_GenBank_IDs <- paste(attr(lizards_sequences, "species"), names(lizards_sequences), sep ="_RAG1_")
+lizards_sequences_GenBank_IDs
+```
+
+Generally when we work with sequence data we want it in a specific format such as a `.fasta` or `.phylip` because the software and packages we use to analyze sequence data need to have the data in a specific format. We can use the `write.dna()` function to write our sequences into a .fasta format.
+```{r}
+write.dna(lizards_sequences, file ="lizard_fasta_1.fasta", format = "fasta", append = FALSE, nbcol = 6, colsep = " ", colw = 10)
+```
+
+## Search by key words
+But what if we don't know the accession numbers for the sequences we want? No worries! R has a package for that! Rentrez (Entrez in R) is a package the interfaces with the NCBI database and allows us to search and pull sequences using key terms.
+```{r}
+#install.packages("rentrez")
+library(rentrez)
+```
+
+Let's look for our lizards by their species name _Basiliscus basiliscus_ using `entrez_search()`. We can tell entrez we want to search the nucleotide database (nuccore) for _Basiliscus basiliscus_ which is an [Organism]. We'll also set the maximum returned hits to 40 (retmax=40).
+```{r}
+lizard_search <- entrez_search(db="nuccore", term= "Basiliscus basiliscus[Organism]", retmax=40)
+lizard_search
+```
+
+We can limit our search using other criteria like the gene we are interested in connected by boolean operators (AND, OR, NOT). For example, we can limit the above search to only look for cytochrome oxidase one (COI) sequences.
+```{r}
+entrez_search(db="nuccore", term= "Basiliscus basiliscus[Organism] AND coi[GENE]", retmax=40)
+```
+In this case the search only returns a single hit, so for now we'll continue with our initial search results. 
+
+Now we'll use `entrez_fetch()` to get the sequence results of our search and store them as a character vector.
+```{r}
+lizard_seqs <- entrez_fetch(db="nuccore", id=lizard_search$ids, rettype="fasta")
+lizard_seqs
+```
+
+
+The format of these sequences that R is now holding is in .fasta format, but they will be more useful for us if we actually write them out as a .fasta file. We can use the `write()` function to do this. Look very closely at those sequences. It looks like a big mess of text but there are "new line delimiters" in that text, and we need to tell R what they are so it knows where the line endings are. In this case the new line delimiter is "\n", so we will write the data to a .fasta file like this:
+```{r}
+write(lizard_seqs, "data/lizard_fasta_2.fasta", sep = "\n")
+```
+
+Open this file in your text editor and have a look. You have downnloaded and formated sequence data from the internet using R!
+
+
+## Practice
+
+1. Create your own search of the NCBI nucleotide database using `entrez_search()` for RAG1 sequences of _Ornithorhynchus anatinus_. Limit your returned hits to 10. What is _Ornithorhynchus anatinus_?
+```{r}
+
+```
+
+2. Use `entrez_fetch()` to return your database hits as a character vector.
+```{r}
+
+```
+
+3. Now store your own pulled sequence data as a .fasta file using the `write()` function. Remember those line endings!
+```{r}
+
+```
+
+## That's it, let's take a break!   
+
+-->[Home](https://jmledford3115.github.io/datascibiol/)
