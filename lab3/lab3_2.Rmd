@@ -186,6 +186,14 @@ mammals %>%
   mutate(newborn_new = ifelse(newborn == -999.00, NA, newborn))
 ```
 
+## `mutate_at`
+This function is super helpful when changing aspects about scific columns. 
+```{r}
+fish %>% 
+  mutate_at(vars(lakeid), as.factor)
+```
+
+
 ## `mutate_all()`
 This last function is super helpful when cleaning data. With "wild" data, there are often mixed entries (upper and lowercase), blank spaces, odd characters, etc. These all need to be dealt with before analysis.  
 
