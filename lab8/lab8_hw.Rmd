@@ -23,7 +23,7 @@ library(seqinr)
 library(rentrez)
 ```
 
-**1. All the databases associated with NCBI are updating and sharing their data daily. With the new strain of the coronavirus, SARS-CoV-2 at the forefront of a lot of medical research, genomes have already been uploaded to GenBank. The accession number fora complete genome of an isolate from China is "MT093631.1". Pull this sequence from GenBank into R, then write it as a .fasta file and read the .fasta file into R using the code we learned in class.**
+**1. All the databases associated with NCBI are updating and sharing their data daily. With the new strain of the coronavirus, SARS-CoV-2 at the forefront of a lot of medical research, genomes have already been uploaded to GenBank. The accession number for a complete genome of an isolate from China is "MT093631.1". Pull this sequence from GenBank into R, then write it as a .fasta file and read the .fasta file into R using the code we learned in class.**
 
 **2. Explore this sequence using functions we learned in class. What is the length of the genome? Create a table showing the nucleotide composition of the sequence, and calculate the GC content.**
 
