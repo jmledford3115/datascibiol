@@ -1,7 +1,6 @@
 ---
-title: "Tidy Data 2 and Summarize"
-author: "Joel Ledford"
-date: "Winter 2019"
+title: "Tidyr 1: Tidy data and `pivot_long()`"
+date: "`r Sys.Date()`"
 output:
   html_document:
     theme: spacelab
@@ -11,190 +10,216 @@ output:
     toc: yes
 ---
 
-## Group Project
-Let's take 10 minutes to decide on groups and think about a theme for our projects. What data interest you? Make a plan on doing some internet searches and selecting a data set that will work for your group. Think about the kinds of questions you might ask.  
-
-## Resources
-- [dplyr-tidyr tutorial](http://tclavelle.github.io/dplyr-tidyr-tutorial/)
-- [Data wrangling cheatsheet (`dplyr`,`tidyr`)](http://ucsb-bren.github.io/refs/cheatsheets/data-wrangling-cheatsheet.pdf)
-- [Tidyr, R for Data Science](https://r4ds.had.co.nz/tidy-data.html#unite)
+> **For Big-Data Scientists, "Janitor Work" Is Key Hurdle to Insights.**  
+> "Data scientists, according to interviews and expert estimates, spend from 50 percent to 80 percent of their time mired in the mundane labor of collecting and preparing data, before it can be explored for useful information."  
+> [New York Times (2014)](http://www.nytimes.com/2014/08/18/technology/for-big-data-scientists-hurdle-to-insights-is-janitor-work.html)
 
 ## Learning Goals
 *At the end of this exercise, you will be able to:*    
 1. Explain the difference between tidy and messy data.  
-2. Evaluate a dataset as tidy or untidy.  
-3. Use the `spread()` function of tidyr to transform messy data to tidy data. 
-4. Use `summarize()` and `group_by()` to produce statistical summaries of data.
+2. Evaluate a dataset as tidy or messy.    
+3. Use the `pivot_longer()` function of tidyr to transform data from wide to long format.  
+4. Use `separate()` to split observations within a column.  
 
-## Review
-Last time we learned the fundamentals of tidy data and used the `gather()` function to wrangle one type of frequently encountered untidy data. Today we will use the `spread()` function to deal with a second type of untidy data.  
+## Overview
+The  quote sums above sums up much of the work in data science. Simply put, most of the data that you end up working with will be messy, disorganized, and not **tidy**. By the end of the course, you will learn multiple ways of wrangling messy data into tidy data that are ready for analysis.  
+
+## Resources
+- [tidyr `pivot_longer()`](https://tidyr.tidyverse.org/reference/pivot_longer.html)  
+- [pivoting](https://cran.r-project.org/web/packages/tidyr/vignettes/pivot.html)  
 
 ## Load the tidyverse
-```{r}
-library("tidyverse")
+```{r message=FALSE, warning=FALSE}
+library(tidyverse)
 ```
 
-## Tidyr
-+ `gather()` and `spread()` convert data between wide and long format  
-+ `separate()` and `unite()` separates or unites information in columns 
+## Tidy data
+Most "wild" data that you will encounter are organized incorrectly for work in R and, as you might expect, the tools used to transform data are a core part of the tidyverse. I will attempt to summarize the most important points below, but you should read [chapter 12 of the data science text](https://r4ds.had.co.nz/tidy-data.html) for a more thorough explanation.  
 
-## gather()
-Recall that we use `gather()` when our column names actually represent variables. A classic example would be that the column names represent observations of a variable.
+`Tidy` data in the sense of the tidyverse follows three conventions:   
+(1) each variable has its own column  
+(2) each observation has its own row  
+(3) each value has its own cell  
+
+This is summarized in the image below. The package used to tidy data is called **tidyr** and is a core part of the tidyverse.  
+![*Tidy Data.*](tidy-1.png)
+
+## `pivot_longer()`  
+Scientists frequently use spreadsheets that are organized to make data entry efficient. This is often referred to as **wide format**. Unfortunately, the wide format creates a problem because column names may actually represent values of a variable. The command `pivot_longer()` shifts data from wide to long format.   
+
+Rules:  
++ `pivot_longer`(cols, names_to, values_to)
++ `cols` - Columns to pivot to longer format
++ `names_to` - Name of the new column; it will contain the column names of gathered columns as values
++ `values_to` - Name of the new column; it will contain the data stored in the values of gathered columns
+
+## Example 1: column names are data
+The following data show results from a drug trial with four treatments on six patients. The values represent resting heart rate.  
 ```{r}
-datasets::USPersonalExpenditure
-?USPersonalExpenditure
+heartrate <- readr::read_csv("data/heartrate.csv")
+heartrate
 ```
 
-Here we add a new column of expenditure types, which are stored as rownames above, with `mutate()`. The USPersonalExpenditures data also needs to be converted to a data frame before we can use the tidyverse functions, because it comes as a matrix.
-```{r}
-expenditures <- 
-  USPersonalExpenditure %>% 
-  as.data.frame() %>% 
-  mutate(Expenditure = rownames(USPersonalExpenditure))
-expenditures
-```
+Let's assess whether or not these data are tidy.  
+(1) each variable has its own column  
+*No. Some of the column names are actually variables (treatment a, b, c, or d).*  
+(2) each observation has its own row  
+*No. The observations are grouped in a single row by patient.*  
+(3) each value has its own cell  
+*Yes. There are no unusual combinations of data in each cell.*    
 
-## Practice
-1. Are these data tidy? Please use `gather()` to tidy the data. Here we use back ticks on the column names so R does not confuse them with numerical indices.
+To fix this problem, we need to reshape the table to long format while keeping track of column names and values. We do this using `pivot_longer()`. Notice that the dimensions of the data frame change.  
 ```{r}
-expenditures_tidy <- 
-  expenditures %>% 
-  gather(`1940`, `1945`, `1950`, `1955`, `1960`, key = "Year", value = "Billions")
-expenditures_tidy
-```
-
-2. Restrict the data to medical and health expenditures only. Sort in ascending order.
-```{r}
-expenditures_tidy %>%
-  filter(Expenditure == "Medical and Health") %>% 
-  arrange(Billions)
-```
-
-## spread()
-The opposite of `gather()`. You use `spread()` when you have an observation scattered across multiple rows. In the example below, `cases` and `population` represent variable names not observations.
-```{r}
-country <- c("Afghanistan", "Afghanistan", "Afghanistan", "Afghanistan", "Brazil", "Brazil", "Brazil", "Brazil", "China", "China", "China", "China")
-year <- c("1999", "1999", "2000", "2000", "1999", "1999", "2000", "2000", "1999", "1999", "2000", "2000")
-key <- c("cases", "population", "cases", "population", "cases", "population", "cases", "population", "cases", "population", "cases", "population")
-value <- c(745, 19987071, 2666, 20595360, 37737, 172006362, 80488, 174504898, 212258, 1272915272, 213766, 1280428583)
-
-tb_data <- data.frame(country=country, year=year, key=key, value=value)
-tb_data
-```
-
-When using `spread()` the `key` is the variable that you are spreading.
-```{r}
-tb_data %>% 
-  spread(key = key, value = value)
+heartrate %>% 
+  pivot_longer(-patient, #patient does not pivot
+               names_to = "drug", 
+               values_to = "heartrate"
+               )
 ```
 
 ## Practice
-1. Run the following to build the `gene_exp` data frame.
+1. Import the file `relig_income.csv` and store it as a new object `relig_income`.  
 ```{r}
-id <- c("gene1", "gene1", "gene2", "gene2", "gene3", "gene3")
-type <- c("treatment", "control", "treatment", "control","treatment", "control")
-L4_values <- rnorm(6, mean = 20, sd = 3)
+relig_income <- readr::read_csv("data/relig_income.csv")
+relig_income
+```
+2. Why are these data untidy?  
+
+_The names of the rows are actually data._  
+
+3. Use `pivot_longer()` to make the data tidy.  
+```{r}
+relig_income %>% 
+  pivot_longer(-religion, 
+             names_to = "income", 
+             values_to = "count"
+             )
+```
+
+## Example 2: some column names are data
+Some (but not all) of the column names are data. We also have NA's.
+```{r}
+billboard <- readr::read_csv("data/billboard.csv")
+billboard
+```
+
+Solution 1: specify a range of columns that you want to pivot.
+```{r}
+billboard2 <- 
+  billboard %>% 
+  pivot_longer(wk1:wk76, # a range of columns
+               names_to = "week",
+               values_to = "rank",
+               values_drop_na = TRUE #this will drop the NA's
+               )
+billboard2
+```
+
+Solution 2: OR, specify columns that you want to stay fixed.
+```{r}
+billboard3 <- 
+  billboard %>% 
+  pivot_longer(-c(artist, track, date.entered), #specific columns
+               names_to = "week",
+               values_to = "rank",
+               values_drop_na = TRUE
+               )
+billboard3
+```
+
+Solution 3: identify columns by a prefix, remove the prefix and all NA's.
+```{r}
+billboard %>% 
+   pivot_longer(
+   cols = starts_with("wk"),
+   names_to = "week",
+   names_prefix = "wk",
+   values_to = "rank",
+   values_drop_na = TRUE)
+```
+
+## Practice  
+1. Import `plant_data.csv` as a new object `plant_data`.  
+```{r}
+plant_data <- readr::read_csv("data/plant_data.csv")
+plant_data
+```
+
+2. Why are these data not tidy?  
+_The column names include data; days need to be separated._  
+
+3. Use `pivot_longer()` to make the data tidy. Focus the data only on genotype, day, and measurement.  
+```{r}
+plant_data %>% 
+ pivot_longer(
+   cols = starts_with("day"),
+   names_to = "day",
+   names_prefix = "day",
+   values_to = "measurement") %>% 
+  select(genotype, day, measurement)
+```
+
+## Example 3: more than one variable in a column name
+In this case, there are two observations in each column name.
+```{r}
+qpcr_untidy <- readr::read_csv("data/qpcr_untidy.csv")
+qpcr_untidy
+```
+
+`names_sep` helps pull these apart, but we still have "exp" and "rep" to deal with.  
+```{r}
+qpcr_untidy %>%
+  pivot_longer(
+    exp1_rep1:exp3_rep3,
+    names_to = c("experiment", "replicate"),
+    names_sep = "_",
+    values_to = "mRNA_expression")
+```
+
+## Example 4: more than one value or observation in a row
+This is often caused by an entry error, but R will not be able to work with it unless the values are separated. This doesn't use `pivot_longer()` but is a common problem.  
+```{r}
+length_data <- readr::read_csv("data/length_data.csv")
+length_data
 ```
 
 ```{r}
-gene_exp <- 
-  data.frame(gene_id = id, type = type, L4_values = L4_values)
-gene_exp
+length_data %>% 
+  transform(length = str_split(length, ";")) %>%
+  unnest(length)
 ```
 
-2. Are these data tidy? Please use `spread()` to tidy the data.
+## `separate()`
+In our last example, we have the sex of each patient included with their name. Are these data tidy? No, there is more than one value per cell in the patient column and the columns a, b, c, d once again represent values.
 ```{r}
-gene_exp %>% 
-  spread(key = type, value = L4_values)
+heartrate2 <- readr::read_csv("data/heartrate2.csv")
+heartrate2
 ```
 
-## summarize()
-summarize() will produce summary statistics for a given variable in a data frame. For example, in homework 2 you were asked to calculate the mean of the sleep total column for large and small mammals. We did this using a combination of tidyverse and base R commands, which isn't very efficient or clean. It also took two steps.
+We need to start by separating the patient names from their sexes. `separate()` needs to know which column you want to split, the names of the new columns, and what to look for in terms of breaks in the data.
 ```{r}
-msleep
-?msleep
+heartrate2 %>% 
+  separate(patient, into= c("patient", "sex"), sep = "_")
 ```
-
-From homework 2.
-```{r}
-large <- msleep %>% 
-  select(name, genus, bodywt, sleep_total) %>% 
-  filter(bodywt >= 200) %>% 
-  arrange(desc(bodywt))
-```
-
-```{r}
-mean(large$sleep_total)
-```
-
-We can accomplish the same task using the `summarize()` function in the tidyverse and make things cleaner.
-```{r}
-msleep %>% 
-  filter(bodywt >= 200) %>%
-  summarize(mean_sleep_lg = mean(sleep_total))
-```
-
-You can also combine functions to make useful summaries for multiple variables.
-```{r}
-msleep %>% 
-    filter(bodywt >= 200) %>% 
-    summarize(mean_sleep_lg = mean(sleep_total), 
-              min_sleep_lg = min(sleep_total),
-              max_sleep_lg = max(sleep_total),
-              total = n())
-```
-
-There are many other useful summary statistics, depending on your needs: sd(), min(), max(), median(), sum(), n() (returns the length of vector), first() (returns first value in vector), last() (returns last value in vector) and n_distinct() (number of distinct values in vector).
 
 ## Practice
-1. How many genera are represented in the msleep data frame?
+1. Re-examine `heartrate2`. Use `separate()` for the sexes, `pivot_longer()` to tidy, and `arrange()` to organize by patient and drug. Store this as a new object `heartrate3`.  
 ```{r}
-msleep %>%
-  summarize(ngenera = n_distinct(genus))
+heartrate3 <- 
+  heartrate2 %>% 
+  separate(patient, into= c("patient", "sex"), sep = "_") %>% 
+  pivot_longer(a:d,
+               names_to = "drug",
+               values_to = "heartrate")
+heartrate3
 ```
 
-2. What are the min, max, and mean body weight for all of the mammals? Be sure to include the total n.
+2. `unite()` is the opposite of separate(). Its syntax is straightforward. You only need to give a new column name and then list the columns to combine with a separation character.  Give it a try below by recombining patient and sex from `heartrate3`.  
 ```{r}
-msleep %>%
-  summarize(min_bodywt = min(bodywt),
-            max_bodywt = max(bodywt),
-            mean_bodywt = mean(bodywt),
-            total = n())
-```
-
-##group_by()
-The `summarize()` function is most useful when used in conjunction with `group_by()`. Although producing a summary of body weight for all of the mammals in the dataset is helpful, what if we were interested in body weight by feeding ecology?
-```{r}
-msleep %>%
-  group_by(vore) %>% #we are grouping by feeding ecology
-  summarize(min_bodywt = min(bodywt),
-            max_bodywt = max(bodywt),
-            mean_bodywt = mean(bodywt),
-            total=n())
-```
-
-## Practice
-1. Calculate mean brain weight by taxonomic order in the msleep data.
-```{r}
-msleep %>% 
-  group_by(order) %>% 
-  summarize(mean_brainwt = mean(brainwt))
-```
-
-2. What does `NA` mean?
-
-3. Try running the code again, but this time add `na.rm=TRUE`. What is the problem with Cetacea?
-```{r}
-msleep %>% 
-  group_by(order) %>% 
-  summarize(mean_brainwt = mean(brainwt, na.rm = TRUE))
-```
-
-```{r}
-msleep %>% 
-  filter(order == "Cetacea")
+heartrate3 %>% 
+  unite(patient_sex, patient, sex, sep="_")
 ```
 
 ## That's it, let's take a break!   
 
---> On to [part 2](https://jmledford3115.github.io/datascibiol/lab4_2.html)  
+-->[Home](https://jmledford3115.github.io/datascibiol/)

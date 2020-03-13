@@ -25,6 +25,12 @@ We have eight total labs. The last two labs (9 and 10) will be devoted to gettin
 1. **Lab 1** | [part 1](https://jmledford3115.github.io/datascibiol/lab1_1.html) | [part 2](https://jmledford3115.github.io/datascibiol/lab1_2.html) | [HW 1](https://jmledford3115.github.io/datascibiol/lab1_hw.html)  
 2. **Lab 2** | [part 1](https://jmledford3115.github.io/datascibiol/lab2_1.html) | [part 2](https://jmledford3115.github.io/datascibiol/lab2_2.html) | [HW 2](https://jmledford3115.github.io/datascibiol/lab2_hw.html)  
 3. **Lab 3** | [part 1](https://jmledford3115.github.io/datascibiol/lab3_1.html) | [part 2](https://jmledford3115.github.io/datascibiol/lab3_2.html) | [HW 3](https://jmledford3115.github.io/datascibiol/lab3_hw.html)  
+4. **Lab 4** | [part 1](https://jmledford3115.github.io/datascibiol/lab4_1.html) | [part 2](https://jmledford3115.github.io/datascibiol/lab4_2.html) | [HW 4](https://jmledford3115.github.io/datascibiol/lab4_hw.html)  
+5. **Lab 5** | [part 1](https://jmledford3115.github.io/datascibiol/lab5_1.html) | [part 2](https://jmledford3115.github.io/datascibiol/lab5_2.html) | [HW 5](https://jmledford3115.github.io/datascibiol/lab5_hw.html)  
+6. **Lab 6** | [part 1](https://jmledford3115.github.io/datascibiol/lab6_1.html) | [part 2](https://jmledford3115.github.io/datascibiol/lab6_2.html) | [HW 6](https://jmledford3115.github.io/datascibiol/lab6_hw.html)  
+7. **Lab 7** | [part 1](https://jmledford3115.github.io/datascibiol/lab7_1.html) | [part 2](https://jmledford3115.github.io/datascibiol/lab7_2.html) | [HW 7](https://jmledford3115.github.io/datascibiol/lab7_hw.html)  
+8. **Lab 8** | [part 1](https://jmledford3115.github.io/datascibiol/lab8_1.html) | [part 2](https://jmledford3115.github.io/datascibiol/lab8_2.html) | [HW 8](https://jmledford3115.github.io/datascibiol/lab8_hw.html) 
+9. **Lab 9** | [part 1](https://jmledford3115.github.io/datascibiol/lab9_1.html) | [part 2](https://jmledford3115.github.io/datascibiol/lab9_2.html) | [HW 9](https://jmledford3115.github.io/datascibiol/lab9_hw.html)    
 
 ## Reading  
 [R for Data Science](https://r4ds.had.co.nz/), Grolemund and Wickham (2017).  
@@ -32,4 +38,7 @@ We have eight total labs. The last two labs (9 and 10) will be devoted to gettin
 ## Setup Your Computer  
 Easy [setup instructions](https://jmledford3115.github.io/datascibiol/setup.html) for your personal computer.  
 
-## Let's Get Started [lab 1](https://jmledford3115.github.io/datascibiol/lab1_1.html)  
+## About the Class  
+This class has been developed with the generous help of Katherine Ransom, Rebecca Godwin, and the students of BIS 15L! If you see errors or have suggestions, please make a pull request on [GitHub](https://github.com/jmledford3115/datascibiol). Thank you!  
+
+## Let's Get Started! [lab 1](https://jmledford3115.github.io/datascibiol/lab1_1.html)  

@@ -1,7 +1,7 @@
 ---
 title: "Lab 6 Homework"
-author: "Joel Ledford"
-date: "Winter 2019"
+author: "Please Add Your Name Here"
+date: "`r Sys.Date()`"
 output:
   html_document:
     theme: spacelab
@@ -13,56 +13,55 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 ## Instructions
-Answer the following questions and complete the exercises in RMarkdown. Please embed all of your code, keep track of your versions using git, and push your final work to our [GitHub repository](https://github.com/FRS417-DataScienceBiologists). I will randomly select a few examples of student work at the start of each session to use as examples so be sure that your code is working to the best of your ability.
+Answer the following questions and complete the exercises in RMarkdown. Please embed all of your code and push your final work to your repository. Your final lab report should be organized, clean, and run free from errors. Remember, you must remove the `#` for any included code chunks to run.  
 
-## Load the libraries
+## Libraries
 ```{r message=FALSE, warning=FALSE}
 library(tidyverse)
-library(skimr)
-library("RColorBrewer")
 ```
 
 ## Resources
-The idea for this assignment came from [Rebecca Barter's](http://www.rebeccabarter.com/blog/2017-11-17-ggplot2_tutorial/) ggplot tutorial so if you get lost go have a look. Please do not copy and paste her code!  
+The idea for this assignment came from [Rebecca Barter's](http://www.rebeccabarter.com/blog/2017-11-17-ggplot2_tutorial/) ggplot tutorial so if you get stuck this is a good place to have a look.  
 
 ## Gapminder
-For this assignment, we are going to use the dataset [gapminder](https://cran.r-project.org/web/packages/gapminder/index.html). Gapminder includes information about economics, population, and life expectancy from countries all over the world. You will need to install it before use.
+For this assignment, we are going to use the dataset [gapminder](https://cran.r-project.org/web/packages/gapminder/index.html). Gapminder includes information about economics, population, and life expectancy from countries all over the world. You will need to install it before use. This is the same data that we used for the practice midterm. You may want to load that assignment for reference.  
 ```{r}
 #install.packages("gapminder")
-```
-
-```{r}
 library("gapminder")
 ```
 
-Please load the data into a new object called gapminder.
-```{r}
-gapminder <- 
-  gapminder::gapminder
-```
+## Questions
+The questions below are open-ended and have many possible solutions. Your approach should, where appropriate, include numerical summaries and visuals. Be creative; assume you are building an analysis that you would ultimately present to an audience of stakeholders. Feel free to try out different `geoms` if they more clearly present your results.  
 
-1. Explore the data using the various function you have learned. Is it tidy, are there any NA's, what are its dimensions, what are the column names, etc.
+**1. Use the function(s) of your choice to get an idea of the overall structure of the data frame, including its dimensions, column names, variable classes, etc. As part of this, determine how NAs are treated in the data.**  
 
-2. We are interested in the relationship between per capita GDP and life expectancy; i.e. does having more money help you live longer on average. Make a quick plot below to visualize this relationship.
 
-3. There is extreme disparity in per capita GDP. Rescale the x axis to make this easier to interpret. How would you characterize the relationship?
+**2. Among the interesting variables in gapminder is life expectancy. How has global life expectancy changed between 1952 and 2007?**
 
-4. This should look pretty dense to you with significant overplotting. Try using a faceting approach to break this relationship down by year.
 
-5. Simplify the comparison by comparing only 1952 and 2007. Can you come to any conclusions?
+**3. How do the distributions of life expectancy compare for the years 1952 and 2007? _Challenge: Can you put both distributions on a single plot?_**
 
-6. Let's stick with the 1952 and 2007 comparison but make some aesthetic adjustments. First try to color by continent and adjust the size of the points by population. Add `+ scale_size(range = c(0.1, 10), guide = "none")` as a layer to clean things up a bit.
 
-7. Although we did not introduce them in lab, ggplot has a number of built-in themes that make things easier. I like the light theme for these data, but you can see lots of options. Apply one of these to your plot above.
-```{r}
-?theme_light
-```
+**4. Your answer above doesn't tell the whole story since life expectancy varies by region. Make a summary that shows the min, mean, and max life expectancy by continent for all years represented in the data.**
 
-8. What is the population for all countries on the Asian continent in 2007? Show this as a barplot.
 
-9. You should see that China's population is the largest with India a close second. Let's focus on China only. Make a plot that shows how population has changed over the years.
+**5. How has life expectancy changed between 1952-2007 for each continent? Try using `geom_line()` for this, including all continents on the same  plot.**
 
-10. Let's compare China and India. Make a barplot that shows population growth by year using `position=dodge`. Apply a custom color theme using RColorBrewer.
 
-## Push your final code to [GitHub](https://github.com/FRS417-DataScienceBiologists)
-Make sure that you push your code into the appropriate folder. Also, be sure that you have check the `keep md` file in the knit preferences.
+**6. We are interested in the relationship between per capita GDP and life expectancy; i.e. does having more money help you live longer?**
+
+
+**7. There is extreme disparity in per capita GDP. Rescale the x axis to make this easier to interpret. How would you characterize the relationship?**
+
+
+**8. Which countries have had the largest population growth since 1952?**
+
+
+**9. Use your results from the question above to plot population growth for the top five countries since 1952.**
+
+
+**10. How does per capita GDP growth compare between these same five countries?**
+
+
+## Push your final code to GitHub!
+Please be sure that you check the `keep md` file in the knit preferences. 

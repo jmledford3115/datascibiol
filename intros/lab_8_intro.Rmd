@@ -1,0 +1,25 @@
+---
+title: "Lab 8: GenBank, BLAST, and Phylogenies"
+author: "Rebecca Godwin"
+date: "Winter 2020"
+output: ioslides_presentation
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+library("jpeg")
+```
+
+## Homework
+- Take 5 minutes or so to double check that your homework is complete and uploaded.
+- Suggestion: have a lab partner have a look at your repository on github.com. 
+- Edit your readme!  
+
+## Group Projects
+- Meet with your partner to discuss project progress.  
+- What needs to be done?
+
+## Timeline
+- This week is focused on genetic data. 
+- Week 9 will be for help with projects, including slide making/ image exports.
+- Week 10 will be presentations.

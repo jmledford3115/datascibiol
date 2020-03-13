@@ -1,7 +1,5 @@
 ---
-title: "Visualizing Data 3"
-author: "Joel Ledford"
-date: "Winter 2019"
+title: "Data Visualization: `ggplot` part 2"
 output:
   html_document:
     theme: spacelab
@@ -11,198 +9,198 @@ output:
     toc: yes
 ---
 
-## Resources
-- [ggplot2 cheatsheet](https://www.rstudio.com/wp-content/uploads/2015/03/ggplot2-cheatsheet.pdf)
-- [R for Data Science](https://r4ds.had.co.nz/)
-- [R Cookbook](http://www.cookbook-r.com/)
-
 ## Learning Goals
 *At the end of this exercise, you will be able to:*    
-1. Build stacked barplots of categorical variables.  
-2. Build side-by-side barplots using `position= "dodge"`.  
-3. Build histograms and density plots.  
-4. Create new categories with `case_when()`.
+1. Produce boxplots using `ggplot.`  
+2. Customize labels on axes using `labs` and `themes`.  
+3. Use `color`, `fill`, and `group` to customize plots and improve overall aesthetics.  
+
+## Review
+Now that you have been introduced to `ggplot`, let's practice a few more plot types and learn how to manipulate the aesthetics of plots to better suit our needs. Aesthetics can make a significant difference, but you can take it too far so remember that the goal is to produce clean plots that are not distracting.  
+
+##Resources
+- [ggplot2 cheatsheet](https://www.rstudio.com/wp-content/uploads/2015/03/ggplot2-cheatsheet.pdf)
+- [`ggplot` themes](https://ggplot2.tidyverse.org/reference/ggtheme.html)
+- [Rebecca Barter `ggplot` Tutorial](http://www.rebeccabarter.com/blog/2017-11-17-ggplot2_tutorial/)
 
 ## Load the libraries
 ```{r message=FALSE, warning=FALSE}
 library(tidyverse)
+library(skimr)
 ```
 
-```{r}
-options(scipen=999) #cancels the use of scientific notation for the session
-```
-
-## Data
+## Load the data
 **Database of vertebrate home range sizes.**  
 Reference: Tamburello N, Cote IM, Dulvy NK (2015) Energy and the scaling of animal space use. The American Naturalist 186(2):196-211. http://dx.doi.org/10.1086/682070.  
-Data: http://datadryad.org/resource/doi:10.5061/dryad.q5j65/1  
-
+Data: http://datadryad.org/resource/doi:10.5061/dryad.q5j65/1
 ```{r message=FALSE, warning=FALSE}
-homerange <- 
-  readr::read_csv("data/Tamburelloetal_HomeRangeDatabase.csv", na = c("", "NA", "\\"))
+homerange <- readr::read_csv("data/Tamburelloetal_HomeRangeDatabase.csv")
 ```
 
-Note that when making this tutorial, we noticed a stray backtick in a cell under the primary method category. We want to set this to NA, so we include it in the list of NA indicators we have in our data (`"\\"`). Two backticks are required because the backtick is a special escape character in R. 
+Notice that the homerange data has "NA" in the csv file and this is the default NA indicator for read_csv, but other functions have different defaults so it's always good to check by reading the help file and knowing which indicators you have in your data set.  
+```{r}
+glimpse(homerange)
+```
 
-## Barplots revisited
-At this point you should be able to build a barplot that shows counts of observations in a variable using `geom_bar()`. But, you should also be able to use `stat="identity"` to specify both x and y axes.  
+## Box Plots
+Boxplots help us visualize a range of values. So, on the x-axis we typically have something categorical and the y-axis is the range. In the case below, we are plotting `log10.mass` by taxonomic class in the homerange data. `geom_boxplot()` is the geom type for a standard boxplot. The center line in each box represents the median, not the mean.
 
-Although we did not use it last time, `geom_col()` is the same as specifying `stat="identity"` using `geom_bar()`.     
-
-## Here is the plot using `geom_bar(stat="identity")`
+Let's look at the variable `log10.mass` grouped by taxonomic class.
 ```{r}
 homerange %>% 
-  filter(family == "salmonidae") %>% #filter for salmonid fish only
-  ggplot(aes(x = common.name, y = log10.mass)) +
-  geom_bar(stat = "identity")
+  group_by(class) %>% 
+  summarize(min_log10.mass=min(log10.mass),
+            max_log10.mass=max(log10.mass),
+            mean_log10.mass=mean(log10.mass),
+            median_log10.mass=median(log10.mass))
+```
+
+```{r}
+homerange %>% 
+  ggplot(aes(x = class, y = log10.mass)) +
+  geom_boxplot()
 ```
 
 ## Practice
-1. Make the same plot above, but use `geom_col()`
+1. There are more herbivores than carnivores in the homerange data, but how do their masses compare? Make a summary and boxplot that compares their masses. Use `log10.mass`.
 ```{r}
 homerange %>% 
-  filter(family == "salmonidae") %>% #filter for salmonid fish only
-  ggplot(aes(x = common.name, y = log10.mass)) +
-  geom_col()
+  group_by(trophic.guild) %>% 
+  summarize(min_log10.mass=min(log10.mass),
+            max_log10.mass=max(log10.mass),
+            mean_log10.mass=mean(log10.mass),
+            median_log10.mass=median(log10.mass),
+            total_n=n())
 ```
 
-## Barplots and multiple variables
-Last time we explored the `fill` option in boxplots as a way to bring color to the plot; i.e. we filled by the same variable that we were plotting. What happens when we fill by a different categorical variable? 
-
-Let's start by counting how many obervations we have in each taxonomic group.
 ```{r}
 homerange %>% 
-  count(taxon)
+  ggplot(aes(x = trophic.guild, y = log10.mass)) +
+  geom_boxplot()
 ```
 
-Now let's make a barplot of these data.
+2. Have a closer look at carnivorous mammals. Summarize and visualize the range of log10.mass by family.
 ```{r}
 homerange %>% 
-  ggplot(aes(x = taxon)) +
-  geom_bar(alpha = 0.9, na.rm = TRUE) +
-  coord_flip() +
-  labs(title = "Observations by Taxon in Homerange Data",
-       x = "Taxonomic Group")
+  filter(taxon == "mammals" & trophic.guild == "carnivore") %>% 
+  summarize(min_log10.mass=min(log10.mass),
+            max_log10.mass=max(log10.mass),
+            mean_log10.mass=mean(log10.mass),
+            median_log10.mass=median(log10.mass),
+            total_n=n()) %>% 
+  pivot_longer(cols=everything(),
+               names_to="measure",
+               values_to = "value")
 ```
 
-By specifying `fill=trophic.guild` we build a stacked bar plot that shows the proportion of a given taxonomic group that is an herbivore or carnivore.
+3. Now use a boxplot to visualize the range of body mass by family of carnivore.
 ```{r}
 homerange %>% 
-  ggplot(aes(x = taxon, fill = trophic.guild)) +
-  geom_bar(alpha = 0.9, na.rm = T) +
-  coord_flip() +
-  labs(title = "Observations by Taxon in Homerange Data",
-       x = "Taxonomic Group",
-       fill = "Trophic Guild")
-```
-
-We can also have counts of each trophic guild within taxonomic group shown side-by-side by specifying `position="dodge"`.
-```{r}
-homerange %>% 
-  ggplot(aes(x = taxon, fill = trophic.guild)) +
-  geom_bar(alpha = 0.9, na.rm = T, position = "dodge") +
-  theme(legend.position = "right",
-        axis.text.x = element_text(angle = 60, hjust = 1)) +
-  labs(title = "Observations by Taxon in Homerange Data",
-       x = "Taxonomic Group",
-       fill= "Trophic Guild")
-```
-
-We can also scale all bars to a percentage (or proportion).
-```{r}
-homerange %>% 
-  ggplot(aes(x = taxon, fill = trophic.guild))+
-  geom_bar(position = position_fill(), stat = "count")+ 
-  scale_y_continuous(labels = scales::percent)+
+  filter(taxon == "mammals" & trophic.guild == "carnivore") %>%
+  ggplot(aes(x = family, y = log10.mass)) +
+  geom_boxplot()+
   coord_flip()
 ```
 
+## Aesthetics: Labels
+Now that we have practiced scatterplots, barplots, and boxplots we need to learn how to adjust their appearance to suit our needs. Let's start with labelling x and y axes.  
+
+In this example from part 1, we explored the relationship between body mass and homerange.
+```{r}
+ggplot(data = homerange, mapping = aes(x = log10.mass, y = log10.hra)) +
+  geom_point()
+```
+
+The plot looks clean, but it is incomplete. A reader unfamiliar with the data might have a difficult time interpreting the current labels. To add custom labels, we use the `labs` command.
+```{r}
+ggplot(data = homerange, mapping = aes(x = log10.mass, y = log10.hra)) +
+  geom_point() +
+  labs(title = "Mass vs. Homerange",
+       x = "Mass (log10)",
+       y = "Homerange (log10)")
+```
+
+We can improve the plot further by adjusting the size and face of the text. We do this using `theme()`.
+```{r}
+ggplot(data = homerange, mapping = aes(x = log10.mass, y = log10.hra)) +
+  geom_point() +
+  labs(title = "Mass vs. Homerange",
+       x = "Mass (log10)",
+       y = "Homerange (log10)")+
+  theme(plot.title = element_text(size = 18, face = "bold"),
+        axis.text = element_text(size = 12),
+        axis.title = element_text(size = 12))
+```
+
+The `rel()` option changes the relative size of the title to keep things consistent. Adding `hjust` allows control of title position.
+```{r}
+ggplot(data = homerange, mapping = aes(x = log10.mass, y = log10.hra)) +
+  geom_point() +
+  labs(title = "Mass vs. Homerange",
+       x = "Mass (log10)",
+       y = "Homerange (log10)")+ 
+  theme(plot.title = element_text(size = rel(2), hjust = 0.5))
+```
+
 ## Practice
-1. Make a barplot that shows locomotion type by `primarymethod`. Try both a stacked barplot and `position="dodge"`.
+1. Make a barplot that shows the number of individuals per locomotion type. Be sure to provide a title and label the axes appropriately.
 ```{r}
 homerange %>% 
-  ggplot(aes(x=locomotion, fill=primarymethod))+
-  geom_bar(position = position_fill(), stat = "count")+ 
-  scale_y_continuous(labels = scales::percent)+
-  coord_flip()
+  ggplot(aes(x = locomotion)) +
+  geom_bar() +
+  labs(title = "Locomotion Type",
+       x = "Locomotion Type",
+       y = "# Individuals")+ 
+  theme(plot.title = element_text(size = rel(1.5)))
 ```
 
-## Histograms and Density Plots
-Histograms are frequently used by biologists; they show the distribution of continuous variables. As students, you almost certainly have seen histograms of grade distributions. Without getting into the statistics, a histogram `bins` the data and you specify the number of bins that encompass a range of observations. For something like grades, this is easy because the number of bins corresponds to the grades A-F. By default, R uses a formula to calculate the number of bins but some adjustment is often required.  
-
-What does the distribution of body mass look like in the homerange data?
+## Other Aesthetics
+There are lots of options for aesthtics. An aesthetic can be assigned to either numeric or categorical data. `color` is a common option; notice that an appropriate key is displayed when you use one of these options.
 ```{r}
 homerange %>% 
-  ggplot(aes(x = log10.mass)) +
-  geom_histogram(fill = "steelblue", alpha = 0.8, color = "black")+
-  labs(title = "Distribution of Body Mass")
+  ggplot(aes(x = log10.mass, y = log10.hra, color = locomotion)) +
+  geom_point()
 ```
 
-`Density plots` are similar to histograms but they use a smoothing function to make the distribution more even and clean looking. They do not use bins.
+`size` adjusts the size of points relative to a continuous variable.
+```{r}
+options(scipen = 999) #disable scientific notation
+
+homerange %>% 
+  ggplot(aes(x = log10.mass, y = log10.hra, size = mean.mass.g)) +
+  geom_point()
+```
+
+Here I am plotting `class` on the x-axis and `log10.mass` on the y-axis. I use `group` to make individual box plots for each taxon. I also use `fill` so I can associate the different taxa with a color coded key.
 ```{r}
 homerange %>% 
-  ggplot(aes(x = log10.mass)) +
-  geom_density(fill = "steelblue", alpha  =0.4)+
-  labs(title = "Distribution of Body Mass")
-```
-
-I like to see both the histogram and the density curve so I often plot them together. Note that I assign the density plot a different color.
-```{r message=FALSE}
-homerange %>% 
-  ggplot(aes(x=log10.mass)) +
-  geom_histogram(aes(y = ..density..), binwidth = .4, fill = "steelblue", alpha = 0.8, color = "black")+
-  geom_density(color = "red")+
-  labs(title = "Distribution of Body Mass")
+  ggplot(aes(x = class, y = log10.mass, group = taxon, fill = taxon)) +
+  geom_boxplot()
 ```
 
 ## Practice
-1. Make a histogram of `log10.hra`. Make sure to add a title.
+1. Make a barplot that shows counts of ectotherms and endotherms. Label the axes, provide a title, and fill by thermoregulation type.
 ```{r}
 homerange %>% 
-  ggplot(aes(x=log10.hra)) +
-  geom_histogram(fill="steelblue", alpha=0.8, color="black")+
-  labs(title = "Distribution of Homerange")
+  ggplot(aes(x = thermoregulation, fill = thermoregulation)) +
+  geom_bar()+
+  labs(title = "Thermoregulation Counts",
+       x = "Thermoregulation Type",
+       y = "# Individuals")+ 
+  theme(plot.title = element_text(size = rel(1.25)))
 ```
 
-2. Now plot the same variable using `geom_density()`.
+2. Make a boxplot that compares thermoregulation type by log10.mass. Group and fill by class. Label the axes and provide a title.
 ```{r}
 homerange %>% 
-  ggplot(aes(x=log10.hra)) +
-  geom_density(fill="steelblue", alpha=0.8, color="black")+
-  labs(title = "Distribution of Homerange")
+  ggplot(aes(x = thermoregulation, y = log10.mass, group = class, fill = class))+
+  geom_boxplot()+
+  labs(title = "Thermoregulation vs. Log10 Mass by Taxonomic Class",
+       x = "Thermoregulation Type",
+       y = "log10.mass")+ 
+  theme(plot.title = element_text(size = rel(1.25)))
 ```
-
-3. Combine them both!
-```{r}
-homerange %>% 
-  ggplot(aes(x=log10.hra)) +
-  geom_histogram(aes(y = ..density..), binwidth = .4, fill="steelblue", alpha=0.8, color="black")+
-  geom_density(color="red")+
-  labs(title = "Distribution of Homerange")
-```
-
-## Create Categories with mutate and case_when()
-
-`case_when()` is a very handy function from `dplyr` which allows us to calculate a new variable from other variables. We use `case_when()` within `mutate()` to do this.`case_when()` allows us to specify multiple conditions. Let's reclassify the body mass variable into a new factor variable with small, medium, and large animals. 
-```{r}
-homerange <- homerange %>% 
-             mutate(mass_category = case_when(log10.mass <= 1.75 ~ "small",
-                                              log10.mass > 1.75 & log10.mass <= 2.75 ~ "medium",
-                                              log10.mass > 2.75 ~ "large"))
-```
-
-Here we check how the newly created body mass categories compare across trophic guild. 
-```{r}
-homerange %>% 
-  ggplot(aes(x = mass_category, fill = trophic.guild)) +
-  geom_bar(alpha = 0.9, na.rm = T) +
-  coord_flip() +
-  labs(title = "Observations by Taxon and Mass Category in Homerange Data",
-       x = "Mass Category",
-       fill = "Trophic Guild")
-```
-
 
 ## That's it, let's take a break!   
 
---> On to [part 2](https://jmledford3115.github.io/datascibiol/lab6_2.html)  
+-->[Home](https://jmledford3115.github.io/datascibiol/)

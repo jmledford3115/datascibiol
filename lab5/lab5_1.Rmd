@@ -1,7 +1,6 @@
 ---
-title: "Data Visualization 1"
-author: "Joel Ledford"
-date: "Winter 2019"
+title: "Dealing with NA's"
+date: "`r Sys.Date()`"
 output:
   html_document:
     theme: spacelab
@@ -11,168 +10,253 @@ output:
     toc: yes
 ---
 
-## Where have we been, and where are we going?
-At this point you should feel reasonably comfortable working in RStudio and using dplyr and tidyr. You also know how to produce statistical summaries of data and deal with NA's. It is OK if you need to go back through the labs and find bits of code that work for you, but try and force yourself to originate new chunks.  
-
-## Group Project
-Meet with your group and decide on a data set that you will use for your project. Be prepared to discuss these data, where you found them, and what you hope to learn.  
-
-##Resources
-- [ggplot2 cheatsheet](https://www.rstudio.com/wp-content/uploads/2015/03/ggplot2-cheatsheet.pdf)
-- [R for Data Science](https://r4ds.had.co.nz/)
-- [R Cookbook](http://www.cookbook-r.com/)
-
 ## Learning Goals
 *At the end of this exercise, you will be able to:*    
-1. Understand and apply the syntax of building plots using `ggplot2`.  
-2. Build a boxplot using `ggplot2`.  
-3. Build a scatterplot using `ggplot2`.  
-4. Build a barplot using `ggplot2` and show the difference between `stat=count` and `stat=identity`.  
+1. Define `NA` and describe how they are treated in R.  
+2. Produce summaries of the number of NA's in a data set.   
+3. Replace values with `NA` in a data set as appropriate.  
+
+## Review
+In the last section we practiced wrangling untidy data using `tidyr`. We also learned the `summarize()` function and `group_by()` to produce useful summaries of our data. But, we ended the last session with the discovery of NA's and how they can impact analyses. This is a big issue in data science and we will spend the remainder of this lab learning how to manage data with missing values.  
+
+## Install `naniar` and `skimr` if necessary
+```{r}
+#install.packages("naniar")
+#install.packages("skimr")
+```
 
 ## Load the libraries
-```{r message=FALSE, warning=FALSE}
-library(tidyverse)
-library(skimr)
+```{r}
+library("tidyverse")
+library("naniar")
+library("skimr")
 ```
 
-## Grammar of Graphics
-The ability to quickly produce and edit beautiful graphs and charts is a strength of R. These data visualizations are produced by the package `ggplot2` and it is a core part of the tidyverse. The syntax for using ggplot is specific and common to all of the plots. This is what Hadley Wickham calls a [Grammar of Graphics](http://vita.had.co.nz/papers/layered-grammar.pdf). The "gg" in `ggplot` stands for grammar of graphics.
+## Dealing with NA's
+In almost all large data sets, there are missing observations. These can be tricky to deal with, partly because you first need to determine how missing values were treated in the original study. In a given data set, NA might represent values that are unrecorded because they are unknown or missing. But, they can also represent data that are not applicable.  
 
-## Philosophy
-What makes a good chart? In my opinion a good chart is elegant in its simplicity. It provides a clean, clear visual of the data without being overwhelming to the reader. This can be hard to do and takes some careful thinking. Always keep in mind that the reader will almost never know the data as well as you do so you need to be mindful about presenting the facts.  
+Scientists use different conventions in showing missing data; some use blank spaces, others use "-", etc. Unfourtunately, sometimes **missing data is indicated with numerics like -999.0 or zero!**, though this can be required in some situations (for example raster data). Often, a combination of methods are used. It is up to the data analyst to find out how missing values are represented in the data set and to deal with them appropriately. 
 
-## Data Types
-While this isn't a statistics class, we need to define some of the data types we will use to build plots.  
+## Practice
+For the following, we will use life history data for mammals. The [data](http://esapubs.org/archive/ecol/E084/093/) are from:  
+**S. K. Morgan Ernest. 2003. Life history characteristics of placental non-volant mammals. Ecology 84:3402.**  
 
-+ `discrete` quantitative data that only contains integers
-+ `continuous` quantitative data that can take any numerical value
-+ `categorical` qualitative data that can take on a limited number of values
-
-## Basics
-The syntax used by ggplot takes some practice to get used to, especially for customizing plots, but the basic elements are the same. It is helpful to think of plots as being built up in layers. In short, **plot= data + geom_ + aesthetics**.  
-
-We start by calling the ggplot function, identifying the data, and specifying the axes. We then add the `geom` type to describe which type of plot we want to make. Each `geom_` works with specific types of data and R is capable of building plots of single variables, multiple variables, and even maps. Lastly, we add aesthetics.
-
-ggplot works best with tidy data, so it is sometimes necessary to tidy data before plotting. We will start with tidy data for simplicity. 
-
-## Example
-To make things easy, let's start with some built in data.
+1. Load the mammals life history data. Do you see any NA's?  
 ```{r}
-?iris
-names(iris)
+life_history <- readr::read_csv("data/mammal_lifehistories_v2.csv")
 ```
 
-To make a plot, we need to first specify the data and map the aesthetics. The aesthetics include how each variable in our dataset will be used. In the example below, I am using the aes() function to identify the x and y variables in the plot.
 ```{r}
-ggplot(data = iris, mapping = aes(x = Species, y = Petal.Length))
+glimpse(life_history)
 ```
 
-Notice that we have a nice background, labeled axes, and even values of our variables- but no plot. This is because we need to tell ggplot what type of plot we want to make. This is called the geometry or `geom()`. There are many types of `geom`, see the ggplot [cheatsheet](https://www.rstudio.com/wp-content/uploads/2015/03/ggplot2-cheatsheet.pdf).
+2. What are the possible problems if missing data are indicated by values such as "-999.0" or "0"?  
 
-Here we specify that we want a boxplot, indicated by `geom_boxplot()`.
+
+3. How do you think we will end up dealing with NAs in the `life_history` data?  
+
+
+## For the following examples, we will use the built-in `msleep` data
 ```{r}
-ggplot(data = iris, mapping = aes(x = Species, y = Petal.Length)) +
-  geom_boxplot()
+?msleep
+glimpse(msleep)
+```
+
+## Are there any NA's?
+Let's first check to see if our data has any NA's. `is.na()` is a function that determines whether a value in a data frame is or is not an NA. This is evaluated logically as TRUE or FALSE.  
+
+Keep in mind, these are the values that R is interpreting as NA. If the authors of the data represented NA's in another way, they will not be detected by R.
+```{r}
+is.na(msleep)
+```
+
+OK, what are we supposed to do with that? Unless you have a small data frame, applying the `is.na()` function is not helpful but we can use the code in another way. Let's incorporate it into the `summarize()` function.
+```{r}
+msleep %>% 
+  summarize(number_nas = sum(is.na(msleep)))
+```
+
+This is better, but we still don't have any idea of where those NA's are in our data frame. If there were a systemic problem in the data it would be hard to determine. In order to do this, we need to apply `is.na()` to each variable of interest.
+```{r}
+msleep %>% 
+  summarize(number_nas = sum(is.na(conservation)))
+```
+
+The `summary()` function in base R will tally NAs by variable, but only for categorical/factor, numeric, integer, or logical columns. What about any NA values in the character columns?
+```{r}
+summary(msleep)
 ```
 
 ## Practice
-Take a moment to practice. Use the iris data to build a scatterplot that compares sepal length vs. sepal width. Use the cheatsheet to find the correct `geom_` for a scatterplot.
+1. Load the data `import_export.csv` and store it as a new object `import_export`.
 ```{r}
-ggplot(data = iris, mapping = aes(x = Sepal.Length, y = Sepal.Width)) +
-  geom_point()
+import_export <- 
+  readr::read_csv("data/import_export.csv")
 ```
 
-## Scatterplots, barplots, and boxplots
-Now that we have a general idea of the syntax, let's start by working with two standard plots: 1) scatterplots and 2) barplots.
-
-## Data
-For the following examples, I am going to use data about vertebrate home range sizes.  
-
-**Database of vertebrate home range sizes.**  
-Reference: Tamburello N, Cote IM, Dulvy NK (2015) Energy and the scaling of animal space use. The American Naturalist 186(2):196-211. http://dx.doi.org/10.1086/682070.  
-Data: http://datadryad.org/resource/doi:10.5061/dryad.q5j65/1  
-
-```{r message=FALSE, warning=FALSE}
-homerange <- 
-  readr::read_csv("data/Tamburelloetal_HomeRangeDatabase.csv")
+2. Are there NAs in the data? Evaluate this logically (true/false).
+```{r}
+is.na(import_export)
 ```
 
-As a follow up to lab 4, view the homerange data frame by opening it in R (click on it in the Environment tab). Are there grey italicized NA values? The NAs in the csv file are indicated by NA, which the `read_csv()` function uses as a default NA indicator. If our data file used something else, we would need to specify it above. 
-
-### 1. Scatter Plots
-Scatter plots are good at revealing relationships that are not readily visible in the raw data. For now, we will not add regression lines or calculate any r^2^ values.  
-
-In the case below, we are exploring whether or not there is a relationship between animal mass and homerange. We are using the log transformed values because there is a large difference in mass and homerange among the different species in the data.
+3. How many total NAs are present?
 ```{r}
-ggplot(data = homerange, mapping = aes(x = log10.mass, y = log10.hra)) +
-  geom_point()
+import_export %>% 
+  summarize(number_nas = sum(is.na(import_export)))
 ```
 
-In big data sets with lots of similar values, overplotting can be an issue. `geom_jitter()` is similar to `geom_point()` but it helps with overplotting by adding some random noise to the data and separating some of the individual points.
+## NAs in large datasets using `purr`
+What if we are working with hundreds or thousands (or more!) variables?! In order to deal with this problem efficiently we can use another package in the tidyverse called `purrr`.  
+
+This handy bit of code generates a new data frame that sums all NA's accross variables.
 ```{r}
-ggplot(data = homerange, mapping = aes(x = log10.mass, y = log10.hra)) +
-  geom_jitter()
+msleep %>%
+  purrr::map_df(~ sum(is.na(.))) #map to a new data frame the sum results of the is.na function for all columns
 ```
 
-You want to see the regression line, right?
+Don't forget that we can use `pivot_longer()` to make viewing this output easier.
 ```{r}
-ggplot(data=homerange, mapping=aes(x=log10.mass, y=log10.hra)) +
-  geom_jitter()+
-  geom_smooth(method=lm, se=FALSE) #adds the regression line, `se=TRUE` will add standard error
+msleep %>% 
+  purrr::map_df(~ sum(is.na(.))) %>% 
+  pivot_longer(everything(),
+    names_to= "variables",
+    values_to = "num_nas") %>% 
+  arrange(desc(num_nas))
 ```
 
-### Practice
-1. What is the relationship between log10.hra and log10.preymass? What do you notice about how ggplot treats NA's?
+This is much better, but we need to be careful. R can have difficulty interpreting missing data. This is especially true for categorical variables. Always do a reality check if the output doesn't make sense to you. A quick check never hurts and can save you from wasting time in the future or from drawing false conclusions.  
+
+You can explore a specific variable more intently using `count()`. This operates similarly to `group_by()`.
 ```{r}
-ggplot(data = homerange, mapping = aes(x = log10.hra, y = log10.preymass)) +
-  geom_point()+
-  geom_smooth(method = lm, se = FALSE)
+msleep %>% 
+  count(conservation)
 ```
 
-### 2A. Bar Plot: `stat="count"`
-When making a bar graph, the default is to count the number of observations in the specified column. This is best for categorical data. Here, I want to know how many carnivores vs. herbivores are in the data.  
-
-Notice that we can use pipes! Also, the `mapping=` function is implied by `aes` and so is often left out.  
+Adding the `sort=TRUE` option automatically makes a descending list. We confirm that there are 29 NA's within the conservation variable.
 ```{r}
-homerange %>% 
-  ggplot(aes(x = trophic.guild))+
-  geom_bar(stat = "count")
+msleep %>% 
+  count(conservation, sort = TRUE)
 ```
 
-### 2B. Bar Plot: `stat="identity"`
-`stat="identity"` allows us to map a variable to the y axis so that we aren't restricted to counts. In this example, I start by summarizing mean body weight by taxonomic class and then use pipes to build the plot.
+It is true that all of this is redundant, but you want to be able to run multiple checks on the data. Remember, just because your code runs without errors doesn't mean it is doing what you intended.  
+
+## Replacing NAs with `na_if()` and `mutate()`
+The bit of code below is very handy, especially if the data has NAs represented as **actual values that you want replaced** or if you want to make sure any blanks are treated as NA. You can also use it to treat specific values as NA.  
+
+Let's say we know that NA's are represented by "-999". We can replace this value with NA accross the data frame.
 ```{r}
-homerange %>%
-  group_by(class) %>% 
-  summarize(mean_body_wt = mean(log10.mass)) %>% 
-  ggplot(aes(x = class, y = mean_body_wt)) +
-  geom_bar(stat = "identity")
+msleep %>% 
+  na_if("-999")
+```
+
+Let's say we want to treat "domesticated" as NA in the conservation column. For this, we use `mutate()` and `na_if()`.
+```{r}
+msleep %>%  
+  mutate(conservation = na_if(conservation, "domesticated"))%>% 
+  count(conservation, sort = TRUE) #previously there were only 29 NAs
 ```
 
 ## Practice
-1. Filter the `homerange` data to include `mammals` only.
+For the following examples, we will go back to the `life_history` data. First, let's rename some of the variables.
 ```{r}
-mammals <- 
-  homerange %>% 
-  filter(taxon == "mammals")
+life_history <- 
+  life_history %>% 
+  dplyr::rename(
+          genus        = Genus,
+          wean_mass    = `wean mass`,
+          max_life     = `max. life`,
+          litter_size  = `litter size`,
+          litters_yr   = `litters/year`
+          )
 ```
 
-2. Are there more herbivores or carnivores in mammals? Make a bar plot that shows their relative numbers.
+1. Explore the data using any method that you prefer. Below, I show a package called `skimr`. If you want to try this, make sure that it is installed and loaded.  
+
+`skimr` provides a nice output with histograms for numeric variables.
 ```{r}
-mammals %>% 
-  ggplot(aes(x = trophic.guild)) +
-  geom_bar(stat = "count")
+life_history %>% 
+  skimr::skim()
 ```
 
-3. Make a bar plot that shows the masses of the top 10 smallest mammals in terms of mass. Be sure to use `stat'="identity"`.
+2. Reconsider the practice question from the beginning of the lab. Are there any NA's in the data? Does this seem likely? Do the mean values from the `skim()` output above make sense?  
 ```{r}
-mammals %>%
-  top_n(-10, log10.mass) %>%
-  ggplot(aes(x = reorder(common.name, log10.mass), y = log10.mass)) +
-  geom_bar(stat = "identity") +
-  coord_flip()
+life_history %>% 
+  summarize(number_nas = sum(is.na(life_history)))
+```
+
+3. Replace the entries that represent NA's in the data using `na_if()`. Double check your work and compare to #2 above.
+```{r}
+life_history2 <- 
+  life_history %>% 
+  na_if("-999")
+```
+
+```{r}
+life_history2 %>% 
+  summarize(number_nas = sum(is.na(life_history2)))
+```
+
+4. In which variable are the most NAs in the data frame?
+```{r}
+life_history2 %>% 
+  purrr::map_df(~ sum(is.na(.))) %>% 
+  pivot_longer(everything(),
+    names_to= "variables",
+    values_to = "num_nas") %>% 
+  arrange(desc(num_nas))
+```
+
+## `naniar`
+`naniar` is a package that is built to manage NAs. Many of the functions it performs can be performed using tidyverse functions above, but it does provide some interesting options.
+
+`miss_var_summary` provides a clean summary of NAs across the dataframe.
+```{r}
+naniar::miss_var_summary(life_history2)
+```
+
+We can also use `miss_var_summary` with `group_by()`.
+```{r}
+life_history2 %>%
+  group_by(order) %>%
+  select(order, wean_mass) %>% 
+  naniar::miss_var_summary(order=T)
+```
+
+We can also replace -999 with NA as before. This shows replacement within the newborn column.
+```{r}
+life_history %>% 
+  naniar::replace_with_na(replace = list(newborn = -999))
+```
+
+This shows replacement within the newborn and weaning columns.
+```{r}
+life_history %>% 
+  naniar::replace_with_na(replace = list(newborn = -999, weaning= -999))
+```
+
+## Visualizing NAs
+There is another package `visdat` that can be used to visualize the proportion of different classes of data, including missing data.
+```{r}
+#install.packages("visdat")
+library(visdat)
+```
+
+```{r}
+vis_dat(life_history2) #classes of data
+```
+
+```{r}
+vis_miss(life_history2)
+```
+
+## Dealing with NA's in advance
+If you know how NA's are treated in the data, then you can deal with them in advance using `na()` as part of the `readr` package. But, you need to be sure about the analyses you want to conduct and how NA's might be interpreted.  
+```{r}
+life_history3 <- 
+  readr::read_csv(file = "data/mammal_lifehistories_v2.csv", 
+                  na = c("NA", " ", ".", "-999")) #all NA, blank spaces, .,and -999 are treated as NA
 ```
 
 ## That's it, let's take a break!   
 
---> On to [part 2](https://jmledford3115.github.io/datascibiol/lab5_2.html)  
+-->[Home](https://jmledford3115.github.io/datascibiol/)

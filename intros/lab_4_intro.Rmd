@@ -1,0 +1,37 @@
+---
+title: "Lab 4: Tidyr"
+author: "Joel Ledford"
+date: "Winter 2020"
+output: ioslides_presentation
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+library("jpeg")
+```
+
+## Setup
+1. Login to the lab computer.  
+2. Open Github Desktop (it should be pre-installed) and login.  
+3. **Clone your repository** to the desktop or somewhere convenient to access.  
+4. Navigate to github.com and login.  
+5. Go to the class repository `BIS15-W20-DataScienceBiologists`, click the `Clone or download` button then `Download zip` to the desktop.  
+6. **Copy the files** for today's lab from the class repository and paste them into **your** repository.  
+7. Open today's lab in RStudio.  
+
+## Homework
+- Take 5 minutes or so to double check that your homework is complete and uploaded.
+- Suggestion: have a lab partner have a look at your repository on github.com. 
+
+## Group Projects
+- You have been assigned to a group.
+- Introduce yourself and discuss a theme for you project.
+- Make a plan to start searching for data.
+
+## Mini-Review from last time
+1. What is the difference between `select()` and `filter()`?
+
+## Exercise
+- You are the CEO of a large corporation that is deciding on health care plans for employees.
+- Your risk assessment includes data on age, height, weight, children, smoking, and alcohol consumption.
+- Assume you have these data for 10 people- how will you organize them?

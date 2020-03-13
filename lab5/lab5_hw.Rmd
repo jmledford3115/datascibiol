@@ -1,7 +1,7 @@
 ---
 title: "Lab 5 Homework"
-author: "Joel Ledford"
-date: "Winter 2019"
+author: "Please Add Your Name Here"
+date: "`r Sys.Date()`"
 output:
   html_document:
     theme: spacelab
@@ -13,58 +13,66 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 ## Instructions
-Answer the following questions and complete the exercises in RMarkdown. Please embed all of your code, keep track of your versions using git, and push your final work to our [GitHub repository](https://github.com/FRS417-DataScienceBiologists). I will randomly select a few examples of student work at the start of each session to use as examples so be sure that your code is working to the best of your ability.
+Answer the following questions and complete the exercises in RMarkdown. Please embed all of your code and push your final work to your repository. Your final lab report should be organized, clean, and run free from errors. Remember, you must remove the `#` for the included code chunks to run.  
 
-## Load the tidyverse
-```{r message=FALSE, warning=FALSE}
-library(tidyverse)
-```
-
-## Mammals Life History
-Let's revisit the mammal life history data to practice our `ggplot` skills. Some of the tidy steps will be a repeat from the homework, but it is good practice. The [data](http://esapubs.org/archive/ecol/E084/093/) are from: *S. K. Morgan Ernest. 2003. Life history characteristics of placental non-volant mammals. Ecology 84:3402.*
-
-1. Load the data.
-
-
-2. Use your preferred function to have a look. Do you notice any problems?
-
-
-3. There are NA's. How are you going to deal with them?
-
-
-4. Where are the NA's? This is important to keep in mind as you build plots.
-
-
-5. Some of the variable names will be problematic. Let's rename them here as a final tidy step.
-
-rename(
-          genus        = Genus,
-          wean_mass    = `wean mass`,
-          max_life     = `max. life`,
-          litter_size  = `litter size`,
-          litters_yr   = `litters/year`
-          )
-
-##`ggplot()`
-For the questions below, try to use the aesthetics you have learned to make visually appealing and informative plots. Make sure to include labels for the axes and titles.
+## Libraries
 ```{r}
-options(scipen=999) #cancels the use of scientific notation for the session
+library(tidyverse)
+library(naniar)
+library(skimr)
 ```
 
-6. What is the relationship between newborn body mass and gestation? Make a scatterplot that shows this relationship. 
+## Data
+For this homework, we will use two different data sets. Please load `amniota` and `amphibio`.  
+
+### `amniota` data
+Myhrvold N, Baldridge E, Chan B, Sivam D, Freeman DL, Ernest SKM (2015). “An amniote life-history
+database to perform comparative analyses with birds, mammals, and reptiles.” _Ecology_, *96*, 3109.
+doi: 10.1890/15-0846.1 (URL: https://doi.org/10.1890/15-0846.1).
+```{r}
+amniota <- 
+  readr::read_csv("data/amniota.csv")
+```
+
+### `amphibio` data
+Oliveira BF, São-Pedro VA, Santos-Barrera G, Penone C, Costa GC (2017). “AmphiBIO, a global database
+for amphibian ecological traits.” _Scientific Data_, *4*, 170123. doi: 10.1038/sdata.2017.123 (URL:
+https://doi.org/10.1038/sdata.2017.123).
+```{r}
+amphibio <- 
+  readr::read_csv("data/amphibio.csv")
+```
+
+## Questions  
+**1. First, do some exploratory analysis of both data sets. What is the structure, column names, and dimensions?**  
 
 
-7. You should notice that because of the outliers in newborn mass, we need to make some changes. We didn't talk about this in lab, but you can use `scale_x_log10()` as a layer to correct for this issue. This will log transform the x-axis values.
+**2. How many total NAs are in each data set? Do these values make sense? Are NAs represented by any other values?**   
 
 
-8. Now that you have the basic plot, color the points by taxonomic order.
+**3. Make any necessary replacements in the data such that all NAs appear as "NA".**   
 
 
-9. Lastly, make the size of the points proportional to body mass.
+**4. Use the package `naniar` to produce a summary, including percentages, of missing data in each column for both data sets.**  
 
 
-10. Make a plot that shows the range of lifespan by order.
+**5. For the `amniota` data, calculate the number of NAs in the `egg_mass_g` column sorted by taxonomic class; i.e. how many NAs are present in the `egg_mass_g` column in birds, mammals, and reptiles? Does this results make sense biologically? How do these results affect your interpretation of NAs?**  
 
 
-## Push your final code to [GitHub](https://github.com/FRS417-DataScienceBiologists)
-Make sure that you push your code into the appropriate folder. Also, be sure that you have check the `keep md` file in the knit preferences.
+**6. Which taxonomic classes are represented in the data? Summarize this in a chart then make a barplot that shows the proportion of observations in each taxonomic class.**
+
+
+**7. Let's explore the taxonomic composition of the data a bit more. How many genera are represented by taxonomic class? Present this as a data table and bar plot.**
+
+
+**8. Lastly, how many species are represented in each taxonomic class? Present this as a data table and bar plot.**
+
+
+**9. The `amphibio` data includes information on ecology. Each species is classified as fossorial, terrestrial, aquatic, or arboreal. How many species are in each of these categories? Make a bar plot to visualize these results. Which category is most/ least represented in the data?**
+
+
+**10. For the amphibio data, we are interested to know if body size is correlated with litter size? Make a plot that shows this relationship. You should notice that there are outliers. Can you think of a way to identify the outliers for both body size and litter size? What happens when you then re-plot the data?**
+
+
+## Push your final code to GitHub!
+Please be sure that you check the `keep md` file in the knit preferences. 

@@ -1,7 +1,6 @@
 ---
-title: "Dealing with NA's"
-author: "Joel Ledford"
-date: "Winter 2019"
+title: "Tidyr 2: `pivot_wider()`, `summarize()`, and `group_by()`"
+date: "`r Sys.Date()`"
 output:
   html_document:
     theme: spacelab
@@ -11,159 +10,243 @@ output:
     toc: yes
 ---
 
-## Review
-In the last section we practiced wrangling untidy data using `tidyr`. We also learned the `summarize()` function and `group_by()` to produce useful summaries of our data. But, we ended the last session with the discovery of NA's and how they can impact analyses. This is a big issue in data science and we will spend the remainder of this lab learning how to manage data with missing values.  
-
 ## Learning Goals
 *At the end of this exercise, you will be able to:*    
-1. Produce summaries of the number of NA's in a data set.  
-2. Replace values with `NA` in a data set as appropriate.  
+1. Explain the difference between tidy and messy data.  
+2. Evaluate a dataset as tidy or untidy.  
+3. Use the `pivot_wider()` function of tidyr to transform data from long to wide format.  
+4. Use `summarize()` and `group_by()` to produce statistical summaries of data.
+
+## Group Project
+Let's take 10 minutes to decide on groups and think about a theme for our projects. What data interest you? Make a plan on doing some internet searches and selecting data that will work for your group. Think about the kinds of questions you might ask.  
+
+## Resources
+- [tidyr `pivot_wider()`](https://tidyr.tidyverse.org/reference/pivot_wider.html)  
+- [pivoting](https://cran.r-project.org/web/packages/tidyr/vignettes/pivot.html)  
+
+## Review
+Last time we learned the fundamentals of tidy data and used the `pivot_longer()` function to wrangle a few types of frequently encountered untidy data. In the second part of today's lab we will use the `pivot_wider()` function to deal with a second type of untidy data.  
 
 ## Load the tidyverse
 ```{r}
 library("tidyverse")
 ```
 
-## Dealing with NA's
-In almost all scientific data, there are missing observations. These can be tricky to deal with, partly because you first need to determine how missing values were treated in the original study. Scientists use different conventions in showing missing data; some use blank spaces, others use "-", etc. Unfourtunately, sometimes **missing data is indicated with numerics like -999.0 or zero!**, though this can be required in some situations (for example raster data). Often, a combination of methods are used. It is up to the data analyst to find out how missing values are represented in the data set and to deal with them appropriately. 
-
-## Practice
-1. What are some possible problems if missing data are indicated by "-999.0" or "0"?
-
-## Load the `msleep` data into a new object
+## `pivot_longer()`
+Recall that we use `pivot_longer()` when our column names actually represent variables. A classic example would be that the column names represent observations of a variable.
 ```{r}
-msleep <- 
-  msleep
+datasets::USPersonalExpenditure
+?USPersonalExpenditure
 ```
 
-## Are there any NA's?
-Let's first check to see if our data has any NA's. is.na() is a function that determines whether a value in a data frame is or is not an NA. This is evaluated logically as TRUE or FALSE.
+Here we add a new column of expenditure types, which are stored as rownames above, with `mutate()`. The USPersonalExpenditures data also needs to be converted to a data frame before we can use the tidyverse functions, because it comes as a matrix.
 ```{r}
-is.na(msleep)
-```
-
-OK, what are we supposed to do with that? Unless you have a small data frame, applying the is.na function universally is not helpful but we can use the code in another way. Let's incorporate it into the `summarize()` function.
-```{r}
-msleep %>% 
-  summarize(number_nas = sum(is.na(msleep)))
-```
-
-This is better, but we still don't have any idea of where those NA's are in our data frame. If there were a systemic problem in the data it would be hard to determine. In order to do this, we need to apply `is.na` to each variable of interest.
-```{r}
-msleep %>% 
-  summarize(number_nas = sum(is.na(conservation)))
-```
-
-The common `summary()` function in base R will tally NAs by variable, but only for categorical/factor, numeric, integer, or logical columns. What about any NA values in the character columns?
-```{r}
-summary(msleep)
-```
-
-
-What if we are working with hundreds or thousands (or more!) variables?! In order to deal with this problem efficiently we can use another package in the tidyverse called `purrr`.
-```{r}
-msleep_na <- 
-  msleep %>%
-  purrr::map_df(~ sum(is.na(.))) #map to a new data frame the sum results of the is.na function for all columns
-msleep_na
-```
-
-Don't forget that we can use `gather()` to make viewing this output easier.
-```{r}
-msleep %>% 
-  purrr::map_df(~ sum(is.na(.))) %>% 
-  tidyr::gather(key = "variables", value = "num_nas") %>% 
-  arrange(desc(num_nas))
-```
-
-This is much better, but we need to be careful. R can have difficulty interpreting missing data. This is especially true for categorical variables. Always do a reality check if the output doesn't make sense to you. A quick check never hurts and can save you from waisting time in the future or from drawing false conclusions.  
-
-You can explore a specific variable more intently using `count()`. This operates similarly to `group_by()`.
-```{r}
-msleep %>% 
-  count(conservation)
-```
-
-Adding the `sort=TRUE` option automatically makes a descending list.
-```{r}
-msleep %>% 
-  count(conservation, sort = TRUE)
-```
-
-It is true that all of this is redundant, but you want to be able to run multiple checks on the data. Remember, just because your code runs without errors doesn't mean it is doing what you intended.  
-
-## Replacing NA's
-The bit of code below is very handy, especially if the data has NA's represented as **actual values that you want replaced** or if you want to make sure any blanks are treated as NA. As was mentioned in Lab 1, NAs have special properties in R, so if your data has missing observations, it is important all missing values are represented with NA. 
-```{r}
-msleep_na2 <- 
-  msleep %>% 
-  na_if("") #replace x data with NA
-msleep_na2
+expenditures <- 
+  USPersonalExpenditure %>% 
+  as.data.frame() %>% 
+  mutate(expenditure = rownames(USPersonalExpenditure))
+expenditures
 ```
 
 ## Practice
-1. Did replacing blanks with NA have any effect on the msleep data? Demonstrate this using some code.
-
-
-
-## Practice and Homework
-We will work together on the next part (time permitting) and this will end up being your homework. Make sure that you save your work and copy and paste your responses into the RMarkdown homework file.
-
-Aren't mammals fun? Let's load up some more mammal data. This will be life history data for mammals. The [data](http://esapubs.org/archive/ecol/E084/093/) are from: *S. K. Morgan Ernest. 2003. Life history characteristics of placental non-volant mammals. Ecology 84:3402.*  
-
+1. Are these data tidy? Please use `pivot_longer()` to tidy the data. Here we use back ticks on the column names so R does not confuse them with numerical indices.
 ```{r}
-life_history <- 
-  readr::read_csv("data/mammal_lifehistories_v2.csv")
+expenditures_tidy <- 
+  expenditures %>% 
+  pivot_longer(-expenditure,
+               names_to = "year",
+               values_to = "bn_dollars")
+expenditures_tidy
 ```
 
-Rename some of the variables. Notice that I am replacing the old `life_history` data.
+2. Restrict the data to medical and health expenditures only. Sort in ascending order.
 ```{r}
-life_history <- 
-  life_history %>% 
+expenditures_tidy %>%
+  filter(expenditure == "Medical and Health") %>% 
+  arrange(bn_dollars)
+```
+
+## `pivot_wider()`
+The opposite of `pivot_longer()`. You use `pivot_wider()` when you have an observation scattered across multiple rows. In the example below, `cases` and `population` represent variable names not observations.  
+
+Rules:  
++ `pivot_wider`(names_from, values_from)  
++ `names_from` - Values in the `names_from` column will become new column names  
++ `values_from` - Cell values will be taken from the `values_from` column  
+
+```{r}
+tb_data <- read_csv("data/tb_data.csv")
+tb_data
+```
+
+When using `pivot_wider()` we use `names_from` to identify the variables (new column names) and `values_from` to identify the values associated with the new columns.
+```{r}
+tb_data %>% 
+  pivot_wider(names_from = "key", #the observations under key will become new columns
+              values_from = "value")
+```
+
+## Practice
+1. Load the `gene_exp.csv` data as a new object `gene_exp`. Are these data tidy? Use `pivot_wider()` to tidy the data.
+```{r}
+gene_exp <- readr::read_csv("data/gene_exp.csv")
+gene_exp
+```
+
+```{r}
+gene_exp %>% 
+  pivot_wider(names_from = "type",
+              values_from = "L4_values")
+```
+
+## `pivot_wider()` with multiple variables  
+What happens when we want to use `pivot_wider()` with multiple columns?
+```{r}
+edu_level <- readr::read_csv("data/education_level.csv")
+```
+
+We want to pivot the `edu_level` data such that there is only a single row per demographic. 
+```{r}
+edu_level %>% 
+pivot_wider(names_from = (education_level), #new column names come from the education_level column
+                values_from = c(mean_income, n)) #values come from two separate columns
+```
+
+## `rename()`
+The `rename()` function is actually part of *dplyr*, but I put it here because I think of it as part of transforming untidy data. Remember, youcan still rename columns as part of `select()`.
+```{r}
+tb_data %>% 
+  pivot_wider(names_from = "key",
+              values_from = "value") %>% 
   dplyr::rename(
-          genus        = Genus,
-          wean_mass    = `wean mass`,
-          max_life     = `max. life`,
-          litter_size  = `litter size`,
-          litters_yr   = `litters/year`
-          )
+    Country=country,
+    Year=year,
+    New_Cases=cases,
+    Population=population
+  )
 ```
 
-1. Explore the data using the method that you prefer. Below, I am using a new package called `skimr`. If you want to use this, make sure that it is installed.
+## `summarize()`
+`summarize()` will produce summary statistics for a given variable in a data frame. For example, in homework 2 you were asked to calculate the mean of the sleep total column for large and small mammals. We did this using a combination of tidyverse and base R commands, which isn't very efficient or clean. We can do better!  
 ```{r}
-#install.packages("skimr")
+msleep
+```
+
+From homework 2.
+```{r}
+large <- 
+  msleep %>% 
+  select(name, genus, bodywt, sleep_total) %>% 
+  filter(bodywt >= 200) %>% 
+  arrange(desc(bodywt))
+large
 ```
 
 ```{r}
-library("skimr")
+mean(large$sleep_total)
 ```
 
-```{r}
-life_history %>% 
-  skimr::skim()
-```
-
-2. Run the code below. Are there any NA's in the data? Does this seem likely? Do the mean values above make sense for this data?
+We can accomplish the same task using the `summarize()` function in the tidyverse and make things cleaner.
 ```{r}
 msleep %>% 
-  summarize(number_nas = sum(is.na(life_history)))
+  filter(bodywt >= 200) %>%
+  summarize(mean_sleep_lg = mean(sleep_total))
 ```
 
-3. Are there any missing data (NA's) represented by different values? How much and where? In which variables do we have the most missing data? Can you think of a reason why so much data are missing in this variable?
+You can also combine functions to make useful summaries for multiple variables.
+```{r}
+msleep %>% 
+    filter(bodywt >= 200) %>% 
+    summarize(mean_sleep_lg = mean(sleep_total), 
+              min_sleep_lg = min(sleep_total),
+              max_sleep_lg = max(sleep_total),
+              total = n())
+```
 
+`n_distinct()` is a very handy way of cleanly presenting the number of distinct observations. Here we show the number of distinct genera over 200 in body weight.
+```{r}
+msleep %>% 
+  filter(bodywt >= 200) %>% 
+  summarise(n_genera=n_distinct(genus))
+```
 
-4. Compared to the `msleep` data, we have better representation among taxa. Produce a summary that shows the number of observations by taxonomic order.
+There are many other useful summary statistics, depending on your needs: sd(), min(), max(), median(), sum(), n() (returns the length of vector), first() (returns first value in vector), last() (returns last value in vector) and n_distinct() (number of distinct values in vector).
 
+## Practice
+1. How many genera are represented in the msleep data frame?
+```{r}
+msleep %>%
+  summarize(ngenera = n_distinct(genus))
+```
 
-5. Mammals have a range of life histories, including lifespan. Produce a summary of lifespan in years by order. Be sure to include the minimum, maximum, mean, standard deviation, and total n.
+2. What are the min, max, and mean body weight for all of the mammals? Be sure to include the total n.
+```{r}
+msleep %>%
+  summarize(min_bodywt = min(bodywt),
+            max_bodywt = max(bodywt),
+            mean_bodywt = mean(bodywt),
+            total = n())
+```
 
+## `group_by()`
+The `summarize()` function is most useful when used in conjunction with `group_by()`. Although producing a summary of body weight for all of the mammals in the dataset is helpful, what if we were interested in body weight by feeding ecology?
+```{r}
+names(msleep)
+```
 
-6. Let's look closely at gestation and newborns. Summarize the mean gestation, newborn mass, and weaning mass by order. Add a new column that shows mean gestation in years and sort in descending order. Which group has the longest mean gestation? What is the common name for these mammals?
+```{r}
+msleep %>%
+  group_by(vore) %>% #we are grouping by feeding ecology
+  summarize(min_bodywt = min(bodywt),
+            max_bodywt = max(bodywt),
+            mean_bodywt = mean(bodywt),
+            total=n())
+```
 
-7. To save us the hassle in the future, how could we tell R how NA values are represented in our data file when we read it in? 
+`count()` is an easy way of determining how many observations you have within a column. It effectively acts like a combination of `group_by()` and `n()`.
+```{r}
+msleep %>% 
+  count(order, sort = T)
+```
 
+You can also use `count()` across multiple variables.
+```{r}
+msleep %>% 
+  count(order, vore, sort = TRUE)
+```
 
-## Wrap-up
-Please review the learning goals and be sure to use the code here as a reference when completing the homework.
+`add_count()` adds a new column to the dataframe.
+```{r}
+msleep %>% 
+  select(name:order) %>% 
+  add_count(order) %>% 
+  top_n(-5) #the bottom 5 
+```
+
+## Practice
+1. Calculate mean brain weight by taxonomic order in the msleep data.
+```{r}
+msleep %>% 
+  group_by(order) %>% 
+  summarize(mean_brainwt = mean(brainwt))
+```
+
+2. What does `NA` mean?  
+
+_In this case it means we are actually missing data because the brain weight for some animals has not been measured._  
+
+3. Try running the code again, but this time add `na.rm=TRUE`. What is the problem with Cetacea?  
+```{r}
+msleep %>% 
+  group_by(order) %>% 
+  summarize(mean_brainwt = mean(brainwt, na.rm = TRUE))
+```
+
+```{r}
+msleep %>% 
+  filter(order == "Cetacea")
+```
+
+## That's it, let's take a break!   
 
 -->[Home](https://jmledford3115.github.io/datascibiol/)

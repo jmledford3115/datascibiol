@@ -1,5 +1,6 @@
 ---
 title: "Data Structures: Data Frames"
+date: "`r Sys.Date()`"
 output:
   html_document:
     theme: spacelab

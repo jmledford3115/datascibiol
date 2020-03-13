@@ -1,0 +1,149 @@
+---
+title: "Intro to Spatial Data 1"
+date: "`r Sys.Date()`"
+output:
+  html_document:
+    theme: spacelab
+    toc: yes
+    toc_float: yes
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+## Learning Goals
+*At the end of this exercise, you will be able to:*  
+1. List and join multiple files from a directory.  
+2. Format dates in a data frame. 
+
+## Listing Files in Folder
+
+Often, the data we need is split up into multiple files, either by some geographical variable such as county, or by a time consitiuent such as months or weeks. The best method to deal with data in multiple files will be quick and also reproducible. We want to avoid doing anything by hand (besides very minor editing) to the original files someone sends us. We want everything to be reproducible so we can easily track any problems or errors that may crop up and prevent us from making careless errors ourselves. 
+
+So copying/pasting multiple files together isn't an option for us. Let's see how we can do this in R. In the `data/spiders` folder there are 32 files, each named for a county in California. Each file contains a record of an observation of a type of cave spider. Each observation contains a unique ID for each spider as well as some other important information such as date and location name. Let's use R to list all the `.csv` files in the `spiders` folder.
+
+But first, load the tidyverse.
+```{r, message = FALSE}
+library(tidyverse)
+```
+
+```{r}
+getwd()
+```
+
+```{r}
+files <- list.files(path = "data/spiders", pattern = ".csv")
+files
+```
+
+We could also get the full path names with `full.names = TRUE`.
+```{r}
+files <- list.files(path = "data/spiders", pattern = ".csv", full.names = TRUE)
+files
+```
+
+Now we want to read each of these files into R without having to do them one at a time because there are quite a few. There are several ways to do this, but a quick and straightforward way is to import them as a list. A list in R is an object which can store multiple other objects of the same or differing types. Lists are common in R so it's useful to be comfortable with them. Let's import our csv files into a list. The `lapply()` funtion is a part of the `apply` family of functions. It will iterate over elements of an object, apply a function we specify, and return a list. We have a character vector of file paths, so we want to iterate over all the path names and apply `read_csv()`.
+
+```{r, message = FALSE}
+spider_list <- 
+  lapply(files, read_csv)
+class(spider_list)
+```
+
+We can view elements in our list with double brackets. Let's view the data for Butte county. 
+```{r}
+spider_list[[3]]
+class(spider_list[[3]])
+```
+
+## Practice
+
+What are the names of our list elements?
+```{r}
+names(spider_list[[3]])
+```
+
+## Naming List Elements
+We don't need to here, but for demonstration purposes we can name the elements in our list. We will first get the names of each file, but we only want the county part. We will use `strsplit()` for that, which creates a nested list of strings. We want to keep the first element of each list element. Because there is only one element in each nested list element, we can use `unlist()`.
+```{r}
+names <- list.files(path = "data/spiders", pattern = ".csv")
+names_list <- strsplit(names, split = " .csv")
+names_list
+```
+
+```{r}
+names_vec <- unlist(names_list)
+names_vec
+```
+
+```{r}
+names(spider_list) <- names_vec
+names(spider_list)
+```
+
+## Practice
+
+Now that our list elements are named, how could we access the Butte County data by name?
+```{r}
+spider_list$Shasta
+```
+
+## Merging Files
+
+We are fortunate here in that all of our data frames have the same column names. This makes it easy to merge the data together with `bind_rows()` from`dplyr`. `bind_rows()` matches columns by name.
+
+```{r}
+spiders_all <- bind_rows(spider_list)
+head(spiders_all)
+```
+
+## Joining Files
+
+Sometimes data we need is stored in a separate file or becomes available later and we need to join it to our existing data in order to work with it. Here, the latitude and longitude for each spider were recorded from the field records at a later date, and now we need to join it to our rbinded data frame. The lat/long were recorded into one single file for each observation. Let's read in the lat/long data. 
+```{r, message = FALSE}
+spiders_locs <- read_csv("data/spiders locations/spiders_locations.csv") 
+```
+
+We will use a join here to merge lat/long to our data frame. There are several types of join in `dplyr`. It's always a good idea to read the help for the join function you are using and make sure it meets your needs. Both files contain a unique identifier called `Accession` which we will use to join.
+
+## Practice
+
+Read the help for `dplyr::join`. How many different types of joins are there?
+```{r}
+7
+```
+
+Let's use the `left_join()` function in case there are no matching locations for some of our observations. 
+```{r}
+spiders_with_locs <- left_join(spiders_all, spiders_locs, by = c("Accession"))
+summary(spiders_with_locs)
+```
+
+As a side note, often joining data can highlight problems or typos with the data when the join does not go as expected. 
+
+## Formatting Dates
+
+We finally have a single data frame with all our spider data including locations. That was a lot of work, even with R. But remember, now we have a reproducible workflow starting from the original files. This workflow serves as a record of what we did, keeps the original files untouched, and can make it easier to track down problems later in our analysis. 
+
+There is one last thing to change. Did you notice the date column? It seems to be in the format Day/Month/Year. We want to change our date column to the standard "YEAR-MO-DA" format that R will recognize as a date. We can use the base R function `as.Date()` for this. We need to tell the function what format our date is currently in. To do this we put a percent sign in front of the letter corresponding to the year, month, or day, and the characters used to separate them in our current date ("%d/%m/%y").
+
+```{r}
+spiders_with_locs$Date <-  as.Date(spiders_with_locs$Date, format = "%d/%m/%y")
+class(spiders_with_locs$Date)
+head(spiders_with_locs$Date)
+```
+
+The `lubridate` package was specifically created to deal with dates of all types. There are many useful functions in `lubridate` for working with dates if you need to go beyond `as.Date()`.
+
+We should save our final data frame to a csv so we can use it later. 
+```{r}
+write.csv(spiders_with_locs, file = "spiders_with_locs.csv", row.names = FALSE)
+```
+
+## That's it, let's take a break!   
+
+-->[Home](https://jmledford3115.github.io/datascibiol/)
