@@ -113,6 +113,8 @@ fish %>%
 
 Note that if we had called our new variable length, R would overwrite the old variable. 
 
+*Possibly include a practice problem where you use two column values to mutate into a single column. Such as calculating rates/proportions.*
+
 ## Practice
 1. Use `mutate()` to calculate the half length of each fish: length_half = length/2. Select only fish_id, length, and length_half, use pipes.
 

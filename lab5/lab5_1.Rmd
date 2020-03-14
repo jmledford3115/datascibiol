@@ -99,6 +99,8 @@ homerange <-
 
 As a follow up to lab 4, view the homerange data frame by opening it in R (click on it in the Environment tab). Are there grey italicized NA values? The NAs in the csv file are indicated by NA, which the `read_csv()` function uses as a default NA indicator. If our data file used something else, we would need to specify it above. 
 
+*Maybe go over the ggplot2 cheatsheet before going into creating a plot, such as the different plots that correspond with different kinds of data. Such as you cannot create a bar plot with solely continuous data.*
+
 ### 1. Scatter Plots
 Scatter plots are good at revealing relationships that are not readily visible in the raw data. For now, we will not add regression lines or calculate any r^2^ values.  
 

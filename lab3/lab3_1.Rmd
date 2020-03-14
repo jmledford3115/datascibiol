@@ -102,6 +102,8 @@ glimpse(fish)
 The [tidyverse](www.tidyverse.org) is a collection of packages that make workflows in R easier. The packages operate more intuitively than base R commands. Although not universal, the tidyverse has been adopted by many R users.  
 ![*Data Science Workflow in the Tidyverse.*](tidyverse1.png)  
 
+*Possibly introducing the select() function initially would be more useful since, at least for me, I use select() first then filter() the variables that I selected. This could help avoid confusion about the order of using functions. Additionally, I could see the lesson flowing better since you instruct them to select certain variable that they wish to isolate, then you instruct them to filter those variables that they selected.*
+
 ## dplyr: filter()
 A core package in the tidyverse is dplyr. This package allows you to transform your data in many different ways including filtering, subsetting, and reordering. Dplyr allows you to parse out data of interest from a larger data frame.  
 

@@ -84,6 +84,8 @@ getwd()
 ## GitHub
 [**GitHub**](www.github.com) is a file storage and management site used by programmers. Programmers upload code to repositories (folders) and make it publicly available. We will use Github to store our work in BIS 15L.  
 
+*Possibly try analogizing Github to a social media, such as twitter. When you push you are uploading some piece of information, just as tweeting puts out a piece of information. A pull request is like a discussion under your tweet, to further clarify a piece of information. I don't know if this is helpful but this is what helps me understand Github better.*
+
 ## Create a GitHub account
 Since we will use GitHub for assignments, you need to have an account and make a repository for BIS 15L. Navigate to [GitHub](github.com) and create a free account. [Email](mailto:jmledford@ucdavis.edu) your username to me.  
 
