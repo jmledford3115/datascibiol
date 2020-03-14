@@ -120,6 +120,10 @@ shinyApp(ui, server)
 ## Shiny Outputs  
 
 So we have our inputs in a reactive environment, but we want to actually use those inputs to make a plot and display it on the ui. To make and display the plot, we need to save it to a named output object that the ui can use. To do this we use the reactive expression `renderPlot()` and access the plot on the ui side with `plotOutput()`. The inputs from `selectInput()` are character strings, so we need to use `aes_string()` in `ggplot`.
+
+<!--I was confused with exactly what a string is. What is the difference between a string and non-string input?-->
+
+
 ```{r, eval=F, echo=T}
 ui <- fluidPage(
   selectInput("x", "Select X Variable", choices = c("Sepal.Length", "Sepal.Width", "Petal.Length", "Petal.Width"), 
@@ -152,6 +156,11 @@ names(homerange)
 ```
 
 2. Build a shiny app that produces a barplot that explores locomotion type with a fill reaction for the variables trophic.guild and thermoregulation.
+
+
+<!-- this example was really helpful for me because it allowed me to make an app with one string input and a non-string input. But at the time in lab, I didn't really realize it. Maybe it would be helpful if this was noted in the example-->
+
+
 ```{r, eval=F, echo=T}
 ui <- fluidPage(titlePanel("Homerange Locomotion"),
                 radioButtons("x", "Select Fill Variable", choices = c("trophic.guild", "thermoregulation"), 
