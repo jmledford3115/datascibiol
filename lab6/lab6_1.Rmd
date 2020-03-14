@@ -23,6 +23,9 @@ Now that you have been introduced to `ggplot`, let's practice a few more plot ty
 - [`ggplot` themes](https://ggplot2.tidyverse.org/reference/ggtheme.html)
 - [Rebecca Barter `ggplot` Tutorial](http://www.rebeccabarter.com/blog/2017-11-17-ggplot2_tutorial/)
 
+
+<!-- https://ggplot2.tidyverse.org/reference/index.html I found this reference website very helpful -->
+
 ## Load the libraries
 ```{r message=FALSE, warning=FALSE}
 library(tidyverse)
