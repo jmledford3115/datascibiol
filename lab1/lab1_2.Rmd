@@ -10,14 +10,14 @@ output:
 
 ## Learning Goals  
 *At the end of this exercise, you will be able to:*    
-1. Use RMarkdown to "knit" an hrml file.  
+1. Use RMarkdown to "knit" an html file.  
 2. Define an object in R; assign values to objects.  
 3. Learn best practices in the naming of objects and other R programming conventions.  
 4. Learn the differences between the types of data used in R.  
 5. Perform simple operations using vectors.  
 
 ## RMarkdown
-Annotation of code is important for programmers of all levels. When code is annotated, it is easy for others to understand and perhaps more importantly, easier for the person who wrote the code to understand when returning to a project days to years later. RMarkdown allows us to embed code in annotated chunks, show the results of analyses, and display graphical output all in one file.  
+Annotation of code is important for programmers of all levels. When code is annotated, it is easy for others to understand and perhaps more importantly, easier for the person who wrote the code to understand when returning to a project days to years later. RMarkdown allows us to embed code in annotated chunks, show the results of analyses, and display graphical output all in one file. It is a great way of making an R report which can be conveniently output to html or pdf.  
 
 The RMarkdown file can then be exported in a number of formats. If you have questions, the definitive guide to RMarkdown is [here](https://bookdown.org/yihui/rmarkdown/).  
 
@@ -98,20 +98,17 @@ We get an error here because `else` is a function in R. You also don't want to g
 ## Practice
 1. Create three new objects, `venom_GT`, `chiron`, and `veyron`. These are the fastest cars in the world. Assign each car to its top speed. The venom_GT can go 270, chiron is 261, and veyron is 268.
 ```{r}
-venom_GT <- 270
-chiron <- 261
-veyron <- 268
+
 ```
 
 2. Use arithmetic to calculate the mean top speed for the cars.
 ```{r}
-(270+261+268)/3
+
 ```
 
 3. Use the function `mean()` to calculate the mean top speed for the cars.
 ```{r}
-car_speed_vector <- c(270,261,268)
-mean(car_speed_vector)
+
 ```
 
 ## Types of Data
