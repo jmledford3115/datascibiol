@@ -48,11 +48,11 @@ The goal of lab 1 is to get everyone started using R, Rstudio, and GitHub. All o
 
 ## Setup your own computer  
 
-You are welcome to use your own computer, but in order to do so you need to install R, RStudio, and GitHub Desktop. If you would like to set-up your own computer, please follow the directions [here](https://jmledford3115.github.io/datascibiol/setup.html). If you are unsure about troubleshooting your own computer, **please** use the lab computers.  
+You are welcome to use your own computer, but in order to do so you need to install R, RStudio, and GitHub Desktop. If you would like to set-up your own computer, please follow the directions [here](https://jmledford3115.github.io/datascibiol/setup.html). If you are unsure about troubleshooting your own computer, **please** contact [Joel Ledford] (mailto:jmledford@ucdavis.edu) for problems on Mac and [Min-Yao Jhu](mailto:minjhu@ucdavis.edu)  for problems on PC.  
 
 ## R  
 
-Double click to open R (not RStudio) and find the carrot `>`. This is where commands are entered. Because R is a scripting language you don't point and click to run commands. Instead, you write instructions that are used by the computer to complete an operation. This makes it hard to learn at first because the instructions are specific. R is **not** tolerant of typos, puntuation errors, errant spaces, or other types of mistakes.  
+Double click to open R (not RStudio) and find the carrot `>`. This is where commands are entered. Because R is a scripting language you don't point and click to run commands. Instead, you write instructions that are used by the computer to complete an operation. This makes it hard to learn at first because the instructions are specific. R is **not** tolerant of typos, punctuation errors, errant spaces, or other types of mistakes.  
 
 ## Arithmetic  
 
@@ -75,10 +75,7 @@ mean(4, 6, 8, 5, 6, 7, 7, 7)
 
 1. Test out the arithmetic capabilities of R; experiment by doing addition, subtraction, multiplication, and division.  
 ```{r practice-1}
-2+2
-4-2
-2*3
-6/2
+
 ```
 
 ## R and RStudio  
@@ -89,7 +86,8 @@ When you first open RStudio, you should see your screen divided into four quadra
 
 ## Working Directory  
 
-Before you begin any project in RStudio, it is important that you are in the correct "working directory". This is the folder on your computer where you are currently working; it is the location where RStudio will save all of your work.  
+Before you begin any project in RStudio, it is important that you are in the correct "working directory". This is the folder on your computer where you are currently working; it is the location where RStudio will save all of your work. At first, most of the problems people encounter are because they are not in the correct working directory.  
+
 Run the following code by clicking the small green arrow to check your current working directory.  
 ```{r get-working-directory}
 getwd()
@@ -110,13 +108,13 @@ getwd()
 
 Since we will use GitHub for assignments, you need to have an account and make a repository for BIS 15L. Navigate to [GitHub](github.com) and create a free account. [Email](mailto:jmledford@ucdavis.edu) your username to me.  
 
-I have made a repository for our class [BIS15-W20-DataScienceBiologists](https://github.com/jmledford3115/BIS15-W20-DataScienceBiologists). You should **Star** this repository for future reference.  
+I have made a repository for our class [BIS15-W21-DataScienceBiologists](https://github.com/jmledford3115/BIS15-W20-DataScienceBiologists). You should **Star** this repository for future reference.  
 
 ## Make Your Own Repository  
 
 1. Go to [github.com](www.github.com) and login.  
 2. Create a new repository.  
-3. Under repository name, use the title `BIS15W2020_your first initial and lastname`. Mine would look like this: BIS15W2020_jledford  
+3. Under repository name, use the title `BIS15W2021_your first initial and lastname`. Mine would look like this: BIS15W2021_jledford  
 4. Default settings are fine, but do click "Initialize this repository with a README".    
 5. Once the repository is made, click on settings in the top right.  
 6. On the left toolbar click "Collaborators".  
@@ -137,7 +135,7 @@ You will use your repository to store all of your notes and work. There are thre
 2. `Pull` this is the same as download.     
 3. `Push` this is the same as upload.    
 
-If you setup [GitHub desktop](https://desktop.github.com/), then you will see that it automatically tracks your changes. Clicking the `Commit to master` button in the bottom left corner means that you are recording a snapshot of your edits locally. Once this is done, you need to upload your changes to GitHub. This is done by cliking `Push origin`. Once you have pushed your changes you can double check by looking at your repository on github.com.    
+If you setup [GitHub desktop](https://desktop.github.com/), then you will see that it automatically tracks your changes. Clicking the `Commit to master` button in the bottom left corner means that you are recording a snapshot of your edits locally. Once this is done, you need to upload your changes to GitHub. This is done by clicking `Push origin`. Once you have pushed your changes you can double check by looking at your repository on github.com.    
 
 ## Practice  
 
