@@ -43,24 +43,24 @@ Our class is scheduled for 2-hour blocks on Tuesday and Thursday. Our plan is to
 There are two exams in the class, both of which are take-home. You may use any resources you like on the exam except for posting questions to open stacks or R programming forums; your work should be entirely your own.  
 
 ## Grading  
-Grading is divided into four parts:  
+The class is graded out of 300 points on a straight scale. Grading is divided into four parts:  
 
-1. **Weekly homework assignments (50%)**. Each assignment must be completed and uploaded to GitHub prior to the next lab. I will randomly pull an example from GitHub to discuss with the class to see alternate solutions and address issues. You must complete all homework assignments to receive a passing grade in the course.  
+1. **Weekly homework assignments (50%)**. Each assignment must be completed and uploaded to GitHub prior to the next lab. I will randomly pull an example from GitHub to discuss with the class to see alternate solutions and address issues. You must complete all homework assignments to receive a passing grade in the course. There are 15 homework assignments total, each of which is worth 10 points.  
 
-2. **Midterms (20%)**. The midterms help us keep one another accountable. These exams will be take-home and the due dates are strict; no late work is accepted. 
+2. **Midterms (20%)**. The midterms help us keep one another accountable. These exams will be take-home and the due dates are strict; no late work is accepted. Each midterm is worth 30 points.  
 
-3. **Class project (30%)**. As part of the class, you will form a group to explore a project in data science. The project may be based on any available data of interest to the group, and should highlight skills learned in the labs. The group will present their results during the last lab session.  
+3. **Class project (30%)**. As part of the class, you will form a group to explore a project in data science. The project may be based on any available data of interest to the group, and should highlight skills learned in the labs. The group will present their results during the last lab sessions.  The class project is worth 90 points.  
 
-4. **Attendance**. Attendance is mandatory and you must attend with your camera turned on. Students are only allowed one absence during the quarter. Please [email me](mailto:jmledford@ucdavis.edu) if you need to miss a lab.  
+4. **Attendance**. Attendance from 1:10-2:00p is mandatory and you must attend with your camera turned on. Students are only allowed two unexcused absences during the quarter. Please [email me](mailto:jmledford@ucdavis.edu) if you need to miss a lab.  
 
-## Reading  
+## Suggested Reading  
 [R for Data Science](https://r4ds.had.co.nz/), Grolemund and Wickham (2017).  
 
 ## Office Hours  
 Office hours are scheduled each week and are available by appointment. If there are problems with the assignments, it is important that we communicate together as a class. Please use the class email list as a first step so we all benefit.  
 
 ## About Me  
-I am an assistant teaching professor in the department of [Plant Biology](http://www-plb.ucdavis.edu/). My research is focused on education and spider biology. My experience in R has mostly involved statistical analysis in education and phylogenetics. I also teach part of the introductory biology series `BIS2C` (Fall and Winter) and introductory plant biology `PLB10` (Spring).  
+I am an assistant teaching professor in the department of [Plant Biology](http://www-plb.ucdavis.edu/). My research is focused on education and spider biology. My experience in R has mostly involved statistical analysis in education and evolutionary biology. I also teach part of the introductory biology series `BIS2C` (Fall and Winter) and introductory plant biology `PLB10` (Spring).  
 
 ## Do's and Dont's  
 Learning any programming language is hard; it only gets easier with time and practice. Don't give up!  
@@ -68,6 +68,6 @@ Learning any programming language is hard; it only gets easier with time and pra
 + Please *do* ask questions, get help from class partners, and complete assignments on-time.  
 + Please *don't* miss class or get behind on the homework.  
 
-I am very open to suggestions, especially when it comes to relevant and interesting examples. If you find data that are especially interesting to you please let me know and I will do my best to incorporate it into class examples. Most of all, have fun learning R and if you are not then let me know!  
+I am very open to suggestions, especially when it comes to relevant and interesting examples. If you find data that are especially interesting to you please let me know and I will do my best to incorporate them into class examples. Most of all, have fun learning R and if you are not then let me know!  
 
 -->[Home](https://jmledford3115.github.io/datascibiol/)
