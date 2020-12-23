@@ -23,7 +23,7 @@ In BIS 015L, you will be introduced to the fundamentals of data science with emp
 This class is designed for students with *no background in computer programming, R, or statistics*. My assumption is that you know how to turn a computer on and use a mouse- that's it!  
 
 ## Equipment  
-In order to complete the work in class, you need to be able to run R and RStudio. You also need a stable internet connection. Mac and PC computers both work, but *not* Chromebooks. If you experience problems, contact [Joel Ledford] (mailto:jmledford@ucdavis.edu) for problems on Mac and [Min-Yao Jhu](mailto:minjhu@ucdavis.edu)  for problems on PC.  
+In order to complete the work in class, you need to be able to run R and RStudio. You also need a stable internet connection. Mac and PC computers both work, but *not* Chromebooks. If you experience problems, contact [Joel Ledford](mailto:jmledford@ucdavis.edu) for problems on Mac and [Min-Yao Jhu](mailto:minjhu@ucdavis.edu)  for problems on PC.  
 
 ## Learning Goals  
 *At the end of this course, you will be able to:*  
