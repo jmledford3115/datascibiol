@@ -1,7 +1,6 @@
 ---
 title: "Setup Instructions"
-author: "Joel Ledford"
-date: "Winter 2020"
+date: "`r Sys.Date()`"
 output:
   html_document:
     theme: spacelab
@@ -10,25 +9,28 @@ output:
 ---
 
 ## Setup your own computer
-We are fortunate to have access to a set of nice lab computers with R and RStudio pre-installed. There are advantages to having your own system, but with so many operating systems it is hard for me to troubleshoot for everyone. If you can get your computer up and running quickly, then please feel free to use your own system. If you encounter problems, it will be easier for you and me if you use the lab computer.  
+Because BIS 15L will be held remotely this quarter, it is very important that you spend time making sure that your computer is set-up and ready to go. This first step in this is just basic maintenance; i.e. clean up your desktop, update your OS, and make sure that you are running the latest version of Zoom. Data scientists are neat and tidy! Spend time getting yourself organized.  
 
-In order to get set-up, you need three things:  
+In order to get set-up, you need to do four things:  
 
 + [R](https://www.r-project.org/)  
 + [RStudio](https://www.rstudio.com/)  
 + [GitHub Desktop](https://desktop.github.com/)
 
 ### 1. Download the most recent version of R and install
-R is open source and constantly changing. Make regular version checks part of your routine. R will run on a variety of platforms, but there are slight differences between mac and pc versions.  
+R is open source and constantly changing. Make regular version checks part of your routine. R will run on a variety of platforms, but there are slight differences between Mac and PC versions.  
 
-Download the latest version of R [here](https://www.r-project.org/) and install.
+Download the latest version of R [here](https://www.r-project.org/) and install.  
 
 ### 2. Download the most recent version of RStudio and install
-RStudio is a GUI that allows for more intuitive management of R and includes numerous additional functions. All of our work will be done in RStudio, including uploads to Git.
+RStudio is a [GUI](https://www.computerhope.com/jargon/g/gui.htm) that allows for more intuitive operation of R and includes numerous additional functions. All of our work will be done in RStudio.
 
 Download the latest version of RStudio [here](https://www.rstudio.com/) and install.  
 
-### 3. Download the most recent version of GitHub Desktop and install
+### 3. Download the most recent version of GitHub Desktop and install  
 GitHub is the website where we will upload all of our work, including homework and class files. GitHub Desktop is a [GUI](https://www.computerhope.com/jargon/g/gui.htm) interface that allows us to keep track of changes (version control) and upload.  
+
+### 4. GitHub Account
+You need to make a personal account on GitHub. Navigate to [GitHub](http://www.github.com) and create a free account.  
 
 -->[Home](https://jmledford3115.github.io/datascibiol/)  
