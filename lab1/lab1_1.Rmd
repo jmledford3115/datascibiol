@@ -33,14 +33,14 @@ Given that R is open source, many resources are available online. We will use a 
 
 ## UC Davis  
 
-Our campus has a wealth of expertise in data science, from working groups to a full initiative. Should your interests progress, here are some links. They offer regular workshops and maintain archives.  
+Our campus has a wealth of expertise in data science, from working groups to a full initiative. Should your interests progress, here are some links. They offer regular workshops and maintain archives. Among the goals of this class is to get you set-up so that you can attend these workshops and learn more!  
 
 - [Data Science Initiative](http://dsi.ucdavis.edu/)  
 - [Davis R Users Group](http://d-rug.github.io/) 
 
 ## Help!  
 
-When you need help with homework or a class topic, please visit and post on our [class discussion board](https://piazza.com/uc_davis/winter2020/bis015l/home#) first. We are here to support you and everyone should participate, please.  
+When you need help with homework or a class topic, please visit and post on our [class discord page](https://discord.gg/HQzQnG5G). We are here to support you and everyone should participate, please.  
 
 ## Lab 1 Goals  
 
