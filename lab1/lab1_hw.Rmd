@@ -11,13 +11,16 @@ output:
 ## Instructions
 Answer the following questions and complete the exercises in RMarkdown. Please embed all of your code and push your final work to your repository. Your final lab report should be organized, clean, and run free from errors. Remember, you must remove the `#` for the included code chunks to run.  
 
-**1. Navigate to the R console and calculate the following expressions.**  
+**1. Calculate the following expressions. Be sure to include each one in a separate code chunk.**  
   + 5 - 3 * 2  
   + 8 / 2 ** 2  
   
 **2. Did any of the results in #1 surprise you? Write two programs that calculate each expression such that the result for the first example is 4 and the second example is 16.**  
 
-**3. Make a new object `pi` as 3.14159265359.**  
+**3. `Objects` in R are a way in which we can store data or operations. We will talk more about objects next week. For now, make a new object `pi` as 3.14159265359 by running the following code chunk.**
+```{r}
+pi <- 3.14159265359
+```
 
 **4. Is `pi` an integer or numeric? Why? Show your code.**  
 
