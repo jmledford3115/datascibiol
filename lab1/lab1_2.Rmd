@@ -16,14 +16,59 @@ output:
 4. Learn the differences between the types of data used in R.  
 5. Perform simple operations using vectors.  
 
-## RMarkdown
+## R  
+Double click to open R (not RStudio) and find the carrot `>`. This is where commands are entered. Because R is a scripting language you don't point and click to run commands. Instead, you write instructions that are used by the computer to complete an operation. This makes it hard to learn at first because the instructions are specific. R is **not** tolerant of typos, punctuation errors, errant spaces, or other types of mistakes.  
+
+## Arithmetic  
+You can use R as a calculator; just enter the expression and press return.  Experiment by evaluating the following expression.
+```{r arithmetic-ex-1}
+4*12
+```
+
+Order of operations applies and you don't need to add an '=' sign.
+```{r arithmetic-ex-2}
+(4*12)/2
+```
+
+Statistics are what R was originally written for and there are thousands of packages for specialized statistics depending on your needs.
+```{r arithmetic-ex-3}
+mean(4, 6, 8, 5, 6, 7, 7, 7)
+```
+
+## Practice  
+1. Test out the arithmetic capabilities of R; experiment by doing addition, subtraction, multiplication, and division.  
+```{r practice-1}
+
+```
+
+## R and RStudio  
+R is an open source, **scripting** language. RStudio is a GUI (graphical user interface) that is used to interact with R. You need to have R installed in order for RStudio to work. On the desktop, you should see a file titled `lab1_1.Rmd`. Open this file by double clicking; you should now be in RMarkdown.  
+
+When you first open RStudio, you should see your screen divided into four quadrants. I will demonstrate each of these in lab, but for now it is enough to know that they display different information and are helpful to manage your work.  
+
+## Working Directory  
+Before you begin any project in RStudio, it is important that you are in the correct "working directory". This is the folder on your computer where you are currently working; it is the location where RStudio will save all of your work. At first, most of the problems people encounter are because they are not in the correct working directory.  
+
+Run the following code by clicking the small green arrow to check your current working directory.  
+```{r get-working-directory}
+getwd()
+```
+
+If you are not in the **lab 1 folder**, please navigate to it: Session>Set Working Directory>Choose Directory>Desktop>lab1.  
+
+Re-run the code below to confirm.
+```{r get-working-directory-2}
+getwd()
+```
+
+## RMarkdown  
 Annotation of code is important for programmers of all levels. When code is annotated, it is easy for others to understand and perhaps more importantly, easier for the person who wrote the code to understand when returning to a project days to years later. RMarkdown allows us to embed code in annotated chunks, show the results of analyses, and display graphical output all in one file. It is a great way of making an R report which can be conveniently output to html or pdf.  
 
 The RMarkdown file can then be exported in a number of formats. If you have questions, the definitive guide to RMarkdown is [here](https://bookdown.org/yihui/rmarkdown/).  
 
 Here is a great [tutorial on RMarkdown](https://www.markdowntutorial.com/).  
 
-## RMarkdown Basics
+## RMarkdown Basics  
 RMarkdown is one of many types of documents that can be created in RStudio and is the one we will use most frequently in BIS 15L.  
 
 1. In RStudio, open a new markdown document: **File>New File>R Markdown** and title it "RMarkdown Practice".  
