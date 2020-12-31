@@ -8,7 +8,7 @@ output:
     toc_float: yes
 ---
 
-## Setup your own computer
+## Setup  
 Because BIS 15L will be held remotely this quarter, it is very important that you spend time making sure that your computer is set-up and ready to go. This first step in this is just basic maintenance; i.e. clean up your desktop, update your OS, and make sure that you are running the latest version of Zoom. Data scientists are neat and tidy! Spend time getting yourself organized.  
 
 In order to get set-up, you need to do four things:  

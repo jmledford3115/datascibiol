@@ -43,7 +43,7 @@ When you need help with homework or a class topic, please post on our [class dis
 ## Lab 1 Goals  
 The goal of lab 1 is to get everyone started using R, RStudio, and GitHub. All of our work will be done in RStudio and uploaded to the class GitHub repository. It is important that everyone is set-up correctly before we are done today. In the spirit of the R universe, our class is a community. If you see someone struggling, please give them some help.  
 
-## Setup your own computer  
+## Setup your computer  
 Because BIS 15L will be held remotely this quarter, it is very important that you spend time making sure that your computer is set-up and ready to go. The first step in this is basic maintenance; i.e. clean up your desktop, update your OS, and make sure that you are running the latest version of Zoom. Data scientists are neat and tidy! Spend time getting yourself organized, it will pay off.  
 
 Please follow these four steps to set-up you computer [here](https://jmledford3115.github.io/datascibiol/setup.html).  
