@@ -26,7 +26,8 @@ It is really important that you understand the first two weeks of the class can 
 ## Resources  
 Given that R is open source, many resources are available online. We will use a combination of resources in the class, but key items are listed below.  
 
-- [Class Website](https://jmledford3115.github.io/datascibiol/)
+- [Class Website](https://jmledford3115.github.io/datascibiol/)  
+- [Class YouTube](https://www.youtube.com/channel/UCFX-MipGKF9jCEXaP-59BzQ)  
 - [R for data science](https://r4ds.had.co.nz/)
 - [R cheatsheets](https://www.rstudio.com/resources/cheatsheets/)
 - [RStudio keyboard shortcuts](https://support.rstudio.com/hc/en-us/articles/200711853-Keyboard-Shortcuts)
