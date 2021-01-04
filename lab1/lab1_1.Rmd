@@ -72,8 +72,10 @@ The easiest way to manage your GitHub repository is to use [GitHub desktop](http
 ## Clone Your Repository  
 In GitHub desktop, you will see your personal repository as an option under `clone repository`. Clone your repository to the desktop. Once you have done this any changes you make to files will be recorded and easily uploaded. Do not move this folder from your desktop.  
 
-## Clone the Class Repository
-Just like you did for your repository, you want to clone the class repository to the desktop. Do a search for `BIS15-W21-DataScienceBiologists` and clone it to the desktop. This is where you will find important class files, homework, etc.
+## Clone or Copy the Class Repository
+In order to keep track of the class files, the last thing you need to do is make a copy of the class repository. I will make regular changes to the class repository including the addition of files and data that you will need.Just like you did for your repository, you want to clone the class repository to the desktop. Do a search for `BIS15-W21-DataScienceBiologists` and clone it to the desktop. This is where you will find important class files, homework, etc.  
+
+If cloning is ever a problem, remember you can always [download a copy](https://github.com/jmledford3115/BIS15L-W21-DataScienceBiologists) directly from GitHub.
 
 Copy the `lab1` folder from the class repository and paste it into your personal repository. By doing this, you have created your own copies of lab materials for lab 1.    
 
