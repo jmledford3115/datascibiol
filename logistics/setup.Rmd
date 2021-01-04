@@ -28,7 +28,7 @@ RStudio is a [GUI](https://www.computerhope.com/jargon/g/gui.htm) that allows fo
 Download the latest version of RStudio [here](https://www.rstudio.com/) and install.  
 
 ### 3. Download the most recent version of GitHub Desktop and install  
-GitHub is the website where we will upload all of our work, including homework and class files. GitHub Desktop is a [GUI](https://www.computerhope.com/jargon/g/gui.htm) interface that allows us to keep track of changes (version control) and upload.  
+GitHub is the website where we will upload all of our work, including homework and class files. [GitHub Desktop](https://desktop.github.com/) is a [GUI](https://www.computerhope.com/jargon/g/gui.htm) interface that allows us to keep track of changes (version control) and upload.  
 
 ### 4. GitHub Account
 You need to make a personal account on GitHub. Navigate to [GitHub](http://www.github.com) and create a free account.  
