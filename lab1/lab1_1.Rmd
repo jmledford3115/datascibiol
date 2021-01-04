@@ -50,7 +50,7 @@ Because BIS 15L will be held remotely this quarter, it is very important that yo
 Please follow these four steps to set-up you computer [here](https://jmledford3115.github.io/datascibiol/setup.html).  
 
 ## GitHub  
-[GitHub](www.github.com) is a file storage and management site used by programmers. Programmers upload code to repositories (folders) and make it publicly available. We will use Github to store our work in BIS 15L.  
+[GitHub](http://www.github.com) is a file storage and management site used by programmers. Programmers upload code to repositories (folders) and make it publicly available. We will use Github to store our work in BIS 15L.  
 
 ## Your GitHub account  
 Since we will use GitHub for assignments, you need to have an account and make a repository for BIS 15L. If you followed the [setup instructions](https://jmledford3115.github.io/datascibiol/setup.html) above then you should be all set. Please [Email](mailto:jmledford@ucdavis.edu) your user name to me.  
