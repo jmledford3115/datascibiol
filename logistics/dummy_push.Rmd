@@ -1,7 +1,7 @@
 ---
 title: "Dummy Push"
 author: "Your Name"
-date: "1/10/2020"
+date: "`r Sys.Date()`"
 output: html_document
 ---
 
