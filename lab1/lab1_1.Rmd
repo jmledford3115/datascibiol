@@ -39,7 +39,7 @@ Our campus has a wealth of expertise in data science. Should your interests prog
 - [Data Science Initiative](http://dsi.ucdavis.edu/)  
 
 ## Help!  
-When you need help with homework or a class topic, please post on our [class discord page](https://discord.gg/HQzQnG5G). We are here to support you and everyone should participate, please.  
+When you need help with homework or a class topic, please post on our [class discord page](https://discord.gg/kKyv63MRHV). We are here to support you and everyone should participate, please.  
 
 ## Lab 1 Goals  
 The goal of lab 1 is to get everyone started using R, RStudio, and GitHub. All of our work will be done in RStudio and uploaded to the class GitHub repository. It is important that everyone is set-up correctly before we are done today. In the spirit of the R universe, our class is a community. If you see someone struggling, please give them some help.  
