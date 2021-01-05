@@ -48,10 +48,21 @@ Order of operations applies and you don't need to add an '=' sign.
 (4*12)/2
 ```
 
-Statistics are what R was originally written for and there are thousands of packages for specialized statistics depending on your needs.
+Statistics are what R was originally written for and there are thousands of packages for specialized statistics depending on your needs.  
+
+First, we need to make a vector or string of values which we will store as an object x. More on this later...
+```{r}
+x <- c(4, 6, 8, 5, 6, 7, 7, 7)
+```
+
+Now we can calculate the mean of object x.  
 ```{r arithmetic-ex-3}
-mean(4, 6, 8, 5, 6, 7, 7, 7)
-median(4, 6, 8, 5, 6, 7, 7, 7)
+mean(x)
+```
+
+We can do the same thing for median.  
+```{r}
+median(x)
 ```
 
 ## RMarkdown  
