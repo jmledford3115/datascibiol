@@ -51,6 +51,7 @@ Order of operations applies and you don't need to add an '=' sign.
 Statistics are what R was originally written for and there are thousands of packages for specialized statistics depending on your needs.
 ```{r arithmetic-ex-3}
 mean(4, 6, 8, 5, 6, 7, 7, 7)
+median(4, 6, 8, 5, 6, 7, 7, 7)
 ```
 
 ## RMarkdown  
