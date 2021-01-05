@@ -10,7 +10,7 @@
 
 
 
-<meta name="date" content="2020-12-30" />
+<meta name="date" content="2021-01-05" />
 
 <title>R, RStudio, and RMarkdown</title>
 
@@ -1534,7 +1534,7 @@ div.tocify {
 
 
 <h1 class="title toc-ignore">R, RStudio, and RMarkdown</h1>
-<h4 class="date">2020-12-30</h4>
+<h4 class="date">2021-01-05</h4>
 
 </div>
 
@@ -1575,8 +1575,14 @@ div.tocify {
 <pre class="r"><code>(4*12)/2</code></pre>
 <pre><code>## [1] 24</code></pre>
 <p>Statistics are what R was originally written for and there are thousands of packages for specialized statistics depending on your needs.</p>
-<pre class="r"><code>mean(4, 6, 8, 5, 6, 7, 7, 7)</code></pre>
-<pre><code>## [1] 4</code></pre>
+<p>First, we need to make a vector or string of values which we will store as an object x. More on this later…</p>
+<pre class="r"><code>x &lt;- c(4, 6, 8, 5, 6, 7, 7, 7)</code></pre>
+<p>Now we can calculate the mean of object x.</p>
+<pre class="r"><code>mean(x)</code></pre>
+<pre><code>## [1] 6.25</code></pre>
+<p>We can do the same thing for median.</p>
+<pre class="r"><code>median(x)</code></pre>
+<pre><code>## [1] 6.5</code></pre>
 </div>
 <div id="rmarkdown" class="section level2">
 <h2>RMarkdown</h2>
