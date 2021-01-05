@@ -1,0 +1,38 @@
+---
+title: "BIS 15L Packages"
+date: "`r Sys.Date()`"
+output:
+  html_document:
+    theme: spacelab
+    toc: yes
+    toc_float: yes
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+## What is a package in R?
+Packages are free compilations of code that are written to perform specific functions. They are often developed to perform very specific functions or to make some things in R easier to do. We will use many packages in R over the quarter and I will add these to this markdown script. Each time you update R or RStudio, you need to re-install these packages so keeping this script handy will be helpful. Better yet, add packages that you like to use!  
+
+Once you install a package, you don't need to re-install until you update R and RStudio.  In general, you should not re-install packages unless you do an update or there is an error. Continually re-installing packages can lead to problems.  To prevent this problem here, I have commented out `install.packages()`
+
+The package we use the most is the [tidyverse](https://www.tidyverse.org/).  
+```{r}
+#install.packages("tidyverse", repos = "http://cran.us.r-project.org")
+```
+
+Other useful packages.  
+```{r}
+#install.packages("janitor", repos = "http://cran.us.r-project.org")
+#install.packages("naniar", repos = "http://cran.us.r-project.org")
+#install.packages("shiny")
+```
+
+Here is a useful alternative to add to scripts that require certain packages.
+```{r}
+#if (!require(pkg)) { install.packages(pkg); library(pkg) } (you might need character.only=TRUE
+```
