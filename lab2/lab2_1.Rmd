@@ -1,5 +1,5 @@
 ---
-title: "Data Structures: Vectors & Data Matrices"
+title: "Data Structures: Objects, Vectors & Data Matrices"
 date: "`r Sys.Date()`"
 output:
   html_document:
@@ -20,29 +20,25 @@ output:
 6. Explain the difference between a data matrix and a data frame.  
 
 ## Setup
-At the beginning of each class, please make sure that you complete the following:  
-1. Login to the lab computer.  
-2. Open Github Desktop (it should be pre-installed) and login.  
-3. Clone your repository to the desktop or somewhere convenient to access.  
-4. Navigate to github.com and login.  
-5. Go to the class repository `BIS15-W20-DataScienceBiologists`, click the `Clone or download` button then `Download zip` to the desktop.  
-6. Copy the files for today's lab from the class repository and paste them into **your** repository.  
-7. Open today's lab in RStudio.  
+Before each class, please make sure that you complete the following:  
+1. Go to the class repository [BIS15-W21-DataScienceBiologists](https://github.com/jmledford3115/BIS15L-W21-DataScienceBiologists), click the `Clone or download` button then `Download zip` to the desktop.  
+2. Copy the files for today's lab from the class repository and paste them into **your** repository.  
+3. Open today's lab in RStudio.  
 
 ## Objects
 In order to access the potential of R we need to assign values or other types of data to `objects`. There is a specific format that I want you to follow, so please pay close attention.  
 
-Assign a value to object 'x'. The '<-' symbol is read as 'gets'. In this case, x gets 42. Make sure that you are in the environment panel and you should see the value associated with 'x'. On a mac, you can push `option` and `-` to automatically generate the gets symbol.
+Assign a value to object 'x'. The '<-' symbol is read as 'gets'. In this case, x gets 42. Make sure that you are in the environment panel and you should see the value associated with 'x'. On a mac, you can push `option` and `-` to automatically generate the gets symbol.  
 ```{r}
 x <- 42
 ```
 
-To print the object to the screen, just type x.
+To print the object to the screen, just type x.  
 ```{r}
 x
 ```
 
-Once an object has been created, you can do things with them.
+Once an object has been created, you can do things with them.  
 ```{r}
 treatment <- 36
 control <- 38
