@@ -1,5 +1,5 @@
 ---
-title: "Objects, Vectors & Data Matrices"
+title: "Objects, Classes & NAs"
 date: "`r Sys.Date()`"
 output:
   html_document:
