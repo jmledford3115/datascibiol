@@ -1,5 +1,5 @@
 ---
-title: "Data Structures: Objects, Vectors & Data Matrices"
+title: "Objects, Vectors & Data Matrices"
 date: "`r Sys.Date()`"
 output:
   html_document:
@@ -10,20 +10,20 @@ output:
     toc: yes
 ---
 
-## Learning Goals
-*At the end of this exercise, you will be able to:*    
-1. Define data structures and provide examples of vectors, lists, matrices, and data frames.  
-2. Build a new vector and call elements within it.  
-3. Combine a series of vectors into a data matrix.  
-4. Name columns and rows in a data matrix.  
-5. Select values and use summary functions in a data matrix.  
-6. Explain the difference between a data matrix and a data frame.  
-
 ## Setup
-Before each class, please make sure that you complete the following:  
+Before each lab, please make sure that you complete the following:  
 1. Go to the class repository [BIS15-W21-DataScienceBiologists](https://github.com/jmledford3115/BIS15L-W21-DataScienceBiologists), click the `Clone or download` button then `Download zip` to the desktop.  
 2. Copy the files for today's lab from the class repository and paste them into **your** repository.  
-3. Open today's lab in RStudio.  
+3. Open today's lab in RStudio. 
+
+## Learning Goals
+*At the end of this exercise, you will be able to:*    
+1. Define an object in R.  
+2. Use objects to perform calculations.  
+3. Explain the difference between data classes in R.  
+4. Use R to identify the class of specific data.  
+5. Define NA in R.  
+6. Determine whether or not data have NA values.  
 
 ## Objects
 In order to access the potential of R we need to assign values or other types of data to `objects`. There is a specific format that I want you to follow, so please pay close attention.  
@@ -44,7 +44,7 @@ treatment <- 36
 control <- 38
 ```
 
-Here we make a new object `my_experiment` that is the sum of the treatment and control.  
+Here we make a new object `my_experiment` that is the sum of the treatment and control. Notice that I use `_` and not spaces.  
 ```{r}
 my_experiment <- sum(treatment, control)
 my_experiment
@@ -104,7 +104,7 @@ is.integer(my_integer) #is my_numeric an integer?
 ```
 
 ## Missing Data
-R has a special way to designate missing data, the NA. NA values in R have specific properties which are very useful if your data contains any missing values. 
+R has a special way to designate missing data, the NA. NA values in R have specific properties which are very useful if your data contains any missing values. Later this quarter we will have a session focused on dealing with NAs.  
 
 NA values are used to designate missing data. `is.na` or `anyNA` are useful functions when dealing with NAs in data. 
 ```{r}
@@ -119,215 +119,24 @@ is.na(my_missing)
 anyNA(my_missing)
 ```
 
-## Data Structures
-In addition to classes of data, R also organizes data in different ways. These are called data structures and include vectors, lists, matrices, data frames, and factors. For now, we will focus on `vectors`.  
-
-## Vectors
-Vectors are a common way of organizing data in R.  We create vectors using the `c` command.  
-
-A numeric vector.
+## Practice  
+1. Let's create a vector that includes some missing data (we will discuss vectors more in part 2). For now, run the following code chunk.  
 ```{r}
-my_vector <- c(10, 20, 30)
+new_vector <- c(7, 6.2, 5, 9, NA, 4, 9.8, 7, 3, 2)
 ```
 
-A character vector. Characters always have quotes and may be referred to as "strings".
+2. As we did in homework 1, calculate the mean of `new_vector`.
 ```{r}
-days_of_the_week <- c("Monday", "Tuesday", "Wednesday", "Thrusday", "Friday", "Saturday", "Sunday")
+mean(new_vector)
 ```
 
-What if our numeric vector above had a missing value?
+3. How do you interpret this result? What does this mean about NAs?  
+
+4. Recalculate the mean using the following code chunk. Why is the useful?  
 ```{r}
-my_vector <- c(10, NA, 30)
-anyNA(my_vector)
+mean(new_vector, na.rm=T) #na.rm removes the NA values in the vector
 ```
 
-Certain functions require us to specify how we want to deal with NAs. Often if NA is included in an operation, the result is NA.
-```{r}
-mean(my_vector)
-```
+## That's it! Take a break and I will see you on Zoom!  
 
-Let's remove the NA value.
-```{r}
-mean(my_vector, na.rm = TRUE)
-```
-
-A convenient trick for creating a vector is to generate a sequence of numbers.
-```{r}
-my_vector_sequence <- c(1:10)
-my_vector_sequence
-```
-
-`seq` allows more control.
-```{r}
-my_vector_sequence2 <- seq(1, 4, by=0.25)
-my_vector_sequence2
-```
-
-## Identifying vector elements
-We can use `[]` to pull out elements in a vector. We just need to specify their position in the vector; i.e. day 3 is Wednesday.
-```{r}
-days_of_the_week[3]
-```
-
-## Practice
-Work through these examples and make adjustments to the values to experiment.
-
-1. Create a new numeric vector of values 1 through 100
-```{r}
-new_vector <- c(1:100)
-```
-
-2. We can evaluate all numerics in our vector to determine which has a value of 15.
-```{r}
-new_vector == 15
-```
-
-3. We can also use operators such as <, >, ==, <==, etc.
-```{r}
-new_vector < 10
-```
-
-4. If you use `[]` then you only get the values, not the logical evaluation of the entire vector.
-```{r}
-new_vector[new_vector <= 10]
-```
-
-## Data Matrices
-Data matrices are a series of stacked vectors, similar to a data table. In the example below, we will build a new data matrix using the matrix command.  
-
-Box office earnings for Harry Potter movies (in millions!). Notice that these are separate vectors.
-```{r}
-Philosophers_Stone <- c(317.5, 657.1)
-Chamber_of_Secrets <- c(261.9, 616.9)
-Prisoner_of_Azkaban <- c(249.5, 547.1)
-Goblet_of_Fire <- c(290.0, 606.8)
-Order_of_the_Phoenix <- c(292.0, 647.8)
-Half_Blood_Prince <- c(301.9, 632.4)
-Deathly_Hallows_1 <- c(295.9, 664.3)
-Deathly_Hallows_2 <- c(381.0, 960.5)
-```
-
-Create a new object called `box_office`. Here we are using the `c` command to combine the vectors into one.
-```{r}
-box_office <- c(Philosophers_Stone, Chamber_of_Secrets, Prisoner_of_Azkaban, Goblet_of_Fire, Order_of_the_Phoenix, Half_Blood_Prince, Deathly_Hallows_1, Deathly_Hallows_2)
-box_office
-```
-
-Create `harry_potter_matrix` using the `matrix()` command. We need to tell R how to organize the `box_office` vector using the `nrow` and `byrow` commands.
-```{r}
-harry_potter_matrix <- matrix(box_office, nrow = 8, byrow = T)
-harry_potter_matrix
-```
-
-## Name the rows and columns
-Vectors `region` and `titles`, used for naming.
-```{r}
-region <- c("US", "non-US")
-titles <- c("Philosophers_Stone", "Chamber_of_Secrets", "Prisoner_of_Azkaban", "Goblet_of_Fire", "Order_of_the_Phoenix", "Half_Blood_Prince", "Deathly_Hallows_1", "Deathly_Hallows_2")
-```
-
-Name the columns using `colnames()` with the vector region.
-```{r}
-colnames(harry_potter_matrix) <- region
-```
-
-Name the rows using `rownames()` with the vector titles.
-```{r}
-rownames(harry_potter_matrix) <- titles
-```
-
-Print `harry_potter_matrix`.
-```{r}
-harry_potter_matrix
-```
-
-## Using a data matrix
-Once you have a data matrix, you can perform lots of different analyses. For example, you can calculate the total earnings of each movie.
-```{r}
-global <- rowSums(harry_potter_matrix)
-global
-```
-
-And even add a new column to reflect this calculation. `cbind()` adds columns.
-```{r}
-all_harry_potter_matrix <- cbind(harry_potter_matrix, global)
-all_harry_potter_matrix
-```
-
-## Practice
-1. What are the total earnings for each of the regions?  
-```{r}
-total_earnings <- colSums(all_harry_potter_matrix)
-total_earnings
-```
-
-2. Add this information to the data matrix. Hint: you are adding a row, not a column.  
-```{r}
-final_harry_potter_matrix <- rbind(all_harry_potter_matrix, total_earnings)
-final_harry_potter_matrix
-```
-
-## Select elements in a data matrix
-The same methods of selecting elements in a vector apply to data matrices. We use `[]`. The following selects the value in the first column, second row.
-```{r}
-final_harry_potter_matrix[1,2]
-```
-
-Adding a colon `:` selects the specified elements in a column.  
-```{r}
-final_harry_potter_matrix[1:4]
-```
-
-We can also select values in an entire row or column. This can be useful for calculations. Here we calculate the mean of the entire second column. 
-```{r}
-non_us_earnings <- all_harry_potter_matrix[ ,2]
-mean(non_us_earnings)
-```
-
-## Practice
-Below are data collected by three scientists (Jill, Steve, Susan in order) measuring temperatures of eight hot springs.
-```{r}
-spring_1 <- c(36.25, 35.40, 35.30)
-spring_2 <- c(35.15, 35.35, 33.35)
-spring_3 <- c(30.70, 29.65, 29.20)
-spring_4 <- c(39.70, 40.05, 38.65)
-spring_5 <- c(31.85, 31.40, 29.30)
-spring_6 <- c(30.20, 30.65, 29.75)
-spring_7 <- c(32.90, 32.50, 32.80)
-spring_8 <- c(36.80, 36.45, 33.15)
-```
-
-1. Build a data matrix that has the springs as rows and the columns as scientists.  
-```{r}
-springs <- c(spring_1, spring_2, spring_3, spring_4, spring_5, spring_6, spring_7, spring_8)
-springs_matrix <- matrix(springs, nrow=8, byrow = T)
-springs_matrix
-```
-
-Let's name the rows and columns. Start by making two new vectors with the names.
-```{r}
-scientists <- c("Jill", "Steve", "Susan")
-springs <- c("Bluebell Spring", "Opal Spring", "Riverside Spring", "Too Hot Spring", "Mystery Spring", "Emerald Spring", "Black Spring", "Pearl Spring")
-```
-
-2. Use `colnames()` and `rownames()` to name the columns and rows.  
-```{r}
-colnames(springs_matrix) <- scientists
-rownames(springs_matrix) <- springs
-springs_matrix
-```
-
-Calculate the mean temperature of all three springs. Notice the command `rowMeans`.
-```{r}
-mean_vector <- rowMeans(springs_matrix)
-mean_vector
-```
-
-3. Add `mean_vector` as a new column.  
-```{r}
-springs_matrix2 <- cbind(springs_matrix, mean_vector)
-springs_matrix2
-```
-
-## That's it, let's take a break!  
--->[Home](https://jmledford3115.github.io/datascibiol/)
+-->[Home](https://jmledford3115.github.io/datascibiol/)  
