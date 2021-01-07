@@ -147,7 +147,7 @@ all_harry_potter_matrix
 ## A few Extras
 The same methods of selecting elements in a vector apply to data matrices. We use `[]`. The following selects the value in the first column, second row.
 ```{r}
-harry_potter_matrix[1,2]
+harry_potter_matrix[2,1]
 ```
 
 Adding a colon `:` selects the specified elements in a column.  
