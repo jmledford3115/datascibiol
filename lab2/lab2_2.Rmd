@@ -1,5 +1,5 @@
 ---
-title: "Data Structures: Vectors and Data Frames"
+title: "Data Structures: Vectors and Data Matrices"
 date: "`r Sys.Date()`"
 output:
   html_document:
@@ -15,11 +15,11 @@ Please take 5-8 minutes to check over your answers to HW 1 in your group. If you
 
 ## Learning Goals
 *At the end of this exercise, you will be able to:*    
-1. Combine a series of vectors into a data frame.  
-2. Name columns and rows in a data frame.  
-3. Select columns and rows and use summary functions.   
-4. Change data classes of columns in the data frame.  
-5. Write your data frame to a csv file!  
+1. Define data structures and provide examples of vectors and data matrices.  
+2. Build a new vector and call elements within it.  
+3. Combine a series of vectors into a data matrix.  
+4. Name columns and rows in a data matrix.  
+5. Select values and use summary functions in a data matrix.  
 
 ## Data Structures
 In addition to classes of data, R also organizes data in different ways. These are called data structures and include vectors, lists, matrices, data frames, and factors. For now, we will focus on `vectors`.  
@@ -37,32 +37,10 @@ A character vector. Characters always have quotes and may be referred to as "str
 days_of_the_week <- c("Monday", "Tuesday", "Wednesday", "Thrusday", "Friday", "Saturday", "Sunday")
 ```
 
-What if our numeric vector above had a missing value?
-```{r}
-my_vector <- c(10, NA, 30)
-anyNA(my_vector)
-```
-
-Certain functions require us to specify how we want to deal with NAs. Often if NA is included in an operation, the result is NA.
-```{r}
-mean(my_vector)
-```
-
-Let's remove the NA value.
-```{r}
-mean(my_vector, na.rm = TRUE)
-```
-
 A convenient trick for creating a vector is to generate a sequence of numbers.
 ```{r}
-my_vector_sequence <- c(1:10)
+my_vector_sequence <- c(1:100)
 my_vector_sequence
-```
-
-`seq` allows more control.
-```{r}
-my_vector_sequence2 <- seq(1, 4, by=0.25)
-my_vector_sequence2
 ```
 
 ## Identifying vector elements
@@ -74,180 +52,113 @@ days_of_the_week[3]
 ## Practice
 Work through these examples and make adjustments to the values to experiment.
 
-1. Create a new numeric vector of values 1 through 100
+2. Evaluate all numerics in `my_vector_sequence` to determine which has a value of 15.  
 ```{r}
-new_vector <- c(1:100)
+
 ```
 
-2. We can evaluate all numerics in our vector to determine which has a value of 15.
+3. We can use operators such as <, >, ==, <==, etc. Show all values in `my_vector_sequence` that are less than 10.  How about less than or equal to 10?  
 ```{r}
-new_vector == 15
+
 ```
 
-3. We can also use operators such as <, >, ==, <==, etc.
+4. If you use `[]` then you only get the values, not the logical evaluation of the entire vector. Experiment with this by adjusting the chunk below.    
 ```{r}
-new_vector < 10
+my_vector_sequence[my_vector_sequence <= 10]
 ```
 
-4. If you use `[]` then you only get the values, not the logical evaluation of the entire vector.
+## Data Matrices
+Data matrices are a series of stacked vectors, similar to a data table. In the example below, we build a new data matrix using the matrix command.  
+
+Box office earnings for Harry Potter movies (in millions!). Notice that these are separate vectors.  
 ```{r}
-new_vector[new_vector <= 10]
+Philosophers_Stone <- c(317.5, 657.1)
+Chamber_of_Secrets <- c(261.9, 616.9)
+Prisoner_of_Azkaban <- c(249.5, 547.1)
+Goblet_of_Fire <- c(290.0, 606.8)
+Order_of_the_Phoenix <- c(292.0, 647.8)
+Half_Blood_Prince <- c(301.9, 632.4)
+Deathly_Hallows_1 <- c(295.9, 664.3)
+Deathly_Hallows_2 <- c(381.0, 960.5)
 ```
 
-
-
-
-
-## Load tidyverse
-```{r message=FALSE, warning=FALSE}
-library("tidyverse")
+Create a new object called `box_office`. Here we are using the `c` command to combine the vectors into one.
+```{r}
+box_office <- c(Philosophers_Stone, Chamber_of_Secrets, Prisoner_of_Azkaban, Goblet_of_Fire, Order_of_the_Phoenix, Half_Blood_Prince, Deathly_Hallows_1, Deathly_Hallows_2)
+box_office
 ```
 
-## Data Frame
-During the first part of lab, you learned how to work with vectors. Today we will organize the vectors into a new type of data structure called a **data frame**. The data frame is the most common way to organize data within R. You can think of a data frame as similar to an Excel spreadsheet. A data frame can store data of different types. 
-
-Let's build three separate vectors of length (in), weight (oz), and sex of three ruby throated hummingbirds.
+Create `harry_potter_matrix` using the `matrix()` command. We need to tell R how to organize the `box_office` vector using the `nrow` and `byrow` commands.
 ```{r}
-Sex <- c("Male", "Female", "Male")
-Length <- c(3.2, 3.7, 3.4)
-Weight <- c(2.9, 4.0, 3.1)
+harry_potter_matrix <- matrix(box_office, nrow = 8, byrow = T)
+harry_potter_matrix
 ```
-
-Here we combine our three vectors to create a data frame with the function `data.frame()`.
+## Name the rows and columns
+Vectors `region` and `titles`, used for naming.
 ```{r}
-hbirds <- data.frame(Sex, Length, Weight)
-hbirds
-```
-
-Notice that not only are the data neat and clean looking, there is also information provided about the type of data in the frame. `dbl` means that the value is a type of numeric [double precision floating point](http://uc-r.github.io/integer_double/). 
-
-What are the column names of our data frame? Notice that R defaulted to using the names of our vectors, but we could name them something else when creating the data frame, or rename them later.
-```{r}
-names(hbirds)
-```
-
-Let's use lowercase names when we create the data frame. We just changed to lowercase here, but we could use any names we wish.
-```{r}
-hbirds <- data.frame(sex = Sex,length_in = Length, weight_oz = Weight) #renaming will become more helpful in later labs
-names(hbirds)
+region <- c("US", "non-US")
+region
 ```
 
 ```{r}
-hbirds
+titles <- c("Philosophers_Stone", "Chamber_of_Secrets", "Prisoner_of_Azkaban", "Goblet_of_Fire", "Order_of_the_Phoenix", "Half_Blood_Prince", "Deathly_Hallows_1", "Deathly_Hallows_2")
+titles
 ```
 
-## Accessing Data Frame Columns and Rows 
-The same methods of selecting elements in a vector apply to data frames. We use `[]`. But now we have two positions where the first applies to the rows, and the second to the columns.  
-
-The first row.  
+Name the columns using `colnames()` with the vector region.
 ```{r}
-hbirds[1,]
+colnames(harry_potter_matrix) <- region
 ```
 
-The third column.  
+Name the rows using `rownames()` with the vector titles.
 ```{r}
-hbirds[,3]
+rownames(harry_potter_matrix) <- titles
 ```
 
-We can also select values in an entire column using the `$` sign. This can be useful for calculations. Here we calculate the mean of all of the birds weights. 
+Print `harry_potter_matrix`.
 ```{r}
-w <- hbirds$weight_oz
-mean(w)
+harry_potter_matrix
 ```
 
-## Summaries
-We can also summarize our entire data frame with the`summary()` function.
+## Using a data matrix
+Once you have a data matrix, you can perform lots of different analyses. For example, you can calculate the total earnings of each movie.
 ```{r}
-summary(hbirds)
+global <- rowSums(harry_potter_matrix)
+global
 ```
 
-## Glimpse
-`glimpse()` is another useful summary function.
+And even add a new column to reflect this calculation. `cbind()` adds columns.
 ```{r}
-glimpse(hbirds)
-```
-
-## Adding Rows
-We can add a new bird's data with the `rbind()` function, known as row bind. It will bind our new vector to our data frame row-wise.
-```{r}
-new_bird <- c("Female", 3.6, 3.9)
-new_bird
-```
-
-```{r}
-hbirds<- rbind(hbirds, new_bird)
-hbirds
-```
-
-## Adding Columns
-What if we come across more data and we want to add it to our data frame? We can do that with the `$` operator.
-```{r}
-hbirds$neighborhood <- c("Lakewood", "Brentwood", "Lakewood", "Scenic Heights")
-hbirds
-```
-
-## Changing Column Classes
-Great, we added our new column, but it's a character and not a factor. A factor is a special type of character vector with predefined levels. 
-```{r}
-class(hbirds$neighborhood)
-hbirds$neighborhood <- as.factor(hbirds$neighborhood)
-```
-
-```{r}
-class(hbirds$neighborhood)
-```
-
-`levels()` will give you a list of the different levels within a factor.  
-```{r}
-levels(hbirds$neighborhood)
-```
-
-## Writing Data to File
-We should save our hbirds data frame so we can use it again later! There are many ways to save data in R, here we write our data frame to a csv file. We use  `row.names = FALSE` to avoid row numbers from printing out. 
-```{r}
-write.csv(hbirds, "hbirds_data.csv", row.names = FALSE)
+all_harry_potter_matrix <- cbind(harry_potter_matrix, global)
+all_harry_potter_matrix
 ```
 
 ## Practice
-Below are data collected by three scientists (Jill, Steve, Susan in order) measuring temperatures of three hot springs near Mono Lake.
+1. What are the total earnings for the US and non-US regions?  
 ```{r}
-temp <- c(36.25, 35.40, 35.30, 35.15, 35.35, 33.35, 30.70, 29.65, 29.20)
-name <- c("Jill","Susan", "Steve", "Jill","Susan", "Steve", "Jill","Susan", "Steve")
-spring <- c("Buckeye", "Buckeye", "Buckeye", "Benton", "Benton", "Benton", "Travertine", "Travertine", "Travertine")
+
 ```
 
-1. Build a data frame called `hsprings` with the above data. Name the temperature column `temp_C`. Print out the data frame.  
+2. Add this information to the data matrix. Hint: you are adding a row, not a column.  
 ```{r}
-hsprings <- data.frame(temp_C = temp, name, spring)
-hsprings
+
 ```
 
-2. Change the column titled `name` to `scientist`, leave the other column names the same. Print out the data frame names.  
+## A few Extras
+The same methods of selecting elements in a vector apply to data matrices. We use `[]`. The following selects the value in the first column, second row.
 ```{r}
-names(hsprings)[2] <- c("scientist")
-hsprings
+harry_potter_matrix[1,2]
 ```
 
-3. Our scientists forgot to record the depth data for each spring. Here it is as a vector, add it as a new column called depth_ft: `c(4.15, 4.13, 4.12, 3.21, 3.23, 3.20, 5.67, 5.65, 5.66)`. Print out the data frame.
+Adding a colon `:` selects the specified elements in a column.  
 ```{r}
-hsprings$depth_ft <- c(4.15, 4.13, 4.12, 3.21, 3.23, 3.20, 5.67, 5.65, 5.66)
-hsprings
+harry_potter_matrix[1:4]
 ```
 
-4. Calculate the mean temperature of all of the temperature measurements.
+We can also select values in an entire row or column. This can be useful for calculations. Here we calculate the mean of the entire second column. 
 ```{r}
-mean(hsprings$temp_C)
-```
-
-5. What is the class of the scientist column? Use an R command to see all the unique levels.
-```{r}
-class(hsprings$scientist)
-levels(hsprings$scientist)
-```
-
-6. Save your hot springs data as a csv file! Do not allow row names. 
-```{r}
-write.csv(hsprings, "hsprings_data.csv", row.names = FALSE)
+non_us_earnings <- all_harry_potter_matrix[ ,2]
+mean(non_us_earnings)
 ```
 
 ## Wrap-up
