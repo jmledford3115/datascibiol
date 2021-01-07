@@ -52,17 +52,17 @@ days_of_the_week[3]
 ## Practice
 Work through these examples and make adjustments to the values to experiment.
 
-2. Evaluate all numerics in `my_vector_sequence` to determine which has a value of 15.  
+1. Evaluate all numerics in `my_vector_sequence` to determine which has a value of 15.  
 ```{r}
 
 ```
 
-3. We can use operators such as <, >, ==, <==, etc. Show all values in `my_vector_sequence` that are less than 10.  How about less than or equal to 10?  
+2. We can use operators such as <, >, ==, <==, etc. Show all values in `my_vector_sequence` that are less than 10.  How about less than or equal to 10?  
 ```{r}
 
 ```
 
-4. If you use `[]` then you only get the values, not the logical evaluation of the entire vector. Experiment with this by adjusting the chunk below.    
+3. If you use `[]` then you only get the values, not the logical evaluation of the entire vector. Experiment with this by adjusting the chunk below.    
 ```{r}
 my_vector_sequence[my_vector_sequence <= 10]
 ```
