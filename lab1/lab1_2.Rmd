@@ -99,7 +99,7 @@ In order to make the html file, you need to "Knit" the file. Knitting just means
 2. Go back to your "RMarkdown Practice" file and experiment with titles, text, and syntax.  
 3. Copy and paste the following two pieces of code into the document (include the gray code "chunks").      
 
-```{r message=FALSE, warning=FALSE}
+```{r}
 #install.packages("tidyverse")
 library("tidyverse")
 ```
