@@ -1,5 +1,5 @@
 ---
-title: "Data Structures: Vectors and Data Matrices"
+title: "Vectors and Data Matrices"
 date: "`r Sys.Date()`"
 output:
   html_document:
