@@ -1622,21 +1622,30 @@ class(hot_springs$scientist)</code></pre>
 <p>Once data have been uploaded, you may want to get an idea of its structure, contents, and dimensions. I routinely run one or more of these commands when data are first imported.</p>
 <p>We can summarize our data frame with the<code>summary()</code> function.</p>
 <pre class="r"><code>#summary(fish)</code></pre>
-</div>
-<div id="glimpse" class="section level2">
-<h2>Glimpse</h2>
 <p><code>glimpse()</code> is another useful summary function.</p>
 <pre class="r"><code>#glimpse(fish)</code></pre>
+<p><code>nrow()</code> gives the numbers of rows.</p>
 <pre class="r"><code>#nrow(fish) #the number of rows or observations</code></pre>
+<p><code>ncol</code> gives the number of columns.</p>
 <pre class="r"><code>#ncol(fish) #the number of columns or variables</code></pre>
+<p><code>dim()</code> gives the dimensions.</p>
 <pre class="r"><code>#dim(fish) #total dimensions</code></pre>
+<p><code>names</code> gives the column names.</p>
 <pre class="r"><code>#names(fish) #column names</code></pre>
-<pre class="r"><code>#head(fish, n = 10) # print the first n rows of the data frame</code></pre>
-<pre class="r"><code>#tail(fish, n = 10) # print the last n rows of the data frame</code></pre>
-<p><code>table()</code> is useful when you have a limited number of categorical variables. We will come back to this later…</p>
+<p><code>head()</code> prints the first n rows of the data frame.</p>
+<pre class="r"><code>#head(fish, n = 10)</code></pre>
+<p><code>tail()</code> prinst the last n rows of the data frame.</p>
+<pre class="r"><code>#tail(fish, n = 10)</code></pre>
+<p><code>table()</code> is useful when you have a limited number of categorical variables. It produces fast counts of the number of observations in a variable. We will come back to this later…</p>
 <pre class="r"><code>#table(fish$lakeid)</code></pre>
 <p>We can also click on the <code>fish</code> data frame in the Environment tab or type View(fish).</p>
 <pre class="r"><code>#View(fish)</code></pre>
+</div>
+<div id="subset" class="section level2">
+<h2>Subset</h2>
+<p>Subset is a way of pulling out observations that meet specific criteria in a variable.</p>
+<pre class="r"><code>#little_fish &lt;- subset(fish, length&lt;=100)
+#little_fish</code></pre>
 </div>
 <div id="practice-1" class="section level2">
 <h2>Practice</h2>
@@ -1645,8 +1654,7 @@ class(hot_springs$scientist)</code></pre>
 <li><p>Provide the dimensions of the data frame.</p></li>
 <li><p>Check the column names in the data frame.</p></li>
 <li><p>Use <code>str()</code> to show the structure of the data frame and its individual columns; compare this to <code>glimpse()</code>.</p></li>
-<li><p>Print out the first few rows of the data using the function <code>head()</code> and the last few rows using the function <code>tail()</code>.</p></li>
-<li><p>Try the <code>table()</code> command to produce counts of mammal order, family, and genus.</p></li>
+<li><p>. Try the <code>table()</code> command to produce counts of mammal order, family, and genus.</p></li>
 </ol>
 </div>
 <div id="wrap-up" class="section level2">

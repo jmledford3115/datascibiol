@@ -138,8 +138,8 @@ We can also click on the `fish` data frame in the Environment tab or type View(f
 ## Subset
 Subset is a way of pulling out observations that meet specific criteria in a variable.  
 ```{r}
-little_fish <- subset(fish, length<=100)
-little_fish
+#little_fish <- subset(fish, length<=100)
+#little_fish
 ```
 
 ## Practice
