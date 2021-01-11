@@ -90,37 +90,42 @@ We can summarize our data frame with the`summary()` function.
 #summary(fish)
 ```
 
-## Glimpse
 `glimpse()` is another useful summary function.
 ```{r}
 #glimpse(fish)
 ```
 
+`nrow()` gives the numbers of rows.
 ```{r}
 #nrow(fish) #the number of rows or observations
 ```
 
+`ncol` gives the number of columns.
 ```{r}
 #ncol(fish) #the number of columns or variables
 ```
 
+`dim()` gives the dimensions.
 ```{r}
 #dim(fish) #total dimensions
 ```
 
+`names` gives the column names.
 ```{r}
 #names(fish) #column names
 ```
 
+`head()` prints the first n rows of the data frame.
 ```{r}
-#head(fish, n = 10) # print the first n rows of the data frame
+#head(fish, n = 10)
 ```
 
+`tail()` prinst the last n rows of the data frame.
 ```{r}
-#tail(fish, n = 10) # print the last n rows of the data frame
+#tail(fish, n = 10)
 ```
 
-`table()` is useful when you have a limited number of categorical variables. We will come back to this later... 
+`table()` is useful when you have a limited number of categorical variables. It produces fast counts of the number of observations in a variable. We will come back to this later... 
 ```{r}
 #table(fish$lakeid)
 ```
@@ -128,6 +133,13 @@ We can summarize our data frame with the`summary()` function.
 We can also click on the `fish` data frame in the Environment tab or type View(fish).
 ```{r}
 #View(fish)
+```
+
+## Subset
+Subset is a way of pulling out observations that meet specific criteria in a variable.  
+```{r}
+little_fish <- subset(fish, length<=100)
+little_fish
 ```
 
 ## Practice
@@ -155,12 +167,7 @@ We can also click on the `fish` data frame in the Environment tab or type View(f
 
 ```
 
-5. Print out the first few rows of the data using the function `head()` and the last few rows using the function `tail()`.  
-```{r}
-
-```
-
-6. Try the `table()` command to produce counts of mammal order, family, and genus.  
+5. . Try the `table()` command to produce counts of mammal order, family, and genus.  
 ```{r}
 
 ```
