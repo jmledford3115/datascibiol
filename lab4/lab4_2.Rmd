@@ -1,5 +1,5 @@
 ---
-title: "Tidyr 2: `pivot_wider()`, `summarize()`, and `group_by()`"
+title: "Transforming data 2: pipes, `filter()`, `mutate()`"
 date: "`r Sys.Date()`"
 output:
   html_document:
@@ -10,241 +10,231 @@ output:
     toc: yes
 ---
 
-## Learning Goals
+## Learning Goals  
 *At the end of this exercise, you will be able to:*    
-1. Explain the difference between tidy and messy data.  
-2. Evaluate a dataset as tidy or untidy.  
-3. Use the `pivot_wider()` function of tidyr to transform data from long to wide format.  
-4. Use `summarize()` and `group_by()` to produce statistical summaries of data.
+1. Use the functions of dplyr (filter, select, arrange) to organize and sort data frames.  
+2. Use `mutate()` to calculate a new column from existing columns.  
 
-## Group Project
-Let's take 10 minutes to decide on groups and think about a theme for our projects. What data interest you? Make a plan on doing some internet searches and selecting data that will work for your group. Think about the kinds of questions you might ask.  
-
-## Resources
-- [tidyr `pivot_wider()`](https://tidyr.tidyverse.org/reference/pivot_wider.html)  
-- [pivoting](https://cran.r-project.org/web/packages/tidyr/vignettes/pivot.html)  
-
-## Review
-Last time we learned the fundamentals of tidy data and used the `pivot_longer()` function to wrangle a few types of frequently encountered untidy data. In the second part of today's lab we will use the `pivot_wider()` function to deal with a second type of untidy data.  
+## Review  
+In the previous lab, we used `select()` to extract columns of interest from a data frame. This helps us focus our attention on the variables relevant to our question. However, it doesn't allow us to extract observations from within the data frame. The `filter()` function allows us to extract data that meet specific criteria. When combined with `select()`, we have the power to transform, shape, and explore data with the potential to make new discoveries.  
 
 ## Load the tidyverse
-```{r}
+```{r message=FALSE, warning=FALSE}
 library("tidyverse")
 ```
 
-## `pivot_longer()`
-Recall that we use `pivot_longer()` when our column names actually represent variables. A classic example would be that the column names represent observations of a variable.
+## Load the data
+For these exercises we will use the data from lab 4_1.  
 ```{r}
-datasets::USPersonalExpenditure
-?USPersonalExpenditure
+fish <- readr::read_csv("data/Gaeta_etal_CLC_data.csv")
+mammals <- readr::read_csv("data/mammal_lifehistories_v2.csv")
 ```
 
-Here we add a new column of expenditure types, which are stored as rownames above, with `mutate()`. The USPersonalExpenditures data also needs to be converted to a data frame before we can use the tidyverse functions, because it comes as a matrix.
+To keep things tidy, I am going to rename the variables in the mammals data.  
 ```{r}
-expenditures <- 
-  USPersonalExpenditure %>% 
-  as.data.frame() %>% 
-  mutate(expenditure = rownames(USPersonalExpenditure))
-expenditures
+mammals <- rename(mammals, genus=Genus, wean_mass="wean mass", max_life="max. life", litter_size="litter size", litters_per_year="litters/year")
+```
+
+## `filter()`
+Unlike `select()`, `filter()` allows us to extract data that meet specific criteria within a variable. Let's say that we are interested only in the fish that occur in lake "AL". We can use `filter()` to extract these observations.  
+```{r}
+filter(fish, lakeid == "AL")
+```
+
+Similarly, if we are only interested in fish with a length greater than or equal to 350 we can use `filter()` to extract these observations.  
+```{r}
+filter(fish, length >= 350)
+```
+
++ `filter()` allows all of the expected operators; i.e. >, >=, <, <=, != (not equal), and == (equal).  
+
+Using the `!` operator allows for the exclusion of specific observations.
+```{r}
+filter(fish, lakeid != "AL")
+```
+
+## Using `filter()` with multiple observations  
+Filtering multiple values within the same variable requires the `%in%` [operator](https://www.tutorialspoint.com/r/r_operators.htm).    
+```{r}
+filter(fish, length %in% c(167, 175))
+```
+
+Alternatively, you can use `between` if you are looking for a range of specific values.  
+```{r}
+filter(fish, between(scalelength, 2.5, 2.55))
+```
+
+You can also extract observations "near" a certain value but you need to specify a tolerance.  
+```{r}
+filter(fish, near(radii_length_mm, 2, tol = 0.2))
 ```
 
 ## Practice
-1. Are these data tidy? Please use `pivot_longer()` to tidy the data. Here we use back ticks on the column names so R does not confuse them with numerical indices.
+1. Filter the `fish` data to include the samples from lake "BO".
 ```{r}
-expenditures_tidy <- 
-  expenditures %>% 
-  pivot_longer(-expenditure,
-               names_to = "year",
-               values_to = "bn_dollars")
-expenditures_tidy
+filter(fish, lakeid == "BO")
 ```
 
-2. Restrict the data to medical and health expenditures only. Sort in ascending order.
+2. Filter the data to include all lakes except "AR".
 ```{r}
-expenditures_tidy %>%
-  filter(expenditure == "Medical and Health") %>% 
-  arrange(bn_dollars)
+filter(fish, lakeid != "AR")
 ```
 
-## `pivot_wider()`
-The opposite of `pivot_longer()`. You use `pivot_wider()` when you have an observation scattered across multiple rows. In the example below, `cases` and `population` represent variable names not observations.  
+3. Filter the fish data to include all fish with a scalelength within 0.25 of 8.
+```{r}
+filter(fish, near(scalelength, 8, tol = 0.5))
+```
+
+4. Filter the fish data to include fish with a scalelength between 2 and 4.
+```{r}
+filter(fish, between(scalelength, 2, 4))
+```
+
+## Using `filter()` on multiple conditions
+You can also use `filter()` to extract data based on multiple conditions. Below we extract only the fish that have lakeid "AL" and length >350.
+```{r}
+filter(fish, lakeid == "AL" & length > 350)
+```
+
+Notice that the `|` operator generates a different result.
+```{r}
+x <- filter(fish, lakeid == "AL" | length > 350)
+x
+```
+
+```{r}
+table(x$lakeid)
+```
 
 Rules:  
-+ `pivot_wider`(names_from, values_from)  
-+ `names_from` - Values in the `names_from` column will become new column names  
-+ `values_from` - Cell values will be taken from the `values_from` column  
++ `filter(condition1, condition2)` will return rows where both conditions are met.  
++ `filter(condition1, !condition2)` will return all rows where condition one is true but condition 2 is not.  
++ `filter(condition1 | condition2)` will return rows where condition 1 and/or condition 2 is met.  
++ `filter(xor(condition1, condition2)` will return all rows where only one of the conditions is met, and not when both conditions are met.  
 
+In this case, we filter out the fish with a length over 400 and a scale length over 11 or a radii length over 8.
 ```{r}
-tb_data <- read_csv("data/tb_data.csv")
-tb_data
-```
-
-When using `pivot_wider()` we use `names_from` to identify the variables (new column names) and `values_from` to identify the values associated with the new columns.
-```{r}
-tb_data %>% 
-  pivot_wider(names_from = "key", #the observations under key will become new columns
-              values_from = "value")
+filter(fish, length > 400, (scalelength > 11 | radii_length_mm > 8))
 ```
 
 ## Practice
-1. Load the `gene_exp.csv` data as a new object `gene_exp`. Are these data tidy? Use `pivot_wider()` to tidy the data.
+1.  From the `mammals` data, filter all members of the family Bovidae with a mass greater than 450000.
 ```{r}
-gene_exp <- readr::read_csv("data/gene_exp.csv")
-gene_exp
+filter(mammals, family=="Bovidae", mass>=450000)
 ```
 
+2. From the `mammals` data, filter only Carnivora and Primates.
 ```{r}
-gene_exp %>% 
-  pivot_wider(names_from = "type",
-              values_from = "L4_values")
+filter(mammals, order %in% c("Carnivora", "Primates"))
 ```
 
-## `pivot_wider()` with multiple variables  
-What happens when we want to use `pivot_wider()` with multiple columns?
-```{r}
-edu_level <- readr::read_csv("data/education_level.csv")
-```
 
-We want to pivot the `edu_level` data such that there is only a single row per demographic. 
-```{r}
-edu_level %>% 
-pivot_wider(names_from = (education_level), #new column names come from the education_level column
-                values_from = c(mean_income, n)) #values come from two separate columns
-```
 
-## `rename()`
-The `rename()` function is actually part of *dplyr*, but I put it here because I think of it as part of transforming untidy data. Remember, youcan still rename columns as part of `select()`.
-```{r}
-tb_data %>% 
-  pivot_wider(names_from = "key",
-              values_from = "value") %>% 
-  dplyr::rename(
-    Country=country,
-    Year=year,
-    New_Cases=cases,
-    Population=population
-  )
-```
 
-## `summarize()`
-`summarize()` will produce summary statistics for a given variable in a data frame. For example, in homework 2 you were asked to calculate the mean of the sleep total column for large and small mammals. We did this using a combination of tidyverse and base R commands, which isn't very efficient or clean. We can do better!  
-```{r}
-msleep
-```
 
-From homework 2.
-```{r}
-large <- 
-  msleep %>% 
-  select(name, genus, bodywt, sleep_total) %>% 
-  filter(bodywt >= 200) %>% 
-  arrange(desc(bodywt))
-large
-```
 
-```{r}
-mean(large$sleep_total)
-```
 
-We can accomplish the same task using the `summarize()` function in the tidyverse and make things cleaner.
-```{r}
-msleep %>% 
-  filter(bodywt >= 200) %>%
-  summarize(mean_sleep_lg = mean(sleep_total))
-```
 
-You can also combine functions to make useful summaries for multiple variables.
-```{r}
-msleep %>% 
-    filter(bodywt >= 200) %>% 
-    summarize(mean_sleep_lg = mean(sleep_total), 
-              min_sleep_lg = min(sleep_total),
-              max_sleep_lg = max(sleep_total),
-              total = n())
-```
 
-`n_distinct()` is a very handy way of cleanly presenting the number of distinct observations. Here we show the number of distinct genera over 200 in body weight.
-```{r}
-msleep %>% 
-  filter(bodywt >= 200) %>% 
-  summarise(n_genera=n_distinct(genus))
-```
 
-There are many other useful summary statistics, depending on your needs: sd(), min(), max(), median(), sum(), n() (returns the length of vector), first() (returns first value in vector), last() (returns last value in vector) and n_distinct() (number of distinct values in vector).
 
-## Practice
-1. How many genera are represented in the msleep data frame?
-```{r}
-msleep %>%
-  summarize(ngenera = n_distinct(genus))
-```
 
-2. What are the min, max, and mean body weight for all of the mammals? Be sure to include the total n.
-```{r}
-msleep %>%
-  summarize(min_bodywt = min(bodywt),
-            max_bodywt = max(bodywt),
-            mean_bodywt = mean(bodywt),
-            total = n())
-```
+## Pipes `%>%` 
+In order to start combining `select()` and `filter()` efficiently, we need to learn pipes. Pipes feed the output from one function to the input of another function. This helps us keep our code sequential and clean.  
 
-## `group_by()`
-The `summarize()` function is most useful when used in conjunction with `group_by()`. Although producing a summary of body weight for all of the mammals in the dataset is helpful, what if we were interested in body weight by feeding ecology?
+Here we call up the fish data, select only lakeid and scalelength then filter that output only for lakes "AL". Notice that we only need to call the data one time.
 ```{r}
-names(msleep)
-```
-
-```{r}
-msleep %>%
-  group_by(vore) %>% #we are grouping by feeding ecology
-  summarize(min_bodywt = min(bodywt),
-            max_bodywt = max(bodywt),
-            mean_bodywt = mean(bodywt),
-            total=n())
-```
-
-`count()` is an easy way of determining how many observations you have within a column. It effectively acts like a combination of `group_by()` and `n()`.
-```{r}
-msleep %>% 
-  count(order, sort = T)
-```
-
-You can also use `count()` across multiple variables.
-```{r}
-msleep %>% 
-  count(order, vore, sort = TRUE)
-```
-
-`add_count()` adds a new column to the dataframe.
-```{r}
-msleep %>% 
-  select(name:order) %>% 
-  add_count(order) %>% 
-  top_n(-5) #the bottom 5 
+fish %>%
+  select(lakeid, scalelength) %>%
+  filter(lakeid == "AL")
 ```
 
 ## Practice
-1. Calculate mean brain weight by taxonomic order in the msleep data.
+1. Build a dataframe focused on lakeid and radii_length but restricted to the fish from the lakes "AL" and "AR" with a radii length between 2 and 4. Use pipes!  
 ```{r}
-msleep %>% 
-  group_by(order) %>% 
-  summarize(mean_brainwt = mean(brainwt))
+fish %>% 
+  select(lakeid, radii_length_mm) %>% 
+  filter(lakeid=="AL" | lakeid=="AR", (between(radii_length_mm, 2, 4)))
 ```
 
-2. What does `NA` mean?  
-
-_In this case it means we are actually missing data because the brain weight for some animals has not been measured._  
-
-3. Try running the code again, but this time add `na.rm=TRUE`. What is the problem with Cetacea?  
+## `arrange()`
+The `arrange()` command is a bit like a sort command in excel.
 ```{r}
-msleep %>% 
-  group_by(order) %>% 
-  summarize(mean_brainwt = mean(brainwt, na.rm = TRUE))
+fish %>% 
+  arrange(scalelength)
+```
+
+To sort in decreasing order, wrap the variable name in `desc()`.
+```{r}
+fish %>% 
+  arrange(desc(scalelength))
+```
+
+`arrange()` can be very helpful in combination with the other functions.
+```{r}
+fish %>% 
+  select(lakeid, length, fish_id, scalelength) %>% 
+  filter(lakeid=="AL") %>% 
+  arrange(fish_id)
+```
+
+## `mutate()`  
+Mutate allows us to create a new column from existing columns in a data frame. Let's convert the length variable from cm to millimeters and create a new variable called length_mm.  
+```{r}
+fish %>% 
+  mutate(length_mm = length*100) %>% 
+  select(fish_id, length, length_mm)
+```
+
+## Practice
+1. Use `mutate()` to calculate the half length of each fish: length_half = length/2. Select only fish_id, length, and length_half, use pipes.
+```{r}
+fish %>% 
+  mutate(length_half=length/2) %>% 
+  select(fish_id, length, length_half)
+```
+
+## `if_else()`
+We will briefly introduce `if_else()` here because it allows us to use `mutate()` but not the entire column affected in the same way. In a sense, this can function like find and replace in a spreadsheet program. With `ifelse()`, you first specify a logical statement, afterwards what needs to happen if the statement returns `TRUE`, and lastly what needs to happen if it's  `FALSE`.  
+
+Have a look at the data from mammals below. Notice that the values for newborn include `-999.00`. This is sometimes used as a placeholder for NA (but, is a really bad idea). We can use `if_else()` to replace `-999.00` with `NA`.
+```{r}
+mammals %>% 
+  select(Genus, species, newborn) %>% 
+  arrange(newborn)
 ```
 
 ```{r}
-msleep %>% 
-  filter(order == "Cetacea")
+mammals %>% 
+  select(Genus, species, newborn) %>%
+  mutate(newborn_new = ifelse(newborn == -999.00, NA, newborn))
+```
+
+## `mutate_all()`
+This last function is super helpful when cleaning data. With "wild" data, there are often mixed entries (upper and lowercase), blank spaces, odd characters, etc. These all need to be dealt with before analysis.  
+
+Here is an example that changes all entries to lowercase (if present).  
+```{r}
+mammals %>%
+  mutate_all(tolower)
+```
+
+Here I take the mammals data and add some random characters as an example.
+```{r}
+mammals_ohno <- 
+  mammals %>%
+  mutate_all(~paste(., "  /n  "))
+
+mammals_ohno[,1:4]
+```
+
+```{r}
+mammals_corr <- 
+  mammals_ohno %>%
+  mutate_all(~str_replace_all(., "/n", "")) %>%
+  mutate_all(str_trim)
+
+mammals_corr[,1:4]
 ```
 
 ## That's it, let's take a break!   

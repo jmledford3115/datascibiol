@@ -1,5 +1,5 @@
 ---
-title: "Tidyr 1: Tidy data and `pivot_long()`"
+title: "Transforming data 1: Dplyr `select()`"
 date: "`r Sys.Date()`"
 output:
   html_document:
@@ -10,216 +10,152 @@ output:
     toc: yes
 ---
 
-> **For Big-Data Scientists, "Janitor Work" Is Key Hurdle to Insights.**  
-> "Data scientists, according to interviews and expert estimates, spend from 50 percent to 80 percent of their time mired in the mundane labor of collecting and preparing data, before it can be explored for useful information."  
-> [New York Times (2014)](http://www.nytimes.com/2014/08/18/technology/for-big-data-scientists-hurdle-to-insights-is-janitor-work.html)
-
 ## Learning Goals
 *At the end of this exercise, you will be able to:*    
-1. Explain the difference between tidy and messy data.  
-2. Evaluate a dataset as tidy or messy.    
-3. Use the `pivot_longer()` function of tidyr to transform data from wide to long format.  
-4. Use `separate()` to split observations within a column.  
+1. Use summary functions to assess the structure of a data frame.  
+2. Us the select function of `dplyr` to build data frames restricted to variable of interest.  
+3. Use the `rename()` function to provide new, consistent names to variables in data frames.  
 
-## Overview
-The  quote sums above sums up much of the work in data science. Simply put, most of the data that you end up working with will be messy, disorganized, and not **tidy**. By the end of the course, you will learn multiple ways of wrangling messy data into tidy data that are ready for analysis.  
-
-## Resources
-- [tidyr `pivot_longer()`](https://tidyr.tidyverse.org/reference/pivot_longer.html)  
-- [pivoting](https://cran.r-project.org/web/packages/tidyr/vignettes/pivot.html)  
+## Review
+At this point, you should have familiarity in RStudio, GitHub, and basic operations in R. If you need extra help, please [email me](mailto: jmledford@ucdavis.edu).  
 
 ## Load the tidyverse
+For the remainder of the quarter, we will work within the `tidyverse`. At the start of each lab, the library needs to be called as shown below.  
 ```{r message=FALSE, warning=FALSE}
-library(tidyverse)
+library("tidyverse")
 ```
 
-## Tidy data
-Most "wild" data that you will encounter are organized incorrectly for work in R and, as you might expect, the tools used to transform data are a core part of the tidyverse. I will attempt to summarize the most important points below, but you should read [chapter 12 of the data science text](https://r4ds.had.co.nz/tidy-data.html) for a more thorough explanation.  
-
-`Tidy` data in the sense of the tidyverse follows three conventions:   
-(1) each variable has its own column  
-(2) each observation has its own row  
-(3) each value has its own cell  
-
-This is summarized in the image below. The package used to tidy data is called **tidyr** and is a core part of the tidyverse.  
-![*Tidy Data.*](tidy-1.png)
-
-## `pivot_longer()`  
-Scientists frequently use spreadsheets that are organized to make data entry efficient. This is often referred to as **wide format**. Unfortunately, the wide format creates a problem because column names may actually represent values of a variable. The command `pivot_longer()` shifts data from wide to long format.   
-
-Rules:  
-+ `pivot_longer`(cols, names_to, values_to)
-+ `cols` - Columns to pivot to longer format
-+ `names_to` - Name of the new column; it will contain the column names of gathered columns as values
-+ `values_to` - Name of the new column; it will contain the data stored in the values of gathered columns
-
-## Example 1: column names are data
-The following data show results from a drug trial with four treatments on six patients. The values represent resting heart rate.  
+## Load the data
+These data are from: Gaeta J., G. Sass, S. Carpenter. 2012. Biocomplexity at North Temperate Lakes LTER: Coordinated Field Studies: Large Mouth Bass Growth 2006. Environmental Data Initiative.  [link](https://portal.edirepository.org/nis/mapbrowse?scope=knb-lter-ntl&identifier=267)  
 ```{r}
-heartrate <- readr::read_csv("data/heartrate.csv")
-heartrate
+fish <- readr::read_csv("data/Gaeta_etal_CLC_data.csv")
 ```
 
-Let's assess whether or not these data are tidy.  
-(1) each variable has its own column  
-*No. Some of the column names are actually variables (treatment a, b, c, or d).*  
-(2) each observation has its own row  
-*No. The observations are grouped in a single row by patient.*  
-(3) each value has its own cell  
-*Yes. There are no unusual combinations of data in each cell.*    
-
-To fix this problem, we need to reshape the table to long format while keeping track of column names and values. We do this using `pivot_longer()`. Notice that the dimensions of the data frame change.  
+## Data Structure
+Once data have been uploaded, let's get an idea of its structure, contents, and dimensions.  
 ```{r}
-heartrate %>% 
-  pivot_longer(-patient, #patient does not pivot
-               names_to = "drug", 
-               values_to = "heartrate"
-               )
+glimpse(fish)
 ```
 
-## Practice
-1. Import the file `relig_income.csv` and store it as a new object `relig_income`.  
-```{r}
-relig_income <- readr::read_csv("data/relig_income.csv")
-relig_income
-```
-2. Why are these data untidy?  
+## Tidyverse
+The [tidyverse](www.tidyverse.org) is an "opinionated" collection of packages that make workflow in R easier. The packages operate more intuitively than base R commands and share a common organizational philosophy.  
+![*Data Science Workflow in the Tidyverse.*](tidy-1.png)  
 
-_The names of the rows are actually data._  
+## dplyr
+The first package that we will use that is part of the tidyverse is `dplyr`. `dplyr` is used to transform data frames by extracting, rearranging, and summarizing data such that they are focused on a question of interest. This is very helpful,  especially when wrangling large data, and makes dplyr one of most frequently used packages in the tidyverse. The two functions we will use most are `select()` and `filter()`.  
 
-3. Use `pivot_longer()` to make the data tidy.  
+## `select()`
+Select allows you to pull out columns of interest from a dataframe. To do this, just add the names of the columns to the `select()` command. The order in which you add them, will determine the order in which they appear in the output.
 ```{r}
-relig_income %>% 
-  pivot_longer(-religion, 
-             names_to = "income", 
-             values_to = "count"
-             )
+names(fish)
 ```
 
-## Example 2: some column names are data
-Some (but not all) of the column names are data. We also have NA's.
+We are only interested in lakeid and scalelength.
 ```{r}
-billboard <- readr::read_csv("data/billboard.csv")
-billboard
+select(fish, lakeid, scalelength)
 ```
 
-Solution 1: specify a range of columns that you want to pivot.
+To add a range of columns use `start_col:end_col`.
 ```{r}
-billboard2 <- 
-  billboard %>% 
-  pivot_longer(wk1:wk76, # a range of columns
-               names_to = "week",
-               values_to = "rank",
-               values_drop_na = TRUE #this will drop the NA's
-               )
-billboard2
+select(fish, fish_id:length)
 ```
 
-Solution 2: OR, specify columns that you want to stay fixed.
+The - operator is useful in select. It allows us to select everything except the specified variables.
 ```{r}
-billboard3 <- 
-  billboard %>% 
-  pivot_longer(-c(artist, track, date.entered), #specific columns
-               names_to = "week",
-               values_to = "rank",
-               values_drop_na = TRUE
-               )
-billboard3
+select(fish, -fish_id, -annnumber, -length, -radii_length_mm)
 ```
 
-Solution 3: identify columns by a prefix, remove the prefix and all NA's.
+For very large data frames with lots of variables, `select()` utilizes lots of different operators to make things easier. Let's say we are only interested in the variables that deal with length.
 ```{r}
-billboard %>% 
-   pivot_longer(
-   cols = starts_with("wk"),
-   names_to = "week",
-   names_prefix = "wk",
-   values_to = "rank",
-   values_drop_na = TRUE)
+select(fish, contains("length"))
+```
+
+When columns are sequentially named, `starts_with()` makes selecting columns easier.
+```{r}
+select(fish, starts_with("radii"))
+```
+
+Options to select columns based on a specific criteria include:  
+1. ends_with() = Select columns that end with a character string  
+2. contains() = Select columns that contain a character string  
+3. matches() = Select columns that match a regular expression  
+4. one_of() = Select columns names that are from a group of names  
+
+We won't cover [regex](https://en.wikipedia.org/wiki/Regular_expression) in this class, but the following code is helpful when you know that a column contains a letter (in this case "a") followed by a subsequent string (in this case "er").  
+```{r}
+select(fish, matches("a.+er"))
+```
+
+You can also select columns based on the class of data.  
+```{r}
+select_if(fish, is.numeric)
+```
+
+To select all columns that are *not* a class of data, you need to add a `~`.
+```{r}
+select_if(fish, ~!is.numeric(.))
 ```
 
 ## Practice  
-1. Import `plant_data.csv` as a new object `plant_data`.  
+For this exercise we will use life history data for mammals. The [data](http://esapubs.org/archive/ecol/E084/093/) are from:  
+**S. K. Morgan Ernest. 2003. Life history characteristics of placental non-volant mammals. Ecology 84:3402.**  
 ```{r}
-plant_data <- readr::read_csv("data/plant_data.csv")
-plant_data
+mammals <- readr::read_csv("data/mammal_lifehistories_v2.csv")
 ```
 
-2. Why are these data not tidy?  
-_The column names include data; days need to be separated._  
-
-3. Use `pivot_longer()` to make the data tidy. Focus the data only on genotype, day, and measurement.  
+1. Use one or more of your favorite functions to assess the structure of the data.  
 ```{r}
-plant_data %>% 
- pivot_longer(
-   cols = starts_with("day"),
-   names_to = "day",
-   names_prefix = "day",
-   values_to = "measurement") %>% 
-  select(genotype, day, measurement)
+
 ```
 
-## Example 3: more than one variable in a column name
-In this case, there are two observations in each column name.
+2. Are there any NAs? Are you sure? Try taking an average of `max. life` as a test.  
 ```{r}
-qpcr_untidy <- readr::read_csv("data/qpcr_untidy.csv")
-qpcr_untidy
+
 ```
 
-`names_sep` helps pull these apart, but we still have "exp" and "rep" to deal with.  
+3. What are the names of the columns in the `mammals` data?
 ```{r}
-qpcr_untidy %>%
-  pivot_longer(
-    exp1_rep1:exp3_rep3,
-    names_to = c("experiment", "replicate"),
-    names_sep = "_",
-    values_to = "mRNA_expression")
+
 ```
 
-## Example 4: more than one value or observation in a row
-This is often caused by an entry error, but R will not be able to work with it unless the values are separated. This doesn't use `pivot_longer()` but is a common problem.  
+4. Rename any columns that have capitol letters or punctuation issues.  
 ```{r}
-length_data <- readr::read_csv("data/length_data.csv")
-length_data
+
 ```
 
+5. We are only interested in the variables `genus`, `species`, and `mass`. Use `select()` to build a new dataframe `mass` focused on these variables.
 ```{r}
-length_data %>% 
-  transform(length = str_split(length, ";")) %>%
-  unnest(length)
+
 ```
 
-## `separate()`
-In our last example, we have the sex of each patient included with their name. Are these data tidy? No, there is more than one value per cell in the patient column and the columns a, b, c, d once again represent values.
+6. What if we only wanted to exclude `order` and `family`? Use the `-` operator to make the code efficient.
 ```{r}
-heartrate2 <- readr::read_csv("data/heartrate2.csv")
-heartrate2
+
 ```
 
-We need to start by separating the patient names from their sexes. `separate()` needs to know which column you want to split, the names of the new columns, and what to look for in terms of breaks in the data.
+7. Select the columns that include "mass" as part of the name.  
 ```{r}
-heartrate2 %>% 
-  separate(patient, into= c("patient", "sex"), sep = "_")
+
 ```
 
-## Practice
-1. Re-examine `heartrate2`. Use `separate()` for the sexes, `pivot_longer()` to tidy, and `arrange()` to organize by patient and drug. Store this as a new object `heartrate3`.  
+8. Select all of the columns that are of class `character`.  
 ```{r}
-heartrate3 <- 
-  heartrate2 %>% 
-  separate(patient, into= c("patient", "sex"), sep = "_") %>% 
-  pivot_longer(a:d,
-               names_to = "drug",
-               values_to = "heartrate")
-heartrate3
+
 ```
 
-2. `unite()` is the opposite of separate(). Its syntax is straightforward. You only need to give a new column name and then list the columns to combine with a separation character.  Give it a try below by recombining patient and sex from `heartrate3`.  
+## Other
+Here are two examples of code that are super helpful to have in your bag of tricks.  
+
+Imported data frames often have a mix of lower and uppercase column names. Use `toupper()` or `tolower()` to fix this issue. I always try to use lowercase to keep things consistent.  
 ```{r}
-heartrate3 %>% 
-  unite(patient_sex, patient, sex, sep="_")
+select_all(mammals, tolower)
 ```
 
-## That's it, let's take a break!   
+When naming columns, blank spaces are often added (don't do this, please). Here is a trick to remove these.  
+```{r}
+select_all(mammals, ~str_replace(., " ", "_"))
+```
 
--->[Home](https://jmledford3115.github.io/datascibiol/)
+## That's it! Take a break and I will see you on Zoom!  
+
+-->[Home](https://jmledford3115.github.io/datascibiol/)  
