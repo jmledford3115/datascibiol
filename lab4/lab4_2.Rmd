@@ -10,6 +10,9 @@ output:
     toc: yes
 ---
 
+## Breakout Rooms  
+Please take 5-8 minutes to check over your answers to HW 2 in your group. If you are stuck, please remember that you can check the key in [Joel's repository](https://github.com/jmledford3115/BIS15LW2021_jledford).  
+
 ## Learning Goals  
 *At the end of this exercise, you will be able to:*    
 1. Use the functions of dplyr (filter, select, arrange) to organize and sort data frames.  
