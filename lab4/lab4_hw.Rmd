@@ -13,71 +13,99 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 ## Instructions
-Answer the following questions and complete the exercises in RMarkdown. Please embed all of your code and push your final work to your repository. Your final lab report should be organized, clean, and run free from errors. Remember, you must remove any `#` for included code chunks to run.  
+Answer the following questions and complete the exercises in RMarkdown. Please embed all of your code and push your final work to your repository. Your final lab report should be organized, clean, and run free from errors. Remember, you must remove the `#` for the included code chunks to run. Be sure to add your name to the author header above.  
+
+Make sure to use the formatting conventions of RMarkdown to make your report neat and clean!  
 
 ## Load the tidyverse
 ```{r message=FALSE, warning=FALSE}
 library(tidyverse)
 ```
 
-For this assignment we are going to work with a large dataset from the [United Nations Food and Agriculture Organization](http://www.fao.org/about/en/) on world fisheries. First, load the data.  
+## Data
+For the homework, we will use data about vertebrate home range sizes. The data are in the class folder, but the reference is below.  
 
-**1. Load the data `FAO_1950to2012_111914.csv` as a new object titled `fisheries`.**
+**Database of vertebrate home range sizes.**  
+Reference: Tamburello N, Cote IM, Dulvy NK (2015) Energy and the scaling of animal space use. The American Naturalist 186(2):196-211. http://dx.doi.org/10.1086/682070.  
+Data: http://datadryad.org/resource/doi:10.5061/dryad.q5j65/1  
+
+**1. Load the data into a new object called `homerange`.**  
+```{r}
+homerange <- readr::read_csv("data/Tamburelloetal_HomeRangeDatabase.csv")
+```
+
+**2. Explore the data. Show the dimensions, column names, classes for each variable, and a statistical summary. Keep these as separate code chunks.**  
+```{r}
+dim(homerange)
+```
+
+```{r}
+colnames(homerange)
+```
+
+```{r}
+glimpse(homerange)
+```
+
+```{r}
+summary(homerange)
+```
+
+```{r}
+names(homerange)
+```
+
+**4. Are there NA's in your data? Show the code that you would use to verify this, please.**  
+```{r}
+anyNA(homerange)
+```
+
+**5. Change the class of the variables `taxon` and `order` to factors and display their levels.**  
+```{r}
+homerange$taxon <- as.factor(homerange$taxon)
+class(homerange$taxon)
+```
+
+```{r}
+homerange$order <- as.factor(homerange$order)
+class(homerange$order)
+```
+
+```{r}
+levels(homerange$taxon)
+```
+
+```{r}
+levels(homerange$order)
+```
+
+**6. Make a new dataframe `deer` that is limited to the mean mass, log10 mass, family, genus, and species of deer in the database. The family for deer is cervidae. Arrange the data in descending order by log10 mass. Which is the largest deer? What is its common name?**  
+
+[Moose](https://en.wikipedia.org/wiki/Moose)  
+
+```{r}
+deer <- select(homerange, "family", "genus", "species", "mean.mass.g", "log10.mass")
+deer <- filter(deer, family=="cervidae")
+deer
+```
+
+**7. As measured by the data, which snake species has the smallest homerange? Show all of your work, please. Look this species up online and tell me about it!** **Snake is found in taxon column**    
 
 
-**2. What are the names of the columns? Do you see any potential problems with the column names?**
+**8. You suspect that homerange and mass are correlated in birds. We need a ratio that facilitates exploration of this prediction. First, build a new dataframe called `hra_ratio` that is limited to genus, species, mean.mass.g, log10.mass, log10.hra. Arrange it in ascending order by mean mass in grams.**  
 
 
-**3. What is the structure of the data? Show the classes of each variable.**
+**9. Replace the existing `hra_ratio` dataframe with a new dataframe that adds a column calculating the ratio of log 10 hra to log 10 mass. Call it `hra.mass.ratio`. Arrange it in descending order by mean mass in grams.**  
 
 
-**4. Think about the classes. Will any present problems? Make any changes you think are necessary below.**
+**10. What is the lowest mass for birds with a `hra.mass.ratio` greater than or equal to 4.0?**
 
 
-**5. How many countries are represented in the data? Provide a count.**
+**11. Do a search online; what is the common name of the bird from #10 above? Place a link in your markdown file that takes us to a webpage with information on its biology.**  
 
 
-**6. What are the names of the countries?**
+**12. What is the `hra.mass.ratio` for an ostrich? Show your work, please.**  
 
-
-**7. Use `rename()` to rename the columns and make them easier to use. The new column names should be:**  
-+ country
-+ commname
-+ ASFIS_sciname
-+ ASFIS_spcode
-+ ISSCAAP_spgroup
-+ ISSCAAP_spgroupname
-+ FAO_area
-+ unit
-
-**8. Are these data tidy? Why or why not, and, how do you know? Use the appropriate pivot function to tidy the data. Remove the NA's. Put the tidy data frame into a new object `fisheries_tidy`.**  
-
-
-**9. Refocus the data only to include country, ISSCAAP_spgroupname, ASFIS_spcode, ASFIS_sciname, year, and catch.**
-
-
-**10. Re-check the classes of `fisheries_tidy2`. Notice that "catch" is shown as a character! This is a problem because we will want to treat it as a numeric. How will you deal with this?**
-
-
-**11. Based on the ASFIS_spcode, how many distinct taxa were caught as part of these data?**
-
-
-**12. Which country had the largest overall catch in the year 2000?**
-
-
-**13. Which country caught the most sardines (_Sardina_) between the years 1990-2000?**
-
-
-**14. Which five countries caught the most cephalopods between 2008-2012?**
-
-
-**15. Given the top five countries from question 14 above, which species was the highest catch total? The lowest?**
-
-
-**16. In some cases, the taxonomy of the fish being caught is unclear. Make a new data frame called `coastal_fish` that shows the taxonomic composition of "Miscellaneous coastal fishes" within the ISSCAAP_spgroupname column.**
-
-
-**17. Use the data to do at least one exploratory analysis of your choice. What can you learn?**
 
 ## Push your final code to GitHub!
 Please be sure that you check the `keep md` file in the knit preferences.   
