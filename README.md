@@ -17,11 +17,11 @@ Please read the [course syllabus](https://jmledford3115.github.io/datascibiol/sy
 ## Lab Schedule and Homework  
 Each lab is listed below along with the associated homework. New labs will be added each week.  
 
-1. **Lab 1** | [part 1](https://jmledford3115.github.io/datascibiol/lab1_1.html) | [part 2](https://jmledford3115.github.io/datascibiol/lab1_2.html) | [HW 1](https://jmledford3115.github.io/datascibiol/lab1_hw.html)  
-2. **Lab 2** | [part 1](https://jmledford3115.github.io/datascibiol/lab2_1.html) | [part 2](https://jmledford3115.github.io/datascibiol/lab2_2.html) | [HW 2](https://jmledford3115.github.io/datascibiol/lab2_hw.html)  
-3. **Lab 3** | [part 1](https://jmledford3115.github.io/datascibiol/lab3_1.html) | [part 2](https://jmledford3115.github.io/datascibiol/lab3_2.html) | [HW 3](https://jmledford3115.github.io/datascibiol/lab3_hw.html)  
-4. **Lab 4** | [part 1](https://jmledford3115.github.io/datascibiol/lab4_1.html) | [part 2](https://jmledford3115.github.io/datascibiol/lab4_2.html) | [HW 4](https://jmledford3115.github.io/datascibiol/lab4_hw.html)  
-5. **Lab 5** | [part 1](https://jmledford3115.github.io/datascibiol/lab5_1.html) | [part 2](https://jmledford3115.github.io/datascibiol/lab5_2.html) | [HW 4](https://jmledford3115.github.io/datascibiol/lab5_hw.html)
+1. **Lab 1** | [part 1](https://jmledford3115.github.io/datascibiol/lab1_1.html) | [part 2](https://jmledford3115.github.io/datascibiol/lab1_2.html) | [HW](https://jmledford3115.github.io/datascibiol/lab1_hw.html)  
+2. **Lab 2** | [part 1](https://jmledford3115.github.io/datascibiol/lab2_1.html) | [part 2](https://jmledford3115.github.io/datascibiol/lab2_2.html) | [HW](https://jmledford3115.github.io/datascibiol/lab2_hw.html)  
+3. **Lab 3** | [part 1](https://jmledford3115.github.io/datascibiol/lab3_1.html) | [part 2](https://jmledford3115.github.io/datascibiol/lab3_2.html) | [HW](https://jmledford3115.github.io/datascibiol/lab3_hw.html)  
+4. **Lab 4** | [part 1](https://jmledford3115.github.io/datascibiol/lab4_1.html) | [part 2](https://jmledford3115.github.io/datascibiol/lab4_2.html) | [HW](https://jmledford3115.github.io/datascibiol/lab4_hw.html)  
+5. **Lab 5** | [part 1](https://jmledford3115.github.io/datascibiol/lab5_1.html) | [part 2](https://jmledford3115.github.io/datascibiol/lab5_2.html) | [HW](https://jmledford3115.github.io/datascibiol/lab5_hw.html)
 
 
 ## Reading  
