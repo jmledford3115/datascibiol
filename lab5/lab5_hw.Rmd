@@ -13,66 +13,134 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 ## Instructions
-Answer the following questions and complete the exercises in RMarkdown. Please embed all of your code and push your final work to your repository. Your final lab report should be organized, clean, and run free from errors. Remember, you must remove the `#` for the included code chunks to run.  
+Answer the following questions and complete the exercises in RMarkdown. Please embed all of your code and push your final work to your repository. Your final lab report should be organized, clean, and run free from errors. Remember, you must remove the `#` for the included code chunks to run. Be sure to add your name to the author header above.  
 
-## Libraries
-```{r}
+Make sure to use the formatting conventions of RMarkdown to make your report neat and clean!  
+
+## Load the tidyverse
+```{r message=FALSE, warning=FALSE}
 library(tidyverse)
-library(naniar)
-library(skimr)
 ```
 
-## Data
-For this homework, we will use two different data sets. Please load `amniota` and `amphibio`.  
+## Load the superhero data
+These are data taken from comic books and assembled by fans. The include a good mix of categorical and continuous data.  Data taken from: https://www.kaggle.com/claudiodavi/superhero-set  
 
-### `amniota` data
-Myhrvold N, Baldridge E, Chan B, Sivam D, Freeman DL, Ernest SKM (2015). “An amniote life-history
-database to perform comparative analyses with birds, mammals, and reptiles.” _Ecology_, *96*, 3109.
-doi: 10.1890/15-0846.1 (URL: https://doi.org/10.1890/15-0846.1).
+Check out the way I am loading these data. If I know there are NAs, I can take care of them at the beginning. But, we should do this very cautiously. At times it is better to keep the original columns and data intact.  
 ```{r}
-amniota <- 
-  readr::read_csv("data/amniota.csv")
+superhero_info <- readr::read_csv("data/heroes_information.csv", na = c("", "-99", "-"))
+superhero_powers <- readr::read_csv("data/super_hero_powers.csv", na = c("", "-99", "-"))
 ```
 
-### `amphibio` data
-Oliveira BF, São-Pedro VA, Santos-Barrera G, Penone C, Costa GC (2017). “AmphiBIO, a global database
-for amphibian ecological traits.” _Scientific Data_, *4*, 170123. doi: 10.1038/sdata.2017.123 (URL:
-https://doi.org/10.1038/sdata.2017.123).
+## Data tidy
+1. Some of the names used in the `superhero_info` data are problematic so you should rename them here.  
 ```{r}
-amphibio <- 
-  readr::read_csv("data/amphibio.csv")
+
 ```
 
-## Questions  
-**1. First, do some exploratory analysis of both data sets. What is the structure, column names, and dimensions?**  
+Yikes! `superhero_powers` has a lot of variables that are poorly named. We need some R superpowers...
+```{r}
+#head(superhero_powers)
+```
 
+## `janitor`
+The [janitor](https://garthtarr.github.io/meatR/janitor.html) package is your friend. Make sure to install it and then load the library.  
+```{r}
+library("janitor")
+```
 
-**2. How many total NAs are in each data set? Do these values make sense? Are NAs represented by any other values?**   
+The `clean_names` function takes care of everything in one line! Now that's a superpower!
+```{r}
+#superhero_powers <- janitor::clean_names(superhero_powers)
+```
 
+## `tabyl`
+The `janitor` package has many awesome functions that we will explore. Here is its version of `table` which not only produces counts but also percentages. Very handy! Let's use it to explore the proportion of good guys and bad guys in the `superhero_info` data.  
+```{r}
+#tabyl(superhero_info, alignment)
+```
 
-**3. Make any necessary replacements in the data such that all NAs appear as "NA".**   
+2. Notice that we have some neutral superheros! Who are they?
+```{r}
 
+```
 
-**4. Use the package `naniar` to produce a summary, including percentages, of missing data in each column for both data sets.**  
+## `superhero_info`
+3. Let's say we are only interested in the variables name, alignment, and "race". How would you isolate these variables from `superhero_info`?
+```{r}
 
+```
 
-**5. For the `amniota` data, calculate the number of NAs in the `egg_mass_g` column sorted by taxonomic class; i.e. how many NAs are present in the `egg_mass_g` column in birds, mammals, and reptiles? Does this results make sense biologically? How do these results affect your interpretation of NAs?**  
+## Not Human
+4. List all of the superheros that are not human.
+```{r}
 
+```
 
-**6. Which taxonomic classes are represented in the data? Summarize this in a chart then make a barplot that shows the proportion of observations in each taxonomic class.**
+## Good and Evil
+5. Let's make two different data frames, one focused on the "good guys" and another focused on the "bad guys".
+```{r}
 
+```
 
-**7. Let's explore the taxonomic composition of the data a bit more. How many genera are represented by taxonomic class? Present this as a data table and bar plot.**
+6. For the good guys, use the `tabyl` function to summarize their "race".
+```{r}
 
+```
 
-**8. Lastly, how many species are represented in each taxonomic class? Present this as a data table and bar plot.**
+7. Among the good guys, Who are the Asgardians?
+```{r}
 
+```
 
-**9. The `amphibio` data includes information on ecology. Each species is classified as fossorial, terrestrial, aquatic, or arboreal. How many species are in each of these categories? Make a bar plot to visualize these results. Which category is most/ least represented in the data?**
+8. Among the bad guys, who are the male humans over 200 inches in height?
+```{r}
 
+```
 
-**10. For the amphibio data, we are interested to know if body size is correlated with litter size? Make a plot that shows this relationship. You should notice that there are outliers. Can you think of a way to identify the outliers for both body size and litter size? What happens when you then re-plot the data?**
+9. OK, so are there more good guys or bad guys that are bald (personal interest)?
+```{r}
 
+```
 
-## Push your final code to GitHub!
-Please be sure that you check the `keep md` file in the knit preferences. 
+10. Let's explore who the really "big" superheros are. In the `superhero_info` data, which have a height over 200 or weight over 300?
+```{r}
+
+```
+
+11. Just to be clear on the `|` operator,  have a look at the superheros over 300 in height...
+```{r}
+
+```
+
+12. ...and the superheros over 450 in weight. Bonus question! Why do we not have 16 rows in question #10?
+```{r}
+
+```
+
+## Height to Weight Ratio
+13. It's easy to be strong when you are heavy and tall, but who is heavy and short? Which superheros have the highest height to weight ratio?
+```{r}
+
+```
+
+## `superhero_powers`
+Have a quick look at the `superhero_powers` data frame.  
+```{r}
+
+```
+
+14. How many superheros have a combination of accelerated healing, durability, and super strength?
+```{r}
+
+```
+
+## `kinesis`
+15. We are only interested in the superheros that do some kind of "kinesis". How would we isolate them from the `superhero_powers` data?
+```{r}
+
+```
+
+16. Pick your favorite superhero and let's see their powers!
+```{r}
+
+```
