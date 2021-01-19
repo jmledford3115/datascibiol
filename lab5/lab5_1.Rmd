@@ -38,15 +38,31 @@ fish <- readr::read_csv("data/Gaeta_etal_CLC_data.csv")
 mammals <- readr::read_csv("data/mammal_lifehistories_v2.csv")
 ```
 
+```{r}
+names(mammals)
+```
+
 Let's rename some of the `mammals` variables.  
 ```{r}
 mammals <- rename(mammals, genus="Genus", wean_mass="wean mass", max_life= "max. life", litter_size="litter size", litters_per_year="litters/year")
+```
+
+```{r}
+names(mammals)
 ```
 
 ## Pipes `%>%` 
 In order to start combining `select()`, `filter()`, and other functions more efficiently, we need to learn pipes. Pipes feed the output from one function into the input of another function. This helps us keep our code sequential and clean.  
 
 In this example, we use a pipe to select only `lakeid` and `scalelength` then filter that output only for lakes "AL". Notice that we only need to call the data one time.
+```{r}
+filter(fish, lakeid == "AL")
+```
+
+```{r}
+select(fish, lakeid, scalelength)
+```
+
 ```{r}
 fish %>%
   select(lakeid, scalelength) %>%
@@ -63,19 +79,25 @@ mammals %>%
 ## Practice
 1. We are interested in the fish from the lakes "AL" and "AR" with a radii length between 2 and 4. Extract this information from the `fish` data. Use pipes!  
 ```{r}
-
+fish %>% 
+  select(lakeid, radii_length_mm) %>% 
+  filter(lakeid=="AL" | lakeid=="AR") %>% 
+  filter(between(radii_length_mm, 2, 4)) %>% 
+  arrange(desc(radii_length_mm))
 ```
 
 ## `arrange()`
 The `arrange()` command is a bit like a sort command in excel. Note that the default is ascending order.  
 ```{r}
 fish %>% 
+  select(lakeid, scalelength) %>% 
   arrange(scalelength)
 ```
 
 To sort in decreasing order, wrap the variable name in `desc()`.
 ```{r}
 fish %>% 
+  select(lakeid, scalelength) %>% 
   arrange(desc(scalelength))
 ```
 
@@ -90,7 +112,10 @@ fish %>%
 ## Practice
 1. We are interested in the radii length and scalelength of fish with the id `300`. Extract this information from the `fish` data. Please sort the data by radii length.
 ```{r}
-
+fish %>% 
+  select(fish_id, radii_length_mm, scalelength) %>% 
+  filter(fish_id==300) %>% 
+  arrange(radii_length_mm)
 ```
 
 ## `mutate()`  
@@ -127,18 +152,24 @@ mammals %>%
 ```{r}
 mammals %>% 
   select(genus, species, newborn) %>%
-  mutate(newborn_new = ifelse(newborn == -999.00, NA, newborn))
+  mutate(newborn_new = ifelse(newborn == -999.00, NA, newborn))%>% 
+  arrange(newborn)
 ```
 
 ## Practice
 1. Use `mutate()` to make a new column that is the half length of each fish: length_half = length/2. Select only fish_id, length, and length_half.
 ```{r}
-
+fish %>%
+  mutate(length_half=length/2) %>% 
+  select(fish_id, length, length_half)
 ```
 
 2. We are interested in the family, genus, species and max life variables. Because the max life span for several mammals is unknown, the authors have use -999 in place of NA. Replace all of these values with NA in a new column titled `max_life_new`. Finally, sort the date in descending order by max_life_new. Which mammal has the oldest known life span?
 ```{r}
-
+mammals %>% 
+  select(family, genus, species, max_life) %>% 
+  mutate(max_life_new= ifelse(max_life==-999, NA, max_life)) %>% 
+  arrange(max_life)
 ```
 
 ## That's it! Take a break and I will see you on Zoom!  
