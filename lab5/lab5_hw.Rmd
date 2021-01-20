@@ -102,7 +102,7 @@ The `janitor` package has many awesome functions that we will explore. Here is i
 
 ```
 
-10. Let's explore who the really "big" superheros are. In the `superhero_info` data, which have a height over 200 or weight over 300?
+10. Let's explore who the really "big" superheros are. In the `superhero_info` data, which have a height over 300 or weight over 450?
 ```{r}
 
 ```
