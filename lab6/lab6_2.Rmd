@@ -27,7 +27,7 @@ library("palmerpenguins")
 ```
 
 ## Review
-The summarize() and group_by() functions are powerful tools that we can use to produce clean summaries of data. Especially when used together, we can quickly group variables of interest and save time. Let's do some practice with the `palmerpenguins` data to refresh our memory.
+The summarize() and group_by() functions are powerful tools that we can use to produce clean summaries of data. Especially when used together, we can quickly group variables of interest and save time. Let's do some practice with the [palmerpenguins(https://allisonhorst.github.io/palmerpenguins/articles/intro.html) data to refresh our memory.
 ```{r}
 glimpse(penguins)
 ```
@@ -167,16 +167,10 @@ penguins %>%
 
 ## Practice
 1. Produce separate summaries of the mean and standard deviation for bill_length_mm, bill_depth_mm, and flipper_length_mm for each penguin species. Be sure to provide the number of samples.  
-
-mean
 ```{r}
 
 ```
 
-standard deviation
-```{r}
-
-```
 
 ## Wrap-up  
 
