@@ -1,216 +1,275 @@
 ---
-title: "Intro to Shiny"
+title: "Dealing with NA's"
 date: "`r Sys.Date()`"
 output:
   html_document:
     theme: spacelab
     toc: yes
     toc_float: yes
+  pdf_document:
+    toc: yes
 ---
 
-```{r setup, include = FALSE}
-knitr::opts_chunk$set(
-  collapse = TRUE,
-  comment = "#>"
-)
-```
-
 ## Learning Goals
-*At the end of this exercise, you will be able to:*  
-1. Understand the basic building blocks of a shiny app.  
-2. Understand how shiny works with user inputs to build outputs.  
-
-## Resources  
-- [Shiny Main Page](https://shiny.rstudio.com/gallery/)  
+*At the end of this exercise, you will be able to:*    
+1. Define `NA` and describe how they are treated in R.  
+2. Produce summaries of the number of NA's in a data set.   
+3. Replace values with `NA` in a data set as appropriate.  
 
 
-## Shiny
 
-Shiny is an R package which makes it easy to design interactive web applications without knowing any html, css, or java script. First we need to make sure we have shiny installed and loaded.  
-```{r, echo=FALSE}
-#install.packages("shiny")
-library(shiny)
-```
-
-We will also need the tidyverse to run the examples.
-```{r, echo=FALSE}
-library(tidyverse)
-```
-
-## Shiny Example
-
-Shiny apps can be designed to do almost anything you can imagine. They are very useful for making specialized tools for specific needs in business and research, or just for fun! Let's run a basic example on our computer. Type the following into the R console. You should have the file `plot_iris.R` in your working directory. Use the drop down menus to change the x and y axes on the plot. 
-```{r, eval=F, echo=T}
-runApp("plot_iris.R")
-```
-
-## Shiny App Skeleton
-
-A shiny app consists of a user interface (ui) function, server function, and run function. The `ui` function controls the user inputs and the way the app will be displayed. The `server` function is the part of the app which takes the values of the user inputs, performs calculations and/or makes plots, and prepares the outputs for display. The `run` function combines the ui and server function to run the app.
-
-Below is a bare bones shiny app. You can get this code shippet by typing `shinyapp`. It doesn't do anything because we haven't created any inputs with the ui or any outputs with the server. Copy and paste the code or get it by typing `shinyapp`, and hit shift+tab.  
-```{r, eval=F, echo=T}
-ui <- fluidPage()
-
-server <- function(input, output, session) {}
-
-shinyApp(ui, server)
-```
-
-For the rest of the lab we will work together to build the example app.
-
-## Shiny Inputs
-
-There are many types of inputs in shiny, see the [shiny cheat sheet](https://shiny.rstudio.com/images/shiny-cheatsheet.pdf). Our example app uses `selectInput()`, which takes a set of predefined choices and supplies them to the user. We are working with the iris data set, so we want the selections to be the names of the data frame. Let's get the names of the iris data frame and add them as a `selectInput()` to our ui. `selectInput()` takes several arguments including the label that the server function will use, the label that will display to the user, the selection choices, and the initially selected choice. 
+## Install the package `naniar`
 ```{r}
-names(iris)
+install.packages("naniar")
+#install.packages("skimr")
 ```
 
-We won't use the name `Species` because that will be the `ggplot` grouping variable. Copy and paste the code below and run the app to see our new input. 
-```{r, eval=F, echo=T}
-ui <- fluidPage(
-    selectInput("x", "Select X Variable", choices = c("Sepal.Length", "Sepal.Width", "Petal.Length", "Petal.Width"), 
-              selected = "Petal.Width")
-)
-
-server <- function(input, output, session) {
-  
-}
-
-shinyApp(ui, server)
+## Load the libraries
+```{r}
+library("tidyverse")
+library("naniar")
+library("skimr")
+library(janitor)
 ```
 
-Let's repeat the process for the y variable input. Remember to hit stop after each app run to close the app. 
-```{r, eval=F, echo=T}
-ui <- fluidPage(
-    selectInput("x", "Select X Variable", choices = c("Sepal.Length", "Sepal.Width", "Petal.Length", "Petal.Width"), 
-              selected = "Petal.Width"),
-    selectInput("y", "Select Y Variable", choices = c("Sepal.Length", "Sepal.Width", "Petal.Length", "Petal.Width"), 
-              selected = "Petal.Length")
-)
+## Dealing with NA's
+In almost all large data sets, there are missing observations. These can be tricky to deal with, partly because you first need to determine how missing values were treated in the original study. In a given data set, NA might represent values that are unrecorded because they are unknown or missing. But, they can also represent data that are not applicable.  
 
-server <- function(input, output, session) {
-  
-}
+Scientists use different conventions in showing missing data; some use blank spaces, others use "-", etc. Unfortunately, sometimes **missing data is indicated with numbers like -999.0 or zero!**, though this can be required in some situations (for example raster data). Often, a combination of methods are used. It is up to the data analyst to find out how missing values are represented in the data set and to deal with them appropriately. Remember, if missing data are represented by values then R will treat them as such and you could be misled.  
 
-shinyApp(ui, server)
+For the following, we will use life history data for mammals. The [data](http://esapubs.org/archive/ecol/E084/093/) are from:  
+**S. K. Morgan Ernest. 2003. Life history characteristics of placental non-volant mammals. Ecology 84:3402.**  
+
+Let's load the mammals life history data and clean the names using `janitor.`
+```{r}
+life_history <- readr::read_csv("data/mammal_lifehistories_v2.csv")
 ```
 
-## Server Side  
-
-Great, we now have our user inputs set up! Now we need to work with those inputs so R can make the plot. This can be the tricky part. The processing is done in the server function. The ui passes the names of our choices via an object called `inputs` to the server function. We need to access our inputs by their names with the `$` symbol. To get the x input we type `input$x` and y is `input$y`.  
-
-All reactive inputs need to be wrapped in a reactive environment called a reactive function. Reactivity is the core of shiny. See the cheat sheet for [reactive environment types](https://shiny.rstudio.com/images/shiny-cheatsheet.pdf). Let's wrap our reactive input values in a reactive function on the server side and run our app as a test. What happens? Are we doing anything with the inputs yet? What happens if you remove the reactive function from the server side and run the app? 
-```{r, eval=F, echo=T}
-ui <- fluidPage(
-    selectInput("x", "Select X Variable", choices = c("Sepal.Length", "Sepal.Width", "Petal.Length", "Petal.Width"), 
-              selected = "Petal.Width"),
-    selectInput("y", "Select Y Variable", choices = c("Sepal.Length", "Sepal.Width", "Petal.Length", "Petal.Width"), 
-              selected = "Petal.Length")
-)
-
-server <- function(input, output, session) {
-  reactive({input$x
-            input$y})
-}
-
-shinyApp(ui, server)
+Clean up the variable names...
+```{r}
+life_history <- janitor::clean_names(life_history)
 ```
 
-## Shiny Outputs  
-
-So we have our inputs in a reactive environment, but we want to actually use those inputs to make a plot and display it on the ui. To make and display the plot, we need to save it to a named output object that the ui can use. To do this we use the reactive expression `renderPlot()` and access the plot on the ui side with `plotOutput()`. The inputs from `selectInput()` are character strings, so we need to use `aes_string()` in `ggplot`.
-```{r, eval=F, echo=T}
-ui <- fluidPage(
-  selectInput("x", "Select X Variable", choices = c("Sepal.Length", "Sepal.Width", "Petal.Length", "Petal.Width"), 
-              selected = "Petal.Width"),
-  selectInput("y", "Select Y Variable", choices = c("Sepal.Length", "Sepal.Width", "Petal.Length", "Petal.Width"),
-              selected = "Petal.Length"),
-  plotOutput("plot", width = "500px", height = "400px")
-)
-
-server <- function(input, output, session) {
-  output$plot <- renderPlot({
-    ggplot(iris, aes_string(x = input$x, y = input$y, color = "Species")) + geom_point() + theme_light(base_size = 18)
-  })
-
-}
-
-shinyApp(ui, server)
+Do you see any NAs?  
+```{r}
+glimpse(life_history)
 ```
 
-Congratulations, you made your first shiny app!  
+2. What are the possible problems if missing data are indicated by values such as "-999.0" or "0"?  
 
-## Practice  
-1. Let's work with the homerange data again, just to keep things consistent. Please load the data as a new object `homerange` and have a look at the column names.    
-```{r, echo=FALSE}
-homerange <- readr::read_csv("data/Tamburelloetal_HomeRangeDatabase.csv")
+
+3. What should the plan be for dealing with NAs in the `life_history` data?  
+
+## Replacing values with NA
+If you are certain that NAs are represented as values in the data, then the best way to deal with them is to replace them. Although you can do this when you import the data, in most cases you will need to do some exploration first.  
+
+`naniar` has an easy function to make this happen and it is very handy. Run the code below and then have another look at the data.
+```{r}
+life_history %>% 
+  replace_with_na_all(condition = ~.x == -999)
+```
+
+
+
+## For the following examples, we will use the built-in `msleep` data
+```{r}
+?msleep
+glimpse(msleep)
+```
+
+## Are there any NA's?
+Let's first check to see if our data has any NA's. `is.na()` is a function that determines whether a value in a data frame is or is not an NA. This is evaluated logically as TRUE or FALSE.  
+
+Keep in mind, these are the values that R is interpreting as NA. If the authors of the data represented NA's in another way, they will not be detected by R.
+```{r}
+is.na(msleep)
+```
+
+OK, what are we supposed to do with that? Unless you have a small data frame, applying the `is.na()` function is not helpful but we can use the code in another way. Let's incorporate it into the `summarize()` function.
+```{r}
+msleep %>% 
+  summarize(number_nas = sum(is.na(msleep)))
+```
+
+This is better, but we still don't have any idea of where those NA's are in our data frame. If there were a systemic problem in the data it would be hard to determine. In order to do this, we need to apply `is.na()` to each variable of interest.
+```{r}
+msleep %>% 
+  summarize(number_nas = sum(is.na(conservation)))
+```
+
+The `summary()` function in base R will tally NAs by variable, but only for categorical/factor, numeric, integer, or logical columns. What about any NA values in the character columns?
+```{r}
+summary(msleep)
+```
+
+## Practice
+1. Load the data `import_export.csv` and store it as a new object `import_export`.
+```{r}
+import_export <- 
+  readr::read_csv("data/import_export.csv")
+```
+
+2. Are there NAs in the data? Evaluate this logically (true/false).
+```{r}
+is.na(import_export)
+```
+
+3. How many total NAs are present?
+```{r}
+import_export %>% 
+  summarize(number_nas = sum(is.na(import_export)))
+```
+
+## NAs in large datasets using `purr`
+What if we are working with hundreds or thousands (or more!) variables?! In order to deal with this problem efficiently we can use another package in the tidyverse called `purrr`.  
+
+This handy bit of code generates a new data frame that sums all NA's accross variables.
+```{r}
+msleep %>%
+  purrr::map_df(~ sum(is.na(.))) #map to a new data frame the sum results of the is.na function for all columns
+```
+
+Don't forget that we can use `pivot_longer()` to make viewing this output easier.
+```{r}
+msleep %>% 
+  purrr::map_df(~ sum(is.na(.))) %>% 
+  pivot_longer(everything(),
+    names_to= "variables",
+    values_to = "num_nas") %>% 
+  arrange(desc(num_nas))
+```
+
+This is much better, but we need to be careful. R can have difficulty interpreting missing data. This is especially true for categorical variables. Always do a reality check if the output doesn't make sense to you. A quick check never hurts and can save you from wasting time in the future or from drawing false conclusions.  
+
+You can explore a specific variable more intently using `count()`. This operates similarly to `group_by()`.
+```{r}
+msleep %>% 
+  count(conservation)
+```
+
+Adding the `sort=TRUE` option automatically makes a descending list. We confirm that there are 29 NA's within the conservation variable.
+```{r}
+msleep %>% 
+  count(conservation, sort = TRUE)
+```
+
+It is true that all of this is redundant, but you want to be able to run multiple checks on the data. Remember, just because your code runs without errors doesn't mean it is doing what you intended.  
+
+## Replacing NAs with `na_if()` and `mutate()`
+The bit of code below is very handy, especially if the data has NAs represented as **actual values that you want replaced** or if you want to make sure any blanks are treated as NA. You can also use it to treat specific values as NA.  
+
+Let's say we know that NA's are represented by "-999". We can replace this value with NA accross the data frame.
+```{r}
+msleep %>% 
+  na_if("-999")
+```
+
+Let's say we want to treat "domesticated" as NA in the conservation column. For this, we use `mutate()` and `na_if()`.
+```{r}
+msleep %>%  
+  mutate(conservation = na_if(conservation, "domesticated"))%>% 
+  count(conservation, sort = TRUE) #previously there were only 29 NAs
+```
+
+## Practice
+For the following examples, we will go back to the `life_history` data. First, let's rename some of the variables.
+```{r}
+life_history <- 
+  life_history %>% 
+  dplyr::rename(
+          genus        = Genus,
+          wean_mass    = `wean mass`,
+          max_life     = `max. life`,
+          litter_size  = `litter size`,
+          litters_yr   = `litters/year`
+          )
+```
+
+1. Explore the data using any method that you prefer. Below, I show a package called `skimr`. If you want to try this, make sure that it is installed and loaded.  
+
+`skimr` provides a nice output with histograms for numeric variables.
+```{r}
+life_history %>% 
+  skimr::skim()
+```
+
+2. Reconsider the practice question from the beginning of the lab. Are there any NA's in the data? Does this seem likely? Do the mean values from the `skim()` output above make sense?  
+```{r}
+life_history %>% 
+  summarize(number_nas = sum(is.na(life_history)))
+```
+
+3. Replace the entries that represent NA's in the data using `na_if()`. Double check your work and compare to #2 above.
+```{r}
+life_history2 <- 
+  life_history %>% 
+  na_if("-999")
 ```
 
 ```{r}
-names(homerange)
+life_history2 %>% 
+  summarize(number_nas = sum(is.na(life_history2)))
 ```
 
-2. Build a shiny app that produces a barplot that explores locomotion type with a fill reaction for the variables trophic.guild and thermoregulation.
-```{r, eval=F, echo=T}
-ui <- fluidPage(titlePanel("Homerange Locomotion"),
-                radioButtons("x", "Select Fill Variable", choices = c("trophic.guild", "thermoregulation"), 
-                selected = "trophic.guild"),
-  plotOutput("plot", width = "600px", height = "500px")
-)
-
-server <- function(input, output, session) {
-  output$plot <- renderPlot({
-    ggplot(homerange, aes_string(x = "locomotion", fill = input$x)) + 
-      geom_bar(position="dodge", alpha=0.8, color="black") + 
-      theme_light(base_size = 18) + 
-      labs(x = NULL, y=NULL, fill= "Fill Variable")
-  })
-
-}
-
-shinyApp(ui, server)
+4. In which variable are the most NAs in the data frame?
+```{r}
+life_history2 %>% 
+  purrr::map_df(~ sum(is.na(.))) %>% 
+  pivot_longer(everything(),
+    names_to= "variables",
+    values_to = "num_nas") %>% 
+  arrange(desc(num_nas))
 ```
 
-3. The app below adds some nicer aesthetics. It makes a density plot of log10.hra with taxon as a reactive variable. Edit the app to explore log10.hra by locomotion type.  
-```{r, eval=F, echo=T}
-ui <- fluidPage(    
-  
-  titlePanel("Log 10 Homerange by Taxon"), # give the page a title
-  
-  # generate a row with a sidebar
-  sidebarLayout(      
-    
-    # define the sidebar with one input
-    sidebarPanel(
-      selectInput("taxon", " Select Taxon of Interest:", 
-                  choices=unique(homerange$taxon)),
-      hr(),
-      helpText("Reference: Tamburello N, Cote IM, Dulvy NK (2015) Energy and the scaling of animal space use. The American Naturalist 186(2):196-211.")
-    ),
-    
-    # create a spot for the barplot
-    mainPanel(
-      plotOutput("taxonPlot")  
-    )
-    
-  )
-)
+## `naniar`
+`naniar` is a package that is built to manage NAs. Many of the functions it performs can be performed using tidyverse functions above, but it does provide some interesting options.
 
-# define a server for the Shiny app
-server <- function(input, output) {
-  
-  # fill in the spot we created for a plot
-  output$taxonPlot <- renderPlot({
-    
-    homerange %>% 
-    filter(taxon == input$taxon) %>% 
-    ggplot(aes(x=log10.hra)) + 
-    geom_density(color="black", fill="steelblue", alpha=0.6)
-  })
-}
+`miss_var_summary` provides a clean summary of NAs across the dataframe.
+```{r}
+naniar::miss_var_summary(life_history2)
+```
 
-shinyApp(ui, server)
+We can also use `miss_var_summary` with `group_by()`.
+```{r}
+life_history2 %>%
+  group_by(order) %>%
+  select(order, wean_mass) %>% 
+  naniar::miss_var_summary(order=T)
+```
+
+We can also replace -999 with NA as before. This shows replacement within the newborn column.
+```{r}
+life_history %>% 
+  naniar::replace_with_na(replace = list(newborn = -999))
+```
+
+This shows replacement within the newborn and weaning columns.
+```{r}
+life_history %>% 
+  naniar::replace_with_na(replace = list(newborn = -999, weaning= -999))
+```
+
+## Visualizing NAs
+There is another package `visdat` that can be used to visualize the proportion of different classes of data, including missing data.
+```{r}
+#install.packages("visdat")
+library(visdat)
+```
+
+```{r}
+vis_dat(life_history2) #classes of data
+```
+
+```{r}
+vis_miss(life_history2)
+```
+
+## Dealing with NA's in advance
+If you know how NA's are treated in the data, then you can deal with them in advance using `na()` as part of the `readr` package. But, you need to be sure about the analyses you want to conduct and how NA's might be interpreted.  
+```{r}
+life_history3 <- 
+  readr::read_csv(file = "data/mammal_lifehistories_v2.csv", 
+                  na = c("NA", " ", ".", "-999")) #all NA, blank spaces, .,and -999 are treated as NA
 ```
 
 ## That's it, let's take a break!   
