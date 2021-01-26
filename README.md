@@ -24,6 +24,9 @@ Each lab is listed below along with the associated homework. New labs will be ad
 5. **Lab 5** | [part 1](https://jmledford3115.github.io/datascibiol/lab5_1.html) | [part 2](https://jmledford3115.github.io/datascibiol/lab5_2.html) | [HW](https://jmledford3115.github.io/datascibiol/lab5_hw.html)
 6. **Lab 6** | [part 1](https://jmledford3115.github.io/datascibiol/lab6_1.html) | [part 2](https://jmledford3115.github.io/datascibiol/lab6_2.html) | [HW](https://jmledford3115.github.io/datascibiol/lab6_hw.html)
 
+## Midterms
+1. **Midterm 1** | [exam link](https://jmledford3115.github.io/datascibiol/midterm_1/midterm_1.html)  
+
 ## Reading  
 [R for Data Science](https://r4ds.had.co.nz/), Grolemund and Wickham (2017).  
 

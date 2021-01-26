@@ -16,10 +16,11 @@ output:
 2. Produce summaries of the number of NA's in a data set.   
 3. Replace values with `NA` in a data set as appropriate.  
 
-## Install the package `naniar`
-We will use `naniar` in part 2 of today's lab.
+## Install the packages `naniar` and `visdat`
+We will use these in part 2 of today's lab.
 ```{r}
 #install.packages("naniar")
+#install.packages("visdat")
 ```
 
 ## Load the libraries
