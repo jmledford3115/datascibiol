@@ -10,7 +10,7 @@
 
 
 
-<meta name="date" content="2021-01-26" />
+<meta name="date" content="2021-01-28" />
 
 <title>Fun with NA’s</title>
 
@@ -1544,7 +1544,7 @@ div.tocify {
 
 
 <h1 class="title toc-ignore">Fun with NA’s</h1>
-<h4 class="date">2021-01-26</h4>
+<h4 class="date">2021-01-28</h4>
 
 </div>
 
@@ -1626,7 +1626,175 @@ library(&quot;skimr&quot;)</code></pre>
 ##                  NA&#39;s   :27</code></pre>
 <p>Let’s next check to see if our data has any NA’s by evaluating everything logically. We have done this before, but this is a good time to review. <code>is.na()</code> is a function that determines whether a value in a data frame is or is not an NA. This is evaluated as TRUE or FALSE. This means that R is looking in the data for NA, not for any values that might represent NA. To R, and NA is an empty cell or spot in a vector.</p>
 <p>Keep in mind, if the authors of the data represented NA’s in another way, they will not be detected by R.</p>
-<pre class="r"><code>#is.na(msleep)</code></pre>
+<pre class="r"><code>is.na(msleep)</code></pre>
+<pre><code>##        name genus  vore order conservation sleep_total sleep_rem sleep_cycle
+##  [1,] FALSE FALSE FALSE FALSE        FALSE       FALSE      TRUE        TRUE
+##  [2,] FALSE FALSE FALSE FALSE         TRUE       FALSE     FALSE        TRUE
+##  [3,] FALSE FALSE FALSE FALSE        FALSE       FALSE     FALSE        TRUE
+##  [4,] FALSE FALSE FALSE FALSE        FALSE       FALSE     FALSE       FALSE
+##  [5,] FALSE FALSE FALSE FALSE        FALSE       FALSE     FALSE       FALSE
+##  [6,] FALSE FALSE FALSE FALSE         TRUE       FALSE     FALSE       FALSE
+##  [7,] FALSE FALSE FALSE FALSE        FALSE       FALSE     FALSE       FALSE
+##  [8,] FALSE FALSE  TRUE FALSE         TRUE       FALSE      TRUE        TRUE
+##  [9,] FALSE FALSE FALSE FALSE        FALSE       FALSE     FALSE       FALSE
+## [10,] FALSE FALSE FALSE FALSE        FALSE       FALSE      TRUE        TRUE
+## [11,] FALSE FALSE FALSE FALSE        FALSE       FALSE     FALSE        TRUE
+## [12,] FALSE FALSE FALSE FALSE        FALSE       FALSE     FALSE       FALSE
+## [13,] FALSE FALSE FALSE FALSE        FALSE       FALSE     FALSE        TRUE
+## [14,] FALSE FALSE FALSE FALSE        FALSE       FALSE     FALSE       FALSE
+## [15,] FALSE FALSE FALSE FALSE        FALSE       FALSE     FALSE        TRUE
+## [16,] FALSE FALSE FALSE FALSE         TRUE       FALSE     FALSE        TRUE
+## [17,] FALSE FALSE FALSE FALSE        FALSE       FALSE     FALSE       FALSE
+## [18,] FALSE FALSE FALSE FALSE        FALSE       FALSE     FALSE       FALSE
+## [19,] FALSE FALSE FALSE FALSE        FALSE       FALSE     FALSE        TRUE
+## [20,] FALSE FALSE FALSE FALSE        FALSE       FALSE     FALSE       FALSE
+## [21,] FALSE FALSE FALSE FALSE        FALSE       FALSE      TRUE        TRUE
+## [22,] FALSE FALSE FALSE FALSE        FALSE       FALSE     FALSE       FALSE
+## [23,] FALSE FALSE FALSE FALSE        FALSE       FALSE     FALSE       FALSE
+## [24,] FALSE FALSE FALSE FALSE        FALSE       FALSE     FALSE        TRUE
+## [25,] FALSE FALSE FALSE FALSE        FALSE       FALSE     FALSE       FALSE
+## [26,] FALSE FALSE FALSE FALSE        FALSE       FALSE     FALSE        TRUE
+## [27,] FALSE FALSE FALSE FALSE         TRUE       FALSE      TRUE        TRUE
+## [28,] FALSE FALSE FALSE FALSE        FALSE       FALSE     FALSE       FALSE
+## [29,] FALSE FALSE FALSE FALSE         TRUE       FALSE     FALSE       FALSE
+## [30,] FALSE FALSE FALSE FALSE        FALSE       FALSE     FALSE        TRUE
+## [31,] FALSE FALSE FALSE FALSE        FALSE       FALSE     FALSE        TRUE
+## [32,] FALSE FALSE FALSE FALSE        FALSE       FALSE     FALSE        TRUE
+## [33,] FALSE FALSE FALSE FALSE        FALSE       FALSE     FALSE        TRUE
+## [34,] FALSE FALSE FALSE FALSE         TRUE       FALSE     FALSE       FALSE
+## [35,] FALSE FALSE FALSE FALSE        FALSE       FALSE     FALSE        TRUE
+## [36,] FALSE FALSE FALSE FALSE        FALSE       FALSE      TRUE        TRUE
+## [37,] FALSE FALSE FALSE FALSE        FALSE       FALSE     FALSE        TRUE
+## [38,] FALSE FALSE FALSE FALSE         TRUE       FALSE     FALSE       FALSE
+## [39,] FALSE FALSE FALSE FALSE        FALSE       FALSE     FALSE        TRUE
+## [40,] FALSE FALSE FALSE FALSE        FALSE       FALSE     FALSE       FALSE
+## [41,] FALSE FALSE FALSE FALSE         TRUE       FALSE      TRUE        TRUE
+## [42,] FALSE FALSE FALSE FALSE        FALSE       FALSE     FALSE       FALSE
+## [43,] FALSE FALSE FALSE FALSE         TRUE       FALSE     FALSE       FALSE
+## [44,] FALSE FALSE FALSE FALSE        FALSE       FALSE      TRUE        TRUE
+## [45,] FALSE FALSE FALSE FALSE         TRUE       FALSE      TRUE        TRUE
+## [46,] FALSE FALSE FALSE FALSE        FALSE       FALSE     FALSE        TRUE
+## [47,] FALSE FALSE FALSE FALSE        FALSE       FALSE      TRUE        TRUE
+## [48,] FALSE FALSE FALSE FALSE        FALSE       FALSE     FALSE       FALSE
+## [49,] FALSE FALSE FALSE FALSE        FALSE       FALSE     FALSE        TRUE
+## [50,] FALSE FALSE FALSE FALSE         TRUE       FALSE     FALSE       FALSE
+## [51,] FALSE FALSE FALSE FALSE        FALSE       FALSE      TRUE        TRUE
+## [52,] FALSE FALSE FALSE FALSE        FALSE       FALSE      TRUE        TRUE
+## [53,] FALSE FALSE FALSE FALSE        FALSE       FALSE      TRUE        TRUE
+## [54,] FALSE FALSE FALSE FALSE         TRUE       FALSE     FALSE       FALSE
+## [55,] FALSE FALSE  TRUE FALSE        FALSE       FALSE     FALSE        TRUE
+## [56,] FALSE FALSE FALSE FALSE        FALSE       FALSE      TRUE        TRUE
+## [57,] FALSE FALSE  TRUE FALSE         TRUE       FALSE      TRUE        TRUE
+## [58,] FALSE FALSE  TRUE FALSE         TRUE       FALSE     FALSE        TRUE
+## [59,] FALSE FALSE FALSE FALSE        FALSE       FALSE     FALSE        TRUE
+## [60,] FALSE FALSE FALSE FALSE        FALSE       FALSE      TRUE        TRUE
+## [61,] FALSE FALSE FALSE FALSE         TRUE       FALSE     FALSE        TRUE
+## [62,] FALSE FALSE FALSE FALSE        FALSE       FALSE     FALSE        TRUE
+## [63,] FALSE FALSE  TRUE FALSE        FALSE       FALSE     FALSE        TRUE
+## [64,] FALSE FALSE FALSE FALSE        FALSE       FALSE     FALSE       FALSE
+## [65,] FALSE FALSE FALSE FALSE         TRUE       FALSE      TRUE        TRUE
+## [66,] FALSE FALSE FALSE FALSE         TRUE       FALSE     FALSE        TRUE
+## [67,] FALSE FALSE FALSE FALSE        FALSE       FALSE     FALSE       FALSE
+## [68,] FALSE FALSE FALSE FALSE         TRUE       FALSE     FALSE       FALSE
+## [69,] FALSE FALSE  TRUE FALSE         TRUE       FALSE     FALSE        TRUE
+## [70,] FALSE FALSE FALSE FALSE        FALSE       FALSE      TRUE        TRUE
+## [71,] FALSE FALSE FALSE FALSE        FALSE       FALSE     FALSE       FALSE
+## [72,] FALSE FALSE FALSE FALSE        FALSE       FALSE     FALSE        TRUE
+## [73,] FALSE FALSE  TRUE FALSE         TRUE       FALSE     FALSE       FALSE
+## [74,] FALSE FALSE FALSE FALSE        FALSE       FALSE     FALSE       FALSE
+## [75,] FALSE FALSE FALSE FALSE         TRUE       FALSE      TRUE        TRUE
+## [76,] FALSE FALSE FALSE FALSE         TRUE       FALSE      TRUE        TRUE
+## [77,] FALSE FALSE FALSE FALSE        FALSE       FALSE     FALSE       FALSE
+## [78,] FALSE FALSE FALSE FALSE         TRUE       FALSE     FALSE        TRUE
+## [79,] FALSE FALSE FALSE FALSE         TRUE       FALSE     FALSE       FALSE
+## [80,] FALSE FALSE FALSE FALSE         TRUE       FALSE      TRUE        TRUE
+## [81,] FALSE FALSE FALSE FALSE         TRUE       FALSE     FALSE        TRUE
+## [82,] FALSE FALSE FALSE FALSE         TRUE       FALSE      TRUE        TRUE
+## [83,] FALSE FALSE FALSE FALSE         TRUE       FALSE     FALSE       FALSE
+##       awake brainwt bodywt
+##  [1,] FALSE    TRUE  FALSE
+##  [2,] FALSE   FALSE  FALSE
+##  [3,] FALSE    TRUE  FALSE
+##  [4,] FALSE   FALSE  FALSE
+##  [5,] FALSE   FALSE  FALSE
+##  [6,] FALSE    TRUE  FALSE
+##  [7,] FALSE    TRUE  FALSE
+##  [8,] FALSE    TRUE  FALSE
+##  [9,] FALSE   FALSE  FALSE
+## [10,] FALSE   FALSE  FALSE
+## [11,] FALSE   FALSE  FALSE
+## [12,] FALSE   FALSE  FALSE
+## [13,] FALSE    TRUE  FALSE
+## [14,] FALSE   FALSE  FALSE
+## [15,] FALSE   FALSE  FALSE
+## [16,] FALSE   FALSE  FALSE
+## [17,] FALSE   FALSE  FALSE
+## [18,] FALSE   FALSE  FALSE
+## [19,] FALSE   FALSE  FALSE
+## [20,] FALSE   FALSE  FALSE
+## [21,] FALSE   FALSE  FALSE
+## [22,] FALSE   FALSE  FALSE
+## [23,] FALSE   FALSE  FALSE
+## [24,] FALSE   FALSE  FALSE
+## [25,] FALSE   FALSE  FALSE
+## [26,] FALSE   FALSE  FALSE
+## [27,] FALSE    TRUE  FALSE
+## [28,] FALSE   FALSE  FALSE
+## [29,] FALSE   FALSE  FALSE
+## [30,] FALSE    TRUE  FALSE
+## [31,] FALSE    TRUE  FALSE
+## [32,] FALSE   FALSE  FALSE
+## [33,] FALSE   FALSE  FALSE
+## [34,] FALSE   FALSE  FALSE
+## [35,] FALSE    TRUE  FALSE
+## [36,] FALSE   FALSE  FALSE
+## [37,] FALSE    TRUE  FALSE
+## [38,] FALSE   FALSE  FALSE
+## [39,] FALSE    TRUE  FALSE
+## [40,] FALSE   FALSE  FALSE
+## [41,] FALSE    TRUE  FALSE
+## [42,] FALSE   FALSE  FALSE
+## [43,] FALSE   FALSE  FALSE
+## [44,] FALSE    TRUE  FALSE
+## [45,] FALSE   FALSE  FALSE
+## [46,] FALSE    TRUE  FALSE
+## [47,] FALSE    TRUE  FALSE
+## [48,] FALSE   FALSE  FALSE
+## [49,] FALSE   FALSE  FALSE
+## [50,] FALSE   FALSE  FALSE
+## [51,] FALSE    TRUE  FALSE
+## [52,] FALSE   FALSE  FALSE
+## [53,] FALSE    TRUE  FALSE
+## [54,] FALSE   FALSE  FALSE
+## [55,] FALSE   FALSE  FALSE
+## [56,] FALSE    TRUE  FALSE
+## [57,] FALSE    TRUE  FALSE
+## [58,] FALSE   FALSE  FALSE
+## [59,] FALSE    TRUE  FALSE
+## [60,] FALSE    TRUE  FALSE
+## [61,] FALSE    TRUE  FALSE
+## [62,] FALSE   FALSE  FALSE
+## [63,] FALSE   FALSE  FALSE
+## [64,] FALSE   FALSE  FALSE
+## [65,] FALSE    TRUE  FALSE
+## [66,] FALSE   FALSE  FALSE
+## [67,] FALSE   FALSE  FALSE
+## [68,] FALSE   FALSE  FALSE
+## [69,] FALSE   FALSE  FALSE
+## [70,] FALSE   FALSE  FALSE
+## [71,] FALSE   FALSE  FALSE
+## [72,] FALSE    TRUE  FALSE
+## [73,] FALSE   FALSE  FALSE
+## [74,] FALSE   FALSE  FALSE
+## [75,] FALSE   FALSE  FALSE
+## [76,] FALSE    TRUE  FALSE
+## [77,] FALSE   FALSE  FALSE
+## [78,] FALSE   FALSE  FALSE
+## [79,] FALSE   FALSE  FALSE
+## [80,] FALSE    TRUE  FALSE
+## [81,] FALSE   FALSE  FALSE
+## [82,] FALSE   FALSE  FALSE
+## [83,] FALSE   FALSE  FALSE</code></pre>
 <p>We also learned…</p>
 <pre class="r"><code>any_na(msleep)</code></pre>
 <pre><code>## [1] TRUE</code></pre>
@@ -1826,7 +1994,27 @@ library(&quot;skimr&quot;)</code></pre>
 <p>For the following examples, we will use the <code>life_history</code> data for mammals. The <a href="http://esapubs.org/archive/ecol/E084/093/">data</a> are from:<br />
 <strong>S. K. Morgan Ernest. 2003. Life history characteristics of placental non-volant mammals. Ecology 84:3402.</strong></p>
 <ol style="list-style-type: decimal">
-<li><p>Load the mammals life history data v2. Do you see any NA’s?</p></li>
+<li>Load the mammals life history data v2. Do you see any NA’s?</li>
+</ol>
+<pre class="r"><code>life_history &lt;- readr::read_csv(&quot;data/mammal_lifehistories_v2.csv&quot;)</code></pre>
+<pre><code>## 
+## ── Column specification ────────────────────────────────────────────────────────
+## cols(
+##   order = col_character(),
+##   family = col_character(),
+##   Genus = col_character(),
+##   species = col_character(),
+##   mass = col_double(),
+##   gestation = col_double(),
+##   newborn = col_double(),
+##   weaning = col_double(),
+##   `wean mass` = col_double(),
+##   AFR = col_double(),
+##   `max. life` = col_double(),
+##   `litter size` = col_double(),
+##   `litters/year` = col_double()
+## )</code></pre>
+<ol start="2" style="list-style-type: decimal">
 <li><p>Explore the data using any method that you prefer. <code>skimr</code> provides a nice output with histograms for numeric variables.</p></li>
 <li><p>Replace the entries that represent NA’s in the data using <code>na_if()</code>. Double check your work.</p></li>
 <li><p>In which variable are the most NAs in the data frame?</p></li>

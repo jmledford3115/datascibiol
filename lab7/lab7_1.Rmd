@@ -121,22 +121,13 @@ doi: 10.1890/15-0846.1 (URL: https://doi.org/10.1890/15-0846.1).
 amniota <- readr::read_csv("data/amniota.csv")
 ```
 
-```{r}
-summary(amniota)
-```
-
 2. Use one of the tools explained above to summarize NA's in the data.
-```{r}
-amniota %>% 
-  summarise_all(~(sum(is.na(.))))
-```
+
 
 
 3. What's going on here? Try using the `hist` function on one or more of the continuous variables.
 
-```{r}
-hist(amniota$egg_mass_g)
-```
+
 
 4. Given that we know that the output of #2 is wrong, what do you think is the best approach for dealing with NA's in the `amniote` data?  
 
@@ -198,40 +189,14 @@ For the following examples, we will use the `life_history` data for mammals. The
 life_history <- readr::read_csv("data/mammal_lifehistories_v2.csv")
 ```
 
-
 2. Explore the data using any method that you prefer. `skimr` provides a nice output with histograms for numeric variables.  
-```{r}
-life_history %>% 
-  skimr::skim()
-```
+
 
 
 3. Replace the entries that represent NA's in the data using `na_if()`. Double check your work.
-```{r}
-life_history_tidy <- life_history %>% 
-  na_if("-999")
-```
-
-```{r}
-life_history_tidy %>% 
-  skimr::skim()
-```
-
-```{r}
-life_history_tidy %>% 
-  summarize(number_nas=sum(is.na(life_history_tidy)))
-```
 
 
 4. In which variable are the most NAs in the data frame?
-```{r}
-life_history_tidy %>% 
-  purrr::map_df(~ sum(is.na(.))) %>% 
-  pivot_longer(everything(),
-    names_to= "variables",
-    values_to = "num_nas") %>% 
-  arrange(desc(num_nas))
-```
 
 
 ## That's it! Take a break and I will see you on Zoom!  
