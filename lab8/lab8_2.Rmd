@@ -1,157 +1,271 @@
 ---
-title: "Building Phylogenetic Trees in R"
+title: "Tidyr 2: `pivot_wider()`, `summarize()`, and `group_by()`"
 date: "`r Sys.Date()`"
 output:
   html_document:
     theme: spacelab
     toc: yes
     toc_float: yes
+  pdf_document:
+    toc: yes
 ---
 
-```{r setup, include = FALSE}
-knitr::opts_chunk$set(
-  collapse = TRUE,
-  comment = "#>"
-)
-```
-
-## Libraries  
-
-```{r}
-library("seqinr")
-library("ape")
-```
-
 ## Learning Goals
-*At the end of this exercise, you will be able to:*  
-1. Generate some basic summary statistics for a given sequence.
-2. Read alignments into R.
-3. Run basic analyses to generate trees both in line and using a premade script.
+*At the end of this exercise, you will be able to:*    
+1. Explain the difference between tidy and messy data.  
+2. Evaluate a data set as tidy or untidy.  
+3. Use the `pivot_wider()` function of `tidyr` to transform data from long to wide format.  
 
-In the previous section we explored the NCBI database, searched for and downloaded sequence data, and wrote that data into a fasta file Using `read.fasta()`. Now we're going to pull a sequence from the NCBI database and analyze it, then we'll use some example data in seqinR to learning how to visualize our sequence data in the form of a phylogenetic tree.
+## Breakout Rooms  
+Please take 5-8 minutes to check over your answers to HW 7 in your group. If you are stuck, please remember that you can check the key in [Joel's repository](https://github.com/jmledford3115/BIS15LW2021_jledford).  
 
-If you've cleared your R environment since we started, pull that Dengue virus sequence again. (The accession number is "NC_001477")
-```{r include=FALSE}
-dengueseq <- read.GenBank("NC_001477", as.character = TRUE)
-dengueseq
+## Midterm 1 Review
+Let's briefly review the questions from midterm 1 so you can get an idea of how I was thinking about the problems. Remember, there is more than one way to get at these answers, so don't worry if yours looks different than mine!  
+
+## Group Project
+Let's take a few minutes to discuss group projects. What data interest you? Make a plan on doing some internet searches and thinking about data that might work. Think about the kinds of questions you might ask and how they might be addressed. Please complete the [class project survey](https://forms.gle/EJkbGyHN5MycyQpSA) as part of your homework.  
+
+## Resources
+- [tidyr `pivot_wider()`](https://tidyr.tidyverse.org/reference/pivot_wider.html)  
+- [pivoting](https://cran.r-project.org/web/packages/tidyr/vignettes/pivot.html)  
+
+## Review
+Last time we learned the fundamentals of tidy data and used the `pivot_longer()` function to wrangle a few examples of frequently encountered untidy data. In the second part of today's lab we will use the `pivot_wider()` function to deal with another type of untidy data.  
+
+## Load the tidyverse
+```{r}
+library("tidyverse")
 ```
 
-And we'll write it to a .fasta file, and then read the file into R.
+## `pivot_longer()`
+Recall that we use `pivot_longer()` when our column names actually represent variables. A classic example would be that the column names represent observations of a variable.
 ```{r}
-write.fasta(names="DEN-1", sequences=dengueseq, file.out="data/den1.fasta")
+datasets::USPersonalExpenditure
+?USPersonalExpenditure
 ```
 
+Here we add a new column of expenditure types, which are stored as rownames above, with `mutate()`. The USPersonalExpenditures data also needs to be converted to a data frame before we can use the tidyverse functions, because it comes as a matrix.
 ```{r}
-dengue <- read.fasta(file = "data/den1.fasta")
-```
-
-But the sequence is still stored as the first item in the R list, so let's pull it out using double square brackets
-```{r}
-dengueseq <- dengue[[1]]
-```
-
-Now we can look at the sequence and learn couple things about it. For example, we can find out how long our sequence is.
-```{r}
-length(dengueseq)
-```
-
-We can also create a table of the base composition of our sequence.
-```{r}
-table(dengueseq)
-```
-
-One variable we frequently report on our sequence data in publications is the "GC content" or the fraction of the sequence that is G's and C's.
-```{r}
-GC(dengueseq)
-```
-
-##Practice
-1. Using one of the lizard accession numbers from the first half of class, pull that sequence on it's own from GenBank, store it as a .fasta file, and read it into R. Then pull the sequence out of the R list using double square brackets.
-```{r}
-
-```
-
-2. What is the length of this sequence?
-```{r}
-
-```
-
-3. Generate a table showing the nucleotide base composition of your chosen sequence.
-```{r}
-
-```
-
-4. What is the GC content of the sequence you've chosen?
-```{r}
-
-```
-
-
-
-Next, we are going to look at COI sequence data from gophers and their assocaited chewing lice. We'll start by using the `read.alignment()` function to read in the .fasta alignment files for each group and have a look at them
-```{r}
-#COI sequences for 8 species of louse
-louse <- read.alignment(system.file("sequences/louse.fasta", package = "seqinr"), format = "fasta")
-louse$nam
-```
-
-```{r}
-#COI sequences for each louse's gopher host
-gopher <- read.alignment(system.file("sequences/gopher.fasta", package = "seqinr"), format = "fasta")
-gopher$nam
-```
-
-Let's pull the species names out of each dataset and create a vector for each.
-
-**lice**
-```{r}
-l.names <- readLines(system.file("sequences/louse.names", package = "seqinr"))
-l.names
-```
-
-**gophers**
-```{r}
-g.names <- readLines(system.file("sequences/gopher.names", package = "seqinr"))
-g.names
-```
-
-
-We know each of the louse species is associated with it's host. Perhaps it would be cool to create phylogenetic trees of both groups and see if there is congruence between host and parasite evolution. Right? I thought so!
-
-Step 1: Infer the trees! For our purposes we will just use a basic neighbor-joining algorithm under the Juke and Cantor's correction for multiple substitions (don't stress too much about that last word jumble, let's go!)
-```{r}
-louse.JC <- dist.dna(as.DNAbin(louse), model = "JC69")
-gopher.JC <- dist.dna(as.DNAbin(gopher), model = "JC69")
-l <- nj(louse.JC)
-g <- nj(gopher.JC)
-```
-
-Step 2: Illiustrate the trees! First a little book keeping because we're going to change some of our graphical paramaters and we want to be able to change them back easily.
-```{r}
-op <- par(no.readonly = TRUE)
-```
-
-
-Now let's see the tree!
-```{r}
-g$tip.label <- paste(1:8, g.names)
-l$tip.label <- paste(1:8, l.names)
-layout(matrix(data = 1:2, nrow = 1, ncol = 2), width=c(1.4, 1))
-par(mar=c(2,1,2,1))
-plot(g, adj = 0.8, cex = 1.4, use.edge.length=FALSE,main = "gopher (host)", cex.main = 2)
-plot(l,direction="l", use.edge.length=FALSE, cex = 1.4,main = "louse (parasite)", cex.main = 2)
-```
-##BOOM. We made a tree. NO. We made two trees!
-
-And then put our graphical parameters back just how we found them
-```{r}
-par(op)
-```
-
-All right, let's step it up a notch. We may not be super duper programmers, but there are super duper programmers and they write cool scripts we can use. One such script is in your folder for this lab, and it's called "essai.r" This script creates the same tree diagram. The nice thing about using a script is that, similar to a markdown file, it is relatively simple to edit and also to share with others. 
-```{r}
-source("essai.r")
+expenditures <- 
+  USPersonalExpenditure %>% 
+  as.data.frame() %>% 
+  mutate(expenditure = rownames(USPersonalExpenditure))
+expenditures
 ```
 
 ## Practice
-Oh no! You have presented your gopher-louse tree to your boss who responds, "Oh no! Not Jukes and Cantor! We must use the Kimura's 2-parameters distance model." But you're not bothered, you just open the essai.r script in your text editor and replace model = "JC69" with model = "K80". Edit your script and rerun it to generate your trees under this model of evolution. Are the results different than those generated above?  
+1. Are these data tidy? Please use `pivot_longer()` to tidy the data. Here we use back ticks on the column names so R does not confuse them with numerical indices.
+```{r}
+
+```
+
+2. Restrict the data to medical and health expenditures only. Sort in ascending order.
+```{r}
+
+```
+
+## `separate()`
+In our last example, we have the sex of each patient included with their name. Are these data tidy? No, there is more than one value per cell in the patient column and the columns a, b, c, d once again represent values.
+```{r}
+heartrate2 <- readr::read_csv("data/heartrate2.csv")
+heartrate2
+```
+
+We need to start by separating the patient names from their sexes. `separate()` needs to know which column you want to split, the names of the new columns, and what to look for in terms of breaks in the data.
+```{r}
+heartrate2 %>% 
+  separate(patient, into= c("patient", "sex"), sep = "_")
+```
+
+## Practice
+1. Re-examine `heartrate2`. Use `separate()` for the sexes, `pivot_longer()` to tidy, and `arrange()` to organize by patient and drug. Store this as a new object `heartrate3`.  
+```{r}
+
+```
+
+2. `unite()` is the opposite of separate(). Its syntax is straightforward. You only need to give a new column name and then list the columns to combine with a separation character.  Give it a try below by recombining patient and sex from `heartrate3`.  
+```{r}
+
+```
+
+## `pivot_wider()`
+The opposite of `pivot_longer()`. You use `pivot_wider()` when you have an observation scattered across multiple rows. In the example below, `cases` and `population` represent variable names not observations.  
+
+Rules:  
++ `pivot_wider`(names_from, values_from)  
++ `names_from` - Values in the `names_from` column will become new column names  
++ `values_from` - Cell values will be taken from the `values_from` column  
+
+```{r}
+tb_data <- read_csv("data/tb_data.csv")
+tb_data
+```
+
+When using `pivot_wider()` we use `names_from` to identify the variables (new column names) and `values_from` to identify the values associated with the new columns.
+```{r}
+tb_data %>% 
+  pivot_wider(names_from = "key", #the observations under key will become new columns
+              values_from = "value")
+```
+
+## Practice
+1. Load the `gene_exp.csv` data as a new object `gene_exp`. Are these data tidy? Use `pivot_wider()` to tidy the data.
+```{r}
+
+```
+
+```{r}
+
+```
+
+## `pivot_wider()` with multiple variables  
+What happens when we want to use `pivot_wider()` with multiple columns?
+```{r}
+edu_level <- readr::read_csv("data/education_level.csv")
+```
+
+We want to pivot the `edu_level` data such that there is only a single row per demographic. 
+```{r}
+edu_level %>% 
+pivot_wider(names_from = (education_level), #new column names come from the education_level column
+                values_from = c(mean_income, n)) #values come from two separate columns
+```
+
+## `rename()`
+The `rename()` function is actually part of *dplyr*, but I put it here because I think of it as part of transforming untidy data. Remember, youcan still rename columns as part of `select()`.
+```{r}
+tb_data %>% 
+  pivot_wider(names_from = "key",
+              values_from = "value") %>% 
+  dplyr::rename(
+    Country=country,
+    Year=year,
+    New_Cases=cases,
+    Population=population
+  )
+```
+
+## `summarize()`
+`summarize()` will produce summary statistics for a given variable in a data frame. For example, in homework 2 you were asked to calculate the mean of the sleep total column for large and small mammals. We did this using a combination of tidyverse and base R commands, which isn't very efficient or clean. We can do better!  
+```{r}
+msleep
+```
+
+From homework 2.
+```{r}
+large <- 
+  msleep %>% 
+  select(name, genus, bodywt, sleep_total) %>% 
+  filter(bodywt >= 200) %>% 
+  arrange(desc(bodywt))
+large
+```
+
+```{r}
+mean(large$sleep_total)
+```
+
+We can accomplish the same task using the `summarize()` function in the tidyverse and make things cleaner.
+```{r}
+msleep %>% 
+  filter(bodywt >= 200) %>%
+  summarize(mean_sleep_lg = mean(sleep_total))
+```
+
+You can also combine functions to make useful summaries for multiple variables.
+```{r}
+msleep %>% 
+    filter(bodywt >= 200) %>% 
+    summarize(mean_sleep_lg = mean(sleep_total), 
+              min_sleep_lg = min(sleep_total),
+              max_sleep_lg = max(sleep_total),
+              total = n())
+```
+
+`n_distinct()` is a very handy way of cleanly presenting the number of distinct observations. Here we show the number of distinct genera over 200 in body weight.
+```{r}
+msleep %>% 
+  filter(bodywt >= 200) %>% 
+  summarise(n_genera=n_distinct(genus))
+```
+
+There are many other useful summary statistics, depending on your needs: sd(), min(), max(), median(), sum(), n() (returns the length of vector), first() (returns first value in vector), last() (returns last value in vector) and n_distinct() (number of distinct values in vector).
+
+## Practice
+1. How many genera are represented in the msleep data frame?
+```{r}
+msleep %>%
+  summarize(ngenera = n_distinct(genus))
+```
+
+2. What are the min, max, and mean body weight for all of the mammals? Be sure to include the total n.
+```{r}
+msleep %>%
+  summarize(min_bodywt = min(bodywt),
+            max_bodywt = max(bodywt),
+            mean_bodywt = mean(bodywt),
+            total = n())
+```
+
+## `group_by()`
+The `summarize()` function is most useful when used in conjunction with `group_by()`. Although producing a summary of body weight for all of the mammals in the dataset is helpful, what if we were interested in body weight by feeding ecology?
+```{r}
+names(msleep)
+```
+
+```{r}
+msleep %>%
+  group_by(vore) %>% #we are grouping by feeding ecology
+  summarize(min_bodywt = min(bodywt),
+            max_bodywt = max(bodywt),
+            mean_bodywt = mean(bodywt),
+            total=n())
+```
+
+`count()` is an easy way of determining how many observations you have within a column. It effectively acts like a combination of `group_by()` and `n()`.
+```{r}
+msleep %>% 
+  count(order, sort = T)
+```
+
+You can also use `count()` across multiple variables.
+```{r}
+msleep %>% 
+  count(order, vore, sort = TRUE)
+```
+
+`add_count()` adds a new column to the dataframe.
+```{r}
+msleep %>% 
+  select(name:order) %>% 
+  add_count(order) %>% 
+  top_n(-5) #the bottom 5 
+```
+
+## Practice
+1. Calculate mean brain weight by taxonomic order in the msleep data.
+```{r}
+msleep %>% 
+  group_by(order) %>% 
+  summarize(mean_brainwt = mean(brainwt))
+```
+
+2. What does `NA` mean?  
+
+_In this case it means we are actually missing data because the brain weight for some animals has not been measured._  
+
+3. Try running the code again, but this time add `na.rm=TRUE`. What is the problem with Cetacea?  
+```{r}
+msleep %>% 
+  group_by(order) %>% 
+  summarize(mean_brainwt = mean(brainwt, na.rm = TRUE))
+```
+
+```{r}
+msleep %>% 
+  filter(order == "Cetacea")
+```
+
+## That's it, let's take a break!   
+
+-->[Home](https://jmledford3115.github.io/datascibiol/)

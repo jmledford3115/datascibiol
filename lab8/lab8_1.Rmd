@@ -1,186 +1,181 @@
 ---
-title: "Intro to GenBank and BLAST"
+title: "Tidyr 1: Tidy data and `pivot_long()`"
 date: "`r Sys.Date()`"
 output:
   html_document:
     theme: spacelab
     toc: yes
     toc_float: yes
+  pdf_document:
+    toc: yes
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(
-  collapse = TRUE,
-  comment = "#>"
-)
-```
+> **For Big-Data Scientists, "Janitor Work" Is Key Hurdle to Insights.**  
+> "Data scientists, according to interviews and expert estimates, spend from 50 percent to 80 percent of their time mired in the mundane labor of collecting and preparing data, before it can be explored for useful information."  
+> [New York Times (2014)](http://www.nytimes.com/2014/08/18/technology/for-big-data-scientists-hurdle-to-insights-is-janitor-work.html)
 
 ## Learning Goals
-*At the end of this exercise, you will be able to:*  
-1. Search the GenBank database for nucelotide data.  
-2. Do searches of the GenBank database using both accession numbers and key terms. 
-3. Write downloaded sequences to a .fasta file.
+*At the end of this exercise, you will be able to:*    
+1. Explain the difference between tidy and messy data.  
+2. Evaluate a data set as tidy or messy.    
+3. Use the `pivot_longer()` function of `tidyr` to transform data from wide to long format.  
+4. Use `separate()` to split observations within a column.  
 
-## Resources  
-- [GenBank Main Page](https://www.ncbi.nlm.nih.gov/genbank)  
-- [NCBI BLAST](https://blast.ncbi.nlm.nih.gov/Blast.cgi)  
-- [How to Read a BLAST Report](https://ftp.ncbi.nlm.nih.gov/pub/factsheets/HowTo_BLAST_NewResultPage.pdf)  
+## Overview
+The quote above sums up much of the work in data science. Simply put, most of the data that you end up working with will be messy, disorganized, and not **tidy**. By the end of this week, you will have the tools necessary to wrangle messy data into tidy data that are ready for analysis. I know that we have spent a lot of time of data transformation, but this last step is essential to building plots and performing other analyses.  
 
-## GenBank
+## Resources
+- [tidyr `pivot_longer()`](https://tidyr.tidyverse.org/reference/pivot_longer.html)  
+- [pivoting](https://cran.r-project.org/web/packages/tidyr/vignettes/pivot.html)  
 
-We are going to begin class outside of R today. Follow the above link to the GenBank main page.  
+## Load the tidyverse
+```{r message=FALSE, warning=FALSE}
+library(tidyverse)
+```
 
-GenBank is a sequence database which holds a collection of all publicly available DNA sequences. It is part of a multinational group of databases along with the DNA Database of Japan (DDBJ) and the European Nutcleotide Archive (ENA). These three organizations share data on a daily basis. 
+## Tidy data
+Most "wild" data that you will encounter are organized incorrectly for work in R and, as you might expect, the tools used to transform data are a core part of the tidyverse. I will attempt to summarize the most important points below, but you should read [chapter 12 of the data science text](https://r4ds.had.co.nz/tidy-data.html) for a more thorough explanation.  
 
-Follow the link to the "Entrez Nucleotide" page. We are going to search for sequences. In the search bar at the top of the page type "Ummidia". 
+`Tidy` data in the sense of the tidyverse follows three conventions:   
+(1) each variable has its own column  
+(2) each observation has its own row  
+(3) each value has its own cell  
 
-## BLASTn
+This is summarized in the image below. The package used to tidy data is called **tidyr** and is a core part of the tidyverse.  
+![*Tidy Data.*](tidy-1.png)
 
-With BLASTn we can take a sequence we have acquired (perhaps through sequencing) and search GenBank for similar sequences. One common application of this is to check new sequences for contamination. Go to the NCBI BLAST link above, then click "Nucleotide BLAST". In your data folder is a file called "Ummidia.fasta". Open this file in your text editor. This file contains 28 mitochondrial DNA nucleotide sequences (for the cytochrome oxidase I gene) in what is called `fasta` format. The fasta format is commonly used for nucleotide sequence analysis. Copy one of these sequences, beginning with the carrot `>` through the end of the sequence (before the next carrot) and paste it into the `Query Sequence Box`. We will now do a search with the deafult settings.
+## `pivot_longer()`  
+Scientists frequently use spreadsheets that are organized to make data entry efficient. This is often referred to as **wide format**. Unfortunately, the wide format creates a problem because column names may actually represent values of a variable. The command `pivot_longer()` shifts data from wide to long format.   
+
+Rules:  
++ `pivot_longer`(cols, names_to, values_to)
++ `cols` - Columns to pivot to longer format
++ `names_to` - Name of the new column; it will contain the column names of gathered columns as values
++ `values_to` - Name of the new column; it will contain the data stored in the values of gathered columns
+
+## Example 1: column names are data
+The following data show results from a drug trial with four treatments on six patients. The values represent resting heart rate.  
+```{r}
+heartrate <- readr::read_csv("data/heartrate.csv")
+heartrate
+```
+
+Let's assess whether or not these data are tidy.  
+(1) each variable has its own column  
+*No. Some of the column names are actually variables (treatment a, b, c, or d).*  
+(2) each observation has its own row  
+*No. The observations are grouped in a single row by patient.*  
+(3) each value has its own cell  
+*Yes. There are no unusual combinations of data in each cell.*    
+
+To fix this problem, we need to reshape the table to long format while keeping track of column names and values. We do this using `pivot_longer()`. Notice that the dimensions of the data frame change.  
+```{r}
+heartrate %>% 
+  pivot_longer(-patient, #patient does not pivot
+               names_to = "drug", 
+               values_to = "heartrate"
+               )
+```
 
 ## Practice
-1. What are the results and what do you think they mean?  
-
-
-2. Notice that all sequences have a unique accession number. How do you think those are used by biologists and why are they important?
-
-
-## GenBank in R using "ape"
-
-SeqinR (Sequences in R) and ape (Analysis of Phylogenetics and Evolution) are packages which include many utilities for dealing with sequence data in R. 
-```{r cars}
-#install.packages("seqinr")
-#install.packages("ape")
-```
-
+1. Import the file `relig_income.csv` and store it as a new object `relig_income`.  
 ```{r}
-library(ape)
-library(seqinr)
+
 ```
-
-We can use ape to search the GenBank database just like we did using the web portal. We use the function `read.GenBank()` to read nucleotide sequences into R using accession numbers as arguments. Take a look at the help page and usage options for this function.
-```{r}
-?read.GenBank()
-```
-
-The NCBI accession number for the DEN-1 Dengue virus genome sequence is `NC_001477`. We can use `read.GenBank()` to retrieve this sequence. 
-```{r}
-dengueseq <- read.GenBank("NC_001477")
-dengueseq
-```
-
-Note that this has given us the sequence in a binary format, but looking at this output gives us some infomration about the sequence to include it's length and base composition. Let's look at the "list" that the sequence is stored in
-```{r}
-dengueseq$NC_001477
-```
-
-Well that is not very useful at all! Fortuantely, we can pull the sequence as a character object using the following code:
-```{r}
-dengueseq <- read.GenBank("NC_001477", as.character = TRUE)
-dengueseq
-```
+2. Why are these data untidy?  
 
 
-That's a little better, now we can see the nucleotides that make up the sequence stored as a vector. Let's try fetching multiple sequences at once and storing them as a DNAbin object. This is a list of accession numbers for RAG1 sequences for a group of lizards. We're going to store this list as a vector which will then be used to import all of the sequences using `read.Genbank()`.  
-
-**Accession numbers**
-```{r}
-lizards_accession_numbers <- c("JF806202", "HM161150", "FJ356743", "JF806205", "JQ073190", 	"GU457971", "FJ356741", "JF806207", "JF806210", "AY662592", "AY662591","FJ356748", "JN112660",  "AY662594", "JN112661", "HQ876437", "HQ876434", "AY662590", "FJ356740","JF806214", "JQ073188", "FJ356749", "JQ073189", "JF806216", "AY662598", "JN112653", "JF806204","FJ356747", "FJ356744", "HQ876440", "JN112651", "JF806215","JF806209")
-```
-
-
-**Import from GenBank**  
-Looking at this new object again we see some basic information on the sequences we've pulled from the database.
-```{r}
-lizards_sequences <- read.GenBank(lizards_accession_numbers)
-lizards_sequences
-```
-
-Let's explore this data just a little bit. We can use functions like `str()`, `attributes()`, `names()`, and `attr()` to get different kinds of information to include our accession numbers, the contents of the data, and a list of the included species. Try each of these functions and compare the output. 
-
-## Practice
-1. Use `str()` to explore lizards_sequences.
-```{r}
-str(lizards_sequences)
-```
-
-2. Use `names()` to explore lizards_sequences.
-```{r}
-names(lizards_sequences)
-```
-
-3. Use `attributes()` to explore lizards_sequences.
-```{r}
-attributes(lizards_sequences)
-```
-
-4. Use `attr()` to explore lizards_sequences.
-```{r}
-attr(lizards_sequences, "species")
-```
-
-This data would probably be easier to read if we made a vector that matched up accession numbers with species. Let's do that! We'll add the name of the gene we're looking at for good measure. This is good practice, especially if you want to add other sequences later.
-```{r}
-lizards_sequences_GenBank_IDs <- paste(attr(lizards_sequences, "species"), names(lizards_sequences), sep ="_RAG1_")
-lizards_sequences_GenBank_IDs
-```
-
-Generally when we work with sequence data we want it in a specific format such as a `.fasta` or `.phylip` because the software and packages we use to analyze sequence data need to have the data in a specific format. We can use the `write.dna()` function to write our sequences into a .fasta format.
-```{r}
-write.dna(lizards_sequences, file ="lizard_fasta_1.fasta", format = "fasta", append = FALSE, nbcol = 6, colsep = " ", colw = 10)
-```
-
-## Search by key words
-But what if we don't know the accession numbers for the sequences we want? No worries! R has a package for that! Rentrez (Entrez in R) is a package the interfaces with the NCBI database and allows us to search and pull sequences using key terms.
-```{r}
-#install.packages("rentrez")
-library(rentrez)
-```
-
-Let's look for our lizards by their species name _Basiliscus basiliscus_ using `entrez_search()`. We can tell entrez we want to search the nucleotide database (nuccore) for _Basiliscus basiliscus_ which is an [Organism]. We'll also set the maximum returned hits to 40 (retmax=40).
-```{r}
-lizard_search <- entrez_search(db="nuccore", term= "Basiliscus basiliscus[Organism]", retmax=40)
-lizard_search
-```
-
-We can limit our search using other criteria like the gene we are interested in connected by boolean operators (AND, OR, NOT). For example, we can limit the above search to only look for cytochrome oxidase one (COI) sequences.
-```{r}
-entrez_search(db="nuccore", term= "Basiliscus basiliscus[Organism] AND coi[GENE]", retmax=40)
-```
-In this case the search only returns a single hit, so for now we'll continue with our initial search results. 
-
-Now we'll use `entrez_fetch()` to get the sequence results of our search and store them as a character vector.
-```{r}
-lizard_seqs <- entrez_fetch(db="nuccore", id=lizard_search$ids, rettype="fasta")
-lizard_seqs
-```
-
-
-The format of these sequences that R is now holding is in .fasta format, but they will be more useful for us if we actually write them out as a .fasta file. We can use the `write()` function to do this. Look very closely at those sequences. It looks like a big mess of text but there are "new line delimiters" in that text, and we need to tell R what they are so it knows where the line endings are. In this case the new line delimiter is "\n", so we will write the data to a .fasta file like this:
-```{r}
-write(lizard_seqs, "data/lizard_fasta_2.fasta", sep = "\n")
-```
-
-Open this file in your text editor and have a look. You have downnloaded and formated sequence data from the internet using R!
-
-
-## Practice
-
-1. Create your own search of the NCBI nucleotide database using `entrez_search()` for RAG1 sequences of _Ornithorhynchus anatinus_. Limit your returned hits to 10. What is _Ornithorhynchus anatinus_?
+3. Use `pivot_longer()` to make the data tidy.  
 ```{r}
 
 ```
 
-2. Use `entrez_fetch()` to return your database hits as a character vector.
+## Example 2: some column names are data
+Some (but not all) of the column names are data. We also have NA's.
+```{r}
+billboard <- readr::read_csv("data/billboard.csv")
+billboard
+```
+
+Solution 1: specify a range of columns that you want to pivot.
+```{r}
+billboard2 <- 
+  billboard %>% 
+  pivot_longer(wk1:wk76, # a range of columns
+               names_to = "week",
+               values_to = "rank",
+               values_drop_na = TRUE #this will drop the NA's
+               )
+billboard2
+```
+
+Solution 2: OR, specify columns that you want to stay fixed.
+```{r}
+billboard3 <- 
+  billboard %>% 
+  pivot_longer(-c(artist, track, date.entered), #specific columns
+               names_to = "week",
+               values_to = "rank",
+               values_drop_na = TRUE
+               )
+billboard3
+```
+
+Solution 3: identify columns by a prefix, remove the prefix and all NA's.
+```{r}
+billboard %>% 
+   pivot_longer(
+   cols = starts_with("wk"),
+   names_to = "week",
+   names_prefix = "wk",
+   values_to = "rank",
+   values_drop_na = TRUE)
+```
+
+## Practice  
+1. Import `plant_data.csv` as a new object `plant_data`.  
 ```{r}
 
 ```
 
-3. Now store your own pulled sequence data as a .fasta file using the `write()` function. Remember those line endings!
+2. Why are these data not tidy?  
+
+
+3. Use `pivot_longer()` to make the data tidy. Focus the data only on genotype, day, and measurement.  
 ```{r}
 
 ```
 
-## That's it, let's take a break!   
+## Example 3: more than one variable in a column name
+In this case, there are two observations in each column name.
+```{r}
+qpcr_untidy <- readr::read_csv("data/qpcr_untidy.csv")
+qpcr_untidy
+```
+
+`names_sep` helps pull these apart, but we still have "exp" and "rep" to deal with.  
+```{r}
+qpcr_untidy %>%
+  pivot_longer(
+    exp1_rep1:exp3_rep3,
+    names_to = c("experiment", "replicate"),
+    names_sep = "_",
+    values_to = "mRNA_expression")
+```
+
+## Example 4: more than one value or observation in a row
+This is often caused by an entry error, but R will not be able to work with it unless the values are separated. This doesn't use `pivot_longer()` but is a common problem.  
+```{r}
+length_data <- readr::read_csv("data/length_data.csv")
+length_data
+```
+
+```{r}
+length_data %>% 
+  transform(length = str_split(length, ";")) %>%
+  unnest(length)
+```
+
+## That's it! Take a break and I will see you on Zoom!  
 
 -->[Home](https://jmledford3115.github.io/datascibiol/)
