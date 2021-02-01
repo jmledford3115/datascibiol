@@ -1,5 +1,5 @@
 ---
-title: "Tidyr 2: `pivot_wider()`, `summarize()`, and `group_by()`"
+title: "Tidyr 2: `pivot_wider()`"
 date: "`r Sys.Date()`"
 output:
   html_document:
@@ -28,9 +28,10 @@ Let's take a few minutes to discuss group projects. What data interest you? Make
 ## Resources
 - [tidyr `pivot_wider()`](https://tidyr.tidyverse.org/reference/pivot_wider.html)  
 - [pivoting](https://cran.r-project.org/web/packages/tidyr/vignettes/pivot.html)  
+- [R Ladies Sydney](https://rladiessydney.org/courses/ryouwithme/02-cleanitup-5/)  
 
 ## Review
-Last time we learned the fundamentals of tidy data and used the `pivot_longer()` function to wrangle a few examples of frequently encountered untidy data. In the second part of today's lab we will use the `pivot_wider()` function to deal with another type of untidy data.  
+Last time we learned the fundamentals of tidy data and used the `pivot_longer()` function to wrangle a few examples of frequently encountered untidy data. In the second part of today's lab we will look at a few more examples of `pivot_longer()` but also use the `pivot_wider()` function to deal with another type of untidy data.  
 
 ## Load the tidyverse
 ```{r}
@@ -44,17 +45,17 @@ datasets::USPersonalExpenditure
 ?USPersonalExpenditure
 ```
 
-Here we add a new column of expenditure types, which are stored as rownames above, with `mutate()`. The USPersonalExpenditures data also needs to be converted to a data frame before we can use the tidyverse functions, because it comes as a matrix.
+Here we add a new column of expenditure types, which are stored as rownames above, with `mutate()`. The `USPersonalExpenditures` data also needs to be converted to a data frame before we can use the tidyverse functions, because it comes as a matrix.
 ```{r}
 expenditures <- 
   USPersonalExpenditure %>% 
-  as.data.frame() %>% 
+  as_tibble() %>% 
   mutate(expenditure = rownames(USPersonalExpenditure))
 expenditures
 ```
 
 ## Practice
-1. Are these data tidy? Please use `pivot_longer()` to tidy the data. Here we use back ticks on the column names so R does not confuse them with numerical indices.
+1. Are these data tidy? Please use `pivot_longer()` to tidy the data.
 ```{r}
 
 ```
@@ -65,7 +66,7 @@ expenditures
 ```
 
 ## `separate()`
-In our last example, we have the sex of each patient included with their name. Are these data tidy? No, there is more than one value per cell in the patient column and the columns a, b, c, d once again represent values.
+In this new heart rate example, we have the sex of each patient included with their name. Are these data tidy? No, there is more than one value per cell in the patient column and the columns a, b, c, d once again represent values.
 ```{r}
 heartrate2 <- readr::read_csv("data/heartrate2.csv")
 heartrate2
@@ -111,17 +112,21 @@ tb_data %>%
 ## Practice
 1. Load the `gene_exp.csv` data as a new object `gene_exp`. Are these data tidy? Use `pivot_wider()` to tidy the data.
 ```{r}
-
+gene_exp <- readr::read_csv("data/gene_exp.csv")
+gene_exp
 ```
 
 ```{r}
-
+gene_exp %>% 
+  pivot_wider(names_from = "type",
+              values_from = "L4_values")
 ```
 
 ## `pivot_wider()` with multiple variables  
 What happens when we want to use `pivot_wider()` with multiple columns?
 ```{r}
 edu_level <- readr::read_csv("data/education_level.csv")
+edu_level
 ```
 
 We want to pivot the `edu_level` data such that there is only a single row per demographic. 
@@ -131,141 +136,22 @@ pivot_wider(names_from = (education_level), #new column names come from the educ
                 values_from = c(mean_income, n)) #values come from two separate columns
 ```
 
-## `rename()`
-The `rename()` function is actually part of *dplyr*, but I put it here because I think of it as part of transforming untidy data. Remember, youcan still rename columns as part of `select()`.
-```{r}
-tb_data %>% 
-  pivot_wider(names_from = "key",
-              values_from = "value") %>% 
-  dplyr::rename(
-    Country=country,
-    Year=year,
-    New_Cases=cases,
-    Population=population
-  )
-```
-
-## `summarize()`
-`summarize()` will produce summary statistics for a given variable in a data frame. For example, in homework 2 you were asked to calculate the mean of the sleep total column for large and small mammals. We did this using a combination of tidyverse and base R commands, which isn't very efficient or clean. We can do better!  
-```{r}
-msleep
-```
-
-From homework 2.
-```{r}
-large <- 
-  msleep %>% 
-  select(name, genus, bodywt, sleep_total) %>% 
-  filter(bodywt >= 200) %>% 
-  arrange(desc(bodywt))
-large
-```
-
-```{r}
-mean(large$sleep_total)
-```
-
-We can accomplish the same task using the `summarize()` function in the tidyverse and make things cleaner.
-```{r}
-msleep %>% 
-  filter(bodywt >= 200) %>%
-  summarize(mean_sleep_lg = mean(sleep_total))
-```
-
-You can also combine functions to make useful summaries for multiple variables.
-```{r}
-msleep %>% 
-    filter(bodywt >= 200) %>% 
-    summarize(mean_sleep_lg = mean(sleep_total), 
-              min_sleep_lg = min(sleep_total),
-              max_sleep_lg = max(sleep_total),
-              total = n())
-```
-
-`n_distinct()` is a very handy way of cleanly presenting the number of distinct observations. Here we show the number of distinct genera over 200 in body weight.
-```{r}
-msleep %>% 
-  filter(bodywt >= 200) %>% 
-  summarise(n_genera=n_distinct(genus))
-```
-
-There are many other useful summary statistics, depending on your needs: sd(), min(), max(), median(), sum(), n() (returns the length of vector), first() (returns first value in vector), last() (returns last value in vector) and n_distinct() (number of distinct values in vector).
-
 ## Practice
-1. How many genera are represented in the msleep data frame?
+For the last practice example, I will use data from the awesome [R Ladies Sydney](https://rladiessydney.org/courses/ryouwithme/02-cleanitup-5/) blog. This data set is compiled by the NSW Office of Environment and Heritage contains the enterococci counts in water samples obtained from Sydney beaches as part of the Beachwatch Water Quality Program! The data set we’ll be working with is current as of October 13th 2018.  
+
+1. Load the beachbugs data and have a look.
 ```{r}
-msleep %>%
-  summarize(ngenera = n_distinct(genus))
+
+```
+2. Use `pivot_wider` to transform the data into wide format.
+```{r}
+
+```
+3. Now, use `pivot_wider` to transform them back to long!
+```{r}
+
 ```
 
-2. What are the min, max, and mean body weight for all of the mammals? Be sure to include the total n.
-```{r}
-msleep %>%
-  summarize(min_bodywt = min(bodywt),
-            max_bodywt = max(bodywt),
-            mean_bodywt = mean(bodywt),
-            total = n())
-```
-
-## `group_by()`
-The `summarize()` function is most useful when used in conjunction with `group_by()`. Although producing a summary of body weight for all of the mammals in the dataset is helpful, what if we were interested in body weight by feeding ecology?
-```{r}
-names(msleep)
-```
-
-```{r}
-msleep %>%
-  group_by(vore) %>% #we are grouping by feeding ecology
-  summarize(min_bodywt = min(bodywt),
-            max_bodywt = max(bodywt),
-            mean_bodywt = mean(bodywt),
-            total=n())
-```
-
-`count()` is an easy way of determining how many observations you have within a column. It effectively acts like a combination of `group_by()` and `n()`.
-```{r}
-msleep %>% 
-  count(order, sort = T)
-```
-
-You can also use `count()` across multiple variables.
-```{r}
-msleep %>% 
-  count(order, vore, sort = TRUE)
-```
-
-`add_count()` adds a new column to the dataframe.
-```{r}
-msleep %>% 
-  select(name:order) %>% 
-  add_count(order) %>% 
-  top_n(-5) #the bottom 5 
-```
-
-## Practice
-1. Calculate mean brain weight by taxonomic order in the msleep data.
-```{r}
-msleep %>% 
-  group_by(order) %>% 
-  summarize(mean_brainwt = mean(brainwt))
-```
-
-2. What does `NA` mean?  
-
-_In this case it means we are actually missing data because the brain weight for some animals has not been measured._  
-
-3. Try running the code again, but this time add `na.rm=TRUE`. What is the problem with Cetacea?  
-```{r}
-msleep %>% 
-  group_by(order) %>% 
-  summarize(mean_brainwt = mean(brainwt, na.rm = TRUE))
-```
-
-```{r}
-msleep %>% 
-  filter(order == "Cetacea")
-```
-
-## That's it, let's take a break!   
-
+## Wrap-up  
+Please review the learning goals and be sure to use the code here as a reference when completing the homework.  
 -->[Home](https://jmledford3115.github.io/datascibiol/)

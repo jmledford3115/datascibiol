@@ -149,18 +149,19 @@ billboard %>%
 ## Example 3: more than one variable in a column name
 In this case, there are two observations in each column name.
 ```{r}
-qpcr_untidy <- readr::read_csv("data/qpcr_untidy.csv")
+qpcr_untidy <- read_csv("data/qpcr_untidy.csv")
 qpcr_untidy
 ```
 
 `names_sep` helps pull these apart, but we still have "exp" and "rep" to deal with.  
 ```{r}
-qpcr_untidy %>%
+qpcr_untidy %>% 
   pivot_longer(
     exp1_rep1:exp3_rep3,
-    names_to = c("experiment", "replicate"),
-    names_sep = "_",
-    values_to = "mRNA_expression")
+    names_to= c("experiment", "replicate"),
+    names_sep="_",
+    values_to="mRNA_expression"
+  )
 ```
 
 ## Example 4: more than one value or observation in a row
