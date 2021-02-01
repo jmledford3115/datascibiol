@@ -1,5 +1,5 @@
 ---
-title: "Lab 4 Homework"
+title: "Lab 8 Homework"
 author: "Please Add Your Name Here"
 date: "`r Sys.Date()`"
 output:
@@ -13,71 +13,68 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 ## Instructions
-Answer the following questions and complete the exercises in RMarkdown. Please embed all of your code and push your final work to your repository. Your final lab report should be organized, clean, and run free from errors. Remember, you must remove any `#` for included code chunks to run.  
+Answer the following questions and complete the exercises in RMarkdown. Please embed all of your code and push your final work to your repository. Your final lab report should be organized, clean, and run free from errors. Remember, you must remove the `#` for the included code chunks to run. Be sure to add your name to the author header above.  
 
-## Load the tidyverse
+Make sure to use the formatting conventions of RMarkdown to make your report neat and clean!  
+
+## Load the libraries
 ```{r message=FALSE, warning=FALSE}
 library(tidyverse)
+library(janitor)
+``` 
+
+## Install `here`
+The package `here` is a nice option for keeping directories clear when loading files. I will demonstrate below and let you decide if it is something you want to use.  
+```{r}
+#install.packages("here")
 ```
 
-For this assignment we are going to work with a large dataset from the [United Nations Food and Agriculture Organization](http://www.fao.org/about/en/) on world fisheries. First, load the data.  
+## Data
+For this homework, we will use a data set compiled by the Office of Environment and Heritage in New South Whales, Australia. It contains the enterococci counts in water samples obtained from Sydney beaches as part of the Beachwatch Water Quality Program. Enterococci are bacteria common in the intestines of mammals; they are rarely present in clean water. So, enterococci values are a measurement of pollution. `cfu` stands for colony forming units and measures the number of viable bacteria in a sample [cfu](https://en.wikipedia.org/wiki/Colony-forming_unit).   
 
-**1. Load the data `FAO_1950to2012_111914.csv` as a new object titled `fisheries`.**
+This homework loosely follows the tutorial of [R Ladies Sydney](https://rladiessydney.org/). If you get stuck, check it out!  
 
+1. Start by loading the data `sydneybeaches`. Do some exploratory analysis to get an idea of the data structure.
+```{r}
 
-**2. What are the names of the columns? Do you see any potential problems with the column names?**
+```
 
+If you want to try `here`, first notice the output when you load the `here` library. It gives you information on the current working directory. You can then use it to easily and intuitively load files.
+```{r}
+library(here)
+```
 
-**3. What is the structure of the data? Show the classes of each variable.**
+The quotes show the folder structure from the root directory.
+```{r}
+sydneybeaches <-read_csv(here("lab8", "data", "sydneybeaches.csv")) %>% janitor::clean_names()
+```
 
-
-**4. Think about the classes. Will any present problems? Make any changes you think are necessary below.**
-
-
-**5. How many countries are represented in the data? Provide a count.**
-
-
-**6. What are the names of the countries?**
-
-
-**7. Use `rename()` to rename the columns and make them easier to use. The new column names should be:**  
-+ country
-+ commname
-+ ASFIS_sciname
-+ ASFIS_spcode
-+ ISSCAAP_spgroup
-+ ISSCAAP_spgroupname
-+ FAO_area
-+ unit
-
-**8. Are these data tidy? Why or why not, and, how do you know? Use the appropriate pivot function to tidy the data. Remove the NA's. Put the tidy data frame into a new object `fisheries_tidy`.**  
+2. Are these data "tidy" per the definitions of the tidyverse? How do you know? Are they in wide or long format?
 
 
-**9. Refocus the data only to include country, ISSCAAP_spgroupname, ASFIS_spcode, ASFIS_sciname, year, and catch.**
+3. We are only interested in the variables site, date, and enterococci_cfu_100ml. Make a new object focused on these variables only. Name the object `sydneybeaches_long`
 
 
-**10. Re-check the classes of `fisheries_tidy2`. Notice that "catch" is shown as a character! This is a problem because we will want to treat it as a numeric. How will you deal with this?**
+4. Pivot the data such that the dates are column names and each beach only appears once. Name the object `sydneybeaches_wide`
 
 
-**11. Based on the ASFIS_spcode, how many distinct taxa were caught as part of these data?**
+5. Pivot the data back so that the dates are data and not column names.
 
 
-**12. Which country had the largest overall catch in the year 2000?**
+6. We haven't dealt much with dates yet, but separate the date into columns day, month, and year. Do this on the `sydneybeaches_long` data.
 
 
-**13. Which country caught the most sardines (_Sardina_) between the years 1990-2000?**
+7. What is the average `enterococci_cfu_100ml` by year for each beach. Think about which data you will use- long or wide.
 
 
-**14. Which five countries caught the most cephalopods between 2008-2012?**
+8. Make the output from question 7 easier to read by pivoting it to wide format.
 
 
-**15. Given the top five countries from question 14 above, which species was the highest catch total? The lowest?**
+9. What was the most polluted beach in 2018?
 
 
-**16. In some cases, the taxonomy of the fish being caught is unclear. Make a new data frame called `coastal_fish` that shows the taxonomic composition of "Miscellaneous coastal fishes" within the ISSCAAP_spgroupname column.**
+10. Perform one analysis of your choice on the data.
 
-
-**17. Use the data to do at least one exploratory analysis of your choice. What can you learn?**
 
 ## Push your final code to GitHub!
 Please be sure that you check the `keep md` file in the knit preferences.   

@@ -31,6 +31,7 @@ The quote above sums up much of the work in data science. Simply put, most of th
 ## Load the tidyverse
 ```{r message=FALSE, warning=FALSE}
 library(tidyverse)
+library(here)
 ```
 
 ## Tidy data
@@ -58,6 +59,11 @@ The following data show results from a drug trial with four treatments on six pa
 ```{r}
 heartrate <- readr::read_csv("data/heartrate.csv")
 heartrate
+```
+
+Want to try the `here` package?
+```{r}
+read_csv(here("lab8", "data", "heartrate.csv"))
 ```
 
 Let's assess whether or not these data are tidy.  
