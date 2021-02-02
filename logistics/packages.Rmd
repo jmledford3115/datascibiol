@@ -22,14 +22,16 @@ Once you install a package, you don't need to re-install until you update R and 
 
 The package we use the most is the [tidyverse](https://www.tidyverse.org/).  
 ```{r}
-#install.packages("tidyverse", repos = "http://cran.us.r-project.org")
+install.packages("tidyverse", repos = "http://cran.us.r-project.org")
 ```
 
 Other useful packages.  
 ```{r}
-#install.packages("janitor", repos = "http://cran.us.r-project.org")
-#install.packages("naniar", repos = "http://cran.us.r-project.org")
-#install.packages("shiny")
+install.packages("janitor", repos = "http://cran.us.r-project.org")
+install.packages("naniar", repos = "http://cran.us.r-project.org")
+install.packages("shiny")
+install.packages("here")
+install.packages("skimr")
 ```
 
 Here is a useful alternative to add to scripts that require certain packages.
