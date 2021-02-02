@@ -73,7 +73,7 @@ sydneybeaches <-read_csv(here("lab8", "data", "sydneybeaches.csv")) %>% janitor:
 9. What was the most polluted beach in 2018?
 
 
-10. Perform one analysis of your choice on the data.
+10. Please complete the class project survey at: [BIS 15L Group Project](https://forms.gle/H2j69Z3ZtbLH3efW6)
 
 
 ## Push your final code to GitHub!

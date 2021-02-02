@@ -147,7 +147,7 @@ For the last practice example, I will use data from the awesome [R Ladies Sydney
 ```{r}
 
 ```
-3. Now, use `pivot_wider` to transform them back to long!
+3. Now, use `pivot_longer` to transform them back to long!
 ```{r}
 
 ```
