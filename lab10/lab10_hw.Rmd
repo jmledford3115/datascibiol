@@ -1,5 +1,5 @@
 ---
-title: "Lab 6 Homework"
+title: "Lab 10 Homework"
 author: "Please Add Your Name Here"
 date: "`r Sys.Date()`"
 output:
@@ -13,55 +13,43 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 ## Instructions
-Answer the following questions and complete the exercises in RMarkdown. Please embed all of your code and push your final work to your repository. Your final lab report should be organized, clean, and run free from errors. Remember, you must remove the `#` for any included code chunks to run.  
+Answer the following questions and complete the exercises in RMarkdown. Please embed all of your code and push your final work to your repository. Your final lab report should be organized, clean, and run free from errors. Remember, you must remove the `#` for the included code chunks to run. Be sure to add your name to the author header above. For any included plots, make sure they are clearly labeled. You are free to use any plot type that you feel best communicates the results of your analysis.  
 
-## Libraries
+Make sure to use the formatting conventions of RMarkdown to make your report neat and clean!  
+
+## Load the libraries
 ```{r message=FALSE, warning=FALSE}
 library(tidyverse)
-```
+library(janitor)
+library(here)
+library(naniar)
+``` 
 
-## Resources
-The idea for this assignment came from [Rebecca Barter's](http://www.rebeccabarter.com/blog/2017-11-17-ggplot2_tutorial/) ggplot tutorial so if you get stuck this is a good place to have a look.  
-
-## Gapminder
-For this assignment, we are going to use the dataset [gapminder](https://cran.r-project.org/web/packages/gapminder/index.html). Gapminder includes information about economics, population, and life expectancy from countries all over the world. You will need to install it before use. This is the same data that we used for the practice midterm. You may want to load that assignment for reference.  
+## Desert Ecology
+For this assignment, we are going to use a modified data set on [desert ecology](http://esapubs.org/archive/ecol/E090/118/). The data are from: S. K. Morgan Ernest, Thomas J. Valone, and James H. Brown. 2009. Long-term monitoring and experimental manipulation of a Chihuahuan Desert ecosystem near Portal, Arizona, USA. Ecology 90:1708.
 ```{r}
-#install.packages("gapminder")
-library("gapminder")
+deserts <- read_csv(here("lab10", "data", "surveys_complete.csv"))
 ```
 
-## Questions
-The questions below are open-ended and have many possible solutions. Your approach should, where appropriate, include numerical summaries and visuals. Be creative; assume you are building an analysis that you would ultimately present to an audience of stakeholders. Feel free to try out different `geoms` if they more clearly present your results.  
+1. Use the function(s) of your choice to get an idea of its structure, including how NA's are treated. Are the data tidy?  
 
-**1. Use the function(s) of your choice to get an idea of the overall structure of the data frame, including its dimensions, column names, variable classes, etc. As part of this, determine how NAs are treated in the data.**  
+2. How many genera and species are represented in the data? What are the total number of observations? Which species is most/ least frequently sampled in the study?
 
+3. What is the proportion of taxa included in this study? Show a table and plot that reflects this count.
 
-**2. Among the interesting variables in gapminder is life expectancy. How has global life expectancy changed between 1952 and 2007?**
+4. For the taxa included in the study, use the fill option to show the proportion of individuals sampled by `plot_type.`
 
+5. What is the range of weight for each species included in the study? Remove any observations of weight that are NA so they do not show up in the plot.
 
-**3. How do the distributions of life expectancy compare for the years 1952 and 2007? _Challenge: Can you put both distributions on a single plot?_**
+6. Add another layer to your answer from #4 using `geom_point` to get an idea of how many measurements were taken for each species.
 
+7. [Dipodomys merriami](https://en.wikipedia.org/wiki/Merriam's_kangaroo_rat) is the most frequently sampled animal in the study. How have the number of observations of this species changed over the years included in the study?
 
-**4. Your answer above doesn't tell the whole story since life expectancy varies by region. Make a summary that shows the min, mean, and max life expectancy by continent for all years represented in the data.**
+8. What is the relationship between `weight` and `hindfoot` length? Consider whether or not over plotting is an issue.
 
+9. Which two species have, on average, the highest weight? Once you have identified them, make a new column that is a ratio of `weight` to `hindfoot_length`. Make a plot that shows the range of this new ratio and fill by sex.
 
-**5. How has life expectancy changed between 1952-2007 for each continent? Try using `geom_line()` for this, including all continents on the same  plot.**
-
-
-**6. We are interested in the relationship between per capita GDP and life expectancy; i.e. does having more money help you live longer?**
-
-
-**7. There is extreme disparity in per capita GDP. Rescale the x axis to make this easier to interpret. How would you characterize the relationship?**
-
-
-**8. Which countries have had the largest population growth since 1952?**
-
-
-**9. Use your results from the question above to plot population growth for the top five countries since 1952.**
-
-
-**10. How does per capita GDP growth compare between these same five countries?**
-
+10. Make one plot of your choice! Make sure to include at least two of the aesthetics options you have learned.
 
 ## Push your final code to GitHub!
 Please be sure that you check the `keep md` file in the knit preferences. 

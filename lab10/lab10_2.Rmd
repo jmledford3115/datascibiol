@@ -168,8 +168,6 @@ homerange %>%
   geom_boxplot()
 ```
 
-http://esapubs.org/archive/ecol/E090/118/
-
 ## That's it, let's take a break!   
 
 -->[Home](https://jmledford3115.github.io/datascibiol/)
