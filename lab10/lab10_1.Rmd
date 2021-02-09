@@ -36,47 +36,69 @@ Let's revisit the mammal life history data to practice our ggplot skills. The [d
 life_history <- read_csv(here("lab10", "data", "mammal_lifehistories_v2.csv")) %>% na_if("-999") %>% clean_names()
 ```
 
+```{r}
+glimpse(life_history)
+```
+
 ## Bar Plots
 Bar plots count the number of observations in a categorical variable.
 ```{r}
-
+life_history %>% 
+  count(order, sort=T)
 ```
 
 ```{r}
-
+life_history %>% 
+  ggplot(aes(x=order)) + geom_bar()+coord_flip()
 ```
 
 ```{r}
-
+life_history %>% 
+  group_by(order) %>% 
+  summarize(mean_mass=mean(mass, na.rm=T))
 ```
 
 ```{r}
-
+options(scipen=999) #cancels scientific notation for the session
 ```
 
 ```{r}
+life_history %>% 
+  group_by(order) %>% 
+  summarize(mean_mass=mean(mass, na.rm=T)) %>% 
+  ggplot(aes(x=order, y=mean_mass))+geom_col()
+```
 
+```{r}
+life_history %>% 
+  group_by(order) %>% 
+  summarize(mean_mass=mean(mass, na.rm=T)) %>% 
+  ggplot(aes(x=order, y=mean_mass))+geom_col()+coord_flip()+scale_y_log10()
 ```
 
 ## Scatterplots
 Scatter plots allow for comparisons of two continuous variables.
 ```{r}
-
+life_history %>% 
+  ggplot(aes(x=gestation, y=wean_mass)) + geom_point(na.rm=T) + scale_y_log10() + geom_smooth(method="lm")
 ```
 
 ## Boxplots
 Box plots help us visualize a range of values. So, on the x-axis we typically have something categorical and the y-axis is the range.
 ```{r}
-
+glimpse(life_history)
 ```
 
 ```{r}
-
+life_history %>% 
+  ggplot(aes(x=order, y=mass))+geom_boxplot()+scale_y_log10()+coord_flip()
 ```
 
 Remember, you can always use dplyr functions to focus your question, summarize, etc.
 ```{r}
-
+life_history %>% 
+  filter(order=="Primates") %>% 
+  ggplot(aes(x=family, y=mass))+geom_boxplot(na.rm=T)+scale_y_log10()+coord_flip()
 ```
 
 ## Practice  
@@ -112,10 +134,10 @@ elephants %>%
 The plot looks clean, but it is incomplete. A reader unfamiliar with the data might have a difficult time interpreting the labels. To add custom labels, we use the `labs` command.
 ```{r}
 elephants %>% 
-  ggplot(aes(x=age, y=height)) + geom_point() + geom_smooth(method=lm, se=F) +
-  labs(title = "Elephant Age vs. Height",
-       x = "Age",
-       y = "Height")
+  ggplot(aes(x=age, y=height)) + geom_point() + geom_smooth(method=lm, se=F)+
+  labs(title="Elephant Age vs. Height",
+       x="Age",
+       y="Height (cm)")
 ```
 
 We can improve the plot further by adjusting the size and face of the text. We do this using `theme()`.
@@ -125,9 +147,9 @@ elephants %>%
   labs(title = "Elephant Age vs. Height",
        x = "Age",
        y = "Height") +
-  theme(plot.title = element_text(size = 14, face = "bold"),
+  theme(plot.title = element_text(size = 12, face = "bold"),
         axis.text = element_text(size = 10),
-        axis.title = element_text(size = 12))
+        axis.title = element_text(size = 10))
 ```
 
 The `rel()` option changes the relative size of the title to keep things consistent. Adding `hjust` allows control of title position.
@@ -137,26 +159,30 @@ elephants %>%
   labs(title = "Elephant Age vs. Height",
        x = "Age",
        y = "Height") +
-  theme(plot.title = element_text(size = rel(1.25), hjust = 1))
+  theme(plot.title = element_text(size = rel(1.5), hjust = 0.5))
 ```
 
 ## Other Aesthetics
 There are lots of options for aesthetics. An aesthetic can be assigned to either numeric or categorical data. `fill` is a common grouping option; notice that an appropriate key is displayed when you use one of these options.
 ```{r}
 elephants %>% 
-  ggplot(aes(x=sex, fill=sex)) + geom_bar()
+  ggplot(aes(x=sex, fill=sex))+geom_bar()+
+  labs(title = "# Elephants by Sex",
+       x = "Sex",
+       y = NULL) +
+  theme(plot.title = element_text(size = rel(1.5), hjust = 0.5))
 ```
 
 `size` adjusts the size of points relative to a continuous variable.
 ```{r}
 life_history %>% 
-  ggplot(aes(x = gestation, y = log10(mass), size = mass)) +
+  ggplot(aes(x=gestation, y=log10(mass), size=mass))+
   geom_point(na.rm=T)
 ```
 
 ```{r}
 life_history %>% 
-  filter(gestation>=20)
+  filter(gestation>20)
 ```
 
 ## Practice
@@ -165,12 +191,16 @@ Let's end today's lab by looking at the homerange data. By now, these should be 
 homerange <- read_csv(here("lab10", "data", "Tamburelloetal_HomeRangeDatabase.csv"))
 ```
 
+```{r}
+names(homerange)
+```
+
 1. Make a barplot that shows counts of ectotherms and endotherms. Label the axes, provide a title, and fill by `thermoregulation`.
 ```{r}
 
 ```
 
-2. Make a boxplot that compares log10.mass and homerange. Adjust the size of points by mass. Label the axes and provide a title.
+2. Make a scatterplot that compares log10.mass and homerange. Adjust the size of points by mass. Label the axes and provide a title.
 ```{r}
 
 ```
