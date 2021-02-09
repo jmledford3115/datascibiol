@@ -36,63 +36,47 @@ Let's revisit the mammal life history data to practice our ggplot skills. The [d
 life_history <- read_csv(here("lab10", "data", "mammal_lifehistories_v2.csv")) %>% na_if("-999") %>% clean_names()
 ```
 
-```{r}
-glimpse(life_history)
-```
-
 ## Bar Plots
 Bar plots count the number of observations in a categorical variable.
 ```{r}
-life_history %>% 
-  count(order) %>% 
-  arrange(desc(n))
+
 ```
 
 ```{r}
-life_history %>% 
-  ggplot(aes(x=order)) + geom_bar() + coord_flip()
+
 ```
 
 ```{r}
-life_history %>% 
-  group_by(order) %>% 
-  summarise(mean_mass=mean(mass, na.rm=T))
+
 ```
 
 ```{r}
-options(scipen=999) #cancels the use of scientific notation for the session
+
 ```
 
 ```{r}
-life_history %>% 
-  group_by(order) %>% 
-  summarise(mean_mass=mean(mass, na.rm=T)) %>% 
-  ggplot(aes(x=order, y=mean_mass)) + geom_col() + coord_flip() + scale_y_log10()
+
 ```
 
 ## Scatterplots
 Scatter plots allow for comparisons of two continuous variables.
 ```{r}
-life_history %>% 
-  ggplot(aes(x=gestation, y=wean_mass)) + geom_point(na.rm=T) + scale_y_log10()
+
 ```
 
 ## Boxplots
 Box plots help us visualize a range of values. So, on the x-axis we typically have something categorical and the y-axis is the range.
 ```{r}
-glimpse(life_history)
+
 ```
 
 ```{r}
-life_history %>% 
-  ggplot(aes(x=order, y=mass)) + geom_boxplot(na.rm=T) + scale_y_log10() + coord_flip()
+
 ```
 
 Remember, you can always use dplyr functions to focus your question, summarize, etc.
 ```{r}
-life_history %>% 
-  filter(order=="Primates") %>% 
-  ggplot(aes(x=family, y=mass)) + geom_boxplot(na.rm=T) + scale_y_log10() + coord_flip()
+
 ```
 
 ## Practice  

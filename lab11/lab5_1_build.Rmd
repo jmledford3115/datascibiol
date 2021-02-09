@@ -1,0 +1,263 @@
+---
+title: "Lab 5: Visualizing Data, Part 3"
+author: "Joel Ledford"
+date: "Winter 2019"
+output:
+  html_document:
+    theme: spacelab
+    toc: yes
+    toc_float: yes
+  pdf_document:
+    toc: yes
+---
+
+## Project Update
+Meet with your group and discuss the data that you found for your project. We will then take a few minutes to have each group briefly describe the data that they plan to use in their projects.  
+
+## Resources
+- [ggplot2 cheatsheet](https://www.rstudio.com/wp-content/uploads/2015/03/ggplot2-cheatsheet.pdf)
+- [R for Data Science](https://r4ds.had.co.nz/)
+- [R Cookbook](http://www.cookbook-r.com/)
+- [`ggplot` themes](https://ggplot2.tidyverse.org/reference/ggtheme.html)
+- [Rebecca Barter `ggplot` Tutorial](http://www.rebeccabarter.com/blog/2017-11-17-ggplot2_tutorial/)
+- [R Color Brewer](http://colorbrewer2.org/#type=sequential&scheme=BuGn&n=3)
+
+## Learning Goals
+*At the end of this exercise, you will be able to:*    
+1. Build stacked barplots of categorical variables.  
+2. Build side-by-side barplots using `position= "dodge"`.  
+3. Customize colors in plots using `RColorBrewer` and `paletteer`.  
+4. Build histograms and density plots.  
+
+## Install `RColorBrewer` and `paletteer`
+`RColorBrewer` and `paletteer` are helpful in selecting palettes of color that work with your data. Please install these now, we will work with them later in the session.
+```{r, eval=FALSE, echo=TRUE}
+install.packages("RColorBrewer")
+install.packages("paletteer")
+```
+
+## Load the libraries
+```{r message=FALSE, warning=FALSE}
+library(tidyverse)
+library(magrittr)
+library(RColorBrewer)
+library(paletteer)
+```
+
+```{r}
+options(scipen=999) #cancels the use of scientific notation for the session
+```
+
+## Data
+**Database of vertebrate home range sizes.**  
+Reference: Tamburello N, Cote IM, Dulvy NK (2015) Energy and the scaling of animal space use. The American Naturalist 186(2):196-211. http://dx.doi.org/10.1086/682070.  
+Data: http://datadryad.org/resource/doi:10.5061/dryad.q5j65/1  
+
+```{r message=FALSE, warning=FALSE}
+homerange <- readr::read_csv("data/Tamburelloetal_HomeRangeDatabase.csv")
+```
+
+A little bit of cleaning to focus on the variables of interest.
+```{r}
+homerange %<>%  
+  select(common.name, taxon, class, family, genus, species, mean.mass.g, log10.mass, mean.hra.m2, log10.hra, preymass, log10.preymass, trophic.guild)
+```
+
+## Barplots revisited
+At this point you should be able to build a barplot that shows counts of observations in a variable using `geom_bar()`. But, you should also be able to use `stat="identity"` to specify both x and y axes.  
+
+Although we did not use it last time, `geom_col()` is the same as specifying `stat="identity"` using `geom_bar()`.     
+
+####Here is the plot using `geom_bar(stat="identity")`
+```{r}
+homerange %>% 
+  filter(family=="salmonidae") %>% #filter for salmonid fish only
+  ggplot(aes(x=common.name, y=log10.mass))+
+  geom_bar(stat="identity")
+```
+
+####Here is the plot using `geom_col`
+```{r}
+homerange %>% 
+  filter(family=="salmonidae") %>% #filter for salmonid fish only
+  ggplot(aes(x=common.name, y=log10.mass))+
+  geom_col()
+```
+
+## Barplots and multiple variables
+Last time we explored the `fill` option in barplots as a way to shade by another variable. In this cases the variable was  continuous, but what happens when a fill variable is categorical?
+
+Let's start by counting how many obervations we have in each taxonomic group.
+```{r}
+homerange %>% 
+  count(taxon)
+```
+
+Now let's make a barplot of these data.
+```{r}
+homerange %>% 
+  ggplot(aes(x=taxon))+
+  geom_bar(alpha=0.9, na.rm=T)+
+  theme(axis.text.x = element_text(angle = 60, hjust=1))+
+  labs(title = "Observations by Taxon in Homerange Data",
+       x = "Taxonomic Group")
+```
+
+By specifying `fill=trophic.guild` we build a stacked bar plot that shows the proportion of a given taxonomic group that is an herbivore or carnivore.
+```{r}
+homerange %>% 
+  ggplot(aes(x=taxon, fill=trophic.guild))+
+  geom_bar(alpha=0.9, na.rm=T)+
+  theme(legend.position = "right",
+        axis.text.x = element_text(angle = 60, hjust=1))+
+  labs(title = "Observations by Taxon in Homerange Data",
+       x = "Taxonomic Group",
+       fill= "Trophic Guild")
+```
+
+We can also have the proportions of each trophic guild within taxonomic group shown side-by-side by specifying `position="dodge"`.
+```{r}
+homerange %>% 
+  ggplot(aes(x=taxon, fill=trophic.guild))+
+  geom_bar(alpha=0.9, na.rm=T, position="dodge")+
+  theme(legend.position = "right",
+        axis.text.x = element_text(angle = 60, hjust=1))+
+  labs(title = "Observations by Taxon in Homerange Data",
+       x = "Taxonomic Group",
+       fill= "Trophic Guild")
+```
+
+## RColorBrewer
+The default color palettes used by ggplot are often uninspiring. They don't make plots pop out in presentations or publications, and you may want to use a customized palette to make things visually consistent.  
+
+Access the help for RColor Brewer.
+```{r}
+?RColorBrewer
+```
+
+The key thing to notice is that there are three different palettes: 1) sequential, 2) diverging, and 3) qualitative. Within each of these there are several selections. You can bring up the colors by using `display.brewer.pal()`. Specify the number of colors that you want and the palette name.
+```{r}
+display.brewer.pal(8,"BrBG")
+```
+
+The [R Color Brewer](http://colorbrewer2.org/#type=sequential&scheme=BuGn&n=3) website is very helpful for getting an idea of the color palettes. To make things easy, use these two guidelines:
+
++`scale_colour_brewer()` is for points  
++`scale_fill_brewer()` is for fills  
+
+Here I chose the `Paired` palette. Take a moment and experiment with other options.
+```{r}
+homerange %>% 
+  ggplot(aes(x=taxon, fill=trophic.guild))+
+  geom_bar(alpha=0.9, na.rm=T)+
+  labs(title = "Observations by Taxon in Homerange Data",
+       x = "Taxonomic Group",
+       fill= "Trophic Guild")+
+  theme_linedraw()+
+  theme(legend.position = "right",
+        axis.text.x = element_text(angle = 60, hjust=1))+
+  scale_fill_brewer(palette = "Paired")
+```
+
+```{r}
+homerange %>% 
+  ggplot(aes(x=taxon, fill=trophic.guild))+
+  geom_bar(alpha=0.9, na.rm=T, position="dodge")+
+ labs(title = "Observations by Taxon in Homerange Data",
+       x = "Taxonomic Group",
+       fill= "Trophic Guild")+
+  theme_linedraw()+
+  theme(legend.position = "right",
+        axis.text.x = element_text(angle = 60, hjust=1))+
+  scale_fill_brewer(palette = "Paired")
+```
+
+## Manually Setting Colors
+You can also use `RColorBrewer` or `paleteer` to build a custom palette for consistency. To access the `paleteer` collection, I add it to a new object.
+```{r}
+colors <- paletteer::palettes_d_names
+```
+
+Now we can display the palettes. Assign the palette to `my_palette` and then build this base R barplot. There are a lot of options; `paleteer` is a collection of popular palettes. I really like the [`ggsci` package] (https://cran.r-project.org/web/packages/ggsci/vignettes/ggsci.html)
+```{r}
+my_palette <- paletteer_d(package = "ggsci", palette = "springfield_simpsons")
+barplot(rep(1,14), axes=FALSE, col=my_palette)
+```
+
+Now we just identify `my_palette` as part of `scale_fill_manual()`
+```{r}
+homerange %>% 
+  ggplot(aes(x=taxon, fill=trophic.guild))+
+  geom_bar(alpha=0.9, na.rm=T, position="dodge")+
+  theme(legend.position = "right",
+        axis.text.x = element_text(angle = 60, hjust=1))+
+  labs(title = "Observations by Taxon in Homerange Data",
+       x = "Taxonomic Group",
+       fill= "Trophic Guild")+
+ scale_fill_manual(values=my_palette)
+```
+
+## Histograms and Density Plots
+Histograms are frequently used by biologists; they show the distribution of a `continuous` variable. As students, you almost certainly have seen histograms of grade distributions. Without getting into the statistics, a histogram `bins` the data and you specify the number of bins that encompass a range of observations. For something like grades, this is easy because the number of bins corresponds to the grades A-F. By default, R uses a formula to calculate the number of bins but some adjustment is often required.  
+
+What is the distribution of body mass look like in the homerange data? When adjusting binwidth note that we are using `log10.mass`.
+```{r}
+homerange %>% 
+  ggplot(aes(x=log10.mass)) +
+  geom_histogram(binwidth = .4, fill="#709AE1", alpha=0.8, color="black")
+```
+
+`Density plots` are similar to histograms but they use a smoothing function to make the distribution more even and clean looking. They do not use bins.
+```{r}
+homerange %>% 
+  ggplot(aes(x=log10.mass)) +
+  geom_density(fill="#709AE1", alpha=0.4)
+```
+
+I like to see both the histogram and the density curve so I often plot them together. Note that I assign the density plot a different color.
+```{r message=FALSE}
+homerange %>% 
+  ggplot(aes(x=log10.mass)) +
+  geom_histogram(aes(y = ..density..), binwidth = .4, fill="#709AE1", alpha=0.8, color="black")+
+  geom_density(color="red")
+```
+
+## Faceting- `facet_wrap()`
+Faceting is one of the amazing features of ggplot. It allows you to make multi-panel plots for easy comparison. Here, I am making histograms of log10.mass for every taxon. We read the `~` in the `facet_wrap()` layer as `by`. The bin number doesn't work for every taxon, but it is enough to get the idea.
+```{r}
+homerange %>% 
+  ggplot(aes(x = log10.mass)) +
+  geom_histogram(binwidth = .5, fill="#709AE1", alpha=0.8, color="black") +
+  facet_wrap(~taxon)+
+    theme(strip.text.x = element_text(size=12))
+```
+
+## Practice
+1. Revisit the relationship bewtween mass and homerange using a scatterplot, but color the points by taxonomic class using a custom color theme.
+```{r}
+homerange %>% 
+  ggplot(aes(x=log10.mass, y=log10.hra, color=class)) +
+  geom_jitter(alpha=0.6)+
+  scale_color_brewer(palette = "Dark2")
+```
+
+2. Build stacked and dodged barplots that show the representation by taxonomic class with carnivores and herbivores. Try using a color theme that matches your scatterplot to keep everything consistent.
+```{r}
+homerange %>% 
+  ggplot(aes(x=trophic.guild, fill=class)) +
+  geom_bar(alpha=0.9)
+```
+
+```{r}
+homerange %>% 
+  ggplot(aes(x=trophic.guild, fill=class)) +
+  geom_bar(alpha=0.9, position="dodge")
+```
+
+3. 
+
+```{r}
+homerange %>%
+  ggplot(aes(x = log10.mass)) + 
+  geom_density(aes(fill=class), alpha=0.25)
+```

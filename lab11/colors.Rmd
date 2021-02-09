@@ -1,0 +1,117 @@
+## Install `RColorBrewer`
+`RColorBrewer` is helpful in selecting palettes of color that work with your data. Please install it now, we will work with it later in the session.
+```{r, eval=FALSE, echo=TRUE}
+#install.packages("RColorBrewer")
+```
+
+
+
+## RColorBrewer
+The default color palettes used by ggplot are often uninspiring. They don't make plots pop out in presentations or publications, and you may want to use a customized palette to make things visually consistent.  
+
+Access the help for RColor Brewer.
+```{r}
+?RColorBrewer
+```
+
+The key thing to notice is that there are three different palettes: 1) sequential, 2) diverging, and 3) qualitative. Within each of these there are several selections. You can bring up the colors by using `display.brewer.pal()`. Specify the number of colors that you want and the palette name.
+```{r}
+display.brewer.pal(8,"BrBG")
+```
+
+The [R Color Brewer](http://colorbrewer2.org/#type=sequential&scheme=BuGn&n=3) website is very helpful for getting an idea of the color palettes. To make things easy, use these two guidelines:
+
++`scale_colour_brewer()` is for points  
++`scale_fill_brewer()` is for fills  
+
+Here I chose the `Paired` palette. Take a moment and experiment with other options.
+```{r}
+homerange %>% 
+  ggplot(aes(x=taxon, fill=trophic.guild))+
+  geom_bar(alpha=0.9, na.rm=T)+
+  labs(title = "Observations by Taxon in Homerange Data",
+       x = "Taxonomic Group",
+       fill= "Trophic Guild")+
+  theme_linedraw()+
+  theme(legend.position = "right",
+        axis.text.x = element_text(angle = 60, hjust=1))+
+  scale_fill_brewer(palette = "Paired")
+```
+
+```{r}
+homerange %>% 
+  ggplot(aes(x=taxon, fill=trophic.guild))+
+  geom_bar(alpha=0.9, na.rm=T, position="dodge")+
+ labs(title = "Observations by Taxon in Homerange Data",
+       x = "Taxonomic Group",
+       fill= "Trophic Guild")+
+  theme_linedraw()+
+  theme(legend.position = "right",
+        axis.text.x = element_text(angle = 60, hjust=1))+
+  scale_fill_brewer(palette = "Paired")
+```
+
+## Manually Setting Colors
+You can also use `RColorBrewer` or `paleteer` to build a custom palette for consistency. To access the `paleteer` collection, I add it to a new object.
+```{r}
+colors <- paletteer::palettes_d_names
+```
+
+Now we can display the palettes. Assign the palette to `my_palette` and then build this base R barplot. There are a lot of options; `paleteer` is a collection of popular palettes. I really like the [`ggsci` package] (https://cran.r-project.org/web/packages/ggsci/vignettes/ggsci.html)
+```{r}
+my_palette <- paletteer_d(package = "ggsci", palette = "springfield_simpsons")
+barplot(rep(1,14), axes=FALSE, col=my_palette)
+```
+
+Now we just identify `my_palette` as part of `scale_fill_manual()`
+```{r}
+homerange %>% 
+  ggplot(aes(x=taxon, fill=trophic.guild))+
+  geom_bar(alpha=0.9, na.rm=T, position="dodge")+
+  theme(legend.position = "right",
+        axis.text.x = element_text(angle = 60, hjust=1))+
+  labs(title = "Observations by Taxon in Homerange Data",
+       x = "Taxonomic Group",
+       fill= "Trophic Guild")+
+ scale_fill_manual(values=my_palette)
+```
+
+## Faceting- `facet_wrap()`
+Faceting is one of the amazing features of ggplot. It allows you to make multi-panel plots for easy comparison. Here, I am making histograms of log10.mass for every taxon. We read the `~` in the `facet_wrap()` layer as `by`. The bin number doesn't work for every taxon, but it is enough to get the idea.
+```{r}
+homerange %>% 
+  ggplot(aes(x = log10.mass)) +
+  geom_histogram(binwidth = .5, fill="#709AE1", alpha=0.8, color="black") +
+  facet_wrap(~taxon)+
+    theme(strip.text.x = element_text(size=12))
+```
+
+## Practice
+1. Revisit the relationship bewtween mass and homerange using a scatterplot, but color the points by taxonomic class using a custom color theme.
+```{r}
+homerange %>% 
+  ggplot(aes(x=log10.mass, y=log10.hra, color=class)) +
+  geom_jitter(alpha=0.6)+
+  scale_color_brewer(palette = "Dark2")
+```
+
+2. Build stacked and dodged barplots that show the representation by taxonomic class with carnivores and herbivores. Try using a color theme that matches your scatterplot to keep everything consistent.
+```{r}
+homerange %>% 
+  ggplot(aes(x=trophic.guild, fill=class)) +
+  geom_bar(alpha=0.9)
+```
+
+```{r}
+homerange %>% 
+  ggplot(aes(x=trophic.guild, fill=class)) +
+  geom_bar(alpha=0.9, position="dodge")
+```
+
+3. 
+
+```{r}
+homerange %>%
+  ggplot(aes(x = log10.mass)) + 
+  geom_density(aes(fill=class), alpha=0.25)
+```
