@@ -27,11 +27,12 @@ Please make sure that you have 1-2 data sets to share with your group member dur
 - [Rebecca Barter `ggplot` Tutorial](http://www.rebeccabarter.com/blog/2017-11-17-ggplot2_tutorial/)
 - [R Color Brewer](http://colorbrewer2.org/#type=sequential&scheme=BuGn&n=3)
 
-## Install `RColorBrewer` and `paletteer`
+## Install `RColorBrewer`, `paletteer`, and `ggthemes`
 `RColorBrewer` and `paletteer` are helpful in selecting palettes of color that work with your data. Please install these now, we will work with them in part 2 of today's lab.
 ```{r, eval=FALSE, echo=TRUE}
 #install.packages("RColorBrewer")
 #install.packages("paletteer")
+#install.packages("ggthemes")
 ```
 
 ## Load the libraries
@@ -74,13 +75,17 @@ deserts$year <- as.factor(deserts$year)
 ```
 
 ```{r}
+glimpse(deserts)
+```
+
+```{r}
 deserts %>% 
   filter(species_id=="DM" | species_id=="DS") %>% 
   group_by(year, species_id) %>% 
   summarise(n=n()) %>% 
   ggplot(aes(x=year, y=n, group=species_id, color=species_id))+
   geom_line()+
-  geom_point(shape=1)+
+  geom_point(shape=2)+
   theme(axis.text.x = element_text(angle = 60, hjust = 1))+
   labs(title = "Number of samples for species DM",
        x = "Year",
@@ -94,13 +99,13 @@ What does the distribution of body mass look like in the `homerange` data?
 ```{r}
 homerange %>% 
   ggplot(aes(x = log10.mass)) +
-  geom_histogram(alpha = 0.6, color = "black", fill = "deeppink4", bins=40)+
+  geom_histogram(alpha = 0.4, color = "black", fill = "deepskyblue4", bins=40)+
   labs(title = "Distribution of Body Mass")
 ```
 
 Let's play with the colors. This shows all 657 of R's built-in colors. Notice that `color` and `fill` do different things!
 ```{r}
-#grDevices::colors()
+grDevices::colors()
 ```
 
 ## Density plots  
@@ -108,7 +113,7 @@ Density plots are similar to histograms but they use a smoothing function to mak
 ```{r}
 homerange %>% 
   ggplot(aes(x = log10.mass)) +
-  geom_density(fill="steelblue", alpha  =0.6, color = "black")+
+  geom_density(fill="deepskyblue4", alpha  =0.4, color = "black")+
   labs(title = "Distribution of Body Mass")
 ```
 
@@ -116,7 +121,7 @@ I like to see both the histogram and the density curve so I often plot them toge
 ```{r message=FALSE}
 homerange %>% 
   ggplot(aes(x=log10.mass)) +
-  geom_histogram(aes(y = ..density..), binwidth = .4, fill = "steelblue", alpha = 0.8, color = "black")+
+  geom_histogram(aes(y = ..density..), fill = "deepskyblue4", alpha = 0.4, color = "black")+
   geom_density(color = "red")+
   labs(title = "Distribution of Body Mass")
 ```
@@ -124,23 +129,33 @@ homerange %>%
 ## Practice
 1. Make a histogram of `log10.hra`. Make sure to add a title.
 ```{r}
-
+homerange %>% 
+  ggplot(aes(x=log10.hra))+
+  geom_histogram(fill="deepskyblue4", alpha=0.6, color="black", bins=40)+
+  labs(title="Distribution of Homerange")
 ```
 
 2. Now plot the same variable using `geom_density()`.
 ```{r}
-
+homerange %>% 
+  ggplot(aes(x=log10.hra))+
+  geom_density(fill="deepskyblue4", alpha=0.6, color="black")+
+  labs(title="Distribution of Homerange")
 ```
 
 3. Combine them both!
 ```{r}
-
+homerange %>% 
+  ggplot(aes(x=log10.hra)) +
+  geom_histogram(aes(y = ..density..), fill = "deepskyblue4", alpha = 0.4, color = "black")+
+  geom_density(color = "red")+
+  labs(title = "Distribution of Homerange")
 ```
 
 ## Create Categories with mutate and case_when()
 `case_when()` is a very handy function from `dplyr` which allows us to calculate a new variable from other variables. We use `case_when()` within `mutate()` to do this.`case_when()` allows us to specify multiple conditions. Let's reclassify the body mass variable into a new factor variable with small, medium, and large animals. 
 ```{r}
-#glimpse(homerange)
+glimpse(homerange)
 ```
 
 ```{r}
@@ -151,18 +166,26 @@ homerange %>%
 ```
 
 ```{r}
+summary(homerange$log10.mass)
+```
+
+```{r}
 homerange <- homerange %>% 
              mutate(mass_category = case_when(log10.mass <= 1.75 ~ "small",
                                               log10.mass > 1.75 & log10.mass <= 2.75 ~ "medium",
                                               log10.mass > 2.75 ~ "large"))
 ```
 
+```{r}
+glimpse(homerange)
+```
+
+
 Here we check how the newly created body mass categories compare across `trophic.guild`. 
 ```{r}
 homerange %>% 
   ggplot(aes(x = mass_category, fill = trophic.guild)) +
-  geom_bar() +
-  coord_flip() +
+  geom_bar(position="dodge")
   labs(title = "Observations by Taxon and Mass Category in Homerange Data",
        x = "Mass Category",
        fill = "Trophic Guild")
@@ -171,25 +194,40 @@ homerange %>%
 ## Practice
 1. Use case_when() to make a new column `range_category` that breaks down `log10.hra` into very small, small, medium, and large classes based on quartile.
 ```{r}
-
+summary(homerange$log10.hra)
 ```
 
 ```{r}
-
+library(gtools)
+quartiles <- quantcut(homerange$log10.hra)
+table(quartiles)
 ```
 
 ```{r}
+homerange <- homerange %>% 
+  mutate(range_category= case_when(log10.hra<3.65 ~ "very small",
+                                   log10.hra>=3.65 & log10.hra <4.59 ~ "small",
+                                   log10.hra>=4.59 & log10.hra <6.02 ~ "small",
+                                   log10.hra>=6.02 ~ "large"))
+```
 
+```{r}
+glimpse(homerange)
 ```
 
 2. How many and which taxonomic classes are represented in each of the `range_category` classes?
 ```{r}
-
+homerange %>% 
+  ggplot(aes(x=range_category, fill=class))+
+  geom_bar(position= "dodge")
 ```
 
 3. Isolate the small `range_category` and plot the range of `log10.mass` by taxonomic class.
 ```{r}
-
+homerange %>% 
+  filter(range_category=="small") %>% 
+  ggplot(aes(x=class, y=log10.mass, fill=class))+
+  geom_boxplot(alpha=0.6)
 ```
 
 ## That's it! Take a break and I will see you on Zoom!  
