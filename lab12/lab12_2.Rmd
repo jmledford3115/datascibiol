@@ -24,34 +24,32 @@ There are many packages and techniques for working with spatial data in R. We wi
 ```{r, message = FALSE}
 #install.packages("devtools")
 library(devtools)
-devtools::install_github("dkahle/ggmap")
+#devtools::install_github("dkahle/ggmap")
 ```
 
+We also need `rgeos` and `rgdal`.
 ```{r}
 #install.packages("rgeos")
 #install.packages("rgdal")
 ```
-
 
 ```{r, message = FALSE}
 library(ggmap)
 library(tidyverse)
 library(rgeos)
 library(rgdal)
+library(here)
 ```
 
-Let's also load our processed data from the first part of this lab.
+Let's load our processed data from the first part of this lab.
 ```{r, message = FALSE}
-spiders <- read_csv("spiders_with_locs.csv")
+spiders <- read_csv(here("lab12", "data", "spiders_with_locs.csv"))
 ```
 
 ## Create Base Map
-
 Our goal here is to plot the spiders locations from the columns which contain the latitude and longitude. First, we need to get a base map for plotting our points on. We could plot them without a base map, but that wouldn't give us any context as to where they are in space. To get a base map we specify a min and max of each x and y coordinate, and create a bounding box. We set the bounding box to a little outside our min and max locations with `f = 0.05`. 
-
 ```{r}
-spiders %>% 
-  select(Latitude, Longitude) %>% 
+spiders %>% select(Latitude, Longitude) %>% 
   summary()
 ```
 
@@ -61,28 +59,25 @@ long <- c(-124.1, -115.5)
 bbox <- make_bbox(long, lat, f = 0.05)
 ```
 
-Let's get a base map for our bounding box area. Google base maps require an API key and to enter credit card information. We will use the other non-google base maps for now.  
+Let's get a base map for our bounding box area. Google base maps require an API key and to enter credit card information. We will use the other non-google base maps for now.
 ```{r}
 b <- get_map(bbox, maptype = "terrain", source = "stamen")
 ggmap(b)
 ```
 
 ## Adding Points to Base Map
-
 `ggmap` works well with `ggplot2`. To add our points we only need to specify the x and y location similar to how we made charts in previous labs. 
 ```{r}
 ggmap(b) + 
-  geom_point(data = spiders, aes(Longitude, Latitude), size = 2, alpha = 0.7) +
+  geom_point(data = spiders, aes(Longitude, Latitude), size = 1.5, alpha = 0.8, color="black") +
            labs(x = "Longitude", y = "Latitude", title = "Spider Locations")
 ```
 
-
 ## Practice
-
-Map the spider locations with a different type of basemap. What happens if you try to use a google source map? Experiment with different display options for the points. 
-
+1. Map the spider locations with a different type of base map. What happens if you try to use a google source map? Experiment with different display options for the points. 
 ```{r}
-b <- get_map(bbox, maptype = "toner-lite", source = "stamen")
+b <- get_map(bbox, maptype = "watercolor", source = "stamen")
+
 ggmap(b) + 
   geom_point(data = spiders, aes(Longitude, Latitude), size = 2, alpha = 0.7) +
   labs(x = "Longitude", y = "Latitude", title = "Spider Locations")
@@ -96,14 +91,12 @@ ggmap(g) +
 ```
 
 ## Shapefiles
-
 In the data folder there is a file titled `CA_Counties_TIGER2016.shp`. This is a publicly available shapefile downloaded from the [California Open Data Portal](https://data.ca.gov/dataset/ca-geographic-boundaries). A shapefile is a format for storing polygon, line, or point information for use in ArcGIS or other mapping software including R. To load the shapefile we will need the `raster` and `sp` packages. We will read the file in as a shapefile and use `spTransform()` to tell R the projection is in lat/long. 
 ```{r}
 #install.packages("raster")
 #install.packages("sp")
 library(raster)
 library(sp)
-#install.packages("rgdal")
 library(rgdal)
 ```
 
@@ -131,16 +124,13 @@ head(ct)
 
 
 ## Practice
-
 What is the class of the `nc` object? Which columns specify the polygon geometry?
 ```{r}
 class(ct)
 ```
 
 ## Adding Shapefile Data Layer
-
 Let's add the counties shapefile to our current map with the spider locations. We need to make sure to tell ggplot which column in our polygon data frame corresponds to the polygon group. 
-
 ```{r}
 
 ggmap(b) + geom_polygon(data = ct, aes(x = long, y = lat, group = id), 
@@ -150,9 +140,7 @@ ggmap(b) + geom_polygon(data = ct, aes(x = long, y = lat, group = id),
 ```
 
 ## Practice
-
 What happens if we remove the group argument from within `geom_polygon()` above. Why does this happen?
-
 ```{r}
 ggmap(b) + geom_polygon(data = ct, aes(x = long, y = lat), 
                         fill = NA, color = "brown", alpha = 0.8, size = 0.2) +
