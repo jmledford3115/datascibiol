@@ -633,7 +633,7 @@ str(day)
 #&gt;  Date[1:1], format: &quot;2021-02-21&quot;</code></pre>
 <pre class="r"><code>datetime &lt;- now()
 datetime
-#&gt; [1] &quot;2021-02-21 13:58:02 PST&quot;</code></pre>
+#&gt; [1] &quot;2021-02-21 17:10:23 PST&quot;</code></pre>
 <p>We want to change our date column to the standard “YEAR-MO-DA” format that R will recognize as a date. Right now it is listed as day-month-year. We can use the base R function <code>as.Date()</code> or the lubridate function <code>dmy</code> for this.</p>
 <pre class="r"><code>dmy(spiders_with_locs$Date)
 #&gt; Warning: 2 failed to parse.
@@ -767,11 +767,11 @@ month(datetime)
 day(datetime)
 #&gt; [1] 21
 hour(datetime)
-#&gt; [1] 13
+#&gt; [1] 17
 minute(datetime)
-#&gt; [1] 58
+#&gt; [1] 10
 second(datetime)
-#&gt; [1] 2.578572
+#&gt; [1] 23.342
 wday(datetime, label=T)
 #&gt; [1] Sun
 #&gt; Levels: Sun &lt; Mon &lt; Tue &lt; Wed &lt; Thu &lt; Fri &lt; Sat</code></pre>
@@ -780,6 +780,15 @@ wday(datetime, label=T)
 <h2>Export for part 2</h2>
 <p>We need to save our final data to a <code>.csv</code> so we can use it in part 2.</p>
 <pre class="r"><code>write.csv(spiders_with_locs, file = &quot;spiders_with_locs.csv&quot;, row.names = FALSE)</code></pre>
+</div>
+<div id="installs-for-part-2" class="section level2">
+<h2>Installs for part 2</h2>
+<p>It will be very helpful if you can install the following packages before the next lab. Please install them in order! <code>devtools</code> and <code>ggmap</code></p>
+<pre class="r"><code>#install.packages(&quot;devtools&quot;)
+#library(devtools)
+#devtools::install_github(&quot;dkahle/ggmap&quot;)</code></pre>
+<p><code>rgeos</code>, <code>rgdal</code>, and <code>albersusa</code></p>
+<pre class="r"><code>#install.packages(&quot;albersusa&quot;)</code></pre>
 </div>
 <div id="thats-it-take-a-break-and-i-will-see-you-on-zoom" class="section level2">
 <h2>That’s it! Take a break and I will see you on Zoom!</h2>

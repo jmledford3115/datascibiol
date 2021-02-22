@@ -243,6 +243,20 @@ We need to save our final data to a `.csv` so we can use it in part 2.
 write.csv(spiders_with_locs, file = "spiders_with_locs.csv", row.names = FALSE)
 ```
 
+## Installs for part 2  
+It will be very helpful if you can install the following packages before the next lab. Please install them in order!
+`devtools` and `ggmap`
+```{r}
+#install.packages("devtools")
+#library(devtools)
+#devtools::install_github("dkahle/ggmap")
+```
+
+`rgeos`, `rgdal`, and `albersusa`
+```{r, message = FALSE}
+#install.packages("albersusa")
+```
+
 ## That's it! Take a break and I will see you on Zoom!  
 
 -->[Home](https://jmledford3115.github.io/datascibiol/)

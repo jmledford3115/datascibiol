@@ -12,139 +12,170 @@ output:
 
 ## Learning Goals
 *At the end of this exercise, you will be able to:*  
-1. Map spatial data in R.    
+1. Produce distribution maps in R.  
  
 ## Resources
 [Overview of Cooordinate Reference Systems in R](https://www.nceas.ucsb.edu/~frazier/RSpatialGuides/OverviewCoordinateReferenceSystems.pdf)
 
 ## Spatial Data in R
+There are many packages and techniques for working with spatial data in R. We will cover just some of the basics. One nice package is `ggmap`, which allows us to get base maps from Google Maps, OpenStreetMap, and Stamen Maps. It also works well with `ggplot2`.  
 
-There are many packages and techniques for working with spatial data in R. We will cover just some of the basics. One nice package is `ggmap`, which allows us to get base maps from Google Maps, OpenStreetMap, and Stamen Maps. It also works well with `ggplot2`. Let's install and load the development version of `ggmap` using `devtools`. We will also load the `tidyverse`.
+If you completed part 1 of today's lab then you should have the following packages installed. If not, then you should get them going now. You need to do these in order!  
 
-```{r, message = FALSE}
+`devtools` and `ggmap`
+```{r}
 #install.packages("devtools")
-library(devtools)
+#library(devtools)
 #devtools::install_github("dkahle/ggmap")
 ```
 
-We also need `rgeos` and `rgdal`.
-```{r}
-#install.packages("rgeos")
-#install.packages("rgdal")
+`albersusa`
+```{r, message = FALSE}
+#install.packages("albersusa")
 ```
 
+## Load the libraries
 ```{r, message = FALSE}
-library(ggmap)
 library(tidyverse)
-library(rgeos)
-library(rgdal)
 library(here)
+library(janitor)
+library(ggmap)
 ```
 
-Let's load our processed data from the first part of this lab.
+Let's load our processed data from the first part of the lab.
 ```{r, message = FALSE}
-spiders <- read_csv(here("lab12", "data", "spiders_with_locs.csv"))
+spiders <- read_csv(here("lab12", "data", "spiders_with_locs.csv")) %>% clean_names()
+```
+
+There is an error in one of the coordinates that we will fix here.
+```{r}
+spiders <- spiders %>% filter(latitude<=42)
 ```
 
 ## Create Base Map
-Our goal here is to plot the spiders locations from the columns which contain the latitude and longitude. First, we need to get a base map for plotting our points on. We could plot them without a base map, but that wouldn't give us any context as to where they are in space. To get a base map we specify a min and max of each x and y coordinate, and create a bounding box. We set the bounding box to a little outside our min and max locations with `f = 0.05`. 
+Our goal here is to plot the spiders locations from the columns which contain the latitude and longitude. First, we need to get a base map for plotting our points on. We could plot them without a base map, but that wouldn't give us any context as to where they are in space. To get a base map we specify a min and max of each x and y coordinate, and create a bounding box.  
+
+We set the bounding box to a little outside our min and max locations with `f = 0.05`.    
+
+`summary()` gives us our min and max.
 ```{r}
-spiders %>% select(Latitude, Longitude) %>% 
+spiders %>% 
+  select(latitude, longitude) %>% 
   summary()
 ```
 
+Now we set the bounding box.
 ```{r}
-lat <- c(34.67, 44.51)
+lat <- c(34.67, 41.80)
 long <- c(-124.1, -115.5)
 bbox <- make_bbox(long, lat, f = 0.05)
 ```
 
-Let's get a base map for our bounding box area. Google base maps require an API key and to enter credit card information. We will use the other non-google base maps for now.
+Let's get a base map for our bounding box area. We will use the stamen maps because they are free. There are several different map types, including: `terrain-labels`, `terrain-lines`, `toner`, `toner-2011`, `toner-background`, `toner-hybrid`, `toner-lines`, `toner-lite`, and `watercolor.`
 ```{r}
-b <- get_map(bbox, maptype = "terrain", source = "stamen")
-ggmap(b)
+map1 <- get_map(bbox, maptype = "terrain", source = "stamen")
+```
+
+```{r}
+ggmap(map1)
 ```
 
 ## Adding Points to Base Map
 `ggmap` works well with `ggplot2`. To add our points we only need to specify the x and y location similar to how we made charts in previous labs. 
 ```{r}
-ggmap(b) + 
-  geom_point(data = spiders, aes(Longitude, Latitude), size = 1.5, alpha = 0.8, color="black") +
-           labs(x = "Longitude", y = "Latitude", title = "Spider Locations")
-```
-
-## Practice
-1. Map the spider locations with a different type of base map. What happens if you try to use a google source map? Experiment with different display options for the points. 
-```{r}
-b <- get_map(bbox, maptype = "watercolor", source = "stamen")
-
-ggmap(b) + 
-  geom_point(data = spiders, aes(Longitude, Latitude), size = 2, alpha = 0.7) +
+ggmap(map1) + 
+  geom_point(data = spiders, aes(longitude, latitude)) +
   labs(x = "Longitude", y = "Latitude", title = "Spider Locations")
 ```
 
+## Practice
+1. Map the spider locations with a different type of base map. Try to adjust the map using different aesthetics including `size`, `color`, and `alpha`.
 ```{r}
-g <- get_map(bbox, maptype = "toner-2010", source = "stamen")
-ggmap(g) + 
-  geom_point(data = spiders, aes(Longitude, Latitude), color = "red", size = 2, alpha = 0.7) +
-  labs(x = "Longitude", y = "Latitude", title = "Spider Locations")
-```
 
-## Shapefiles
-In the data folder there is a file titled `CA_Counties_TIGER2016.shp`. This is a publicly available shapefile downloaded from the [California Open Data Portal](https://data.ca.gov/dataset/ca-geographic-boundaries). A shapefile is a format for storing polygon, line, or point information for use in ArcGIS or other mapping software including R. To load the shapefile we will need the `raster` and `sp` packages. We will read the file in as a shapefile and use `spTransform()` to tell R the projection is in lat/long. 
-```{r}
-#install.packages("raster")
-#install.packages("sp")
-library(raster)
-library(sp)
-library(rgdal)
 ```
 
 ```{r}
-c <- shapefile("data/CA_counties/CA_Counties_TIGER2016.shp") %>% 
-  spTransform(CRS("+proj=longlat +datum=WGS84"))
 
-class(c)
 ```
-  
-The `shapefile()` function created a SpatialPolygonsDataFrame from our file. We can take a quick look at it with the base `plot()` function.
+
+## Albers USA
+The Albers USA [package](https://github.com/hrbrmstr/albersusa) is a very fast way to produce clean maps that include nice overlays of counties across the US. I haven't explored it fully, but here are some nice examples.
 ```{r}
-plot(c)
+library(albersusa)
 ```
 
-We want to convert the SpatialPolygonsDataFrame into a format we can use with `ggplot2`. To do this we will use the function `tidy()` from the `broom` package in the `tidyverse`. `tidy()` has a method for SpatialPolygonsDataFrame, we just need to tell it which column corresponds to the county. We can access the data in the counties layer with the `@data` command. 
-```{r, warning = FALSE}
-#install.packages("maptools")
-library("maptools")
-
-head(c@data)
-ct <- broom::tidy(c, region = "NAME")
-head(ct)
+State Boundaries.
+```{r}
+us_comp <- usa_sf() # get a composite map of the USA
 ```
 
+County boundaries in each state.
+```{r}
+cnty_comp <- counties_sf() # get a composite map of USA counties
+```
+
+Map of the USA- notice that you can still use themes. `geom_sf` stands for simple feature.
+```{r}
+ggplot() + 
+  geom_sf(data = us_comp, size = 0.125) + 
+  theme_linedraw()+
+  labs(title = "USA State Boundaries")
+```
+
+Since we want to produce a map of our spiders we need to restrict the map to California.
+```{r}
+ca_comp <- us_comp %>% 
+  filter(name=="California")
+```
+
+```{r}
+ca_cnty_comp <- cnty_comp %>% 
+  filter(state=="California")
+```
+
+Our base map
+```{r}
+ggplot() +
+  geom_sf(data = ca_comp, size = 0.125)+
+  geom_sf(data = ca_cnty_comp, size = 0.125)
+```
+
+All we do now is add the `geom_point()` layer.
+```{r}
+ggplot() +
+  geom_sf(data = ca_comp, size = 0.125)+
+  geom_sf(data = ca_cnty_comp, size = 0.125)+
+  geom_point(data = spiders, aes(longitude, latitude))
+```
+
+We can spice things up a bit by adding aesthetics.
+```{r}
+ggplot() +
+  geom_sf(data = ca_comp, size = 0.125)+
+  geom_sf(data = ca_cnty_comp, size = 0.125)+
+  geom_point(data = spiders, aes(longitude, latitude))+
+  labs(x = "Figure 1: Distribution of Usofila spiders")+
+  theme_minimal() +
+  theme(axis.text = element_blank()) +
+  theme(axis.title.x = element_text(hjust=0.5, size = 10)) +
+  theme(axis.title.y = element_blank()) +
+  theme(panel.grid = element_blank()) +
+  theme(legend.position = c(0.9, 0.3)) -> uso_map
+
+ggsave(filename = "map.svg", device = "svg", plot = uso_map, height = 5, width = 7)
+```
 
 ## Practice
-What is the class of the `nc` object? Which columns specify the polygon geometry?
-```{r}
-class(ct)
-```
-
-## Adding Shapefile Data Layer
-Let's add the counties shapefile to our current map with the spider locations. We need to make sure to tell ggplot which column in our polygon data frame corresponds to the polygon group. 
+1. Make a new new column that labels each specimen as occuring in a cave or on the surface. The word "Cave" is part of the locality information.
 ```{r}
 
-ggmap(b) + geom_polygon(data = ct, aes(x = long, y = lat, group = id), 
-                        fill = NA, color = "brown", alpha = 0.8, size = 0.2) +
-           geom_point(data = spiders, aes(Longitude, Latitude), size = 2, alpha = 0.7) +
-           labs(x = "Longitude", y = "Latitude", title = "Spider Locations")
 ```
 
-## Practice
-What happens if we remove the group argument from within `geom_polygon()` above. Why does this happen?
+2. Now adjust the plot abot to give a different color for specimens that occur in caves.
 ```{r}
-ggmap(b) + geom_polygon(data = ct, aes(x = long, y = lat), 
-                        fill = NA, color = "brown", alpha = 0.8, size = 0.2) +
-           geom_point(data = spiders, aes(Longitude, Latitude), size = 2, alpha = 0.7) +
-           labs(x = "Longitude", y = "Latitude", title = "Spider Locations")
+
 ```
 
+## That's it, let's take a break!   
+
+-->[Home](https://jmledford3115.github.io/datascibiol/)
