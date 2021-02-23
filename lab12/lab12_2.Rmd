@@ -166,12 +166,12 @@ ggsave(filename = "map.svg", device = "svg", plot = uso_map, height = 5, width =
 ```
 
 ## Practice
-1. Make a new new column that labels each specimen as occuring in a cave or on the surface. The word "Cave" is part of the locality information.
+1. Make a new column that labels each specimen as occurring in a cave or on the surface. The word "Cave" is part of the locality information.
 ```{r}
 
 ```
 
-2. Now adjust the plot abot to give a different color for specimens that occur in caves.
+2. Now adjust the plot above to give a different color for specimens that occur in caves.
 ```{r}
 
 ```
