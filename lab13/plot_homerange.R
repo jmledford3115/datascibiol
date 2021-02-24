@@ -1,5 +1,6 @@
 library(shiny)
 library(tidyverse)
+library(shinydashboard)
 
 homerange <- readr::read_csv("data/Tamburelloetal_HomeRangeDatabase.csv")
 
@@ -27,7 +28,8 @@ ui <- fluidPage(
 )
 
 # define a server for the Shiny app
-server <- function(input, output) {
+server <- function(input, output, session) {
+  session$onSessionEnded(stopApp)
   
   # fill in the spot we created for a plot
   output$taxonPlot <- renderPlot({
@@ -37,8 +39,6 @@ server <- function(input, output) {
       ggplot(aes(x=log10.hra)) + 
       geom_density(color="black", fill="steelblue", alpha=0.6)
   })
-  
-session$onSessionEnded(stopApp)
 }
 
 shinyApp(ui, server)
