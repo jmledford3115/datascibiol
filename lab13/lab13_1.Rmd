@@ -28,7 +28,6 @@ Shiny is an R package which makes it easy to design interactive web applications
 ```{r, echo=FALSE}
 #install.packages("shiny")
 library(shiny)
-library(shinydashboard)
 ```
 
 We will also need the `tidyverse` and `palmerpenguins` to run the examples.
@@ -59,10 +58,24 @@ server <- function(input, output) {}
 shinyApp(ui, server)
 ```
 
+```{r}
+library(shiny)
+
+ui <- fluidPage(
+  
+)
+
+server <- function(input, output, session) {
+  
+}
+
+shinyApp(ui, server)
+```
+
 For the rest of the lab we will work on building an example app using `palmerpenguins`.  
 
 ## Shiny Inputs
-There are many types of inputs in shiny, see the [shiny cheat sheet](https://shiny.rstudio.com/images/shiny-cheatsheet.pdf). Our example app uses `selectInput()`, which takes a set of predefined choices and supplies them to the user. We are working with the iris data set, so we want the selections to be the column names of the data frame. Let's get the names of the iris data frame and add them as a `selectInput()` to our ui. `selectInput()` takes several arguments including the label that the server function will use, the label that will display to the user, the selection choices, and the initially selected choice. 
+There are many types of inputs in shiny, see the [shiny cheat sheet](https://shiny.rstudio.com/images/shiny-cheatsheet.pdf). Our example app uses `selectInput()`, which takes a set of predefined choices and supplies them to the user. We are working with the `palmerpenguins` data set, so we want the selections to be the column names of the data frame. Let's get the names of the `palmerpenguins` data frame and add them as a `selectInput()` to our ui. `selectInput()` takes several arguments including the label that the server function will use, the label that will display to the user, the selection choices, and the initially selected choice. 
 ```{r}
 names(penguins)
 ```
@@ -146,9 +159,71 @@ Congratulations, you made your first shiny app!
 homerange <- readr::read_csv("data/Tamburelloetal_HomeRangeDatabase.csv")
 ```
 
-2. Build a shiny app that produces a barplot that explores `locomotion` type with a fill reaction for the variables `trophic.guild` and `thermoregulation`.  
+```{r}
+names(homerange)
+```
 
-3. The app below adds some nicer aesthetics. It makes a density plot of log10.hra with taxon as a reactive variable. Edit the app to explore log10.hra by locomotion type.  
+```{r}
+homerange %>% 
+  ggplot(aes(x=locomotion, fill=trophic.guild)) +
+  geom_bar(position="dodge")
+```
+
+```{r}
+homerange %>% 
+  ggplot(aes(x=locomotion, fill=thermoregulation)) +
+  geom_bar(position="dodge")
+```
+
+2. Build a shiny app that produces a barplot that explores `locomotion` type with a fill reaction for the variables `trophic.guild` and `thermoregulation`.  
+```{r}
+library(shiny)
+
+ui <- fluidPage(titlePanel("Homerange Locomotion"),
+                radioButtons("x", "Select Fill Variable", choices=c("trophic.guild", "thermoregulation"), selected="trophic.guild"),
+                plotOutput("plot", width="600px", height="500px")
+)
+
+server <- function(input, output, session) {
+  output$plot <- renderPlot({
+    ggplot(homerange, aes_string(x="locomotion", fill=input$x)) +
+      geom_bar(position="dodge", alpha=0.8, color="black") +
+      theme_light(base_size=18) +
+      labs(x=NULL, y=NULL, fill="Fill Variable")
+  })
+  
+}
+
+shinyApp(ui, server)
+```
+
+```{r}
+library(shiny)
+
+ui <- fluidPage(titlePanel("Homerange Locomotion"),
+                radioButtons("x", "Select Fill Variable", choices=c("trophic.guild", "thermoregulation"), selected="trophic.guild"),
+                plotOutput("plot", width="600px", height="500px")
+)
+
+server <- function(input, output, session) {
+  output$plot <- renderPlot({
+    ggplot(homerange, aes_string(x="locomotion", fill=input$x)) +
+      geom_bar(position="dodge", alpha=0.8, color="black") +
+      theme_light(base_size=18) +
+      labs(x=NULL, y=NULL, fill="guild or thermo")
+  })
+  
+}
+
+shinyApp(ui, server)
+```
+
+3. The app below adds some nicer aesthetics. It makes a density plot of `log10.hra` with `taxon` as a reactive variable. Edit the app to explore log10.hra by locomotion type.  
+
+```{r}
+names(homerange)
+```
+
 ```{r, eval=F, echo=T}
 ui <- fluidPage(    
   
@@ -182,7 +257,7 @@ server <- function(input, output) {
     homerange %>% 
     filter(taxon == input$taxon) %>% 
     ggplot(aes(x=log10.hra)) + 
-    geom_density(color="black", fill="steelblue", alpha=0.6)
+    geom_density(color="black", fill="red", alpha=0.6)
   })
 }
 
