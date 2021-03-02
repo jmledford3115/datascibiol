@@ -32,6 +32,8 @@ library("tidyverse")
 library("shiny")
 library("naniar")
 library("shinydashboard")
+require(janitor)
+library(palmerpenguins)
 ```
 
 ```{r}
@@ -45,6 +47,37 @@ Copy and pasting code into the console is okay for tiny example apps, but it's n
 ## Practice
 1. Open and save your finished homerange app from question 3 in part 1 as a stand alone `.R` script. What packages do you need to make sure to load at the top? Run the app by clicking the Run App button. Set the run method in the Run App drop down to "Run External".  
 ![Run External](runexternal.png){width=300px}  
+```{r, echo=FALSE}
+homerange <- readr::read_csv("data/Tamburelloetal_HomeRangeDatabase.csv")
+```
+
+```{r, eval=F, echo=T}
+ui <- fluidPage(    
+  
+  titlePanel("Log 10 Homerange by Taxon"), 
+  sidebarLayout(      
+  sidebarPanel(
+  selectInput("taxon", " Select Taxon of Interest:", choices=unique(homerange$taxon)),
+      hr(),
+      helpText("Reference: Tamburello N, Cote IM, Dulvy NK (2015) Energy and the scaling of animal space use. The American Naturalist 186(2):196-211.")
+    ),
+    mainPanel(
+      plotOutput("taxonPlot")  
+    )
+    )
+    )
+
+server <- function(input, output) {
+  output$taxonPlot <- renderPlot({
+    homerange %>% 
+    filter(taxon == input$taxon) %>% 
+    ggplot(aes(x=log10.hra)) + 
+    geom_density(color="black", fill="steelblue", alpha=0.6)
+  })
+}
+
+shinyApp(ui, server)
+```
 
 ## Automatically Stopping an App
 When we are building an app and frequently testing it, it can be cumbersome to always make sure to stop our app by clicking the stop button. When we close the window we want the app to also stop. This can be done with a couple lines of code that tell R to stop the app in the current session when we close the window. Add the code to our current app at the end of the server function (but inside the function) and try re-running it. Your server function should look like this:  
@@ -103,6 +136,7 @@ shinyApp(ui, server)
 We now have a functional app, but the layout doesn't look very nice. We can change that with many different methods, but shiny dashboards are simple to use and offer a lot of functionality for making apps look professional quickly. First we need to install the `shinydashboard` package.  
 ```{r}
 #install.packages("shinydashboard")
+library(shinydashboard)
 ```
 
 When working with any package on shiny ui appearance, it's important to know how the ui is laid out. The ui is laid out in a bootstrap grid pattern with 12 columns that can be subdivided into rows. The grid is contained in the `fluidPage()` of our current app.  
