@@ -25,7 +25,7 @@ library(ggmap)
 ```
 
 **1. We have a satellite collars on a number of different individuals and want to be able to quickly look at all of their recent movements at once. Please load all the data files from `us_individual_collar_data` and use for loop to create plots for all different individuals of the path they move on longitude and latitude.**
-```{r}
+```{r message=FALSE, warning=FALSE}
 data_files <- list.files("data/us_individual_collar_data", full.names = TRUE)
 # only ggplot
 for (i in 1:length(data_files)){
@@ -40,7 +40,7 @@ for (i in 1:length(data_files)){
 ```
 
 **2. Please load all the data files from `us_individual_collar_data` and combine all data into one data frame. Create a summary to show what is the maximum and minimum of recorded data points on longitude and latitude.**
-```{r}
+```{r message=FALSE, warning=FALSE}
 # summary table
 data_list <- lapply(data_files, read_csv)
 (collar_data_all <- bind_rows(data_list))
@@ -52,7 +52,7 @@ collar_data_all %>%
 ```
 
 **3. Use the range of the latitude and longitude from Q2 to build an appropriate bounding box for your map and load a map from `stamen` in a terrain style projection and display the map. Then, build a final map that overlays the recorded path from Q1.**
-```{r}
+```{r message=FALSE, warning=FALSE}
 # on a map
 lat <- c(26.6116, 41.58802)
 long <- c(-122.6017, -106.3343)
@@ -85,6 +85,12 @@ nind(hyper)    # No. individuals
 nphe(hyper)    # No. phenotypes
 nchr(hyper)    # No. chromosomes
 totmar(hyper)  # Total markers
+```
+> 250 individuals and 2 phenotypes (one of them is ID) are included in this data set.
+
+> 174 gene markers and 20 chromosomes are included in this data set.
+
+```{r}
 nmar(hyper)    # No. markers on each chromosome
 ```
 
@@ -99,6 +105,7 @@ plotMissing(hyper, main="")
 head(hyper$pheno)
 plotMissing(hyper, main="", reorder=1)
 ```
+> The scientists only genotyped the individuals that have the extreme phenotypes (the individuals with very high blood pressure and very low blood pressure). Therefore, we see all the black lines concentrate in the middle of the y-axis.
 
 **7. Based on your answer from previous question, you probably noticed that there are gene markers without data. Please use the function `drop.nullmarkers` to remove markers that have no genotype data. After this, make a new summary to show the number of markers on each chromosome. How many gene markers were dropped? Where were the dropped markers located? Please use the data without nullmarkers for the following questions.**
 ```{r}
@@ -108,6 +115,7 @@ hyper <- drop.nullmarkers(hyper)
 totmar(hyper)  # Total markers
 nmar(hyper)    # No. markers on each chromosome
 ```
+> One nullmarker was dropped from chromosome 14.
 
 **8. Please conduct single-QTL analysis and create a table to give the maximum LOD score on each chromosome based on their blood pressure phenotypes. Which gene marker has the higiest LOD score? Which chromosome contains the gene marker that has the highest LOD score? Then, creates an interactive chart with LOD curves from a genome scan for all chromosomes.**
 ```{r}
@@ -117,12 +125,15 @@ summary(out.em)
 max(out.em)
 iplotScanone(out.em)
 ```
+> Gene marker D4Mit164, which is on chromosome 4, has the highest LOD score (8.094).
 
-**9. Based on your genome scan results, create a table which only includes those chromosomes with LOD > 1. Creates an interactive chart with LOD curves linked to estimated QTL effects for only those chromosomes with LOD > 1. Find the gene maker with the highest LOD score and describe how does the genetype of this marker influence the individual's phenotype.**
+**9. Based on your genome scan results, create a table which only includes those chromosomes with LOD > 1. Creates an interactive chart with LOD curves linked to estimated QTL effects for only those chromosomes with LOD > 1. Find the gene maker with the highest LOD score and describe how does the genotype of this marker influence the individual's phenotype.**
 ```{r}
 summary(out.em, threshold=1)
 iplotScanone(out.em, hyper, chr=c(1, 2, 4, 5, 6, 15))
 ```
+
+> The gene marker with the highest LOD score is D4Mit164. The individuals with the homozygous BB genotype on D4Mit164 have higher blood pressure comparing with the individuals with the heterozygous BA genotype on D4Mit164.
 
 **10. Please save your interactive chart from Q9 as a html file `hyper_iplotScanone.html` and make sure your upload it to your github repository with your lab14 homework as well.**
 ```{r}

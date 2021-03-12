@@ -33,7 +33,7 @@ knitr::opts_chunk$set(fig.width=8, fig.height=6, message=FALSE)
 
 The function read.cross is for importing data into R/qtl.
 ```{r}
-#?read.cross
+?read.cross
 ```
 
 ## Example 1: Identify genomic regions that regulate blood pressure, heart rate, and heart weight
@@ -71,6 +71,8 @@ Individual parts of the above plot may be obtained as follows.
 #?plotMissing
 plotMissing(sug, main="")
 plotMissing(sug, main="", reorder=1)
+#summary(sug)
+#drop.nullmarkers(sug)
 #?plotMap
 plotMap(sug)
 plotMap(sug,show.marker.names=TRUE)
@@ -117,16 +119,20 @@ summary(out.em2)
 Alternatively, we can give a threshold, e.g., to only see those chromosomes with LOD > 3.
 ```{r}
 summary(out.em, threshold=3)
+summary(out.em2, threshold=3)
 ```
 We can plot the results as follows.
 ```{r}
 plot(out.em)
 plot(out.em, chr=c(7,15), ylab="LOD Score")
+plot(out.em2)
+plot(out.em2, chr=c(7,15), ylab="LOD Score")
 ```
 ### iplotScanone
 iplotScanone creates an interactive chart with LOD curves from a genome scan linked to estimated QTL effects. If you provide just the output from scanone, the only interactivity is that hovering over marker positions on the LOD curves will give information about the marker name, position, and LOD score.
 ```{r}
 iplotScanone(out.em)
+iplotScanone(out.em2, lodcolumn = 2)
 ```
 You can use the chr to plot only selected chromosomes.
 ```{r}
@@ -152,10 +158,12 @@ data(grav)
 ```{r}
 
 ```
+
 2. Make an genetic map of markers for the grav data.
 ```{r}
 
 ```
+
 3. Plot a heat map of the correlation matrix for the phenotype at all pairs of times, linked to scatterplots of the phenotypes.
 ```{r}
 
@@ -167,25 +175,29 @@ iplotCurves creates a plot of a set of curves linked to one or two scatterplots.
 iplotCurves(grav$pheno)
 ```
 
+The object phe is an 162×241 matrix: curves for 162 individuals at 241 time points
 ```{r}
 times1 <- as.numeric(sub("T", "", phenames(grav)))/60
-times1
-times <- attr(grav, "time")
-times
+str(times1)
+times <- attr(grav, "time") #set specific attributes of an object.
+str(times)
 #?attr
+head(grav$pheno)
 phe <- grav$pheno
 head(phe)
 ```
-
+The values on the x-axis are simply column indices. To use the actual values in times, include it as a second argument.
 ```{r}
 iplotCurves(phe, times)
 ```
+
 To change the axis labels, pass curves_xlab and curves_ylab using chartOpts.
 ```{r}
 iplotCurves(phe, times, chartOpts=list(curves_xlab="Time (hrs)",
                                        curves_ylab="Response"))
 ```
 
+More interesting is to have the curves linked to scatterplots, of the response at particular times.
 ```{r}
 iplotCurves(phe, times, phe[,c("T30", "T240")], phe[,c("T240", "T480")],
             chartOpts=list(curves_xlab="Time", curves_ylab="Root tip angle",
@@ -193,22 +205,46 @@ iplotCurves(phe, times, phe[,c("T30", "T240")], phe[,c("T240", "T480")],
                            scat2_xlab="Angle at 4 hrs", scat2_ylab="Angle at 8 hrs"))
 ```
 
+This is done by providing two-column matrices whose rows correspond to the main matrix.
+```{r}
+
+```
+
+You can also include a numeric vector of groups assignments for the curves, to have groups of curves and points with common colors. For example, we can pull out the genotype for a marker and color the curves by their genotype. We’ll use the fill.geno function in R/qtl to impute any missing genotypes.
+```{r}
+
+```
+
+To change the colors that are used in the plot, you need to provide a vector of colors with the chartOpts options `color` and `colorhilit`.
+```{r}
+
+```
+
 Let’s further run a single-QTL genome scan with each individual time point.
 ```{r}
-grav <- calc.genoprob(grav, step=1)
-out.em <- scanone(grav, pheno.col=1:nphe(grav))
+grav <- calc.genoprob(grav, step=1) # 1cM
+out.em <- scanone(grav) # By default, it considers the first phenotype
+out.em <- scanone(grav, pheno.col=1:nphe(grav)) # all phenotype
 summary(out.em)
 ```
+```{r}
+?iplotScanone
+iplotScanone(out.em, grav) # By default, it considers the first phenotype
+iplotScanone(out.em, grav, lodcolumn=1)
+iplotScanone(out.em, grav, lodcolumn=60)
+```
+
 
 ## Charts within a loop
 If you want to produce multiple interactive charts within a loop.
 ```{r}
 times_m <- c("T30", "T240", "T480")
-times_clear <- c("30 mins", "4 hours", "8 hours")
 times_number <- match(times_m, phenames(grav))
 
+times_clear <- c("30 mins", "4 hours", "8 hours")
+
 for(i in 1:length(times_m))
-    print(iplotScanone(out.em, lodcolumn=times_number[i], chartOpts=list(title=times_clear[i])))
+    print(iplotScanone(out.em, grav, lodcolumn=times_number[i], chartOpts=list(title=times_clear[i])))
 ```
 
 ## That's it, let's take a break!   

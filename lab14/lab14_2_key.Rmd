@@ -59,17 +59,18 @@ nphe(sug)    # No. phenotypes
 nchr(sug)    # No. chromosomes
 totmar(sug)  # Total markers
 nmar(sug)    # No. markers on each chromosome
+as.data.frame(nmar(sug))
 ```
 Get a summary plot of the data.
 ```{r}
 plot(sug)
 ```
-
+The plot in the upper-left shows the pattern of missing genotype data, with black pixels corresponding to missing genotypes. The next plot shows the genetic map of the typed markers. The following plots are histograms or bar plots for the six phenotypes. The last two “phenotypes” are sex (with 1 corresponding to males) and mouse ID.
 Individual parts of the above plot may be obtained as follows.
 ```{r}
 #?plotMissing
-plotMissing(sug, main="")
-plotMissing(sug, main="", reorder=1)
+plotMissing(sug, main=NULL)
+plotMissing(sug, main=NULL, reorder=1) #the individuals ordered according to the value of their phenotype
 #?plotMap
 plotMap(sug)
 plotMap(sug,show.marker.names=TRUE)
@@ -82,9 +83,10 @@ plotPheno(sug, pheno.col=4)
 
 Let’s make an interactive chart of the genetic map of markers for these data using R/qtlcharts.
 ```{r}
-iplotMap(sug) #D7MIT31
+iplotMap(sug) #D7MIT31 #iplotMap creates an interactive genetic map.
 ```
-Let’s use iplotCorr to plot a heat map of the correlation matrix for the phenotype of all pairs, linked to scatterplots of the phenotypes.
+
+Let’s use `iplotCorr` to plot a heat map of the correlation matrix for the phenotype of all pairs, linked to scatterplots of the phenotypes.
 ```{r}
 iplotCorr(sug$pheno)
 iplotCorr(sug$pheno, chartOpts=list(height=300, width=600, scatcolors="pink"))
@@ -102,7 +104,7 @@ Quantitative trait locus (QTL) analysis is a statistical method that links two t
 LOD score is actually an acronym for "log of the odds," LOD. LOD score actually refers to a numerical result when estimating whether two genes, or a gene and a disease, are linked to one another. [NIH LOD Score](https://www.genome.gov/genetics-glossary/LOD-Score#:~:text=LOD%20stands%20for%20%22logarithm%20of,therefore%20likely%20to%20be%20inherited.)
 
 ### Single-QTL analysis
-We first calculate the QTL genotype probabilities, given the observed marker data, via the function calc.genoprob. This is done at the markers and at a grid along the chromosomes. The argument step is the density of the grid (in cM), and defines the density of later QTL analyses. To perform a single-QTL genome scan, we use the function scanone. By default, it considers the first phenotype in the input cross object (in this case, blood pressure).
+We first calculate the QTL genotype probabilities, given the observed marker data, via the function `calc.genoprob`. This is done at the markers and at a grid along the chromosomes. The argument step is the density of the grid (in cM), and defines the density of later QTL analyses. To perform a single-QTL genome scan, we use the function scanone. By default, it considers the first phenotype in the input cross object (in this case, blood pressure).
 ```{r}
 sug <- calc.genoprob(sug, step=1)
 out.em <- scanone(sug)
@@ -152,13 +154,15 @@ data(grav)
 1. Get a quick summary of the grav data. 
 ```{r}
 summary(grav)
+head(grav$pheno)
 ```
 2. Make an genetic map of markers for the grav data.
 ```{r}
 plotMap(grav)
 ```
+
 ```{r}
-iplotMap(grav)
+iplotMap(grav) #BF.206L-Col
 ```
 3. Plot a heat map of the correlation matrix for the phenotype at all pairs of times, linked to scatterplots of the phenotypes.
 ```{r}
@@ -169,8 +173,9 @@ iplotCorr(grav$pheno)
 iplotCurves creates a plot of a set of curves linked to one or two scatterplots.
 
 ```{r}
-iplotCurves(grav$pheno)
+iplotCurves(grav$pheno, chartOpts=list(curves_xlab="Time (hrs)", curves_ylab="Response"))
 ```
+
 ```{r}
 times1 <- as.numeric(sub("T", "", phenames(grav)))/60
 times1
@@ -196,12 +201,46 @@ iplotCurves(phe, times, phe[,c("T30", "T240")], phe[,c("T240", "T480")],
                            scat1_xlab="Angle at 30 min", scat1_ylab="Angle at 4 hrs",
                            scat2_xlab="Angle at 4 hrs", scat2_ylab="Angle at 8 hrs"))
 ```
+This is done by providing two-column matrices whose rows correspond to the main matrix.
+```{r}
+iplotCurves(phe, times, phe[,times==2 | times==4], phe[,times==4 | times==6],
+            chartOpts=list(curves_xlab="Time (hours)", curves_ylab="Response",
+                           scat1_xlab="Angle at 2 hrs", scat1_ylab="Angle at 4 hrs",
+                           scat2_xlab="Angle at 4 hrs", scat2_ylab="Angle at 6 hrs"))
+```
+
+You can also include a numeric vector of groups assignments for the curves, to have groups of curves and points with common colors. For example, we can pull out the genotype for a marker and color the curves by their genotype. We’ll use the fill.geno function in R/qtl to impute any missing genotypes.
+```{r}
+g <- pull.geno(fill.geno(grav))[,"BF.206L-Col"]
+iplotCurves(phe, times, phe[,times==2 | times==4], phe[,times==4 | times==6],
+            group=g,
+            chartOpts=list(curves_xlab="Time (hours)", curves_ylab="Response",
+                           scat1_xlab="Angle at 2 hrs", scat1_ylab="Angle at 4 hrs",
+                           scat2_xlab="Angle at 4 hrs", scat2_ylab="Angle at 6 hrs"))
+```
+
+```{r}
+iplotCurves(phe, times, phe[,times==2 | times==4], phe[,times==4 | times==6],
+            group=g,
+            chartOpts=list(curves_xlab="Time (hours)", curves_ylab="Response",
+                           scat1_xlab="Angle at 2 hrs", scat1_ylab="Angle at 4 hrs",
+                           scat2_xlab="Angle at 4 hrs", scat2_ylab="Angle at 6 hrs",
+                           color=c("yellow", "lightblue"), colorhilit=c("orange", "blue")))
+```
 
 Let’s further run a single-QTL genome scan with each individual time point.
 ```{r}
-grav <- calc.genoprob(grav, step=1)
-out.em <- scanone(grav, pheno.col=1:nphe(grav))
+grav <- calc.genoprob(grav, step=1) # 1cM
+out.em <- scanone(grav) # By default, it considers the first phenotype
+out.em <- scanone(grav, pheno.col=1:nphe(grav)) # all phenotype
 summary(out.em)
+```
+
+```{r}
+?iplotScanone
+iplotScanone(out.em, grav) # By default, it considers the first phenotype
+iplotScanone(out.em, grav, lodcolumn=1)
+iplotScanone(out.em, grav, lodcolumn=60)
 ```
 
 ## Charts within a loop
@@ -212,7 +251,7 @@ times_clear <- c("30 mins", "4 hours", "8 hours")
 times_number <- match(times_m, phenames(grav))
 
 for(i in 1:length(times_m))
-    print(iplotScanone(out.em, lodcolumn=times_number[i], chartOpts=list(title=times_clear[i])))
+    print(iplotScanone(out.em, grav, lodcolumn=times_number[i], chartOpts=list(title=times_clear[i])))
 ```
 
 ## That's it, let's take a break!   
