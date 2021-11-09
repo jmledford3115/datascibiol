@@ -18,12 +18,12 @@ knitr::include_graphics("images/learn_to_code.png")
 > [Wired Magazine (2017)](https://www.wired.com/2017/03/biologists-teaching-code-survive/)
 
 ## Course Summary  
-In BIS 015L, you will be introduced to the fundamentals of data science with emphasis on data frequently used by biologists. We will use the R software environment to develop and practice key skills including data management, transformation, analysis, and visualization. Examples will span a range of disciplines including social science, ecology, evolution, and genetics. Labs will use a problem-solving approach where students build on previously learned skills culminating in a small, group-based project. 
+In BIS 015L, you will be introduced to the fundamentals of data science with emphasis on data frequently used by biologists. We will use the R software environment to develop and practice key skills including data management, transformation, analysis, and visualization. Examples will span a range of disciplines including social science, ecology, evolution, and genetics. Labs will use a problem-solving approach where we build on previously learned skills culminating in a small, group-based project. 
 
-This class is designed for students with *no background in computer programming, R, or statistics*. My assumption is that you know how to turn a computer on and use a mouse- that's it!  
+This class is designed for students with *no background in computer programming, R, or statistics*. Our assumption is that you know how to turn a computer on and use a mouse- that's it!  
 
 ## Equipment  
-In order to complete the work in class, you need to be able to run R and RStudio. You also need a stable internet connection. Mac and PC computers both work, but *not* Chromebooks. If you experience problems, contact [Joel Ledford](mailto:jmledford@ucdavis.edu) for problems on Mac and [Min-Yao Jhu](mailto:minjhu@ucdavis.edu)  for problems on PC.  
+In order to complete the work in class, you need to be able to run R and RStudio. Mac and PC computers both work, but *not* Chromebooks. If you experience problems, contact [Joel Ledford](mailto:jmledford@ucdavis.edu).  
 
 ## Learning Goals  
 *At the end of this course, you will be able to:*  
@@ -36,9 +36,9 @@ In order to complete the work in class, you need to be able to run R and RStudio
 7. Use geospacial data to produce distribution maps.  
 
 ## Course Structure  
-This quarter, our class will be held online but we stress the importance of working together. Most people learn R on their own and there are thousands of courses designed to teach you the fundamentals. Working as a small community is what sets our class apart. We encourage you to work together throughout the class!  
+Our class has collaborative work as its foundation. Many people learn R on their own and there are literally thousands of courses designed to teach you the fundamentals. Working as a small community is what sets our class apart. We encourage you to work together throughout the class!  
 
-Our class is scheduled for 2-hour blocks on Tuesday and Thursday. Our plan is to release a series of short videos prior to each class. Since these videos are what we would normally present in lecture, we ask that you watch them between 12:10- 1:00p. We will then meet live on Zoom from 1:10-2:00p to work through problems and address any questions. After each class, there will be a homework assignment. We encourage you to work together on these! Since each assignment has many different solutions, the expectation is that your code is free from errors and runs cleanly. See grading below for details.  
+Our class is scheduled for 2-hour blocks on Tuesday and Thursday. Each class works though examples of live coding but includes frequent breaks where we will work together to solve problems. Please don't expect this to be a traditional lecture class- we require your active participation. After each class, there will be a homework assignment. We encourage you to work together on these! Since each assignment has many different solutions, the expectation is that your code is free from errors and runs cleanly. See grading below for details.  
 
 There are two exams in the class, both of which are take-home. You may use any resources you like on the exam except for posting questions to open stacks or R programming forums; your work should be entirely your own.  
 
@@ -51,16 +51,19 @@ The class is graded out of 300 points on a straight scale. Grading is divided in
 
 3. **Class project (30%)**. As part of the class, you will form a group to explore a project in data science. The project may be based on any available data of interest to the group, and should highlight skills learned in the labs. The group will present their results during the last lab sessions.  The class project is worth 90 points.  
 
-4. **Attendance**. Attendance from 1:10-2:00p is mandatory and you must attend with your camera turned on. Students are only allowed two unexcused absences during the quarter. Please [email me](mailto:jmledford@ucdavis.edu) if you need to miss a lab.  
+4. **Attendance**. In-person attendance is mandatory. Students are only allowed two unexcused absences during the quarter. If you know that you will have conflicts during the quarter that will require multiple absences, please consider joining BIS 15L in another quarter. Please [email me](mailto:jmledford@ucdavis.edu) if you need to miss a lab.  
 
 ## Suggested Reading  
 [R for Data Science](https://r4ds.had.co.nz/), Grolemund and Wickham (2017).  
 
 ## Office Hours  
-Office hours are scheduled each week and are available by appointment. If there are problems with the assignments, it is important that we communicate together as a class. Please use the class email list as a first step so we all benefit.  
+Office hours are scheduled each week and are also available by appointment. If there are problems with the assignments, it is important that we communicate together as a class. Please use the class discord as a first step so we all benefit.  
 
-## About Me  
+## About Joel Ledford  
 I am an assistant teaching professor in the department of [Plant Biology](http://www-plb.ucdavis.edu/). My research is focused on education and spider biology. My experience in R has mostly involved statistical analysis in education and evolutionary biology. I also teach part of the introductory biology series `BIS2C` (Fall and Winter) and introductory plant biology `PLB10` (Spring).  
+
+## About Hannah Houts 
+QQQ
 
 ## Do's and Dont's  
 Learning any programming language is hard; it only gets easier with time and practice. Don't give up!  
@@ -68,6 +71,6 @@ Learning any programming language is hard; it only gets easier with time and pra
 + Please *do* ask questions, get help from class partners, and complete assignments on-time.  
 + Please *don't* miss class or get behind on the homework.  
 
-I am very open to suggestions, especially when it comes to relevant and interesting examples. If you find data that are especially interesting to you please let me know and I will do my best to incorporate them into class examples. Most of all, have fun learning R and if you are not then let me know!  
+We are very open to suggestions, especially when it comes to relevant and interesting examples. If you find data that are especially interesting to you please let us know and we will do our best to incorporate them into class examples. Most of all, have fun learning R and if you are not then let us know!  
 
 -->[Home](https://jmledford3115.github.io/datascibiol/)
