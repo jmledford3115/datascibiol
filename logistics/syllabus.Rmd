@@ -60,10 +60,10 @@ The class is graded out of 300 points on a straight scale. Grading is divided in
 Office hours are scheduled each week and are also available by appointment. If there are problems with the assignments, it is important that we communicate together as a class. Please use the class discord as a first step so we all benefit.  
 
 ## About Joel Ledford  
-I am an assistant teaching professor in the department of [Plant Biology](http://www-plb.ucdavis.edu/). My research is focused on education and spider biology. My experience in R has mostly involved statistical analysis in education and evolutionary biology. I also teach part of the introductory biology series `BIS2C` (Fall and Winter) and introductory plant biology `PLB10` (Spring).  
+I am an assistant teaching professor in the department of [Plant Biology](http://www-plb.ucdavis.edu/). My research is focused on education and spider biology. My experience in R involves statistical analysis in education and evolutionary biology. I also teach part of the introductory biology series `BIS2C` (Fall and Winter) and introductory plant biology `PLB10` (Spring).  
 
-## About Hannah Houts 
-QQQ
+## About Hannah Houts
+I am a 3rd year Microbiology PhD student in the [lab for Data Intensive Biology](http://ivory.idyll.org/lab/). I completed my B.S. in microbiology here at UC Davis (go Aggies), as a proud community college transfer. These days I research (computationally) gut bacteria and the viruses that infect them, while improving computational tools & techniques for wrangling metagenomic data. I use R to manage metadata and generate plots.
 
 ## Do's and Dont's  
 Learning any programming language is hard; it only gets easier with time and practice. Don't give up!  
