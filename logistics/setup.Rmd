@@ -8,8 +8,11 @@ output:
     toc_float: yes
 ---
 
+## Lab Computers  
+This quarter we are fortunate to be able to use the computers in the SCC. Each of these computers is up-to-date, and the installed software is exactly the same. This makes following my instructions much easier, but you will likely want to do some practice and work at home. Please follow the directions below to set-up your personal computer.  
+
 ## Setup  
-Because BIS 15L will be held remotely this quarter, it is very important that you spend time making sure that your computer is set-up and ready to go. This first step in this is just basic maintenance; i.e. clean up your desktop, update your OS, and make sure that you are running the latest version of Zoom. Data scientists are neat and tidy! Spend time getting yourself organized.  
+Before we get started this quarter, it is very important that you spend time making sure that your computer is set-up and ready to go. The first step in this is just basic maintenance; i.e. clean up your desktop and update your OS. Having lots of files on your desktop can negatively impact your computer's performance. Data scientists are neat and tidy! Spend time getting yourself organized.  
 
 In order to get set-up, you need to do four things:  
 
@@ -23,7 +26,7 @@ R is open source and constantly changing. Make regular version checks part of yo
 Download the latest version of R [here](https://www.r-project.org/) and install.  
 
 ### 2. Download the most recent version of RStudio and install
-RStudio is a [GUI](https://www.computerhope.com/jargon/g/gui.htm) that allows for more intuitive operation of R and includes numerous additional functions. All of our work will be done in RStudio.
+RStudio is a [GUI](https://www.computerhope.com/jargon/g/gui.htm) that allows for more intuitive operation of R and includes numerous additional functions. All of our work will be done in RStudio.  
 
 Download the latest version of RStudio [here](https://www.rstudio.com/) and install.  
 
