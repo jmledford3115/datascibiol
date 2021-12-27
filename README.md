@@ -15,6 +15,11 @@ This class is designed for students with *no background in computer programming,
 
 Please read the [course syllabus](https://jmledford3115.github.io/datascibiol/syllabus.html).    
 
+## Lab Schedule and Homework  
+Each lab is listed below along with the associated homework. New labs will be added each week.  
+
+1. **Lab 1** | [part 1](https://jmledford3115.github.io/datascibiol/lab1_1.html) | [part 2](https://jmledford3115.github.io/datascibiol/lab1_2.html) | [HW](https://jmledford3115.github.io/datascibiol/lab1_hw.html)  
+
 ## Reading  
 [R for Data Science](https://r4ds.had.co.nz/), Grolemund and Wickham (2017).  
 

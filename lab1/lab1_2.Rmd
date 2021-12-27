@@ -1,0 +1,118 @@
+---
+title: "R, RStudio, and RMarkdown"
+date: "`r Sys.Date()`"
+output:
+  html_document:
+    theme: spacelab
+    toc: yes
+    toc_float: yes
+---
+
+## Learning Goals  
+*At the end of this exercise, you will be able to:*    
+1. Explain the difference between R and RStudio.  
+2. Perform simple arithmetic in R and RStudio.  
+3. Write, format, and knit an RMarkdown report.  
+
+## R and RStudio  
+R is an open source, **scripting** language. RStudio is a [GUI](https://www.computerhope.com/jargon/g/gui.htm) that is used to interact with R. You need to have R installed in order for RStudio to work. On the desktop in your repository's `lab 1` folder, you should see a file titled `lab1_1.Rmd`. Open this file by double clicking; you should now be in RStudio.  
+
+When you first open RStudio, you should see your screen divided into four quadrants. I will demonstrate each of these, but for now it is enough to know that they display different information and are helpful to manage your work.  
+
+## Working Directory  
+Before you begin any project in RStudio, it is important that you are in the correct "working directory". This is the folder on your computer where you are currently working; it is the location where RStudio will save all of your work. At first, most of the problems people encounter are because they are not in the correct working directory.  
+
+Run the following code by clicking the small green arrow to check your current working directory.  
+```{r}
+getwd()
+```
+
+If you are not in the **lab 1 folder**, please navigate to it: Session>Set Working Directory>Choose Directory>Desktop>lab1.  
+
+Re-run the code below to confirm.
+```{r}
+getwd()
+```
+
+## R  
+Double click to open R (not RStudio) and find the carrot `>`. This is where commands are entered. Because R is a scripting language you don't point and click to run commands. Instead, you write instructions that are used by the computer to complete an operation. This makes it hard to learn at first because the instructions are specific. R is **not** tolerant of typos, punctuation errors, errant spaces, or other types of mistakes.  
+
+## Arithmetic  
+You can use R as a calculator; just enter the expression and press return.  Experiment by evaluating the following expression.
+```{r}
+4*12
+```
+
+Order of operations applies and you don't need to add an '=' sign.
+```{r}
+(4*12)/2
+```
+
+Statistics are what R was originally written for and there are thousands of packages for specialized statistics depending on your needs.  
+
+First, we need to make a vector or string of values which we will store as an object x. More on this later...
+```{r}
+x <- c(4, 6, 8, 5, 6, 7, 7, 7)
+```
+
+Now we can calculate the mean of object x.  
+```{r}
+mean(x)
+```
+
+We can do the same thing for median.  
+```{r}
+median(x)
+```
+
+## RMarkdown  
+Annotation of code is important for programmers of all levels. When code is annotated, it is easy for others to understand and perhaps more importantly, easier for the person who wrote the code to understand when returning to a project days, months, or even years later. RMarkdown allows us to embed code in annotated chunks, show the results of analyses, and display graphical output all in one file. It is a great way of making a report which can be conveniently output to html or pdf.  
+
+The RMarkdown file can then be exported in a number of formats. If you have questions, the definitive guide to RMarkdown is [here](https://bookdown.org/yihui/rmarkdown/).  
+
+Here is a great [tutorial on RMarkdown](https://www.markdowntutorial.com/).  
+
+## RMarkdown Basics  
+RMarkdown is one of many types of documents that can be created in RStudio and is the one we will use most frequently in BIS 15L.  
+
+1. In RStudio, open a new markdown document: **File>New File>R Markdown** and title it "RMarkdown Practice".  
+2. At the top of the page, the header includes information about the title, author, date, and output. You can edit these fields, but avoid editing output for now.   
+3. There is some generic information at the start of the file that we don't need. Delete lines 12 through 31 to clean things up.  
+4. Hold on to this file, we will use it shortly.  
+
+## Titles and Text
+Have a look at the format of this document; titles are indicated by a `#`. Larger numbers of `#'s` reduce the size of the font. Text with no `#'s` is smallest and not bold. To emphasize words, you can use _italics_ or **bold**. A line break is indicated by two spaces.  
+
+## Links
+I often add links to my RMarkdown files. For a website, include the page name in `[]` and the website address in `()`. [BIS 15L Webpage](https://jmledford3115.github.io/datascibiol/).    
+
+Email is similar, but you need to include `mailto:` in the parentheses. Here is my email: [Joel Ledford](jmledford@ucdavis.edu).    
+
+## Code Chunks
+All R code is inserted between two gray bars called a code chunk. You can insert a new code chunk by clicking "Insert>R" at the top of the page. On a Mac, the shortcut is `option+command+i`.  
+
+## Knit
+In order to make the html file, you need to "Knit" the file. Knitting just means build the file. If you click "Knit" now, it will knit the lab.  
+
+## Practice
+1. Test out the arithmetic capabilities of R; experiment by doing addition, subtraction, multiplication, and division.  
+2. Go back to your "RMarkdown Practice" file and experiment with titles, text, and syntax.  
+3. Copy and paste the following two pieces of code into the document (include the gray code "chunks").      
+
+```{r}
+#install.packages("tidyverse")
+library("tidyverse")
+```
+
+```{r}
+ggplot(mtcars, aes(x = factor(cyl))) +
+    geom_bar()
+```
+
+4. Now `knit` the file to html using the knit button at the top of the page.  
+5. Lastly, commit and push this file to your GitHub repository.  
+
+## Wrap-up
+Please review the learning goals and be sure to use the code here as a reference when completing the homework.  
+
+-->[Home](https://jmledford3115.github.io/datascibiol/)  
