@@ -36,7 +36,7 @@ In order to complete the work in class, you need to be able to run R and RStudio
 7. Use geospacial data to produce distribution maps.  
 
 ## Course Structure  
-Our class has collaborative work as its foundation. Many people learn R on their own and there are literally thousands of courses designed to teach you the fundamentals. Working as a small community is what sets our class apart. We encourage you to work together throughout the class!  
+Our class has collaborative work as its foundation. Many people learn R on their own and there are literally thousands of courses designed to teach you the fundamentals. Working as a community is what sets our class apart. We encourage you to work together throughout the class!  
 
 Our class is scheduled for 2-hour blocks on Tuesday and Thursday. Each class works though examples of live coding but includes frequent breaks where we will work together to solve problems. Please don't expect this to be a traditional lecture class- we require your active participation. After each class, there will be a homework assignment. We encourage you to work together on these! Since each assignment has many different solutions, the expectation is that your code is free from errors and runs cleanly. See grading below for details.  
 
@@ -49,9 +49,9 @@ The class is graded out of 300 points on a straight scale. Grading is divided in
 
 2. **Midterms (20%)**. The midterms help us keep one another accountable. These exams will be take-home and the due dates are strict; no late work is accepted. Each midterm is worth 30 points.  
 
-3. **Class project (30%)**. As part of the class, you will form a group to explore a project in data science. The project may be based on any available data of interest to the group, and should highlight skills learned in the labs. The group will present their results during the last lab sessions.  The class project is worth 90 points.  
+3. **Class project (30%)**. As part of the class, you will form a group to explore a project in data science. The project may be based on any available data of interest to the group and should highlight skills learned in the labs. The group will present their results during the last lab sessions.  The class project is worth 90 points.  
 
-4. **Attendance**. In-person attendance is mandatory. Students are only allowed two unexcused absences during the quarter. If you know that you will have conflicts during the quarter that will require multiple absences, please consider joining BIS 15L in another quarter. Please [email me](mailto:jmledford@ucdavis.edu) if you need to miss a lab.  
+4. **Attendance**. As a skills-based lab class, attendance is essential. Given the campus announcement about Winter quarter, we expect that some of our classes will be held remotely. In these cases, we will meet synchronously on Zoom. Your goal should be to attend all classes. If you miss multiple classes, you should expect contact from me in order to find a solution. When classes are held in-person, recordings of the session are not likely to be available although all code will be provided. Please [email me](mailto:jmledford@ucdavis.edu) if you need to miss a lab.  
 
 ## Suggested Reading  
 [R for Data Science](https://r4ds.had.co.nz/), Grolemund and Wickham (2017).  
