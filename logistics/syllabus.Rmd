@@ -25,6 +25,24 @@ This class is designed for students with *no background in computer programming,
 ## Equipment  
 In order to complete the work in class, you need to be able to run R and RStudio. Mac and PC computers both work, but *not* Chromebooks. If you experience problems, contact [Joel Ledford](mailto:jmledford@ucdavis.edu).  
 
+## Health and Safety  
+We take the health and safety of everyone in the class very seriously. You are required to have passed the daily symptom survey (DSS) and correctly wear a mask at all times. We will check your DSS prior to each in-person class.  
+
+## UC Davis’ Principles of Community  
+We expect all interactions in this class to be guided by the [UCD Principles of Community](https://diversity.ucdavis.edu/principles-community). This stresses commitment to a climate of equity, inclusiveness and justice that is demonstrated by respecting and celebrating one another. The richness of our learning community and our ability to address pressing societal challenges require all of our unique contributions and perspectives. In this class, we will value open expression of our individualism, within the bounds of courtesy and respect to others. We will confront and reject all manifestations of discrimination, including based on age, citizenship status, disability, ethnicity, gender, gender expression, nationality, race, sexual orientation, socio-economic class, status inside or outside the university, veteran status, religious/non-religious, spiritual or political beliefs, or any other differences among people which have been excuses for misunderstanding, dissension or hatred.  
+
+Please communicate with the instructional team:  
+
+* If you have a name and/or set of pronouns that differ from those that appear in your official records.  
+* If you feel like your performance in class is being significantly impacted by your experiences outside of class. We can work with you to provide additional support and advice, connect you with campus resources, or modify deadlines if warranted by the circumstances.  
+* If something is said in class (by anyone) that makes you feel uncomfortable, please talk to us about it, or provide anonymous feedback.  
+
+## Educational Equity  
+UC Davis is committed to educational equity in the academic setting, and in serving a diverse student body. We encourage all students who are interested in learning more about the Student Disability Center (SDC) to contact them directly at [SDC](mailto:sdc.ucdavis.edu) or 530-752-3184. If you are a student who receives academic accommodation(s), please submit your SDC Letter of Accommodation to us as soon as possible, ideally within the first week of this course.  
+
+## UC Davis Land Acknowledgement  
+UC Davis has a formal land acknowledgement to recognize the Indigenous people who have lived where UC Davis is today. It was written by the Yocha Dehe Wintun Nation and approved by the three Patwin tribes who inhabit(ed) this land. The land acknowledgement is as follows: “We should take a moment to acknowledge the land on which we are gathered. For thousands of years, this land has been the home of Patwin people. Today, there are three federally recognized Patwin tribes: Cachil DeHe Band of Wintun Indians of the Colusa Indian Community, Kletsel Dehe Wintun Nation, and Yocha Dehe Wintun Nation. The Patwin people have remained committed to the stewardship of this land over many centuries. It has been cherished and protected, as elders have instructed the young through generations. We are honored and grateful to be here today on their traditional lands.”  
+
 ## Learning Goals  
 *At the end of this course, you will be able to:*  
 1. Use R and RStudio to perform basic analyses including arithmetic and basic statistics.  
