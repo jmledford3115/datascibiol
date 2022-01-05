@@ -16,6 +16,8 @@ Before each lab, please make sure that you complete the following:
 2. Copy the files for today's lab from the class repository and paste them into **your** repository.  
 3. Open today's lab in RStudio. 
 
+If you need some guidance on following these steps, please watch the [lab setup tutorial](https://youtu.be/FJ7z6q5VAM8)  
+
 ## Learning Goals
 *At the end of this exercise, you will be able to:*    
 1. Define an object in R.  
