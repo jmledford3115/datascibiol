@@ -23,7 +23,7 @@ In order to get set-up, you need to do four things:
 ### 1. Download the most recent version of R and install
 R is open source and constantly changing. Make regular version checks part of your routine. R will run on a variety of platforms, but there are slight differences between Mac and PC versions.  
 
-Download the latest version of R [here](https://www.r-project.org/) and install.  
+Download the latest version of R [here](https://ftp.osuosl.org/pub/cran/) and install.  
 
 ### 2. Download the most recent version of RStudio and install
 RStudio is a [GUI](https://www.computerhope.com/jargon/g/gui.htm) that allows for more intuitive operation of R and includes numerous additional functions. All of our work will be done in RStudio.  
