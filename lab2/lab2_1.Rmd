@@ -129,7 +129,7 @@ new_vector <- c(7, 6.2, 5, 9, NA, 4, 9.8, 7, 3, 2)
 
 2. As we did in homework 1, calculate the mean of `new_vector`.
 ```{r}
-mean(new_vector)
+
 ```
 
 3. How do you interpret this result? What does this mean about NAs?  
