@@ -63,7 +63,7 @@ We get an error here because `else` is a function in R. You also don't want to g
 ## Practice
 1. Create three new objects, `venom_GT`, `chiron`, and `veyron`. These are the fastest cars in the world. Assign each car to its top speed. The venom_GT can go 270, chiron is 261, and veyron is 268.
 ```{r}
-
+venom_GT <- 270
 ```
 
 2. Use arithmetic to calculate the mean top speed for the cars.
