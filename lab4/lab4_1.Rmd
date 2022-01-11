@@ -1,0 +1,198 @@
+---
+title: "Transforming data 1: Dplyr `select()`"
+date: "`r Sys.Date()`"
+output:
+  html_document:
+    theme: spacelab
+    toc: yes
+    toc_float: yes
+  pdf_document:
+    toc: yes
+---
+
+## Learning Goals
+*At the end of this exercise, you will be able to:*    
+1. Use summary functions to assess the structure of a data frame.  
+2. Us the select function of `dplyr` to build data frames restricted to variable of interest.  
+3. Use the `rename()` function to provide new, consistent names to variables in data frames.  
+
+## Review
+At this point, you should have familiarity in RStudio, GitHub, and basic operations in R. If you need extra help, please [email me](mailto: jmledford@ucdavis.edu).  
+
+## Load the tidyverse
+For the remainder of the quarter, we will work within the `tidyverse`. At the start of each lab, the library needs to be called as shown below.  
+```{r message=FALSE, warning=FALSE}
+library("tidyverse")
+```
+
+## Load the data
+These data are from: Gaeta J., G. Sass, S. Carpenter. 2012. Biocomplexity at North Temperate Lakes LTER: Coordinated Field Studies: Large Mouth Bass Growth 2006. Environmental Data Initiative.  [link](https://portal.edirepository.org/nis/mapbrowse?scope=knb-lter-ntl&identifier=267)  
+```{r}
+fish <- readr::read_csv("data/Gaeta_etal_CLC_data.csv")
+```
+
+## Data Structure
+Once data have been uploaded, let's get an idea of its structure, contents, and dimensions.  
+```{r}
+glimpse(fish)
+```
+
+```{r}
+str(fish)
+```
+
+```{r}
+summary(fish)
+```
+
+```{r}
+names(fish)
+```
+
+## Tidyverse
+The [tidyverse](www.tidyverse.org) is an "opinionated" collection of packages that make workflow in R easier. The packages operate more intuitively than base R commands and share a common organizational philosophy.  
+![*Data Science Workflow in the Tidyverse.*](tidy-1.png)  
+
+## dplyr
+The first package that we will use that is part of the tidyverse is `dplyr`. `dplyr` is used to transform data frames by extracting, rearranging, and summarizing data such that they are focused on a question of interest. This is very helpful,  especially when wrangling large data, and makes dplyr one of most frequently used packages in the tidyverse. The two functions we will use most are `select()` and `filter()`.  
+
+## `select()`
+Select allows you to pull out columns of interest from a dataframe. To do this, just add the names of the columns to the `select()` command. The order in which you add them, will determine the order in which they appear in the output.
+```{r}
+names(fish)
+```
+
+We are only interested in lakeid and scalelength.
+```{r}
+select(fish, "lakeid", "scalelength")
+```
+
+To add a range of columns use `start_col:end_col`.
+```{r}
+fish
+```
+
+```{r}
+select(fish, fish_id:length)
+```
+
+The - operator is useful in select. It allows us to select everything except the specified variables.
+```{r}
+select(fish, -fish_id, -annnumber, -length, -radii_length_mm)
+```
+
+For very large data frames with lots of variables, `select()` utilizes lots of different operators to make things easier. Let's say we are only interested in the variables that deal with length.
+
+```{r}
+names(fish)
+```
+
+```{r}
+select(fish, contains("length"))
+```
+
+When columns are sequentially named, `starts_with()` makes selecting columns easier.
+```{r}
+select(fish, starts_with("radii"))
+```
+
+Options to select columns based on a specific criteria include:  
+1. ends_with() = Select columns that end with a character string  
+2. contains() = Select columns that contain a character string  
+3. matches() = Select columns that match a regular expression  
+4. one_of() = Select columns names that are from a group of names  
+
+```{r}
+names(fish)
+```
+
+```{r}
+select(fish, ends_with("id"))
+```
+
+```{r}
+select(fish, contains("fish"))
+```
+
+We won't cover [regex](https://en.wikipedia.org/wiki/Regular_expression) in this class, but the following code is helpful when you know that a column contains a letter (in this case "a") followed by a subsequent string (in this case "er").  
+```{r}
+select(fish, matches("a.+er"))
+```
+
+You can also select columns based on the class of data.  
+```{r}
+glimpse(fish)
+```
+
+```{r}
+select_if(fish, is.numeric)
+```
+
+To select all columns that are *not* a class of data, you need to add a `~`.
+```{r}
+select_if(fish, ~!is.numeric(.))
+```
+
+## Practice  
+For this exercise we will use life history data for mammals. The [data](http://esapubs.org/archive/ecol/E084/093/) are from:  
+**S. K. Morgan Ernest. 2003. Life history characteristics of placental non-volant mammals. Ecology 84:3402.**  
+```{r}
+mammals <- readr::read_csv("data/mammal_lifehistories_v2.csv")
+```
+
+1. Use one or more of your favorite functions to assess the structure of the data.  
+```{r}
+
+```
+
+2. Are there any NAs? Are you sure? Try taking an average of `max. life` as a test.  
+```{r}
+
+```
+
+3. What are the names of the columns in the `mammals` data?
+```{r}
+
+```
+
+4. Rename any columns that have capitol letters or punctuation issues.  
+```{r}
+
+```
+
+5. We are only interested in the variables `genus`, `species`, and `mass`. Use `select()` to build a new dataframe `mass` focused on these variables.
+```{r}
+
+```
+
+6. What if we only wanted to exclude `order` and `family`? Use the `-` operator to make the code efficient.
+```{r}
+
+```
+
+7. Select the columns that include "mass" as part of the name.  
+```{r}
+
+```
+
+8. Select all of the columns that are of class `character`.  
+```{r}
+
+```
+
+## Other
+Here are two examples of code that are super helpful to have in your bag of tricks.  
+
+Imported data frames often have a mix of lower and uppercase column names. Use `toupper()` or `tolower()` to fix this issue. I always try to use lowercase to keep things consistent.  
+```{r}
+#mammals <- select_all(mammals, tolower)
+```
+
+When naming columns, blank spaces are often added (don't do this, please). Here is a trick to remove these.  
+```{r}
+#select_all(mammals, ~str_replace(., " ", "_"))
+```
+
+## That's it! Take a break and I will see you on Zoom!  
+
+-->[Home](https://jmledford3115.github.io/datascibiol/)  
