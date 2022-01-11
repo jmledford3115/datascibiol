@@ -111,7 +111,7 @@ hbirds
 ```
 
 ## Writing Data to File
-We should save our hbirds data frame so we can use it again later! There are many ways to save data in R, here we write our data frame to a csv file. We use  `row.names = FALSE` to avoid row numbers from printing out. 
+We should save our hbirds data frame so we can use it again later! There are many ways to save data in R, here we write our data frame to a csv file. We use `row.names = FALSE` to avoid row numbers from printing out. 
 ```{r}
 write.csv(hbirds, "hbirds_data.csv", row.names = FALSE)
 ```
