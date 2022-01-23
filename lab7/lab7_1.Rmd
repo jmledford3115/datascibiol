@@ -1,0 +1,229 @@
+---
+title: "Fun with NA's"
+date: "`r Sys.Date()`"
+output:
+  html_document:
+    theme: spacelab
+    toc: yes
+    toc_float: yes
+  pdf_document:
+    toc: yes
+---
+
+## Learning Goals
+*At the end of this exercise, you will be able to:*    
+1. Define `NA` and describe how they are treated in R.  
+2. Produce summaries of the number of NA's in a data set.   
+3. Replace values with `NA` in a data set as appropriate.  
+
+## Install the packages `naniar` and `visdat`
+We will use these in part 2 of today's lab.
+```{r}
+#install.packages("naniar")
+#install.packages("visdat")
+```
+
+## Load the libraries
+```{r}
+library("tidyverse")
+library("naniar")
+library("skimr")
+library("janitor")
+```
+
+## Dealing with NA's
+In almost all large data sets, there are missing observations. These can be tricky to deal with, partly because you first need to determine how missing values were treated in the original study. In a given data set, NA might represent values that are unrecorded because they are unknown or missing. But, they can also represent data that are not applicable.  
+
+Scientists use different conventions in showing missing data; some use blank spaces, others use "-", etc. Unfortunately, sometimes **missing data is indicated with numbers like -999.0 or zero!**, though this can be required in some situations (for example raster data). Often, a combination of methods are used. It is up to the data analyst to find out how missing values are represented in the data set and to deal with them appropriately. Remember, if missing data are represented by values then R will treat them as such and you could be misled.  
+
+## For the following examples, we will use the built-in `msleep` data
+```{r}
+?msleep
+```
+
+## Are there any NA's?  
+The `summary()` function in base R will tally NA's by variable, but only for categorical/factor, numeric, integer, or logical columns. What about any NA values in the character columns?
+```{r}
+summary(msleep)
+```
+
+Let's next check to see if our data has any NA's by evaluating everything logically. We have done this before, but this is a good time to review. `is.na()` is a function that determines whether a value in a data frame is or is not an NA. This is evaluated as TRUE or FALSE. This means that R is looking in the data for NA, not for any values that might represent NA. To R, an NA is an empty cell or spot in a vector.  
+
+Keep in mind, if the authors of the data represented NA's in another way, they will not be detected by R.  
+```{r}
+is.na(msleep)
+```
+
+We also learned...
+```{r}
+any_na(msleep)
+```
+
+What are we supposed to do with those? Unless you have a very small data frame, applying these functions is not helpful but we can use them in another way. Let's incorporate `is.na` into `summarize()`.
+```{r}
+msleep %>% 
+  summarize(number_nas = sum(is.na(msleep)))
+```
+
+This is better, but we still don't have any idea of where those NA's are in our data. With such limited information, it would be hard to determine if the issue was systemic or isolated to a single variable. In order to do this, we can apply `is.na()` to each variable of interest- which would be very slow!
+```{r}
+msleep %>% 
+  summarize(number_nas = sum(is.na(conservation)))
+```
+
+Here we summarize the number of NA's over all of the variables.
+```{r}
+msleep %>% 
+  summarise_all(~(sum(is.na(.))))
+```
+
+## NA's using `purr`
+What if we are working with hundreds or thousands of variables?! In order to deal with this problem efficiently we can use another package in the tidyverse called `purrr`. We will talk more about `purr` later, but for now let's have a look!
+
+This handy bit of code generates a new data frame that sums all NA's across variables. This does the same thing as above, but it is faster.  
+```{r}
+msleep %>%
+  purrr::map_df(~ sum(is.na(.))) #map to a new data frame the sum results of the is.na function for all columns
+```
+
+We can use `pivot_longer()` to make viewing this output easier. We are covering pivots next week.
+```{r}
+msleep %>% 
+  purrr::map_df(~ sum(is.na(.))) %>% 
+  pivot_longer(everything(),
+    names_to= "variables",
+    values_to = "num_nas") %>% 
+  arrange(desc(num_nas))
+```
+
+This is much better, but we need to be careful. R can have difficulty interpreting missing data. This is especially true for categorical variables. Always do a reality check if the output doesn't make sense to you. A quick check never hurts and can save you from wasting time in the future or from drawing false conclusions.  
+
+You can explore a specific variable using `count()`. Remember this works the same way as `group_by()` and `summarize()`.
+```{r}
+msleep %>% 
+  count(conservation)
+```
+
+Adding the `sort=TRUE` option automatically makes a descending list. We confirm that there are 29 NA's within the conservation variable.
+```{r}
+msleep %>% 
+  count(conservation, sort = TRUE)
+```
+
+It is true that all of this is redundant, but you want to be able to run multiple checks on the data. Remember, just because your code runs without errors doesn't mean it is doing what you intended.  
+
+## Practice  
+For this practice we will use amniote life history data from: Myhrvold N, Baldridge E, Chan B, Sivam D, Freeman DL, Ernest SKM (2015). “An amniote life-history database to perform comparative analyses with birds, mammals, and reptiles.” _Ecology_, *96*, 3109.
+doi: 10.1890/15-0846.1 (URL: https://doi.org/10.1890/15-0846.1).  
+
+1. Load the `amniota` data below and determine whether or not NA's are present. If they are present, how are they represented?
+```{r}
+amniota <- readr::read_csv("data/amniota.csv")
+```
+
+```{r}
+
+```
+
+2. Use one of the tools explained above to summarize NA's in the data.
+```{r}
+
+```
+
+
+3. What's going on here? Try using the `hist` function on one or more of the continuous variables.
+
+```{r}
+
+```
+
+4. Given that we know that the output of #2 is wrong, what do you think is the best approach for dealing with NA's in the `amniote` data?  
+
+
+## Replacing values with NA
+If you are certain that NA's are represented by a specific value in the data, the best way to deal with them is to replace the value with NA. This is similar to a find & replace function in excel. Although you can do this when you import the data, in most cases you will need to (and should!) do some exploration first.  
+
+_A note on excel:_ you may find yourself tempted to just open the .csv in excel and use find & replace. But, this isn't transparent; i.e. you are manipulating the data in a way that others can't see so this is not good practice in data science.   
+
+Let's say we know that NA's are represented by "-999" in `amniota`. We can replace this value with NA across the data frame. You might be tempted to overwrite `amniota`, but in these cases I like to make a new object.
+```{r}
+amniota_tidy <- amniota %>% 
+  na_if("-999")
+```
+
+Now let's run that function from problem #2 again to see how we did.
+```{r}
+amniota_tidy %>% 
+  summarise_all(~(sum(is.na(.))))
+```
+
+Wow, that is a lot of missing data! Let's try `purr`. For a large data set like `amniota` this is very convenient.
+```{r}
+amniota_tidy %>% 
+  purrr::map_df(~ sum(is.na(.))) %>% 
+  pivot_longer(everything(),
+    names_to= "variables",
+    values_to = "num_nas") %>% 
+  arrange(desc(num_nas))
+```
+
+## Replacing NAs with `na_if()` and `mutate()`
+On occasion, we may want to treat recorded data as NA. To do this, we need to use `na_if` and `mutate()`. Let's switch to the built-in `msleep` data to keep things clear.  
+
+```{r}
+names(msleep)
+```
+
+
+Let's say we want to treat "domesticated" as NA in the conservation column. First, how many NA's are present in the variable `conservation`?
+```{r}
+msleep %>% 
+  count(conservation, sort=T)
+```
+
+Now, let's change all instances of `domesticated` to NA.
+```{r}
+msleep %>%  
+  mutate(conservation_modified = na_if(conservation, "domesticated"))%>% 
+  count(conservation_modified, sort = T) #previously there were only 29 NA's
+```
+
+## Practice
+For the following examples, we will use the `life_history` data for mammals. The [data](http://esapubs.org/archive/ecol/E084/093/) are from:  
+**S. K. Morgan Ernest. 2003. Life history characteristics of placental non-volant mammals. Ecology 84:3402.**  
+
+1. Load the mammals life history data v2. Do you see any NA's?  
+```{r}
+
+```
+
+
+2. Explore the data using any method that you prefer. `skimr` provides a nice output with histograms for numeric variables.  
+```{r}
+
+```
+
+
+3. Replace the entries that represent NA's in the data using `na_if()`. Double check your work.
+```{r}
+
+```
+
+```{r}
+
+```
+
+```{r}
+
+```
+
+
+4. In which variable are the most NAs in the data frame?
+```{r}
+
+```
+
+
+## That's it! Take a break and I will see you on Zoom!  
+
+-->[Home](https://jmledford3115.github.io/datascibiol/)
