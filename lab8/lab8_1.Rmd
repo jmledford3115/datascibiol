@@ -66,7 +66,7 @@ heartrate
 
 Want to try the `here` package?
 ```{r}
-read_csv(here("data", "heartrate.csv"))
+read_csv(here("lab8", "data", "heartrate.csv"))
 ```
 
 Let's assess whether or not these data are tidy.  
