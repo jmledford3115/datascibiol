@@ -10,7 +10,7 @@
 
 
 
-<meta name="date" content="2022-02-01" />
+<meta name="date" content="2022-02-02" />
 
 <title>Tidyr 2: pivot_wider()</title>
 
@@ -241,7 +241,7 @@ div.tocify {
 
 
 <h1 class="title toc-ignore">Tidyr 2: <code>pivot_wider()</code></h1>
-<h4 class="date">2022-02-01</h4>
+<h4 class="date">2022-02-02</h4>
 
 </div>
 
@@ -255,7 +255,7 @@ div.tocify {
 </div>
 <div id="breakout-rooms" class="section level2">
 <h2>Breakout Rooms</h2>
-<p>Please take 5-8 minutes to check over your answers to HW 7 in your group. If you are stuck, please remember that you can check the key in <a href="https://github.com/jmledford3115/BIS15LW2021_jledford">Joel’s repository</a>.</p>
+<p>Please take 5-8 minutes to check over your answers to HW 7 in your group. If you are stuck, please remember that you can check the key in <a href="https://github.com/jmledford3115/BIS15LW2022_jledford">Joel’s repository</a>.</p>
 </div>
 <div id="midterm-1-review" class="section level2">
 <h2>Midterm 1 Review</h2>
@@ -320,9 +320,41 @@ expenditures</code></pre>
 <div id="practice" class="section level2">
 <h2>Practice</h2>
 <ol style="list-style-type: decimal">
-<li><p>Are these data tidy? Please use <code>pivot_longer()</code> to tidy the data.</p></li>
-<li><p>Restrict the data to medical and health expenditures only. Sort in ascending order.</p></li>
+<li>Are these data tidy? Please use <code>pivot_longer()</code> to tidy the data.</li>
 </ol>
+<pre class="r"><code>expenditures_long &lt;- expenditures %&gt;% 
+  pivot_longer(-expenditure,
+               names_to=&quot;year&quot;,
+               values_to=&quot;bn_dollars&quot;)
+expenditures_long</code></pre>
+<pre><code>## # A tibble: 25 × 3
+##    expenditure         year  bn_dollars
+##    &lt;chr&gt;               &lt;chr&gt;      &lt;dbl&gt;
+##  1 Food and Tobacco    1940        22.2
+##  2 Food and Tobacco    1945        44.5
+##  3 Food and Tobacco    1950        59.6
+##  4 Food and Tobacco    1955        73.2
+##  5 Food and Tobacco    1960        86.8
+##  6 Household Operation 1940        10.5
+##  7 Household Operation 1945        15.5
+##  8 Household Operation 1950        29  
+##  9 Household Operation 1955        36.5
+## 10 Household Operation 1960        46.2
+## # … with 15 more rows</code></pre>
+<ol start="2" style="list-style-type: decimal">
+<li>Restrict the data to medical and health expenditures only. Sort in ascending order.</li>
+</ol>
+<pre class="r"><code>expenditures_long %&gt;% 
+  filter(expenditure==&quot;Medical and Health&quot;) %&gt;% 
+  arrange(bn_dollars)</code></pre>
+<pre><code>## # A tibble: 5 × 3
+##   expenditure        year  bn_dollars
+##   &lt;chr&gt;              &lt;chr&gt;      &lt;dbl&gt;
+## 1 Medical and Health 1940        3.53
+## 2 Medical and Health 1945        5.76
+## 3 Medical and Health 1950        9.71
+## 4 Medical and Health 1955       14   
+## 5 Medical and Health 1960       21.1</code></pre>
 </div>
 <div id="separate" class="section level2">
 <h2><code>separate()</code></h2>
@@ -362,9 +394,50 @@ expenditures</code></pre>
 <div id="practice-1" class="section level2">
 <h2>Practice</h2>
 <ol style="list-style-type: decimal">
-<li><p>Re-examine <code>heartrate2</code>. Use <code>separate()</code> for the sexes, <code>pivot_longer()</code> to tidy, and <code>arrange()</code> to organize by patient and drug. Store this as a new object <code>heartrate3</code>.</p></li>
-<li><p><code>unite()</code> is the opposite of separate(). Its syntax is straightforward. You only need to give a new column name and then list the columns to combine with a separation character. Give it a try below by recombining patient and sex from <code>heartrate3</code>.</p></li>
+<li>Re-examine <code>heartrate2</code>. Use <code>separate()</code> for the sexes, <code>pivot_longer()</code> to tidy, and <code>arrange()</code> to organize by patient and drug. Store this as a new object <code>heartrate3</code>.</li>
 </ol>
+<pre class="r"><code>heartrate3 &lt;- 
+  heartrate2 %&gt;% 
+  separate(patient, into= c(&quot;patient&quot;, &quot;sex&quot;), sep = &quot;_&quot;) %&gt;% 
+  pivot_longer(-c(patient, sex),
+               names_to=&quot;drug&quot;,
+               values_to=&quot;heartrate&quot;
+               ) %&gt;% 
+  arrange(sex, drug, heartrate)
+heartrate3</code></pre>
+<pre><code>## # A tibble: 24 × 4
+##    patient  sex   drug  heartrate
+##    &lt;chr&gt;    &lt;chr&gt; &lt;chr&gt;     &lt;dbl&gt;
+##  1 Margaret f     a            72
+##  2 Margaret f     b            74
+##  3 Margaret f     c            80
+##  4 Margaret f     d            68
+##  5 Trapper  m     a            60
+##  6 Hawkeye  m     a            64
+##  7 Radar    m     a            74
+##  8 Frank    m     a            84
+##  9 Henry    m     a            88
+## 10 Trapper  m     b            58
+## # … with 14 more rows</code></pre>
+<ol start="2" style="list-style-type: decimal">
+<li><code>unite()</code> is the opposite of separate(). Its syntax is straightforward. You only need to give a new column name and then list the columns to combine with a separation character. Give it a try below by recombining patient and sex from <code>heartrate3</code>.</li>
+</ol>
+<pre class="r"><code>heartrate3 %&gt;% 
+  unite(patient_sex, &quot;patient&quot;, &quot;sex&quot;, sep=&quot;_&quot;)</code></pre>
+<pre><code>## # A tibble: 24 × 3
+##    patient_sex drug  heartrate
+##    &lt;chr&gt;       &lt;chr&gt;     &lt;dbl&gt;
+##  1 Margaret_f  a            72
+##  2 Margaret_f  b            74
+##  3 Margaret_f  c            80
+##  4 Margaret_f  d            68
+##  5 Trapper_m   a            60
+##  6 Hawkeye_m   a            64
+##  7 Radar_m     a            74
+##  8 Frank_m     a            84
+##  9 Henry_m     a            88
+## 10 Trapper_m   b            58
+## # … with 14 more rows</code></pre>
 </div>
 <div id="pivot_wider" class="section level2">
 <h2><code>pivot_wider()</code></h2>

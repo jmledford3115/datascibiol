@@ -17,7 +17,7 @@ output:
 3. Use the `pivot_wider()` function of `tidyr` to transform data from long to wide format.  
 
 ## Breakout Rooms  
-Please take 5-8 minutes to check over your answers to HW 7 in your group. If you are stuck, please remember that you can check the key in [Joel's repository](https://github.com/jmledford3115/BIS15LW2021_jledford).  
+Please take 5-8 minutes to check over your answers to HW 7 in your group. If you are stuck, please remember that you can check the key in [Joel's repository](https://github.com/jmledford3115/BIS15LW2022_jledford).  
 
 ## Midterm 1 Review
 Let's briefly review the questions from midterm 1 so you can get an idea of how I was thinking about the problems. Remember, there is more than one way to get at these answers, so don't worry if yours looks different than mine!  
