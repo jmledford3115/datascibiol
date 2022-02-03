@@ -77,11 +77,11 @@ ggplot(data=iris, mapping=aes(x=Species, y=Petal.Length))+geom_boxplot()
 ## Practice
 1. Use the iris data to build a scatterplot that compares sepal length vs. sepal width. Use the cheat sheet or help to find the correct `geom_` for a scatterplot.
 ```{r}
-
+names(iris)
 ```
 
 ```{r}
-
+ggplot(data=iris, mapping=aes(x=Sepal.Width, y=Sepal.Length))+geom_point()
 ```
 
 
@@ -99,11 +99,15 @@ homerange <- read_csv(here("lab9", "data", "Tamburelloetal_HomeRangeDatabase.csv
 ## Practice
 1. What is the structure of the `homerange` data? Does it have any NA's? Is it tidy? Do a quick exploratory analysis of your choice below.
 ```{r}
-
+names(homerange)
 ```
 
 ```{r}
+glimpse(homerange)
+```
 
+```{r}
+naniar::miss_var_summary(homerange)
 ```
 
 
@@ -129,17 +133,17 @@ To add a regression (best of fit) line, we just add another layer.
 ```{r}
 ggplot(data=homerange, mapping=aes(x=log10.mass, y=log10.hra)) +
   geom_point()+
-  geom_smooth(method=lm, se=T) #adds the regression line, `se=TRUE` will add standard error
+  geom_smooth(method=lm, se=F) #adds the regression line, `se=TRUE` will add standard error
 ```
 
 ### Practice
 1. What is the relationship between log10.hra and log10.preymass? What do you notice about how ggplot treats NA's?
 ```{r}
-
+names(homerange)
 ```
 
 ```{r}
-
+ggplot(data=homerange, mapping=aes(x=log10.hra, y=log10.preymass))+geom_point(na.rm=T)
 ```
 
 ### Bar Plot: `geom_bar()`
@@ -165,7 +169,8 @@ homerange %>%
 Unlike `geom_bar()`, `geom_col()` allows us to specify an x-axis and a y-axis.
 ```{r}
 homerange %>% 
-  filter(family=="salmonidae") %>% 
+  filter(family=="salmonidae") %>%
+  select(common.name, log10.mass) %>% 
   ggplot(aes(x=common.name, y=log10.mass))+
   geom_col()
 ```
@@ -191,43 +196,33 @@ homerange %>%
 ## Practice
 1. Filter the `homerange` data to include `mammals` only.
 ```{r}
-
+mammals <- homerange %>% 
+  filter(class=="mammalia")
 ```
 
 ```{r}
-
+glimpse(mammals)
 ```
-
-```{r}
-
-```
-
 
 2. Are there more herbivores or carnivores in mammals? Make a bar plot that shows their relative numbers.
 ```{r}
-
+mammals_guild <- mammals %>% count(trophic.guild)
+mammals_guild
 ```
 
 ```{r}
-
+mammals_guild %>% 
+  ggplot(aes(x=trophic.guild, y=n))+
+  geom_col()
 ```
-
 
 3. Make a bar plot that shows the masses of the top 10 smallest mammals.
 ```{r}
-
-```
-
-```{r}
-
-```
-
-```{r}
-
-```
-
-```{r}
-
+mammals %>% 
+  top_n(-5, log10.mass) %>% 
+  ggplot(aes(x=common.name, y=log10.mass))+
+  geom_bar(stat="identity")+
+  coord_flip()
 ```
 
 ## That's it, let's take a break!   
