@@ -40,17 +40,28 @@ Let's review using the `penguins` data. First, get an idea of the structure: Are
 penguins
 ```
 
-In a previous lab, we asked how many penguins are on each island.
+In a previous lab, we asked how many penguins were measured on each island.
 ```{r}
-penguins %>% count(island, species, sort = F)
+penguins %>% count(island)
 ```
 
-What if we wanted a plot that showed the number of measured penguins per species and the number of measured penguins per island?
 ```{r}
 penguins %>% 
-  group_by(island) %>% 
-  ggplot(aes(x=species))+
-  geom_bar()
+  count(island, species, sort = F) %>% 
+  ggplot(aes(x=island, y=n))+
+  geom_col()
+```
+
+What if we wanted a plot that showed the number of measured penguins for each species?
+```{r}
+penguins %>% count(species)
+```
+
+```{r}
+penguins %>% 
+  count(species) %>% 
+  ggplot(aes(x=species, y=n))+
+  geom_col()
 ```
 
 How about average bill length by sex?
