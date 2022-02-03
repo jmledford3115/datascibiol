@@ -24,7 +24,7 @@ output:
 ## Overview
 The quote above sums up much of the work in data science. Simply put, most of the data that you end up working with will be messy, disorganized, and not **tidy**. By the end of this week, you will have the tools necessary to wrangle messy data into tidy data that are ready for analysis. I know that we have spent a lot of time of data transformation, but this last step is essential to building plots and performing other analyses.  
 
-## Resources
+## Resources  
 - [tidyr `pivot_longer()`](https://tidyr.tidyverse.org/reference/pivot_longer.html)  
 - [pivoting](https://cran.r-project.org/web/packages/tidyr/vignettes/pivot.html)  
 

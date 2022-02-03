@@ -18,10 +18,10 @@ output:
 ## Breakout Rooms  
 Please take 5-8 minutes to check over your answers to HW 8 in your group. If you are stuck, please remember that you can check the key in [Joel's repository](https://github.com/jmledford3115/BIS15LW2022_jledford).  
 
-##Resources
-- [ggplot2 cheatsheet](https://www.rstudio.com/wp-content/uploads/2015/03/ggplot2-cheatsheet.pdf)
-- [`ggplot` themes](https://ggplot2.tidyverse.org/reference/ggtheme.html)
-- [Rebecca Barter `ggplot` Tutorial](http://www.rebeccabarter.com/blog/2017-11-17-ggplot2_tutorial/)
+##Resources  
+- [ggplot2 cheatsheet](https://www.rstudio.com/wp-content/uploads/2015/03/ggplot2-cheatsheet.pdf)  
+- [`ggplot` themes](https://ggplot2.tidyverse.org/reference/ggtheme.html)  
+- [Rebecca Barter `ggplot` Tutorial](http://www.rebeccabarter.com/blog/2017-11-17-ggplot2_tutorial/)  
 
 ## Load the libraries
 ```{r message=FALSE, warning=FALSE}
