@@ -1,0 +1,173 @@
+---
+title: "Data Visualization: `ggplot` part 2"
+output:
+  html_document:
+    theme: spacelab
+    toc: yes
+    toc_float: yes
+  pdf_document:
+    toc: yes
+---
+
+## Learning Goals
+*At the end of this exercise, you will be able to:*    
+1. Build stacked bar plots of categorical variables.  
+2. Build side-by-side barplots using `position= "dodge"`.  
+3. Build histograms and density plots.  
+4. Create new categories with `case_when()`.  
+
+## Group project  
+As you prepare to meet in groups today and think about the kind of data and project you want to pursue, consider these suggestions.  
+1. You are free to use whatever data you want, but it should be reasonably sized and not too messy.  
+2. It should have a mix of categorical and continuous variables.  
+3. Know your audience- don't be too hip for the room.  
+4. Be polite.  
+
+## Meet your group
+Please take 10 minutes to meet your partner(s) for the class project. Here is what you need to do:  
+1. Introduce yourself and exchange contact information.  
+2. Think about the kind of data and questions you would like to pursue.  
+3. Browse around on the internet a little to see what is available- are your questions reasonable?    
+4. Make a plan to collect at least two different sources of data to compare on Thursday.  
+
+## Resources
+- [ggplot2 cheatsheet](https://www.rstudio.com/wp-content/uploads/2015/03/ggplot2-cheatsheet.pdf)
+
+## Load the libraries
+```{r message=FALSE, warning=FALSE}
+library(tidyverse)
+library(here)
+library(janitor)
+library(palmerpenguins)
+```
+
+```{r}
+options(scipen=999) #cancels the use of scientific notation for the session
+```
+
+## Data
+**Database of vertebrate home range sizes.**  
+Reference: Tamburello N, Cote IM, Dulvy NK (2015) Energy and the scaling of animal space use. The American Naturalist 186(2):196-211. http://dx.doi.org/10.1086/682070.  
+Data: http://datadryad.org/resource/doi:10.5061/dryad.q5j65/1  
+```{r}
+homerange <- read_csv(here("lab10", "data", "Tamburelloetal_HomeRangeDatabase.csv"), na = c("", "NA", "\\"))
+```
+
+## A few more useful aesthetics
+There are many options to create nice plots in ggplot. One useful trick is to store the plot as a new object and then experiment with geom's and aesthetics.
+```{r}
+p <- homerange %>% 
+  ggplot(aes(x= log10.mass, y= log10.hra))
+```
+
+Play with point size.
+```{r}
+p +geom_point(size=1)
+```
+
+Map shapes to another categorical variable.
+```{r}
+p+geom_point(aes(shape=thermoregulation, color=thermoregulation), size=1.75)
+```
+
+## Barplots and multiple variables
+At this point you should be comfortable building bar plots that shows counts of observations using `geom_bar()`. Last time we explored the `fill` option in box plots as a way to bring color to the plot; i.e. we filled by the same variable that we were plotting. What happens when we fill by a different categorical variable?  
+
+Let's start by counting how many observations we have in each taxonomic group.
+```{r}
+homerange %>% count(taxon)
+```
+
+Now let's make a bar plot of these data.
+```{r}
+homerange %>% 
+  ggplot(aes(x = taxon)) + geom_bar() +
+  coord_flip() +
+  labs(title = "Observations by Taxon in Homerange Data",
+       x = "Taxonomic Group")
+```
+
+By specifying `fill=trophic.guild` we build a stacked bar plot that shows the proportion of a given taxonomic group that is an herbivore or carnivore.
+```{r}
+homerange %>% 
+  ggplot(aes(x = taxon, fill = trophic.guild)) + geom_bar() +
+  coord_flip() +
+  labs(title = "Observations by Taxon in Homerange Data",
+       x = "Taxonomic Group",
+       fill = "Trophic Guild")
+```
+
+We can also have counts of each trophic guild within taxonomic group shown side-by-side by specifying `position="dodge"`.
+```{r}
+homerange %>% 
+  ggplot(aes(x = taxon, fill = trophic.guild)) + geom_bar(position = "dodge") +
+  coord_flip() +
+  labs(title = "Observations by Taxon in Homerange Data",
+       x = "Taxonomic Group",
+       fill = "Trophic Guild")
+```
+
+Here is the same plot oriented vertically.
+```{r}
+homerange %>% 
+  ggplot(aes(x = taxon, fill = trophic.guild)) +
+  geom_bar(position = "dodge") +
+  theme(axis.text.x = element_text(angle = 60, hjust = 1)) +
+  labs(title = "Observations by Taxon in Homerange Data",
+       x = "Taxonomic Group",
+       fill= "Trophic Guild")
+```
+
+We can also scale all bars to a percentage (or proportion).
+```{r}
+homerange %>% 
+  ggplot(aes(x = taxon, fill = trophic.guild))+
+  geom_bar(position = position_fill())+ 
+  scale_y_continuous(labels = scales::percent)+
+  coord_flip()
+```
+
+## Practice
+For this practice, let's use the [palmerpenguins](https://allisonhorst.github.io/palmerpenguins/articles/intro.html) data.  
+
+1. Make a bar plot that shows counts of individuals by island. Fill by species, and try both a stacked bar plot and `position="dodge"`.
+```{r}
+
+```
+
+```{r}
+
+```
+
+2. What are the number of individuals separated by sex on each island?
+```{r}
+
+```
+
+## Using `group`
+In addition to `fill`, `group` is an aesthetic that accomplishes the same function but does not add color.
+
+Here is a box plot that shows `log10.mass` by taxonomic `class.`
+```{r}
+homerange %>% 
+  ggplot(aes(x = class, y = log10.mass)) +
+  geom_boxplot()
+```
+
+I use `group` to make individual box plots for each taxon.
+```{r}
+homerange %>% 
+  ggplot(aes(x = class, y = log10.mass, group = taxon)) +
+  geom_boxplot()
+```
+
+I can also use `fill` to associate the different taxa with a color coded key.
+```{r}
+homerange %>% 
+  ggplot(aes(x = class, y = log10.mass, fill = taxon)) +
+  geom_boxplot()
+```
+
+## That's it, let's take a break!   
+
+-->[Home](https://jmledford3115.github.io/datascibiol/)
