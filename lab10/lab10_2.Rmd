@@ -62,7 +62,7 @@ p <- homerange %>%
 
 Play with point size.
 ```{r}
-p +geom_point(size=1)
+p +geom_point(size=2)
 ```
 
 Map shapes to another categorical variable.
