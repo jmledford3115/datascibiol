@@ -1,0 +1,208 @@
+---
+title: "Data Visualization: `ggplot` part 3"
+output:
+  html_document:
+    theme: spacelab
+    toc: yes
+    toc_float: yes
+  pdf_document:
+    toc: yes
+---
+
+## Learning Goals
+*At the end of this exercise, you will be able to:*    
+1. Build histograms and density plots.
+2. Adjust colors using R's built-in color options.  
+3. Create new categories with `case_when()` and use those categories to build plots.  
+4. Build line plots.  
+
+## Group project  
+Please make sure that you have 1-2 data sets to share with your group member during part 2 of today's lab. You need to decide which of the data sets you will use for your project.  
+
+## Resources
+- [ggplot2 cheatsheet](https://www.rstudio.com/wp-content/uploads/2015/03/ggplot2-cheatsheet.pdf)
+- [R for Data Science](https://r4ds.had.co.nz/)
+- [R Cookbook](http://www.cookbook-r.com/)
+- [`ggplot` themes](https://ggplot2.tidyverse.org/reference/ggtheme.html)
+- [Rebecca Barter `ggplot` Tutorial](http://www.rebeccabarter.com/blog/2017-11-17-ggplot2_tutorial/)
+- [R Color Brewer](http://colorbrewer2.org/#type=sequential&scheme=BuGn&n=3)
+
+## Install `RColorBrewer`, `paletteer`, and `ggthemes`
+`RColorBrewer` and `paletteer` are helpful in selecting palettes of color that work with your data. Please install these now, we will work with them in part 2 of today's lab.
+```{r, eval=FALSE, echo=TRUE}
+#install.packages("RColorBrewer")
+#install.packages("paletteer")
+#install.packages("ggthemes")
+```
+
+## Load the libraries
+```{r message=FALSE, warning=FALSE}
+library(tidyverse)
+library(RColorBrewer)
+library(paletteer)
+library(janitor)
+library(here)
+```
+
+```{r}
+options(scipen=999) #cancels the use of scientific notation for the session
+```
+
+## Data
+For this tutorial, we will use two data sets.  
+
+[Desert ecology](http://esapubs.org/archive/ecol/E090/118/). The data are from: S. K. Morgan Ernest, Thomas J. Valone, and James H. Brown. 2009. Long-term monitoring and experimental manipulation of a Chihuahuan Desert ecosystem near Portal, Arizona, USA. Ecology 90:1708.  
+```{r message=FALSE, warning=FALSE}
+deserts <- read_csv(here("lab11", "data", "surveys_complete.csv"))
+```
+
+[Homerange](http://datadryad.org/resource/doi:10.5061/dryad.q5j65/1). The data are from: Tamburello N, Cote IM, Dulvy NK (2015) Energy and the scaling of animal space use. The American Naturalist 186(2):196-211. http://dx.doi.org/10.1086/682070.  
+```{r message=FALSE, warning=FALSE}
+homerange <- read_csv(here("lab11", "data", "Tamburelloetal_HomeRangeDatabase.csv"))
+```
+
+## Line plots
+Line plots are great when you need to show changes over time. Here we look at the number of samples for species DM and DS over the years represented in the data.  
+```{r}
+deserts %>% 
+  filter(species_id=="DM" | species_id=="DS") %>% 
+  group_by(year, species_id) %>% 
+  summarise(n=n())
+```
+
+```{r}
+deserts$year <- as.factor(deserts$year)
+```
+
+```{r}
+glimpse(deserts)
+```
+
+```{r}
+deserts %>% 
+  filter(species_id=="DM" | species_id=="DS") %>% 
+  group_by(year, species_id) %>% 
+  summarise(n=n()) %>% 
+  ggplot(aes(x=year, y=n, group=species_id, color=species_id))+
+  geom_line()+
+  geom_point(shape=2)+
+  theme(axis.text.x = element_text(angle = 60, hjust = 1))+
+  labs(title = "Number of samples for species DM",
+       x = "Year",
+       fill = "n")
+```
+
+## Histograms
+Histograms are frequently used by biologists; they show the distribution of continuous variables. As students, you almost certainly have seen histograms of grade distributions. Without getting into the statistics, a histogram `bins` the data and you specify the number of bins that encompass a range of observations. For something like grades, this is easy because the number of bins corresponds to the grades A-F. By default, R uses a formula to calculate the number of bins but some adjustment is often required.  
+
+What does the distribution of body mass look like in the `homerange` data?
+```{r}
+homerange %>% 
+  ggplot(aes(x = log10.mass)) +
+  geom_histogram(alpha = 0.4, color = "black", fill = "deepskyblue4", bins=40)+
+  labs(title = "Distribution of Body Mass")
+```
+
+Let's play with the colors. This shows all 657 of R's built-in colors. Notice that `color` and `fill` do different things!
+```{r}
+grDevices::colors()
+```
+
+## Density plots  
+Density plots are similar to histograms but they use a smoothing function to make the distribution more even and clean looking. They do not use bins.
+```{r}
+homerange %>% 
+  ggplot(aes(x = log10.mass)) +
+  geom_density(fill="deepskyblue4", alpha  =0.4, color = "black")+
+  labs(title = "Distribution of Body Mass")
+```
+
+I like to see both the histogram and the density curve so I often plot them together. Note that I assign the density plot a different color.
+```{r message=FALSE}
+homerange %>% 
+  ggplot(aes(x=log10.mass)) +
+  geom_histogram(aes(y = ..density..), fill = "deepskyblue4", alpha = 0.4, color = "black")+
+  geom_density(color = "red")+
+  labs(title = "Distribution of Body Mass")
+```
+
+## Practice
+1. Make a histogram of `log10.hra`. Make sure to add a title.
+```{r}
+
+```
+
+2. Now plot the same variable using `geom_density()`.
+```{r}
+
+```
+
+3. Combine them both!
+```{r}
+
+```
+
+## Create Categories with mutate and case_when()
+`case_when()` is a very handy function from `dplyr` which allows us to calculate a new variable from other variables. We use `case_when()` within `mutate()` to do this.`case_when()` allows us to specify multiple conditions. Let's reclassify the body mass variable into a new factor variable with small, medium, and large animals. 
+```{r}
+glimpse(homerange)
+```
+
+```{r}
+homerange %>% 
+  select(log10.mass) %>% 
+  summarise(min=min(log10.mass),
+            max=max(log10.mass))
+```
+
+```{r}
+summary(homerange$log10.mass)
+```
+
+```{r}
+homerange <- homerange %>% 
+             mutate(mass_category = case_when(log10.mass <= 1.75 ~ "small",
+                                              log10.mass > 1.75 & log10.mass <= 2.75 ~ "medium",
+                                              log10.mass > 2.75 ~ "large"))
+```
+
+```{r}
+glimpse(homerange)
+```
+
+
+Here we check how the newly created body mass categories compare across `trophic.guild`. 
+```{r}
+homerange %>% 
+  ggplot(aes(x = mass_category, fill = trophic.guild)) +
+  geom_bar(position="dodge")
+  labs(title = "Observations by Taxon and Mass Category in Homerange Data",
+       x = "Mass Category",
+       fill = "Trophic Guild")
+```
+
+## Practice
+1. Use case_when() to make a new column `range_category` that breaks down `log10.hra` into very small, small, medium, and large classes based on quartile.
+```{r}
+summary(homerange$log10.hra)
+```
+
+```{r}
+library(gtools)
+quartiles <- quantcut(homerange$log10.hra)
+table(quartiles)
+```
+
+2. How many and which taxonomic classes are represented in each of the `range_category` classes?
+```{r}
+
+```
+
+3. Isolate the small `range_category` and plot the range of `log10.mass` by taxonomic class.
+```{r}
+
+```
+
+## That's it! Take a break and I will see you on Zoom!  
+
+-->[Home](https://jmledford3115.github.io/datascibiol/)
