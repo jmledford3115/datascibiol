@@ -182,7 +182,11 @@ Here we import the data and clean the names. Because these data have a header, t
 ecosphere <- read_csv("data/ecs21351-sup-0003-SupplementS1.csv", skip=2, col_names = T) %>% 
   clean_names() %>% 
   separate(scientific_name, into = c("genus", "species"), sep=" ") %>% 
-  na.omit()
+  na.omit() # remove NA's for now
+```
+
+```{r}
+names(ecosphere)
 ```
 
 What if we were interested in a comparison of diet and mass, i.e. how does the range of masses compare by different diet types?  
@@ -206,7 +210,7 @@ The problem is that the plot becomes very busy. It is hard to interpret with eac
 ecosphere %>% 
   ggplot(aes(x=diet, y=log10_mass, fill=migratory_strategy))+ 
   geom_boxplot(alpha=0.4) + 
-  facet_wrap(~migratory_strategy, ncol=3)+
+  facet_wrap(~migratory_strategy, ncol=4)+
   theme(axis.text.x = element_text(angle = 60, hjust = 1))+
   labs(title = "Mass by Diet and Migratory Strategy",
        x = NULL,
@@ -214,7 +218,20 @@ ecosphere %>%
        fill = "Migratory Strategy")
 ```
 
-`facet_grid()` allows control over the faceted variable; it can be arranged in rows or columns.
+`facet_grid()` allows control over the faceted variable; it can be arranged in rows or columns.  
+rows~columns
+```{r}
+ecosphere %>% 
+  ggplot(aes(x=diet, y=log10_mass, fill=migratory_strategy))+ 
+  geom_boxplot(alpha=0.4)+ 
+  facet_grid(migratory_strategy~.)+
+  theme(axis.text.x = element_text(angle = 60, hjust = 1))+
+  labs(title = "Mass by Diet and Migratory Strategy",
+       x = NULL,
+       y = "Log 10 Mass",
+       fill = "Migratory Strategy")
+```
+
 ```{r}
 ecosphere %>% 
   ggplot(aes(x=diet, y=log10_mass, fill=migratory_strategy))+ 
