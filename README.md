@@ -34,6 +34,7 @@ Each lab is listed below along with the associated homework. New labs will be ad
 
 ## Midterms
 1. **Midterm 1** | [exam link](https://jmledford3115.github.io/datascibiol/midterm1/midterm_1.html)  
+2. **Midterm 2** | [exam link](https://jmledford3115.github.io/datascibiol/midterm2/midterm_2.html) 
 
 ## Reading  
 [R for Data Science](https://r4ds.had.co.nz/), Grolemund and Wickham (2017).  
