@@ -33,7 +33,7 @@ library(janitor)
 library(lubridate)
 ```
 
-Now we can list all of the files in a directory. This isvery helpful when you are working with multiple files at once.
+Now we can list all of the files in a directory. This is very helpful when you are working with multiple files at once.
 ```{r}
 files <- list.files(path = "data/spiders", pattern = ".csv")
 files
@@ -58,7 +58,7 @@ class(spider_list[[3]])
 ```
 
 ## Practice
-1. What are the names of our list elements?
+1. Getting an idea of the structure of lists is a bit tricky, especially when there are many elements. Try exploring the elements in `spider_list` using names(), str(), or glimpse(). For names(), you will need to specify an element using [[]].  
 ```{r}
 
 ```
@@ -67,6 +67,10 @@ class(spider_list[[3]])
 We don't need to here, but for demonstration purposes we can name the elements in our list. We will first get the names of each file, but we only want the county part. We will use `strsplit()` for that, which creates a nested list of strings. We want to keep the first element of each list element. Because there is only one element in each nested list element, we can use `unlist()`.
 ```{r}
 names <- list.files(path = "data/spiders", pattern = ".csv")
+names
+```
+
+```{r}
 names_list <- strsplit(names, split = " .csv")
 names_list
 ```
@@ -84,11 +88,11 @@ names(spider_list)
 ## Practice
 1. Now that our list elements are named, how could we access the Butte County data by name?
 ```{r}
-spider_list$Butte
+
 ```
 
 ## Merging Files
-We are fortunate here in that all of our data frames have the same column names. This makes it easy to merge the data together with `bind_rows()` from`dplyr`. `bind_rows()` matches columns by name.
+We are fortunate here in that all of our data frames have the same column names. This makes it easy to merge the data together with `bind_rows()` from `dplyr`. `bind_rows()` matches columns by name.
 ```{r}
 spiders_all <- bind_rows(spider_list)
 spiders_all
@@ -101,6 +105,14 @@ Let's assume we have a database of customers and their purchases.
 ```{r}
 table_A <- read_csv(here("lab12", "data", "table_A.csv"))
 table_B <- read_csv(here("lab12", "data", "table_B.csv"))
+```
+
+```{r}
+names(table_A)
+```
+
+```{r}
+names(table_B)
 ```
 
 The general syntax for joins is...
@@ -148,6 +160,7 @@ Provides the rows in the first table for which there are not matching values in 
 anti_exampleDF <- anti_join(table_A, table_B, by="customer_ID")
 anti_exampleDF
 ```
+
 ## Joining the spider data
 Here, the latitude and longitude for each spider were recorded from the field records at a later date, and now we need to join it to our `spiders_all` data frame. The lat/long were recorded into one single file for each observation. Let's read in the lat/long data.
 ```{r, message = FALSE}
@@ -160,8 +173,7 @@ We will use a join here to merge lat/long to our data frame. Both files contain 
 ## Practice
 1. Which type of join is most appropriate in this case?  
 ```{r}
-spiders_with_locs <- left_join(spiders_all, spiders_locs, by = c("Accession"))
-summary(spiders_with_locs)
+
 ```
 
 As a side note, joining data can highlight problems or typos with the data when the join does not go as expected.  
@@ -171,12 +183,15 @@ We now have a single data frame with all of our spider data including locations.
 
 There is one last thing to change. Did you notice the date column? It seems to be in the format Day/Month/Year. 
 ```{r}
-class(spiders_with_locs$Date)
+#class(spiders_with_locs$Date)
 ```
 
 The `lubridate` package was specifically created to deal with dates of all types. There are many useful functions in `lubridate` for working with dates. Please see the excellent tutorial provided by [RichardOnData](https://www.youtube.com/watch?v=VYAo69WdJZg&ab_channel=RichardOnData).
 ```{r}
 day <- today()
+```
+
+```{r}
 str(day)
 ```
 
@@ -187,12 +202,12 @@ datetime
 
 We want to change our date column to the standard "YEAR-MO-DA" format that R will recognize as a date. Right now it is listed as day-month-year. We can use the base R function `as.Date()` or the lubridate function `dmy` for this. 
 ```{r}
-dmy(spiders_with_locs$Date)
+#dmy(spiders_with_locs$Date)
 ```
 
 If you want to use base R, then here is the format.
 ```{r}
-as.Date(spiders_with_locs$Date, format = "%d/%m/%y")
+#as.Date(spiders_with_locs$Date, format = "%d/%m/%y")
 ```
 `
 There are many different options for working with dates and datetimes in lubridate including `ymd`, `mdy`, `dmy`, `mdy_hms`, `ymd_hms`.
@@ -206,27 +221,9 @@ dateformat5 <- "20200922 170000"
 
 ## Practice 
 1. Convert each of the examples above using lubridate.
-```{r}
 
-```
 
-```{r}
-
-```
-
-```{r}
-
-```
-
-```{r}
-
-```
-
-```{r}
-
-```
-
-Have a look at these options.
+2. Have a look at these options.
 ```{r}
 year(datetime)
 month(datetime)
@@ -240,7 +237,7 @@ wday(datetime, label=T)
 ## Export for part 2  
 We need to save our final data to a `.csv` so we can use it in part 2. 
 ```{r}
-write.csv(spiders_with_locs, file = "spiders_with_locs.csv", row.names = FALSE)
+#write.csv(spiders_with_locs, file = "spiders_with_locs.csv", row.names = FALSE)
 ```
 
 ## Installs for part 2  
@@ -252,9 +249,10 @@ It will be very helpful if you can install the following packages before the nex
 #devtools::install_github("dkahle/ggmap")
 ```
 
-`rgeos`, `rgdal`, and `albersusa`
+`remotes` and `albersusa`
 ```{r, message = FALSE}
-#install.packages("albersusa")
+#install.packages("remotes")
+#remotes::install_github("hrbrmstr/albersusa")
 ```
 
 ## That's it! Take a break and I will see you on Zoom!  

@@ -31,7 +31,8 @@ If you completed part 1 of today's lab then you should have the following packag
 
 `albersusa`
 ```{r, message = FALSE}
-#install.packages("albersusa")
+#install.packages("remotes")
+#remotes::install_github("hrbrmstr/albersusa")
 ```
 
 ## Load the libraries
@@ -90,16 +91,9 @@ ggmap(map1) +
 
 ## Practice
 1. Map the spider locations with a different type of base map. Try to adjust the map using different aesthetics including `size`, `color`, and `alpha`.
-```{r}
-
-```
-
-```{r}
-
-```
 
 ## Albers USA
-The Albers USA [package](https://github.com/hrbrmstr/albersusa) is a very fast way to produce clean maps that include nice overlays of counties across the US. I haven't explored it fully, but here are some nice examples.
+The Albers USA [package](https://github.com/hrbrmstr/albersusa) is a very fast way to produce clean maps that include nice overlays of counties across the US.
 ```{r}
 library(albersusa)
 ```
@@ -153,7 +147,7 @@ We can spice things up a bit by adding aesthetics.
 ggplot() +
   geom_sf(data = ca_comp, size = 0.125)+
   geom_sf(data = ca_cnty_comp, size = 0.125)+
-  geom_point(data = spiders, aes(longitude, latitude))+
+  geom_point(data = spiders, aes(longitude, latitude), size=0.8)+
   labs(x = "Figure 1: Distribution of Usofila spiders")+
   theme_minimal() +
   theme(axis.text = element_blank()) +
@@ -161,20 +155,15 @@ ggplot() +
   theme(axis.title.y = element_blank()) +
   theme(panel.grid = element_blank()) +
   theme(legend.position = c(0.9, 0.3)) -> uso_map
-
-ggsave(filename = "map.svg", device = "svg", plot = uso_map, height = 5, width = 7)
+uso_map
 ```
 
 ## Practice
 1. Make a new column that labels each specimen as occurring in a cave or on the surface. The word "Cave" is part of the locality information.
-```{r}
 
-```
 
 2. Now adjust the plot above to give a different color for specimens that occur in caves.
-```{r}
 
-```
 
 ## That's it, let's take a break!   
 
