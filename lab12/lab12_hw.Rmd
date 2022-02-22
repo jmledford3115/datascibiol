@@ -23,8 +23,11 @@ library(tidyverse)
 library(janitor)
 library(here)
 library(ggmap)
-library(albersusa)
 ``` 
+
+```{r}
+library(albersusa)
+```
 
 ## Load the Data
 We will use two separate data sets for this homework.  
@@ -33,74 +36,26 @@ We will use two separate data sets for this homework.
 2. The second data set is from Brandell, Ellen E (2021), Serological dataset and R code for: Patterns and processes of pathogen exposure in gray wolves across North America, Dryad, [Dataset](https://doi.org/10.5061/dryad.5hqbzkh51).  
 
 1. Load the `grizzly` data and evaluate its structure. As part of this step, produce a summary that provides the range of latitude and longitude so you can build an appropriate bounding box.
-```{r}
-
-```
-
-```{r}
-
-```
 
 2. Use the range of the latitude and longitude to build an appropriate bounding box for your map.
-```{r}
-
-```
 
 3. Load a map from `stamen` in a terrain style projection and display the map.
-```{r}
-
-```
-
-```{r}
-
-```
 
 4. Build a final map that overlays the recorded observations of grizzly bears in Alaska.
-```{r}
 
-```
+Let's switch to the wolves data. Brandell, Ellen E (2021), Serological dataset and R code for: Patterns and processes of pathogen exposure in gray wolves across North America, Dryad, [Dataset](https://doi.org/10.5061/dryad.5hqbzkh51).  
 
-5. Let's switch to the wolves data. Load the data and evaluate its structure.
-```{r}
-
-```
+5. Load the data and evaluate its structure.  
 
 6. How many distinct wolf populations are included in this study? Mae a new object that restricts the data to the wolf populations in the lower 48 US states.
-```{r}
 
-```
+7. Use the range of the latitude and longitude to build an appropriate bounding box for your map.
 
-```{r}
+8.  Load a map from `stamen` in a `terrain-lines` projection and display the map.
 
-```
+9. Build a final map that overlays the recorded observations of wolves in the lower 48 states.
 
-7. Use the `albersusa` package to make a base map of the lower 48 US states.
-```{r}
-
-```
-
-```{r}
-
-```
-
-```{r}
-
-```
-
-8. Use the relimited data to plot the distribution of wolf populations in the lower 48 US states.
-```{r}
-
-```
-
-9. What is the average pack size for the wolves in this study by region?
-```{r}
-
-```
-
-10. Make a new map that shows the distribution of wolves in the lower 48 US states but which has the size of location markers adjusted by pack size.
-```{r}
-
-```
+10. Use the map from #9 above, but add some aesthetics. Try to `fill` and `color` by population.
 
 ## Push your final code to GitHub!
 Please be sure that you check the `keep md` file in the knit preferences. 

@@ -249,12 +249,6 @@ It will be very helpful if you can install the following packages before the nex
 #devtools::install_github("dkahle/ggmap")
 ```
 
-`remotes` and `albersusa`
-```{r, message = FALSE}
-#install.packages("remotes")
-#remotes::install_github("hrbrmstr/albersusa")
-```
-
 ## That's it! Take a break and I will see you on Zoom!  
 
 -->[Home](https://jmledford3115.github.io/datascibiol/)
