@@ -50,14 +50,6 @@ A shiny app consists of a user interface (ui) function, server function, and run
 3. The `run` function combines the ui and server function to run the app.  
 
 Below is a bare bones shiny app. You can get this code snippet by typing `shinyapp`. It doesn't do anything because we haven't created any inputs with the ui or any outputs with the server. Copy and paste the code or get it by typing `shinyapp`, and hit shift+tab.  
-```{r, eval=F, echo=T}
-ui <- fluidPage()
-
-server <- function(input, output) {}
-
-shinyApp(ui, server)
-```
-
 ```{r}
 library(shiny)
 
@@ -75,7 +67,9 @@ shinyApp(ui, server)
 For the rest of the lab we will work on building an example app using `palmerpenguins`.  
 
 ## Shiny Inputs
-There are many types of inputs in shiny, see the [shiny cheat sheet](https://shiny.rstudio.com/images/shiny-cheatsheet.pdf). Our example app uses `selectInput()`, which takes a set of predefined choices and supplies them to the user. We are working with the `palmerpenguins` data set, so we want the selections to be the column names of the data frame. Let's get the names of the `palmerpenguins` data frame and add them as a `selectInput()` to our ui. `selectInput()` takes several arguments including the label that the server function will use, the label that will display to the user, the selection choices, and the initially selected choice. 
+There are many types of inputs in shiny, see the [shiny cheat sheet](https://shiny.rstudio.com/images/shiny-cheatsheet.pdf). Our example app uses `selectInput()`, which takes a set of predefined choices and supplies them to the user. We are working with the `palmerpenguins` data set, so we want the selections to be the column names of the data frame.  
+
+Let's get the names of the `palmerpenguins` data frame and add them as a `selectInput()` to our ui. `selectInput()` takes several arguments including the label that the server function will use, the label that will display to the user, the selection choices, and the initially selected choice.  
 ```{r}
 names(penguins)
 ```
@@ -113,7 +107,7 @@ shinyApp(ui, server)
 ## Server Side  
 Great, we now have our user inputs set up! Now we need to work with those inputs so R can make the plot. This can be the tricky part. The processing is done in the server function. The ui passes the names of our choices via an object called `inputs` to the server function. We need to access our inputs by their names with the `$` symbol. To get the x input we type `input$x` and y is `input$y`.  
 
-All reactive inputs need to be wrapped in a reactive environment called a reactive function. Reactivity is the core of shiny. See the cheat sheet for [reactive environment types](https://shiny.rstudio.com/images/shiny-cheatsheet.pdf). Let's wrap our reactive input values in a reactive function on the server side and run our app as a test. What happens? Are we doing anything with the inputs yet? What happens if you remove the reactive function from the server side and run the app? 
+All reactive inputs need to be wrapped in a reactive environment called a reactive function. Reactivity is the core of shiny. See the cheat sheet for [reactive environment types](https://shiny.rstudio.com/images/shiny-cheatsheet.pdf). Let's wrap our reactive input values in a reactive function on the server side and run our app as a test. What happens? Are we doing anything with the inputs yet? What happens if you remove the reactive function from the server side and run the app?
 ```{r, eval=F, echo=T}
 ui <- fluidPage(
     selectInput("x", "Select X Variable", choices = c("bill_length_mm", "bill_depth_mm", "flipper_length_mm", "body_mass_g"), 

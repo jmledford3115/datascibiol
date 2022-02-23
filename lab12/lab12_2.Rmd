@@ -36,6 +36,7 @@ library(here)
 library(janitor)
 ```
 
+## Load the `ggmap` package  
 ```{r}
 library(ggmap)
 ```
@@ -94,17 +95,25 @@ grizzly <- read_csv(here("lab12", "data", "bear-sightings.csv"))
 
 1. Use the range of the latitude and longitude to build an appropriate bounding box for your map.
 ```{r}
-
+lat <- c(55.02, 70.37)
+long <- c(-131.3, -166.2)
+bbox <- make_bbox(long, lat, f = 0.05)
 ```
 
 2. Load a map from `stamen` in a terrain style projection and display the map.
 ```{r}
+map1 <- get_map(bbox, maptype = "terrain", source = "stamen")
+```
 
+```{r}
+ggmap(map1)
 ```
 
 3. Build a final map that overlays the recorded observations of grizzly bears in Alaska.
 ```{r}
-
+ggmap(map1) + 
+  geom_point(data = grizzly, aes(longitude, latitude), size=0.8) +
+  labs(x = "Longitude", y = "Latitude", title = "Ursos arctos")
 ```
 
 ## That's it, let's take a break!   
