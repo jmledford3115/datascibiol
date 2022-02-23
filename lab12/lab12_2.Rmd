@@ -87,15 +87,24 @@ ggmap(map1) +
 ```
 
 ## Practice
-1. Map the spider locations with a different type of base map. Try to adjust the map using different aesthetics including `size`, `color`, and `alpha`.
+Let's practice with a data set that records sightings of grizzly bears (Ursos arctos) in Alaska [data set](https://rcweb.dartmouth.edu/~f002d69/workshops/index_rspatial.html).  
 ```{r}
-map2 <- get_map(bbox, maptype="watercolor", source="stamen")
+grizzly <- read_csv(here("lab12", "data", "bear-sightings.csv"))
 ```
 
+1. Use the range of the latitude and longitude to build an appropriate bounding box for your map.
 ```{r}
-ggmap(map2) +
-  geom_point(data=spiders, aes(x=longitude, y=latitude), size=0.8)+
-  labs(x= "Longitude", y= "Latitude", title="Spider Locations")
+
+```
+
+2. Load a map from `stamen` in a terrain style projection and display the map.
+```{r}
+
+```
+
+3. Build a final map that overlays the recorded observations of grizzly bears in Alaska.
+```{r}
+
 ```
 
 ## That's it, let's take a break!   
