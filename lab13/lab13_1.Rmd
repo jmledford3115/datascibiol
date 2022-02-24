@@ -28,6 +28,10 @@ Shiny is an R package which makes it easy to design interactive web applications
 ```{r, echo=FALSE}
 #install.packages("shiny")
 library(shiny)
+#library(devtools)
+#install_github("andreacirilloac/updateR")
+#library(updateR)
+#updateR()
 ```
 
 We will also need the `tidyverse` and `palmerpenguins` to run the examples.
@@ -105,7 +109,7 @@ shinyApp(ui, server)
 ```
 
 ## Server Side  
-Great, we now have our user inputs set up! Now we need to work with those inputs so R can make the plot. This can be the tricky part. The processing is done in the server function. The ui passes the names of our choices via an object called `inputs` to the server function. We need to access our inputs by their names with the `$` symbol. To get the x input we type `input$x` and y is `input$y`.  
+Great, we now have our user inputs set up! Now we need to work with those inputs so R can make the plot. This can be the tricky part. The processing is done in the server function. The ui passes the names of our choices via an object called `inputs` to the server function. We need to access our inputs by their names with the `$` symbol. To get the x input we type `input$x` and y is `input$y`.    
 
 All reactive inputs need to be wrapped in a reactive environment called a reactive function. Reactivity is the core of shiny. See the cheat sheet for [reactive environment types](https://shiny.rstudio.com/images/shiny-cheatsheet.pdf). Let's wrap our reactive input values in a reactive function on the server side and run our app as a test. What happens? Are we doing anything with the inputs yet? What happens if you remove the reactive function from the server side and run the app?
 ```{r, eval=F, echo=T}
@@ -137,7 +141,9 @@ ui <- fluidPage(
 
 server <- function(input, output) {
   output$plot <- renderPlot({
-    ggplot(penguins, aes_string(x = input$x, y = input$y, color="species")) + geom_point() + theme_light(base_size = 18)
+    ggplot(data=penguins, aes_string(x = input$x, y = input$y, color="species")) + 
+    geom_point() + 
+    theme_light(base_size = 18)
   })
 
 }
@@ -148,7 +154,7 @@ shinyApp(ui, server)
 Congratulations, you made your first shiny app!  
 
 ## Practice  
-1. Let's work with the homerange data again, just to keep things consistent. Please load the data as a new object `homerange` and have a look at the column names.    
+1. Let's work with the homerange data again, just to keep things consistent. Please load the data as a new object `homerange` and have a look at the column names. Here are examples of the plots we are looking for to give you an idea of the goal.
 ```{r, echo=FALSE}
 homerange <- readr::read_csv("data/Tamburelloetal_HomeRangeDatabase.csv")
 ```
@@ -173,6 +179,25 @@ homerange %>%
 ```{r}
 library(shiny)
 
+ui <- fluidPage(radioButtons("x", "Select Fill Variable", choices = c("trophic.guild", "thermoregulation"), 
+                             selected = "trophic.guild"), 
+                plotOutput("plot")
+)
+
+server <- function(input, output, session) {
+  output$plot <- renderPlot({
+    ggplot(data=homerange, aes_string(x="locomotion", fill=input$x))+
+      geom_bar(position="dodge")
+  })
+}
+
+shinyApp(ui, server)
+```
+
+A little nicer aesthetics...  
+```{r}
+library(shiny)
+
 ui <- fluidPage(titlePanel("Homerange Locomotion"),
                 radioButtons("x", "Select Fill Variable", choices=c("trophic.guild", "thermoregulation"), selected="trophic.guild"),
                 plotOutput("plot", width="600px", height="500px")
@@ -191,33 +216,8 @@ server <- function(input, output, session) {
 shinyApp(ui, server)
 ```
 
-```{r}
-library(shiny)
-
-ui <- fluidPage(titlePanel("Homerange Locomotion"),
-                radioButtons("x", "Select Fill Variable", choices=c("trophic.guild", "thermoregulation"), selected="trophic.guild"),
-                plotOutput("plot", width="600px", height="500px")
-)
-
-server <- function(input, output, session) {
-  output$plot <- renderPlot({
-    ggplot(homerange, aes_string(x="locomotion", fill=input$x)) +
-      geom_bar(position="dodge", alpha=0.8, color="black") +
-      theme_light(base_size=18) +
-      labs(x=NULL, y=NULL, fill="guild or thermo")
-  })
-  
-}
-
-shinyApp(ui, server)
-```
-
-3. The app below adds some nicer aesthetics. It makes a density plot of `log10.hra` with `taxon` as a reactive variable. Edit the app to explore log10.hra by locomotion type.  
-
-```{r}
-names(homerange)
-```
-
+## Annotated Example
+The app below adds some nicer aesthetics. It makes a density plot of `log10.hra` with `taxon` as a reactive variable. Edit the app to explore log10.hra by locomotion type.  
 ```{r, eval=F, echo=T}
 ui <- fluidPage(    
   
@@ -226,24 +226,19 @@ ui <- fluidPage(
   # generate a row with a sidebar
   sidebarLayout(      
     
-    # define the sidebar with one input
-    sidebarPanel(
-      selectInput("taxon", " Select Taxon of Interest:", 
-                  choices=unique(homerange$taxon)),
-      hr(),
-      helpText("Reference: Tamburello N, Cote IM, Dulvy NK (2015) Energy and the scaling of animal space use. The American Naturalist 186(2):196-211.")
-    ),
+  # define the sidebar with one input
+  sidebarPanel(
+  selectInput("taxon", " Select Taxon of Interest:", choices=unique(homerange$taxon)), hr(),
+  helpText("Reference: Tamburello N, Cote IM, Dulvy NK (2015) Energy and the scaling of animal space use. The American Naturalist 186(2):196-211.")),
     
-    # create a spot for the barplot
-    mainPanel(
-      plotOutput("taxonPlot")  
-    )
-    
+  # create a spot for the barplot
+  mainPanel(
+  plotOutput("taxonPlot"))
   )
-)
+  )
 
-# define a server for the Shiny app
-server <- function(input, output) {
+  # define a server for the Shiny app
+  server <- function(input, output, session) {
   
   # fill in the spot we created for a plot
   output$taxonPlot <- renderPlot({
@@ -253,7 +248,7 @@ server <- function(input, output) {
     ggplot(aes(x=log10.hra)) + 
     geom_density(color="black", fill="red", alpha=0.6)
   })
-}
+  }
 
 shinyApp(ui, server)
 ```

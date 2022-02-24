@@ -6,7 +6,6 @@ output:
     theme: spacelab
     toc: yes
     toc_float: yes
-runtime: shiny
 ---
 
 ```{r setup, include = FALSE}
@@ -23,21 +22,13 @@ knitr::opts_chunk$set(
 3. Add a new input to the ui.  
 3. Use `shinydashboard` to improve ui aesthetics.  
 
-## Group project  
-We will meet in our groups today to compare the data sets that we found. You should try to pick the data set that you think will be most appropriate; i.e. does it have a mix of variables, does it have a story to tell? Once you have a data set, think about the kinds of questions you might ask. Remember, in the end you will need to deliver a 5-6 minute presentation of your work. If you need help, please ask!
-
 ## Load the Libraries  
 ```{r}
-library("tidyverse")
-library("shiny")
-library("naniar")
-library("shinydashboard")
+library(tidyverse)
+library(shiny)
+library(shinydashboard)
 require(janitor)
 library(palmerpenguins)
-```
-
-```{r}
-if (!require("tidyverse")) install.packages('tidyverse')
 ```
 
 ## Running A Shiny App from Script
@@ -45,36 +36,44 @@ Copy and pasting code into the console is okay for tiny example apps, but it's n
 ![Run App button](runapp.png){width=300px}
 
 ## Practice
-1. Open and save your finished homerange app from question 3 in part 1 as a stand alone `.R` script. What packages do you need to make sure to load at the top? Run the app by clicking the Run App button. Set the run method in the Run App drop down to "Run External".  
+1. Open and save your finished homerange app from question 3 in part 1 as a stand alone `.R` script. What libraries are required for the app to run? Set the run method in the Run App drop down to "Run External".  
 ![Run External](runexternal.png){width=300px}  
 ```{r, echo=FALSE}
 homerange <- readr::read_csv("data/Tamburelloetal_HomeRangeDatabase.csv")
 ```
 
+Here is the app so you can copy/ paste.  
 ```{r, eval=F, echo=T}
 ui <- fluidPage(    
   
-  titlePanel("Log 10 Homerange by Taxon"), 
+  titlePanel("Log 10 Homerange by Taxon"), # give the page a title
+  
+  # generate a row with a sidebar
   sidebarLayout(      
+    
+  # define the sidebar with one input
   sidebarPanel(
-  selectInput("taxon", " Select Taxon of Interest:", choices=unique(homerange$taxon)),
-      hr(),
-      helpText("Reference: Tamburello N, Cote IM, Dulvy NK (2015) Energy and the scaling of animal space use. The American Naturalist 186(2):196-211.")
-    ),
-    mainPanel(
-      plotOutput("taxonPlot")  
-    )
-    )
-    )
+  selectInput("taxon", " Select Taxon of Interest:", choices=unique(homerange$taxon)), hr(),
+  helpText("Reference: Tamburello N, Cote IM, Dulvy NK (2015) Energy and the scaling of animal space use. The American Naturalist 186(2):196-211.")),
+    
+  # create a spot for the barplot
+  mainPanel(
+  plotOutput("taxonPlot"))
+  )
+  )
 
-server <- function(input, output) {
+  # define a server for the Shiny app
+  server <- function(input, output, session) {
+  
+  # fill in the spot we created for a plot
   output$taxonPlot <- renderPlot({
+    
     homerange %>% 
     filter(taxon == input$taxon) %>% 
     ggplot(aes(x=log10.hra)) + 
-    geom_density(color="black", fill="steelblue", alpha=0.6)
+    geom_density(color="black", fill="red", alpha=0.6)
   })
-}
+  }
 
 shinyApp(ui, server)
 ```
@@ -84,49 +83,60 @@ When we are building an app and frequently testing it, it can be cumbersome to a
 ```{r, eval=F, echo=T}
 ui <- fluidPage(    
   
-  titlePanel("Log 10 Homerange by Taxon"), 
+  titlePanel("Log 10 Homerange by Taxon"), # give the page a title
+  
+  # generate a row with a sidebar
   sidebarLayout(      
+    
+  # define the sidebar with one input
   sidebarPanel(
-  selectInput("taxon", " Select Taxon of Interest:", choices=unique(homerange$taxon)),
-      hr(),
-      helpText("Reference: Tamburello N, Cote IM, Dulvy NK (2015) Energy and the scaling of animal space use. The American Naturalist 186(2):196-211.")
-    ),
-    mainPanel(
-      plotOutput("taxonPlot")  
-    )
-    )
-    )
+  selectInput("taxon", " Select Taxon of Interest:", choices=unique(homerange$taxon)), hr(),
+  helpText("Reference: Tamburello N, Cote IM, Dulvy NK (2015) Energy and the scaling of animal space use. The American Naturalist 186(2):196-211.")),
+    
+  # create a spot for the barplot
+  mainPanel(
+  plotOutput("taxonPlot"))
+  )
+  )
 
-server <- function(input, output, session) {
+  # define a server for the Shiny app
+  server <- function(input, output, session) {
+  
+  # this stops the app upon closing
   session$onSessionEnded(stopApp)
+  
+  # fill in the spot we created for a plot
   output$taxonPlot <- renderPlot({
+    
     homerange %>% 
     filter(taxon == input$taxon) %>% 
     ggplot(aes(x=log10.hra)) + 
-    geom_density(color="black", fill="steelblue", alpha=0.6)
+    geom_density(color="black", fill="red", alpha=0.6)
   })
-}
+  }
 
 shinyApp(ui, server)
 ```
 
 ## Adding Numeric Input
-Let's try adding a new numeric input so the user can change the size of the font on the plot with a slider. We can do this with the `sliderInput()` function. The `sliderInput()` function takes a label that the server function will use to access the value, the label that the ui will display to the user, a minimum and maximum value, a starting value, and a step size. Edit the script to include the slider input in the ui and for the server to access the input value.
+Let's try adding a new numeric input so the user can change the size of the points on the plot with a slider. We can do this with the `sliderInput()` function. The `sliderInput()` function takes a label that the server function will use to access the value, the label that the ui will display to the user, a minimum and maximum value, a starting value, and a step size. Edit the script to include the slider input in the ui and for the server to access the input value.
 ```{r, eval=F, echo=T}
 ui <- fluidPage(
     selectInput("x", "Select X Variable", choices = c("bill_length_mm", "bill_depth_mm", "flipper_length_mm", "body_mass_g"),
               selected = "bill_length_mm"),
     selectInput("y", "Select Y Variable", choices = c("bill_length_mm", "bill_depth_mm", "flipper_length_mm", "body_mass_g"),
               selected = "bill_depth_mm"),
-    sliderInput("fontsize", "Select the Font Size", min = 10, max = 24, value = 18, step = 1),
+    sliderInput("pointsize", "Select the Point Size", min = 0.5, max = 3, value = 1, step = 0.5),
     plotOutput("plot", width = "500px", height = "400px")
 )
 
 server <- function(input, output, session) {
   session$onSessionEnded(stopApp)
   output$plot <- renderPlot({
-  ggplot(penguins, aes_string(x = input$x, y = input$y, color="species")) + geom_point() + theme_light(base_size = input$fontsize)
-  })
+  ggplot(penguins, aes_string(x = input$x, y = input$y, color="species")) + 
+      geom_point(size=input$pointsize) + 
+      theme_light()
+    })
 }
 
 shinyApp(ui, server)
@@ -143,8 +153,6 @@ When working with any package on shiny ui appearance, it's important to know how
 
 We won't use `fluidPage()` with `shinydashboard` but rather `dashboardPage()`. A shiny dashboard contains a minimum of a header, a sidebar, and a body. The `dashboardPage()` still contains the bootstrap grid.  
 ```{r}
-library(shinydashboard)
-
 ui <- dashboardPage(
   dashboardHeader(),
   dashboardSidebar(),
@@ -156,37 +164,47 @@ server <- function(input, output) { }
 shinyApp(ui, server)
 ```
 
-Let's edit the title of our dashboard.
-```{r}
-
+Let's add our ui and server elements to make a functional dashboard. We will put our ui elements in the `dashboardBody()`. Edit your app script to use the dashboard format. We won't do anything with the sidebar in this tutorial, but see the [R Studio tutorial](https://rstudio.github.io/shinydashboard/get_started.html) for more information.  
+```{r, eval=F, echo=T}
 ui <- dashboardPage(
   dashboardHeader(title = "Penguins"),
-  dashboardSidebar(),
-  dashboardBody()
+  dashboardSidebar(disable=T),
+  dashboardBody(
+  selectInput("x", "Select X Variable", choices = c("bill_length_mm", "bill_depth_mm", "flipper_length_mm", "body_mass_g"), 
+              selected = "bill_length_mm"),
+  selectInput("y", "Select Y Variable", choices = c("bill_length_mm", "bill_depth_mm", "flipper_length_mm", "body_mass_g"), 
+              selected = "bill_depth_mm"),
+  plotOutput("plot", width = "500px", height = "400px"))
 )
 
-server <- function(input, output) { }
+server <- function(input, output, session) {
+  
+}
 
 shinyApp(ui, server)
 ```
 
-Let's add our ui and server elements to make a functional dashboard. We will put our ui elements in the `dashboardBody()`. Edit your app script to use the dashboard format. We won't do anything with the sidebar in this tutorial, but see the [R Studio tutorial](https://rstudio.github.io/shinydashboard/get_started.html) for more information.
+Now let's add our server functions... 
 ```{r, eval=F, echo=T}
 ui <- dashboardPage(
   dashboardHeader(title = "Penguins"),
-  dashboardSidebar(),
+  dashboardSidebar(disable=T),
   dashboardBody(
-  selectInput("x", "Select X Variable", choices = c("bill_length_mm", "bill_depth_mm", "flipper_length_mm", "body_mass_g"), selected = "bill_length_mm"),
-  selectInput("y", "Select Y Variable", choices = c("bill_length_mm", "bill_depth_mm", "flipper_length_mm", "body_mass_g"), selected = "bill_depth_mm"),
+  selectInput("x", "Select X Variable", choices = c("bill_length_mm", "bill_depth_mm", "flipper_length_mm", "body_mass_g"), 
+              selected = "bill_length_mm"),
+  selectInput("y", "Select Y Variable", choices = c("bill_length_mm", "bill_depth_mm", "flipper_length_mm", "body_mass_g"), 
+              selected = "bill_depth_mm"),
   plotOutput("plot", width = "500px", height = "400px"))
 )
 
-server <- function(input, output, session) { 
-  output$plot <- renderPlot({
-  ggplot(penguins, aes_string(x = input$x, y = input$y, color="species")) + geom_point() + theme_light()
-  })
+server <- function(input, output, session) {
   session$onSessionEnded(stopApp)
-  }
+  output$plot <- renderPlot({
+  ggplot(penguins, aes_string(x = input$x, y = input$y, color="species")) + 
+      geom_point() + 
+      theme_light()
+    })
+}
 
 shinyApp(ui, server)
 ```
@@ -199,10 +217,13 @@ ui <- dashboardPage(
   dashboardBody(
   fluidRow(
   box(
-  selectInput("x", "Select X Variable", choices = c("bill_length_mm", "bill_depth_mm", "flipper_length_mm", "body_mass_g"), selected = "bill_length_mm"),
-  selectInput("y", "Select Y Variable", choices = c("bill_length_mm", "bill_depth_mm", "flipper_length_mm", "body_mass_g"), selected = "bill_depth_mm"),
-   sliderInput("pointsize", "Select the Point Size", min = 1, max = 5, value = 2, step = 0.5)
+  selectInput("x", "Select X Variable", choices = c("bill_length_mm", "bill_depth_mm", "flipper_length_mm", "body_mass_g"), 
+              selected = "bill_length_mm"),
+  selectInput("y", "Select Y Variable", choices = c("bill_length_mm", "bill_depth_mm", "flipper_length_mm", "body_mass_g"), 
+              selected = "bill_depth_mm"),
+  sliderInput("pointsize", "Select the Point Size", min = 1, max = 5, value = 2, step = 0.5)
   ), # close the first box
+  
   box(
   plotOutput("plot", width = "500px", height = "500px")
   ) # close the second box
@@ -212,7 +233,9 @@ ui <- dashboardPage(
 
 server <- function(input, output, session) { 
   output$plot <- renderPlot({
-  ggplot(penguins, aes_string(x = input$x, y = input$y, color="species")) + geom_point(size=input$pointsize, alpha=0.8) + theme_light(base_size = 18)
+  ggplot(penguins, aes_string(x = input$x, y = input$y, color="species")) +
+      geom_point(size=input$pointsize, alpha=0.8) + 
+      theme_light(base_size = 18)
   })
   session$onSessionEnded(stopApp)
   }
@@ -228,8 +251,10 @@ ui <- dashboardPage(
   dashboardBody(
   fluidRow(
   box(title = "Plot Options", width = 3,
-  selectInput("x", "Select X Variable", choices = c("bill_length_mm", "bill_depth_mm", "flipper_length_mm", "body_mass_g"), selected = "bill_length_mm"),
-  selectInput("y", "Select Y Variable", choices = c("bill_length_mm", "bill_depth_mm", "flipper_length_mm", "body_mass_g"), selected = "bill_depth_mm"),
+  selectInput("x", "Select X Variable", choices = c("bill_length_mm", "bill_depth_mm", "flipper_length_mm", "body_mass_g"), 
+              selected = "bill_length_mm"),
+  selectInput("y", "Select Y Variable", choices = c("bill_length_mm", "bill_depth_mm", "flipper_length_mm", "body_mass_g"), 
+              selected = "bill_depth_mm"),
    sliderInput("pointsize", "Select the Point Size", min = 1, max = 5, value = 2, step = 0.5)
   ), # close the first box
   box(title = "Plot of Penguins Data", width = 7,
@@ -241,7 +266,9 @@ ui <- dashboardPage(
 
 server <- function(input, output, session) { 
   output$plot <- renderPlot({
-  ggplot(penguins, aes_string(x = input$x, y = input$y, color="species")) + geom_point(size=input$pointsize, alpha=0.8) + theme_light(base_size = 18)
+  ggplot(penguins, aes_string(x = input$x, y = input$y, color="species")) +
+      geom_point(size=input$pointsize, alpha=0.8) + 
+      theme_light(base_size = 18)
   })
   session$onSessionEnded(stopApp)
   }
@@ -252,58 +279,20 @@ shinyApp(ui, server)
 Whew! We made it! We created a nice looking app with `shinydashboard`. And now we can easily see how even a basic shiny app can become messy and why it's always helpful to include lots of annotations.  
 
 ## Practice
-We will use data from a study on vertebrate community composition and impacts from defaunation in Gabon, Africa.  
+Let's try to build an app that allows users to explore sexual composition of wolf packs by `pop`. These data are from: Brandell, Ellen E (2021), Serological dataset and R code for: Patterns and processes of pathogen exposure in gray wolves across North America, Dryad, [Dataset](https://doi.org/10.5061/dryad.5hqbzkh51)  
 
-Reference: Koerner SE, Poulsen JR, Blanchard EJ, Okouyi J, Clark CJ. Vertebrate community composition and diversity declines along a defaunation gradient radiating from rural villages in Gabon. _Journal of Applied Ecology_. 2016.   
-
-1. Load `IvindoData_DryadVersion.csv` and use the function(s) of your choice to get an idea of the overall structure, including its dimensions, column names, variable classes, etc. As part of this, determine if NA's are present and how they are treated.
+1. Start by loading and exploring the data.
 ```{r}
-gabon <- readr::read_csv("data/IvindoData_DryadVersion.csv")
+wolves <- read_csv("data/wolves_data/wolves_dataset.csv")
 ```
 
+2. For the app, here is a faceted version of what we are looking for. We want the reactive part to be `pop` and you should use `shinydashboard`.
 ```{r}
-names(gabon)
-```
-
-```{r}
-glimpse(gabon)
-```
-
-2. Build an app that re-creates the plots shown on page 810 of this paper. It compares the relative abundance % to the distance from villages in rural Gabon. Use shiny dashboard and add aesthetics to the plot.  
-```{r}
-ui <- dashboardPage(
-  dashboardHeader(title = "Relative Abundance"),
-  dashboardSidebar(disable = T),
-  dashboardBody(
-  fluidRow(
-  box(title = "Plot Options", width = 3,
-  selectInput("x", "Select RA Taxon", choices = c("RA_Apes", "RA_Birds", "RA_Elephant", "RA_Monkeys", "RA_Rodent", "RA_Ungulate"), 
-              selected = "RA_Apes"),
-      hr(),
-      helpText("Reference: Koerner SE, Poulsen JR, Blanchard EJ, Okouyi J, Clark CJ. Vertebrate community composition and diversity declines along a defaunation gradient radiating from rural villages in Gabon. Journal of Applied Ecology. 2016.")
-  ), # close the first box
-  box(title = "Relative Abundance %", width = 6,
-  plotOutput("plot", width = "600px", height = "500px")
-  ) # close the second box
-  ) # close the row
-  ) # close the dashboard body
-) # close the ui
-
-server <- function(input, output, session) { 
-  
-  output$plot <- renderPlot({
-  gabon %>% 
-  ggplot(aes_string(x = "Distance", y = input$x)) +
-  geom_point(size=4)+
-  geom_smooth(method=lm, se=T)+
-  scale_x_continuous(breaks=seq(0, 30, by = 5))+ theme_light(base_size = 18)
-  })
-  
-  # stop the app when we close it
-  session$onSessionEnded(stopApp)
-  }
-
-shinyApp(ui, server)
+wolves %>% 
+  filter(sex!="NA") %>% 
+  ggplot(aes(x=sex, fill=sex))+
+  geom_bar()+
+  facet_wrap(~pop)
 ```
 
 ## That's it, let's take a break!   
