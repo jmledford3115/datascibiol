@@ -295,6 +295,43 @@ wolves %>%
   facet_wrap(~pop)
 ```
 
+```{r}
+wolves %>% 
+  distinct(pop)
+```
+
+```{r}
+ui <- dashboardPage(
+  dashboardHeader(title = "Wolf Demographics by Population"),
+  dashboardSidebar(disable = T),
+  dashboardBody(
+  fluidRow(
+  box(title = "Plot Options", width = 3,
+  selectInput("x", "Select Population", choices = c("AK.PEN", "BAN.JAS", "BC", "DENALI", "ELLES", "GTNP", "INT.AK", "MEXICAN", "MI", "MT", "ONT", "SE.AK", "SNF", "SS.NWT", "YNP", "YUCH"), 
+              selected = "AK.PEN"),
+  ), # close the first box
+  
+  box(title = "Counts by Sex", width = 7,
+  plotOutput("plot", width = "600px", height = "500px")
+  ) # close the second box
+  ) # close the row
+  ) # close the dashboard body
+) # close the ui
+
+server <- function(input, output, session) { 
+  output$plot <- renderPlot({
+  wolves %>% 
+      filter(sex!="NA") %>% 
+      filter(pop==input$x) %>% 
+      ggplot(aes_string(x="sex", fill="sex"))+
+      geom_bar(color="black", alpha=0.8)
+  })
+  session$onSessionEnded(stopApp)
+  }
+
+shinyApp(ui, server)
+```
+
 ## That's it, let's take a break!   
 
 -->[Home](https://jmledford3115.github.io/datascibiol/)

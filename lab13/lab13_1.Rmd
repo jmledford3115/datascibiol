@@ -68,6 +68,20 @@ server <- function(input, output, session) {
 shinyApp(ui, server)
 ```
 
+```{r}
+library(shiny)
+
+ui <- fluidPage(
+  
+)
+
+server <- function(input, output, session) {
+  
+}
+
+shinyApp(ui, server)
+```
+
 For the rest of the lab we will work on building an example app using `palmerpenguins`.  
 
 ## Shiny Inputs
@@ -76,6 +90,12 @@ There are many types of inputs in shiny, see the [shiny cheat sheet](https://shi
 Let's get the names of the `palmerpenguins` data frame and add them as a `selectInput()` to our ui. `selectInput()` takes several arguments including the label that the server function will use, the label that will display to the user, the selection choices, and the initially selected choice.  
 ```{r}
 names(penguins)
+```
+
+```{r}
+penguins %>% 
+  ggplot(aes(x=flipper_length_mm, y=body_mass_g))+
+  geom_point()
 ```
 
 We won't use the name `species` because that will be the `ggplot` grouping variable. Copy and paste the code below and run the app to see our new input. 
@@ -176,6 +196,42 @@ homerange %>%
 ```
 
 2. Build a shiny app that produces a barplot that explores `locomotion` type with a fill reaction for the variables `trophic.guild` and `thermoregulation`.  
+```{r}
+library(shiny)
+
+ui <- fluidPage(
+  radioButtons("x", "Select X Variable", choices = c("trophic.guild", "thermoregulation"), selected = "trophic.guild"),
+  plotOutput("plot", width = "500px", height = "400px")
+)
+
+server <- function(input, output, session) {
+  output$plot <- renderPlot({
+    ggplot(data=homerange, aes_string(x = "locomotion", fill=input$x)) + 
+    geom_bar(position="dodge", color="black", alpha=0.8) + 
+    theme_light(base_size = 18)
+  })
+}
+
+shinyApp(ui, server)
+```
+
+```{r}
+library(shiny)
+
+ui <- fluidPage(
+  radioButtons("x", "Select X Variable", choices = c("trophic.guild", "thermoregulation"), selected = "trophic.guild"),
+  plotOutput("plot", width = "500px", height = "400px")
+)
+
+server <- function(input, output, session) {
+  
+}
+
+shinyApp(ui, server)
+```
+
+
+
 ```{r}
 library(shiny)
 
