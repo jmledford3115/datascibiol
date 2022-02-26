@@ -1,12 +1,11 @@
 ---
-title: "Data Visualization: fancy plots part 2"
+title: "Data Visualization: Venn Diagrams & Word Clouds"
+date: "`r Sys.Date()`"
 output:
   html_document:
     theme: spacelab
     toc: yes
     toc_float: yes
-  pdf_document:
-    toc: yes
 ---
 
 ## Learning Goals
@@ -102,7 +101,7 @@ homerange%>%
   select(common.name)
 ```
 
-what are the 26 non-flying birds?
+what is the flying non-bird?
 ```{r}
 ## HIDE 
 homerange%>%
@@ -226,7 +225,7 @@ homerange%>%
 
 Check out [this reference](https://lepennec.github.io/ggwordcloud/)
 ```{r}
-
+library(ggwordcloud)
 hr_taxon_count <- homerange %>% 
   count(taxon)
 hr_taxon_count
