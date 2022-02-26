@@ -1,0 +1,209 @@
+---
+title: "Data Visualization: fancy plots"
+output:
+  html_document:
+    theme: spacelab
+    toc: yes
+    toc_float: yes
+  pdf_document:
+    toc: yes
+---
+
+## Learning Goals
+*At the end of this exercise, you will be able to:*    
+1. Build a violin plot using.
+2. Build heat maps using `ggplot.`
+
+
+
+## Setup
+
+```{r}
+options(scipen=999) #cancels the use of scientific notation for the session
+```
+
+### Libraries
+```{r message=FALSE, warning=FALSE}
+
+library(tidyverse)
+library(janitor)
+library(here)
+```
+
+
+
+
+
+
+
+
+
+## Violin Plots
+Violin plots show the distribution of continuous data across a categorical variable.
+Violin plots are a lot like a density plots, often displayed vertically. They are nice for comparing among groups, and are common in publications. 
+
+### penguins
+```{r}
+library("palmerpenguins")
+penguins <- penguins
+```
+
+lets remind ourselves what the penguins data looks like:
+```{r}
+str(penguins)
+```
+
+
+
+
+Lets say we want to determine what island has on average, the smallest penguins
+
+We can use a boxplot look at how penguin mass changes by island:
+```{r}
+penguins %>% 
+  ggplot(aes(x = island, y = body_mass_g)) +
+  geom_boxplot(na.rm = TRUE)+
+  coord_flip()
+```
+
+It looks like pretty much a tie between Torgersen and Dream islands, but sometimes we miss information about the spread of data with box plots. 
+
+```{r}
+penguins %>% 
+  ggplot(aes(x = island, y = flipper_length_mm)) +
+  geom_boxplot(color = "grey", na.rm = TRUE) +
+  geom_violin(alpha = .3, na.rm = TRUE) +
+  coord_flip()
+```
+ok, well it looks like there is kind of a bimodal shap in atleast 2 islands- 
+this could be a difference in sex, so lets examine only females:
+```{r}
+penguins %>% 
+  filter(sex == "female") %>% 
+  ggplot(aes(x = island, y = flipper_length_mm)) +
+  geom_boxplot(color = "grey", na.rm = TRUE) +
+  geom_violin(alpha = .3, na.rm = TRUE) +
+  coord_flip()
+```
+well that didnt really reveal the reason for the bimodal shape. 
+
+Lets try filling by species 
+```{r}
+penguins %>% 
+  ggplot(aes(x = island, y = flipper_length_mm, fill = species)) +
+  geom_violin(alpha = .3, na.rm = TRUE) +
+  coord_flip()
+```
+
+
+cool! Now we see that there are actually some of the smallest penguins on Biscoe island. 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+```{r}
+
+penguins %>% 
+  ggplot(aes(x = island, y = flipper_length_mm)) +
+  geom_boxplot(color = "grey", na.rm = TRUE) +
+  geom_point(alpha = 0.1, color = "red", na.rm = TRUE) + #alpha indicates transparency 
+  geom_violin(alpha = .3, na.rm = TRUE) +
+  coord_flip()
+```
+
+
+2 things that can hid in boxplots and make reviews sus--
+how much data? how is it *really* spread?
+
+we can see how much data is there by adding dots:
+
+
+
+
+
+
+
+
+
+
+
+
+## Heat maps
+
+Heat maps are cool for showing 3 dimensions of data
+The following data show results from a drug trial with four treatments on six patients. The values represent resting heart rate.  
+```{r}
+heartrate <- readr::read_csv("data/heartrate.csv")
+heartrate <- heartrate %>%
+  add_column(none = c(71, 79, 66, 62, 73, 81) )
+
+heartrate
+```
+
+
+Let's pivot this data, so there is no data stored in variables, then we can use `geom_tile()` to represent the contents
+```{r}
+heartrate_long <- heartrate %>% 
+  pivot_longer(-patient, #patient does not pivot
+               names_to = "drug", 
+               values_to = "heartrate"
+               )
+heartrate_long
+
+heartrate_long %>%
+  ggplot(aes(patient, drug, fill= heartrate)) + 
+  geom_tile() +
+  scale_fill_gradient(low="yellow", high="red")
+```
+
+lets instead look at how each drug changed the heartrate, using mutate
+```{r}
+
+heartrate_diff <- heartrate%>%
+  mutate(across(c(a,b,c,d), ~ . - none)) %>% 
+  select(-none) %>% 
+    pivot_longer(-patient, #patient does not pivot
+               names_to = "drug", 
+               values_to = "heartrate"
+               ) 
+heartrate_diff
+
+heartrate_diff %>% 
+  ggplot(aes(patient, drug, fill= heartrate)) + 
+  geom_tile()+
+  scale_fill_gradient2(low="blue", mid = "white", high="red")
+
+```
+
+Which drug lowers heart rate? raises it?
+
+Make a heat map for body mass by species & sex for penguins
+
+```{r}
+penguins %>% 
+  filter(sex =="male" | sex =="female") %>% 
+  ggplot(aes(year, species, fill= body_mass_g)) + 
+  geom_tile()+
+  scale_fill_gradient()
+
+```
+
+
+
+
+
+
+
+
+
