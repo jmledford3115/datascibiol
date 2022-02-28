@@ -1,0 +1,76 @@
+---
+title: "lab14_hw"
+output: html_document
+date: '2022-02-28'
+---
+
+
+
+### Libraries
+
+```{r}
+library(tidyverse)
+library(janitor)
+
+options(scipen=999) #cancels the use of scientific notation for the session
+
+
+```
+
+### Data
+```{r}
+superheros <- readr::read_csv("data/heroes_information.csv")
+```
+
+
+
+1. 
+
+```{r}
+homerange %>% 
+  ggplot(aes(x = taxon, y = log10.mass, fill = taxon)) +
+  geom_violin(alpha = .3, na.rm = TRUE) +
+  geom_boxplot(color = "grey", alpha = .3, na.rm = TRUE) +
+  coord_flip()
+```
+
+2. 
+
+```{r}
+beachbugs <- readr::read_csv("data/beachbugs_long.csv")
+
+```
+
+3. 
+
+
+
+4. 
+
+
+
+
+5. 
+
+
+
+
+6. 
+
+
+
+
+7. 
+
+
+
+
+8. 
+
+
+
+
+9. 
+
+
+
