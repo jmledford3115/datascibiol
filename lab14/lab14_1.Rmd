@@ -2,10 +2,11 @@
 title: "Data Visualization: Violin Plots & Heat Maps"
 date: "`r Sys.Date()`"
 output:
-  html_document:
+  html_document: 
     theme: spacelab
     toc: yes
     toc_float: yes
+    keep_md: yes
 ---
 
 ## Learning Goals
@@ -18,6 +19,7 @@ output:
 ```{r}
 library(tidyverse)
 library(janitor)
+library("palmerpenguins")
 
 options(scipen=999) #cancels the use of scientific notation for the session
 
@@ -31,7 +33,7 @@ We will use a slightly modified version of the `heartrate` data for trying out h
 
 We will use the homerange data for practice. I've made some modifications that will be important for part 2 of the lab, so we will load it all in now.
 ```{r}
-library("palmerpenguins")
+
 penguins <- penguins
 
 heartrate <- readr::read_csv("data/heartrate.csv")
@@ -39,8 +41,7 @@ heartrate <- heartrate %>%
   add_column(no_drug = c(71, 79, 66, 62, 73, 81) )
 
 
-homerange <- read_csv("data/Tamburelloetal_HomeRangeDatabase.csv")
-homerange <-  homerange %>%add_row(taxon = "mammals",common.name = "whiskered bat", class = "mammalia",order = "chiroptera",family = "vespertilionidae",genus = "myotis",species = "mystacinus",mean.mass.g = 6, log10.hra = 0.778,locomotion = "flying", trophic.guild = "carnivore")
+homerange <- read_csv("data/modified_Tamburelloetal_HomeRangeDatabase.csv")
 ```
 
 ## Violin Plots
@@ -107,16 +108,12 @@ Try making a violin plot of taxon from the homerange data:
  1. Remind yourself what the data look like:
 
 ```{r}
-head(homerange)
+
 ```
 
   2. Make a violin plot of `log10.mass` by `taxon`, and a box plot of `log10.mass` by `taxon`. You can use 1 or 2 plots.
 ```{r}
-homerange %>% 
-  ggplot(aes(x = taxon, y = log10.mass, fill = taxon)) +
-  geom_violin(alpha = .3, na.rm = TRUE) +
-  geom_boxplot(color = "grey", alpha = .3, na.rm = TRUE) +
-  coord_flip()
+
 ```
 
 3. What information can you gather from the violin plot that might have been missed with the box plot?
@@ -130,7 +127,6 @@ Let's check out the `heartrate` data, which show results from a drug trial with 
 ```{r}
 heartrate
 ```
-
 
 Let's pivot this data, so there is no data stored in variables, then we can use `geom_tile()` to represent the values (heartrate) by patient and treatment. 
 ```{r}
@@ -152,8 +148,8 @@ heartrate_long %>%
 Now, let's instead look at how each drug changed the heartrate from the normal, using mutate
 ```{r}
 heartrate_diff <- heartrate%>%
-  mutate(across(c(a,b,c,d), ~ . - none)) %>% 
-  select(-none) %>% 
+  mutate(across(c(a,b,c,d), ~ . - no_drug)) %>% 
+  select(-no_drug) %>% 
     pivot_longer(-patient, #patient does not pivot
                names_to = "drug", 
                values_to = "heartrate"
@@ -168,19 +164,20 @@ heartrate_diff %>%
   scale_fill_gradient2(low="green", mid = "white", high="red")
 # scale_fill_graient2 lets you set a color direction for zero (mid), positive (high), and negative (low)
 ```
-## Practice:
+
+
+## Practice
   1. Which drug lowers heart rate? raises it?
 
   2. Make a heat map for body mass by species & sex for penguins
 
 ```{r}
-penguins %>% 
-  filter(sex =="male" | sex =="female") %>% 
-  ggplot(aes(year, species, fill= body_mass_g)) + 
-  geom_tile()+
-  scale_fill_gradient()
 
 ```
+
+
+
+
 
 
 
