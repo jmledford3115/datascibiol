@@ -9,58 +9,53 @@ output:
     keep_md: yes
 ---
 
-## Learning Goals
+## Learning Goals  
 *At the end of this exercise, you will be able to:*    
-1. Build a violin plot with `geom_violin`.
-2. Build heat maps using `geom_tile`.
-
+1. Build a violin plot with `geom_violin`.  
+2. Build heat maps using `geom_tile`.  
 
 ## Load the Libraries
 ```{r}
 library(tidyverse)
 library(janitor)
 library("palmerpenguins")
+```
 
+```{r}
 options(scipen=999) #cancels the use of scientific notation for the session
-
-
 ```
 
 ## Load The Data
 
-We will be using the `palmer penguins` data for checking out violin plots.
-We will use a slightly modified version of the `heartrate` data for trying out heat maps.
+We will be using the `palmer penguins` data for checking out violin plots. We will use a slightly modified version of the `heartrate` data for trying out heat maps.  
 
-We will use the homerange data for practice. I've made some modifications that will be important for part 2 of the lab, so we will load it all in now.
+We will use the homerange data for practice. I've made some modifications that will be important for part 2 of the lab, so we will load it all in now.  
 ```{r}
-
 penguins <- penguins
+```
 
+```{r}
 heartrate <- readr::read_csv("data/heartrate.csv")
 heartrate <- heartrate %>%
   add_column(no_drug = c(71, 79, 66, 62, 73, 81) )
+```
 
-
+```{r}
 homerange <- read_csv("data/modified_Tamburelloetal_HomeRangeDatabase.csv")
 ```
 
-## Violin Plots
+## Violin Plots  
+Violin plots are relatively common in scientific publications. They show the distribution of continuous data across a categorical variable.  
 
-  Violin plots are relatively common in scientific publications. They show 
-the distribution of continuous data across a categorical variable.
-
-  Violin plots are sometimes chosen as an alternative to box plots, especially if you expect the data to have a [non-normal distribution](https://en.wikipedia.org/wiki/Normal_distribution) (i.e. not a bell curve). They are very similar to density plots 
+Violin plots are sometimes chosen as an alternative to box plots, especially if you expect the data to have a [non-normal distribution](https://en.wikipedia.org/wiki/Normal_distribution) (i.e. not a bell curve). They are very similar to density plots.  
   
-  They are great for looking at the range & spread of data, while roughly comparing averages across categorical variables.
-
+They are great for looking at the range & spread of data, while roughly comparing averages across categorical variables.  
 ```{r}
 head(penguins)
 ```
+**Let's say we want to travel to an island and take pictures of the cutest little penguins we can find. We need to determine which island we are most likely to find the smallest penguins on.**  
 
-
-**Let's say we want to travel to an island and take pictures of the cutest little penguines we can find. We need to determine which island we are most likely to find the smallest penguins on.**
-
-We can use a boxplot look at how penguin mass changes by island:
+We can use a boxplot look at how penguin mass changes by island:  
 ```{r}
 penguins %>% 
   ggplot(aes(x = island, y = body_mass_g, fill = island)) +
@@ -68,9 +63,9 @@ penguins %>%
   coord_flip()
 ```
 
-It looks like pretty much a tie between Torgersen and Dream islands, but sometimes we miss information about the spread of data with box plots. 
+It looks like pretty much a tie between Torgersen and Dream islands, but sometimes we miss information about the spread of data with box plots.  
 
-Lets try a Violin plot! We can even layer it over the box plot to compare.
+Lets try a Violin plot! We can even layer it over the box plot to compare.  
 ```{r}
 penguins %>% 
   ggplot(aes(x = island, y = body_mass_g, fill = island)) +
@@ -79,8 +74,15 @@ penguins %>%
   coord_flip()
 ```
 
-It looks like there is kind of a non-normal shape in at least 2 islands- 
-this could be a difference in sex, so lets examine only females:
+```{r}
+penguins %>% 
+  filter(island=="Biscoe") %>% 
+  filter(sex!="NA") %>% 
+  ggplot(aes(x = body_mass_g, fill = species)) +
+  geom_density(color = "grey", alpha = .3, na.rm = TRUE)
+```
+
+It looks like there is kind of a non-normal shape in at least 2 islands- this could be a difference in sex, so lets examine only females:  
 ```{r}
 penguins %>% 
   filter(sex == "female") %>% 
@@ -89,8 +91,8 @@ penguins %>%
   geom_violin(alpha = .5, na.rm = TRUE) +
   coord_flip()
 ```
-Well that didnt really reveal the reason for the bimodal shape on Biscoe. 
-Let's try filling by species.
+
+Well that didnt really reveal the reason for the bimodal shape on Biscoe. Let's try filling by species.  
 ```{r}
 penguins %>% 
   ggplot(aes(x = island, y = body_mass_g, fill = species)) +
@@ -100,20 +102,22 @@ penguins %>%
 ```
 
 
-Cool! Now we see that there are actually some of the smallest penguins on Biscoe island. 
+Cool! Now we see that there are actually some of the smallest penguins on Biscoe island.  
 
-## Practice
+## Practice  
+Try making a violin plot of taxon from the homerange data:  
 
-Try making a violin plot of taxon from the homerange data:
- 1. Remind yourself what the data look like:
-
+1. Remind yourself what the data look like:  
 ```{r}
-
+names(homerange)
 ```
 
-  2. Make a violin plot of `log10.mass` by `taxon`, and a box plot of `log10.mass` by `taxon`. You can use 1 or 2 plots.
+2. Make a violin plot of `log10.mass` by `taxon`, and a box plot of `log10.mass` by `taxon`. You can use 1 or 2 plots.  
 ```{r}
-
+homerange %>% 
+  ggplot(aes(x = taxon, y = log10.mass, fill=taxon)) +
+  geom_violin(alpha = .3, na.rm = TRUE) +
+  geom_boxplot(color = "grey", alpha = .3, na.rm = TRUE)
 ```
 
 3. What information can you gather from the violin plot that might have been missed with the box plot?
@@ -128,9 +132,10 @@ Let's check out the `heartrate` data, which show results from a drug trial with 
 heartrate
 ```
 
-Let's pivot this data, so there is no data stored in variables, then we can use `geom_tile()` to represent the values (heartrate) by patient and treatment. 
+Let's pivot this data, so there is no data stored in variables, then we can use `geom_tile()` to represent the values (heartrate) by patient and treatment.  
 ```{r}
-heartrate_long <- heartrate %>% 
+heartrate_long <- 
+  heartrate %>% 
   pivot_longer(-patient, #patient does not pivot
                names_to = "drug", 
                values_to = "heartrate"
@@ -140,12 +145,12 @@ heartrate_long
 
 ```{r}
 heartrate_long %>%
-  ggplot(aes(patient, drug, fill= heartrate)) + 
+  ggplot(aes(x=patient, y=drug, fill= heartrate)) + 
   geom_tile() +
   scale_fill_gradient(low="yellow", high="red")
 ```
 
-Now, let's instead look at how each drug changed the heartrate from the normal, using mutate
+Now, let's instead look at how each drug changed the heartrate from the normal, using mutate.  
 ```{r}
 heartrate_diff <- heartrate%>%
   mutate(across(c(a,b,c,d), ~ . - no_drug)) %>% 
@@ -166,26 +171,18 @@ heartrate_diff %>%
 ```
 
 
-## Practice
-  1. Which drug lowers heart rate? raises it?
+## Practice  
+1. Which drug lowers heart rate? raises it?  
 
-  2. Make a heat map for body mass by species & sex for penguins
-
+2. Make a heat map for body mass by species & sex for penguins  
 ```{r}
-
+penguins %>%
+  filter(sex!="NA") %>% 
+  ggplot(aes(x=sex, y=species, fill= body_mass_g)) + 
+  geom_tile() +
+  scale_fill_gradient(low="white", high="red")
 ```
-
-
-
-
-
-
 
 ## That's it! Take a break and I will see you for part 2!  
 
 -->[Home](https://jmledford3115.github.io/datascibiol/)
-
-
-
-
-

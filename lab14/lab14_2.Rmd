@@ -10,81 +10,85 @@ output:
     toc: yes
 ---
 
-## Learning Goals
+## Learning Goals  
 *At the end of this exercise, you will be able to:*    
-1. Build a venn diagram
-2. Build a word cloud
+1. Build a venn diagram  
+2. Build a word cloud  
 
-
-## Load Libraries
+## Load Libraries  
 ```{r}
 library(tidyverse)
+```
 
+```{r}
 #install.packages("ggVennDiagram")
+#install.packages("ggwordcloud")
 library(ggVennDiagram)
 library(RColorBrewer)
-#install.packages("ggworldcloud")
 library(ggwordcloud)
 ```
 
 ## Data
-Let's use the homerange data-- I've slightly modified it with a new observation
+Let's use the homerange data-- I've slightly modified it with a new observation.  
 ```{r}
 homerange <- read_csv("data/modified_Tamburelloetal_HomeRangeDatabase.csv")
-
 ```
 
-## Venn Diagrams
+## Venn Diagrams  
+[great info here](https://cran.r-project.org/web/packages/ggVennDiagram/vignettes/using-ggVennDiagram.html) on how these are coded in ggplot.  
 
-[great info here](https://cran.r-project.org/web/packages/ggVennDiagram/vignettes/using-ggVennDiagram.html) on how these are coded in ggplot. 
+Sometimes its tricky to figure out what kind of data can be represented with a Venn diagram. I like to think of them as asking a series of questions about each row in you dataset, that are not mutually exclusive/inclusive.  
 
-Sometimes its tricky to figure out what kind of data can be represented with a Venn diagram. I like to think of them as asking a series of questions about each row in you dataset, that are not mutually exclusive/inclusive. 
+For the animals in the homerange database, we will ask a series of yes/no questions.  
 
-For the animals in the homerange database, we will ask a series of yes/no questions.
+Let's start with: Do they fly? Do they swim?  
+We will use `pull` to create a vector of the `common.name`s of animals that would answer this question with "yes".  
 
-Let's start with: Do they fly? Do they swim? 
-We will use `pull` to create a vector of the `common.name`s of animals that would answer this question with "yes".
-
-Do they fly?
+Do they fly?  
 ```{r}
-flying_vec <- homerange %>%
+flying_vec <- 
+  homerange %>%
   filter(locomotion == "flying")%>%
-  pull(common.name)
+  pull(common.name) #make a vector of the common names resulting from the filter
+flying_vec
 ```
 
 Do they swim?
 ```{r}
-swimming_vec <- homerange %>%
+swimming_vec <- 
+  homerange %>%
   filter(locomotion == "swimming")%>%
   pull(common.name)
+swimming_vec
 ```
 
-To build a Venn diagram of these, we make a list or the vectors that represent our questions. 
-The list represents the number of circles going into the venn diagram" and the vectors represent "what are the numbers going into the venn diagram"
+To build a Venn diagram of these, we make a list or the vectors that represent our questions.  
 
+The list represents the number of circles going into the venn diagram" and the vectors represent "what are the numbers going into the venn diagram"  
 ```{r}
 fly_or_swim_list <- list(flying_vec, swimming_vec)
-
-ggVennDiagram(fly_or_swim_list, category.names = c("Fly", "Swim"))
+fly_or_swim_list
 ```
 
-Woah! an image!
-But its not that useful. Since we are pretty familiar with this data, we know that `locomotion` is one column, and each animal only has one entry for locomotion, which is probably their primary for of movement. This results in `Swim` and `Fly` being mutually exclusive. 
+```{r}
+ggVennDiagram(fly_or_swim_list, category.names = c("Fliers", "Swimmers"))
+```
 
+Woah! an image! But its not that useful. Since we are pretty familiar with this data, we know that `locomotion` is one column, and each animal only has one entry for locomotion, which is probably their primary for of movement. This results in `Swim` and `Fly` being mutually exclusive.  
 
-So venn diagrams work best when asking questions **about data from 2 different columns**. 
-Let's retry this with a more informative question: 
+So venn diagrams work best when asking questions **about data from 2 different columns**. Let's retry this with a more informative question:  
 
-Do they fly? Are they a bird? 
-We can recycle the `flying_vec`
-Do they fly?
+Do they fly? Are they a bird?  
+We can recycle the `flying_vec`  
+Do they fly?  
 ```{r}
 # flying_vec
 ```
 
 Are they a bird?
 ```{r}
-bird_vec <- homerange %>%
+bird_vec <- 
+  homerange %>%
   filter(taxon == "birds")%>%
   pull(common.name)
 ```
@@ -93,9 +97,8 @@ bird_vec <- homerange %>%
 ```{r}
 fly_or_bird_list <- list(flying_vec, bird_vec)
 
-ggVennDiagram(fly_or_bird_list, category.names = c("Fly", "Bird"))
+ggVennDiagram(fly_or_bird_list, category.names = c("Fly", "Non-Flying Birds"))
 ```
-
 
 What are the 26 non-flying birds?
 ```{r}
@@ -105,42 +108,41 @@ homerange%>%
   select(common.name)
 ```
 
-what is the flying non-bird?
+what is the flying non-bird?  
 ```{r}
-
+homerange %>% filter(locomotion=="flying" & taxon!="birds")
 ```
 
-
-
-### Adding Circles
-Are they an herbivore?
-
-
+### Adding Circles  
+Are they an herbivore?  
 ```{r}
-herbivore_vec <- homerange %>%
+herbivore_vec <- 
+  homerange %>%
   filter(trophic.guild == "herbivore")%>%
   pull(common.name)
-
+herbivore_vec
 ```
 
 ```{r}
 fly_bird_herbi_list <- list(flying_vec, bird_vec, herbivore_vec)
+```
 
+```{r}
 ggVennDiagram(fly_bird_herbi_list, category.names = c("Fly", "Bird", "Herbivore"))
 ```
 
-### Make It Pretty!
-
-Lets work with the 2 question plot for now:
+### Make It Pretty!  
+Let's work with the 2 question plot for now:  
 ```{r}
   # you can toggle edge size
-venn_plot <- ggVennDiagram(fly_or_bird_list, category.names = c("Fly", "Bird"), edge_size = 1.5)
+venn_plot <- ggVennDiagram(fly_or_bird_list, category.names = c("Fly", "Bird"), edge_size = 2)
+```
 
+```{r}
 venn_plot +
   scale_fill_distiller(palette = "Greys")+ #distiller is for discrete data
   labs(title = "Do all birds fly? Do only birds fly?",
-         caption = ("you can add a caption here, e.g.: Studys show not all birds fly, and not only birds fly")
-  )
+         caption = ("you can add a caption here, e.g.: Studys show not all birds fly, and not only birds fly"))
 ```
 
 ```{r}
@@ -154,75 +156,68 @@ ggVennDiagram(fly_or_bird_list,
   scale_color_brewer(palette = "Set3")+                   # sets palette for circle colors
   scale_fill_distiller(palette = "Greys")+                # distiller is for discrete data
   labs(title = "Do all birds fly? Do only birds fly?",
-         caption = ("you can add a caption here, e.g.: Studys show not all birds fly, and not only birds fly") )
+         caption = ("Figure 1: you can add a caption here, e.g.: Studys show not all birds fly, and not only birds fly") )
 ```
+## Practice  
+Try making a 4 circle Venn diagram to show the intersection of:  
+- swimming  
+- carnivores  
+- aquatic  
+- ectotherms  
 
-
-
-## Practice
-
-Try making a 4 circle Venn diagram to show the intersection of:
-- swimming
-- carnivores
-- aquatic
-- endotherms
-
-You can use locomotion, trophic guild, realm, and thermoregulation. 
-
+You can use `locomotion`, `trophic.guild`, `realm`, and `thermoregulation`  
 ```{r}
 #Set Up the vectors:
 
    #you can also recycle the one we made earlier
-swimming_vec<- homerange %>%
+swimming_vec<- 
+  homerange %>%
   filter(locomotion=="swimming")%>%
   pull(common.name)
 
-carni_vec<- homerange %>%
+carni_vec<- 
+  homerange %>%
   filter(trophic.guild=="carnivore")%>%
   pull(common.name)
 
-aqua_vec <- homerange %>% 
+aqua_vec <- 
+  homerange %>% 
   filter(realm == "aquatic")%>%
   pull(common.name)
 
-ecto_vec<- homerange %>%
+ecto_vec<- 
+  homerange %>%
   filter(thermoregulation =="ectotherm")%>%
   pull(common.name)
-
 ```
 
 ```{r}
-
-# Make the list of vectors:
-
-
-# Make the plot:
+homerange_list <- list(swimming_vec, carni_vec, aqua_vec, ecto_vec)
 ```
 
+```{r}
+venn_plot <- ggVennDiagram(homerange_list, category.names = c("Swimming", "Carni", "Aqua", "Ecto"), edge_size = 2, label="count")
+venn_plot
+```
 
-Use dplyr to determine which 20 animals from this plot are:
-- Ectotherms
-- Aquatic
-- Swimmers
-- NOT Carnivores?
-
+Use dplyr to determine which 20 animals from this plot are:  
+- Ectotherms  
+- Aquatic  
+- Swimmers  
+- NOT Carnivores?  
 ```{r}
 
 ```
 
+## Word Clouds  
+Check out [this reference](https://lepennec.github.io/ggwordcloud/) on how word clouds are built in R.  
 
+Word clouds allow you to make a image of multiple words, where their size is scaled to the frequency that they occur in the dataset.  
 
-
-## Word Clouds
-
-Check out [this reference](https://lepennec.github.io/ggwordcloud/) on how word clouds are built in R. 
-
-
-Word clouds allow you to make a image of multiple words, where their size is scaled to the frequency that they occur in the dataset. 
-
-First, you have to make a frequency list with count, 
+First, you have to make a frequency list with count.  
 ```{r}
-hr_taxon_count <- homerange %>% 
+hr_taxon_count <- 
+  homerange %>% 
   count(taxon)
 hr_taxon_count
 ```
@@ -230,29 +225,31 @@ hr_taxon_count
 then you can plot like this!!
 ```{r}
 hr_taxon_count %>% 
-ggplot(aes(
-  label = taxon, 
-  size = n,
-  color = taxon
-  )) +
+  ggplot(aes(label = taxon, size = n, color = taxon)) +
   geom_text_wordcloud() +
   scale_size_area(max_size = 20) +
   theme_minimal()
 ```
 
-## Practice
-in the homework, we will make word clouds with the super hero data. 
+## Practice  
+in the homework, we will make word clouds with the super hero data.  
 
 For now, practice word clouds by making a could of all the different families in the class `reptilia`.
-If they dont fit, try tinkering the `scale_size_area(max_size =   )`
+If they don't fit, try tinkering the `scale_size_area(max_size =   )`.  
 
-make the count table:
+make the count table:  
 ```{r}
-
+hr_taxon_count <- homerange %>%
+  filter(class=="reptilia") %>% 
+  count(family)
+hr_taxon_count
 ```
 
-
-make the plot:
+make the plot:  
 ```{r}
-
+hr_taxon_count %>% 
+  ggplot(aes(label = family, size = n, color = family)) +
+  geom_text_wordcloud() +
+  scale_size_area(max_size = 10) +
+  theme_minimal()
 ```
