@@ -23,10 +23,10 @@ In BIS 015L, you will be introduced to the fundamentals of data science with emp
 This class is designed for students with *no background in computer programming, R, or statistics*. Our assumption is that you know how to turn a computer on and use a mouse- that's it!  
 
 ## Equipment  
-In order to complete the work in class, you need to be able to run R and RStudio. Mac and PC computers both work, but *not* Chromebooks. If you experience problems, contact [Joel Ledford](mailto:jmledford@ucdavis.edu).  
+In order to complete the homework and exams, you need to be able to run R and RStudio. Mac and PC computers both work, but *not* Chromebooks. If you experience problems, contact [Joel Ledford](mailto:jmledford@ucdavis.edu).  
 
 ## Health and Safety  
-We take the health and safety of everyone in the class very seriously. You are required to have passed the daily symptom survey (DSS) and correctly wear a mask at all times. We will check your DSS prior to each in-person class. If you do not feel well, please fill out the DSS honestly. Your grade will not be penalized for missing class.  
+We take the health and safety of everyone in the class very seriously. If you are not feeling well, please do not come to class. Your grade will not be penalized for missing class.  
 
 ## UC Davis’ Principles of Community  
 We expect all interactions in this class to be guided by the [UCD Principles of Community](https://diversity.ucdavis.edu/principles-community). This stresses commitment to a climate of equity, inclusiveness and justice that is demonstrated by respecting and celebrating one another. The richness of our learning community and our ability to address pressing societal challenges require all of our unique contributions and perspectives. In this class, we will value open expression of our individualism, within the bounds of courtesy and respect to others. We will confront and reject all manifestations of discrimination, including based on age, citizenship status, disability, ethnicity, gender, gender expression, nationality, race, sexual orientation, socio-economic class, status inside or outside the university, veteran status, religious/non-religious, spiritual or political beliefs, or any other differences among people which have been excuses for misunderstanding, dissension or hatred.  
@@ -63,15 +63,15 @@ There are two exams in the class, both of which are take-home. You may use any r
 ## Grading  
 The class is graded out of 300 points on a straight scale. Grading is divided into four parts:  
 
-1. **Weekly homework assignments (50%)**. Each assignment must be completed and uploaded to GitHub prior to the next lab. I will randomly pull an example from GitHub to discuss with the class to see alternate solutions and address issues. You must complete all homework assignments to receive a passing grade in the course. There are 15 homework assignments total, each of which is worth 10 points.  
+1. **Weekly homework assignments (50%)**. Each assignment must be completed and uploaded to GitHub prior to the next lab. I will randomly pull an example from GitHub to discuss with the class to see alternate solutions and address issues. You must complete all homework assignments to receive a passing grade in the course. There are 15 homework assignments total, each of which is worth 10 points. Homework is due at the start of each lab; no late work is accepted.    
 
 2. **Midterms (20%)**. The midterms help us keep one another accountable. These exams will be take-home and the due dates are strict; no late work is accepted. Each midterm is worth 30 points.  
 
 3. **Class project (30%)**. As part of the class, you will form a group to explore a project in data science. The project may be based on any available data of interest to the group and should highlight skills learned in the labs. The group will present their results during the last lab sessions.  The class project is worth 90 points.  
 
-4. **Attendance**. As a skills-based lab class, in-person attendance provides you with immediate hands-on experience and help. We expect classes to return to in-person instruction starting January 10, and we are eager to see you. Understandably, in-person attendance may not be possible at all times and we will do our best to accommodate your absences. If you miss class, please use the [class website](https://jmledford3115.github.io/datascibiol/) and [YouTube channel](https://www.youtube.com/channel/UCFX-MipGKF9jCEXaP-59BzQ) as your guide. It is unlikely that we will be able to provide recordings of the labs, but these two resources will help you work through missed class material.  
+4. **Attendance**. As a skills-based lab class, attendance provides you with hands-on experience and help. If you know that you will not be able to attend in-person or you have significant planned absences this quarter, please reconsider enrollment. BIS 15L is not designed to be a remote class- there are already thousands of courses that teach R online. Our class has collaborative learning as its foundation and requires your attendance.  
 
-Your grade will not be penalized for missing class. If you do not feel well, please answer the DSS questions honestly and do not attend class.  
+If you miss class, please use the [class website](https://jmledford3115.github.io/datascibiol/) and [YouTube channel](https://www.youtube.com/channel/UCFX-MipGKF9jCEXaP-59BzQ) as your guide. We will not be able to provide recordings of the labs, but these two resources will help you work through missed class material.  
 
 ## Suggested Reading  
 [R for Data Science](https://r4ds.had.co.nz/), Grolemund and Wickham (2017).  
@@ -80,7 +80,7 @@ Your grade will not be penalized for missing class. If you do not feel well, ple
 Office hours are scheduled each week and are also available by appointment. If there are problems with the assignments, it is important that we communicate together as a class. Please use the class discord as a first step so we all benefit.  
 
 ## About Joel Ledford  
-I am an assistant teaching professor in the department of [Plant Biology](http://www-plb.ucdavis.edu/). My research is focused on education and spider biology. I completed my B.S. at UC Davis in entomology as a community college transfer student. My experience in R involves statistical analysis in education and evolutionary biology. I also teach part of the introductory biology series `BIS2C` (Fall and Winter) and introductory plant biology `PLB10` (Spring).  
+I am an associate teaching professor in the department of [Plant Biology](http://www-plb.ucdavis.edu/). My research is focused on education and spider biology. I completed my B.S. at UC Davis in entomology as a community college transfer student. My experience in R involves statistical analysis in education and evolutionary biology. I also teach part of the introductory biology series `BIS2C` (Fall and Winter) and introductory plant biology `PLB10` (Spring).  
 
 ## About Hannah Houts
 I am a 3rd year Microbiology PhD student in the [lab for Data Intensive Biology](http://ivory.idyll.org/lab/). I completed my B.S. in microbiology here at UC Davis (go Aggies), as a proud community college transfer. These days I research (computationally) gut bacteria and the viruses that infect them, while improving computational tools & techniques for wrangling metagenomic data. I use R to manage metadata and generate plots.
