@@ -17,7 +17,7 @@ Before we get started this quarter, it is very important that you spend time mak
 In order to get set-up, you need to do four things:  
 
 + [R](https://www.r-project.org/)  
-+ [RStudio](https://www.rstudio.com/)  
++ [RStudio](https://posit.co/)  
 + [GitHub Desktop](https://desktop.github.com/)
 
 ### 1. Download the most recent version of R and install
@@ -28,7 +28,7 @@ Download the latest version of R [here](https://ftp.osuosl.org/pub/cran/) and in
 ### 2. Download the most recent version of RStudio and install
 RStudio is a [GUI](https://www.computerhope.com/jargon/g/gui.htm) that allows for more intuitive operation of R and includes numerous additional functions. All of our work will be done in RStudio.  
 
-Download the latest version of RStudio [here](https://www.rstudio.com/) and install.  
+Download the latest version of RStudio [here](https://posit.co/) and install.  
 
 ### 3. Download the most recent version of GitHub Desktop and install  
 GitHub is the website where we will upload all of our work, including homework and class files. [GitHub Desktop](https://desktop.github.com/) is a [GUI](https://www.computerhope.com/jargon/g/gui.htm) interface that allows us to keep track of changes (version control) and upload.  
