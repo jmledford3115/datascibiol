@@ -39,13 +39,13 @@ Our campus has a wealth of expertise in data science. Should your interests prog
 - [Data Science Initiative](http://dsi.ucdavis.edu/)  
 
 ## Help!  
-When you need help with homework or a class topic, please post on our [class discord page](https://discord.gg/rRN5jner). We are here to support you and everyone should participate, please.  
+When you need help with homework or a class topic, please post on our [class discord page](https://discord.gg/5Z8Scwhj). We are here to support you and everyone should participate, please.  
 
 ## Lab 1 Goals  
 The goal of lab 1 is to get everyone started using R, RStudio, and GitHub. All of our work will be done in RStudio and uploaded to the class GitHub repository. It is important that everyone is set-up correctly before we are done today. In the spirit of the R universe, our class is a community. If you see someone struggling, please give them some help.  
 
 ## Setup your computer  
-Because BIS 15L will be held remotely for the first part of the quarter, it is very important that you spend time making sure that your computer is set-up and ready to go. The first step in this is basic maintenance; i.e. clean up your desktop, update your OS, and make sure that you are running the latest version of Zoom. Data scientists are neat and tidy! Spend time getting yourself organized, it will pay off.  
+Because you will need to work on assignments at home, it is important that you spend time making sure that your computer is set-up and ready to go. The first step in this is basic maintenance; i.e. clean up your desktop and update your OS. Data scientists are neat and tidy! Spend time getting yourself organized, it will pay off.  
 
 Please follow these four steps to set-up you computer [here](https://jmledford3115.github.io/datascibiol/setup.html).  
 
@@ -53,14 +53,14 @@ Please follow these four steps to set-up you computer [here](https://jmledford31
 [GitHub](http://www.github.com) is a file storage and management site used by programmers. Programmers upload code to repositories (folders) and make it publicly available. We will use Github to store our work in BIS 15L.  
 
 ## Your GitHub account  
-Since we will use GitHub for assignments, you need to have an account and make a repository for BIS 15L. If you followed the [setup instructions](https://jmledford3115.github.io/datascibiol/setup.html) above then you should be all set. Please [Email](mailto:jmledford@ucdavis.edu) your user name to me.  
+Since we will use GitHub for assignments, you need to have an account and make a repository for BIS 15L. If you followed the [setup instructions](https://jmledford3115.github.io/datascibiol/setup.html) above then you should be all set. Please [Email](mailto:hehouts@ucdavis.edu) your user name to Hannah.  
 
 We have a main repository for our class [datascibiol](https://github.com/jmledford3115/datascibiol). You should **Star** this repository for future reference.  
 
 ## Make Your Own Repository  
 1. Go to [github.com](www.github.com) and login.  
 2. Create a new repository.  
-3. Under repository name, use the title `BIS15W2022_your first initial and lastname`. Mine looks like this: BIS15W2022_jledford  
+3. Under repository name, use the title `BIS15W2023_your first initial and lastname`. Mine looks like this: BIS15W2023_jledford  
 4. Default settings are fine, but do click "Initialize this repository with a README".    
 5. Once the repository is made, click on settings in the top right.  
 6. On the left toolbar click "Collaborators".  
@@ -96,6 +96,6 @@ Since you will use your GitHub repository extensively in class, we need to pract
 5. `Knit` the file.    
 6. Use GitHub Desktop to first `Commit to master` and then `Push origin` to your GitHub repository.    
 
-## That's it! Take a break and I will see you on Zoom!  
+## That's it! Let's take a break and then move on to part 2!
 
 -->[Home](https://jmledford3115.github.io/datascibiol/)  
