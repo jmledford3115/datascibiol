@@ -63,11 +63,11 @@ There are two exams in the class, both of which are take-home. You may use any r
 ## Grading  
 The class is graded out of 300 points on a straight scale. Grading is divided into four parts:  
 
-1. **Weekly homework assignments (50%)**. Each assignment must be completed and uploaded to GitHub prior to the next lab. I will randomly pull an example from GitHub to discuss with the class to see alternate solutions and address issues. You must complete all homework assignments to receive a passing grade in the course. There are 15 homework assignments total, each of which is worth 10 points. Homework is due at the start of each lab; no late work is accepted.    
+1. **Weekly homework assignments (43%)**. Each assignment must be completed and uploaded to GitHub prior to the next lab. There are 15 homework assignments total and each assignment is worth 10 points. Homework is due at the start of each lab; no late work is accepted. To provide flexibility, we drop the 2 lowest homework assignments for the quarter so the maximum number of points is 130.  
 
-2. **Midterms (20%)**. The midterms help us keep one another accountable. These exams will be take-home and the due dates are strict; no late work is accepted. Each midterm is worth 30 points.  
+2. **Midterms (23%)**. The midterms help us keep one another accountable. These exams will be take-home and the due dates are strict; no late work is accepted. Each midterm is worth 35 points.  
 
-3. **Class project (30%)**. As part of the class, you will form a group to explore a project in data science. The project may be based on any available data of interest to the group and should highlight skills learned in the labs. The group will present their results during the last lab sessions.  The class project is worth 90 points.  
+3. **Class project (33%)**. As part of the class, you will form a group to explore a project in data science. The project may be based on any available data of interest to the group and should highlight skills learned in the labs. The group will present their results during the last lab sessions.  The class project is worth 100 points.  
 
 4. **Attendance**. As a skills-based lab class, attendance provides you with hands-on experience and help. If you know that you will not be able to attend in-person or you have significant planned absences this quarter, please reconsider enrollment. BIS 15L is not designed to be a remote class- there are already thousands of courses that teach R online. Our class has collaborative learning as its foundation and requires your attendance.  
 

@@ -12,7 +12,7 @@ output:
 This quarter we are fortunate to be able to use the computers in the SCC. Each of these computers is up-to-date, and the installed software is exactly the same. This makes following my instructions much easier, but you will likely want to have the ability to work at home. Please follow the directions below to set-up your personal computer.  
 
 ## Setup  
-Before we get started this quarter, it is very important that you spend time making sure that your computer is set-up and ready to go. The first step in this is just basic maintenance; i.e. clean up your desktop and update your OS. Having lots of files on your desktop can negatively impact your computer's performance. Data scientists are neat and tidy! Spend time getting yourself organized.  
+Before we get started this quarter, it is very important that you spend time making sure that your computer is set-up and ready to go. The first step in this is just basic maintenance; i.e. clean up your desktop and update your OS. Having lots of files on your desktop or multiple tabs open can negatively impact your computer's performance. Data scientists are neat and tidy! Spend time getting yourself organized.  
 
 In order to get set-up, you need to do four things:  
 
@@ -30,10 +30,13 @@ RStudio is a [GUI](https://www.computerhope.com/jargon/g/gui.htm) that allows fo
 
 Download the latest version of RStudio [here](https://posit.co/) and install.  
 
-### 3. Download the most recent version of GitHub Desktop and install  
+### 3. Install tidyverse `install.packages("tidyverse")`    
+We use several packages as part of the class, but the most important is tidyverse.  
+
+### 4. Download the most recent version of GitHub Desktop and install  
 GitHub is the website where we will upload all of our work, including homework and class files. [GitHub Desktop](https://desktop.github.com/) is a [GUI](https://www.computerhope.com/jargon/g/gui.htm) interface that allows us to keep track of changes (version control) and upload.  
 
-### 4. GitHub Account
+### 5. GitHub Account
 You need to make a personal account on GitHub. Navigate to [GitHub](http://www.github.com) and create a free account.  
 
 -->[Home](https://jmledford3115.github.io/datascibiol/)  
