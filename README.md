@@ -27,6 +27,6 @@ Each lab is listed below along with the associated homework. New labs will be ad
 Easy [setup instructions](https://jmledford3115.github.io/datascibiol/setup.html) for your personal computer.  
 
 ## About the Class  
-This class has been developed with the generous help of Katherine Ransom, Rebecca Godwin, Min-Yao Jhu, Julin Maloof, and the students of BIS 15L! If you see errors or have suggestions, please make a pull request on [GitHub](https://github.com/jmledford3115/datascibiol). Thank you!  
+This class has been developed with the generous help of Hannah Houts, Katherine Ransom, Rebecca Godwin, Min-Yao Jhu, Julin Maloof, and the students of BIS 15L! If you see errors or have suggestions, please make a pull request on [GitHub](https://github.com/jmledford3115/datascibiol). Thank you!  
 
 ## Let's Get Started!
