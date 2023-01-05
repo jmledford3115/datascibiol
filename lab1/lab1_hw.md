@@ -1,7 +1,7 @@
 ---
 title: "Lab 1 Homework"
 author: "Please Add Your Name Here"
-date: "2021-12-27"
+date: "2023-01-04"
 output:
   html_document: 
     theme: spacelab
@@ -13,7 +13,7 @@ Answer the following questions and complete the exercises in RMarkdown. Please e
 
 Make sure to use the formatting conventions of RMarkdown to make your report neat and clean!  
 
-**1. Please complete the [class survey](https://forms.gle/hh5hmzTZgLYxkP7W9) if you have not already done so.**
+**1. Please complete the [class survey](https://forms.gle/8t9FZSBjgvFjzr4MA).**  
 
 **2. What is the difference between R and RStudio? What is GitHub and why is it useful to programmers?**  
 
