@@ -48,6 +48,15 @@ Order of operations applies and you don't need to add an '=' sign.
 (4*12)/2
 ```
 
+```{r}
+2*3
+```
+
+```{r}
+12/4
+```
+
+
 Statistics are what R was originally written for and there are thousands of packages for specialized statistics depending on your needs.  
 
 First, we need to make a vector or string of values which we will store as an object x. More on this later...
@@ -63,6 +72,10 @@ mean(x)
 We can do the same thing for median.  
 ```{r}
 median(x)
+```
+
+```{r}
+sd(x)
 ```
 
 ## RMarkdown  
