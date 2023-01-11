@@ -10,9 +10,6 @@ output:
     toc: yes
 ---
 
-## Breakout Rooms  
-Please take 5-8 minutes to check over your answers to HW 1 in your group. If you are stuck, please remember that you can check the key in [Joel's repository](https://github.com/jmledford3115/BIS15W2022_jledford).  
-
 ## Learning Goals
 *At the end of this exercise, you will be able to:*    
 1. Define data structures and provide examples of vectors and data matrices.  

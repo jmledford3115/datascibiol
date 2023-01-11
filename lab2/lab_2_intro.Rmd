@@ -1,0 +1,32 @@
+---
+title: "Lab 2 Intro"
+date: "`r Sys.Date()`"
+output: ioslides_presentation
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+library("jpeg")
+```
+
+## Setup
+1. Login to the lab computer (please don't use your personal computer).  
+2. Navigate to github.com and login.   
+2. Copy your repository to the desktop.   
+5. Copy the class repository to the desktop (https://github.com/jmledford3115/datascibiol).  
+6. Copy the files for today's lab from the class repository and paste them into **your** repository.  
+7. Open today's lab in RStudio.  
+
+## Review from last time
+### *With a partner, discuss the following questions*
+1. What is the association between `R` and `R Studio`?  
+2. What is the association between `github.com` and `GitHub Desktop`?  
+3. Why do programmers use `GitHub`?
+3. What is `R Markdown`? What are the advantages of this format?  
+4. How do you insert a new code chunk?  
+
+## Homework
+1. Please open `homework 1`.  
+2. With a partner, discuss any problems and fix last-minute issues.  
+3. Follow our instructions to push your homework.  
+4. Have someone double-check your upload on `github.com`
