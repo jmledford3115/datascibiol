@@ -132,10 +132,10 @@ We can also click on the `fish` data frame in the Environment tab or type View(f
 #View(fish)
 ```
 
-## Subset
-Subset is a way of pulling out observations that meet specific criteria in a variable.  
+## Filter
+Filter is a way of pulling out observations that meet specific criteria in a variable. We will work a lot more with this in the next lab.  
 ```{r}
-#little_fish <- subset(fish, length<=100)
+#little_fish <- filter(fish, length<=100)
 #little_fish
 ```
 

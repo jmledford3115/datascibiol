@@ -28,7 +28,7 @@ During lab 2, you learned how to work with vectors and data matrices. Today we w
 
 Let's build separate vectors that include length (in), weight (oz), and sex of three [ruby-throated hummingbirds](https://www.audubon.org/field-guide/bird/ruby-throated-hummingbird).  
 ```{r}
-Sex <- c("Male", "Female", "Male")
+Sex <- c("male", "female", "male")
 Length <- c(3.2, 3.7, 3.4)
 Weight <- c(2.9, 4.0, 3.1)
 ```
@@ -94,7 +94,7 @@ mean(w)
 ## Adding Rows
 We can add a new bird's data with the `rbind()` function, known as row bind. It will bind our new vector to our data frame row-wise.
 ```{r}
-new_bird <- c("Female", 3.6, 3.9)
+new_bird <- c("female", 3.6, 3.9)
 new_bird
 ```
 
@@ -106,7 +106,7 @@ hbirds
 ## Adding Columns
 What if we come across more data and we want to add it to our data frame? We can also do that with the `$` operator.
 ```{r}
-hbirds$neighborhood <- c("Lakewood", "Brentwood", "Lakewood", "Scenic Heights")
+hbirds$neighborhood <- c("lakewood", "brentwood", "lakewood", "scenic Heights")
 hbirds
 ```
 
