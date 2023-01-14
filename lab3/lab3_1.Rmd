@@ -149,6 +149,6 @@ spring <- c("Buckeye", "Buckeye", "Buckeye", "Benton", "Benton", "Benton", "Trav
 
 ```
 
-## That's it! Take a break and I will see you on Zoom!  
+## That's it! Let's take a break and then move on to part 2! 
 
 -->[Home](https://jmledford3115.github.io/datascibiol/)  
