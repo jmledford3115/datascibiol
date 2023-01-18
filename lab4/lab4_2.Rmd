@@ -10,9 +10,6 @@ output:
     toc: yes
 ---
 
-## Breakout Rooms  
-Please take 5-8 minutes to check over your answers to HW 2 in your group. If you are stuck, please remember that you can check the key in [Joel's repository](https://github.com/jmledford3115/BIS15LW2022_jledford).  
-
 ## Learning Goals  
 *At the end of this exercise, you will be able to:*    
 1. Use the functions of dplyr (filter, select, arrange) to organize and sort data frames.  
@@ -30,6 +27,9 @@ library("tidyverse")
 For these exercises we will use the data from lab 4_1.  
 ```{r}
 fish <- readr::read_csv("data/Gaeta_etal_CLC_data.csv")
+```
+
+```{r}
 mammals <- readr::read_csv("data/mammal_lifehistories_v2.csv")
 ```
 
@@ -107,7 +107,7 @@ filter(fish, lakeid == "AL" | length > 350)
 Rules:  
 + `filter(condition1, condition2)` will return rows where both conditions are met.  
 + `filter(condition1, !condition2)` will return all rows where condition one is true but condition 2 is not.  
-+ `filter(condition1 | condition2)` will return rows where condition 1 and/or condition 2 is met.  
++ `filter(condition1 | condition2)` will return rows where condition 1 or condition 2 is met.  
 + `filter(xor(condition1, condition2)` will return all rows where only one of the conditions is met, and not when both conditions are met.  
 
 In this case, we filter out the fish with a length over 400 and a scale length over 11 or a radii length over 8.

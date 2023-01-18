@@ -193,6 +193,6 @@ When naming columns, blank spaces are often added (don't do this, please). Here 
 #select_all(mammals, ~str_replace(., " ", "_"))
 ```
 
-## That's it! Take a break and I will see you on Zoom!  
+## That's it! Let's take a break and then move on to part 2! 
 
 -->[Home](https://jmledford3115.github.io/datascibiol/)  
