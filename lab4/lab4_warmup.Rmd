@@ -1,0 +1,41 @@
+---
+title: "Lab 4 Warm-Up"
+date: "`r Sys.Date()`"
+output:
+  html_document:
+    theme: spacelab
+    toc: yes
+    toc_float: yes
+  pdf_document:
+    toc: yes
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+### 1. Load the libraries
+```{r}
+library(tidyverse)
+library(palmerpenguins)
+```
+
+### 2. What are the dimensions of `penguins`?
+```{r}
+dim(penguins)
+```
+
+### 3. What are the names of the variables in `penguins`?
+```{r}
+names(penguins)
+```
+
+### 4. How many individuals were sampled on each island in the `penguins` data?
+```{r}
+table(penguins$island)
+```
+
+### 5. What is the mean body mass for all individuals in the `penguins` data?
+```{r}
+mean(penguins$body_mass_g, na.rm=T)
+```
