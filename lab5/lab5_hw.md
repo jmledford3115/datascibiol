@@ -1,6 +1,6 @@
 ---
 title: "dplyr Superhero"
-date: "2022-01-17"
+date: "2023-01-22"
 output:
   html_document: 
     theme: spacelab
@@ -16,20 +16,14 @@ library("tidyverse")
 ```
 
 ```
-## ── Attaching packages ─────────────────────────────────────── tidyverse 1.3.1 ──
-```
-
-```
-## ✓ ggplot2 3.3.5     ✓ purrr   0.3.4
-## ✓ tibble  3.1.6     ✓ dplyr   1.0.7
-## ✓ tidyr   1.1.4     ✓ stringr 1.4.0
-## ✓ readr   2.1.1     ✓ forcats 0.5.1
-```
-
-```
+## ── Attaching packages ─────────────────────────────────────── tidyverse 1.3.2 ──
+## ✔ ggplot2 3.4.0      ✔ purrr   1.0.1 
+## ✔ tibble  3.1.8      ✔ dplyr   1.0.10
+## ✔ tidyr   1.2.1      ✔ stringr 1.5.0 
+## ✔ readr   2.1.3      ✔ forcats 0.5.2 
 ## ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
-## x dplyr::filter() masks stats::filter()
-## x dplyr::lag()    masks stats::lag()
+## ✖ dplyr::filter() masks stats::filter()
+## ✖ dplyr::lag()    masks stats::lag()
 ```
 
 ## Load the superhero data
@@ -43,16 +37,10 @@ superhero_info <- readr::read_csv("data/heroes_information.csv", na = c("", "-99
 
 ```
 ## Rows: 734 Columns: 10
-```
-
-```
 ## ── Column specification ────────────────────────────────────────────────────────
 ## Delimiter: ","
 ## chr (8): name, Gender, Eye color, Race, Hair color, Publisher, Skin color, A...
 ## dbl (2): Height, Weight
-```
-
-```
 ## 
 ## ℹ Use `spec()` to retrieve the full column specification for this data.
 ## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
@@ -65,16 +53,10 @@ superhero_powers <- readr::read_csv("data/super_hero_powers.csv", na = c("", "-9
 
 ```
 ## Rows: 667 Columns: 168
-```
-
-```
 ## ── Column specification ────────────────────────────────────────────────────────
 ## Delimiter: ","
 ## chr   (1): hero_names
 ## lgl (167): Agility, Accelerated Healing, Lantern Power Ring, Dimensional Awa...
-```
-
-```
 ## 
 ## ℹ Use `spec()` to retrieve the full column specification for this data.
 ## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
@@ -92,21 +74,21 @@ head(superhero_powers)
 
 ```
 ## # A tibble: 6 × 168
-##   hero_names  Agility `Accelerated Healing` `Lantern Power Ri… `Dimensional Awa…
-##   <chr>       <lgl>   <lgl>                 <lgl>              <lgl>            
-## 1 3-D Man     TRUE    FALSE                 FALSE              FALSE            
-## 2 A-Bomb      FALSE   TRUE                  FALSE              FALSE            
-## 3 Abe Sapien  TRUE    TRUE                  FALSE              FALSE            
-## 4 Abin Sur    FALSE   FALSE                 TRUE               FALSE            
-## 5 Abomination FALSE   TRUE                  FALSE              FALSE            
-## 6 Abraxas     FALSE   FALSE                 FALSE              TRUE             
-## # … with 163 more variables: Cold Resistance <lgl>, Durability <lgl>,
-## #   Stealth <lgl>, Energy Absorption <lgl>, Flight <lgl>, Danger Sense <lgl>,
-## #   Underwater breathing <lgl>, Marksmanship <lgl>, Weapons Master <lgl>,
-## #   Power Augmentation <lgl>, Animal Attributes <lgl>, Longevity <lgl>,
-## #   Intelligence <lgl>, Super Strength <lgl>, Cryokinesis <lgl>,
-## #   Telepathy <lgl>, Energy Armor <lgl>, Energy Blasts <lgl>,
-## #   Duplication <lgl>, Size Changing <lgl>, Density Control <lgl>, …
+##   hero_…¹ Agility Accel…² Lante…³ Dimen…⁴ Cold …⁵ Durab…⁶ Stealth Energ…⁷ Flight
+##   <chr>   <lgl>   <lgl>   <lgl>   <lgl>   <lgl>   <lgl>   <lgl>   <lgl>   <lgl> 
+## 1 3-D Man TRUE    FALSE   FALSE   FALSE   FALSE   FALSE   FALSE   FALSE   FALSE 
+## 2 A-Bomb  FALSE   TRUE    FALSE   FALSE   FALSE   TRUE    FALSE   FALSE   FALSE 
+## 3 Abe Sa… TRUE    TRUE    FALSE   FALSE   TRUE    TRUE    FALSE   FALSE   FALSE 
+## 4 Abin S… FALSE   FALSE   TRUE    FALSE   FALSE   FALSE   FALSE   FALSE   FALSE 
+## 5 Abomin… FALSE   TRUE    FALSE   FALSE   FALSE   FALSE   FALSE   FALSE   FALSE 
+## 6 Abraxas FALSE   FALSE   FALSE   TRUE    FALSE   FALSE   FALSE   FALSE   TRUE  
+## # … with 158 more variables: `Danger Sense` <lgl>,
+## #   `Underwater breathing` <lgl>, Marksmanship <lgl>, `Weapons Master` <lgl>,
+## #   `Power Augmentation` <lgl>, `Animal Attributes` <lgl>, Longevity <lgl>,
+## #   Intelligence <lgl>, `Super Strength` <lgl>, Cryokinesis <lgl>,
+## #   Telepathy <lgl>, `Energy Armor` <lgl>, `Energy Blasts` <lgl>,
+## #   Duplication <lgl>, `Size Changing` <lgl>, `Density Control` <lgl>,
+## #   Stamina <lgl>, `Astral Travel` <lgl>, `Audio Control` <lgl>, …
 ```
 
 ## `janitor`

@@ -52,7 +52,7 @@ names(mammals)
 ```
 
 ## Pipes `%>%` 
-In order to start combining `select()`, `filter()`, and other functions more efficiently, we need to learn pipes. Pipes feed the output from one function into the input of another function. This helps us keep our code sequential and clean.  
+In order to start combining `select()`, `filter()`, and other functions efficiently, we need to learn pipes. Pipes feed the output from one function into the input of another function. This helps us keep our code sequential and clean.  
 
 In this example, we use a pipe to select only `lakeid` and `scalelength` then filter that output only for lakes "AL". Notice that we only need to call the data one time.
 ```{r}
@@ -132,6 +132,12 @@ mammals %>%
   mutate_all(tolower)
 ```
 
+Using the across function we can specify individual columns.
+```{r}
+mammals %>% 
+  mutate(across(c("order", "family"), tolower))
+```
+
 ## `if_else()`
 We will briefly introduce `if_else()` here because it allows us to use `mutate()` but not have the entire column affected in the same way. In a sense, this can function like find and replace in a spreadsheet program. With `ifelse()`, you first specify a logical statement, afterwards what needs to happen if the statement returns `TRUE`, and lastly what needs to happen if it's  `FALSE`.  
 
@@ -160,6 +166,6 @@ mammals %>%
 
 ```
 
-## That's it! Take a break and I will see you on Zoom!  
+## That's it! Let's take a break and then move on to part 2! 
 
 -->[Home](https://jmledford3115.github.io/datascibiol/)  
