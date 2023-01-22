@@ -1,0 +1,7 @@
+infection status,eaten,frequency
+uninfected,yes,1
+uninfected,no,49
+light,yes,10
+light,no,35
+high,yes,37
+high,no,9

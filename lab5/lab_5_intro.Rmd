@@ -1,0 +1,32 @@
+---
+title: "Lab 5 Intro"
+date: "`r Sys.Date()`"
+output: ioslides_presentation
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+library("jpeg")
+```
+
+## Setup
+1. Login to the lab computer (please don't use your personal computer).  
+2. Navigate to github.com and login.   
+2. Copy your repository to the desktop.   
+5. Copy the class repository to the desktop (https://github.com/jmledford3115/datascibiol).  
+6. Copy the files for today's lab from the class repository and paste them into **your** repository.  
+7. Open today's lab in RStudio.  
+
+## Review from last time
+### *With a partner, discuss the following questions*
+1. What are the characteristics of `tidy` data?  
+2. What is the difference between `select` and `filter`?  
+3. When is your first midterm?  
+
+## Warm-up
+1. Load the bison data.
+2. What are the dimesions and structure of the data?
+3. We are only interested in code, sex, weight, year of birth. Restrict the data to these variables and store the dataframe as a new object.
+4. Pull out the animals born between 1980-1990.
+5. How many male and female bison are represented between 1980-1990?
+6. Between 1980-1990, were males or females larger on average?
