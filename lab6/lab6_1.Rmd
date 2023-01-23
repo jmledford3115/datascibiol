@@ -20,9 +20,6 @@ output:
 ## Review
 At this point, you should be comfortable using the functions of `dplyr`. If you need extra help, please [email me](mailto: jmledford@ucdavis.edu).  
 
-## Package updates
-In order to use some of the new function in the second part of lab today, you need to update your installed R packages. Please navigate to `Tools` >`Check for Package Updates...`. Follow the directions to update the packages.  
-
 ## Load the tidyverse and janitor
 ```{r message=FALSE, warning=FALSE}
 library("tidyverse")
@@ -42,9 +39,10 @@ For this lab, we will use the built-in data on mammal sleep patterns. From: _V. 
 names(msleep)
 ```
 
-We will also use the awesome [palmerpenguins](https://allisonhorst.github.io/palmerpenguins/articles/intro.html) data in the second part of lab so let's install it now.
+We will also use the awesome [palmerpenguins](https://allisonhorst.github.io/palmerpenguins/articles/intro.html) data in the second part of lab.
 ```{r}
-#remotes::install_github("allisonhorst/palmerpenguins")
+library("palmerpenguins")
+palmerpenguins::penguins_raw
 ```
 
 ## dplyr Practice
@@ -176,6 +174,6 @@ msleep %>%
 
 ```
 
-## That's it! Take a break and I will see you on Zoom!  
+## That's it! Let's take a break and then move on to part 2! 
 
 -->[Home](https://jmledford3115.github.io/datascibiol/)  
