@@ -48,34 +48,29 @@ palmerpenguins::penguins_raw
 ## dplyr Practice
 Let's do a bit more practice to make sure that we understand `select()`, `filter()`, and `mutate()`. Start by building a new data frame `msleep24` from the `msleep` data that: contains the `name` and `vore` variables along with a new column called `sleep_total_24` which is the amount of time a species sleeps expressed as a proportion of a 24-hour day. Remove any rows with NA's and restrict the `sleep_total_24` values to less than 0.3. Arrange the output in descending order.  
 ```{r}
-msleep24 <- msleep %>% 
-  mutate(sleep_total_24=sleep_total/24) %>% 
-  select(name, vore, sleep_total_24) %>% 
-  filter(!is.na(vore)) %>% 
-  filter(sleep_total_24<0.3) %>% 
-  arrange(desc(sleep_total_24))
+
 ```
 
 Did `dplyr` do what we expected? How do we check our output? Remember, just because your code runs it doesn't mean that it did what you intended.
 ```{r}
-summary(msleep24)
+#summary(msleep24)
 ```
 
 Try out the new function `skim()` as part of the `skimr` package.
 ```{r}
-skim(msleep24)
+#skim(msleep24)
 ```
 
 Histograms are also a quick way to check the output.
 ```{r}
-hist(msleep24$sleep_total_24)
+#hist(msleep24$sleep_total_24)
 ```
 
 Don't forget we can also use `tabyl()` across one or many variables.
 ```{r}
-msleep24 %>% 
-  tabyl(vore) %>% 
-  adorn_pct_formatting(digits=1)
+#msleep24 %>% 
+#  tabyl(vore) %>% 
+#  adorn_pct_formatting(digits=1)
 ```
 
 ## Practice
@@ -151,7 +146,7 @@ There are many other useful summary statistics, depending on your needs: sd(), m
 The `summarize()` function is most useful when used in conjunction with `group_by()`. Although producing a summary of body weight for all of the mammals in the data set is helpful, what if we were interested in body weight by feeding ecology?
 ```{r}
 msleep %>%
-  group_by(vore) %>% #we are grouping by feeding ecology
+  group_by(vore) %>% #we are grouping by feeding ecology, a categorical variable
   summarize(min_bodywt = min(bodywt),
             max_bodywt = max(bodywt),
             mean_bodywt = mean(bodywt),

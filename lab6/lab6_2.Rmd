@@ -31,27 +31,17 @@ glimpse(penguins)
 
 As biologists, a good question that we may ask is how do the measured variables differ by island (on average)?
 ```{r}
-penguins %>% 
-  group_by(island) %>% 
-  summarize(mean_body_mass_g=mean(body_mass_g),
-            n=n())
+
 ```
 
 Why do we have NA here? Do all of these penguins lack data?
 ```{r}
-penguins %>% 
-  group_by(island) %>% 
-  summarize(number_NAs=sum(is.na(body_mass_g)))
+
 ```
 
 Well, that won't work so let's remove the NAs and recalculate.
 ```{r}
-penguins %>% 
-  filter(!is.na(body_mass_g)) %>% 
-  group_by(island) %>% 
-  summarize(mean_body_mass_g=mean(body_mass_g),
-            sd_body_mass_g=sd(body_mass_g),
-            n=n())
+
 ```
 
 What if we are interested in the number of observations (penguins) by species and island?
@@ -60,9 +50,7 @@ names(penguins)
 ```
 
 ```{r}
-penguins %>% 
-  group_by(species, island) %>% 
-  summarize(n=n(), .groups= 'keep')#the .groups argument here just prevents a warning message
+
 ```
 
 ## Counts
@@ -84,10 +72,10 @@ penguins %>%
 You can also use `count()` across multiple variables.
 ```{r}
 penguins %>% 
-  count(island, species, sort = T)
+  count(island, species, sort = T) # sort=T will arrange in descending order
 ```
 
-For counts, I am starting to prefer `tabyl()`. Lots of options are supported in [tabyl](https://cran.r-project.org/web/packages/janitor/vignettes/tabyls.html)
+For counts, I often prefer `tabyl()`. Lots of options are supported in [tabyl](https://cran.r-project.org/web/packages/janitor/vignettes/tabyls.html)
 ```{r}
 penguins %>% 
   tabyl(island, species)
@@ -117,7 +105,7 @@ penguins %>%
 ```
 
 ## `across()`
-Last time we had some great questions on how to use `filter()` and `select()` across multiple variables. There is a new function in dplyr called `across()` which is designed to work across multiple variables. Have a look at Rebecca Barter's awesome blog [here](http://www.rebeccabarter.com/blog/2020-07-09-across/) as I am following her below.  
+What about using `filter()` and `select()` across multiple variables? There is a function in dplyr called `across()` which is designed to work across multiple variables. Have a look at Rebecca Barter's awesome blog [here](http://www.rebeccabarter.com/blog/2020-07-09-across/) as I am following her below.  
 
 What if we wanted to apply summarize in order to produce distinct counts over multiple variables; i.e. species, island, and sex? Although this isn't a lot of coding you can image that with a lot of variables it would be cumbersome.
 ```{r}
@@ -145,7 +133,7 @@ penguins %>%
 
 `group_by` also works.
 ```{r}
-table1 <- penguins %>%
+penguins %>%
   group_by(sex) %>% 
   summarize(across(contains("mm"), mean, na.rm=T))
 ```
@@ -153,20 +141,20 @@ table1 <- penguins %>%
 Here we summarize across all variables.
 ```{r}
 penguins %>%
-  summarise_all(n_distinct)
+  summarise_all(mean, na.rm=T)
 ```
 
-Operators can also work, here I am summarizing `n_distinct()` across all variables except `species`, `island`, and `sex`.
+Operators can also work, here I am summarizing across all variables except `species`, `island`, `sex`, and `year`.
 ```{r}
 penguins %>%
-  summarise(across(!c(species, island, sex), 
-                   n_distinct))
+  summarise(across(!c(species, island, sex, year), 
+                   mean, na.rm=T))
 ```
 
 All variables that include "bill"...all of the other dplyr operators also work.
 ```{r}
 penguins %>%
-  summarise(across(starts_with("bill"), n_distinct))
+  summarise(across(starts_with("bill"), mean, na.rm=T))
 ```
 
 ## Practice
