@@ -76,13 +76,27 @@ Don't forget we can also use `tabyl()` across one or many variables.
 ## Practice
 1. Which taxonomic orders have species that belong to more than one class of `vore`?
 ```{r}
+msleep %>% 
+  count(order, vore) %>% 
+  arrange(order) %>% 
+  pivot_wider(names_from = vore, values_from = n)
+```
 
+```{r}
+msleep %>% count(vore, order)
 ```
 
 ## `summarize()`
 `summarize()` will produce summary statistics for a given variable in a data frame. For example, if you are asked to calculate the mean of `sleep_total` for large and small mammals you could do this using a combination of commands, but it isn't very efficient or clean. We can do better!  
 ```{r}
 head(msleep)
+```
+
+```{r}
+msleep %>% 
+  count(order, vore) %>% 
+  arrange(order) %>% 
+  pivot_wider(names_from = vore, values_from = n)
 ```
 
 For example, if we define "large" as having a `bodywt` greater than 200 then we get the following:
