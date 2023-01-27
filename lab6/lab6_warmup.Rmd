@@ -1,0 +1,46 @@
+---
+title: "Untitled"
+output: html_document
+date: "2023-01-26"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Load the libraries
+```{r}
+library(tidyverse)
+library(janitor)
+```
+
+Load the data
+```{r}
+ecosphere <- 
+  read_csv("data/ecs21351-sup-0003-SupplementS1.csv", skip=2)
+```
+
+Use janitor to clean the names
+```{r}
+ecosphere <- ecosphere %>% clean_names()
+```
+
+Explore the data
+```{r}
+glimpse(ecosphere)
+```
+
+Are there more veggie, omni, insecivore, or nectar feeders in the data?
+```{r}
+ecosphere %>% 
+  tabyl(diet) %>% 
+  arrange(desc(n))
+```
+
+Which families are Veggie?
+```{r}
+ecosphere %>% 
+  filter(diet=="Vegetation") %>% 
+  select(family, diet) %>% 
+  tabyl(family)
+```
