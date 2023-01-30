@@ -1624,52 +1624,14 @@ preference.</p>
 <div id="practice" class="section level2">
 <h2>Practice</h2>
 <ol style="list-style-type: decimal">
-<li>Produce a summary of the mean for bill_length_mm, bill_depth_mm,
+<li><p>Produce a summary of the mean for bill_length_mm, bill_depth_mm,
 flipper_length_mm, and body_mass_g within Adelie penguins only. Be sure
-to provide the number of samples.</li>
+to provide the number of samples.</p></li>
+<li><p>How does the mean of <code>bill_length_mm</code> compare between
+penguin species?</p></li>
+<li><p>For some penguins, their sex is listed as NA. Where do these
+penguins occur?</p></li>
 </ol>
-<pre class="r"><code>penguins %&gt;% 
-  filter(species==&quot;Adelie&quot;) %&gt;% 
-  select(bill_length_mm, flipper_length_mm, body_mass_g) %&gt;% 
-  summarize(mean_bill_length_mm=mean(bill_length_mm, na.rm=T),
-            mean_flipper_length_mm=mean(flipper_length_mm, na.rm=T),
-            mean_body_mass_g=mean(body_mass_g, na.rm=T),
-            n=n())</code></pre>
-<pre><code>## # A tibble: 1 × 4
-##   mean_bill_length_mm mean_flipper_length_mm mean_body_mass_g     n
-##                 &lt;dbl&gt;                  &lt;dbl&gt;            &lt;dbl&gt; &lt;int&gt;
-## 1                38.8                   190.            3701.   152</code></pre>
-<ol start="2" style="list-style-type: decimal">
-<li>How does the mean of <code>bill_length_mm</code> compare between
-penguin species?</li>
-</ol>
-<pre class="r"><code>penguins %&gt;% 
-  group_by(species) %&gt;% 
-  summarize(mean_bill_length_mm=mean(bill_length_mm, na.rm=T),
-            sd_bill_length_mm=sd(bill_length_mm, na.rm=T))</code></pre>
-<pre><code>## # A tibble: 3 × 3
-##   species   mean_bill_length_mm sd_bill_length_mm
-##   &lt;fct&gt;                   &lt;dbl&gt;             &lt;dbl&gt;
-## 1 Adelie                   38.8              2.66
-## 2 Chinstrap                48.8              3.34
-## 3 Gentoo                   47.5              3.08</code></pre>
-<ol start="3" style="list-style-type: decimal">
-<li>For some penguins, their sex is listed as NA. Where do these
-penguins occur?</li>
-</ol>
-<pre class="r"><code>penguins %&gt;% count(sex, island)</code></pre>
-<pre><code>## # A tibble: 9 × 3
-##   sex    island        n
-##   &lt;fct&gt;  &lt;fct&gt;     &lt;int&gt;
-## 1 female Biscoe       80
-## 2 female Dream        61
-## 3 female Torgersen    24
-## 4 male   Biscoe       83
-## 5 male   Dream        62
-## 6 male   Torgersen    23
-## 7 &lt;NA&gt;   Biscoe        5
-## 8 &lt;NA&gt;   Dream         1
-## 9 &lt;NA&gt;   Torgersen     5</code></pre>
 </div>
 <div id="across" class="section level2">
 <h2><code>across()</code></h2>
@@ -1750,26 +1712,6 @@ also work.</p>
 bill_length_mm, bill_depth_mm, and flipper_length_mm for each penguin
 species. Be sure to provide the number of samples.</li>
 </ol>
-<pre class="r"><code>penguins %&gt;% 
-  group_by(species) %&gt;% 
-  summarize(across(contains(&quot;mm&quot;), mean, na.rm=T),
-            n_samples=n())</code></pre>
-<pre><code>## # A tibble: 3 × 5
-##   species   bill_length_mm bill_depth_mm flipper_length_mm n_samples
-##   &lt;fct&gt;              &lt;dbl&gt;         &lt;dbl&gt;             &lt;dbl&gt;     &lt;int&gt;
-## 1 Adelie              38.8          18.3              190.       152
-## 2 Chinstrap           48.8          18.4              196.        68
-## 3 Gentoo              47.5          15.0              217.       124</code></pre>
-<pre class="r"><code>penguins %&gt;% 
-  group_by(species) %&gt;% 
-  summarize(across(contains(&quot;mm&quot;), sd, na.rm=T),
-            n_samples=n())</code></pre>
-<pre><code>## # A tibble: 3 × 5
-##   species   bill_length_mm bill_depth_mm flipper_length_mm n_samples
-##   &lt;fct&gt;              &lt;dbl&gt;         &lt;dbl&gt;             &lt;dbl&gt;     &lt;int&gt;
-## 1 Adelie              2.66         1.22               6.54       152
-## 2 Chinstrap           3.34         1.14               7.13        68
-## 3 Gentoo              3.08         0.981              6.48       124</code></pre>
 </div>
 <div id="thats-it-lets-take-a-break-and-then-move-on-to-part-2" class="section level2">
 <h2>That’s it! Let’s take a break and then move on to part 2!</h2>
