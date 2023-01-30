@@ -24,6 +24,7 @@ Each lab is listed below along with the associated homework. New labs will be ad
 4. **Lab 4** | [part 1](https://jmledford3115.github.io/datascibiol/lab4_1.html) | [part 2](https://jmledford3115.github.io/datascibiol/lab4_2.html) | [HW](https://jmledford3115.github.io/datascibiol/lab4_hw.html)  
 5. **Lab 5** | [part 1](https://jmledford3115.github.io/datascibiol/lab5_1.html) | [part 2](https://jmledford3115.github.io/datascibiol/lab5_2.html) | [HW](https://jmledford3115.github.io/datascibiol/lab5_hw.html)  
 6. **Lab 6** | [part 1](https://jmledford3115.github.io/datascibiol/lab6_1.html) | [part 2](https://jmledford3115.github.io/datascibiol/lab6_2.html) | [HW](https://jmledford3115.github.io/datascibiol/lab6_hw.html)  
+7. **Lab 7** | [part 1](https://jmledford3115.github.io/datascibiol/lab7_1.html) | [part 2](https://jmledford3115.github.io/datascibiol/lab7_2.html) | [HW](https://jmledford3115.github.io/datascibiol/lab7_hw.html)  
 
 ## Reading  
 [R for Data Science](https://r4ds.had.co.nz/), Grolemund and Wickham (2017).  
