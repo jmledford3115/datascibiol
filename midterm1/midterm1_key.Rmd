@@ -1,0 +1,132 @@
+---
+title: "Midterm 1"
+author: "Please Add Your Name Here"
+date: "`r Sys.Date()`"
+output:
+  html_document: 
+    theme: spacelab
+    keep_md: yes
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Instructions
+Answer the following questions and complete the exercises in RMarkdown. Please embed all of your code and push your final work to your repository. Your code should be organized, clean, and run free from errors. Remember, you must remove the `#` for any included code chunks to run. Be sure to add your name to the author header above.  
+
+After the first 50 minutes, please upload your code (5 points). During the second 50 minutes, you may get help from each other- but no copy/paste. Upload the last version at the end of this time, but be sure to indicate it as final. If you finish early, you are free to leave.
+
+Make sure to use the formatting conventions of RMarkdown to make your report neat and clean! Use the tidyverse and pipes unless otherwise indicated. This exam is worth a total of 35 points. 
+
+Please load the following libraries.
+```{r}
+library(tidyverse)
+library(janitor)
+```
+
+In the midterm 1 folder there is a second folder called `data`. Inside the `data` folder, there is a .csv file called `ecs21351-sup-0003-SupplementS1.csv`. These data are from Soykan, C. U., J. Sauer, J. G. Schuetz, G. S. LeBaron, K. Dale, and G. M. Langham. 2016. Population trends for North American winter birds based on hierarchical models. Ecosphere 7(5):e01351. 10.1002/ecs2.1351.  
+
+Please load these data as a new object called `ecosphere`. In this step, I am providing the code to load the data, clean the variable names, and remove a footer that the authors used as part of the original publication.
+```{r message=FALSE, warning=FALSE}
+ecosphere <- read_csv("data/ecs21351-sup-0003-SupplementS1.csv", skip=2) %>% 
+  clean_names() %>%
+  slice(1:(n() - 18)) # this removes the footer
+```
+
+Problem 1. (1 point) Let's start with some data exploration. What are the variable names?
+```{r}
+names(ecosphere)
+```
+
+Problem 2. (1 point) Use the function of your choice to summarize the data.
+```{r}
+glimpse(ecosphere)
+```
+
+Problem 3. (2 points) How many distinct orders of birds are represented in the data?
+```{r}
+ecosphere %>% 
+  summarize(n_bird_orders=n_distinct(order))
+```
+
+Problem 4. (2 points) Which habitat has the highest diversity (number of species) in the data?
+```{r}
+ecosphere %>% 
+  count(habitat) %>% 
+  arrange(-n)
+```
+
+Run the code below to learn about the `slice` function. Look specifically at the examples (at the bottom) for `slice_max()` and `slice_min()`. If you are still unsure, try looking up examples online (https://rpubs.com/techanswers88/dplyr-slice). Use this new function to answer question 5 below.
+```{r}
+?slice_max
+```
+
+Problem 5. (4 points) Using the `slice_max()` or `slice_min()` function described above which species has the largest and smallest winter range?
+```{r}
+ecosphere %>% 
+  select(scientific_name, winter_range_area) %>% 
+  slice_max(winter_range_area, n=1)
+```
+
+```{r}
+ecosphere %>% 
+  select(scientific_name, winter_range_area) %>% 
+  slice_min(winter_range_area, n=1)
+```
+
+Problem 6. (2 points) The family Anatidae includes ducks, geese, and swans. Make a new object `ducks` that only includes species in the family Anatidae. Restrict this new dataframe to include all variables except order and family.
+```{r}
+ducks <- 
+  ecosphere %>% 
+  filter(family=="Anatidae") %>% 
+  select(!c(order, family))
+```
+
+Problem 7. (2 points) We might assume that all ducks live in wetland habitat. Is this true for the ducks in these data? If there are exceptions, list the species below.
+```{r}
+ducks %>% 
+  filter(habitat!="Wetland")
+```
+
+Problem 8. (4 points) In ducks, how is mean body mass associated with migratory strategy? Do the ducks that migrate long distances have high or low average body mass?
+```{r}
+ducks %>% 
+  group_by(migratory_strategy) %>% 
+  summarize(mean_log10_mass=mean(log10_mass)) %>% 
+  arrange(mean_log10_mass)
+```
+
+Problem 9. (2 points) Accipitridae is the family that includes eagles, hawks, kites, and osprey. First, make a new object `eagles` that only includes species in the family Accipitridae. Next, restrict these data to only include the variables common_name, scientific_name, and population_size.
+```{r}
+eagles <- 
+  ecosphere %>% 
+  filter(family=="Accipitridae") %>% 
+  select(common_name, scientific_name, population_size)
+```
+
+Problem 10. (4 points) In the eagles data, any species with a population size less than 250,000 individuals is threatened. Make a new column `conservation_status` that shows whether or not a species is threatened.
+```{r}
+eagles <- eagles %>% 
+  mutate(conservation_status = ifelse(population_size<250000, "threatened", "stable"))
+eagles
+```
+
+Problem 11. (2 points) Consider the results from questions 9 and 10. Are there any species for which their threatened status needs further study? How do you know?
+```{r}
+eagles %>% 
+  filter(is.na(conservation_status))
+```
+
+Problem 12. (4 points) Use the `ecosphere` data to perform one exploratory analysis of your choice. The analysis must have a minimum of three lines and two functions. You must also clearly state the question you are attempting to answer.
+```{r}
+
+```
+
+Please provide the names of the students you have worked with with during the exam:
+```{r}
+
+
+```
+
+Please be 100% sure your exam is saved, knitted, and pushed to your github repository. No need to submit a link on canvas, we will find your exam in your repository.
