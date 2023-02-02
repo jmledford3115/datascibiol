@@ -1,5 +1,5 @@
 ---
-title: "Lab 6 Intro"
+title: "Lab 7 Intro"
 date: "`r Sys.Date()`"
 output: ioslides_presentation
 ---
