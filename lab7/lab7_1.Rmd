@@ -62,18 +62,27 @@ penguins %>%
 ## Practice
 1. Produce a summary of the mean for bill_length_mm, bill_depth_mm, flipper_length_mm, and body_mass_g within Adelie penguins only. Be sure to provide the number of samples.
 ```{r}
-
+penguins %>% 
+  filter(species=="Adelie") %>% 
+  select(bill_length_mm, bill_depth_mm, flipper_length_mm, body_mass_g) %>% 
+  summarize(mean_bill_length_mm=mean(bill_length_mm, na.rm=T),
+            mean_bill_depth_mm=mean(bill_depth_mm, na.rm=T),
+            mean_flipper_length_mm=mean(flipper_length_mm, na.rm=T),
+            mean_body_mass_g=mean(body_mass_g, na.rm=T))
 ```
 
 2. How does the mean of `bill_length_mm` compare between penguin species?
 ```{r}
-
+penguins %>% 
+  group_by(species) %>% 
+  summarize(mean_bill_length_mm=mean(bill_length_mm, na.rm=T))
 ```
 
 
 3. For some penguins, their sex is listed as NA. Where do these penguins occur?
 ```{r}
-
+penguins %>% 
+  count(sex, island)
 ```
 
 ## `across()`
@@ -115,8 +124,8 @@ penguins %>%
 Operators can also work, here I am summarizing `n_distinct()` across all variables except `species`, `island`, and `sex`.
 ```{r}
 penguins %>%
-  summarize(across(!c(species, island, sex), 
-                   n_distinct))
+  summarize(across(!c(species, island, sex, year), 
+                   mean, na.rm=T))
 ```
 
 All variables that include "bill"...all of the other dplyr operators also work.
@@ -125,10 +134,17 @@ penguins %>%
   summarise(across(starts_with("bill"), n_distinct))
 ```
 
+```{r}
+names(penguins)
+```
+
 ## Practice
 1. Produce separate summaries of the mean and standard deviation for bill_length_mm, bill_depth_mm, and flipper_length_mm for each penguin species. Be sure to provide the number of samples.  
 ```{r}
-
+penguins %>% 
+  group_by(species) %>% 
+  summarize(across(c(contains("mm"), body_mass_g), mean, na.rm=T ),
+            n_samples=n())
 ```
 
 ```{r}

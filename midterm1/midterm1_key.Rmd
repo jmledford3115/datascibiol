@@ -66,7 +66,7 @@ Problem 5. (4 points) Using the `slice_max()` or `slice_min()` function describe
 ```{r}
 ecosphere %>% 
   select(scientific_name, winter_range_area) %>% 
-  slice_max(winter_range_area, n=1)
+  slice_max(winter_range_area, n=5)
 ```
 
 ```{r}

@@ -16,6 +16,10 @@ output:
 2. Produce summaries of the number of NA's in a data set.   
 3. Replace values with `NA` in a data set as appropriate.  
 
+```{r}
+#install.packages("naniar")
+```
+
 ## Load the libraries
 ```{r}
 library("tidyverse")
@@ -88,17 +92,23 @@ amniota <- readr::read_csv("data/amniota.csv")
 ```
 
 ```{r}
+any_na(amniota)
+```
 
+```{r}
+glimpse(amniota)
+summary(amniota)
 ```
 
 2. Use one of the tools explained above to summarize NA's in the data.
 ```{r}
-
+amniota %>% 
+  summarise_all(~(sum(is.na(.))))
 ```
 
 3. What's going on here? Try using the `hist` function on one or more of the continuous variables.
 ```{r}
-
+hist(amniota$adult_body_mass_g)
 ```
 
 4. Given that we know that the output of #2 is wrong, what do you think is the best approach for dealing with NA's in the `amniote` data? How are they represented?  
@@ -159,17 +169,20 @@ life_history <- read_csv("data/mammal_lifehistories_v2.csv")
 
 1. Do you see any NA's? Try using naniar.
 ```{r}
-
+naniar::miss_var_summary(life_history)
 ```
 
 2. Does this result seem likely? How are NA's represented in the data?
 ```{r}
-
+life_history %>% 
+  count(mass)
 ```
 
 3. Replace the placeholder values with NA and recheck.
 ```{r}
-
+life_history %>% 
+  na_if(-999) %>% 
+  miss_var_summary()
 ```
 
 ## Wrap-up  
