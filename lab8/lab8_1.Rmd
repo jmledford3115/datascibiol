@@ -57,30 +57,36 @@ Rules:
 ## Example 1: column names are data
 The following data show results from a drug trial with four treatments on six patients. The values represent resting heart rate.  
 ```{r}
-heartrate <- readr::read_csv("data/heartrate.csv")
+heartrate <- read_csv("data/heartrate.csv")
+```
+
+Want to try the `here` package(https://here.r-lib.org/index.html)? I have found that many new R users have difficulty managing directories and accessing files. The `here` package makes this a bit more intuitive.
+```{r}
+getwd()
+```
+
+```{r}
+here()
+```
+
+```{r}
+heartrate <- read_csv(here("lab8", "data2", "heartrate.csv"))
+```
+
+```{r}
 heartrate
 ```
 
-Want to try the `here` package?
-```{r}
-read_csv(here("lab8", "data", "heartrate.csv"))
-```
-
 Let's assess whether or not these data are tidy.  
-(1) each variable has its own column  
-*No. Some of the column names are actually variables (treatment a, b, c, or d).*  
-(2) each observation has its own row  
-*No. The observations are grouped in a single row by patient.*  
-(3) each value has its own cell  
-*Yes. There are no unusual combinations of data in each cell.*    
+(1) each variable has its own column?  
+ 
+(2) each observation has its own row?  
 
+(3) each value has its own cell?  
+  
 To fix this problem, we need to reshape the table to long format while keeping track of column names and values. We do this using `pivot_longer()`. Notice that the dimensions of the data frame change.  
 ```{r}
-heartrate %>% 
-  pivot_longer(-patient, #patient does not pivot
-               names_to = "drug", 
-               values_to = "heartrate"
-               )
+
 ```
 
 ## Practice
@@ -88,6 +94,7 @@ heartrate %>%
 ```{r}
 
 ```
+
 2. Why are these data untidy?  
 
 
@@ -183,6 +190,6 @@ length_data %>%
   unnest(length)
 ```
 
-## That's it! Take a break and I will see you on Zoom!  
+## That's it! Let's take a break and then move on to part 2!  
 
 -->[Home](https://jmledford3115.github.io/datascibiol/)
