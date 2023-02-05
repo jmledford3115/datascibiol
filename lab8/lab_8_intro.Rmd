@@ -1,0 +1,28 @@
+---
+title: "Lab 8 Intro"
+date: "`r Sys.Date()`"
+output: ioslides_presentation
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+library("jpeg")
+```
+
+## Setup
+1. Login to the lab computer (please don't use your personal computer).  
+2. Navigate to github.com and login.   
+2. Use GitHub desktop to clone your repository to the desktop.   
+5. Copy the class repository to the desktop (https://github.com/jmledford3115/datascibiol).  
+6. Copy the files for today's lab from the class repository and paste them into **your** repository.  
+7. Open today's lab in RStudio.  
+
+### Group Project
+1. The group project is meant to be a capstone project for BIS 15L.
+2. It is worth 33% of your grade.
+3. The project will include original R code and a ~8 minute presentation.
+4. Groups should have 2-3 people. 4-person groups are possible for complex projects.
+5. You should think about a topic that interests you, but isn't too far beyond your current level of knowledge.
+6. Original data from projects, labs, etc are great!
+7. Find someone next to you and talk about your general area of interest.
+8. What questions do you have?
