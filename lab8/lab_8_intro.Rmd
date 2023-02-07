@@ -17,7 +17,7 @@ library("jpeg")
 6. Copy the files for today's lab from the class repository and paste them into **your** repository.  
 7. Open today's lab in RStudio.  
 
-### Group Project
+## Group Project
 1. The group project is meant to be a capstone project for BIS 15L.
 2. It is worth 33% of your grade.
 3. The project will include original R code and a ~8 minute presentation.
