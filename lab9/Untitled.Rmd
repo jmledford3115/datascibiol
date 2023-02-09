@@ -1,0 +1,47 @@
+---
+title: "Untitled"
+output: html_document
+date: "2023-02-09"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(tidyverse)
+library(janitor)
+```
+
+```{r}
+getwd()
+```
+
+
+Simulated malaria data
+```{r}
+malaria <- read_csv("data/malaria.csv") %>% clean_names()
+```
+
+```{r}
+names(malaria)
+```
+
+Pivot longer
+```{r}
+malaria_long <- malaria %>% 
+  pivot_longer(cols=starts_with("malaria_rdt"),
+               names_to = "age_class",
+               values_to = "cases") %>% 
+  select(newid, data_date, submitted_date, location_name, province, district, age_class, cases)
+```
+
+Which district had the highest number of cases on July 30, 2020?
+```{r}
+malaria_long %>% 
+  filter(data_date=="2020-07-30") %>% 
+  group_by(district) %>% 
+  summarize(tot_cases=sum(cases, na.rm=T)) %>% 
+  arrange(-tot_cases)
+```
+
