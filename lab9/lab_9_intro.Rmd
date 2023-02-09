@@ -9,13 +9,10 @@ knitr::opts_chunk$set(echo = FALSE)
 library("jpeg")
 ```
 
-## Setup
-1. Login to the lab computer (please don't use your personal computer).  
-2. Navigate to github.com and login.   
-2. Use GitHub desktop to clone your repository to the desktop.   
-5. Copy the class repository to the desktop (https://github.com/jmledford3115/datascibiol).  
-6. Copy the files for today's lab from the class repository and paste them into **your** repository.  
-7. Open today's lab in RStudio.  
+## Seating
+1. If you already have a group, it will be helpful to start sitting next to each other.
+2. If you don't have a group, hang tight we are working on it.
+3. Please setup your computer as normal for today.
 
 ## Warm-up
 1. In the data folder there is an epidemiology data set on an outbreak of malaria.

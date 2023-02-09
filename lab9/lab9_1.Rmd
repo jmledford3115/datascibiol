@@ -21,7 +21,7 @@ output:
 At this point you should feel comfortable working in RStudio and using `dplyr` and `tidyr.` You also know how to produce statistical summaries of data and deal with NA's. It is OK if you need to go back through the labs and find bits of code that work for you, that's what most people do!     
 
 ##Resources  
-- [ggplot2 cheatsheet](https://www.rstudio.com/wp-content/uploads/2015/03/ggplot2-cheatsheet.pdf)  
+- [ggplot2 cheatsheet](https://posit.co/resources/cheatsheets/)  
 
 ## Libraries
 ```{r message=FALSE, warning=FALSE}
@@ -66,7 +66,7 @@ To make a plot, we need to first specify the data and map the aesthetics. The ae
 
 ```
 
-Notice that we have a nice background, labeled axes, and even a value range of our variables on the y-axis- but no plot. This is because we need to tell ggplot how we want our data represented. This is called the geometry or `geom()`. There are many types of `geom`, see the ggplot [cheatsheet](https://www.rstudio.com/wp-content/uploads/2015/03/ggplot2-cheatsheet.pdf).
+Notice that we have a nice background, labeled axes, and even a value range of our variables on the y-axis- but no plot. This is because we need to tell ggplot how we want our data represented. This is called the geometry or `geom()`. There are many types of `geom`, see the ggplot [cheatsheet](https://posit.co/resources/cheatsheets/).
 
 Here we specify that we want a boxplot, indicated by `geom_boxplot()`.
 ```{r}
