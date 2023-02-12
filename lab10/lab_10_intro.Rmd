@@ -1,0 +1,19 @@
+---
+title: "Lab 10 Intro"
+date: "`r Sys.Date()`"
+output: ioslides_presentation
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+library("jpeg")
+```
+
+## Seating & Set-up
+1. Please make sure that you sit next to your group members for the rest of the quarter.
+2. Please set-up your computer as normal.
+
+## Warm-up
+1. Please load the homerange data `Tamburelloetal_HomeRangeDatabase.csv`
+2. Show the min, mean, and max log10.mass by taxonomic class in the dataset.
+3. Make a plot that best summarizes this output.
