@@ -67,27 +67,23 @@ Line plots are great when you need to show changes over time. Here we look at th
 deserts %>% 
   filter(species_id=="DM" | species_id=="DS") %>% 
   group_by(year, species_id) %>% 
-  summarise(n=n())
+  summarise(n=n(), .groups='keep')
 ```
 
 ```{r}
-deserts$year <- as.factor(deserts$year)
-```
-
-```{r}
-glimpse(deserts)
+deserts %>% mutate(year=as_factor(year))
 ```
 
 ```{r}
 deserts %>% 
   filter(species_id=="DM" | species_id=="DS") %>% 
   group_by(year, species_id) %>% 
-  summarise(n=n()) %>% 
+  summarise(n=n(), .groups='keep') %>% 
   ggplot(aes(x=year, y=n, group=species_id, color=species_id))+
   geom_line()+
   geom_point(shape=2)+
   theme(axis.text.x = element_text(angle = 60, hjust = 1))+
-  labs(title = "Number of samples for species DM",
+  labs(title = "Number of samples for species DM & DS",
        x = "Year",
        fill = "n")
 ```
