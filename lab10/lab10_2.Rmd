@@ -62,12 +62,12 @@ p <- homerange %>%
 
 Play with point size.
 ```{r}
-p +geom_point(size=2)
+p +geom_point(size=0.25)
 ```
 
 Map shapes to another categorical variable.
 ```{r}
-p+geom_point(aes(shape=thermoregulation, color=thermoregulation), size=1.75)
+p+geom_point(aes(shape=thermoregulation, color=thermoregulation), size=1.5)
 ```
 
 ## Barplots and multiple variables
@@ -75,7 +75,7 @@ At this point you should be comfortable building bar plots that shows counts of 
 
 Let's start by counting how many observations we have in each taxonomic group.
 ```{r}
-homerange %>% count(taxon)
+homerange %>% count(taxon, sort=T)
 ```
 
 Now let's make a bar plot of these data.
@@ -101,7 +101,6 @@ We can also have counts of each trophic guild within taxonomic group shown side-
 ```{r}
 homerange %>% 
   ggplot(aes(x = taxon, fill = trophic.guild)) + geom_bar(position = "dodge") +
-  coord_flip() +
   labs(title = "Observations by Taxon in Homerange Data",
        x = "Taxonomic Group",
        fill = "Trophic Guild")

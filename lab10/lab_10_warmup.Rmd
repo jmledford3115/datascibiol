@@ -1,0 +1,44 @@
+---
+title: "lab 10 warm up"
+output: html_document
+date: "2023-02-14"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library("tidyverse")
+library("janitor")
+```
+
+```{r}
+homerange <- read_csv("data/Tamburelloetal_HomeRangeDatabase.csv", na="-999") %>% clean_names()
+```
+```{r}
+names(homerange)
+homerange %>% count(class)
+```
+
+```{r}
+homerange %>% 
+  group_by(class) %>% 
+  summarize(min_log10.mass=min(log10_mass),
+            max_log10.mass=max(log10_mass),
+            mean_log10.mass=mean(log10_mass),
+            median_log10.mass=median(log10_mass)
+            )
+```
+
+```{r}
+fish <- homerange %>% 
+  filter(class=="actinopterygii")
+```
+
+```{r}
+homerange %>% 
+  ggplot(aes(x=class, y=log10_mass))+
+  geom_boxplot()
+```
+
