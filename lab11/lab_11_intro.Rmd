@@ -14,3 +14,8 @@ library("jpeg")
 2. Please set-up your computer as normal.
 
 ## Warm-up
+For this warm-up, please use the `heartrate` data. Be sure to label your plots!
+
+1. Make a plot that compares the heartrate of patients for drug a.
+
+2. Make a plot that compares heartrate (as a range) for each drug.

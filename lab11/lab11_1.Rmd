@@ -53,12 +53,43 @@ For this tutorial, we will use two data sets.
 
 [Desert ecology](http://esapubs.org/archive/ecol/E090/118/). The data are from: S. K. Morgan Ernest, Thomas J. Valone, and James H. Brown. 2009. Long-term monitoring and experimental manipulation of a Chihuahuan Desert ecosystem near Portal, Arizona, USA. Ecology 90:1708.  
 ```{r message=FALSE, warning=FALSE}
-deserts <- read_csv(here("lab11", "data", "surveys_complete.csv"))
+deserts <- read_csv("data/surveys_complete.csv")
 ```
 
 [Homerange](http://datadryad.org/resource/doi:10.5061/dryad.q5j65/1). The data are from: Tamburello N, Cote IM, Dulvy NK (2015) Energy and the scaling of animal space use. The American Naturalist 186(2):196-211. http://dx.doi.org/10.1086/682070.  
 ```{r message=FALSE, warning=FALSE}
-homerange <- read_csv(here("lab11", "data", "Tamburelloetal_HomeRangeDatabase.csv"))
+homerange <- read_csv(here("lab10", "data", "Tamburelloetal_HomeRangeDatabase.csv"), na = c("", "NA", "\\"))
+```
+
+## Review
+1. Use the `homerange` data to make a boxplot that shows the range of `log10.mass` by taxonomic class.
+```{r}
+
+```
+
+2. Now, add a layer to this plot that fills color for each box by taxonomic class
+```{r}
+
+```
+
+3. Within each taxonomic class, there are multiple taxa. Show a count of each of these taxa.
+```{r}
+
+```
+
+## Using `group`
+In addition to `fill`, `group` is an aesthetic that unites observations in a categorical variable.
+```{r}
+homerange %>% 
+  ggplot(aes(x = class, y = log10.mass, group = taxon)) +
+  geom_boxplot()
+```
+
+I can also use `fill` to associate the different taxa with a color coded key.
+```{r}
+homerange %>% 
+  ggplot(aes(x = class, y = log10.mass, fill = taxon)) +
+  geom_boxplot()
 ```
 
 ## Line plots
@@ -71,17 +102,17 @@ deserts %>%
 ```
 
 ```{r}
-deserts %>% mutate(year=as_factor(year))
+deserts2 <- deserts %>% mutate(year=as_factor(year))
 ```
 
 ```{r}
-deserts %>% 
+deserts2 %>% 
   filter(species_id=="DM" | species_id=="DS") %>% 
   group_by(year, species_id) %>% 
   summarise(n=n(), .groups='keep') %>% 
   ggplot(aes(x=year, y=n, group=species_id, color=species_id))+
   geom_line()+
-  geom_point(shape=2)+
+  geom_point(shape=5)+
   theme(axis.text.x = element_text(angle = 60, hjust = 1))+
   labs(title = "Number of samples for species DM & DS",
        x = "Year",
@@ -199,6 +230,6 @@ table(quartiles)
 
 ```
 
-## That's it! Take a break and I will see you on Zoom!  
+## That's it, let's take a break!  
 
 -->[Home](https://jmledford3115.github.io/datascibiol/)
