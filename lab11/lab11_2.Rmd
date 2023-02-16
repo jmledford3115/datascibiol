@@ -55,7 +55,8 @@ p
 ```
 
 ```{r}
-p+theme_classic()+
+p+
+  theme_linedraw()+
   theme(axis.text.x = element_text(angle = 60, hjust=1))+
   labs(title = "Observations by Taxon in Homerange Data",
        x = NULL,
