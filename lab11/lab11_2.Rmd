@@ -88,7 +88,7 @@ ls("package:ggthemes")[grepl("theme_", ls("package:ggthemes"))]
 ```
 
 ```{r}
-p+ theme_igray()+
+p+ theme_fivethirtyeight()+
   theme(legend.position = "bottom",
         axis.text.x = element_text(angle = 60, hjust=1))+
   labs(title = "Observations by Taxon in Homerange Data",
@@ -107,7 +107,7 @@ Access the help for `RColorBrewer`.
 
 The thing to notice is that there are three different palettes: 1) sequential, 2) diverging, and 3) qualitative. Within each of these there are several selections. You can bring up the colors by using `display.brewer.pal()`. Specify the number of colors that you want and the palette name.
 ```{r}
-display.brewer.pal(4,"GnBu")
+display.brewer.pal(3,"PRGn")
 ```
 
 The [R Color Brewer](http://colorbrewer2.org/#type=sequential&scheme=BuGn&n=3) website is very helpful for getting an idea of the color palettes. To make things easy, use these two guidelines:
@@ -117,7 +117,7 @@ The [R Color Brewer](http://colorbrewer2.org/#type=sequential&scheme=BuGn&n=3) w
 
 Here I chose the `Paired` palette. Take a moment and experiment with other options.
 ```{r}
-p+scale_fill_brewer(palette = "BuPu")+
+p+scale_fill_brewer(palette = "Paired")+
   theme(legend.position = "bottom",
         axis.text.x = element_text(angle = 60, hjust=1))+
   labs(title = "Observations by Taxon in Homerange Data",
@@ -134,7 +134,7 @@ colors <- paletteer::palettes_d_names
 
 Now we can display the palettes. Assign the palette to `my_palette` and then build this base R bar plot. There are a lot of options; `paleteer` is a collection of popular palettes. I really like the [`ggsci` package] (https://cran.r-project.org/web/packages/ggsci/vignettes/ggsci.html)
 ```{r}
-my_palette <- paletteer_d("ggprism::flames")
+my_palette <- paletteer_d("beyonce::X1")
 ```
 
 ```{r}
@@ -158,8 +158,8 @@ There are many options for adjusting the x and y axes. For details, look over ex
 homerange %>% 
   ggplot(aes(x = log10.mass, y = log10.hra, color = locomotion)) +
   geom_point() +
-  xlim(0, 4) +
-  ylim(1, 6)
+  xlim(1, 4) +
+  ylim(0, 5)
 ```
 
 ## Practice
@@ -238,18 +238,6 @@ ecosphere %>%
   ggplot(aes(x=diet, y=log10_mass, fill=migratory_strategy))+ 
   geom_boxplot(alpha=0.4)+ 
   facet_grid(.~migratory_strategy)+
-  theme(axis.text.x = element_text(angle = 60, hjust = 1))+
-  labs(title = "Mass by Diet and Migratory Strategy",
-       x = NULL,
-       y = "Log 10 Mass",
-       fill = "Migratory Strategy")
-```
-
-```{r}
-ecosphere %>% 
-  ggplot(aes(x=diet, y=log10_mass, fill=migratory_strategy))+ 
-  geom_boxplot(alpha=0.4)+ 
-  facet_grid(migratory_strategy~.)+
   theme(axis.text.x = element_text(angle = 60, hjust = 1))+
   labs(title = "Mass by Diet and Migratory Strategy",
        x = NULL,
