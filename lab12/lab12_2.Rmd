@@ -67,7 +67,35 @@ There are many ways to adjust shiny apps for better visual appeal. Let's start w
 
 Let's build an app using the `homerange` data that will produce a density plot of `log10.hra` with reactivity assigned to `taxon`.
 ```{r}
+library(shiny)
 
+ui <- fluidPage(titlePanel("Log 10 Homerange by Taxon"),
+                selectInput("x", "Select Taxon", 
+                            choices=c("birds", "lake fishes", "lizards", "mammals", "marine fishes", "river fishes", "snakes", "tortoises", "turtles"), selected="birds"),
+                plotOutput("plot", width="600px", height="500px")
+)
+
+server <- function(input, output, session) {
+  output$plot <- renderPlot({
+    homerange %>% 
+      filter(taxon==input$x) %>% 
+      ggplot(aes(x=log10.hra))+
+      geom_density(fill="steelblue", color="black", alpha=0.6)
+  })
+}
+
+shinyApp(ui, server)
+```
+
+```{r}
+table(homerange$taxon)
+```
+
+```{r}
+homerange %>% 
+  filter(taxon=="mammals") %>% 
+  ggplot(aes(x=log10.hra))+
+  geom_density(fill="steelblue", color="black", alpha=0.6)
 ```
 
 ## Adding Numeric Input
