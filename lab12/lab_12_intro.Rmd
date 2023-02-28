@@ -1,0 +1,15 @@
+---
+title: "Lab 12 Intro"
+date: "`r Sys.Date()`"
+output: ioslides_presentation
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+library("jpeg")
+```
+
+## Projects
+1. Meet with your group members and discuss where you are in the project.
+2. Make a plan; who is doing which parts?
+3. What do you need from us?
