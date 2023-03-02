@@ -51,6 +51,10 @@ There is an error in one of the coordinates that we will fix here.
 spiders <- spiders %>% filter(latitude<=42)
 ```
 
+```{r}
+glimpse(spiders)
+```
+
 ## Create Base Map
 Our goal here is to plot the spiders locations from the columns which contain the latitude and longitude. First, we need to get a base map for plotting our points on. We could plot them without a base map, but that wouldn't give us any context as to where they are in space. To get a base map we specify a min and max of each x and y coordinate, and create a bounding box.  
 
@@ -72,7 +76,7 @@ bbox <- make_bbox(long, lat, f = 0.05)
 
 Let's get a base map for our bounding box area. We will use the stamen maps because they are free. There are several different map types, including: `terrain-labels`, `terrain-lines`, `toner`, `toner-2011`, `toner-background`, `toner-hybrid`, `toner-lines`, `toner-lite`, and `watercolor.`
 ```{r}
-map1 <- get_map(bbox, maptype = "terrain", source = "stamen")
+map1 <- get_map(bbox, maptype = "watercolor", source = "stamen")
 ```
 
 ```{r}
@@ -95,21 +99,32 @@ grizzly <- read_csv("data/bear-sightings.csv")
 
 1. Use the range of the latitude and longitude to build an appropriate bounding box for your map.
 ```{r}
-
+grizzly %>% 
+  select(longitude, latitude) %>% 
+  summary()
 ```
+
+```{r}
+lat <- c(55.02, 70.37)
+long <- c(-131.3, -166.2)
+bbox <- make_bbox(long, lat, f=0.5)
+```
+
 
 2. Load a map from `stamen` in a terrain style projection and display the map.
 ```{r}
-
+map2 <- get_map(bbox, maptype = "terrain", source="stamen")
 ```
 
 ```{r}
-
+ggmap(map2)
 ```
 
 3. Build a final map that overlays the recorded observations of grizzly bears in Alaska.
 ```{r}
-
+ggmap(map2)+
+  geom_point(data=grizzly, aes(x=longitude, y=latitude), size=0.4)+
+  labs(x="Longitude", y="Latitude", title="Ursos arctos")
 ```
 
 ## Wrap-up  

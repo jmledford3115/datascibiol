@@ -1,0 +1,52 @@
+---
+title: "Shiny Warm-Up"
+output: html_document
+date: "2023-03-02"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library("tidyverse")
+library("janitor")
+library("shiny")
+```
+
+```{r}
+elephants <- read_csv("data/ElephantsMF.csv") %>% clean_names()
+```
+
+```{r}
+glimpse(elephants)
+```
+
+```{r}
+elephants %>% 
+  ggplot(aes(x=age, y=height))+
+  geom_point()+
+  facet_wrap(~sex)
+```
+
+```{r}
+library(shiny)
+
+ui <- fluidPage(
+  titlePanel("Elephant Age vs. Height"), #provides a title
+  selectInput("sex", "Select Sex", choices=c("M", "F"), selected="M"),
+  helpText("Reference: Phyllis Lee, Stirling University, and are related to Lee, P., et al. (2013), Enduring consequences of early experiences: 40-year effects on survival and success among African elephants (Loxodonta africana), Biology Letters, 9: 20130011."),
+  plotOutput("plot", width="500px", height="400px")
+)
+
+server <- function(input, output, session) {
+  output$plot <- renderPlot({
+    filter(elephants, sex==input$sex) %>% 
+      ggplot(aes(x=age, y=height)) +
+      geom_point()
+})
+}
+
+shinyApp(ui, server)
+```
+

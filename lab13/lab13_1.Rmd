@@ -59,7 +59,34 @@ spider_list[[3]]
 ## Practice
 1. Getting an idea of the structure of lists is a bit tricky, especially when there are many elements. Try exploring the elements in `spider_list` using names(), str(), or glimpse(). For names(), you will need to specify an element using [[]].  
 ```{r}
+names(spider_list[[1]])
+```
 
+```{r}
+glimpse(spider_list[[1]])
+```
+
+## Naming List Elements
+```{r}
+names <- list.files(path="data/spiders", pattern=" .csv")
+```
+
+```{r}
+names_list <- strsplit(names, split=" .csv")
+```
+
+```{r}
+names_vec <- unlist(names_list)
+```
+
+```{r}
+names(spider_list) <- names_vec
+names(spider_list)
+```
+
+##Practice
+```{r}
+spider_list$`Contra Costa`
 ```
 
 ## Merging Files
@@ -151,6 +178,7 @@ We now have a single data frame with all of our spider data including locations.
 There is one last thing to change. Did you notice the date column? It seems to be in the format Day/Month/Year. 
 ```{r}
 class(spiders_with_locs$Date)
+glimpse(spiders_with_locs)
 ```
 
 The `lubridate` package was specifically created to deal with dates of all types. There are many useful functions in `lubridate` for working with dates. Please see the excellent tutorial provided by [RichardOnData](https://www.youtube.com/watch?v=VYAo69WdJZg&ab_channel=RichardOnData).
@@ -190,7 +218,23 @@ dateformat5 <- "20200922 170000"
 ## Practice 
 1. Convert each of the examples above using lubridate.
 ```{r}
+ymd(dateformat1)
+```
 
+```{r}
+mdy(dateformat2)
+```
+
+```{r}
+dmy(dateformat3)
+```
+
+```{r}
+mdy_hms(dateformat4)
+```
+
+```{r}
+ymd_hms(dateformat5)
 ```
 
 ## A few more tricks...
