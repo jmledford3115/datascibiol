@@ -1,0 +1,118 @@
+---
+title: "Intro to Spatial Data"
+date: "`r Sys.Date()`"
+output:
+  html_document:
+    theme: spacelab
+    toc: yes
+    toc_float: yes
+  pdf_document:
+    toc: yes
+---
+
+## Learning Goals
+*At the end of this exercise, you will be able to:*  
+1. Produce distribution maps in R.  
+ 
+## Resources
+[Overview of Cooordinate Reference Systems in R](https://www.nceas.ucsb.edu/~frazier/RSpatialGuides/OverviewCoordinateReferenceSystems.pdf)
+
+## Spatial Data in R
+There are many packages and techniques for working with spatial data in R. We will cover just some of the basics. One nice package is `ggmap`, which allows us to get base maps from Google Maps, OpenStreetMap, and Stamen Maps. It also works well with `ggplot2`.  
+
+If you completed part 1 of today's lab then you should have the following packages installed. If not, then you should get them going now. You need to do these in order!  
+
+`devtools` and `ggmap`
+```{r}
+#install.packages("devtools")
+library(devtools)
+#devtools::install_github("dkahle/ggmap")
+```
+
+## Load the libraries
+```{r}
+library(tidyverse)
+library(here)
+library(janitor)
+```
+
+## Load the `ggmap` package  
+```{r}
+library(ggmap)
+```
+
+Let's load our processed data from the first part of the lab.
+```{r}
+spiders <- read_csv("data/spiders_with_locs.csv")%>% clean_names()
+```
+
+There is an error in one of the coordinates that we will fix here.
+```{r}
+spiders <- spiders %>% filter(latitude<=42)
+```
+
+## Create Base Map
+Our goal here is to plot the spiders locations from the columns which contain the latitude and longitude. First, we need to get a base map for plotting our points on. We could plot them without a base map, but that wouldn't give us any context as to where they are in space. To get a base map we specify a min and max of each x and y coordinate, and create a bounding box.  
+
+We set the bounding box to a little outside our min and max locations with `f = 0.05`.    
+
+`summary()` gives us our min and max.
+```{r}
+spiders %>% 
+  select(latitude, longitude) %>% 
+  summary()
+```
+
+Now we set the bounding box. We use the min and max values for latitude and longitude to set the range.  
+```{r}
+lat <- c(34.67, 41.80)
+long <- c(-124.1, -115.5)
+bbox <- make_bbox(long, lat, f = 0.05)
+```
+
+Let's get a base map for our bounding box area. We will use the stamen maps because they are free. There are several different map types, including: `terrain-labels`, `terrain-lines`, `toner`, `toner-2011`, `toner-background`, `toner-hybrid`, `toner-lines`, `toner-lite`, and `watercolor.`
+```{r}
+map1 <- get_map(bbox, maptype = "terrain", source = "stamen")
+```
+
+```{r}
+ggmap(map1)
+```
+
+## Adding Points to Base Map
+`ggmap` works well with `ggplot2`. To add our points we only need to specify the x and y location similar to how we made charts in previous labs. 
+```{r}
+ggmap(map1) + 
+  geom_point(data = spiders, aes(longitude, latitude)) +
+  labs(x= "Longitude", y= "Latitude", title="Spider Locations")
+```
+
+## Practice
+Let's practice with a data set that records sightings of grizzly bears (Ursos arctos) in Alaska [data set](https://rcweb.dartmouth.edu/~f002d69/workshops/index_rspatial.html).  
+```{r}
+grizzly <- read_csv("data/bear-sightings.csv")
+```
+
+1. Use the range of the latitude and longitude to build an appropriate bounding box for your map.
+```{r}
+
+```
+
+2. Load a map from `stamen` in a terrain style projection and display the map.
+```{r}
+
+```
+
+```{r}
+
+```
+
+3. Build a final map that overlays the recorded observations of grizzly bears in Alaska.
+```{r}
+
+```
+
+## Wrap-up  
+Please review the learning goals and be sure to use the code here as a reference when completing the homework.
+
+-->[Home](https://jmledford3115.github.io/datascibiol/)
