@@ -25,10 +25,6 @@ library(here)
 library(ggmap)
 ``` 
 
-```{r}
-library(albersusa)
-```
-
 ## Load the Data
 We will use two separate data sets for this homework.  
 
