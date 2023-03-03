@@ -33,7 +33,15 @@ superhero_powers <- readr::read_csv("data/super_hero_powers.csv", na = c("", "-9
 ## Data tidy
 1. Some of the names used in the `superhero_info` data are problematic so you should rename them here.  
 ```{r}
+names(superhero_info)
+```
 
+```{r}
+superhero_info <- rename(superhero_info, gender="Gender", eye_color= "Eye color", race="Race", hair_color="Hair color", height="Height", publisher="Publisher", skin_color="Skin color", alignment="Alignment", weight="Weight" )
+```
+
+```{r}
+names(superhero_info)
 ```
 
 Yikes! `superhero_powers` has a lot of variables that are poorly named. We need some R superpowers...
@@ -56,75 +64,129 @@ superhero_powers <- janitor::clean_names(superhero_powers)
 The `janitor` package has many awesome functions that we will explore. Here is its version of `table` which not only produces counts but also percentages. Very handy! Let's use it to explore the proportion of good guys and bad guys in the `superhero_info` data.  
 
 ```{r}
-#tabyl(superhero_info, alignment)
+tabyl(superhero_info, alignment)
 ```
 
 2. Notice that we have some neutral superheros! Who are they?
 ```{r}
+neutral <- superhero_info %>% filter(alignment=="neutral")
+```
 
+```{r}
+neutral$name
 ```
 
 ## `superhero_info`
 3. Let's say we are only interested in the variables name, alignment, and "race". How would you isolate these variables from `superhero_info`?
 ```{r}
-
+superhero_info %>% select("name", "alignment", "race")
 ```
 
 ## Not Human
 4. List all of the superheros that are not human.
 ```{r}
+not_human <- superhero_info %>% filter(race!="Human")
+```
 
+```{r}
+not_human$name
 ```
 
 ## Good and Evil
 5. Let's make two different data frames, one focused on the "good guys" and another focused on the "bad guys".
 ```{r}
-
+good_guys <- 
+  superhero_info %>% 
+  filter(alignment=="good")
 ```
 
 ```{r}
-
+bad_guys <- 
+  superhero_info %>% 
+  filter(alignment=="bad")
 ```
 
 6. For the good guys, use the `tabyl` function to summarize their "race".
 ```{r}
-
+good_guys %>% tabyl(race)
 ```
 
 7. Among the good guys, Who are the Asgardians?
 ```{r}
-
+good_guys %>% filter(race=="Asgardian")
 ```
 
 8. Among the bad guys, who are the male humans over 200 inches in height?
 ```{r}
-
+bad_guys %>% filter(race=="Human" & gender=="Male" & height>=200)
 ```
 
 9. OK, so are there more good guys or bad guys that are bald (personal interest)?
-```{r}
+_There are more bald good guys!_  
 
+```{r}
+good_guys %>% 
+  filter(hair_color=="No Hair")
+```
+
+```{r}
+bad_guys %>% 
+  filter(hair_color=="No Hair")
+```
+
+```{r}
+table(superhero_info$hair_color, superhero_info$alignment)
+```
+
+```{r}
+superhero_info %>% 
+  tabyl(hair_color, alignment)
+```
+
+```{r}
+superhero_info %>% 
+  filter(hair_color=="No Hair") %>% 
+  group_by(alignment) %>% 
+  summarise(n=n())
+```
+
+```{r}
+superhero_info %>% 
+  filter(hair_color=="No Hair") %>% 
+  count(hair_color, alignment)
 ```
 
 10. Let's explore who the really "big" superheros are. In the `superhero_info` data, which have a height over 200 or weight greater than or equal to 450?
 ```{r}
-
+superhero_info %>% 
+  select(name, height, weight) %>% 
+  filter(height>=300 | weight>=450) %>% 
+  arrange(desc(height))
 ```
 
 11. Just to be clear on the `|` operator,  have a look at the superheros over 300 in height...
 ```{r}
-
+superhero_info %>% 
+  select(name, height) %>% 
+  filter(height>=300) %>% 
+  arrange(desc(height))
 ```
 
 12. ...and the superheros over 450 in weight. Bonus question! Why do we not have 16 rows in question #10?
 ```{r}
-
+superhero_info %>% 
+  select(name, weight) %>% 
+  filter(weight>=450) %>% 
+  arrange(desc(weight))
 ```
 
 ## Height to Weight Ratio
 13. It's easy to be strong when you are heavy and tall, but who is heavy and short? Which superheros have the highest height to weight ratio?
 ```{r}
-
+superhero_info %>% 
+  mutate(height_weight_ratio=height/weight) %>% 
+  select(name, height_weight_ratio) %>% 
+  arrange(height_weight_ratio)
 ```
 
 ## `superhero_powers`
@@ -135,13 +197,16 @@ glimpse(superhero_powers)
 
 14. How many superheros have a combination of accelerated healing, durability, and super strength?
 ```{r}
-
+superhero_powers %>% 
+  filter(accelerated_healing==TRUE & durability==TRUE & super_strength==TRUE)
 ```
 
 ## Your Favorite
 15. Pick your favorite superhero and let's see their powers!
 ```{r}
-
+superhero_powers %>% 
+  filter(hero_names=="Wonder Woman") %>% 
+  select_if(all_vars(.=="TRUE"))
 ```
 
 ## Push your final code to GitHub!

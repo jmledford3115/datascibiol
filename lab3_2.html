@@ -10,7 +10,7 @@
 
 
 
-<meta name="date" content="2023-01-14" />
+<meta name="date" content="2023-03-03" />
 
 <title>Importing Data Frames</title>
 
@@ -1509,7 +1509,7 @@ border-radius: 0px;
 
 
 <h1 class="title toc-ignore">Importing Data Frames</h1>
-<h4 class="date">2023-01-14</h4>
+<h4 class="date">2023-03-03</h4>
 
 </div>
 
@@ -1621,9 +1621,30 @@ data and store them as an object called <code>fish</code>.</li>
 <p>The data are from: Gaeta J., G. Sass, S. Carpenter. 2012.
 Biocomplexity at North Temperate Lakes LTER: Coordinated Field Studies:
 Large Mouth Bass Growth 2006. Environmental Data Initiative. <a href="https://portal.edirepository.org/nis/mapbrowse?scope=knb-lter-ntl&amp;identifier=267">link</a></p>
+<pre class="r"><code>fish &lt;- readr::read_csv(&quot;data/Gaeta_etal_CLC_data.csv&quot;)</code></pre>
+<pre><code>## Rows: 4033 Columns: 6
+## ── Column specification ────────────────────────────────────────────────────────
+## Delimiter: &quot;,&quot;
+## chr (2): lakeid, annnumber
+## dbl (4): fish_id, length, radii_length_mm, scalelength
+## 
+## ℹ Use `spec()` to retrieve the full column specification for this data.
+## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
 <ol start="2" style="list-style-type: decimal">
 <li>What is the structure of these data?</li>
 </ol>
+<pre class="r"><code>glimpse(fish)</code></pre>
+<pre><code>## Rows: 4,033
+## Columns: 6
+## $ lakeid          &lt;chr&gt; &quot;AL&quot;, &quot;AL&quot;, &quot;AL&quot;, &quot;AL&quot;, &quot;AL&quot;, &quot;AL&quot;, &quot;AL&quot;, &quot;AL&quot;, &quot;AL&quot;, …
+## $ fish_id         &lt;dbl&gt; 299, 299, 299, 300, 300, 300, 300, 301, 301, 301, 301,…
+## $ annnumber       &lt;chr&gt; &quot;EDGE&quot;, &quot;2&quot;, &quot;1&quot;, &quot;EDGE&quot;, &quot;3&quot;, &quot;2&quot;, &quot;1&quot;, &quot;EDGE&quot;, &quot;3&quot;, …
+## $ length          &lt;dbl&gt; 167, 167, 167, 175, 175, 175, 175, 194, 194, 194, 194,…
+## $ radii_length_mm &lt;dbl&gt; 2.697443, 2.037518, 1.311795, 3.015477, 2.670733, 2.13…
+## $ scalelength     &lt;dbl&gt; 2.697443, 2.697443, 2.697443, 3.015477, 3.015477, 3.01…</code></pre>
+<pre class="r"><code>names(fish)</code></pre>
+<pre><code>## [1] &quot;lakeid&quot;          &quot;fish_id&quot;         &quot;annnumber&quot;       &quot;length&quot;         
+## [5] &quot;radii_length_mm&quot; &quot;scalelength&quot;</code></pre>
 <p>Notice that when the data are imported, you are presented with a
 message that tells you how R interpreted the column classes. This is
 also where error messages will appear if there are problems.</p>
@@ -1669,16 +1690,453 @@ lab.</p>
 <div id="practice-1" class="section level2">
 <h2>Practice</h2>
 <ol style="list-style-type: decimal">
-<li><p>Load the data <code>mammal_lifehistories_v2.csv</code> and place
-it into a new object called <code>mammals</code>.</p></li>
-<li><p>Provide the dimensions of the data frame.</p></li>
-<li><p>Check the column names in the data frame.</p></li>
-<li><p>Use <code>str()</code> to show the structure of the data frame
-and its individual columns; compare this to
-<code>glimpse()</code>.</p></li>
-<li><p>. Try the <code>table()</code> command to produce counts of
-mammal order, family, and genus.</p></li>
+<li>Load the data <code>mammal_lifehistories_v2.csv</code> and place it
+into a new object called <code>mammals</code>.</li>
 </ol>
+<pre class="r"><code>mammals &lt;- readr::read_csv(&quot;data/mammal_lifehistories_v2.csv&quot;)</code></pre>
+<pre><code>## Rows: 1440 Columns: 13
+## ── Column specification ────────────────────────────────────────────────────────
+## Delimiter: &quot;,&quot;
+## chr (4): order, family, Genus, species
+## dbl (9): mass, gestation, newborn, weaning, wean mass, AFR, max. life, litte...
+## 
+## ℹ Use `spec()` to retrieve the full column specification for this data.
+## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+<ol start="2" style="list-style-type: decimal">
+<li>Provide the dimensions of the data frame.</li>
+</ol>
+<pre class="r"><code>dim(mammals)</code></pre>
+<pre><code>## [1] 1440   13</code></pre>
+<ol start="3" style="list-style-type: decimal">
+<li>Check the column names in the data frame.</li>
+</ol>
+<pre class="r"><code>names(mammals)</code></pre>
+<pre><code>##  [1] &quot;order&quot;        &quot;family&quot;       &quot;Genus&quot;        &quot;species&quot;      &quot;mass&quot;        
+##  [6] &quot;gestation&quot;    &quot;newborn&quot;      &quot;weaning&quot;      &quot;wean mass&quot;    &quot;AFR&quot;         
+## [11] &quot;max. life&quot;    &quot;litter size&quot;  &quot;litters/year&quot;</code></pre>
+<ol start="4" style="list-style-type: decimal">
+<li>Use <code>str()</code> to show the structure of the data frame and
+its individual columns; compare this to <code>glimpse()</code>.</li>
+</ol>
+<pre class="r"><code>str(mammals)</code></pre>
+<pre><code>## spc_tbl_ [1,440 × 13] (S3: spec_tbl_df/tbl_df/tbl/data.frame)
+##  $ order       : chr [1:1440] &quot;Artiodactyla&quot; &quot;Artiodactyla&quot; &quot;Artiodactyla&quot; &quot;Artiodactyla&quot; ...
+##  $ family      : chr [1:1440] &quot;Antilocapridae&quot; &quot;Bovidae&quot; &quot;Bovidae&quot; &quot;Bovidae&quot; ...
+##  $ Genus       : chr [1:1440] &quot;Antilocapra&quot; &quot;Addax&quot; &quot;Aepyceros&quot; &quot;Alcelaphus&quot; ...
+##  $ species     : chr [1:1440] &quot;americana&quot; &quot;nasomaculatus&quot; &quot;melampus&quot; &quot;buselaphus&quot; ...
+##  $ mass        : num [1:1440] 45375 182375 41480 150000 28500 ...
+##  $ gestation   : num [1:1440] 8.13 9.39 6.35 7.9 6.8 5.08 5.72 5.5 8.93 9.14 ...
+##  $ newborn     : num [1:1440] 3246 5480 5093 10167 -999 ...
+##  $ weaning     : num [1:1440] 3 6.5 5.63 6.5 -999 ...
+##  $ wean mass   : num [1:1440] 8900 -999 15900 -999 -999 ...
+##  $ AFR         : num [1:1440] 13.5 27.3 16.7 23 -999 ...
+##  $ max. life   : num [1:1440] 142 308 213 240 -999 251 228 255 300 324 ...
+##  $ litter size : num [1:1440] 1.85 1 1 1 1 1.37 1 1 1 1 ...
+##  $ litters/year: num [1:1440] 1 0.99 0.95 -999 -999 2 -999 1.89 1 1 ...
+##  - attr(*, &quot;spec&quot;)=
+##   .. cols(
+##   ..   order = col_character(),
+##   ..   family = col_character(),
+##   ..   Genus = col_character(),
+##   ..   species = col_character(),
+##   ..   mass = col_double(),
+##   ..   gestation = col_double(),
+##   ..   newborn = col_double(),
+##   ..   weaning = col_double(),
+##   ..   `wean mass` = col_double(),
+##   ..   AFR = col_double(),
+##   ..   `max. life` = col_double(),
+##   ..   `litter size` = col_double(),
+##   ..   `litters/year` = col_double()
+##   .. )
+##  - attr(*, &quot;problems&quot;)=&lt;externalptr&gt;</code></pre>
+<pre class="r"><code>glimpse(mammals)</code></pre>
+<pre><code>## Rows: 1,440
+## Columns: 13
+## $ order          &lt;chr&gt; &quot;Artiodactyla&quot;, &quot;Artiodactyla&quot;, &quot;Artiodactyla&quot;, &quot;Artiod…
+## $ family         &lt;chr&gt; &quot;Antilocapridae&quot;, &quot;Bovidae&quot;, &quot;Bovidae&quot;, &quot;Bovidae&quot;, &quot;Bov…
+## $ Genus          &lt;chr&gt; &quot;Antilocapra&quot;, &quot;Addax&quot;, &quot;Aepyceros&quot;, &quot;Alcelaphus&quot;, &quot;Amm…
+## $ species        &lt;chr&gt; &quot;americana&quot;, &quot;nasomaculatus&quot;, &quot;melampus&quot;, &quot;buselaphus&quot;,…
+## $ mass           &lt;dbl&gt; 45375.0, 182375.0, 41480.0, 150000.0, 28500.0, 55500.0,…
+## $ gestation      &lt;dbl&gt; 8.13, 9.39, 6.35, 7.90, 6.80, 5.08, 5.72, 5.50, 8.93, 9…
+## $ newborn        &lt;dbl&gt; 3246.36, 5480.00, 5093.00, 10166.67, -999.00, 3810.00, …
+## $ weaning        &lt;dbl&gt; 3.00, 6.50, 5.63, 6.50, -999.00, 4.00, 4.04, 2.13, 10.7…
+## $ `wean mass`    &lt;dbl&gt; 8900, -999, 15900, -999, -999, -999, -999, -999, 157500…
+## $ AFR            &lt;dbl&gt; 13.53, 27.27, 16.66, 23.02, -999.00, 14.89, 10.23, 20.1…
+## $ `max. life`    &lt;dbl&gt; 142, 308, 213, 240, -999, 251, 228, 255, 300, 324, 300,…
+## $ `litter size`  &lt;dbl&gt; 1.85, 1.00, 1.00, 1.00, 1.00, 1.37, 1.00, 1.00, 1.00, 1…
+## $ `litters/year` &lt;dbl&gt; 1.00, 0.99, 0.95, -999.00, -999.00, 2.00, -999.00, 1.89…</code></pre>
+<ol start="5" style="list-style-type: decimal">
+<li>. Try the <code>table()</code> command to produce counts of mammal
+order, family, and genus.</li>
+</ol>
+<pre class="r"><code>table(mammals$order)</code></pre>
+<pre><code>## 
+##   Artiodactyla      Carnivora        Cetacea     Dermoptera     Hyracoidea 
+##            161            197             55              2              4 
+##    Insectivora     Lagomorpha  Macroscelidea Perissodactyla      Pholidota 
+##             91             42             10             15              7 
+##       Primates    Proboscidea       Rodentia     Scandentia        Sirenia 
+##            156              2            665              7              5 
+##  Tubulidentata      Xenarthra 
+##              1             20</code></pre>
+<pre class="r"><code>table(mammals$family)</code></pre>
+<pre><code>## 
+##     Abrocomidae       Agoutidae    Anomaluridae  Antilocapridae    Aplodontidae 
+##               2               1               4               1               1 
+##      Balaenidae Balaenopteridae    Bathyergidae         Bovidae    Bradypodidae 
+##               3               6               8             103               3 
+##  Callitrichidae       Camelidae         Canidae     Capromyidae      Castoridae 
+##              18               6              31               6               2 
+##        Caviidae         Cebidae Cercopithecidae        Cervidae  Cheirogaleidae 
+##               9              27              58              30               6 
+##   Chinchillidae Chrysochloridae Ctenodactylidae     Ctenomyidae  Cynocephalidae 
+##               5               5               3               5               2 
+##     Dasypodidae   Dasyproctidae  Daubentoniidae     Delphinidae      Dinomyidae 
+##              12               4               1              23               1 
+##       Dipodidae      Dugongidae      Echimyidae    Elephantidae         Equidae 
+##              19               2               8               2               6 
+##  Erethizontidae     Erinaceidae  Eschrichtiidae         Felidae     Galagonidae 
+##               4              11               1              31               8 
+##       Geomyidae      Giraffidae     Herpestidae    Heteromyidae  Hippopotamidae 
+##              14               2              17              38               2 
+##       Hominidae       Hyaenidae  Hydrochaeridae     Hylobatidae     Hystricidae 
+##               4               4               1               7               7 
+##        Indridae       Lemuridae       Leporidae         Loridae Macroscelididae 
+##               5               9              31               5              10 
+##         Manidae   Megaladapidae  Megalonychidae    Monodontidae       Moschidae 
+##               7               3               2               2               3 
+##         Muridae      Mustelidae   Myocastoridae        Myoxidae Myrmecophagidae 
+##             376              46               1               9               3 
+##   Neobalaenidae     Ochotonidae    Octodontidae      Odobenidae Orycteropodidae 
+##               1              11               3               1               1 
+##       Otariidae       Pedetidae    Petromuridae        Phocidae     Phocoenidae 
+##              12               1               1              18               4 
+##    Physeteridae   Platanistidae     Procaviidae     Procyonidae  Rhinocerotidae 
+##               3               5               4               8               5 
+##       Sciuridae  Solenodontidae       Soricidae          Suidae        Talpidae 
+##             130               2              51               7              12 
+##       Tapiridae       Tarsiidae     Tayassuidae      Tenrecidae   Thryonomyidae 
+##               4               5               3              10               2 
+##      Tragulidae    Trichechidae       Tupaiidae         Ursidae      Viverridae 
+##               4               3               7               9              20 
+##       Ziphiidae 
+##               7</code></pre>
+<pre class="r"><code>table(mammals$Genus)</code></pre>
+<pre><code>## 
+##         Abrocoma         Acinonyx           Acomys            Addax 
+##                2                1                4                1 
+##        Aepyceros         Aethomys           Agouti       Ailuropoda 
+##                1                4                1                1 
+##          Ailurus           Akodon       Alcelaphus            Alces 
+##                1                9                1                1 
+##        Allactaga   Allenopithecus   Allocricetulus           Alopex 
+##                4                1                1                1 
+##         Alouatta         Alticola         Amblonyx       Amblysomus 
+##                4                3                1                1 
+##       Ammodorcas Ammospermophilus       Ammotragus       Anomalurus 
+##                1                4                1                3 
+##       Antidorcas      Antilocapra         Antilope            Aonyx 
+##                1                1                1                2 
+##            Aotus       Aplodontia         Apodemus        Arborimus 
+##                3                1                7                3 
+##        Arctictis       Arctocebus    Arctocephalus     Arctogalidia 
+##                1                1                6                1 
+##         Arctonyx      Arvicanthis         Arvicola         Atelerix 
+##                1                1                2                3 
+##           Ateles       Atelocynus        Atherurus           Atilax 
+##                4                1                2                1 
+##       Auliscomys            Avahi             Axis        Babyrousa 
+##                1                1                2                1 
+##          Baiomys          Balaena     Balaenoptera        Bandicota 
+##                1                1                5                2 
+##      Bassaricyon      Bassariscus       Bathyergus         Bdeogale 
+##                1                2                2                1 
+##           Beamys        Berardius            Bison          Blarina 
+##                1                2                2                3 
+##      Blastocerus          Bolomys              Bos       Boselaphus 
+##                1                1                3                1 
+##      Brachylagus      Brachyteles         Bradypus          Bubalus 
+##                1                1                3                3 
+##         Budorcas        Bunolagus        Cabassous          Cacajao 
+##                1                1                1                1 
+##       Callicebus        Callimico       Callithrix      Callorhinus 
+##                3                1                6                1 
+##     Callosciurus          Calomys       Calomyscus          Camelus 
+##                4                5                2                2 
+##            Canis         Cannomys          Caperea            Capra 
+##                7                1                1                5 
+##        Capreolus       Caprolagus         Capromys          Caracal 
+##                2                1                1                1 
+##           Castor        Catagonus         Catopuma            Cavia 
+##                2                1                1                3 
+##            Cebus      Cephalophus  Cephalorhynchus    Ceratotherium 
+##                4               11                3                1 
+##       Cercocebus    Cercopithecus        Cerdocyon           Cervus 
+##                2               13                1                7 
+##      Chaetodipus   Chaetophractus     Cheirogaleus       Chinchilla 
+##                7                2                2                2 
+##        Chionomys     Chiropodomys       Chiropotes       Chiruromys 
+##                2                1                2                1 
+##      Chlorocebus        Choloepus       Chrotogale    Chrysochloris 
+##                1                2                1                2 
+##       Chrysocyon     Chrysospalax      Civettictis    Clethrionomys 
+##                1                1                1                5 
+##          Coendou          Colobus          Colomys        Condylura 
+##                1                4                1                1 
+##        Conepatus        Conilurus     Connochaetes        Cremnomys 
+##                3                1                2                2 
+##       Cricetomys       Cricetulus         Cricetus        Crocidura 
+##                1                2                1               13 
+##          Crocuta      Crossarchus        Cryptomys     Cryptoprocta 
+##                1                1                3                1 
+##        Cryptotis    Ctenodactylus         Ctenomys             Cuon 
+##                1                2                5                1 
+##         Cyclopes         Cynictis     Cynocephalus         Cynogale 
+##                1                1                2                1 
+##          Cynomys       Cystophora             Dama       Damaliscus 
+##                5                1                1                3 
+##          Dasymys       Dasyprocta          Dasypus      Daubentonia 
+##                1                3                5                1 
+##   Delphinapterus        Delphinus      Dendrohyrax        Dendromus 
+##                1                1                2                5 
+##         Dephomys          Desmana   Desmodilliscus      Desmodillus 
+##                1                1                1                1 
+##     Dicerorhinus          Diceros      Dicrostonyx        Dinaromys 
+##                1                1                5                1 
+##          Dinomys     Diplomesodon        Dipodomys            Dipus 
+##                1                1               14                1 
+##       Dolichotis         Dremomys          Dryomys           Dugong 
+##                2                1                2                1 
+##          Echimys         Echinops      Echinosorex             Eira 
+##                1                1                1                1 
+##        Elaphodus        Elaphurus     Elephantulus          Elephas 
+##                1                1                7                1 
+##     Eligmodontia          Eliomys         Ellobius          Enhydra 
+##                1                1                2                1 
+##        Eolagurus         Epixerus            Equus       Eremitalpa 
+##                1                1                6                1 
+##       Eremodipus        Erethizon       Erignathus        Erinaceus 
+##                1                1                1                2 
+##     Erythrocebus     Eschrichtius        Eubalaena          Eulemur 
+##                1                1                2                5 
+##       Eumetopias         Euoticus       Euphractus         Eupleres 
+##                1                1                1                1 
+##     Exilisciurus            Felis           Feresa            Fossa 
+##                1                4                1                1 
+##       Funambulus      Funisciurus           Galago       Galagoides 
+##                3                4                3                2 
+##            Galea          Galemys        Galerella         Galictis 
+##                2                1                2                1 
+##          Galidia       Galidictis          Gazella          Genetta 
+##                1                1               11                3 
+##      Geocapromys          Geogale           Geomys        Georychus 
+##                2                1                4                1 
+##      Gerbillurus        Gerbillus          Giraffa        Glaucomys 
+##                3               10                1                2 
+##         Glirulus     Globicephala          Golunda          Gorilla 
+##                1                2                1                1 
+##        Grammomys          Grampus          Graomys       Graphiurus 
+##                3                1                1                3 
+##             Gulo      Halichoerus        Hapalemur        Helarctos 
+##                1                1                2                1 
+##     Heliophobius     Heliosciurus         Helogale     Hemicentetes 
+##                1                1                1                1 
+##      Hemiechinus        Hemigalus       Hemitragus      Herpailurus 
+##                4                1                2                1 
+##        Herpestes   Heterocephalus      Heterohyrax        Heteromys 
+##                3                1                1                4 
+##     Hexaprotodon     Hippocamelus     Hippopotamus      Hippotragus 
+##                1                2                1                2 
+##          Hodomys       Holochilus         Hoplomys           Hyaena 
+##                1                1                1                1 
+##          Hybomys     Hydrochaeris     Hydrodamalis         Hydromys 
+##                1                1                1                1 
+##       Hydropotes         Hydrurga       Hyemoschus        Hylobates 
+##                1                1                1                7 
+##      Hylochoerus          Hylomys       Hylomyscus        Hylopetes 
+##                1                1                2                2 
+##           Hyomys      Hyperacrius       Hyperoodon       Hypogeomys 
+##                1                2                1                1 
+##          Hystrix        Ichneumia          Ictonyx          Idiurus 
+##                5                1                2                1 
+##            Indri             Inia            Iomys          Jaculus 
+##                1                1                1                3 
+##    Kannabateomys          Kerodon            Kobus            Kogia 
+##                1                1                5                2 
+##    Lagenodelphis   Lagenorhynchus         Lagidium       Lagostomus 
+##                1                4                2                1 
+##        Lagothrix          Lagurus             Lama     Lasiopodomys 
+##                1                1                3                1 
+##        Leggadina        Lemmiscus           Lemmus      Lemniscomys 
+##                2                1                2                2 
+##            Lemur   Leontopithecus        Leopardus        Lepilemur 
+##                1                1                3                3 
+##       Leporillus      Leptailurus    Leptonychotes            Lepus 
+##                1                1                1               14 
+##        Limnogale           Liomys          Lipotes      Litocranius 
+##                1                4                1                1 
+##          Lobodon           Lontra        Lophiomys       Lophocebus 
+##                1                3                1                1 
+##       Lophuromys            Loris        Loxodonta            Lutra 
+##                4                1                1                2 
+##        Lutrogale           Lycaon             Lynx           Macaca 
+##                1                1                4               13 
+##    Macroscelides    Macrotarsomys          Madoqua         Makalata 
+##                1                1                3                1 
+##      Malacothrix       Mandrillus            Manis          Marmota 
+##                1                2                7               13 
+##           Martes      Massoutiera         Mastomys           Mazama 
+##                6                1                2                3 
+##     Megadontomys        Megaptera            Meles        Mellivora 
+##                1                1                1                1 
+##         Melogale          Melomys         Melursus         Mephitis 
+##                1                8                1                2 
+##         Meriones     Mesembriomys     Mesocricetus       Mesoplodon 
+##               10                2                3                3 
+##       Microcavia       Microcebus    Microdipodops        Microgale 
+##                1                3                2                2 
+##         Micromys  Micropotamogale         Microtus        Millardia 
+##                1                1               29                1 
+##      Miopithecus         Mirounga         Monachus          Monodon 
+##                1                2                2                1 
+##        Moschiola          Moschus           Mungos      Mungotictis 
+##                1                3                1                1 
+##        Muntiacus              Mus      Muscardinus          Mustela 
+##                2               10                1               10 
+##        Myocastor           Myomys        Myoprocta           Myopus 
+##                1                3                1                1 
+##       Myosciurus         Myosorex        Myospalax           Myoxus 
+##                1                3                1                1 
+##     Myrmecophaga        Mysateles        Mystromys      Naemorhedus 
+##                1                2                1                3 
+##         Nandinia      Nannospalax      Napaeozapus          Nasalis 
+##                1                1                1                1 
+##            Nasua         Neacomys         Nectomys         Neofelis 
+##                2                1                2                1 
+##         Neofiber           Neomys         Neophoca      Neophocaena 
+##                1                2                1                1 
+##          Neotoma       Neotomodon        Neotragus          Nesokia 
+##               10                1                2                1 
+##     Neurotrichus       Niviventer       Notiosorex          Notomys 
+##                1                1                1                5 
+##      Nyctereutes       Nycticebus         Nyctomys         Ochotona 
+##                1                2                1               11 
+##       Ochrotomys          Octodon     Octodontomys         Odobenus 
+##                1                1                1                1 
+##       Odocoileus          Oecomys          Oenomys           Okapia 
+##                2                1                1                1 
+##     Oligoryzomys      Ommatophoca        Oncifelis          Ondatra 
+##                3                1                2                1 
+##        Onychomys         Orcaella          Orcinus         Oreamnos 
+##                2                1                1                1 
+##       Oreotragus      Orthogeomys      Orycteropus      Oryctolagus 
+##                1                2                1                1 
+##             Oryx         Oryzomys           Otaria       Otocolobus 
+##                3                3                1                1 
+##          Otocyon         Otolemur           Otomys       Ototylomys 
+##                1                2                5                1 
+##          Ourebia           Ovibos             Ovis      Oxymycterus 
+##                1                1                6                1 
+##       Ozotoceros      Pachyuromys           Paguma              Pan 
+##                1                1                1                2 
+##         Panthera       Pantholops            Papio      Pappogeomys 
+##                4                1                1                1 
+##     Paracynictis      Paradoxurus       Parahyaena      Parascalops 
+##                1                2                1                1 
+##        Paraxerus       Pardofelis        Parotomys           Pecari 
+##                5                1                1                1 
+##          Pedetes            Pelea          Pelomys    Peponocephala 
+##                1                1                2                1 
+##     Perodicticus      Perognathus       Peromyscus       Petaurista 
+##                1                7               24                5 
+##        Petinomys      Petrodromus         Petromus      Petromyscus 
+##                4                1                1                1 
+##     Phacochoerus           Phaner       Phenacomys            Phoca 
+##                1                1                2                7 
+##       Phocarctos         Phocoena     Phocoenoides         Phodopus 
+##                1                2                1                3 
+##        Phyllotis         Physeter       Pithecheir         Pithecia 
+##                1                1                1                2 
+##     Plagiodontia       Platanista          Podomys      Poecilogale 
+##                1                2                1                1 
+##         Poelagus    Pogonomelomys        Pogonomys            Pongo 
+##                1                1                3                1 
+##       Pontoporia    Potamochoerus       Potamogale            Potos 
+##                1                1                1                1 
+##          Praomys        Presbytis       Priodontes     Prionailurus 
+##                4                4                1                3 
+##        Prionodon         Procapra         Procavia       Procolobus 
+##                2                1                1                2 
+##          Procyon       Proechimys         Profelis       Pronolagus 
+##                2                3                1                3 
+##      Propithecus         Proteles        Psammomys      Pseudalopex 
+##                3                1                1                3 
+##         Pseudois        Pseudomys        Pseudorca         Pteromys 
+##                1               17                1                1 
+##        Pteronura      Ptilocercus             Pudu             Puma 
+##                1                1                2                1 
+##        Pygathrix       Pygeretmus         Rangifer       Raphicerus 
+##                2                2                1                1 
+##           Rattus           Ratufa          Redunca       Reithrodon 
+##               14                3                3                1 
+##  Reithrodontomys        Rhabdomys       Rhinoceros     Rhinosciurus 
+##                5                1                2                1 
+##       Rhipidomys         Rhizomys        Rhombomys      Rhynchocyon 
+##                2                2                1                1 
+##      Romerolagus        Rupicapra      Saccostomus         Saguinus 
+##                1                1                1               10 
+##            Saiga          Saimiri      Salpingotus         Scalopus 
+##                1                2                1                1 
+##         Scapanus       Sciurillus          Sciurus       Scotinomys 
+##                3                1               10                2 
+##       Sekeetamys    Semnopithecus          Setifer          Sicista 
+##                1                1                1                2 
+##       Sigmoceros         Sigmodon        Solenodon            Sorex 
+##                1                5                2               21 
+##          Sotalia       Spalacopus           Spalax         Speothos 
+##                1                1                1                1 
+##  Spermophilopsis     Spermophilus       Sphiggurus        Spilogale 
+##                1               31                2                2 
+##        Steatomys         Stenella            Steno        Stochomys 
+##                2                3                1                1 
+##       Stylodipus           Suncus         Sundamys     Sundasciurus 
+##                1                3                1                2 
+##       Surdisorex         Suricata              Sus       Sylvicapra 
+##                2                1                3                1 
+##       Sylvilagus       Sylvisorex       Synaptomys         Syncerus 
+##                8                1                2                1 
+##     Tachyoryctes            Talpa         Tamandua           Tamias 
+##                2                2                1               18 
+##     Tamiasciurus          Tapirus          Tarsius         Tateomys 
+##                2                4                5                1 
+##           Tatera       Taterillus      Taurotragus          Taxidea 
+##                8                3                2                1 
+##          Tayassu           Tenrec       Tetracerus        Thallomys 
+##                1                1                1                1 
+##        Thamnomys    Theropithecus         Thomomys       Thrichomys 
+##                1                1                7                1 
+##       Thryonomys       Tolypeutes   Trachypithecus      Tragelaphus 
+##                2                1                7                7 
+##         Tragulus       Tremarctos       Trichechus      Trogopterus 
+##                2                1                3                1 
+##           Tupaia         Tursiops          Tylomys            Uncia 
+##                5                1                1                1 
+##         Uranomys          Urocyon          Urogale           Uromys 
+##                1                2                1                1 
+##       Urotrichus            Ursus      Vandeleuria          Varecia 
+##                1                4                1                1 
+##          Vicugna          Viverra      Viverricula          Vormela 
+##                1                1                1                1 
+##           Vulpes         Wiedomys            Xerus          Zaedyus 
+##               10                1                2                1 
+##         Zalophus            Zapus        Zelotomys          Ziphius 
+##                1                3                1                1 
+##     Zygodontomys          Zyzomys 
+##                1                3</code></pre>
+<pre class="r"><code>?mammals_sleep</code></pre>
+<pre><code>## No documentation for &#39;mammals_sleep&#39; in specified packages and libraries:
+## you could try &#39;??mammals_sleep&#39;</code></pre>
 </div>
 <div id="wrap-up" class="section level2">
 <h2>Wrap-up</h2>

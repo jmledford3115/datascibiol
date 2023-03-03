@@ -79,7 +79,11 @@ mammals %>%
 ## Practice
 1. We are interested in the fish from the lakes "AL" and "AR" with a radii length between 2 and 4. Extract this information from the `fish` data. Use pipes!  
 ```{r}
-
+fish %>% 
+  select(lakeid, radii_length_mm) %>% 
+  filter(lakeid=="AL" | lakeid=="AR") %>% 
+  filter(between(radii_length_mm, 2, 4)) %>% 
+  arrange(desc(radii_length_mm))
 ```
 
 ## `arrange()`
@@ -108,7 +112,10 @@ fish %>%
 ## Practice
 1. We are interested in the radii length and scalelength of fish with the id `300`. Extract this information from the `fish` data. Please sort the data by radii length.
 ```{r}
-
+fish %>% 
+  select(fish_id, radii_length_mm, scalelength) %>% 
+  filter(fish_id==300) %>% 
+  arrange(radii_length_mm)
 ```
 
 ## `mutate()`  
@@ -158,12 +165,17 @@ mammals %>%
 ## Practice
 1. Use `mutate()` to make a new column that is the half length of each fish: length_half = length/2. Select only fish_id, length, and length_half.
 ```{r}
-
+fish %>%
+  mutate(length_half=length/2) %>% 
+  select(fish_id, length, length_half)
 ```
 
 2. We are interested in the family, genus, species and max life variables. Because the max life span for several mammals is unknown, the authors have use -999 in place of NA. Replace all of these values with NA in a new column titled `max_life_new`. Finally, sort the date in descending order by max_life_new. Which mammal has the oldest known life span?
 ```{r}
-
+mammals %>% 
+  select(family, genus, species, max_life) %>% 
+  mutate(max_life_new= ifelse(max_life==-999, NA, max_life)) %>% 
+  arrange(max_life)
 ```
 
 ## That's it! Let's take a break and then move on to part 2! 

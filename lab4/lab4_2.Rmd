@@ -75,22 +75,26 @@ filter(fish, near(radii_length_mm, 2, tol = 0.2))
 ## Practice
 1. Filter the `fish` data to include the samples from lake "BO".
 ```{r}
-
+filter(fish, lakeid=="BO")
 ```
 
 2. Filter the data to include all lakes except "AR".
 ```{r}
-
+filter(fish, lakeid != "AR")
 ```
 
 3. Filter the fish data to include all fish with a scalelength within 0.25 of 8.
 ```{r}
-
+filter(fish, near(scalelength, 8, tol=0.5))
 ```
 
 4. Filter the fish data to include fish with a scalelength between 2 and 4.
 ```{r}
+filter(fish, between(scalelength, 2, 4))
+```
 
+```{r}
+filter(fish, scalelength %in% c(2, 4))
 ```
 
 ## Using `filter()` on multiple conditions
@@ -116,38 +120,48 @@ filter(fish, length > 400, (scalelength > 11 | radii_length_mm > 8))
 ```
 
 ## Practice  
-1. Have a look at the mammals data using the summary functions of your choosing.    
+1. Have a look at the mammals data using the summary `functions` of your choosing.    
 ```{r}
-
+glimpse(mammals)
 ```
-
 2. What are the names of the variables in the mammals data?  
 ```{r}
-
+names(mammals)
 ```
 
 3.  From the `mammals` data, filter all members of the family Bovidae with a mass greater than 450000.
 ```{r}
-
+bovidae <- filter(mammals, family=="Bovidae" & mass>450000)
+bovidae
 ```
 
 4. Let's say we are only interested in family, genus, species, mass, and gestation. Relimit the mammals data frame to these variables.  
 ```{r}
-
+mammals_relimited <- select(mammals, "family", "genus", "species", "mass", "gestation")
+mammals_relimited
 ```
 
 5. Use the output from #4 to focus on the family Bovidae with a mass greater than 450000.
 ```{r}
+bovidae <- filter(mammals_relimited, family=="Bovidae" & mass>=450000)
+bovidae
+```
 
+```{r}
+glimpse(mammals)
+```
+
+```{r}
+summary(mammals)
 ```
 
 6. From the `mammals` data, build a data frame that compares `mass`, `gestation`, and `newborn` among the primate genera `Lophocebus`, `Erythrocebus`, and `Macaca`. Among these genera, which species has the smallest `newborn` mass?
 ```{r}
-
+primate_genera <- filter(mammals, genus %in% c("Lophocebus", "Erythrocebus", "Macaca"))
 ```
 
 ```{r}
-
+select(primate_genera, "genus", "species", "mass", "gestation", "newborn")
 ```
 
 ## Wrap-up  

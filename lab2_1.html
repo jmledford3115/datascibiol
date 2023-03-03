@@ -10,7 +10,7 @@
 
 
 
-<meta name="date" content="2023-01-11" />
+<meta name="date" content="2023-03-03" />
 
 <title>Objects, Classes &amp; NAs</title>
 
@@ -1509,7 +1509,7 @@ border-radius: 0px;
 
 
 <h1 class="title toc-ignore">Objects, Classes &amp; NAs</h1>
-<h4 class="date">2023-01-11</h4>
+<h4 class="date">2023-03-03</h4>
 
 </div>
 
@@ -1581,13 +1581,27 @@ confusing because mean is used as a function.</p>
 in the world. Assign each car to its top speed. The venom_GT can go 270,
 chiron is 261, and veyron is 268.</li>
 </ol>
-<pre class="r"><code>venom_GT &lt;- 270</code></pre>
+<pre class="r"><code>2 + 8 + 2</code></pre>
+<pre><code>## [1] 12</code></pre>
+<pre class="r"><code>mean(2 + 8 + 2)</code></pre>
+<pre><code>## [1] 12</code></pre>
+<pre class="r"><code>venom_GT &lt;- 270
+chiron &lt;- 261
+veyron &lt;- 268</code></pre>
 <ol start="2" style="list-style-type: decimal">
-<li><p>Use arithmetic to calculate the mean top speed for the
-cars.</p></li>
-<li><p>Use the function <code>mean()</code> to calculate the mean top
-speed for the cars.</p></li>
+<li>Use arithmetic to calculate the mean top speed for the cars.</li>
 </ol>
+<pre class="r"><code>(270+261+268)/3</code></pre>
+<pre><code>## [1] 266.3333</code></pre>
+<ol start="3" style="list-style-type: decimal">
+<li>Use the function <code>mean()</code> to calculate the mean top speed
+for the cars.</li>
+</ol>
+<pre class="r"><code>cars &lt;- c(venom_GT, chiron, veyron)
+mean(cars)</code></pre>
+<pre><code>## [1] 266.3333</code></pre>
+<pre class="r"><code>mean(c(venom_GT, chiron, veyron))</code></pre>
+<pre><code>## [1] 266.3333</code></pre>
 </div>
 <div id="types-of-data" class="section level2">
 <h2>Types of Data</h2>
@@ -1636,8 +1650,12 @@ chunk.</li>
 </ol>
 <pre class="r"><code>new_vector &lt;- c(7, 6.2, 5, 9, NA, 4, 9.8, 7, 3, 2)</code></pre>
 <ol start="2" style="list-style-type: decimal">
-<li><p>As we did in homework 1, calculate the mean of
-<code>new_vector</code>.</p></li>
+<li>As we did in homework 1, calculate the mean of
+<code>new_vector</code>.</li>
+</ol>
+<pre class="r"><code>mean(new_vector)</code></pre>
+<pre><code>## [1] NA</code></pre>
+<ol start="3" style="list-style-type: decimal">
 <li><p>How do you interpret this result? What does this mean about
 NAs?</p></li>
 <li><p>Recalculate the mean using the following code chunk. Why is the

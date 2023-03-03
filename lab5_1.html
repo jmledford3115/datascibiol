@@ -10,7 +10,7 @@
 
 
 
-<meta name="date" content="2023-01-22" />
+<meta name="date" content="2023-03-03" />
 
 <title>Pipes, arrange(), mutate(), and if_else()</title>
 
@@ -1510,7 +1510,7 @@ border-radius: 0px;
 
 <h1 class="title toc-ignore">Pipes, <code>arrange()</code>,
 <code>mutate()</code>, and <code>if_else()</code></h1>
-<h4 class="date">2023-01-22</h4>
+<h4 class="date">2023-03-03</h4>
 
 </div>
 
@@ -1656,6 +1656,25 @@ greater than 15 months.</p>
 radii length between 2 and 4. Extract this information from the
 <code>fish</code> data. Use pipes!</li>
 </ol>
+<pre class="r"><code>fish %&gt;% 
+  select(lakeid, radii_length_mm) %&gt;% 
+  filter(lakeid==&quot;AL&quot; | lakeid==&quot;AR&quot;) %&gt;% 
+  filter(between(radii_length_mm, 2, 4)) %&gt;% 
+  arrange(desc(radii_length_mm))</code></pre>
+<pre><code>## # A tibble: 253 × 2
+##    lakeid radii_length_mm
+##    &lt;chr&gt;            &lt;dbl&gt;
+##  1 AR                4.00
+##  2 AR                3.99
+##  3 AR                3.99
+##  4 AR                3.98
+##  5 AR                3.98
+##  6 AR                3.96
+##  7 AR                3.94
+##  8 AR                3.94
+##  9 AR                3.94
+## 10 AL                3.94
+## # … with 243 more rows</code></pre>
 </div>
 <div id="arrange" class="section level2">
 <h2><code>arrange()</code></h2>
@@ -1725,6 +1744,17 @@ other functions.</p>
 the id <code>300</code>. Extract this information from the
 <code>fish</code> data. Please sort the data by radii length.</li>
 </ol>
+<pre class="r"><code>fish %&gt;% 
+  select(fish_id, radii_length_mm, scalelength) %&gt;% 
+  filter(fish_id==300) %&gt;% 
+  arrange(radii_length_mm)</code></pre>
+<pre><code>## # A tibble: 4 × 3
+##   fish_id radii_length_mm scalelength
+##     &lt;dbl&gt;           &lt;dbl&gt;       &lt;dbl&gt;
+## 1     300            1.23        3.02
+## 2     300            2.14        3.02
+## 3     300            2.67        3.02
+## 4     300            3.02        3.02</code></pre>
 </div>
 <div id="mutate" class="section level2">
 <h2><code>mutate()</code></h2>
@@ -1866,16 +1896,53 @@ placeholder for NA (but, is a really bad idea). We can use
 <div id="practice-2" class="section level2">
 <h2>Practice</h2>
 <ol style="list-style-type: decimal">
-<li><p>Use <code>mutate()</code> to make a new column that is the half
+<li>Use <code>mutate()</code> to make a new column that is the half
 length of each fish: length_half = length/2. Select only fish_id,
-length, and length_half.</p></li>
-<li><p>We are interested in the family, genus, species and max life
+length, and length_half.</li>
+</ol>
+<pre class="r"><code>fish %&gt;%
+  mutate(length_half=length/2) %&gt;% 
+  select(fish_id, length, length_half)</code></pre>
+<pre><code>## # A tibble: 4,033 × 3
+##    fish_id length length_half
+##      &lt;dbl&gt;  &lt;dbl&gt;       &lt;dbl&gt;
+##  1     299    167        83.5
+##  2     299    167        83.5
+##  3     299    167        83.5
+##  4     300    175        87.5
+##  5     300    175        87.5
+##  6     300    175        87.5
+##  7     300    175        87.5
+##  8     301    194        97  
+##  9     301    194        97  
+## 10     301    194        97  
+## # … with 4,023 more rows</code></pre>
+<ol start="2" style="list-style-type: decimal">
+<li>We are interested in the family, genus, species and max life
 variables. Because the max life span for several mammals is unknown, the
 authors have use -999 in place of NA. Replace all of these values with
 NA in a new column titled <code>max_life_new</code>. Finally, sort the
 date in descending order by max_life_new. Which mammal has the oldest
-known life span?</p></li>
+known life span?</li>
 </ol>
+<pre class="r"><code>mammals %&gt;% 
+  select(family, genus, species, max_life) %&gt;% 
+  mutate(max_life_new= ifelse(max_life==-999, NA, max_life)) %&gt;% 
+  arrange(max_life)</code></pre>
+<pre><code>## # A tibble: 1,440 × 5
+##    family  genus       species     max_life max_life_new
+##    &lt;chr&gt;   &lt;chr&gt;       &lt;chr&gt;          &lt;dbl&gt;        &lt;dbl&gt;
+##  1 Bovidae Ammodorcas  clarkei         -999           NA
+##  2 Bovidae Capra       caucasica       -999           NA
+##  3 Bovidae Capra       ibex            -999           NA
+##  4 Bovidae Cephalophus niger           -999           NA
+##  5 Bovidae Cephalophus natalensis      -999           NA
+##  6 Bovidae Cephalophus leucogaster     -999           NA
+##  7 Bovidae Cephalophus ogilbyi         -999           NA
+##  8 Bovidae Cephalophus zebra           -999           NA
+##  9 Bovidae Cephalophus rufilatus       -999           NA
+## 10 Bovidae Cephalophus dorsalis        -999           NA
+## # … with 1,430 more rows</code></pre>
 </div>
 <div id="thats-it-lets-take-a-break-and-then-move-on-to-part-2" class="section level2">
 <h2>That’s it! Let’s take a break and then move on to part 2!</h2>
