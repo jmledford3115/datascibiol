@@ -165,12 +165,18 @@ homerange %>%
 ## Practice
 1. Revisit the relationship between mass and homerange using a scatterplot, but color the points by taxonomic class using a custom color theme.
 ```{r}
-
+homerange %>% 
+  ggplot(aes(x=log10.mass, y=log10.hra, color=class))+
+  geom_point()+
+  scale_color_brewer(palette = "BrBG")
 ```
 
-2. Build bar plots that show the representation by taxonomic class with carnivores and herbivores. Try using a color theme that matches your scatterplot to keep everything consistent.
+2. Build bar plots that show the representation by taxonomic class with carnivores and herbivores. Try using a color theme that matches your scatter plot to keep everything consistent.
 ```{r}
-
+homerange %>% 
+  ggplot(aes(x=trophic.guild, fill=class))+
+  geom_bar(position="dodge")+
+  scale_fill_manual(values=my_palette)
 ```
 
 ## Faceting

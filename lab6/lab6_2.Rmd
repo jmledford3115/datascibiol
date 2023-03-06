@@ -31,17 +31,31 @@ glimpse(penguins)
 
 As biologists, a good question that we may ask is how do the measured variables differ by island (on average)?
 ```{r}
+levels(penguins$island)
+```
 
+```{r}
+penguins %>% 
+  group_by(island) %>% 
+  summarize(mean_body_mass_g=mean(body_mass_g),
+            n=n())
 ```
 
 Why do we have NA here? Do all of these penguins lack data?
 ```{r}
-
+penguins %>% 
+  group_by(island) %>% 
+  summarize(number_NAs=sum(is.na(body_mass_g)))
 ```
 
 Well, that won't work so let's remove the NAs and recalculate.
 ```{r}
-
+penguins %>% 
+  filter(!is.na(body_mass_g)) %>% #removing NAs
+  group_by(island) %>% 
+  summarize(mean_body_mass_g=mean(body_mass_g),
+            sd_body_mass_g=sd(body_mass_g),
+            n=n())
 ```
 
 What if we are interested in the number of observations (penguins) by species and island?
@@ -50,7 +64,9 @@ names(penguins)
 ```
 
 ```{r}
-
+penguins %>% 
+  group_by(species, island) %>% 
+  summarize(n=n(), .groups= 'keep')#the .groups argument here just prevents a warning message
 ```
 
 ## Counts
@@ -88,20 +104,35 @@ penguins %>%
   adorn_pct_formatting(digits = 2)
 ```
 
-## Practice
-1. Produce a summary of the mean for bill_length_mm, bill_depth_mm, flipper_length_mm, and body_mass_g within Adelie penguins only. Be sure to provide the number of samples.
 ```{r}
+levels(penguins$species)
+```
 
+```{r}
+penguins %>% 
+  filter(species=="Adelie") %>% 
+  select(bill_length_mm, flipper_length_mm, body_mass_g) %>% 
+  summarize(mean_bill_length_mm=mean(bill_length_mm, na.rm=T),
+            mean_flipper_length_mm=mean(flipper_length_mm, na.rm=T),
+            mean_body_mass_g=mean(body_mass_g, na.rm=T),
+            n=n())
+```
+
+```{r}
+penguins %>% count(species)
 ```
 
 2. How does the mean of `bill_length_mm` compare between penguin species?
 ```{r}
-
+penguins %>% 
+  group_by(species) %>% 
+  summarize(mean_bill_length_mm=mean(bill_length_mm, na.rm=T),
+            sd_bill_length_mm=sd(bill_length_mm, na.rm=T))
 ```
 
 3. For some penguins, their sex is listed as NA. Where do these penguins occur?
 ```{r}
-
+penguins %>% count(sex, island)
 ```
 
 ## `across()`
@@ -161,7 +192,17 @@ penguins %>%
 1. Produce separate summaries of the mean and standard deviation for bill_length_mm, bill_depth_mm, and flipper_length_mm for each penguin species. Be sure to provide the number of samples.  
 mean
 ```{r}
+penguins %>% 
+  group_by(species) %>% 
+  summarize(across(contains("mm"), mean, na.rm=T),
+            n_samples=n())
+```
 
+```{r}
+penguins %>% 
+  group_by(species) %>% 
+  summarize(across(contains("mm"), sd, na.rm=T),
+            n_samples=n())
 ```
 
 ## Wrap-up  

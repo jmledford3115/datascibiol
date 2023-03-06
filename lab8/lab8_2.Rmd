@@ -30,6 +30,7 @@ Last time we learned the fundamentals of tidy data and used the `pivot_longer()`
 ## Load the tidyverse
 ```{r}
 library("tidyverse")
+library("here")
 ```
 
 ## `pivot_longer()`

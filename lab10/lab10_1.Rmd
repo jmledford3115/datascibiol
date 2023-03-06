@@ -25,8 +25,9 @@ Now that you have been introduced to `ggplot`, let's review the plot types from 
 
 ## Load the libraries
 ```{r message=FALSE, warning=FALSE}
-library(tidyverse)
-library(janitor)
+library("tidyverse")
+library("janitor")
+library("here")
 ```
 
 ## Load the data
@@ -112,6 +113,7 @@ life_history %>%
   coord_flip()+
   scale_y_log10()
 ```
+
 ```{r}
 life_history %>% 
   filter(order!="Cetacea") %>% 
@@ -219,19 +221,31 @@ life_history %>%
 ```
 
 ## Practice
-1. Let's finish part 1 by looking at the homerange data `Tamburelloetal_HomeRangeDatabase`. By now, these should be very familiar to you.
+Let's end today's lab by looking at the homerange data. By now, these should be very familiar to you.
 ```{r}
-
+homerange <- read_csv(here("lab10", "data", "Tamburelloetal_HomeRangeDatabase.csv"))
 ```
 
-2. Make a barplot that shows counts of ectotherms and endotherms. Label the axes, provide a title, and fill by `thermoregulation`.
+1. Make a barplot that shows counts of ectotherms and endotherms. Label the axes, provide a title, and fill by `thermoregulation`.
 ```{r}
-
+homerange %>% 
+  ggplot(aes(x = thermoregulation, fill = thermoregulation)) +
+  geom_bar()+
+  labs(title = "Thermoregulation Counts",
+       x = "Thermoregulation Type",
+       y = "# Individuals")+ 
+  theme(plot.title = element_text(size = rel(1.25)))
 ```
 
-3. Make a scatterplot that compares log10.mass and homerange. Adjust the size of points by mass. Label the axes and provide a title.
+2. Make a boxplot that compares log10.mass and homerange. Adjust the size of points by mass. Label the axes and provide a title.
 ```{r}
-
+homerange %>% 
+  ggplot(aes(x = log10.mass, y = log10.hra))+
+  geom_point(size=1, color="red", alpha=0.6)+
+  labs(title = "Log10 Mass vs. Homerange",
+       x = "Log10 Mass",
+       y = "Homerange")+ 
+  theme(plot.title = element_text(size = rel(1.25)))
 ```
 
 ## That's it! Let's take a break and then move on to part 2!  

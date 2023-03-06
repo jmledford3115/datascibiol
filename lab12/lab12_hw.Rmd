@@ -6,6 +6,7 @@ output:
   html_document:
     theme: spacelab
     toc: no
+runtime: shiny
 ---
 
 ```{r setup, include=FALSE}
