@@ -30,8 +30,8 @@ Please read the [course syllabus](https://jmledford3115.github.io/datascibiol/sy
 13. **Lab 13** | [part 1](https://jmledford3115.github.io/datascibiol/lab13_1.html) | [part 2](https://jmledford3115.github.io/datascibiol/lab13_2.html) | [HW](https://jmledford3115.github.io/datascibiol/lab13_hw.html)
 
 ## Midterms
-1. **Midterm 1** | [exam link](https://jmledford3115.github.io/datascibiol/midterm1/midterm_1.html)  
-2. **Midterm 2** | [exam link](https://jmledford3115.github.io/datascibiol/midterm2/midterm_2.html) 
+1. **Midterm 1** | [exam link](https://jmledford3115.github.io/datascibiol/midterm1_key.html)  
+2. **Midterm 2** | [exam link](https://jmledford3115.github.io/datascibiol/midterm2_key.html) 
 
 ## Reading  
 [R for Data Science](https://r4ds.had.co.nz/), Grolemund and Wickham (2017).  
