@@ -20,6 +20,8 @@ In nearly every field of science, our ability to generate data has exceeded our 
 
 The goal for this course is to help get you started learning to manage, transform, and visualize data using the R programming language. You will learn to clearly and neatly organize messy data, transform it in ways that address your questions, and communicate results in a variety of formats. The course is designed for people with **no prior programming experience**. There is a substantial learning curve but, working together, we should be able to make learning R easier, interesting, and fun.  
 
+This class is NOT focused on statistical analysis or interpretation. The goal is to provide you with the tools you need to perform these tasks.  
+
 ## First steps  
 It is really important that you understand the first two weeks of the class can seem slow, tedious, and frustrating. These first steps are like learning a new language; you often won't know what is being said or why. Please be patient and stick with me! I promise that it will get easier.  
 
