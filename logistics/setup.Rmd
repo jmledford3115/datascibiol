@@ -26,7 +26,7 @@ R is open source and constantly changing. Make regular version checks part of yo
 Download the latest version of R [here](https://ftp.osuosl.org/pub/cran/) and install.  
 
 ### 2. Download the most recent version of RStudio and install
-RStudio is a [GUI](https://www.computerhope.com/jargon/g/gui.htm) that allows for more intuitive operation of R and includes numerous additional functions. All of our work will be done in RStudio.  
+RStudio is a [GUI](https://www.computerhope.com/jargon/g/gui.htm) that allows for more intuitive operation of R and includes numerous additional features. All of our work will be done in RStudio.  
 
 Download the latest version of RStudio [here](https://posit.co/) and install.  
 

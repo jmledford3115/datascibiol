@@ -18,7 +18,7 @@ knitr::include_graphics("images/learn_to_code.png")
 > [Wired Magazine (2017)](https://www.wired.com/2017/03/biologists-teaching-code-survive/)
 
 ## Course Summary  
-In BIS 015L, you will be introduced to the fundamentals of data science with emphasis on data frequently used by biologists. We will use the R software environment to develop and practice key skills including data management, transformation, analysis, and visualization. Examples will span a range of disciplines including social science, ecology, evolution, and genetics. Labs will use a problem-solving approach where we build on previously learned skills culminating in a small, group-based project. 
+In BIS 015L, you will be introduced to the fundamentals of data science with emphasis on data frequently used by biologists. We will use the R software environment to develop and practice skills including data management, transformation, analysis, and visualization. Examples will span a range of disciplines including social science, ecology, evolution, and genetics. Labs will use a problem-solving approach where we build on previously learned skills culminating in a small, group-based project. 
 
 This class is designed for students with *no background in computer programming, R, or statistics*. Our assumption is that you know how to turn a computer on and use a mouse- that's it!  
 
@@ -44,29 +44,28 @@ UC Davis has a formal land acknowledgement to recognize the Indigenous people wh
 *At the end of this course, you will be able to:*  
 1. Use R and RStudio to perform basic analyses including arithmetic and basic statistics.  
 2. Work with multiple types of data in R and RStudio including vectors, data frames, and nucleotide sequences.  
-3. Import and transform complex, messy data for analysis in R using `dplyr`, `tidyr`, and `purrr`.  
-4. Produce a variety of plots and charts to visualize results of data analysis using `ggplot2`.  
+3. Import and transform complex, messy data for analysis in R.  
+4. Produce a variety of plots and charts to visualize results of data analysis.  
 5. Build an exploratory analysis pipeline that can be applied to a variety of data types and structures.  
 6. Use Shiny to build an interactive application.  
-7. Use geospacial data to produce distribution maps.  
 
 ## Course Structure  
-Our class has collaborative work as its foundation. Many people learn R on their own and there are literally thousands of courses designed to teach you the fundamentals. Working as a community is what sets our class apart. We encourage you to work together throughout the class!  
+Our class has collaborative work as its foundation. Many people learn R on their own and there are thousands of courses designed to teach you the fundamentals. Working as a community is what sets our class apart. We encourage you to work together throughout the class!  
 
 Our class is scheduled for 2-hour blocks on Tuesday and Thursday. Each class works though examples of live coding but includes frequent breaks where we will work together to solve problems. Please don't expect this to be a traditional lecture class- we require your active participation. After each class, there will be a homework assignment. We encourage you to work together on these! Since each assignment has many different solutions, the expectation is that your code is free from errors and runs cleanly. See grading below for details.  
 
 There are two exams in the class, both of which are take-home. You may use any resources you like on the exam except for posting questions to open stacks or R programming forums; your work should be entirely your own.  
 
 ## Grading  
-The class is graded out of 300 points on a straight scale. Grading is divided into four parts:  
+The class is graded out of 300 points on a straight scale.  
 
-1. **Weekly homework assignments (43%)**. Each assignment must be completed and uploaded to GitHub prior to the next lab. There are 15 homework assignments total and each assignment is worth 10 points. Homework is due at the start of each lab; no late work is accepted. To provide flexibility, we drop the 2 lowest homework assignments for the quarter so the maximum number of points is 130.  
+1. **Attendance (40 points)**. As a skills-based lab class, attendance provides you with hands-on experience and help. If you know that you will not be able to attend in-person or you have significant planned absences this quarter, please reconsider enrollment. BIS 15L is not designed to be a remote class- there are already thousands of courses that teach R online. Our class has collaborative learning as its foundation and requires your attendance.  
 
-2. **Midterms (23%)**. The midterms help us keep one another accountable. These exams will be take-home and the due dates are strict; no late work is accepted. Each midterm is worth 35 points.  
+2. **Weekly homework assignments (130 points)**. Each assignment must be completed and uploaded to GitHub prior to the next lab. There are 15 homework assignments total and each assignment is worth 10 points. Homework is due at the start of each lab; no late work is accepted. To provide flexibility, we drop the two lowest homework assignments for the quarter.  
 
-3. **Class project (33%)**. As part of the class, you will form a group to explore a project in data science. The project may be based on any available data of interest to the group and should highlight skills learned in the labs. The group will present their results during the last lab sessions.  The class project is worth 100 points.  
+3. **Midterms (60 points)**. The midterms help us keep one another accountable. They use a combination of individual and collaborative approaches. Each midterm is worth 30 points.  
 
-4. **Attendance**. As a skills-based lab class, attendance provides you with hands-on experience and help. If you know that you will not be able to attend in-person or you have significant planned absences this quarter, please reconsider enrollment. BIS 15L is not designed to be a remote class- there are already thousands of courses that teach R online. Our class has collaborative learning as its foundation and requires your attendance.  
+4. **Class project (70 points)**. As part of the class, you will form a group to explore a project in data science. The project may be based on any available data of interest to the group and should highlight skills learned in the labs. The group will present their results during the last lab sessions.  
 
 If you miss class, please use the [class website](https://jmledford3115.github.io/datascibiol/) and [YouTube channel](https://www.youtube.com/channel/UCFX-MipGKF9jCEXaP-59BzQ) as your guide. We will not be able to provide recordings of the labs, but these two resources will help you work through missed class material.  
 
@@ -77,10 +76,10 @@ If you miss class, please use the [class website](https://jmledford3115.github.i
 Office hours are scheduled each week and are also available by appointment. If there are problems with the assignments, it is important that we communicate together as a class. Please use the class discord as a first step so we all benefit.  
 
 ## About Joel Ledford  
-I am an associate teaching professor in the department of [Plant Biology](http://www-plb.ucdavis.edu/). My research is focused on education and spider biology. I completed my B.S. at UC Davis in entomology as a community college transfer student. My experience in R involves statistical analysis in education and evolutionary biology. I also teach part of the introductory biology series `BIS2C` (Fall and Winter) and introductory plant biology `PLB10` (Spring).  
+I am an associate teaching professor in the department of [Plant Biology](http://www-plb.ucdavis.edu/). My research is focused on education and spider biology. I completed my B.S. at UC Davis in entomology as a community college transfer student. My experience in R involves statistical analysis in education and evolutionary biology. I also teach part of the introductory biology series `BIS2C` (Fall and Winter) and plant biology `PLB10` (Spring).  
 
 ## About Bryshal Moore
-QQQ. 
+Hello, I’m Bryshal Moore, I also go by Bry (pronounced like try). Hailing from Alabama, my academic journey spans a background in chemistry (B.S.) and biotechnology (M.S.). I'm presently a PhD student in Biochemistry, Molecular, Cellular and Developmental Biology (BMCDB). I am a member of the Data Intensive Biology (DIB) lab, where my research focus centers on the computational analysis of 16S and ITS microbiome data. Recently, I've embraced the versatility of R into my toolkit, utilizing it for dataset analysis and creating quality visually appealing graphs.  
 
 ## Do's and Dont's  
 Learning any programming language is hard; it only gets easier with time and practice. Don't give up!  
