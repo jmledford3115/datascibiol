@@ -18,12 +18,12 @@ knitr::opts_chunk$set(
 ## Background  
 In nearly every field of science, our ability to generate data has exceeded our capacity for analysis. For me, this means that there is the potential for loss to science; many important discoveries may go unnoticed because we are unable to efficiently analyze data.  
 
-The goal for this course is to help get you started learning to manage, transform, and visualize data using the R programming language. You will learn to clearly and neatly organize messy data, transform it in ways that address your questions, and communicate results in a variety of formats. The course is designed for people with **no prior programming experience**. There is a substantial learning curve but, working together, we should be able to make learning R easier, interesting, and fun.  
+The goal for this course is to help get you started learning to manage, transform, and visualize data using the R programming language. You will learn to clearly and neatly organize messy data, transform it in ways that address your questions, and communicate results in a variety of formats. The course is designed for people with **no prior programming experience**. There is a substantial learning curve but, working together, we will make learning R easier, interesting, and fun.  
 
 This class is NOT focused on statistical analysis or interpretation. The goal is to provide you with the tools you need to perform these tasks.  
 
 ## First steps  
-It is really important that you understand the first two weeks of the class can seem slow, tedious, and frustrating. These first steps are like learning a new language; you often won't know what is being said or why. Please be patient and stick with me! I promise that it will get easier.  
+It is important that you understand the first two weeks of the class can seem slow, tedious, and frustrating. These first steps are like learning a new language; you often won't know what is being said or why. Please be patient and stick with me! I promise that it will get easier.  
 
 ## Resources  
 Given that R is open source, many resources are available online. We will use a combination of resources in the class, but key items are listed below.  
@@ -31,8 +31,7 @@ Given that R is open source, many resources are available online. We will use a 
 - [Class Website](https://jmledford3115.github.io/datascibiol/)  
 - [Class YouTube](https://www.youtube.com/channel/UCFX-MipGKF9jCEXaP-59BzQ)  
 - [R for data science](https://r4ds.had.co.nz/)
-- [R cheatsheets](https://www.rstudio.com/resources/cheatsheets/)
-- [RStudio keyboard shortcuts](https://support.rstudio.com/hc/en-us/articles/200711853-Keyboard-Shortcuts)
+- [R cheatsheets](https://posit.co/resources/cheatsheets/)
 
 ## UC Davis  
 Our campus has a wealth of expertise in data science. Should your interests progress, here are some links. They offer regular workshops and maintain archives. Among the goals of this class is to get you set-up so that you can attend these workshops and learn more!  
@@ -55,14 +54,14 @@ Please follow these four steps to set-up you computer [here](https://jmledford31
 [GitHub](http://www.github.com) is a file storage and management site used by programmers. Programmers upload code to repositories (folders) and make it publicly available. We will use Github to store our work in BIS 15L.  
 
 ## Your GitHub account  
-Since we will use GitHub for assignments, you need to have an account and make a repository for BIS 15L. If you followed the [setup instructions](https://jmledford3115.github.io/datascibiol/setup.html) above then you should be all set. Please [Email](mailto:hehouts@ucdavis.edu) your user name to Hannah.  
+Since we will use GitHub for assignments, you need to have an account and make a repository for BIS 15L. If you followed the [setup instructions](https://jmledford3115.github.io/datascibiol/setup.html) above then you should be all set. Please [Email](mailto:bymoore@ucdavis.edu) your user name to Bry.    
 
 We have a main repository for our class [datascibiol](https://github.com/jmledford3115/datascibiol). You should **Star** this repository for future reference.  
 
 ## Make Your Own Repository  
 1. Go to [github.com](www.github.com) and login.  
 2. Create a new repository.  
-3. Under repository name, use the title `BIS15W2023_your first initial and lastname`. Mine looks like this: BIS15W2023_jledford  
+3. Under repository name, use the title `BIS15W2024_your first initial and lastname`. Mine looks like this: BIS15W2024_jledford  
 4. Default settings are fine, but do click "Initialize this repository with a README".    
 5. Once the repository is made, click on settings in the top right.  
 6. On the left toolbar click "Collaborators".  
