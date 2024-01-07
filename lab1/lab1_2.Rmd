@@ -15,7 +15,7 @@ output:
 3. Write, format, and knit an RMarkdown report.  
 
 ## R and RStudio  
-R is an open source, **scripting** language. RStudio is a [GUI](https://www.computerhope.com/jargon/g/gui.htm) that is used to interact with R. You need to have R installed in order for RStudio to work. On the desktop in your repository's `lab 1` folder, you should see a file titled `lab1_1.Rmd`. Open this file by double clicking; you should now be in RStudio.  
+R is an open source, **scripting** language. RStudio is a [GUI](https://www.computerhope.com/jargon/g/gui.htm) that is used to interact with R. You need to have R installed in order for RStudio to work. On the desktop in your repository's `lab 1` folder, you should see a file titled `lab1_2.Rmd`. Open this file by double clicking; you should now be in RStudio.  
 
 When you first open RStudio, you should see your screen divided into four quadrants. I will demonstrate each of these, but for now it is enough to know that they display different information and are helpful to manage your work.  
 
@@ -109,8 +109,7 @@ In order to make the html file, you need to "Knit" the file. Knitting just means
 
 ## Practice
 1. Test out the arithmetic capabilities of R; experiment by doing addition, subtraction, multiplication, and division.  
-2. Go back to your "RMarkdown Practice" file and experiment with titles, text, and syntax.  
-3. Copy and paste the following two pieces of code into the document (include the gray code "chunks").      
+2. Copy and paste the following two pieces of code into your "RMarkdown Practice" document (include the gray code "chunks").      
 
 ```{r}
 #install.packages("tidyverse")
@@ -122,8 +121,8 @@ ggplot(mtcars, aes(x = factor(cyl))) +
     geom_bar()
 ```
 
-4. Now `knit` the file to html using the knit button at the top of the page.  
-5. Lastly, commit and push this file to your GitHub repository.  
+3. Now `knit` the file to html using the knit button at the top of the page.  
+4. Lastly, commit and push this file to your GitHub repository.  
 
 ## Wrap-up
 Please review the learning goals and be sure to use the code here as a reference when completing the homework.  
