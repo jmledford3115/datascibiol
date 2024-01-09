@@ -1,0 +1,30 @@
+---
+title: "Lab 1 Intro"
+date: "`r Sys.Date()`"
+output: ioslides_presentation
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+library("jpeg")
+```
+
+## Welcome!
+1. Please find a seat. It may be a bit crowded today!  
+2. Take a moment to check out the class Canvas page.  
+3. Find the class iClicker page and record your attendance.  
+
+## Meet Your Classmates
+### *With a partner, discuss the following questions*
+1. Why are you taking BIS 15L?  
+2. Do you have an prior coding experience?  
+3. How do you think BIS 15L will help you in your major?  
+
+## Computer Hygiene
+### *Before the next class you should*
+1. Make sure all of the latest updates are installed for your OS.  
+2. Organize your desktop.  
+3. Close all open tabs on your browser.  
+4. Completely restart your computer.  
+5. Wipe down the keyboard and clean your screen.  
+6. Commit to keeping your computer happy and healthy this quarter.  
