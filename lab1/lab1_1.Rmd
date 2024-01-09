@@ -65,7 +65,7 @@ We have a main repository for our class [datascibiol](https://github.com/jmledfo
 4. Default settings are fine, but do click "Initialize this repository with a README".    
 5. Once the repository is made, click on settings in the top right.  
 6. On the left toolbar click "Collaborators".  
-7. Add "jmledford3115" and "hehouts" as collaborators.  
+7. Add "jmledford3115" and "bryshalm" as collaborators.  
 
 ## GitHub Desktop  
 The easiest way to manage your GitHub repository is to use [GitHub desktop](https://desktop.github.com/). This is a  helpful tool that will allow you to manage all of your files. Open the program and login using your GitHub account.  
@@ -73,12 +73,10 @@ The easiest way to manage your GitHub repository is to use [GitHub desktop](http
 ## Clone Your Repository  
 In GitHub desktop, you will see your personal repository as an option under `clone repository`. Clone your repository to the desktop. Once you have done this any changes you make to files will be recorded and easily uploaded. Do not move this folder from your desktop.  
 
-## Clone or Copy the Class Repository
-In order to keep track of the class files, the last thing you need to do is make a copy of the class repository. I will make regular changes to the class repository including the addition of files and data that you will need. Just like you did for your repository, you want to clone the class repository to the desktop. Do a search for `datascibiol` and clone it to the desktop. This is where you will find important class files, homework, etc.  
+## Copy the Class Repository
+In order to keep track of the class files, the last thing you need to do is make a copy of the class repository. I will make regular changes to the class repository including the addition of files and data that you will need. Do a search for `datascibiol` and download a copy to the desktop. You do this by navigating to the repository then going to the small green code button at top right. Click on the code button then go to Download ZIP.  
 
-If cloning is ever a problem, remember you can always [download a copy](https://github.com/jmledford3115/datascibiol) directly from GitHub.
-
-Copy the `lab1` folder from the class repository and paste it into your personal repository. By doing this, you have created your own copies of lab materials for lab 1.    
+Copy the `lab1` folder from the class repository and paste it into your personal repository. By doing this, you have created your own copies of lab materials for lab 1.  
 
 ## Using GitHub  
 You will use your repository to store all of your notes and work. There are three terms that we need to define:  
