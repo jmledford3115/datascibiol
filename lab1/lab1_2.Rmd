@@ -23,7 +23,7 @@ R is an open source, **scripting** language. RStudio is a [GUI](https://www.comp
 When you first open RStudio, you should see your screen divided into four quadrants. I will demonstrate each of these, but for now it is enough to know that they display different information and are helpful to manage your work.  
 
 ## Working Directory  
-Before you begin any project in RStudio, it is important that you are in the correct "working directory". This is the folder on your computer where you are currently working; it is the location where RStudio will save all of your work. At first, most of the problems people encounter are because they are not in the correct working directory.  
+Before you begin to work in RStudio, it is important that you are in the correct "working directory". This is the location on your computer where you are currently working; it is the place where RStudio will save all of your work. At first, many of the problems people encounter in R are because they are not in the correct working directory.  
 
 Run the following code by clicking the small green arrow to check your current working directory.  
 ```{r}
@@ -57,6 +57,11 @@ Order of operations applies and you don't need to add an '=' sign.
 
 ```{r}
 12/4
+```
+
+What is going on here? How do we adjust this expression so the output is 12?
+```{r}
+4-2*6
 ```
 
 
@@ -96,6 +101,14 @@ RMarkdown is one of many types of documents that can be created in RStudio and i
 3. There is some generic information at the start of the file that we don't need. Delete lines 12 through 31 to clean things up.  
 4. Hold on to this file, we will use it shortly.  
 
+## Titles and Text
+Have a look at the format of this document; titles are indicated by a `#`. Larger numbers of `#'s` reduce the size of the font. Text with no `#'s` is smallest and not bold. To emphasize words, you can use _italics_ or **bold**. A line break is indicated by two spaces.  
+
+## Links
+I often add links to my RMarkdown files. For a website, include the page name in `[]` and the website address in `()`. [BIS 15L Webpage](https://jmledford3115.github.io/datascibiol/).    
+
+Email is similar, but you need to include `mailto:` in the parentheses. Here is my email: [Joel Ledford](jmledford@ucdavis.edu).    
+
 ## Code Chunks
 All R code is inserted between two gray bars called a code chunk. You can insert a new code chunk by clicking "Insert>R" at the top of the page. On a Mac, the shortcut is `option+command+i`.  
 
@@ -104,7 +117,8 @@ In order to make the html file, you need to "Knit" the file. Knitting just means
 
 ## Practice
 1. Test out the arithmetic capabilities of R; experiment by doing addition, subtraction, multiplication, and division.  
-2. Copy and paste the following two pieces of code into your "RMarkdown Practice" document (include the gray code "chunks").      
+2. Go back to your "RMarkdown Practice" file and experiment with titles, text, and syntax.  
+3. Copy and paste the following two pieces of code into the document (include the gray code "chunks").      
 
 ```{r}
 #install.packages("tidyverse")
@@ -116,8 +130,8 @@ ggplot(mtcars, aes(x = factor(cyl))) +
     geom_bar()
 ```
 
-3. Now `knit` the file to html using the knit button at the top of the page.  
-4. Lastly, commit and push this file to your GitHub repository.  
+4. Now `knit` the file to html using the knit button at the top of the page.  
+5. Lastly, commit and push this file to your GitHub repository.  
 
 ## Wrap-up
 Please review the learning goals and be sure to use the code here as a reference when completing the homework.  
