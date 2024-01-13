@@ -1,0 +1,30 @@
+---
+title: "Lab 2 Intro"
+date: "`r Sys.Date()`"
+output: ioslides_presentation
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+library("jpeg")
+```
+
+## Setup
+1. Go to iclicker.com and record your attendance.
+2. Login to the lab computer (please don't use your personal computer).  
+3. Navigate to github.com and login.  
+4. Find the class repository "datascibiol" (https://github.com/jmledford3115/datascibiol).  
+5. Download a copy the class repository to the desktop.  
+6. Clone your repository to the desktop.  
+7. Copy the files for today's lab from the class repository and paste them into **your** repository.  
+8. Open today's lab in RStudio.  
+
+## Review from last time
+### *With a partner, discuss the following questions*
+1. What is the association between `R` and `R Studio`?  
+2. What is `R Markdown`? What are the advantages of this format?  
+
+## Homework
+1. Please open `homework 1`.  
+2. With a partner, discuss any problems.  
+3. Have your partner double-check your homework on `github.com`
