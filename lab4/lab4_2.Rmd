@@ -1,0 +1,168 @@
+---
+title: "Transforming data 2: `filter()`"
+date: "`r Sys.Date()`"
+output:
+  html_document:
+    theme: spacelab
+    toc: yes
+    toc_float: yes
+  pdf_document:
+    toc: yes
+---
+
+## Learning Goals  
+*At the end of this exercise, you will be able to:*    
+1. Use the functions of dplyr (filter, select, arrange) to organize and sort data frames.  
+2. Use `mutate()` to calculate a new column from existing columns.  
+
+## Review  
+In the previous lab, we used `select()` to extract columns of interest from a data frame. This helps us focus our attention on the variables relevant to our question. However, it doesn't allow us to extract observations from within the data frame. The `filter()` function allows us to extract data that meet specific criteria. When combined with `select()`, we have the power to transform, shape, and explore data with the potential to make new discoveries.  
+
+## Load the tidyverse
+```{r message=FALSE, warning=FALSE}
+library("tidyverse")
+```
+
+## Load the data
+For these exercises we will use the data from lab 4_1.  
+```{r}
+fish <- read_csv("data/Gaeta_etal_CLC_data.csv")
+```
+
+```{r}
+mammals <- read_csv("data/mammal_lifehistories_v2.csv")
+```
+
+To keep things tidy, I am going to rename the variables in the mammals data.  
+```{r}
+mammals <- rename(mammals, genus=Genus, wean_mass="wean mass", max_life="max. life", litter_size="litter size", litters_per_year="litters/year")
+```
+
+## `filter()`
+Unlike `select()`, `filter()` allows us to extract data that meet specific criteria within a variable. Let's say that we are interested only in the fish that occur in lake "AL". We can use `filter()` to extract these observations.  
+```{r}
+filter(fish, lakeid == "AL")
+```
+
+Similarly, if we are only interested in fish with a length greater than or equal to 350 we can use `filter()` to extract these observations.  
+```{r}
+filter(fish, length >= 350)
+```
+
++ `filter()` allows all of the expected operators; i.e. >, >=, <, <=, != (not equal), and == (equal).  
+
+Using the `!` operator allows for the exclusion of specific observations.
+```{r}
+filter(fish, lakeid != "AL")
+```
+
+## Using `filter()` with multiple observations  
+Filtering multiple values within the same variable requires the `%in%` [operator](https://www.tutorialspoint.com/r/r_operators.htm).    
+```{r}
+filter(fish, length %in% c(167, 175))
+```
+
+Alternatively, you can use `between` if you are looking for a range of specific values.  
+```{r}
+filter(fish, between(scalelength, 2.5, 2.55))
+```
+
+You can also extract observations "near" a certain value but you need to specify a tolerance.  
+```{r}
+filter(fish, near(radii_length_mm, 2, tol = 0.2))
+```
+
+## Practice
+1. Filter the `fish` data to include the samples from lake "BO".
+```{r}
+
+```
+
+2. Filter the data to include all lakes except "AR".
+```{r}
+
+```
+
+3. Filter the fish data to include all fish with a scalelength within 0.25 of 8.
+```{r}
+
+```
+
+4. Filter the fish data to include fish with a scalelength between 2 and 4.
+```{r}
+
+```
+
+```{r}
+
+```
+
+## Using `filter()` on multiple conditions
+You can also use `filter()` to extract data based on multiple conditions. Below we extract only the fish that have lakeid "AL" and length >350.
+```{r}
+filter(fish, lakeid == "AL" & length > 350)
+```
+
+Notice that the `|` operator generates a different result.
+```{r}
+filter(fish, lakeid == "AL" | length > 350)
+```
+
+Rules:  
++ `filter(condition1, condition2)` will return rows where both conditions are met.  
++ `filter(condition1, !condition2)` will return all rows where condition one is true but condition 2 is not.  
++ `filter(condition1 | condition2)` will return rows where condition 1 or condition 2 is met.  
++ `filter(xor(condition1, condition2)` will return all rows where only one of the conditions is met, and not when both conditions are met.  
+
+In this case, we filter out the fish with a length over 400 and a scale length over 11 or a radii length over 8.
+```{r}
+filter(fish, length > 400, (scalelength > 11 | radii_length_mm > 8))
+```
+
+## Practice  
+1. Have a look at the mammals data using the summary `functions` of your choosing.    
+```{r}
+
+```
+
+2. What are the names of the variables in the mammals data?  
+```{r}
+
+```
+
+3.  From the `mammals` data, filter all members of the family Bovidae with a mass greater than 450000.
+```{r}
+
+```
+
+4. Let's say we are only interested in family, genus, species, mass, and gestation. Relimit the mammals data frame to these variables.  
+```{r}
+
+```
+
+5. Use the output from #4 to focus on the family Bovidae with a mass greater than 450000.
+```{r}
+
+```
+
+```{r}
+
+```
+
+```{r}
+
+```
+
+6. From the `mammals` data, build a data frame that compares `mass`, `gestation`, and `newborn` among the primate genera `Lophocebus`, `Erythrocebus`, and `Macaca`. Among these genera, which species has the smallest `newborn` mass?
+```{r}
+
+```
+
+```{r}
+
+```
+
+## Wrap-up  
+
+Please review the learning goals and be sure to use the code here as a reference when completing the homework.  
+-->[Home](https://jmledford3115.github.io/datascibiol/)

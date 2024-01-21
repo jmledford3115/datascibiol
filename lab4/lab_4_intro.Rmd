@@ -1,0 +1,33 @@
+---
+title: "Lab 4 Intro"
+date: "`r Sys.Date()`"
+output: ioslides_presentation
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+library("jpeg")
+```
+
+## Setup
+1. Go to iclicker.com and record your attendance.
+2. Login to the lab computer (please don't use your personal computer).  
+3. Navigate to github.com and login.  
+4. Find the class repository "datascibiol" (https://github.com/jmledford3115/datascibiol).  
+5. Download a copy the class repository to the desktop.  
+6. Clone your repository to the desktop.  
+7. Copy the files for today's lab from the class repository and paste them into **your** repository.  
+8. Open today's lab in RStudio.  
+
+## Review from last time
+### *With a partner, discuss the following questions*
+1. What is a data frame and how is it different than a data matrix?  
+2. What is the command we use to import .csv files into R?  
+3. Take a moment to show your repository on GitHub to a partner. Can you make any improvements?  
+
+## Warm-up
+1. In a new R Markdown document, load the tidyverse and a package called `palmerpenguins`.
+2. What are the dimensions of the dataset `penguins`?
+3. What are the names of the variables in the `penguins` dataset?
+4. How many individuals were sampled on each island in the `penguins` dataset?
+5. What is the mean body mass for all individuals in the `penguins` dataset?
