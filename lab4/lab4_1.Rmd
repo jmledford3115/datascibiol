@@ -175,19 +175,6 @@ Load the data.
 
 ```
 
-## Other
-Here are two examples of code that are super helpful to have in your bag of tricks.  
-
-Imported data frames often have a mix of lower and uppercase column names. Use `toupper()` or `tolower()` to fix this issue. I always try to use lowercase to keep things consistent.  
-```{r}
-
-```
-
-When naming columns, blank spaces are often added (don't do this, please). Here is a trick to remove these.  
-```{r}
-#select_all(mammals, ~str_replace(., " ", "_"))
-```
-
 ## That's it! Let's take a break and then move on to part 2! 
 
 -->[Home](https://jmledford3115.github.io/datascibiol/)  
