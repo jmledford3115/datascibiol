@@ -27,8 +27,8 @@ These are data taken from comic books and assembled by fans. The include a good 
 
 Check out the way I am loading these data. If I know there are NAs, I can take care of them at the beginning. But, we should do this very cautiously. At times it is better to keep the original columns and data intact.  
 ```{r}
-superhero_info <- read_csv("data/heroes_information.csv", na = c("", "-99", "-"))
-superhero_powers <- read_csv("data/super_hero_powers.csv", na = c("", "-99", "-"))
+#superhero_info <- read_csv("data/heroes_information.csv", na = c("", "-99", "-"))
+#superhero_powers <- read_csv("data/super_hero_powers.csv", na = c("", "-99", "-"))
 ```
 
 ## Data tidy
@@ -37,7 +37,7 @@ superhero_powers <- read_csv("data/super_hero_powers.csv", na = c("", "-99", "-"
 ## `tabyl`
 The `janitor` package has many awesome functions that we will explore. Here is its version of `table` which not only produces counts but also percentages. Very handy! Let's use it to explore the proportion of good guys and bad guys in the `superhero_info` data.  
 ```{r}
-tabyl(superhero_info, alignment)
+#tabyl(superhero_info, alignment)
 ```
 
 1. Who are the publishers of the superheros? Show the proportion of superheros from each publisher. Which publisher has the highest number of superheros?  

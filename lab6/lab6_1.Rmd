@@ -22,12 +22,18 @@ library("janitor")
 ```
 
 ## Load the data
-For this lab, we will use the following dataset:  
+For this lab, we will use the following two datasets:  
 
-1. S. K. Morgan Ernest. 2003. Life history characteristics of placental non-volant mammals. Ecology 84:3402.   [link](http://esapubs.org/archive/ecol/E084/093/)  
+1. 1. Gaeta J., G. Sass, S. Carpenter. 2012. Biocomplexity at North Temperate Lakes LTER: Coordinated Field Studies: Large Mouth Bass Growth 2006. Environmental Data Initiative.   [link](https://portal.edirepository.org/nis/mapbrowse?scope=knb-lter-ntl&identifier=267)  
+
+2. S. K. Morgan Ernest. 2003. Life history characteristics of placental non-volant mammals. Ecology 84:3402.   [link](http://esapubs.org/archive/ecol/E084/093/)  
 
 ## Pipes `%>%` 
 Recall that we use pipes to connect the output of code to a subsequent function. This makes our code cleaner and more efficient. One way we can use pipes is to attach the `clean_names()` function from janitor to the `read_csv()` output.  
+```{r}
+fish <- readr::read_csv("data/Gaeta_etal_CLC_data.csv")
+```
+
 ```{r}
 mammals <- read_csv("data/mammal_lifehistories_v2.csv") %>% clean_names()
 ```
