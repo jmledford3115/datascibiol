@@ -94,14 +94,6 @@ mammals %>%
 
 ```
 
-
-
-
-
-
-
-
-
 ## That's it! Let's take a break and then move on to part 2! 
 
 -->[Home](https://jmledford3115.github.io/datascibiol/)  
