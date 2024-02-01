@@ -1,0 +1,159 @@
+---
+title: "summarize practice, `count()`, `across()`"
+date: "`r Sys.Date()`"
+output:
+  html_document:
+    theme: spacelab
+    toc: yes
+    toc_float: yes
+  pdf_document:
+    toc: yes
+---
+
+## Learning Goals
+*At the end of this exercise, you will be able to:*    
+1. Produce clear, concise summaries using a variety of functions in `dplyr` and `janitor.`  
+2. Use the `across()` operator to produce summaries across multiple variables.  
+
+## Load the libraries
+```{r message=FALSE, warning=FALSE}
+library("tidyverse")
+library("janitor")
+library("skimr")
+library("palmerpenguins")
+```
+
+## Review
+The summarize() and group_by() functions are powerful tools that we can use to produce clean summaries of data. Especially when used together, we can quickly group variables of interest and save time. Let's do some practice with the [palmerpenguins(https://allisonhorst.github.io/palmerpenguins/articles/intro.html) data to refresh our memory.
+```{r}
+glimpse(penguins)
+```
+
+As biologists, a good question that we may ask is how do the measured variables differ by island (on average)?
+```{r}
+
+```
+
+```{r}
+
+```
+
+Why do we have NA here? Do all of these penguins lack data?
+```{r}
+
+```
+
+Well, that won't work so let's remove the NAs and recalculate.
+```{r}
+
+```
+
+What if we are interested in the number of observations (penguins) by species and island?
+```{r}
+penguins %>% 
+  group_by(species, island) %>% 
+  summarize(n=n(), .groups= 'keep')#the .groups argument here just prevents a warning message
+```
+
+## Counts
+Although these summary functions are super helpful, oftentimes we are mostly interested in counts. The [janitor package](https://garthtarr.github.io/meatR/janitor.html) does a lot with counts, but there are also functions that are part of dplyr that are useful.  
+
+`count()` is an easy way of determining how many observations you have within a column. It acts like a combination of `group_by()` and `n()`.
+```{r}
+penguins %>% 
+  count(island, sort = T) #sort=T sorts the column in descending order
+```
+
+Compare this with `summarize()` and `group_by()`.
+```{r}
+penguins %>% 
+  group_by(island) %>% 
+  summarize(n=n())
+```
+
+You can also use `count()` across multiple variables.
+```{r}
+penguins %>% 
+  count(island, species, sort = T) # sort=T will arrange in descending order
+```
+
+For counts, I also like `tabyl()`. Lots of options are supported in [tabyl](https://cran.r-project.org/web/packages/janitor/vignettes/tabyls.html)
+```{r}
+
+```
+
+## Practice
+1. How does the mean of `bill_length_mm` compare between penguin species?
+```{r}
+
+```
+
+2. For some penguins, their sex is listed as NA. Where do these penguins occur?
+```{r}
+
+```
+
+## `across()`
+What about using `filter()` and `select()` across multiple variables? There is a function in dplyr called `across()` which is designed to work across multiple variables. Have a look at Rebecca Barter's awesome blog [here](http://www.rebeccabarter.com/blog/2020-07-09-across/).    
+
+What if we wanted to apply `summarize()` in order to produce distinct counts over multiple variables; i.e. species, island, and sex? Although this isn't a lot of coding you can image that with a lot of variables it would be cumbersome.
+```{r}
+penguins %>%
+  summarize(distinct_species = n_distinct(species),
+            distinct_island = n_distinct(island),
+            distinct_sex = n_distinct(sex))
+```
+
+By using `across()` we can reduce the clutter and make things cleaner. 
+```{r}
+penguins %>%
+  summarize(across(c(species, island, sex), n_distinct))
+```
+
+This is very helpful for continuous variables.
+```{r}
+penguins %>%
+  summarize(across(contains("mm"), mean, na.rm=T))
+```
+
+```{r}
+penguins %>%
+  summarize(across(contains("mm"), \(x) mean(x, na.rm = TRUE)))
+```
+
+`group_by` also works.
+```{r}
+penguins %>%
+  group_by(sex) %>% 
+  summarize(across(contains("mm"), mean, na.rm=T))
+```
+
+Here we summarize across all variables.
+```{r}
+penguins %>%
+  summarise_all(mean, na.rm=T)
+```
+
+Operators can also work, here I am summarizing across all variables except `species`, `island`, `sex`, and `year`.
+```{r}
+penguins %>%
+  summarise(across(!c(species, island, sex, year), 
+                   mean, na.rm=T))
+```
+
+All variables that include "bill"...all of the other dplyr operators also work.
+```{r}
+penguins %>%
+  summarise(across(starts_with("bill"), mean, na.rm=T))
+```
+
+## Practice
+1. Produce separate summaries of the mean and standard deviation for bill_length_mm, bill_depth_mm, and flipper_length_mm for each penguin species. Be sure to provide the number of samples.  
+```{r}
+
+```
+
+## Wrap-up  
+
+Please review the learning goals and be sure to use the code here as a reference when completing the homework.  
+-->[Home](https://jmledford3115.github.io/datascibiol/)
