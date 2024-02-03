@@ -1,11 +1,11 @@
 ---
-title: "dplyr Superhero"
+title: "Homework 5"
+author: "Joel Ledford"
 date: "`r Sys.Date()`"
 output:
-  html_document:
+  html_document: 
     theme: spacelab
-    toc: yes
-    toc_float: yes
+    keep_md: yes
 ---
 
 ## Learning Goals  
