@@ -31,6 +31,9 @@ Please read the [course syllabus](https://jmledford3115.github.io/datascibiol/sy
 5. **Homework 5** | [HW 5](https://jmledford3115.github.io/datascibiol/homework/hw5.html)   
 6. **Homework 6** | [HW 6](https://jmledford3115.github.io/datascibiol/homework/hw6.html)  
    
+## Midterm  
+1. **Midterm 1** | [Midterm1](https://jmledford3115.github.io/datascibiol/midterm1/midterm1.html)
+
 ## Reading  
 [R for Data Science](https://r4ds.had.co.nz/), Grolemund and Wickham (2017).  
 
