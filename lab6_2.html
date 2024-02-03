@@ -10,7 +10,7 @@
 
 
 
-<meta name="date" content="2024-01-28" />
+<meta name="date" content="2024-02-03" />
 
 <title>dplyr Superhero</title>
 
@@ -1503,7 +1503,7 @@ border-radius: 0px;
 
 
 <h1 class="title toc-ignore">dplyr Superhero</h1>
-<h4 class="date">2024-01-28</h4>
+<h4 class="date">2024-02-03</h4>
 
 </div>
 
@@ -1530,7 +1530,7 @@ final code to GitHub.</p>
 ## ✔ dplyr     1.1.4     ✔ readr     2.1.5
 ## ✔ forcats   1.0.0     ✔ stringr   1.5.1
 ## ✔ ggplot2   3.4.4     ✔ tibble    3.2.1
-## ✔ lubridate 1.9.3     ✔ tidyr     1.3.0
+## ✔ lubridate 1.9.3     ✔ tidyr     1.3.1
 ## ✔ purrr     1.0.2     
 ## ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
 ## ✖ dplyr::filter() masks stats::filter()
@@ -1553,8 +1553,24 @@ include a good mix of categorical and continuous data. Data taken from:
 can take care of them at the beginning. But, we should do this very
 cautiously. At times it is better to keep the original columns and data
 intact.</p>
-<pre class="r"><code>#superhero_info &lt;- read_csv(&quot;data/heroes_information.csv&quot;, na = c(&quot;&quot;, &quot;-99&quot;, &quot;-&quot;))
-#superhero_powers &lt;- read_csv(&quot;data/super_hero_powers.csv&quot;, na = c(&quot;&quot;, &quot;-99&quot;, &quot;-&quot;))</code></pre>
+<pre class="r"><code>superhero_info &lt;- read_csv(&quot;data/heroes_information.csv&quot;, na = c(&quot;&quot;, &quot;-99&quot;, &quot;-&quot;))</code></pre>
+<pre><code>## Rows: 734 Columns: 10
+## ── Column specification ────────────────────────────────────────────────────────
+## Delimiter: &quot;,&quot;
+## chr (8): name, Gender, Eye color, Race, Hair color, Publisher, Skin color, A...
+## dbl (2): Height, Weight
+## 
+## ℹ Use `spec()` to retrieve the full column specification for this data.
+## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+<pre class="r"><code>superhero_powers &lt;- read_csv(&quot;data/super_hero_powers.csv&quot;, na = c(&quot;&quot;, &quot;-99&quot;, &quot;-&quot;))</code></pre>
+<pre><code>## Rows: 667 Columns: 168
+## ── Column specification ────────────────────────────────────────────────────────
+## Delimiter: &quot;,&quot;
+## chr   (1): hero_names
+## lgl (167): Agility, Accelerated Healing, Lantern Power Ring, Dimensional Awa...
+## 
+## ℹ Use `spec()` to retrieve the full column specification for this data.
+## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
 </div>
 <div id="data-tidy" class="section level2">
 <h2>Data tidy</h2>
@@ -1564,6 +1580,96 @@ problematic so you should rename them here. Before you do anything,
 first have a look at the names of the variables. You can use
 <code>rename()</code> or <code>clean_names()</code>.</li>
 </ol>
+<pre class="r"><code>names(superhero_info)</code></pre>
+<pre><code>##  [1] &quot;name&quot;       &quot;Gender&quot;     &quot;Eye color&quot;  &quot;Race&quot;       &quot;Hair color&quot;
+##  [6] &quot;Height&quot;     &quot;Publisher&quot;  &quot;Skin color&quot; &quot;Alignment&quot;  &quot;Weight&quot;</code></pre>
+<pre class="r"><code>names(superhero_powers)</code></pre>
+<pre><code>##   [1] &quot;hero_names&quot;                   &quot;Agility&quot;                     
+##   [3] &quot;Accelerated Healing&quot;          &quot;Lantern Power Ring&quot;          
+##   [5] &quot;Dimensional Awareness&quot;        &quot;Cold Resistance&quot;             
+##   [7] &quot;Durability&quot;                   &quot;Stealth&quot;                     
+##   [9] &quot;Energy Absorption&quot;            &quot;Flight&quot;                      
+##  [11] &quot;Danger Sense&quot;                 &quot;Underwater breathing&quot;        
+##  [13] &quot;Marksmanship&quot;                 &quot;Weapons Master&quot;              
+##  [15] &quot;Power Augmentation&quot;           &quot;Animal Attributes&quot;           
+##  [17] &quot;Longevity&quot;                    &quot;Intelligence&quot;                
+##  [19] &quot;Super Strength&quot;               &quot;Cryokinesis&quot;                 
+##  [21] &quot;Telepathy&quot;                    &quot;Energy Armor&quot;                
+##  [23] &quot;Energy Blasts&quot;                &quot;Duplication&quot;                 
+##  [25] &quot;Size Changing&quot;                &quot;Density Control&quot;             
+##  [27] &quot;Stamina&quot;                      &quot;Astral Travel&quot;               
+##  [29] &quot;Audio Control&quot;                &quot;Dexterity&quot;                   
+##  [31] &quot;Omnitrix&quot;                     &quot;Super Speed&quot;                 
+##  [33] &quot;Possession&quot;                   &quot;Animal Oriented Powers&quot;      
+##  [35] &quot;Weapon-based Powers&quot;          &quot;Electrokinesis&quot;              
+##  [37] &quot;Darkforce Manipulation&quot;       &quot;Death Touch&quot;                 
+##  [39] &quot;Teleportation&quot;                &quot;Enhanced Senses&quot;             
+##  [41] &quot;Telekinesis&quot;                  &quot;Energy Beams&quot;                
+##  [43] &quot;Magic&quot;                        &quot;Hyperkinesis&quot;                
+##  [45] &quot;Jump&quot;                         &quot;Clairvoyance&quot;                
+##  [47] &quot;Dimensional Travel&quot;           &quot;Power Sense&quot;                 
+##  [49] &quot;Shapeshifting&quot;                &quot;Peak Human Condition&quot;        
+##  [51] &quot;Immortality&quot;                  &quot;Camouflage&quot;                  
+##  [53] &quot;Element Control&quot;              &quot;Phasing&quot;                     
+##  [55] &quot;Astral Projection&quot;            &quot;Electrical Transport&quot;        
+##  [57] &quot;Fire Control&quot;                 &quot;Projection&quot;                  
+##  [59] &quot;Summoning&quot;                    &quot;Enhanced Memory&quot;             
+##  [61] &quot;Reflexes&quot;                     &quot;Invulnerability&quot;             
+##  [63] &quot;Energy Constructs&quot;            &quot;Force Fields&quot;                
+##  [65] &quot;Self-Sustenance&quot;              &quot;Anti-Gravity&quot;                
+##  [67] &quot;Empathy&quot;                      &quot;Power Nullifier&quot;             
+##  [69] &quot;Radiation Control&quot;            &quot;Psionic Powers&quot;              
+##  [71] &quot;Elasticity&quot;                   &quot;Substance Secretion&quot;         
+##  [73] &quot;Elemental Transmogrification&quot; &quot;Technopath/Cyberpath&quot;        
+##  [75] &quot;Photographic Reflexes&quot;        &quot;Seismic Power&quot;               
+##  [77] &quot;Animation&quot;                    &quot;Precognition&quot;                
+##  [79] &quot;Mind Control&quot;                 &quot;Fire Resistance&quot;             
+##  [81] &quot;Power Absorption&quot;             &quot;Enhanced Hearing&quot;            
+##  [83] &quot;Nova Force&quot;                   &quot;Insanity&quot;                    
+##  [85] &quot;Hypnokinesis&quot;                 &quot;Animal Control&quot;              
+##  [87] &quot;Natural Armor&quot;                &quot;Intangibility&quot;               
+##  [89] &quot;Enhanced Sight&quot;               &quot;Molecular Manipulation&quot;      
+##  [91] &quot;Heat Generation&quot;              &quot;Adaptation&quot;                  
+##  [93] &quot;Gliding&quot;                      &quot;Power Suit&quot;                  
+##  [95] &quot;Mind Blast&quot;                   &quot;Probability Manipulation&quot;    
+##  [97] &quot;Gravity Control&quot;              &quot;Regeneration&quot;                
+##  [99] &quot;Light Control&quot;                &quot;Echolocation&quot;                
+## [101] &quot;Levitation&quot;                   &quot;Toxin and Disease Control&quot;   
+## [103] &quot;Banish&quot;                       &quot;Energy Manipulation&quot;         
+## [105] &quot;Heat Resistance&quot;              &quot;Natural Weapons&quot;             
+## [107] &quot;Time Travel&quot;                  &quot;Enhanced Smell&quot;              
+## [109] &quot;Illusions&quot;                    &quot;Thirstokinesis&quot;              
+## [111] &quot;Hair Manipulation&quot;            &quot;Illumination&quot;                
+## [113] &quot;Omnipotent&quot;                   &quot;Cloaking&quot;                    
+## [115] &quot;Changing Armor&quot;               &quot;Power Cosmic&quot;                
+## [117] &quot;Biokinesis&quot;                   &quot;Water Control&quot;               
+## [119] &quot;Radiation Immunity&quot;           &quot;Vision - Telescopic&quot;         
+## [121] &quot;Toxin and Disease Resistance&quot; &quot;Spatial Awareness&quot;           
+## [123] &quot;Energy Resistance&quot;            &quot;Telepathy Resistance&quot;        
+## [125] &quot;Molecular Combustion&quot;         &quot;Omnilingualism&quot;              
+## [127] &quot;Portal Creation&quot;              &quot;Magnetism&quot;                   
+## [129] &quot;Mind Control Resistance&quot;      &quot;Plant Control&quot;               
+## [131] &quot;Sonar&quot;                        &quot;Sonic Scream&quot;                
+## [133] &quot;Time Manipulation&quot;            &quot;Enhanced Touch&quot;              
+## [135] &quot;Magic Resistance&quot;             &quot;Invisibility&quot;                
+## [137] &quot;Sub-Mariner&quot;                  &quot;Radiation Absorption&quot;        
+## [139] &quot;Intuitive aptitude&quot;           &quot;Vision - Microscopic&quot;        
+## [141] &quot;Melting&quot;                      &quot;Wind Control&quot;                
+## [143] &quot;Super Breath&quot;                 &quot;Wallcrawling&quot;                
+## [145] &quot;Vision - Night&quot;               &quot;Vision - Infrared&quot;           
+## [147] &quot;Grim Reaping&quot;                 &quot;Matter Absorption&quot;           
+## [149] &quot;The Force&quot;                    &quot;Resurrection&quot;                
+## [151] &quot;Terrakinesis&quot;                 &quot;Vision - Heat&quot;               
+## [153] &quot;Vitakinesis&quot;                  &quot;Radar Sense&quot;                 
+## [155] &quot;Qwardian Power Ring&quot;          &quot;Weather Control&quot;             
+## [157] &quot;Vision - X-Ray&quot;               &quot;Vision - Thermal&quot;            
+## [159] &quot;Web Creation&quot;                 &quot;Reality Warping&quot;             
+## [161] &quot;Odin Force&quot;                   &quot;Symbiote Costume&quot;            
+## [163] &quot;Speed Force&quot;                  &quot;Phoenix Force&quot;               
+## [165] &quot;Molecular Dissipation&quot;        &quot;Vision - Cryo&quot;               
+## [167] &quot;Omnipresent&quot;                  &quot;Omniscient&quot;</code></pre>
+<pre class="r"><code>superhero_powers &lt;- clean_names(superhero_powers)</code></pre>
+<pre class="r"><code>superhero_info &lt;- clean_names(superhero_info)</code></pre>
 </div>
 <div id="tabyl" class="section level2">
 <h2><code>tabyl</code></h2>
@@ -1572,14 +1678,56 @@ will explore. Here is its version of <code>table</code> which not only
 produces counts but also percentages. Very handy! Let’s use it to
 explore the proportion of good guys and bad guys in the
 <code>superhero_info</code> data.</p>
-<pre class="r"><code>#tabyl(superhero_info, alignment)</code></pre>
+<pre class="r"><code>tabyl(superhero_info, alignment)</code></pre>
+<pre><code>##  alignment   n     percent valid_percent
+##        bad 207 0.282016349    0.28473177
+##       good 496 0.675749319    0.68225585
+##    neutral  24 0.032697548    0.03301238
+##       &lt;NA&gt;   7 0.009536785            NA</code></pre>
 <ol style="list-style-type: decimal">
-<li><p>Who are the publishers of the superheros? Show the proportion of
+<li>Who are the publishers of the superheros? Show the proportion of
 superheros from each publisher. Which publisher has the highest number
-of superheros?</p></li>
-<li><p>Notice that we have some neutral superheros! Who are they? List
-their names below.</p></li>
+of superheros?</li>
 </ol>
+<pre class="r"><code>tabyl(superhero_info, publisher)</code></pre>
+<pre><code>##          publisher   n     percent valid_percent
+##        ABC Studios   4 0.005449591   0.005563282
+##          DC Comics 215 0.292915531   0.299026426
+##  Dark Horse Comics  18 0.024523161   0.025034771
+##       George Lucas  14 0.019073569   0.019471488
+##      Hanna-Barbera   1 0.001362398   0.001390821
+##      HarperCollins   6 0.008174387   0.008344924
+##     IDW Publishing   4 0.005449591   0.005563282
+##        Icon Comics   4 0.005449591   0.005563282
+##       Image Comics  14 0.019073569   0.019471488
+##      J. K. Rowling   1 0.001362398   0.001390821
+##   J. R. R. Tolkien   1 0.001362398   0.001390821
+##      Marvel Comics 388 0.528610354   0.539638387
+##          Microsoft   1 0.001362398   0.001390821
+##       NBC - Heroes  19 0.025885559   0.026425591
+##          Rebellion   1 0.001362398   0.001390821
+##           Shueisha   4 0.005449591   0.005563282
+##      Sony Pictures   2 0.002724796   0.002781641
+##         South Park   1 0.001362398   0.001390821
+##          Star Trek   6 0.008174387   0.008344924
+##               SyFy   5 0.006811989   0.006954103
+##       Team Epic TV   5 0.006811989   0.006954103
+##        Titan Books   1 0.001362398   0.001390821
+##  Universal Studios   1 0.001362398   0.001390821
+##          Wildstorm   3 0.004087193   0.004172462
+##               &lt;NA&gt;  15 0.020435967            NA</code></pre>
+<ol start="2" style="list-style-type: decimal">
+<li>Notice that we have some neutral superheros! Who are they? List
+their names below.</li>
+</ol>
+<pre class="r"><code>neutral &lt;- superhero_info %&gt;% filter(alignment==&quot;neutral&quot;)</code></pre>
+<pre class="r"><code>neutral$name</code></pre>
+<pre><code>##  [1] &quot;Bizarro&quot;         &quot;Black Flash&quot;     &quot;Captain Cold&quot;    &quot;Copycat&quot;        
+##  [5] &quot;Deadpool&quot;        &quot;Deathstroke&quot;     &quot;Etrigan&quot;         &quot;Galactus&quot;       
+##  [9] &quot;Gladiator&quot;       &quot;Indigo&quot;          &quot;Juggernaut&quot;      &quot;Living Tribunal&quot;
+## [13] &quot;Lobo&quot;            &quot;Man-Bat&quot;         &quot;One-Above-All&quot;   &quot;Raven&quot;          
+## [17] &quot;Red Hood&quot;        &quot;Red Hulk&quot;        &quot;Robin VI&quot;        &quot;Sandman&quot;        
+## [21] &quot;Sentry&quot;          &quot;Sinestro&quot;        &quot;The Comedian&quot;    &quot;Toad&quot;</code></pre>
 </div>
 <div id="superhero_info" class="section level2">
 <h2><code>superhero_info</code></h2>
@@ -1588,31 +1736,395 @@ their names below.</p></li>
 and “race”. How would you isolate these variables from
 <code>superhero_info</code>?</li>
 </ol>
+<pre class="r"><code>superhero_info %&gt;% select(&quot;name&quot;, &quot;alignment&quot;, &quot;race&quot;)</code></pre>
+<pre><code>## # A tibble: 734 × 3
+##    name          alignment race             
+##    &lt;chr&gt;         &lt;chr&gt;     &lt;chr&gt;            
+##  1 A-Bomb        good      Human            
+##  2 Abe Sapien    good      Icthyo Sapien    
+##  3 Abin Sur      good      Ungaran          
+##  4 Abomination   bad       Human / Radiation
+##  5 Abraxas       bad       Cosmic Entity    
+##  6 Absorbing Man bad       Human            
+##  7 Adam Monroe   good      &lt;NA&gt;             
+##  8 Adam Strange  good      Human            
+##  9 Agent 13      good      &lt;NA&gt;             
+## 10 Agent Bob     good      Human            
+## # ℹ 724 more rows</code></pre>
 </div>
 <div id="not-human" class="section level2">
 <h2>Not Human</h2>
 <ol start="4" style="list-style-type: decimal">
 <li>List all of the superheros that are not human.</li>
 </ol>
+<pre class="r"><code>not_human &lt;- superhero_info %&gt;% filter(race!=&quot;Human&quot;)</code></pre>
+<pre class="r"><code>not_human$name</code></pre>
+<pre><code>##   [1] &quot;Abe Sapien&quot;                &quot;Abin Sur&quot;                 
+##   [3] &quot;Abomination&quot;               &quot;Abraxas&quot;                  
+##   [5] &quot;Ajax&quot;                      &quot;Alien&quot;                    
+##   [7] &quot;Amazo&quot;                     &quot;Angel&quot;                    
+##   [9] &quot;Angel Dust&quot;                &quot;Anti-Monitor&quot;             
+##  [11] &quot;Anti-Venom&quot;                &quot;Apocalypse&quot;               
+##  [13] &quot;Aqualad&quot;                   &quot;Aquaman&quot;                  
+##  [15] &quot;Archangel&quot;                 &quot;Ardina&quot;                   
+##  [17] &quot;Atlas&quot;                     &quot;Atlas&quot;                    
+##  [19] &quot;Aurora&quot;                    &quot;Azazel&quot;                   
+##  [21] &quot;Beast&quot;                     &quot;Beyonder&quot;                 
+##  [23] &quot;Big Barda&quot;                 &quot;Bill Harken&quot;              
+##  [25] &quot;Bionic Woman&quot;              &quot;Birdman&quot;                  
+##  [27] &quot;Bishop&quot;                    &quot;Bizarro&quot;                  
+##  [29] &quot;Black Bolt&quot;                &quot;Black Canary&quot;             
+##  [31] &quot;Black Flash&quot;               &quot;Blackout&quot;                 
+##  [33] &quot;Blackwulf&quot;                 &quot;Blade&quot;                    
+##  [35] &quot;Blink&quot;                     &quot;Bloodhawk&quot;                
+##  [37] &quot;Boba Fett&quot;                 &quot;Boom-Boom&quot;                
+##  [39] &quot;Brainiac&quot;                  &quot;Brundlefly&quot;               
+##  [41] &quot;Cable&quot;                     &quot;Cameron Hicks&quot;            
+##  [43] &quot;Captain Atom&quot;              &quot;Captain Marvel&quot;           
+##  [45] &quot;Captain Planet&quot;            &quot;Captain Universe&quot;         
+##  [47] &quot;Carnage&quot;                   &quot;Century&quot;                  
+##  [49] &quot;Cerebra&quot;                   &quot;Chamber&quot;                  
+##  [51] &quot;Colossus&quot;                  &quot;Copycat&quot;                  
+##  [53] &quot;Crystal&quot;                   &quot;Cyborg&quot;                   
+##  [55] &quot;Cyborg Superman&quot;           &quot;Cyclops&quot;                  
+##  [57] &quot;Darkseid&quot;                  &quot;Darkstar&quot;                 
+##  [59] &quot;Darth Maul&quot;                &quot;Darth Vader&quot;              
+##  [61] &quot;Data&quot;                      &quot;Dazzler&quot;                  
+##  [63] &quot;Deadpool&quot;                  &quot;Deathlok&quot;                 
+##  [65] &quot;Demogoblin&quot;                &quot;Doc Samson&quot;               
+##  [67] &quot;Donatello&quot;                 &quot;Donna Troy&quot;               
+##  [69] &quot;Doomsday&quot;                  &quot;Dr Manhattan&quot;             
+##  [71] &quot;Drax the Destroyer&quot;        &quot;Etrigan&quot;                  
+##  [73] &quot;Evil Deadpool&quot;             &quot;Evilhawk&quot;                 
+##  [75] &quot;Exodus&quot;                    &quot;Faora&quot;                    
+##  [77] &quot;Fin Fang Foom&quot;             &quot;Firestar&quot;                 
+##  [79] &quot;Franklin Richards&quot;         &quot;Galactus&quot;                 
+##  [81] &quot;Gambit&quot;                    &quot;Gamora&quot;                   
+##  [83] &quot;Garbage Man&quot;               &quot;Gary Bell&quot;                
+##  [85] &quot;General Zod&quot;               &quot;Ghost Rider&quot;              
+##  [87] &quot;Gladiator&quot;                 &quot;Godzilla&quot;                 
+##  [89] &quot;Goku&quot;                      &quot;Gorilla Grodd&quot;            
+##  [91] &quot;Greedo&quot;                    &quot;Groot&quot;                    
+##  [93] &quot;Guy Gardner&quot;               &quot;Havok&quot;                    
+##  [95] &quot;Hela&quot;                      &quot;Hellboy&quot;                  
+##  [97] &quot;Hercules&quot;                  &quot;Hulk&quot;                     
+##  [99] &quot;Human Torch&quot;               &quot;Husk&quot;                     
+## [101] &quot;Hybrid&quot;                    &quot;Hyperion&quot;                 
+## [103] &quot;Iceman&quot;                    &quot;Indigo&quot;                   
+## [105] &quot;Ink&quot;                       &quot;Invisible Woman&quot;          
+## [107] &quot;Jar Jar Binks&quot;             &quot;Jean Grey&quot;                
+## [109] &quot;Jubilee&quot;                   &quot;Junkpile&quot;                 
+## [111] &quot;K-2SO&quot;                     &quot;Killer Croc&quot;              
+## [113] &quot;Kilowog&quot;                   &quot;King Kong&quot;                
+## [115] &quot;King Shark&quot;                &quot;Krypto&quot;                   
+## [117] &quot;Lady Deathstrike&quot;          &quot;Legion&quot;                   
+## [119] &quot;Leonardo&quot;                  &quot;Living Tribunal&quot;          
+## [121] &quot;Lobo&quot;                      &quot;Loki&quot;                     
+## [123] &quot;Magneto&quot;                   &quot;Man of Miracles&quot;          
+## [125] &quot;Mantis&quot;                    &quot;Martian Manhunter&quot;        
+## [127] &quot;Master Chief&quot;              &quot;Medusa&quot;                   
+## [129] &quot;Mera&quot;                      &quot;Metallo&quot;                  
+## [131] &quot;Michelangelo&quot;              &quot;Mister Fantastic&quot;         
+## [133] &quot;Mister Knife&quot;              &quot;Mister Mxyzptlk&quot;          
+## [135] &quot;Mister Sinister&quot;           &quot;MODOK&quot;                    
+## [137] &quot;Mogo&quot;                      &quot;Mr Immortal&quot;              
+## [139] &quot;Mystique&quot;                  &quot;Namor&quot;                    
+## [141] &quot;Nebula&quot;                    &quot;Negasonic Teenage Warhead&quot;
+## [143] &quot;Nina Theroux&quot;              &quot;Nova&quot;                     
+## [145] &quot;Odin&quot;                      &quot;One-Above-All&quot;            
+## [147] &quot;Onslaught&quot;                 &quot;Parademon&quot;                
+## [149] &quot;Phoenix&quot;                   &quot;Plantman&quot;                 
+## [151] &quot;Polaris&quot;                   &quot;Power Girl&quot;               
+## [153] &quot;Power Man&quot;                 &quot;Predator&quot;                 
+## [155] &quot;Professor X&quot;               &quot;Psylocke&quot;                 
+## [157] &quot;Q&quot;                         &quot;Quicksilver&quot;              
+## [159] &quot;Rachel Pirzad&quot;             &quot;Raphael&quot;                  
+## [161] &quot;Red Hulk&quot;                  &quot;Red Tornado&quot;              
+## [163] &quot;Rhino&quot;                     &quot;Rocket Raccoon&quot;           
+## [165] &quot;Sabretooth&quot;                &quot;Sauron&quot;                   
+## [167] &quot;Scarlet Spider II&quot;         &quot;Scarlet Witch&quot;            
+## [169] &quot;Sebastian Shaw&quot;            &quot;Sentry&quot;                   
+## [171] &quot;Shadow Lass&quot;               &quot;Shadowcat&quot;                
+## [173] &quot;She-Thing&quot;                 &quot;Sif&quot;                      
+## [175] &quot;Silver Surfer&quot;             &quot;Sinestro&quot;                 
+## [177] &quot;Siren&quot;                     &quot;Snake-Eyes&quot;               
+## [179] &quot;Solomon Grundy&quot;            &quot;Spawn&quot;                    
+## [181] &quot;Spectre&quot;                   &quot;Spider-Carnage&quot;           
+## [183] &quot;Spock&quot;                     &quot;Spyke&quot;                    
+## [185] &quot;Star-Lord&quot;                 &quot;Starfire&quot;                 
+## [187] &quot;Static&quot;                    &quot;Steppenwolf&quot;              
+## [189] &quot;Storm&quot;                     &quot;Sunspot&quot;                  
+## [191] &quot;Superboy-Prime&quot;            &quot;Supergirl&quot;                
+## [193] &quot;Superman&quot;                  &quot;Swamp Thing&quot;              
+## [195] &quot;Swarm&quot;                     &quot;T-1000&quot;                   
+## [197] &quot;T-800&quot;                     &quot;T-850&quot;                    
+## [199] &quot;T-X&quot;                       &quot;Thanos&quot;                   
+## [201] &quot;Thing&quot;                     &quot;Thor&quot;                     
+## [203] &quot;Thor Girl&quot;                 &quot;Toad&quot;                     
+## [205] &quot;Toxin&quot;                     &quot;Toxin&quot;                    
+## [207] &quot;Trigon&quot;                    &quot;Triton&quot;                   
+## [209] &quot;Ultron&quot;                    &quot;Utgard-Loki&quot;              
+## [211] &quot;Vegeta&quot;                    &quot;Venom&quot;                    
+## [213] &quot;Venom III&quot;                 &quot;Venompool&quot;                
+## [215] &quot;Vision&quot;                    &quot;Warpath&quot;                  
+## [217] &quot;Wolverine&quot;                 &quot;Wonder Girl&quot;              
+## [219] &quot;Wonder Woman&quot;              &quot;X-23&quot;                     
+## [221] &quot;Ymir&quot;                      &quot;Yoda&quot;</code></pre>
 </div>
 <div id="good-and-evil" class="section level2">
 <h2>Good and Evil</h2>
 <ol start="5" style="list-style-type: decimal">
-<li><p>Let’s make two different data frames, one focused on the “good
-guys” and another focused on the “bad guys”.</p></li>
-<li><p>For the good guys, use the <code>tabyl</code> function to
-summarize their “race”.</p></li>
-<li><p>Among the good guys, Who are the Vampires?</p></li>
-<li><p>Among the bad guys, who are the male humans over 200 inches in
-height?</p></li>
-<li><p>Are there more good guys or bad guys with green hair?</p></li>
-<li><p>Let’s explore who the really small superheros are. In the
-<code>superhero_info</code> data, which have a weight less than 50? Be
-sure to sort your results by weight lowest to highest.</p></li>
-<li><p>Let’s make a new variable that is the ratio of height to weight.
-Call this variable <code>height_weight_ratio</code>.</p></li>
-<li><p>Who has the highest height to weight ratio?</p></li>
+<li>Let’s make two different data frames, one focused on the “good guys”
+and another focused on the “bad guys”.</li>
 </ol>
+<pre class="r"><code>good_guys &lt;- 
+  superhero_info %&gt;% 
+  filter(alignment==&quot;good&quot;)</code></pre>
+<pre class="r"><code>bad_guys &lt;- 
+  superhero_info %&gt;% 
+  filter(alignment==&quot;bad&quot;)</code></pre>
+<ol start="6" style="list-style-type: decimal">
+<li>For the good guys, use the <code>tabyl</code> function to summarize
+their “race”.</li>
+</ol>
+<pre class="r"><code>good_guys %&gt;% tabyl(race)</code></pre>
+<pre><code>##               race   n     percent valid_percent
+##              Alien   3 0.006048387   0.010752688
+##              Alpha   5 0.010080645   0.017921147
+##             Amazon   2 0.004032258   0.007168459
+##            Android   4 0.008064516   0.014336918
+##             Animal   2 0.004032258   0.007168459
+##          Asgardian   3 0.006048387   0.010752688
+##          Atlantean   4 0.008064516   0.014336918
+##         Bolovaxian   1 0.002016129   0.003584229
+##              Clone   1 0.002016129   0.003584229
+##             Cyborg   3 0.006048387   0.010752688
+##           Demi-God   2 0.004032258   0.007168459
+##              Demon   3 0.006048387   0.010752688
+##            Eternal   1 0.002016129   0.003584229
+##     Flora Colossus   1 0.002016129   0.003584229
+##        Frost Giant   1 0.002016129   0.003584229
+##      God / Eternal   6 0.012096774   0.021505376
+##             Gungan   1 0.002016129   0.003584229
+##              Human 148 0.298387097   0.530465950
+##    Human / Altered   2 0.004032258   0.007168459
+##     Human / Cosmic   2 0.004032258   0.007168459
+##  Human / Radiation   8 0.016129032   0.028673835
+##         Human-Kree   2 0.004032258   0.007168459
+##      Human-Spartoi   1 0.002016129   0.003584229
+##       Human-Vulcan   1 0.002016129   0.003584229
+##    Human-Vuldarian   1 0.002016129   0.003584229
+##      Icthyo Sapien   1 0.002016129   0.003584229
+##            Inhuman   4 0.008064516   0.014336918
+##    Kakarantharaian   1 0.002016129   0.003584229
+##         Kryptonian   4 0.008064516   0.014336918
+##            Martian   1 0.002016129   0.003584229
+##          Metahuman   1 0.002016129   0.003584229
+##             Mutant  46 0.092741935   0.164874552
+##     Mutant / Clone   1 0.002016129   0.003584229
+##             Planet   1 0.002016129   0.003584229
+##             Saiyan   1 0.002016129   0.003584229
+##           Symbiote   3 0.006048387   0.010752688
+##           Talokite   1 0.002016129   0.003584229
+##         Tamaranean   1 0.002016129   0.003584229
+##            Ungaran   1 0.002016129   0.003584229
+##            Vampire   2 0.004032258   0.007168459
+##     Yoda&#39;s species   1 0.002016129   0.003584229
+##      Zen-Whoberian   1 0.002016129   0.003584229
+##               &lt;NA&gt; 217 0.437500000            NA</code></pre>
+<ol start="7" style="list-style-type: decimal">
+<li>Among the good guys, Who are the Vampires?</li>
+</ol>
+<pre class="r"><code>good_guys %&gt;% filter(race==&quot;Vampire&quot;)</code></pre>
+<pre><code>## # A tibble: 2 × 10
+##   name  gender eye_color race   hair_color height publisher skin_color alignment
+##   &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt;     &lt;chr&gt;  &lt;chr&gt;       &lt;dbl&gt; &lt;chr&gt;     &lt;chr&gt;      &lt;chr&gt;    
+## 1 Angel Male   &lt;NA&gt;      Vampi… &lt;NA&gt;           NA Dark Hor… &lt;NA&gt;       good     
+## 2 Blade Male   brown     Vampi… Black         188 Marvel C… &lt;NA&gt;       good     
+## # ℹ 1 more variable: weight &lt;dbl&gt;</code></pre>
+<ol start="8" style="list-style-type: decimal">
+<li>Among the bad guys, who are the male humans over 200 inches in
+height?</li>
+</ol>
+<pre class="r"><code>bad_guys %&gt;% filter(race==&quot;Human&quot; &amp; gender==&quot;Male&quot; &amp; height&gt;=150)</code></pre>
+<pre><code>## # A tibble: 36 × 10
+##    name  gender eye_color race  hair_color height publisher skin_color alignment
+##    &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt;     &lt;chr&gt; &lt;chr&gt;       &lt;dbl&gt; &lt;chr&gt;     &lt;chr&gt;      &lt;chr&gt;    
+##  1 Abso… Male   blue      Human No Hair       193 Marvel C… &lt;NA&gt;       bad      
+##  2 Ammo  Male   brown     Human Black         188 Marvel C… &lt;NA&gt;       bad      
+##  3 Bane  Male   &lt;NA&gt;      Human &lt;NA&gt;          203 DC Comics &lt;NA&gt;       bad      
+##  4 Blac… Male   black     Human No Hair       188 DC Comics &lt;NA&gt;       bad      
+##  5 Bull… Male   blue      Human blond         183 Marvel C… &lt;NA&gt;       bad      
+##  6 Cloc… Male   blue      Human Black         178 DC Comics &lt;NA&gt;       bad      
+##  7 Cott… Male   brown     Human Black         183 Marvel C… &lt;NA&gt;       bad      
+##  8 Dead… Male   brown     Human Brown         185 DC Comics &lt;NA&gt;       bad      
+##  9 Diam… Male   brown     Human Black         193 Marvel C… &lt;NA&gt;       bad      
+## 10 Doct… Male   brown     Human Brown         201 Marvel C… &lt;NA&gt;       bad      
+## # ℹ 26 more rows
+## # ℹ 1 more variable: weight &lt;dbl&gt;</code></pre>
+<ol start="9" style="list-style-type: decimal">
+<li>Are there more good guys or bad guys with green hair?</li>
+</ol>
+<pre class="r"><code>good_guys %&gt;% 
+  filter(hair_color==&quot;Green&quot;)</code></pre>
+<pre><code>## # A tibble: 7 × 10
+##   name   gender eye_color race  hair_color height publisher skin_color alignment
+##   &lt;chr&gt;  &lt;chr&gt;  &lt;chr&gt;     &lt;chr&gt; &lt;chr&gt;       &lt;dbl&gt; &lt;chr&gt;     &lt;chr&gt;      &lt;chr&gt;    
+## 1 Beast… Male   green     Human Green         173 DC Comics green      good     
+## 2 Capta… Male   red       God … Green          NA Marvel C… &lt;NA&gt;       good     
+## 3 Doc S… Male   blue      Huma… Green         198 Marvel C… &lt;NA&gt;       good     
+## 4 Hulk   Male   green     Huma… Green         244 Marvel C… green      good     
+## 5 Lyja   Female green     &lt;NA&gt;  Green          NA Marvel C… &lt;NA&gt;       good     
+## 6 Polar… Female green     Muta… Green         170 Marvel C… &lt;NA&gt;       good     
+## 7 She-H… Female green     Human Green         201 Marvel C… &lt;NA&gt;       good     
+## # ℹ 1 more variable: weight &lt;dbl&gt;</code></pre>
+<pre class="r"><code>bad_guys %&gt;% 
+  filter(hair_color==&quot;Green&quot;)</code></pre>
+<pre><code>## # A tibble: 1 × 10
+##   name  gender eye_color race  hair_color height publisher skin_color alignment
+##   &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt;     &lt;chr&gt; &lt;chr&gt;       &lt;dbl&gt; &lt;chr&gt;     &lt;chr&gt;      &lt;chr&gt;    
+## 1 Joker Male   green     Human Green         196 DC Comics white      bad      
+## # ℹ 1 more variable: weight &lt;dbl&gt;</code></pre>
+<pre class="r"><code>table(superhero_info$hair_color, superhero_info$alignment)</code></pre>
+<pre><code>##                   
+##                    bad good neutral
+##   Auburn             3   10       0
+##   black              0    3       0
+##   Black             42  108       8
+##   Black / Blue       1    0       0
+##   blond              1    2       0
+##   Blond             11   85       1
+##   Blue               1    1       1
+##   Brown             27   55       4
+##   Brown / Black      0    1       0
+##   Brown / White      0    4       0
+##   Brownn             1    0       0
+##   Gold               1    0       0
+##   Green              1    7       0
+##   Grey               3    2       0
+##   Indigo             0    1       0
+##   Magenta            0    1       0
+##   No Hair           35   37       3
+##   Orange             0    2       0
+##   Orange / White     0    1       0
+##   Pink               0    1       0
+##   Purple             3    1       1
+##   Red                9   40       2
+##   Red / Grey         1    0       0
+##   Red / Orange       1    0       0
+##   Red / White        0    1       0
+##   Silver             0    3       0
+##   Strawberry Blond   3    4       0
+##   White             10   10       2
+##   Yellow             0    2       0</code></pre>
+<pre class="r"><code>superhero_info %&gt;% 
+  tabyl(hair_color, alignment)</code></pre>
+<pre><code>##        hair_color bad good neutral NA_
+##            Auburn   3   10       0   0
+##             black   0    3       0   0
+##             Black  42  108       8   0
+##      Black / Blue   1    0       0   0
+##             blond   1    2       0   0
+##             Blond  11   85       1   2
+##              Blue   1    1       1   0
+##             Brown  27   55       4   0
+##     Brown / Black   0    1       0   0
+##     Brown / White   0    4       0   0
+##            Brownn   1    0       0   0
+##              Gold   1    0       0   0
+##             Green   1    7       0   0
+##              Grey   3    2       0   0
+##            Indigo   0    1       0   0
+##           Magenta   0    1       0   0
+##           No Hair  35   37       3   0
+##            Orange   0    2       0   0
+##    Orange / White   0    1       0   0
+##              Pink   0    1       0   0
+##            Purple   3    1       1   0
+##               Red   9   40       2   0
+##        Red / Grey   1    0       0   0
+##      Red / Orange   1    0       0   0
+##       Red / White   0    1       0   0
+##            Silver   0    3       0   1
+##  Strawberry Blond   3    4       0   0
+##             White  10   10       2   1
+##            Yellow   0    2       0   0
+##              &lt;NA&gt;  53  114       2   3</code></pre>
+<pre class="r"><code>superhero_info %&gt;% 
+  filter(hair_color==&quot;Green&quot;) %&gt;% 
+  group_by(alignment) %&gt;% 
+  summarise(n=n())</code></pre>
+<pre><code>## # A tibble: 2 × 2
+##   alignment     n
+##   &lt;chr&gt;     &lt;int&gt;
+## 1 bad           1
+## 2 good          7</code></pre>
+<pre class="r"><code>superhero_info %&gt;% 
+  filter(hair_color==&quot;Green&quot;) %&gt;% 
+  count(hair_color, alignment)</code></pre>
+<pre><code>## # A tibble: 2 × 3
+##   hair_color alignment     n
+##   &lt;chr&gt;      &lt;chr&gt;     &lt;int&gt;
+## 1 Green      bad           1
+## 2 Green      good          7</code></pre>
+<ol start="10" style="list-style-type: decimal">
+<li>Let’s explore who the really small superheros are. In the
+<code>superhero_info</code> data, which have a weight less than 50? Be
+sure to sort your results by weight lowest to highest.</li>
+</ol>
+<pre class="r"><code>superhero_info %&gt;% 
+  filter(weight&lt;50) %&gt;% 
+  arrange(weight)</code></pre>
+<pre><code>## # A tibble: 19 × 10
+##    name  gender eye_color race  hair_color height publisher skin_color alignment
+##    &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt;     &lt;chr&gt; &lt;chr&gt;       &lt;dbl&gt; &lt;chr&gt;     &lt;chr&gt;      &lt;chr&gt;    
+##  1 Iron… Male   blue      &lt;NA&gt;  No Hair        NA Marvel C… &lt;NA&gt;       bad      
+##  2 Groot Male   yellow    Flor… &lt;NA&gt;          701 Marvel C… &lt;NA&gt;       good     
+##  3 Jack… Male   blue      Human Brown          71 Dark Hor… &lt;NA&gt;       good     
+##  4 Gala… Male   black     Cosm… Black         876 Marvel C… &lt;NA&gt;       neutral  
+##  5 Yoda  Male   brown     Yoda… White          66 George L… green      good     
+##  6 Fin … Male   red       Kaka… No Hair       975 Marvel C… green      good     
+##  7 Howa… Male   brown     &lt;NA&gt;  Yellow         79 Marvel C… &lt;NA&gt;       good     
+##  8 Kryp… Male   blue      Kryp… White          64 DC Comics &lt;NA&gt;       good     
+##  9 Rock… Male   brown     Anim… Brown         122 Marvel C… &lt;NA&gt;       good     
+## 10 Dash  Male   blue      Human Blond         122 Dark Hor… &lt;NA&gt;       good     
+## 11 Long… Male   blue      Human Blond         188 Marvel C… &lt;NA&gt;       good     
+## 12 Robi… Male   blue      Human Black         137 DC Comics &lt;NA&gt;       good     
+## 13 Wiz … &lt;NA&gt;   brown     &lt;NA&gt;  Black         140 Marvel C… &lt;NA&gt;       good     
+## 14 Viol… Female violet    Human Black         137 Dark Hor… &lt;NA&gt;       good     
+## 15 Fran… Male   blue      Muta… Blond         142 Marvel C… &lt;NA&gt;       good     
+## 16 Swarm Male   yellow    Muta… No Hair       196 Marvel C… yellow     bad      
+## 17 Hope… Female green     &lt;NA&gt;  Red           168 Marvel C… &lt;NA&gt;       good     
+## 18 Jolt  Female blue      &lt;NA&gt;  Black         165 Marvel C… &lt;NA&gt;       good     
+## 19 Snow… Female white     &lt;NA&gt;  Blond         178 Marvel C… &lt;NA&gt;       good     
+## # ℹ 1 more variable: weight &lt;dbl&gt;</code></pre>
+<ol start="11" style="list-style-type: decimal">
+<li>Let’s make a new variable that is the ratio of height to weight.
+Call this variable <code>height_weight_ratio</code>.</li>
+</ol>
+<pre class="r"><code>superhero_info &lt;- 
+  superhero_info %&gt;% 
+  mutate(height_weight_ratio=height/weight)</code></pre>
+<ol start="12" style="list-style-type: decimal">
+<li>Who has the highest height to weight ratio?</li>
+</ol>
+<pre class="r"><code>superhero_info %&gt;% 
+  arrange(desc(height_weight_ratio))</code></pre>
+<pre><code>## # A tibble: 734 × 11
+##    name  gender eye_color race  hair_color height publisher skin_color alignment
+##    &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt;     &lt;chr&gt; &lt;chr&gt;       &lt;dbl&gt; &lt;chr&gt;     &lt;chr&gt;      &lt;chr&gt;    
+##  1 Groot Male   yellow    Flor… &lt;NA&gt;          701 Marvel C… &lt;NA&gt;       good     
+##  2 Gala… Male   black     Cosm… Black         876 Marvel C… &lt;NA&gt;       neutral  
+##  3 Fin … Male   red       Kaka… No Hair       975 Marvel C… green      good     
+##  4 Long… Male   blue      Human Blond         188 Marvel C… &lt;NA&gt;       good     
+##  5 Jack… Male   blue      Human Brown          71 Dark Hor… &lt;NA&gt;       good     
+##  6 Rock… Male   brown     Anim… Brown         122 Marvel C… &lt;NA&gt;       good     
+##  7 Dash  Male   blue      Human Blond         122 Dark Hor… &lt;NA&gt;       good     
+##  8 Howa… Male   brown     &lt;NA&gt;  Yellow         79 Marvel C… &lt;NA&gt;       good     
+##  9 Swarm Male   yellow    Muta… No Hair       196 Marvel C… yellow     bad      
+## 10 Yoda  Male   brown     Yoda… White          66 George L… green      good     
+## # ℹ 724 more rows
+## # ℹ 2 more variables: weight &lt;dbl&gt;, height_weight_ratio &lt;dbl&gt;</code></pre>
 </div>
 <div id="superhero_powers" class="section level2">
 <h2><code>superhero_powers</code></h2>
@@ -1622,14 +2134,72 @@ frame.</p>
 <li>How many superheros have a combination of agility, stealth,
 super_strength, stamina?</li>
 </ol>
+<pre class="r"><code>superhero_powers %&gt;%
+  filter(agility &amp; stealth &amp; super_strength &amp; stamina) %&gt;%
+  select(hero_names, agility, stealth, super_strength, stamina)</code></pre>
+<pre><code>## # A tibble: 40 × 5
+##    hero_names  agility stealth super_strength stamina
+##    &lt;chr&gt;       &lt;lgl&gt;   &lt;lgl&gt;   &lt;lgl&gt;          &lt;lgl&gt;  
+##  1 Alex Mercer TRUE    TRUE    TRUE           TRUE   
+##  2 Angel       TRUE    TRUE    TRUE           TRUE   
+##  3 Ant-Man II  TRUE    TRUE    TRUE           TRUE   
+##  4 Aquaman     TRUE    TRUE    TRUE           TRUE   
+##  5 Batman      TRUE    TRUE    TRUE           TRUE   
+##  6 Black Flash TRUE    TRUE    TRUE           TRUE   
+##  7 Black Manta TRUE    TRUE    TRUE           TRUE   
+##  8 Brundlefly  TRUE    TRUE    TRUE           TRUE   
+##  9 Buffy       TRUE    TRUE    TRUE           TRUE   
+## 10 Cable       TRUE    TRUE    TRUE           TRUE   
+## # ℹ 30 more rows</code></pre>
+<pre class="r"><code>superhero_powers %&gt;% 
+  select(hero_names, agility, stealth, super_strength, stamina) %&gt;% 
+  filter(agility==TRUE &amp; stealth==TRUE &amp; super_strength==TRUE &amp; stamina==TRUE)</code></pre>
+<pre><code>## # A tibble: 40 × 5
+##    hero_names  agility stealth super_strength stamina
+##    &lt;chr&gt;       &lt;lgl&gt;   &lt;lgl&gt;   &lt;lgl&gt;          &lt;lgl&gt;  
+##  1 Alex Mercer TRUE    TRUE    TRUE           TRUE   
+##  2 Angel       TRUE    TRUE    TRUE           TRUE   
+##  3 Ant-Man II  TRUE    TRUE    TRUE           TRUE   
+##  4 Aquaman     TRUE    TRUE    TRUE           TRUE   
+##  5 Batman      TRUE    TRUE    TRUE           TRUE   
+##  6 Black Flash TRUE    TRUE    TRUE           TRUE   
+##  7 Black Manta TRUE    TRUE    TRUE           TRUE   
+##  8 Brundlefly  TRUE    TRUE    TRUE           TRUE   
+##  9 Buffy       TRUE    TRUE    TRUE           TRUE   
+## 10 Cable       TRUE    TRUE    TRUE           TRUE   
+## # ℹ 30 more rows</code></pre>
 </div>
 <div id="your-favorite" class="section level2">
 <h2>Your Favorite</h2>
 <ol start="14" style="list-style-type: decimal">
-<li><p>Pick your favorite superhero and let’s see their powers!</p></li>
-<li><p>Can you find your hero in the superhero_info data? Show their
-info!</p></li>
+<li>Pick your favorite superhero and let’s see their powers!</li>
 </ol>
+<pre class="r"><code>superhero_powers %&gt;%
+  filter(hero_names == &quot;Darth Vader&quot;) %&gt;%
+  select_if(all)  # Selects all columns where all values are TRUE</code></pre>
+<pre><code>## Warning in .p(column, ...): coercing argument of type &#39;character&#39; to logical</code></pre>
+<pre><code>## # A tibble: 1 × 26
+##   agility accelerated_healing durability stealth danger_sense marksmanship
+##   &lt;lgl&gt;   &lt;lgl&gt;               &lt;lgl&gt;      &lt;lgl&gt;   &lt;lgl&gt;        &lt;lgl&gt;       
+## 1 TRUE    TRUE                TRUE       TRUE    TRUE         TRUE        
+## # ℹ 20 more variables: weapons_master &lt;lgl&gt;, intelligence &lt;lgl&gt;,
+## #   telepathy &lt;lgl&gt;, energy_blasts &lt;lgl&gt;, super_speed &lt;lgl&gt;,
+## #   electrokinesis &lt;lgl&gt;, enhanced_senses &lt;lgl&gt;, telekinesis &lt;lgl&gt;, jump &lt;lgl&gt;,
+## #   astral_projection &lt;lgl&gt;, reflexes &lt;lgl&gt;, force_fields &lt;lgl&gt;,
+## #   psionic_powers &lt;lgl&gt;, precognition &lt;lgl&gt;, enhanced_hearing &lt;lgl&gt;,
+## #   hypnokinesis &lt;lgl&gt;, light_control &lt;lgl&gt;, illusions &lt;lgl&gt;, cloaking &lt;lgl&gt;,
+## #   the_force &lt;lgl&gt;</code></pre>
+<ol start="15" style="list-style-type: decimal">
+<li>Can you find your hero in the superhero_info data? Show their
+info!</li>
+</ol>
+<pre class="r"><code>superhero_info %&gt;% 
+  filter(name==&quot;Darth Vader&quot;)</code></pre>
+<pre><code>## # A tibble: 1 × 11
+##   name   gender eye_color race  hair_color height publisher skin_color alignment
+##   &lt;chr&gt;  &lt;chr&gt;  &lt;chr&gt;     &lt;chr&gt; &lt;chr&gt;       &lt;dbl&gt; &lt;chr&gt;     &lt;chr&gt;      &lt;chr&gt;    
+## 1 Darth… Male   yellow    Cybo… No Hair       198 George L… &lt;NA&gt;       bad      
+## # ℹ 2 more variables: weight &lt;dbl&gt;, height_weight_ratio &lt;dbl&gt;</code></pre>
 </div>
 <div id="push-your-final-code-to-github" class="section level2">
 <h2>Push your final code to GitHub!</h2>

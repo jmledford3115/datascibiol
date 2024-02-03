@@ -10,7 +10,7 @@
 
 
 
-<meta name="date" content="2024-01-30" />
+<meta name="date" content="2024-02-03" />
 
 <title>mutate(), and if_else()</title>
 
@@ -1504,7 +1504,7 @@ border-radius: 0px;
 
 <h1 class="title toc-ignore"><code>mutate()</code>, and
 <code>if_else()</code></h1>
-<h4 class="date">2024-01-30</h4>
+<h4 class="date">2024-02-03</h4>
 
 </div>
 
@@ -1540,7 +1540,7 @@ non-volant mammals. Ecology 84:3402. <a href="http://esapubs.org/archive/ecol/E0
 subsequent function. This makes our code cleaner and more efficient. One
 way we can use pipes is to attach the <code>clean_names()</code>
 function from janitor to the <code>read_csv()</code> output.</p>
-<pre class="r"><code>fish &lt;- readr::read_csv(&quot;data/Gaeta_etal_CLC_data.csv&quot;)</code></pre>
+<pre class="r"><code>fish &lt;- read_csv(&quot;data/Gaeta_etal_CLC_data.csv&quot;)%&gt;% clean_names()</code></pre>
 <pre><code>## Rows: 4033 Columns: 6
 ## ── Column specification ────────────────────────────────────────────────────────
 ## Delimiter: &quot;,&quot;
@@ -1565,6 +1565,9 @@ function from janitor to the <code>read_csv()</code> output.</p>
 data frame. We are doing a small introduction here and will add some
 additional functions later. Let’s convert the length variable from cm to
 millimeters and create a new variable called length_mm.</p>
+<pre class="r"><code>names(fish)</code></pre>
+<pre><code>## [1] &quot;lakeid&quot;          &quot;fish_id&quot;         &quot;annnumber&quot;       &quot;length&quot;         
+## [5] &quot;radii_length_mm&quot; &quot;scalelength&quot;</code></pre>
 <pre class="r"><code>fish %&gt;% 
   mutate(length_mm = length*10) %&gt;% 
   select(fish_id, length, length_mm)</code></pre>
@@ -1590,6 +1593,25 @@ millimeters and create a new variable called length_mm.</p>
 length of each fish: length_half = length/2. Select only fish_id,
 length, and length_half.</li>
 </ol>
+<pre class="r"><code>names(fish)</code></pre>
+<pre><code>## [1] &quot;lakeid&quot;          &quot;fish_id&quot;         &quot;annnumber&quot;       &quot;length&quot;         
+## [5] &quot;radii_length_mm&quot; &quot;scalelength&quot;</code></pre>
+<pre class="r"><code>fish %&gt;% 
+  mutate(length_half = length/2)</code></pre>
+<pre><code>## # A tibble: 4,033 × 7
+##    lakeid fish_id annnumber length radii_length_mm scalelength length_half
+##    &lt;chr&gt;    &lt;dbl&gt; &lt;chr&gt;      &lt;dbl&gt;           &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;
+##  1 AL         299 EDGE         167            2.70        2.70        83.5
+##  2 AL         299 2            167            2.04        2.70        83.5
+##  3 AL         299 1            167            1.31        2.70        83.5
+##  4 AL         300 EDGE         175            3.02        3.02        87.5
+##  5 AL         300 3            175            2.67        3.02        87.5
+##  6 AL         300 2            175            2.14        3.02        87.5
+##  7 AL         300 1            175            1.23        3.02        87.5
+##  8 AL         301 EDGE         194            3.34        3.34        97  
+##  9 AL         301 3            194            2.97        3.34        97  
+## 10 AL         301 2            194            2.29        3.34        97  
+## # ℹ 4,023 more rows</code></pre>
 </div>
 <div id="mutate_all" class="section level2">
 <h2><code>mutate_all()</code></h2>
@@ -1711,6 +1733,24 @@ NA in a new column titled <code>max_life_new</code>. Finally, sort the
 date in descending order by max_life_new. Which mammal has the oldest
 known life span?</li>
 </ol>
+<pre class="r"><code>mammals %&gt;% 
+  select(family, genus, species, max_life) %&gt;% 
+  mutate(max_life_new= ifelse(max_life==-999, NA, max_life)) %&gt;% 
+  arrange(max_life)</code></pre>
+<pre><code>## # A tibble: 1,440 × 5
+##    family  genus       species     max_life max_life_new
+##    &lt;chr&gt;   &lt;chr&gt;       &lt;chr&gt;          &lt;dbl&gt;        &lt;dbl&gt;
+##  1 Bovidae Ammodorcas  clarkei         -999           NA
+##  2 Bovidae Capra       caucasica       -999           NA
+##  3 Bovidae Capra       ibex            -999           NA
+##  4 Bovidae Cephalophus niger           -999           NA
+##  5 Bovidae Cephalophus natalensis      -999           NA
+##  6 Bovidae Cephalophus leucogaster     -999           NA
+##  7 Bovidae Cephalophus ogilbyi         -999           NA
+##  8 Bovidae Cephalophus zebra           -999           NA
+##  9 Bovidae Cephalophus rufilatus       -999           NA
+## 10 Bovidae Cephalophus dorsalis        -999           NA
+## # ℹ 1,430 more rows</code></pre>
 </div>
 <div id="thats-it-lets-take-a-break-and-then-move-on-to-part-2" class="section level2">
 <h2>That’s it! Let’s take a break and then move on to part 2!</h2>

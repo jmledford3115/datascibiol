@@ -27,9 +27,6 @@ library("tidyverse")
 For these exercises we will use the data from lab 4_1.  
 ```{r}
 fish <- read_csv("data/Gaeta_etal_CLC_data.csv")
-```
-
-```{r}
 mammals <- read_csv("data/mammal_lifehistories_v2.csv")
 ```
 
@@ -41,12 +38,16 @@ mammals <- rename(mammals, genus=Genus, wean_mass="wean mass", max_life="max. li
 ## `filter()`
 Unlike `select()`, `filter()` allows us to extract data that meet specific criteria within a variable. Let's say that we are interested only in the fish that occur in lake "AL". We can use `filter()` to extract these observations.  
 ```{r}
+fish
+```
+
+```{r}
 filter(fish, lakeid == "AL")
 ```
 
 Similarly, if we are only interested in fish with a length greater than or equal to 350 we can use `filter()` to extract these observations.  
 ```{r}
-filter(fish, length >= 350)
+filter(fish, length == 3500)
 ```
 
 + `filter()` allows all of the expected operators; i.e. >, >=, <, <=, != (not equal), and == (equal).  
@@ -64,7 +65,7 @@ filter(fish, length %in% c(167, 175))
 
 Alternatively, you can use `between` if you are looking for a range of specific values.  
 ```{r}
-filter(fish, between(scalelength, 2.5, 2.55))
+filter(fish, between(scalelength, 2.5, 3))
 ```
 
 You can also extract observations "near" a certain value but you need to specify a tolerance.  
@@ -95,6 +96,77 @@ filter(fish, between(scalelength, 2, 4))
 
 ```{r}
 filter(fish, scalelength %in% c(2, 4))
+```
+
+## Using `filter()` on multiple conditions
+You can also use `filter()` to extract data based on multiple conditions. Below we extract only the fish that have lakeid "AL" and length >350.
+```{r}
+filter(fish, lakeid == "AL" & length== 350)
+```
+
+Notice that the `|` operator generates a different result.
+```{r}
+filter(fish, lakeid == "AL" | length > 350)
+```
+
+Rules:  
++ `filter(condition1, condition2)` will return rows where both conditions are met.  
++ `filter(condition1, !condition2)` will return all rows where condition one is true but condition 2 is not.  
++ `filter(condition1 | condition2)` will return rows where condition 1 and/or condition 2 is met.  
++ `filter(xor(condition1, condition2)` will return all rows where only one of the conditions is met, and not when both conditions are met.  
+
+In this case, we filter out the fish with a length over 400 and a scale length over 11 or a radii length over 8.
+```{r}
+filter(fish, length > 400, (scalelength > 11 | radii_length_mm > 8))
+```
+
+```{r}
+filter(fish, annnumber=="EDGE")
+```
+
+## Practice  
+1. Have a look at the mammals data using the summary `functions` of your choosing.    
+```{r}
+glimpse(mammals)
+```
+2. What are the names of the variables in the mammals data?  
+```{r}
+names(mammals)
+```
+
+3.  From the `mammals` data, filter all members of the family Bovidae with a mass greater than 450000.
+```{r}
+bovidae <- filter(mammals, family=="Bovidae" & mass>450000)
+bovidae
+```
+
+4. Let's say we are only interested in family, genus, species, mass, and gestation. Relimit the mammals data frame to these variables.  
+```{r}
+mammals_relimited <- select(mammals, "family", "genus", "species", "mass", "gestation")
+mammals_relimited
+```
+
+5. Use the output from #4 to focus on the family Bovidae with a mass greater than 450000.
+```{r}
+bovidae <- filter(mammals_relimited, family=="Bovidae" & mass>=450000)
+bovidae
+```
+
+```{r}
+glimpse(mammals)
+```
+
+```{r}
+summary(mammals)
+```
+
+6. From the `mammals` data, build a data frame that compares `mass`, `gestation`, and `newborn` among the primate genera `Lophocebus`, `Erythrocebus`, and `Macaca`. Among these genera, which species has the smallest `newborn` mass?
+```{r}
+primate_genera <- filter(mammals, genus %in% c("Lophocebus", "Erythrocebus", "Macaca"))
+```
+
+```{r}
+select(primate_genera, "genus", "species", "mass", "gestation", "newborn")
 ```
 
 ## Wrap-up  

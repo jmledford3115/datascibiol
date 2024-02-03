@@ -50,21 +50,22 @@ Notice that not only are the data neat and clean looking, there is also informat
 
 What are the column names of our data frame? Notice that R defaulted to using the names of our vectors, but we could name them something else when creating the data frame, or rename them later.
 ```{r}
-
+names(hbirds)
 ```
 
 What are the dimensions of the `hbirds` data frame? The `dim()` and `str()` commands provide this information.   
 ```{r}
-
+dim(hbirds)
 ```
 
 ```{r}
-
+str(hbirds)
 ```
 
 Let's use lowercase names when we create the data frame. We just changed to lowercase here, but we could use any names we wish.  
 ```{r}
-
+hbirds <- data.frame(sex=Sex, length=Length, weight_g=Weight)
+hbirds
 ```
 
 ```{r}
@@ -86,7 +87,7 @@ hbirds[ ,3]
 
 We can also select values in an entire column using the `$` sign. This can be useful for calculations. Here we calculate the mean of all of the birds weights. 
 ```{r}
-
+w <- hbirds$weight_g
 ```
 
 ## Adding Rows
@@ -124,27 +125,44 @@ spring <- c("Buckeye", "Buckeye", "Buckeye", "Benton", "Benton", "Benton", "Trav
 
 1. Build a data frame called `hsprings` with the above data. Name the temperature column `temp_C`. Print out the data frame.  
 ```{r}
+data.frame(name, temp, spring)
+```
 
+
+```{r}
+hsprings <- data.frame(temp, name, spring)
+hsprings
 ```
 
 2. Change the column titled `name` to `scientist`, leave the other column names the same. Print out the data frame names.  
 ```{r}
-
+hsprings <-data.frame(temp, scientist=name, spring)
+hsprings
 ```
 
 3. Our scientists forgot to record the depth data for each spring. Here it is as a vector, add it as a new column called depth_ft: `c(4.15, 4.13, 4.12, 3.21, 3.23, 3.20, 5.67, 5.65, 5.66)`. Print out the data frame.
 ```{r}
-
+depth_ft <- c(4.15, 4.13, 4.12, 3.21, 3.23, 3.20, 5.67, 5.65, 5.66)
+hsprings <- cbind(hsprings, depth_ft)
+hsprings
 ```
 
 4. Calculate the mean temperature of all of the temperature measurements.
 ```{r}
-
+temp <- hsprings[,1] #same command as data matrix
+temp
+mean(temp)
 ```
+
+```{r}
+mean(hsprings$temp)
+```
+
+
 
 5. Save your hot springs data as a `.csv` file! Do not allow row names. 
 ```{r}
-
+write.csv(hsprings, "hsprings.csv", row.names = FALSE)
 ```
 
 ## That's it! Let's take a break and then move on to part 2! 

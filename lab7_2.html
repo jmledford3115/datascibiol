@@ -10,7 +10,7 @@
 
 
 
-<meta name="date" content="2024-01-31" />
+<meta name="date" content="2024-02-03" />
 
 <title>summarize practice, count(), across()</title>
 
@@ -1504,7 +1504,7 @@ border-radius: 0px;
 
 <h1 class="title toc-ignore">summarize practice, <code>count()</code>,
 <code>across()</code></h1>
-<h4 class="date">2024-01-31</h4>
+<h4 class="date">2024-02-03</h4>
 
 </div>
 
@@ -1543,14 +1543,48 @@ data to refresh our memory.</p>
 ## $ sex               &lt;fct&gt; male, female, female, NA, female, male, female, male…
 ## $ year              &lt;int&gt; 2007, 2007, 2007, 2007, 2007, 2007, 2007, 2007, 2007…</code></pre>
 <p>As biologists, a good question that we may ask is how do the measured
-variables differ by island (on average)?</p>
-<p>Why do we have NA here? Do all of these penguins lack data?</p>
+variables differ by island (on average)? Let’s look at
+<code>body_mass_g</code>.</p>
+<pre class="r"><code>levels(penguins$island) #Because island is a factor, we can use levels() to see the unique values</code></pre>
+<pre><code>## [1] &quot;Biscoe&quot;    &quot;Dream&quot;     &quot;Torgersen&quot;</code></pre>
+<pre class="r"><code>penguins %&gt;% 
+  group_by(island) %&gt;% 
+  summarize(mean_body_mass=mean(body_mass_g),
+            n=n())</code></pre>
+<pre><code>## # A tibble: 3 × 3
+##   island    mean_body_mass     n
+##   &lt;fct&gt;              &lt;dbl&gt; &lt;int&gt;
+## 1 Biscoe               NA    168
+## 2 Dream              3713.   124
+## 3 Torgersen            NA     52</code></pre>
+<p>Why do we have NA here? Do all of these penguins lack data? No, it’s
+only a few of them.</p>
+<pre class="r"><code>penguins %&gt;% 
+  group_by(island) %&gt;% 
+  summarize(number_NAs=sum(is.na(body_mass_g)))</code></pre>
+<pre><code>## # A tibble: 3 × 2
+##   island    number_NAs
+##   &lt;fct&gt;          &lt;int&gt;
+## 1 Biscoe             1
+## 2 Dream              0
+## 3 Torgersen          1</code></pre>
 <p>Well, that won’t work so let’s remove the NAs and recalculate.</p>
+<pre class="r"><code>penguins %&gt;% 
+  filter(!is.na(body_mass_g)) %&gt;%  #pull out all of the observations with a number and leave behind the NA&#39;s
+  group_by(island) %&gt;% 
+  summarize(mean_body_mass=mean(body_mass_g),
+            n=n())</code></pre>
+<pre><code>## # A tibble: 3 × 3
+##   island    mean_body_mass     n
+##   &lt;fct&gt;              &lt;dbl&gt; &lt;int&gt;
+## 1 Biscoe             4716.   167
+## 2 Dream              3713.   124
+## 3 Torgersen          3706.    51</code></pre>
 <p>What if we are interested in the number of observations (penguins) by
 species and island?</p>
 <pre class="r"><code>penguins %&gt;% 
   group_by(species, island) %&gt;% 
-  summarize(n=n(), .groups= &#39;keep&#39;)#the .groups argument here just prevents a warning message</code></pre>
+  summarize(n=n(), .groups= &#39;keep&#39;) #the .groups argument here just prevents a warning message</code></pre>
 <pre><code>## # A tibble: 5 × 3
 ## # Groups:   species, island [5]
 ##   species   island        n
@@ -1579,7 +1613,8 @@ observations you have within a column. It acts like a combination of
 ## 2 Dream       124
 ## 3 Torgersen    52</code></pre>
 <p>Compare this with <code>summarize()</code> and
-<code>group_by()</code>.</p>
+<code>group_by()</code>. It accomplishes the same task, but is slightly
+longer.</p>
 <pre class="r"><code>penguins %&gt;% 
   group_by(island) %&gt;% 
   summarize(n=n())</code></pre>
@@ -1602,15 +1637,46 @@ observations you have within a column. It acts like a combination of
 ## 5 Biscoe    Adelie       44</code></pre>
 <p>For counts, I also like <code>tabyl()</code>. Lots of options are
 supported in <a href="https://cran.r-project.org/web/packages/janitor/vignettes/tabyls.html">tabyl</a></p>
+<pre class="r"><code>penguins %&gt;% 
+  tabyl(island, species)</code></pre>
+<pre><code>##     island Adelie Chinstrap Gentoo
+##     Biscoe     44         0    124
+##      Dream     56        68      0
+##  Torgersen     52         0      0</code></pre>
 </div>
 <div id="practice" class="section level2">
 <h2>Practice</h2>
 <ol style="list-style-type: decimal">
-<li><p>How does the mean of <code>bill_length_mm</code> compare between
-penguin species?</p></li>
-<li><p>For some penguins, their sex is listed as NA. Where do these
-penguins occur?</p></li>
+<li>How does the mean of <code>bill_length_mm</code> compare between
+penguin species?</li>
 </ol>
+<pre class="r"><code>penguins %&gt;% 
+  group_by(species) %&gt;% 
+  summarize(mean_bill_length_mm=mean(bill_length_mm, na.rm=T))</code></pre>
+<pre><code>## # A tibble: 3 × 2
+##   species   mean_bill_length_mm
+##   &lt;fct&gt;                   &lt;dbl&gt;
+## 1 Adelie                   38.8
+## 2 Chinstrap                48.8
+## 3 Gentoo                   47.5</code></pre>
+<ol start="2" style="list-style-type: decimal">
+<li>For some penguins, their sex is listed as NA. Where do these
+penguins occur?</li>
+</ol>
+<pre class="r"><code>penguins %&gt;% 
+  count(sex, island)</code></pre>
+<pre><code>## # A tibble: 9 × 3
+##   sex    island        n
+##   &lt;fct&gt;  &lt;fct&gt;     &lt;int&gt;
+## 1 female Biscoe       80
+## 2 female Dream        61
+## 3 female Torgersen    24
+## 4 male   Biscoe       83
+## 5 male   Dream        62
+## 6 male   Torgersen    23
+## 7 &lt;NA&gt;   Biscoe        5
+## 8 &lt;NA&gt;   Dream         1
+## 9 &lt;NA&gt;   Torgersen     5</code></pre>
 </div>
 <div id="across" class="section level2">
 <h2><code>across()</code></h2>
@@ -1657,11 +1723,19 @@ things cleaner.</p>
 ##            &lt;dbl&gt;         &lt;dbl&gt;             &lt;dbl&gt;
 ## 1           43.9          17.2              201.</code></pre>
 <pre class="r"><code>penguins %&gt;%
-  summarize(across(contains(&quot;mm&quot;), \(x) mean(x, na.rm = TRUE)))</code></pre>
+  summarize(across(contains(&quot;mm&quot;), \(x) mean(x, na.rm = TRUE))) #use this to correct the error</code></pre>
 <pre><code>## # A tibble: 1 × 3
 ##   bill_length_mm bill_depth_mm flipper_length_mm
 ##            &lt;dbl&gt;         &lt;dbl&gt;             &lt;dbl&gt;
 ## 1           43.9          17.2              201.</code></pre>
+<pre class="r"><code>penguins %&gt;%
+  summarize(across(where(is.numeric), mean, na.rm=T)) %&gt;% 
+  select(!year)</code></pre>
+<pre><code>## # A tibble: 1 × 4
+##   bill_length_mm bill_depth_mm flipper_length_mm body_mass_g
+##            &lt;dbl&gt;         &lt;dbl&gt;             &lt;dbl&gt;       &lt;dbl&gt;
+## 1           43.9          17.2              201.       4202.</code></pre>
+<pre class="r"><code># this is a nice example that was asked at the end of class and pulls out only the numeric variables</code></pre>
 <p><code>group_by</code> also works.</p>
 <pre class="r"><code>penguins %&gt;%
   group_by(sex) %&gt;% 
@@ -1674,7 +1748,7 @@ things cleaner.</p>
 ## 3 &lt;NA&gt;             41.3          16.6              199</code></pre>
 <p>Here we summarize across all variables.</p>
 <pre class="r"><code>penguins %&gt;%
-  summarise_all(mean, na.rm=T)</code></pre>
+  summarise_all(mean, na.rm=T) #notice that there is no summary for categorical variables</code></pre>
 <pre><code>## Warning: There were 3 warnings in `summarise()`.
 ## The first warning was:
 ## ℹ In argument: `species = (function (x, ...) ...`.
@@ -1690,8 +1764,7 @@ things cleaner.</p>
 except <code>species</code>, <code>island</code>, <code>sex</code>, and
 <code>year</code>.</p>
 <pre class="r"><code>penguins %&gt;%
-  summarise(across(!c(species, island, sex, year), 
-                   mean, na.rm=T))</code></pre>
+  summarise(across(!c(species, island, sex, year), mean, na.rm=T))</code></pre>
 <pre><code>## # A tibble: 1 × 4
 ##   bill_length_mm bill_depth_mm flipper_length_mm body_mass_g
 ##            &lt;dbl&gt;         &lt;dbl&gt;             &lt;dbl&gt;       &lt;dbl&gt;
@@ -1712,6 +1785,28 @@ also work.</p>
 bill_length_mm, bill_depth_mm, and flipper_length_mm for each penguin
 species. Be sure to provide the number of samples.</li>
 </ol>
+<p>Mean</p>
+<pre class="r"><code>penguins %&gt;% 
+  group_by(species) %&gt;% 
+  summarize(across(contains(&quot;mm&quot;), mean, na.rm=T),
+            n_samples=n())</code></pre>
+<pre><code>## # A tibble: 3 × 5
+##   species   bill_length_mm bill_depth_mm flipper_length_mm n_samples
+##   &lt;fct&gt;              &lt;dbl&gt;         &lt;dbl&gt;             &lt;dbl&gt;     &lt;int&gt;
+## 1 Adelie              38.8          18.3              190.       152
+## 2 Chinstrap           48.8          18.4              196.        68
+## 3 Gentoo              47.5          15.0              217.       124</code></pre>
+<p>Standard Deviation</p>
+<pre class="r"><code>penguins %&gt;% 
+  group_by(species) %&gt;% 
+  summarize(across(contains(&quot;mm&quot;), sd, na.rm=T),
+            n_samples=n())</code></pre>
+<pre><code>## # A tibble: 3 × 5
+##   species   bill_length_mm bill_depth_mm flipper_length_mm n_samples
+##   &lt;fct&gt;              &lt;dbl&gt;         &lt;dbl&gt;             &lt;dbl&gt;     &lt;int&gt;
+## 1 Adelie              2.66         1.22               6.54       152
+## 2 Chinstrap           3.34         1.14               7.13        68
+## 3 Gentoo              3.08         0.981              6.48       124</code></pre>
 </div>
 <div id="wrap-up" class="section level2">
 <h2>Wrap-up</h2>

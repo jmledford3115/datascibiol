@@ -10,7 +10,7 @@
 
 
 
-<meta name="date" content="2024-01-24" />
+<meta name="date" content="2024-02-03" />
 
 <title>Pipes, arrange(), mutate(), and if_else()</title>
 
@@ -1504,7 +1504,7 @@ border-radius: 0px;
 
 <h1 class="title toc-ignore">Pipes, <code>arrange()</code>,
 <code>mutate()</code>, and <code>if_else()</code></h1>
-<h4 class="date">2024-01-24</h4>
+<h4 class="date">2024-02-03</h4>
 
 </div>
 
@@ -1600,8 +1600,8 @@ Notice that we only need to call the data one time.</p>
 ##  9 AL         301 3            194            2.97        3.34
 ## 10 AL         301 2            194            2.29        3.34
 ## # ℹ 373 more rows</code></pre>
-<pre class="r"><code>fish %&gt;%
-  select(lakeid, scalelength) %&gt;%
+<pre class="r"><code>fish %&gt;% 
+  select(lakeid, scalelength) %&gt;% 
   filter(lakeid == &quot;AL&quot;)</code></pre>
 <pre><code>## # A tibble: 383 × 2
 ##    lakeid scalelength
@@ -1620,7 +1620,7 @@ Notice that we only need to call the data one time.</p>
 <p>Here we select family, genus, and species then filter for gestation
 greater than 15 months.</p>
 <pre class="r"><code>mammals %&gt;% 
-  select(family, genus, species, gestation) %&gt;% 
+  select(&quot;family&quot;, &quot;genus&quot;, &quot;species&quot;, &quot;gestation&quot;) %&gt;% 
   filter(gestation&gt;=15)</code></pre>
 <pre><code>## # A tibble: 8 × 4
 ##   family         genus         species       gestation
@@ -1641,6 +1641,25 @@ greater than 15 months.</p>
 radii length between 2 and 4. Extract this information from the
 <code>fish</code> data. Use pipes!</li>
 </ol>
+<pre class="r"><code>fish %&gt;% # work with the fish data
+  select(lakeid, radii_length_mm) %&gt;% #pull out variables of int
+  filter(lakeid==&quot;AL&quot; | lakeid==&quot;AR&quot;) %&gt;% #only these lakes
+  filter(between(radii_length_mm, 2, 4)) %&gt;% #between 2 and 4
+  arrange(desc(radii_length_mm)) #sort to make easier to read</code></pre>
+<pre><code>## # A tibble: 253 × 2
+##    lakeid radii_length_mm
+##    &lt;chr&gt;            &lt;dbl&gt;
+##  1 AR                4.00
+##  2 AR                3.99
+##  3 AR                3.99
+##  4 AR                3.98
+##  5 AR                3.98
+##  6 AR                3.96
+##  7 AR                3.94
+##  8 AR                3.94
+##  9 AR                3.94
+## 10 AL                3.94
+## # ℹ 243 more rows</code></pre>
 </div>
 <div id="arrange" class="section level2">
 <h2><code>arrange()</code></h2>
@@ -1710,138 +1729,17 @@ other functions.</p>
 the id <code>300</code>. Extract this information from the
 <code>fish</code> data. Please sort the data by radii length.</li>
 </ol>
-</div>
-<div id="mutate" class="section level2">
-<h2><code>mutate()</code></h2>
-<p>Mutate allows us to create a new column from existing columns in a
-data frame. We are doing a small introduction here and will add some
-additional functions later. Let’s convert the length variable from cm to
-millimeters and create a new variable called length_mm.</p>
 <pre class="r"><code>fish %&gt;% 
-  mutate(length_mm = length*10) %&gt;% 
-  select(fish_id, length, length_mm)</code></pre>
-<pre><code>## # A tibble: 4,033 × 3
-##    fish_id length length_mm
-##      &lt;dbl&gt;  &lt;dbl&gt;     &lt;dbl&gt;
-##  1     299    167      1670
-##  2     299    167      1670
-##  3     299    167      1670
-##  4     300    175      1750
-##  5     300    175      1750
-##  6     300    175      1750
-##  7     300    175      1750
-##  8     301    194      1940
-##  9     301    194      1940
-## 10     301    194      1940
-## # ℹ 4,023 more rows</code></pre>
-</div>
-<div id="mutate_all" class="section level2">
-<h2><code>mutate_all()</code></h2>
-<p>This last function is super helpful when cleaning data. With “wild”
-data, there are often mixed entries (upper and lowercase), blank spaces,
-odd characters, etc. These all need to be dealt with before
-analysis.</p>
-<p>Here is an example that changes all entries to lowercase (if
-present).</p>
-<pre class="r"><code>mammals %&gt;%
-  mutate_all(tolower)</code></pre>
-<pre><code>## # A tibble: 1,440 × 13
-##    order    family genus species mass  gestation newborn weaning wean_mass AFR  
-##    &lt;chr&gt;    &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt; &lt;chr&gt;     &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;     &lt;chr&gt;
-##  1 artioda… antil… anti… americ… 45375 8.13      3246.36 3       8900      13.53
-##  2 artioda… bovid… addax nasoma… 1823… 9.39      5480    6.5     -999      27.27
-##  3 artioda… bovid… aepy… melamp… 41480 6.35      5093    5.63    15900     16.66
-##  4 artioda… bovid… alce… busela… 1500… 7.9       10166.… 6.5     -999      23.02
-##  5 artioda… bovid… ammo… clarkei 28500 6.8       -999    -999    -999      -999 
-##  6 artioda… bovid… ammo… lervia  55500 5.08      3810    4       -999      14.89
-##  7 artioda… bovid… anti… marsup… 30000 5.72      3910    4.04    -999      10.23
-##  8 artioda… bovid… anti… cervic… 37500 5.5       3846    2.13    -999      20.13
-##  9 artioda… bovid… bison bison   4976… 8.93      20000   10.71   157500    29.45
-## 10 artioda… bovid… bison bonasus 5e+05 9.14      23000.… 6.6     -999      29.99
-## # ℹ 1,430 more rows
-## # ℹ 3 more variables: max_life &lt;chr&gt;, litter_size &lt;chr&gt;, litters_per_year &lt;chr&gt;</code></pre>
-<p>Using the across function we can specify individual columns.</p>
-<pre class="r"><code>mammals %&gt;% 
-  mutate(across(c(&quot;order&quot;, &quot;family&quot;), tolower))</code></pre>
-<pre><code>## # A tibble: 1,440 × 13
-##    order  family genus species   mass gestation newborn weaning wean_mass    AFR
-##    &lt;chr&gt;  &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt;    &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;     &lt;dbl&gt;  &lt;dbl&gt;
-##  1 artio… antil… Anti… americ… 4.54e4      8.13   3246.    3         8900   13.5
-##  2 artio… bovid… Addax nasoma… 1.82e5      9.39   5480     6.5       -999   27.3
-##  3 artio… bovid… Aepy… melamp… 4.15e4      6.35   5093     5.63     15900   16.7
-##  4 artio… bovid… Alce… busela… 1.5 e5      7.9   10167.    6.5       -999   23.0
-##  5 artio… bovid… Ammo… clarkei 2.85e4      6.8    -999  -999         -999 -999  
-##  6 artio… bovid… Ammo… lervia  5.55e4      5.08   3810     4         -999   14.9
-##  7 artio… bovid… Anti… marsup… 3   e4      5.72   3910     4.04      -999   10.2
-##  8 artio… bovid… Anti… cervic… 3.75e4      5.5    3846     2.13      -999   20.1
-##  9 artio… bovid… Bison bison   4.98e5      8.93  20000    10.7     157500   29.4
-## 10 artio… bovid… Bison bonasus 5   e5      9.14  23000.    6.6       -999   30.0
-## # ℹ 1,430 more rows
-## # ℹ 3 more variables: max_life &lt;dbl&gt;, litter_size &lt;dbl&gt;, litters_per_year &lt;dbl&gt;</code></pre>
-</div>
-<div id="if_else" class="section level2">
-<h2><code>if_else()</code></h2>
-<p>We will briefly introduce <code>if_else()</code> here because it
-allows us to use <code>mutate()</code> but not have the entire column
-affected in the same way. In a sense, this can function like find and
-replace in a spreadsheet program. With <code>ifelse()</code>, you first
-specify a logical statement, afterwards what needs to happen if the
-statement returns <code>TRUE</code>, and lastly what needs to happen if
-it’s <code>FALSE</code>.</p>
-<p>Have a look at the data from mammals below. Notice that the values
-for newborn include <code>-999.00</code>. This is sometimes used as a
-placeholder for NA (but, is a really bad idea). We can use
-<code>if_else()</code> to replace <code>-999.00</code> with
-<code>NA</code>.</p>
-<pre class="r"><code>mammals %&gt;% 
-  select(genus, species, newborn) %&gt;% 
-  arrange(newborn)</code></pre>
-<pre><code>## # A tibble: 1,440 × 3
-##    genus       species        newborn
-##    &lt;chr&gt;       &lt;chr&gt;            &lt;dbl&gt;
-##  1 Ammodorcas  clarkei           -999
-##  2 Bos         javanicus         -999
-##  3 Bubalus     depressicornis    -999
-##  4 Bubalus     mindorensis       -999
-##  5 Capra       falconeri         -999
-##  6 Cephalophus niger             -999
-##  7 Cephalophus nigrifrons        -999
-##  8 Cephalophus natalensis        -999
-##  9 Cephalophus leucogaster       -999
-## 10 Cephalophus ogilbyi           -999
-## # ℹ 1,430 more rows</code></pre>
-<pre class="r"><code>mammals %&gt;% 
-  select(genus, species, newborn) %&gt;%
-  mutate(newborn_new = ifelse(newborn == -999.00, NA, newborn))%&gt;% 
-  arrange(newborn)</code></pre>
-<pre><code>## # A tibble: 1,440 × 4
-##    genus       species        newborn newborn_new
-##    &lt;chr&gt;       &lt;chr&gt;            &lt;dbl&gt;       &lt;dbl&gt;
-##  1 Ammodorcas  clarkei           -999          NA
-##  2 Bos         javanicus         -999          NA
-##  3 Bubalus     depressicornis    -999          NA
-##  4 Bubalus     mindorensis       -999          NA
-##  5 Capra       falconeri         -999          NA
-##  6 Cephalophus niger             -999          NA
-##  7 Cephalophus nigrifrons        -999          NA
-##  8 Cephalophus natalensis        -999          NA
-##  9 Cephalophus leucogaster       -999          NA
-## 10 Cephalophus ogilbyi           -999          NA
-## # ℹ 1,430 more rows</code></pre>
-</div>
-<div id="practice-2" class="section level2">
-<h2>Practice</h2>
-<ol style="list-style-type: decimal">
-<li><p>Use <code>mutate()</code> to make a new column that is the half
-length of each fish: length_half = length/2. Select only fish_id,
-length, and length_half.</p></li>
-<li><p>We are interested in the family, genus, species and max life
-variables. Because the max life span for several mammals is unknown, the
-authors have use -999 in place of NA. Replace all of these values with
-NA in a new column titled <code>max_life_new</code>. Finally, sort the
-date in descending order by max_life_new. Which mammal has the oldest
-known life span?</p></li>
-</ol>
+  select(fish_id, radii_length_mm, scalelength) %&gt;% 
+  filter(fish_id==300) %&gt;% 
+  arrange(radii_length_mm)</code></pre>
+<pre><code>## # A tibble: 4 × 3
+##   fish_id radii_length_mm scalelength
+##     &lt;dbl&gt;           &lt;dbl&gt;       &lt;dbl&gt;
+## 1     300            1.23        3.02
+## 2     300            2.14        3.02
+## 3     300            2.67        3.02
+## 4     300            3.02        3.02</code></pre>
 </div>
 <div id="thats-it-lets-take-a-break-and-then-move-on-to-part-2" class="section level2">
 <h2>That’s it! Let’s take a break and then move on to part 2!</h2>

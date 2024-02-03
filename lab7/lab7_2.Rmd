@@ -29,30 +29,40 @@ The summarize() and group_by() functions are powerful tools that we can use to p
 glimpse(penguins)
 ```
 
-As biologists, a good question that we may ask is how do the measured variables differ by island (on average)?
+As biologists, a good question that we may ask is how do the measured variables differ by island (on average)? Let's look at `body_mass_g`.
 ```{r}
-
+levels(penguins$island) #Because island is a factor, we can use levels() to see the unique values
 ```
 
 ```{r}
-
+penguins %>% 
+  group_by(island) %>% 
+  summarize(mean_body_mass=mean(body_mass_g),
+            n=n())
 ```
 
-Why do we have NA here? Do all of these penguins lack data?
+Why do we have NA here? Do all of these penguins lack data? No, it's only a few of them.
 ```{r}
-
+penguins %>% 
+  group_by(island) %>% 
+  summarize(number_NAs=sum(is.na(body_mass_g)))
 ```
 
 Well, that won't work so let's remove the NAs and recalculate.
 ```{r}
-
+penguins %>% 
+  filter(!is.na(body_mass_g)) %>%  #pull out all of the observations with a number and leave behind the NA's
+  group_by(island) %>% 
+  summarize(mean_body_mass=mean(body_mass_g),
+            n=n())
+  
 ```
 
 What if we are interested in the number of observations (penguins) by species and island?
 ```{r}
 penguins %>% 
   group_by(species, island) %>% 
-  summarize(n=n(), .groups= 'keep')#the .groups argument here just prevents a warning message
+  summarize(n=n(), .groups= 'keep') #the .groups argument here just prevents a warning message
 ```
 
 ## Counts
@@ -64,7 +74,7 @@ penguins %>%
   count(island, sort = T) #sort=T sorts the column in descending order
 ```
 
-Compare this with `summarize()` and `group_by()`.
+Compare this with `summarize()` and `group_by()`. It accomplishes the same task, but is slightly longer.
 ```{r}
 penguins %>% 
   group_by(island) %>% 
@@ -79,18 +89,22 @@ penguins %>%
 
 For counts, I also like `tabyl()`. Lots of options are supported in [tabyl](https://cran.r-project.org/web/packages/janitor/vignettes/tabyls.html)
 ```{r}
-
+penguins %>% 
+  tabyl(island, species)
 ```
 
 ## Practice
 1. How does the mean of `bill_length_mm` compare between penguin species?
 ```{r}
-
+penguins %>% 
+  group_by(species) %>% 
+  summarize(mean_bill_length_mm=mean(bill_length_mm, na.rm=T))
 ```
 
 2. For some penguins, their sex is listed as NA. Where do these penguins occur?
 ```{r}
-
+penguins %>% 
+  count(sex, island)
 ```
 
 ## `across()`
@@ -118,7 +132,14 @@ penguins %>%
 
 ```{r}
 penguins %>%
-  summarize(across(contains("mm"), \(x) mean(x, na.rm = TRUE)))
+  summarize(across(contains("mm"), \(x) mean(x, na.rm = TRUE))) #use this to correct the error
+```
+
+```{r}
+penguins %>%
+  summarize(across(where(is.numeric), mean, na.rm=T)) %>% 
+  select(!year)
+# this is a nice example that was asked at the end of class and pulls out only the numeric variables
 ```
 
 `group_by` also works.
@@ -131,14 +152,13 @@ penguins %>%
 Here we summarize across all variables.
 ```{r}
 penguins %>%
-  summarise_all(mean, na.rm=T)
+  summarise_all(mean, na.rm=T) #notice that there is no summary for categorical variables
 ```
 
 Operators can also work, here I am summarizing across all variables except `species`, `island`, `sex`, and `year`.
 ```{r}
 penguins %>%
-  summarise(across(!c(species, island, sex, year), 
-                   mean, na.rm=T))
+  summarise(across(!c(species, island, sex, year), mean, na.rm=T))
 ```
 
 All variables that include "bill"...all of the other dplyr operators also work.
@@ -148,9 +168,22 @@ penguins %>%
 ```
 
 ## Practice
-1. Produce separate summaries of the mean and standard deviation for bill_length_mm, bill_depth_mm, and flipper_length_mm for each penguin species. Be sure to provide the number of samples.  
-```{r}
+1. Produce separate summaries of the mean and standard deviation for bill_length_mm, bill_depth_mm, and flipper_length_mm for each penguin species. Be sure to provide the number of samples.
 
+Mean
+```{r}
+penguins %>% 
+  group_by(species) %>% 
+  summarize(across(contains("mm"), mean, na.rm=T),
+            n_samples=n())
+```
+
+Standard Deviation
+```{r}
+penguins %>% 
+  group_by(species) %>% 
+  summarize(across(contains("mm"), sd, na.rm=T),
+            n_samples=n())
 ```
 
 ## Wrap-up  

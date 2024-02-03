@@ -10,7 +10,7 @@
 
 
 
-<meta name="date" content="2024-01-24" />
+<meta name="date" content="2024-02-03" />
 
 <title>Transforming data 2: filter() con’t</title>
 
@@ -1504,7 +1504,7 @@ border-radius: 0px;
 
 <h1 class="title toc-ignore">Transforming data 2: <code>filter()</code>
 con’t</h1>
-<h4 class="date">2024-01-24</h4>
+<h4 class="date">2024-02-03</h4>
 
 </div>
 
@@ -1518,7 +1518,8 @@ multiple conditions.</p>
 </div>
 <div id="load-the-tidyverse" class="section level2">
 <h2>Load the tidyverse</h2>
-<pre class="r"><code>library(&quot;tidyverse&quot;)</code></pre>
+<pre class="r"><code>library(&quot;tidyverse&quot;)
+library(&quot;janitor&quot;)</code></pre>
 </div>
 <div id="load-the-data" class="section level2">
 <h2>Load the data</h2>
@@ -1552,7 +1553,13 @@ non-volant mammals. Ecology 84:3402. <a href="http://esapubs.org/archive/ecol/E0
 ## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
 <p>Let’s rename some of the <code>mammals</code> variables.</p>
 <pre class="r"><code>mammals &lt;- rename(mammals, genus=&quot;Genus&quot;, wean_mass=&quot;wean mass&quot;, max_life= &quot;max. life&quot;, litter_size=&quot;litter size&quot;, litters_per_year=&quot;litters/year&quot;)</code></pre>
+<pre class="r"><code>names(mammals)</code></pre>
+<pre><code>##  [1] &quot;order&quot;            &quot;family&quot;           &quot;genus&quot;            &quot;species&quot;         
+##  [5] &quot;mass&quot;             &quot;gestation&quot;        &quot;newborn&quot;          &quot;weaning&quot;         
+##  [9] &quot;wean_mass&quot;        &quot;AFR&quot;              &quot;max_life&quot;         &quot;litter_size&quot;     
+## [13] &quot;litters_per_year&quot;</code></pre>
 <p>Do you remember the easier way?</p>
+<pre class="r"><code>mammals &lt;- clean_names(mammals)</code></pre>
 </div>
 <div id="review" class="section level2">
 <h2>Review</h2>
@@ -1574,6 +1581,21 @@ levels(fish$lakeid)</code></pre>
 <pre><code>##  [1] &quot;AL&quot;  &quot;AR&quot;  &quot;BO&quot;  &quot;BR&quot;  &quot;CR&quot;  &quot;DY&quot;  &quot;FD&quot;  &quot;JN&quot;  &quot;LC&quot;  &quot;LJ&quot;  &quot;LR&quot;  &quot;LSG&quot;
 ## [13] &quot;MN&quot;  &quot;RD&quot;  &quot;UB&quot;  &quot;WS&quot;</code></pre>
 <p>Now we can pull out any state of interest.</p>
+<pre class="r"><code>filter(fish, lakeid==&quot;LJ&quot;)</code></pre>
+<pre><code>## # A tibble: 181 × 6
+##    lakeid fish_id annnumber length radii_length_mm scalelength
+##    &lt;fct&gt;    &lt;dbl&gt; &lt;chr&gt;      &lt;dbl&gt;           &lt;dbl&gt;       &lt;dbl&gt;
+##  1 LJ         239 EDGE         245            4.10        4.10
+##  2 LJ         239 8            245            3.87        4.10
+##  3 LJ         239 7            245            3.63        4.10
+##  4 LJ         239 6            245            3.42        4.10
+##  5 LJ         239 5            245            3.19        4.10
+##  6 LJ         239 4            245            2.84        4.10
+##  7 LJ         239 3            245            2.50        4.10
+##  8 LJ         239 2            245            2.12        4.10
+##  9 LJ         239 1            245            1.33        4.10
+## 10 LJ         240 EDGE         249            4.40        4.40
+## # ℹ 171 more rows</code></pre>
 </div>
 <div id="using-filter-on-multiple-conditions" class="section level2">
 <h2>Using <code>filter()</code> on multiple conditions</h2>
@@ -1614,7 +1636,7 @@ result.</p>
 ## # ℹ 938 more rows</code></pre>
 <p>Rules:<br />
 + <code>filter(condition1, condition2)</code> will return rows where
-both conditions are met.<br />
+both conditions are met. By default the , means &amp;.<br />
 + <code>filter(condition1, !condition2)</code> will return all rows
 where condition one is true but condition 2 is not.<br />
 + <code>filter(condition1 | condition2)</code> will return rows where
@@ -1639,18 +1661,46 @@ scale length over 11 or a radii length over 8.</p>
 ##  9 WS         180 15           403           10.3        11.0 
 ## 10 WS         180 14           403            9.93       11.0 
 ## # ℹ 13 more rows</code></pre>
+<pre class="r"><code>names(mammals)</code></pre>
+<pre><code>##  [1] &quot;order&quot;            &quot;family&quot;           &quot;genus&quot;            &quot;species&quot;         
+##  [5] &quot;mass&quot;             &quot;gestation&quot;        &quot;newborn&quot;          &quot;weaning&quot;         
+##  [9] &quot;wean_mass&quot;        &quot;afr&quot;              &quot;max_life&quot;         &quot;litter_size&quot;     
+## [13] &quot;litters_per_year&quot;</code></pre>
 </div>
 <div id="practice" class="section level2">
 <h2>Practice</h2>
 <ol style="list-style-type: decimal">
-<li><p>From the <code>mammals</code> data, filter all members of the
-family Bovidae with a mass greater than 450000.</p></li>
-<li><p>From the <code>mammals</code> data, build a data frame that
-compares <code>mass</code>, <code>gestation</code>, and
-<code>newborn</code> among the primate genera <code>Lophocebus</code>,
-<code>Erythrocebus</code>, and <code>Macaca</code>. Among these genera,
-which species has the smallest <code>newborn</code> mass?</p></li>
+<li>From the <code>mammals</code> data, filter all members of the family
+Bovidae with a mass greater than 450000.</li>
 </ol>
+<pre class="r"><code>bovidae &lt;- filter(mammals, mass&gt;450000 )
+bovidae</code></pre>
+<pre><code>## # A tibble: 47 × 13
+##    order   family genus species   mass gestation newborn weaning wean_mass   afr
+##    &lt;chr&gt;   &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt;    &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;     &lt;dbl&gt; &lt;dbl&gt;
+##  1 Artiod… Bovid… Bison bison   4.98e5      8.93  20000    10.7     157500  29.4
+##  2 Artiod… Bovid… Bison bonasus 5   e5      9.14  23000.    6.6       -999  30.0
+##  3 Artiod… Bovid… Bos   fronta… 8   e5      9.02  23033.    4.5       -999  24.2
+##  4 Artiod… Bovid… Bos   javani… 6.67e5      9.83   -999     9.5       -999  25.5
+##  5 Artiod… Bovid… Buba… bubalis 9.5 e5     10.5   37500     7.5       -999  19.9
+##  6 Artiod… Bovid… Sync… caffer  5.05e5     11.0   42862.    9.18    166000  47.9
+##  7 Artiod… Bovid… Taur… derbia… 6.80e5      8.67   -999  -999         -999  36.4
+##  8 Artiod… Giraf… Gira… camelo… 8   e5     14.9   59771.    8.25      -999  48.7
+##  9 Artiod… Hippo… Hipp… amphib… 1.26e6      7.75  39747.   10.1     237500  89.9
+## 10 Carniv… Odobe… Odob… rosmar… 6.5 e5     11.5   51883.   20.4     200000  52.1
+## # ℹ 37 more rows
+## # ℹ 3 more variables: max_life &lt;dbl&gt;, litter_size &lt;dbl&gt;, litters_per_year &lt;dbl&gt;</code></pre>
+<ol start="2" style="list-style-type: decimal">
+<li>From the <code>mammals</code> data, build a data frame that compares
+<code>mass</code>, <code>gestation</code>, and <code>newborn</code>
+among the primate genera <code>Lophocebus</code>,
+<code>Erythrocebus</code>, and <code>Macaca</code>. Among these genera,
+which species has the smallest <code>newborn</code> mass?</li>
+</ol>
+<pre class="r"><code>mammals2 &lt;- select(mammals, &quot;order&quot;, &quot;genus&quot;, &quot;mass&quot;, &quot;gestation&quot;, &quot;newborn&quot;)
+mammals3 &lt;- filter(mammals2, order==&quot;Primates&quot;)</code></pre>
+<pre class="r"><code>mammals4 &lt;- filter(mammals3, genus %in% c(&quot;Lophocebus&quot;, &quot;Erythrocebus&quot;, &quot;Macaca&quot;))</code></pre>
+<p>This is crazy, we need away to connect the commands…</p>
 </div>
 <div id="thats-it-lets-take-a-break-and-then-move-on-to-part-2" class="section level2">
 <h2>That’s it! Let’s take a break and then move on to part 2!</h2>

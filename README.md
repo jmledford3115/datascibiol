@@ -15,14 +15,23 @@ This class is designed for students with *no background in computer programming,
 
 Please read the [course syllabus](https://jmledford3115.github.io/datascibiol/syllabus.html).    
 
-1. **Lab 1** | [part 1](https://jmledford3115.github.io/datascibiol/lab1_1.html) | [part 2](https://jmledford3115.github.io/datascibiol/lab1_2.html) | [HW](https://jmledford3115.github.io/datascibiol/lab1_hw.html)  
-2. **Lab 2** | [part 1](https://jmledford3115.github.io/datascibiol/lab2_1.html) | [part 2](https://jmledford3115.github.io/datascibiol/lab2_2.html) | [HW](https://jmledford3115.github.io/datascibiol/lab2_hw.html)  
-3. **Lab 3** | [part 1](https://jmledford3115.github.io/datascibiol/lab3_1.html) | [part 2](https://jmledford3115.github.io/datascibiol/lab3_2.html) | [HW](https://jmledford3115.github.io/datascibiol/lab3_hw.html)  
-4. **Lab 4** | [part 1](https://jmledford3115.github.io/datascibiol/lab4_1.html) | [part 2](https://jmledford3115.github.io/datascibiol/lab4_2.html) | [HW](https://jmledford3115.github.io/datascibiol/lab4_hw.html)  
-5. **Lab 5** | [part 1](https://jmledford3115.github.io/datascibiol/lab5_1.html) | [part 2](https://jmledford3115.github.io/datascibiol/lab5_2.html) | [HW](https://jmledford3115.github.io/datascibiol/lab4_hw.html) 
-6. **Lab 6** | [part 1](https://jmledford3115.github.io/datascibiol/lab6_1.html) | [part 2](https://jmledford3115.github.io/datascibiol/lab6_2.html) | [HW](https://jmledford3115.github.io/datascibiol/lab6_hw.html)   
-7. **Lab 7** | [part 1](https://jmledford3115.github.io/datascibiol/lab7_1.html) | [part 2](https://jmledford3115.github.io/datascibiol/lab7_2.html) | [HW](https://jmledford3115.github.io/datascibiol/lab7_hw.html)   
+1. **Lab 1** | [part 1](https://jmledford3115.github.io/datascibiol/lab1_1.html) | [part 2](https://jmledford3115.github.io/datascibiol/lab1_2.html) 
+2. **Lab 2** | [part 1](https://jmledford3115.github.io/datascibiol/lab2_1.html) | [part 2](https://jmledford3115.github.io/datascibiol/lab2_2.html)  
+3. **Lab 3** | [part 1](https://jmledford3115.github.io/datascibiol/lab3_1.html) | [part 2](https://jmledford3115.github.io/datascibiol/lab3_2.html)
+4. **Lab 4** | [part 1](https://jmledford3115.github.io/datascibiol/lab4_1.html) | [part 2](https://jmledford3115.github.io/datascibiol/lab4_2.html)
+5. **Lab 5** | [part 1](https://jmledford3115.github.io/datascibiol/lab5_1.html) | [part 2](https://jmledford3115.github.io/datascibiol/lab5_2.html)
+6. **Lab 6** | [part 1](https://jmledford3115.github.io/datascibiol/lab6_1.html) | [part 2](https://jmledford3115.github.io/datascibiol/lab6_2.html) 
+7. **Lab 7** | [part 1](https://jmledford3115.github.io/datascibiol/lab7_1.html) | [part 2](https://jmledford3115.github.io/datascibiol/lab7_2.html)
 
+## Homework
+1. **Homework 1** | [HW 1](https://jmledford3115.github.io/datascibiol/homework/lab1_hw.html)   
+2. **Homework 2** | [HW 2](https://jmledford3115.github.io/datascibiol/homework/lab2_hw.html)  
+3. **Homework 3** | [HW 3](https://jmledford3115.github.io/datascibiol/homework/lab3_hw.html)    
+4. **Homework 4** | [HW 4](https://jmledford3115.github.io/datascibiol/homework/lab4_hw.html)    
+5. **Homework 5** | [HW 5](https://jmledford3115.github.io/datascibiol/homework/lab4_hw.html)   
+6. **Homework 6** | [HW 6](https://jmledford3115.github.io/datascibiol/homework/lab6_hw.html)  
+7. **Homework 7** | [HW 7](https://jmledford3115.github.io/datascibiol/homework/lab7_hw.html)     
+ 
 ## Reading  
 [R for Data Science](https://r4ds.had.co.nz/), Grolemund and Wickham (2017).  
 

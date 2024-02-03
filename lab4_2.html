@@ -10,7 +10,7 @@
 
 
 
-<meta name="date" content="2024-01-24" />
+<meta name="date" content="2024-02-03" />
 
 <title>Transforming data 2: filter()</title>
 
@@ -1504,7 +1504,7 @@ border-radius: 0px;
 
 <h1 class="title toc-ignore">Transforming data 2:
 <code>filter()</code></h1>
-<h4 class="date">2024-01-24</h4>
+<h4 class="date">2024-02-03</h4>
 
 </div>
 
@@ -1563,6 +1563,21 @@ mammals data.</p>
 extract data that meet specific criteria within a variable. Let’s say
 that we are interested only in the fish that occur in lake “AL”. We can
 use <code>filter()</code> to extract these observations.</p>
+<pre class="r"><code>fish</code></pre>
+<pre><code>## # A tibble: 4,033 × 6
+##    lakeid fish_id annnumber length radii_length_mm scalelength
+##    &lt;chr&gt;    &lt;dbl&gt; &lt;chr&gt;      &lt;dbl&gt;           &lt;dbl&gt;       &lt;dbl&gt;
+##  1 AL         299 EDGE         167            2.70        2.70
+##  2 AL         299 2            167            2.04        2.70
+##  3 AL         299 1            167            1.31        2.70
+##  4 AL         300 EDGE         175            3.02        3.02
+##  5 AL         300 3            175            2.67        3.02
+##  6 AL         300 2            175            2.14        3.02
+##  7 AL         300 1            175            1.23        3.02
+##  8 AL         301 EDGE         194            3.34        3.34
+##  9 AL         301 3            194            2.97        3.34
+## 10 AL         301 2            194            2.29        3.34
+## # ℹ 4,023 more rows</code></pre>
 <pre class="r"><code>filter(fish, lakeid == &quot;AL&quot;)</code></pre>
 <pre><code>## # A tibble: 383 × 6
 ##    lakeid fish_id annnumber length radii_length_mm scalelength
@@ -1581,21 +1596,10 @@ use <code>filter()</code> to extract these observations.</p>
 <p>Similarly, if we are only interested in fish with a length greater
 than or equal to 350 we can use <code>filter()</code> to extract these
 observations.</p>
-<pre class="r"><code>filter(fish, length &gt;= 350)</code></pre>
-<pre><code>## # A tibble: 890 × 6
-##    lakeid fish_id annnumber length radii_length_mm scalelength
-##    &lt;chr&gt;    &lt;dbl&gt; &lt;chr&gt;      &lt;dbl&gt;           &lt;dbl&gt;       &lt;dbl&gt;
-##  1 AL         306 EDGE         350            6.94        6.94
-##  2 AL         306 10           350            6.46        6.94
-##  3 AL         306 9            350            6.16        6.94
-##  4 AL         306 8            350            5.88        6.94
-##  5 AL         306 7            350            5.42        6.94
-##  6 AL         306 6            350            4.90        6.94
-##  7 AL         306 5            350            4.46        6.94
-##  8 AL         306 4            350            3.75        6.94
-##  9 AL         306 3            350            2.93        6.94
-## 10 AL         306 2            350            2.14        6.94
-## # ℹ 880 more rows</code></pre>
+<pre class="r"><code>filter(fish, length == 3500)</code></pre>
+<pre><code>## # A tibble: 0 × 6
+## # ℹ 6 variables: lakeid &lt;chr&gt;, fish_id &lt;dbl&gt;, annnumber &lt;chr&gt;, length &lt;dbl&gt;,
+## #   radii_length_mm &lt;dbl&gt;, scalelength &lt;dbl&gt;</code></pre>
 <ul>
 <li><code>filter()</code> allows all of the expected operators;
 i.e. &gt;, &gt;=, &lt;, &lt;=, != (not equal), and == (equal).</li>
@@ -1646,20 +1650,21 @@ specific observations.</p>
 ## 18 RD         103 1            167           1.31         2.80</code></pre>
 <p>Alternatively, you can use <code>between</code> if you are looking
 for a range of specific values.</p>
-<pre class="r"><code>filter(fish, between(scalelength, 2.5, 2.55))</code></pre>
-<pre><code>## # A tibble: 10 × 6
+<pre class="r"><code>filter(fish, between(scalelength, 2.5, 3))</code></pre>
+<pre><code>## # A tibble: 185 × 6
 ##    lakeid fish_id annnumber length radii_length_mm scalelength
 ##    &lt;chr&gt;    &lt;dbl&gt; &lt;chr&gt;      &lt;dbl&gt;           &lt;dbl&gt;       &lt;dbl&gt;
-##  1 LSG         56 EDGE         145            2.55        2.55
-##  2 LSG         56 2            145            1.94        2.55
-##  3 LSG         56 1            145            1.20        2.55
-##  4 LSG         57 EDGE         143            2.52        2.52
-##  5 LSG         57 2            143            2.13        2.52
-##  6 LSG         57 1            143            1.19        2.52
-##  7 UB          80 EDGE         153            2.55        2.55
-##  8 UB          80 3            153            2.10        2.55
-##  9 UB          80 2            153            1.62        2.55
-## 10 UB          80 1            153            1.14        2.55</code></pre>
+##  1 AL         299 EDGE         167            2.70        2.70
+##  2 AL         299 2            167            2.04        2.70
+##  3 AL         299 1            167            1.31        2.70
+##  4 AR         270 EDGE         193            2.66        2.66
+##  5 AR         270 3            193            2.39        2.66
+##  6 AR         270 2            193            2.03        2.66
+##  7 AR         270 1            193            1.42        2.66
+##  8 BO         396 EDGE         160            2.59        2.59
+##  9 BO         396 3            160            1.97        2.59
+## 10 BO         396 2            160            1.39        2.59
+## # ℹ 175 more rows</code></pre>
 <p>You can also extract observations “near” a certain value but you need
 to specify a tolerance.</p>
 <pre class="r"><code>filter(fish, near(radii_length_mm, 2, tol = 0.2))</code></pre>
@@ -1759,6 +1764,242 @@ and 4.</li>
 <pre><code>## # A tibble: 0 × 6
 ## # ℹ 6 variables: lakeid &lt;chr&gt;, fish_id &lt;dbl&gt;, annnumber &lt;chr&gt;, length &lt;dbl&gt;,
 ## #   radii_length_mm &lt;dbl&gt;, scalelength &lt;dbl&gt;</code></pre>
+</div>
+<div id="using-filter-on-multiple-conditions" class="section level2">
+<h2>Using <code>filter()</code> on multiple conditions</h2>
+<p>You can also use <code>filter()</code> to extract data based on
+multiple conditions. Below we extract only the fish that have lakeid
+“AL” and length &gt;350.</p>
+<pre class="r"><code>filter(fish, lakeid == &quot;AL&quot; &amp; length== 350)</code></pre>
+<pre><code>## # A tibble: 11 × 6
+##    lakeid fish_id annnumber length radii_length_mm scalelength
+##    &lt;chr&gt;    &lt;dbl&gt; &lt;chr&gt;      &lt;dbl&gt;           &lt;dbl&gt;       &lt;dbl&gt;
+##  1 AL         306 EDGE         350            6.94        6.94
+##  2 AL         306 10           350            6.46        6.94
+##  3 AL         306 9            350            6.16        6.94
+##  4 AL         306 8            350            5.88        6.94
+##  5 AL         306 7            350            5.42        6.94
+##  6 AL         306 6            350            4.90        6.94
+##  7 AL         306 5            350            4.46        6.94
+##  8 AL         306 4            350            3.75        6.94
+##  9 AL         306 3            350            2.93        6.94
+## 10 AL         306 2            350            2.14        6.94
+## 11 AL         306 1            350            1.19        6.94</code></pre>
+<p>Notice that the <code>|</code> operator generates a different
+result.</p>
+<pre class="r"><code>filter(fish, lakeid == &quot;AL&quot; | length &gt; 350)</code></pre>
+<pre><code>## # A tibble: 948 × 6
+##    lakeid fish_id annnumber length radii_length_mm scalelength
+##    &lt;chr&gt;    &lt;dbl&gt; &lt;chr&gt;      &lt;dbl&gt;           &lt;dbl&gt;       &lt;dbl&gt;
+##  1 AL         299 EDGE         167            2.70        2.70
+##  2 AL         299 2            167            2.04        2.70
+##  3 AL         299 1            167            1.31        2.70
+##  4 AL         300 EDGE         175            3.02        3.02
+##  5 AL         300 3            175            2.67        3.02
+##  6 AL         300 2            175            2.14        3.02
+##  7 AL         300 1            175            1.23        3.02
+##  8 AL         301 EDGE         194            3.34        3.34
+##  9 AL         301 3            194            2.97        3.34
+## 10 AL         301 2            194            2.29        3.34
+## # ℹ 938 more rows</code></pre>
+<p>Rules:<br />
++ <code>filter(condition1, condition2)</code> will return rows where
+both conditions are met.<br />
++ <code>filter(condition1, !condition2)</code> will return all rows
+where condition one is true but condition 2 is not.<br />
++ <code>filter(condition1 | condition2)</code> will return rows where
+condition 1 and/or condition 2 is met.<br />
++ <code>filter(xor(condition1, condition2)</code> will return all rows
+where only one of the conditions is met, and not when both conditions
+are met.</p>
+<p>In this case, we filter out the fish with a length over 400 and a
+scale length over 11 or a radii length over 8.</p>
+<pre class="r"><code>filter(fish, length &gt; 400, (scalelength &gt; 11 | radii_length_mm &gt; 8))</code></pre>
+<pre><code>## # A tibble: 23 × 6
+##    lakeid fish_id annnumber length radii_length_mm scalelength
+##    &lt;chr&gt;    &lt;dbl&gt; &lt;chr&gt;      &lt;dbl&gt;           &lt;dbl&gt;       &lt;dbl&gt;
+##  1 AL         324 EDGE         406            8.21        8.21
+##  2 AL         327 EDGE         413            8.33        8.33
+##  3 AL         327 15           413            8.11        8.33
+##  4 AL         328 EDGE         420            8.71        8.71
+##  5 AL         328 16           420            8.41        8.71
+##  6 AL         328 15           420            8.14        8.71
+##  7 WS         180 EDGE         403           11.0        11.0 
+##  8 WS         180 16           403           10.6        11.0 
+##  9 WS         180 15           403           10.3        11.0 
+## 10 WS         180 14           403            9.93       11.0 
+## # ℹ 13 more rows</code></pre>
+<pre class="r"><code>filter(fish, annnumber==&quot;EDGE&quot;)</code></pre>
+<pre><code>## # A tibble: 478 × 6
+##    lakeid fish_id annnumber length radii_length_mm scalelength
+##    &lt;chr&gt;    &lt;dbl&gt; &lt;chr&gt;      &lt;dbl&gt;           &lt;dbl&gt;       &lt;dbl&gt;
+##  1 AL         299 EDGE         167            2.70        2.70
+##  2 AL         300 EDGE         175            3.02        3.02
+##  3 AL         301 EDGE         194            3.34        3.34
+##  4 AL         302 EDGE         324            6.07        6.07
+##  5 AL         303 EDGE         325            6.79        6.79
+##  6 AL         304 EDGE         340            6.18        6.18
+##  7 AL         305 EDGE         342            6.31        6.31
+##  8 AL         306 EDGE         350            6.94        6.94
+##  9 AL         307 EDGE         353            7.55        7.55
+## 10 AL         308 EDGE         355            6.67        6.67
+## # ℹ 468 more rows</code></pre>
+</div>
+<div id="practice-1" class="section level2">
+<h2>Practice</h2>
+<ol style="list-style-type: decimal">
+<li>Have a look at the mammals data using the summary
+<code>functions</code> of your choosing.</li>
+</ol>
+<pre class="r"><code>glimpse(mammals)</code></pre>
+<pre><code>## Rows: 1,440
+## Columns: 13
+## $ order            &lt;chr&gt; &quot;Artiodactyla&quot;, &quot;Artiodactyla&quot;, &quot;Artiodactyla&quot;, &quot;Arti…
+## $ family           &lt;chr&gt; &quot;Antilocapridae&quot;, &quot;Bovidae&quot;, &quot;Bovidae&quot;, &quot;Bovidae&quot;, &quot;B…
+## $ genus            &lt;chr&gt; &quot;Antilocapra&quot;, &quot;Addax&quot;, &quot;Aepyceros&quot;, &quot;Alcelaphus&quot;, &quot;A…
+## $ species          &lt;chr&gt; &quot;americana&quot;, &quot;nasomaculatus&quot;, &quot;melampus&quot;, &quot;buselaphus…
+## $ mass             &lt;dbl&gt; 45375.0, 182375.0, 41480.0, 150000.0, 28500.0, 55500.…
+## $ gestation        &lt;dbl&gt; 8.13, 9.39, 6.35, 7.90, 6.80, 5.08, 5.72, 5.50, 8.93,…
+## $ newborn          &lt;dbl&gt; 3246.36, 5480.00, 5093.00, 10166.67, -999.00, 3810.00…
+## $ weaning          &lt;dbl&gt; 3.00, 6.50, 5.63, 6.50, -999.00, 4.00, 4.04, 2.13, 10…
+## $ wean_mass        &lt;dbl&gt; 8900, -999, 15900, -999, -999, -999, -999, -999, 1575…
+## $ AFR              &lt;dbl&gt; 13.53, 27.27, 16.66, 23.02, -999.00, 14.89, 10.23, 20…
+## $ max_life         &lt;dbl&gt; 142, 308, 213, 240, -999, 251, 228, 255, 300, 324, 30…
+## $ litter_size      &lt;dbl&gt; 1.85, 1.00, 1.00, 1.00, 1.00, 1.37, 1.00, 1.00, 1.00,…
+## $ litters_per_year &lt;dbl&gt; 1.00, 0.99, 0.95, -999.00, -999.00, 2.00, -999.00, 1.…</code></pre>
+<ol start="2" style="list-style-type: decimal">
+<li>What are the names of the variables in the mammals data?</li>
+</ol>
+<pre class="r"><code>names(mammals)</code></pre>
+<pre><code>##  [1] &quot;order&quot;            &quot;family&quot;           &quot;genus&quot;            &quot;species&quot;         
+##  [5] &quot;mass&quot;             &quot;gestation&quot;        &quot;newborn&quot;          &quot;weaning&quot;         
+##  [9] &quot;wean_mass&quot;        &quot;AFR&quot;              &quot;max_life&quot;         &quot;litter_size&quot;     
+## [13] &quot;litters_per_year&quot;</code></pre>
+<ol start="3" style="list-style-type: decimal">
+<li>From the <code>mammals</code> data, filter all members of the family
+Bovidae with a mass greater than 450000.</li>
+</ol>
+<pre class="r"><code>bovidae &lt;- filter(mammals, family==&quot;Bovidae&quot; &amp; mass&gt;450000)
+bovidae</code></pre>
+<pre><code>## # A tibble: 7 × 13
+##   order    family genus species   mass gestation newborn weaning wean_mass   AFR
+##   &lt;chr&gt;    &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt;    &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;     &lt;dbl&gt; &lt;dbl&gt;
+## 1 Artioda… Bovid… Bison bison   4.98e5      8.93  20000    10.7     157500  29.4
+## 2 Artioda… Bovid… Bison bonasus 5   e5      9.14  23000.    6.6       -999  30.0
+## 3 Artioda… Bovid… Bos   fronta… 8   e5      9.02  23033.    4.5       -999  24.2
+## 4 Artioda… Bovid… Bos   javani… 6.67e5      9.83   -999     9.5       -999  25.5
+## 5 Artioda… Bovid… Buba… bubalis 9.5 e5     10.5   37500     7.5       -999  19.9
+## 6 Artioda… Bovid… Sync… caffer  5.05e5     11.0   42862.    9.18    166000  47.9
+## 7 Artioda… Bovid… Taur… derbia… 6.80e5      8.67   -999  -999         -999  36.4
+## # ℹ 3 more variables: max_life &lt;dbl&gt;, litter_size &lt;dbl&gt;, litters_per_year &lt;dbl&gt;</code></pre>
+<ol start="4" style="list-style-type: decimal">
+<li>Let’s say we are only interested in family, genus, species, mass,
+and gestation. Relimit the mammals data frame to these variables.</li>
+</ol>
+<pre class="r"><code>mammals_relimited &lt;- select(mammals, &quot;family&quot;, &quot;genus&quot;, &quot;species&quot;, &quot;mass&quot;, &quot;gestation&quot;)
+mammals_relimited</code></pre>
+<pre><code>## # A tibble: 1,440 × 5
+##    family         genus       species          mass gestation
+##    &lt;chr&gt;          &lt;chr&gt;       &lt;chr&gt;           &lt;dbl&gt;     &lt;dbl&gt;
+##  1 Antilocapridae Antilocapra americana      45375       8.13
+##  2 Bovidae        Addax       nasomaculatus 182375       9.39
+##  3 Bovidae        Aepyceros   melampus       41480       6.35
+##  4 Bovidae        Alcelaphus  buselaphus    150000       7.9 
+##  5 Bovidae        Ammodorcas  clarkei        28500       6.8 
+##  6 Bovidae        Ammotragus  lervia         55500       5.08
+##  7 Bovidae        Antidorcas  marsupialis    30000       5.72
+##  8 Bovidae        Antilope    cervicapra     37500       5.5 
+##  9 Bovidae        Bison       bison         497667.      8.93
+## 10 Bovidae        Bison       bonasus       500000       9.14
+## # ℹ 1,430 more rows</code></pre>
+<ol start="5" style="list-style-type: decimal">
+<li>Use the output from #4 to focus on the family Bovidae with a mass
+greater than 450000.</li>
+</ol>
+<pre class="r"><code>bovidae &lt;- filter(mammals_relimited, family==&quot;Bovidae&quot; &amp; mass&gt;=450000)
+bovidae</code></pre>
+<pre><code>## # A tibble: 7 × 5
+##   family  genus       species      mass gestation
+##   &lt;chr&gt;   &lt;chr&gt;       &lt;chr&gt;       &lt;dbl&gt;     &lt;dbl&gt;
+## 1 Bovidae Bison       bison     497667.      8.93
+## 2 Bovidae Bison       bonasus   500000       9.14
+## 3 Bovidae Bos         frontalis 800000       9.02
+## 4 Bovidae Bos         javanicus 666667.      9.83
+## 5 Bovidae Bubalus     bubalis   950000      10.5 
+## 6 Bovidae Syncerus    caffer    504667.     11.0 
+## 7 Bovidae Taurotragus derbianus 680000       8.67</code></pre>
+<pre class="r"><code>glimpse(mammals)</code></pre>
+<pre><code>## Rows: 1,440
+## Columns: 13
+## $ order            &lt;chr&gt; &quot;Artiodactyla&quot;, &quot;Artiodactyla&quot;, &quot;Artiodactyla&quot;, &quot;Arti…
+## $ family           &lt;chr&gt; &quot;Antilocapridae&quot;, &quot;Bovidae&quot;, &quot;Bovidae&quot;, &quot;Bovidae&quot;, &quot;B…
+## $ genus            &lt;chr&gt; &quot;Antilocapra&quot;, &quot;Addax&quot;, &quot;Aepyceros&quot;, &quot;Alcelaphus&quot;, &quot;A…
+## $ species          &lt;chr&gt; &quot;americana&quot;, &quot;nasomaculatus&quot;, &quot;melampus&quot;, &quot;buselaphus…
+## $ mass             &lt;dbl&gt; 45375.0, 182375.0, 41480.0, 150000.0, 28500.0, 55500.…
+## $ gestation        &lt;dbl&gt; 8.13, 9.39, 6.35, 7.90, 6.80, 5.08, 5.72, 5.50, 8.93,…
+## $ newborn          &lt;dbl&gt; 3246.36, 5480.00, 5093.00, 10166.67, -999.00, 3810.00…
+## $ weaning          &lt;dbl&gt; 3.00, 6.50, 5.63, 6.50, -999.00, 4.00, 4.04, 2.13, 10…
+## $ wean_mass        &lt;dbl&gt; 8900, -999, 15900, -999, -999, -999, -999, -999, 1575…
+## $ AFR              &lt;dbl&gt; 13.53, 27.27, 16.66, 23.02, -999.00, 14.89, 10.23, 20…
+## $ max_life         &lt;dbl&gt; 142, 308, 213, 240, -999, 251, 228, 255, 300, 324, 30…
+## $ litter_size      &lt;dbl&gt; 1.85, 1.00, 1.00, 1.00, 1.00, 1.37, 1.00, 1.00, 1.00,…
+## $ litters_per_year &lt;dbl&gt; 1.00, 0.99, 0.95, -999.00, -999.00, 2.00, -999.00, 1.…</code></pre>
+<pre class="r"><code>summary(mammals)</code></pre>
+<pre><code>##     order              family             genus             species         
+##  Length:1440        Length:1440        Length:1440        Length:1440       
+##  Class :character   Class :character   Class :character   Class :character  
+##  Mode  :character   Mode  :character   Mode  :character   Mode  :character  
+##                                                                             
+##                                                                             
+##                                                                             
+##       mass             gestation          newborn             weaning       
+##  Min.   :     -999   Min.   :-999.00   Min.   :   -999.0   Min.   :-999.00  
+##  1st Qu.:       50   1st Qu.:-999.00   1st Qu.:   -999.0   1st Qu.:-999.00  
+##  Median :      403   Median :   1.05   Median :      2.6   Median :   0.73  
+##  Mean   :   383577   Mean   :-287.25   Mean   :   6703.1   Mean   :-427.17  
+##  3rd Qu.:     7009   3rd Qu.:   4.50   3rd Qu.:     98.0   3rd Qu.:   2.00  
+##  Max.   :149000000   Max.   :  21.46   Max.   :2250000.0   Max.   :  48.00  
+##    wean_mass             AFR             max_life       litter_size      
+##  Min.   :    -999   Min.   :-999.00   Min.   :-999.0   Min.   :-999.000  
+##  1st Qu.:    -999   1st Qu.:-999.00   1st Qu.:-999.0   1st Qu.:   1.000  
+##  Median :    -999   Median :   2.50   Median :-999.0   Median :   2.270  
+##  Mean   :   16049   Mean   :-408.12   Mean   :-490.3   Mean   : -55.634  
+##  3rd Qu.:      10   3rd Qu.:  15.61   3rd Qu.: 147.2   3rd Qu.:   3.835  
+##  Max.   :19075000   Max.   : 210.00   Max.   :1368.0   Max.   :  14.180  
+##  litters_per_year  
+##  Min.   :-999.000  
+##  1st Qu.:-999.000  
+##  Median :   0.375  
+##  Mean   :-477.141  
+##  3rd Qu.:   1.155  
+##  Max.   :   7.500</code></pre>
+<ol start="6" style="list-style-type: decimal">
+<li>From the <code>mammals</code> data, build a data frame that compares
+<code>mass</code>, <code>gestation</code>, and <code>newborn</code>
+among the primate genera <code>Lophocebus</code>,
+<code>Erythrocebus</code>, and <code>Macaca</code>. Among these genera,
+which species has the smallest <code>newborn</code> mass?</li>
+</ol>
+<pre class="r"><code>primate_genera &lt;- filter(mammals, genus %in% c(&quot;Lophocebus&quot;, &quot;Erythrocebus&quot;, &quot;Macaca&quot;))</code></pre>
+<pre class="r"><code>select(primate_genera, &quot;genus&quot;, &quot;species&quot;, &quot;mass&quot;, &quot;gestation&quot;, &quot;newborn&quot;)</code></pre>
+<pre><code>## # A tibble: 15 × 5
+##    genus        species        mass gestation newborn
+##    &lt;chr&gt;        &lt;chr&gt;         &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;
+##  1 Erythrocebus patas         5883.      5.56    546.
+##  2 Lophocebus   albigena      6726.      5.97    462.
+##  3 Macaca       thibetana    10037.      5.67    533.
+##  4 Macaca       fuscata       8858.      5.72    505.
+##  5 Macaca       maura         5575       5.43    390.
+##  6 Macaca       sylvanus      9753.      5.49    450 
+##  7 Macaca       arctoides     7308.      6       486.
+##  8 Macaca       nigra         6212.      5.78    458.
+##  9 Macaca       sinica        3495    -999       446 
+## 10 Macaca       silenus       4875       5.94    418 
+## 11 Macaca       mulatta       5413.      5.47    476.
+## 12 Macaca       cyclopis      6317.      5.4     401 
+## 13 Macaca       nemestrina    6133.      5.71    476.
+## 14 Macaca       fascicularis  3456.      5.49    408.
+## 15 Macaca       radiata       3735       5.43    391.</code></pre>
 </div>
 <div id="wrap-up" class="section level2">
 <h2>Wrap-up</h2>

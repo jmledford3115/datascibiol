@@ -10,7 +10,7 @@
 
 
 
-<meta name="date" content="2024-01-17" />
+<meta name="date" content="2024-02-03" />
 
 <title>Importing Data Frames</title>
 
@@ -1503,7 +1503,7 @@ border-radius: 0px;
 
 
 <h1 class="title toc-ignore">Importing Data Frames</h1>
-<h4 class="date">2024-01-17</h4>
+<h4 class="date">2024-02-03</h4>
 
 </div>
 
@@ -1557,6 +1557,8 @@ them.</p>
 <p>To import any file, first make sure that you are in the correct
 working directory. If you are not in the correct directory, R will not
 “see” the file.</p>
+<pre class="r"><code>getwd()</code></pre>
+<pre><code>## [1] &quot;/Users/switters/Desktop/datascibiol/lab3&quot;</code></pre>
 </div>
 <div id="load-the-data" class="section level2">
 <h2>Load the data</h2>
@@ -1567,10 +1569,41 @@ with the <code>::</code> symbol. This becomes important if you have
 multiple packages loaded that contain functions with the same name.</p>
 <p>In the previous part of the lab, you exported a <code>.csv</code> of
 hot springs data. Let’s try to reload that <code>.csv</code>.</p>
+<pre class="r"><code>hot_springs &lt;- read_csv(&quot;hsprings_data.csv&quot;)</code></pre>
+<pre><code>## Rows: 9 Columns: 4
+## ── Column specification ────────────────────────────────────────────────────────
+## Delimiter: &quot;,&quot;
+## chr (2): scientist, spring
+## dbl (2): temp_C, depth_ft
+## 
+## ℹ Use `spec()` to retrieve the full column specification for this data.
+## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
 <p>Use the <code>str()</code> function to get an idea of the data
 structure of <code>hot_springs</code>.</p>
+<pre class="r"><code>str(hot_springs)</code></pre>
+<pre><code>## spc_tbl_ [9 × 4] (S3: spec_tbl_df/tbl_df/tbl/data.frame)
+##  $ temp_C   : num [1:9] 36.2 35.4 35.3 35.1 35.4 ...
+##  $ scientist: chr [1:9] &quot;Jill&quot; &quot;Susan&quot; &quot;Steve&quot; &quot;Jill&quot; ...
+##  $ spring   : chr [1:9] &quot;Buckeye&quot; &quot;Buckeye&quot; &quot;Buckeye&quot; &quot;Benton&quot; ...
+##  $ depth_ft : num [1:9] 4.15 4.13 4.12 3.21 3.23 3.2 5.67 5.65 5.66
+##  - attr(*, &quot;spec&quot;)=
+##   .. cols(
+##   ..   temp_C = col_double(),
+##   ..   scientist = col_character(),
+##   ..   spring = col_character(),
+##   ..   depth_ft = col_double()
+##   .. )
+##  - attr(*, &quot;problems&quot;)=&lt;externalptr&gt;</code></pre>
 <p>What is the class of the scientist column? Change it to factor and
 then show the levels of that factor.</p>
+<pre class="r"><code>class(hot_springs$scientist)</code></pre>
+<pre><code>## [1] &quot;character&quot;</code></pre>
+<pre class="r"><code>hot_springs$scientist &lt;- as.factor(hot_springs$scientist)
+hot_springs$spring &lt;- as.factor(hot_springs$spring)</code></pre>
+<pre class="r"><code>levels(hot_springs$scientist)</code></pre>
+<pre><code>## [1] &quot;Jill&quot;  &quot;Steve&quot; &quot;Susan&quot;</code></pre>
+<pre class="r"><code>levels(hot_springs$spring)</code></pre>
+<pre><code>## [1] &quot;Benton&quot;     &quot;Buckeye&quot;    &quot;Travertine&quot;</code></pre>
 </div>
 <div id="practice" class="section level2">
 <h2>Practice</h2>
@@ -1583,9 +1616,48 @@ data and store them as an object called <code>fish</code>.</li>
 <p>The data are from: Gaeta J., G. Sass, S. Carpenter. 2012.
 Biocomplexity at North Temperate Lakes LTER: Coordinated Field Studies:
 Large Mouth Bass Growth 2006. Environmental Data Initiative. <a href="https://portal.edirepository.org/nis/mapbrowse?scope=knb-lter-ntl&amp;identifier=267">link</a></p>
+<pre class="r"><code>fish &lt;- read_csv(&quot;data/Gaeta_etal_CLC_data.csv&quot;)</code></pre>
+<pre><code>## Rows: 4033 Columns: 6
+## ── Column specification ────────────────────────────────────────────────────────
+## Delimiter: &quot;,&quot;
+## chr (2): lakeid, annnumber
+## dbl (4): fish_id, length, radii_length_mm, scalelength
+## 
+## ℹ Use `spec()` to retrieve the full column specification for this data.
+## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
 <ol start="2" style="list-style-type: decimal">
 <li>What is the structure of these data?</li>
 </ol>
+<pre class="r"><code>str(fish)</code></pre>
+<pre><code>## spc_tbl_ [4,033 × 6] (S3: spec_tbl_df/tbl_df/tbl/data.frame)
+##  $ lakeid         : chr [1:4033] &quot;AL&quot; &quot;AL&quot; &quot;AL&quot; &quot;AL&quot; ...
+##  $ fish_id        : num [1:4033] 299 299 299 300 300 300 300 301 301 301 ...
+##  $ annnumber      : chr [1:4033] &quot;EDGE&quot; &quot;2&quot; &quot;1&quot; &quot;EDGE&quot; ...
+##  $ length         : num [1:4033] 167 167 167 175 175 175 175 194 194 194 ...
+##  $ radii_length_mm: num [1:4033] 2.7 2.04 1.31 3.02 2.67 ...
+##  $ scalelength    : num [1:4033] 2.7 2.7 2.7 3.02 3.02 ...
+##  - attr(*, &quot;spec&quot;)=
+##   .. cols(
+##   ..   lakeid = col_character(),
+##   ..   fish_id = col_double(),
+##   ..   annnumber = col_character(),
+##   ..   length = col_double(),
+##   ..   radii_length_mm = col_double(),
+##   ..   scalelength = col_double()
+##   .. )
+##  - attr(*, &quot;problems&quot;)=&lt;externalptr&gt;</code></pre>
+<pre class="r"><code>glimpse(fish)</code></pre>
+<pre><code>## Rows: 4,033
+## Columns: 6
+## $ lakeid          &lt;chr&gt; &quot;AL&quot;, &quot;AL&quot;, &quot;AL&quot;, &quot;AL&quot;, &quot;AL&quot;, &quot;AL&quot;, &quot;AL&quot;, &quot;AL&quot;, &quot;AL&quot;, …
+## $ fish_id         &lt;dbl&gt; 299, 299, 299, 300, 300, 300, 300, 301, 301, 301, 301,…
+## $ annnumber       &lt;chr&gt; &quot;EDGE&quot;, &quot;2&quot;, &quot;1&quot;, &quot;EDGE&quot;, &quot;3&quot;, &quot;2&quot;, &quot;1&quot;, &quot;EDGE&quot;, &quot;3&quot;, …
+## $ length          &lt;dbl&gt; 167, 167, 167, 175, 175, 175, 175, 194, 194, 194, 194,…
+## $ radii_length_mm &lt;dbl&gt; 2.697443, 2.037518, 1.311795, 3.015477, 2.670733, 2.13…
+## $ scalelength     &lt;dbl&gt; 2.697443, 2.697443, 2.697443, 3.015477, 3.015477, 3.01…</code></pre>
+<pre class="r"><code>names(fish)</code></pre>
+<pre><code>## [1] &quot;lakeid&quot;          &quot;fish_id&quot;         &quot;annnumber&quot;       &quot;length&quot;         
+## [5] &quot;radii_length_mm&quot; &quot;scalelength&quot;</code></pre>
 <p>Notice that when the data are imported, you are presented with a
 message that tells you how R interpreted the column classes. This is
 also where error messages will appear if there are problems.</p>
@@ -1597,39 +1669,183 @@ structure, contents, and dimensions. I routinely run one or more of
 these commands when data are first imported.</p>
 <p>We can summarize our data frame with the<code>summary()</code>
 function.</p>
+<pre class="r"><code>summary(fish)</code></pre>
+<pre><code>##     lakeid             fish_id       annnumber             length     
+##  Length:4033        Min.   :  1.0   Length:4033        Min.   : 58.0  
+##  Class :character   1st Qu.:156.0   Class :character   1st Qu.:253.0  
+##  Mode  :character   Median :267.0   Mode  :character   Median :299.0  
+##                     Mean   :258.3                      Mean   :293.3  
+##                     3rd Qu.:376.0                      3rd Qu.:342.0  
+##                     Max.   :478.0                      Max.   :420.0  
+##  radii_length_mm    scalelength     
+##  Min.   : 0.4569   Min.   : 0.6282  
+##  1st Qu.: 2.3252   1st Qu.: 4.2596  
+##  Median : 3.5380   Median : 5.4062  
+##  Mean   : 3.6589   Mean   : 5.3821  
+##  3rd Qu.: 4.8229   3rd Qu.: 6.4145  
+##  Max.   :11.0258   Max.   :11.0258</code></pre>
 <p><code>glimpse()</code> is another useful summary function.</p>
+<pre class="r"><code>glimpse(fish)</code></pre>
+<pre><code>## Rows: 4,033
+## Columns: 6
+## $ lakeid          &lt;chr&gt; &quot;AL&quot;, &quot;AL&quot;, &quot;AL&quot;, &quot;AL&quot;, &quot;AL&quot;, &quot;AL&quot;, &quot;AL&quot;, &quot;AL&quot;, &quot;AL&quot;, …
+## $ fish_id         &lt;dbl&gt; 299, 299, 299, 300, 300, 300, 300, 301, 301, 301, 301,…
+## $ annnumber       &lt;chr&gt; &quot;EDGE&quot;, &quot;2&quot;, &quot;1&quot;, &quot;EDGE&quot;, &quot;3&quot;, &quot;2&quot;, &quot;1&quot;, &quot;EDGE&quot;, &quot;3&quot;, …
+## $ length          &lt;dbl&gt; 167, 167, 167, 175, 175, 175, 175, 194, 194, 194, 194,…
+## $ radii_length_mm &lt;dbl&gt; 2.697443, 2.037518, 1.311795, 3.015477, 2.670733, 2.13…
+## $ scalelength     &lt;dbl&gt; 2.697443, 2.697443, 2.697443, 3.015477, 3.015477, 3.01…</code></pre>
 <p><code>nrow()</code> gives the numbers of rows.</p>
+<pre class="r"><code>nrow(fish)</code></pre>
+<pre><code>## [1] 4033</code></pre>
 <p><code>ncol</code> gives the number of columns.</p>
+<pre class="r"><code>ncol(fish)</code></pre>
+<pre><code>## [1] 6</code></pre>
 <p><code>dim()</code> gives the dimensions.</p>
+<pre class="r"><code>dim(fish)</code></pre>
+<pre><code>## [1] 4033    6</code></pre>
 <p><code>names</code> gives the column names.</p>
+<pre class="r"><code>names(fish)</code></pre>
+<pre><code>## [1] &quot;lakeid&quot;          &quot;fish_id&quot;         &quot;annnumber&quot;       &quot;length&quot;         
+## [5] &quot;radii_length_mm&quot; &quot;scalelength&quot;</code></pre>
 <p><code>head()</code> prints the first n rows of the data frame.</p>
+<pre class="r"><code>head(fish)</code></pre>
+<pre><code>## # A tibble: 6 × 6
+##   lakeid fish_id annnumber length radii_length_mm scalelength
+##   &lt;chr&gt;    &lt;dbl&gt; &lt;chr&gt;      &lt;dbl&gt;           &lt;dbl&gt;       &lt;dbl&gt;
+## 1 AL         299 EDGE         167            2.70        2.70
+## 2 AL         299 2            167            2.04        2.70
+## 3 AL         299 1            167            1.31        2.70
+## 4 AL         300 EDGE         175            3.02        3.02
+## 5 AL         300 3            175            2.67        3.02
+## 6 AL         300 2            175            2.14        3.02</code></pre>
 <p><code>tail()</code> prinst the last n rows of the data frame.</p>
+<pre class="r"><code>tail(fish)</code></pre>
+<pre><code>## # A tibble: 6 × 6
+##   lakeid fish_id annnumber length radii_length_mm scalelength
+##   &lt;chr&gt;    &lt;dbl&gt; &lt;chr&gt;      &lt;dbl&gt;           &lt;dbl&gt;       &lt;dbl&gt;
+## 1 WS         180 6            403            5.41        11.0
+## 2 WS         180 5            403            4.98        11.0
+## 3 WS         180 4            403            4.22        11.0
+## 4 WS         180 3            403            3.04        11.0
+## 5 WS         180 2            403            2.03        11.0
+## 6 WS         180 1            403            1.19        11.0</code></pre>
 <p><code>table()</code> is useful when you have a limited number of
 categorical variables. It produces fast counts of the number of
 observations in a variable. We will come back to this later…</p>
-<p>We can also click on the <code>fish</code> data frame in the
-Environment tab or type View(fish).</p>
-<pre class="r"><code>#View(fish)</code></pre>
+<pre class="r"><code>table(fish$lakeid)</code></pre>
+<pre><code>## 
+##  AL  AR  BO  BR  CR  DY  FD  JN  LC  LJ  LR LSG  MN  RD  UB  WS 
+## 383 262 197 291 343 355 302 238 173 181 292 143 293 135 191 254</code></pre>
 </div>
 <div id="filter" class="section level2">
 <h2>Filter</h2>
 <p>Filter is a way of pulling out observations that meet specific
 criteria in a variable. We will work a lot more with this in the next
 lab.</p>
+<pre class="r"><code>little_fish &lt;- filter(fish, length&lt;=100)
+little_fish</code></pre>
+<pre><code>## # A tibble: 5 × 6
+##   lakeid fish_id annnumber length radii_length_mm scalelength
+##   &lt;chr&gt;    &lt;dbl&gt; &lt;chr&gt;      &lt;dbl&gt;           &lt;dbl&gt;       &lt;dbl&gt;
+## 1 LSG         58 EDGE          92           1.15        1.15 
+## 2 LSG         59 EDGE          64           0.773       0.773
+## 3 WS         151 EDGE          58           0.628       0.628
+## 4 WS         152 EDGE          74           0.832       0.832
+## 5 WS         153 EDGE          78           0.637       0.637</code></pre>
 </div>
 <div id="practice-1" class="section level2">
 <h2>Practice</h2>
 <ol style="list-style-type: decimal">
-<li><p>Load the data <code>mammal_lifehistories_v2.csv</code> and place
-it into a new object called <code>mammals</code>.</p></li>
-<li><p>Provide the dimensions of the data frame.</p></li>
-<li><p>Check the column names in the data frame.</p></li>
-<li><p>Use <code>str()</code> to show the structure of the data frame
-and its individual columns; compare this to
-<code>glimpse()</code>.</p></li>
-<li><p>. Try the <code>table()</code> command to produce counts of
-mammal order, family, and genus.</p></li>
+<li>Load the data <code>mammal_lifehistories_v2.csv</code> and place it
+into a new object called <code>mammals</code>.</li>
 </ol>
+<pre class="r"><code>mammals &lt;- read_csv(&quot;data/mammal_lifehistories_v2.csv&quot;)</code></pre>
+<pre><code>## Rows: 1440 Columns: 13
+## ── Column specification ────────────────────────────────────────────────────────
+## Delimiter: &quot;,&quot;
+## chr (4): order, family, Genus, species
+## dbl (9): mass, gestation, newborn, weaning, wean mass, AFR, max. life, litte...
+## 
+## ℹ Use `spec()` to retrieve the full column specification for this data.
+## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+<ol start="2" style="list-style-type: decimal">
+<li>Provide the dimensions of the data frame.</li>
+</ol>
+<pre class="r"><code>dim(mammals)</code></pre>
+<pre><code>## [1] 1440   13</code></pre>
+<ol start="3" style="list-style-type: decimal">
+<li>Check the column names in the data frame.</li>
+</ol>
+<pre class="r"><code>names(mammals)</code></pre>
+<pre><code>##  [1] &quot;order&quot;        &quot;family&quot;       &quot;Genus&quot;        &quot;species&quot;      &quot;mass&quot;        
+##  [6] &quot;gestation&quot;    &quot;newborn&quot;      &quot;weaning&quot;      &quot;wean mass&quot;    &quot;AFR&quot;         
+## [11] &quot;max. life&quot;    &quot;litter size&quot;  &quot;litters/year&quot;</code></pre>
+<ol start="4" style="list-style-type: decimal">
+<li>Use <code>str()</code> to show the structure of the data frame and
+its individual columns; compare this to <code>glimpse()</code>.</li>
+</ol>
+<pre class="r"><code>str(mammals)</code></pre>
+<pre><code>## spc_tbl_ [1,440 × 13] (S3: spec_tbl_df/tbl_df/tbl/data.frame)
+##  $ order       : chr [1:1440] &quot;Artiodactyla&quot; &quot;Artiodactyla&quot; &quot;Artiodactyla&quot; &quot;Artiodactyla&quot; ...
+##  $ family      : chr [1:1440] &quot;Antilocapridae&quot; &quot;Bovidae&quot; &quot;Bovidae&quot; &quot;Bovidae&quot; ...
+##  $ Genus       : chr [1:1440] &quot;Antilocapra&quot; &quot;Addax&quot; &quot;Aepyceros&quot; &quot;Alcelaphus&quot; ...
+##  $ species     : chr [1:1440] &quot;americana&quot; &quot;nasomaculatus&quot; &quot;melampus&quot; &quot;buselaphus&quot; ...
+##  $ mass        : num [1:1440] 45375 182375 41480 150000 28500 ...
+##  $ gestation   : num [1:1440] 8.13 9.39 6.35 7.9 6.8 5.08 5.72 5.5 8.93 9.14 ...
+##  $ newborn     : num [1:1440] 3246 5480 5093 10167 -999 ...
+##  $ weaning     : num [1:1440] 3 6.5 5.63 6.5 -999 ...
+##  $ wean mass   : num [1:1440] 8900 -999 15900 -999 -999 ...
+##  $ AFR         : num [1:1440] 13.5 27.3 16.7 23 -999 ...
+##  $ max. life   : num [1:1440] 142 308 213 240 -999 251 228 255 300 324 ...
+##  $ litter size : num [1:1440] 1.85 1 1 1 1 1.37 1 1 1 1 ...
+##  $ litters/year: num [1:1440] 1 0.99 0.95 -999 -999 2 -999 1.89 1 1 ...
+##  - attr(*, &quot;spec&quot;)=
+##   .. cols(
+##   ..   order = col_character(),
+##   ..   family = col_character(),
+##   ..   Genus = col_character(),
+##   ..   species = col_character(),
+##   ..   mass = col_double(),
+##   ..   gestation = col_double(),
+##   ..   newborn = col_double(),
+##   ..   weaning = col_double(),
+##   ..   `wean mass` = col_double(),
+##   ..   AFR = col_double(),
+##   ..   `max. life` = col_double(),
+##   ..   `litter size` = col_double(),
+##   ..   `litters/year` = col_double()
+##   .. )
+##  - attr(*, &quot;problems&quot;)=&lt;externalptr&gt;</code></pre>
+<pre class="r"><code>glimpse(mammals)</code></pre>
+<pre><code>## Rows: 1,440
+## Columns: 13
+## $ order          &lt;chr&gt; &quot;Artiodactyla&quot;, &quot;Artiodactyla&quot;, &quot;Artiodactyla&quot;, &quot;Artiod…
+## $ family         &lt;chr&gt; &quot;Antilocapridae&quot;, &quot;Bovidae&quot;, &quot;Bovidae&quot;, &quot;Bovidae&quot;, &quot;Bov…
+## $ Genus          &lt;chr&gt; &quot;Antilocapra&quot;, &quot;Addax&quot;, &quot;Aepyceros&quot;, &quot;Alcelaphus&quot;, &quot;Amm…
+## $ species        &lt;chr&gt; &quot;americana&quot;, &quot;nasomaculatus&quot;, &quot;melampus&quot;, &quot;buselaphus&quot;,…
+## $ mass           &lt;dbl&gt; 45375.0, 182375.0, 41480.0, 150000.0, 28500.0, 55500.0,…
+## $ gestation      &lt;dbl&gt; 8.13, 9.39, 6.35, 7.90, 6.80, 5.08, 5.72, 5.50, 8.93, 9…
+## $ newborn        &lt;dbl&gt; 3246.36, 5480.00, 5093.00, 10166.67, -999.00, 3810.00, …
+## $ weaning        &lt;dbl&gt; 3.00, 6.50, 5.63, 6.50, -999.00, 4.00, 4.04, 2.13, 10.7…
+## $ `wean mass`    &lt;dbl&gt; 8900, -999, 15900, -999, -999, -999, -999, -999, 157500…
+## $ AFR            &lt;dbl&gt; 13.53, 27.27, 16.66, 23.02, -999.00, 14.89, 10.23, 20.1…
+## $ `max. life`    &lt;dbl&gt; 142, 308, 213, 240, -999, 251, 228, 255, 300, 324, 300,…
+## $ `litter size`  &lt;dbl&gt; 1.85, 1.00, 1.00, 1.00, 1.00, 1.37, 1.00, 1.00, 1.00, 1…
+## $ `litters/year` &lt;dbl&gt; 1.00, 0.99, 0.95, -999.00, -999.00, 2.00, -999.00, 1.89…</code></pre>
+<ol start="5" style="list-style-type: decimal">
+<li>. Try the <code>table()</code> command to produce counts of mammal
+order, family, and genus.</li>
+</ol>
+<pre class="r"><code>table(mammals$order)</code></pre>
+<pre><code>## 
+##   Artiodactyla      Carnivora        Cetacea     Dermoptera     Hyracoidea 
+##            161            197             55              2              4 
+##    Insectivora     Lagomorpha  Macroscelidea Perissodactyla      Pholidota 
+##             91             42             10             15              7 
+##       Primates    Proboscidea       Rodentia     Scandentia        Sirenia 
+##            156              2            665              7              5 
+##  Tubulidentata      Xenarthra 
+##              1             20</code></pre>
 </div>
 <div id="wrap-up" class="section level2">
 <h2>Wrap-up</h2>

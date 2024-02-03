@@ -10,7 +10,7 @@
 
 
 
-<meta name="date" content="2024-01-13" />
+<meta name="date" content="2024-02-03" />
 
 <title>Objects, Classes &amp; NAs</title>
 
@@ -1503,7 +1503,7 @@ border-radius: 0px;
 
 
 <h1 class="title toc-ignore">Objects, Classes &amp; NAs</h1>
-<h4 class="date">2024-01-13</h4>
+<h4 class="date">2024-02-03</h4>
 
 </div>
 
@@ -1532,6 +1532,9 @@ gets symbol.</p>
 <p>To print the object to the screen, just type x.</p>
 <pre class="r"><code>x</code></pre>
 <pre><code>## [1] 42</code></pre>
+<pre class="r"><code>y &lt;- 30</code></pre>
+<pre class="r"><code>z=30 #do not use
+q &lt;- 42</code></pre>
 <p>Once an object has been created, you can do things with them.</p>
 <pre class="r"><code>treatment &lt;- 36
 control &lt;- 38</code></pre>
@@ -1540,6 +1543,8 @@ of the treatment and control. Notice that I use <code>_</code> and not
 spaces.</p>
 <pre class="r"><code>my_experiment &lt;- sum(treatment, control)
 my_experiment</code></pre>
+<pre><code>## [1] 74</code></pre>
+<pre class="r"><code>treatment+control</code></pre>
 <pre><code>## [1] 74</code></pre>
 </div>
 <div id="nomenclature" class="section level2">
@@ -1553,19 +1558,41 @@ is the same as a function in R.</p>
 You also don’t want to give names that might get confused with
 functions; i.e. you can assign a value to ‘mean’ but this could become
 confusing because mean is used as a function.</p>
+<pre class="r"><code>mean &lt;- 20</code></pre>
+<pre class="r"><code>2+8+2</code></pre>
+<pre><code>## [1] 12</code></pre>
+<pre class="r"><code>(2+8+2)/3</code></pre>
+<pre><code>## [1] 4</code></pre>
+<pre class="r"><code>mean(2+8+2)</code></pre>
+<pre><code>## [1] 12</code></pre>
 </div>
 <div id="practice" class="section level2">
 <h2>Practice</h2>
 <ol style="list-style-type: decimal">
-<li><p>Create three new objects, <code>venom_GT</code>,
+<li>Create three new objects, <code>venom_GT</code>,
 <code>chiron</code>, and <code>veyron</code>. These are the fastest cars
 in the world. Assign each car to its top speed. The venom_GT can go 270,
-chiron is 261, and veyron is 268.</p></li>
-<li><p>Use arithmetic to calculate the mean top speed for the
-cars.</p></li>
-<li><p>Use the function <code>mean()</code> to calculate the mean top
-speed for the cars.</p></li>
+chiron is 261, and veyron is 268.</li>
 </ol>
+<pre class="r"><code>venom_GT &lt;- 270
+chiron &lt;- 261
+veyron &lt;- 268</code></pre>
+<ol start="2" style="list-style-type: decimal">
+<li>Use arithmetic to calculate the mean top speed for the cars.</li>
+</ol>
+<pre class="r"><code>(270+261+268)/3</code></pre>
+<pre><code>## [1] 266.3333</code></pre>
+<ol start="3" style="list-style-type: decimal">
+<li>Use the function <code>mean()</code> to calculate the mean top speed
+for the cars.</li>
+</ol>
+<pre class="r"><code>mean(venom_GT+chiron+veyron)</code></pre>
+<pre><code>## [1] 799</code></pre>
+<pre class="r"><code>cars &lt;- c(venom_GT, chiron, veyron)
+mean(cars)</code></pre>
+<pre><code>## [1] 266.3333</code></pre>
+<pre class="r"><code>mean(c(venom_GT, chiron, veyron))</code></pre>
+<pre><code>## [1] 266.3333</code></pre>
 </div>
 <div id="types-of-data" class="section level2">
 <h2>Types of Data</h2>
@@ -1581,6 +1608,8 @@ my_complex &lt;- 2+4i</code></pre>
 will need to change the type of data to perform certain analyses.</p>
 <pre class="r"><code>class(my_numeric)</code></pre>
 <pre><code>## [1] &quot;numeric&quot;</code></pre>
+<pre class="r"><code>class(my_integer)</code></pre>
+<pre><code>## [1] &quot;integer&quot;</code></pre>
 <p>You can use the <code>is()</code> and <code>as()</code> functions to
 clarify or specify a type of data.</p>
 <pre class="r"><code>is.integer(my_numeric) #is my_numeric an integer?</code></pre>
@@ -1614,8 +1643,12 @@ chunk.</li>
 </ol>
 <pre class="r"><code>new_vector &lt;- c(7, 6.2, 5, 9, NA, 4, 9.8, 7, 3, 2)</code></pre>
 <ol start="2" style="list-style-type: decimal">
-<li><p>As we did in homework 1, calculate the mean of
-<code>new_vector</code>.</p></li>
+<li>As we did in homework 1, calculate the mean of
+<code>new_vector</code>.</li>
+</ol>
+<pre class="r"><code>mean(new_vector)</code></pre>
+<pre><code>## [1] NA</code></pre>
+<ol start="3" style="list-style-type: decimal">
 <li><p>How do you interpret this result? What does this mean about
 NAs?</p></li>
 <li><p>Recalculate the mean using the following code chunk. Why is the

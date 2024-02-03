@@ -10,7 +10,7 @@
 
 
 
-<meta name="date" content="2024-01-10" />
+<meta name="date" content="2024-02-03" />
 
 <title>R, RStudio, and RMarkdown</title>
 
@@ -1503,7 +1503,7 @@ border-radius: 0px;
 
 
 <h1 class="title toc-ignore">R, RStudio, and RMarkdown</h1>
-<h4 class="date">2024-01-10</h4>
+<h4 class="date">2024-02-03</h4>
 
 </div>
 
@@ -1579,14 +1579,19 @@ sign.</p>
 <pre><code>## [1] 3</code></pre>
 <p>What is going on here? How do we adjust this expression so the output
 is 12?</p>
-<pre class="r"><code>4-2*6</code></pre>
-<pre><code>## [1] -8</code></pre>
+<pre class="r"><code>(4-2)*6</code></pre>
+<pre><code>## [1] 12</code></pre>
 <p>Statistics are what R was originally written for and there are
 thousands of packages for specialized statistics depending on your
 needs.</p>
 <p>First, we need to make a vector or string of values which we will
 store as an object x. More on this later…</p>
 <pre class="r"><code>x &lt;- c(4, 6, 8, 5, 6, 7, 7, 7)</code></pre>
+<pre class="r"><code>y &lt;- c(4, 4, 3, 5, 6, 4, 4, 4)</code></pre>
+<pre class="r"><code>mean(y)</code></pre>
+<pre><code>## [1] 4.25</code></pre>
+<pre class="r"><code>x+y</code></pre>
+<pre><code>## [1]  8 10 11 10 12 11 11 11</code></pre>
 <p>Now we can calculate the mean of object x.</p>
 <pre class="r"><code>mean(x)</code></pre>
 <pre><code>## [1] 6.25</code></pre>
@@ -1595,6 +1600,9 @@ store as an object x. More on this later…</p>
 <pre><code>## [1] 6.5</code></pre>
 <pre class="r"><code>sd(x)</code></pre>
 <pre><code>## [1] 1.28174</code></pre>
+<pre class="r"><code>z &lt;- 1</code></pre>
+<pre class="r"><code>x &lt;- 1</code></pre>
+<pre class="r"><code>rm(x)</code></pre>
 </div>
 <div id="rmarkdown" class="section level2">
 <h2>RMarkdown</h2>
@@ -1674,11 +1682,11 @@ titles, text, and syntax.<br />
 <pre class="r"><code>#install.packages(&quot;tidyverse&quot;)
 library(&quot;tidyverse&quot;)</code></pre>
 <pre><code>## ── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
-## ✔ dplyr     1.1.2     ✔ readr     2.1.4
-## ✔ forcats   1.0.0     ✔ stringr   1.5.0
-## ✔ ggplot2   3.4.2     ✔ tibble    3.2.1
-## ✔ lubridate 1.9.2     ✔ tidyr     1.3.0
-## ✔ purrr     1.0.1     
+## ✔ dplyr     1.1.4     ✔ readr     2.1.5
+## ✔ forcats   1.0.0     ✔ stringr   1.5.1
+## ✔ ggplot2   3.4.4     ✔ tibble    3.2.1
+## ✔ lubridate 1.9.3     ✔ tidyr     1.3.1
+## ✔ purrr     1.0.2     
 ## ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
 ## ✖ dplyr::filter() masks stats::filter()
 ## ✖ dplyr::lag()    masks stats::lag()

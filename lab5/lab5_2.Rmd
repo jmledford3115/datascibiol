@@ -56,22 +56,26 @@ filter(fish, lakeid == "AL")
 ```
 
 ```{r}
-fish %>%
-  select(lakeid, scalelength) %>%
+fish %>% 
+  select(lakeid, scalelength) %>% 
   filter(lakeid == "AL")
 ```
 
 Here we select family, genus, and species then filter for gestation greater than 15 months.
 ```{r}
 mammals %>% 
-  select(family, genus, species, gestation) %>% 
+  select("family", "genus", "species", "gestation") %>% 
   filter(gestation>=15)
 ```
 
 ## Practice
 1. We are interested in the fish from the lakes "AL" and "AR" with a radii length between 2 and 4. Extract this information from the `fish` data. Use pipes!  
 ```{r}
-
+fish %>% # work with the fish data
+  select(lakeid, radii_length_mm) %>% #pull out variables of int
+  filter(lakeid=="AL" | lakeid=="AR") %>% #only these lakes
+  filter(between(radii_length_mm, 2, 4)) %>% #between 2 and 4
+  arrange(desc(radii_length_mm)) #sort to make easier to read
 ```
 
 ## `arrange()`
@@ -100,58 +104,10 @@ fish %>%
 ## Practice
 1. We are interested in the radii length and scalelength of fish with the id `300`. Extract this information from the `fish` data. Please sort the data by radii length.
 ```{r}
-
-```
-
-## `mutate()`  
-Mutate allows us to create a new column from existing columns in a data frame. We are doing a small introduction here and will add some additional functions later. Let's convert the length variable from cm to millimeters and create a new variable called length_mm.  
-```{r}
 fish %>% 
-  mutate(length_mm = length*10) %>% 
-  select(fish_id, length, length_mm)
-```
-
-## `mutate_all()`
-This last function is super helpful when cleaning data. With "wild" data, there are often mixed entries (upper and lowercase), blank spaces, odd characters, etc. These all need to be dealt with before analysis.  
-
-Here is an example that changes all entries to lowercase (if present).  
-```{r}
-mammals %>%
-  mutate_all(tolower)
-```
-
-Using the across function we can specify individual columns.
-```{r}
-mammals %>% 
-  mutate(across(c("order", "family"), tolower))
-```
-
-## `if_else()`
-We will briefly introduce `if_else()` here because it allows us to use `mutate()` but not have the entire column affected in the same way. In a sense, this can function like find and replace in a spreadsheet program. With `ifelse()`, you first specify a logical statement, afterwards what needs to happen if the statement returns `TRUE`, and lastly what needs to happen if it's  `FALSE`.  
-
-Have a look at the data from mammals below. Notice that the values for newborn include `-999.00`. This is sometimes used as a placeholder for NA (but, is a really bad idea). We can use `if_else()` to replace `-999.00` with `NA`.  
-```{r}
-mammals %>% 
-  select(genus, species, newborn) %>% 
-  arrange(newborn)
-```
-
-```{r}
-mammals %>% 
-  select(genus, species, newborn) %>%
-  mutate(newborn_new = ifelse(newborn == -999.00, NA, newborn))%>% 
-  arrange(newborn)
-```
-
-## Practice
-1. Use `mutate()` to make a new column that is the half length of each fish: length_half = length/2. Select only fish_id, length, and length_half.
-```{r}
-
-```
-
-2. We are interested in the family, genus, species and max life variables. Because the max life span for several mammals is unknown, the authors have use -999 in place of NA. Replace all of these values with NA in a new column titled `max_life_new`. Finally, sort the date in descending order by max_life_new. Which mammal has the oldest known life span?
-```{r}
-
+  select(fish_id, radii_length_mm, scalelength) %>% 
+  filter(fish_id==300) %>% 
+  arrange(radii_length_mm)
 ```
 
 ## That's it! Let's take a break and then move on to part 2! 
