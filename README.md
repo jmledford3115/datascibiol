@@ -24,7 +24,7 @@ Please read the [course syllabus](https://jmledford3115.github.io/datascibiol/sy
 7. **Lab 7** | [part 1](https://jmledford3115.github.io/datascibiol/lab7_1.html) | [part 2](https://jmledford3115.github.io/datascibiol/lab7_2.html)
 
 ## Homework
-1. **Homework 1** | [HW 1](https://jmledford3115.github.io/datascibiol/homework/hw1.html)   
+1. **Homework 1** | [HW 1](https://jmledford3115.github.io/datascibiol/homework/hw1.html)    
 2. **Homework 2** | [HW 2](https://jmledford3115.github.io/datascibiol/homework/hw2.html)  
 3. **Homework 3** | [HW 3](https://jmledford3115.github.io/datascibiol/homework/hw3.html)    
 4. **Homework 4** | [HW 4](https://jmledford3115.github.io/datascibiol/homework/hw4.html)    
