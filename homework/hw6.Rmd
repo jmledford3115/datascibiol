@@ -90,6 +90,14 @@ fisheries_tidy %>%
 ```
 
 ```{r}
+unique(fisheries_tidy$country)
+```
+
+```{r}
+fisheries_tidy %>% distinct(country)
+```
+
+```{r}
 levels(fisheries_tidy$country)
 ```
 
