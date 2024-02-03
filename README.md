@@ -13,8 +13,9 @@ In BIS 015L, you will be introduced to the fundamentals of data science with emp
 
 This class is designed for students with *no background in computer programming, R, or statistics*. My assumption is that you know how to turn a computer on and use a mouse- that's it!  
 
-Please read the [course syllabus](https://jmledford3115.github.io/datascibiol/syllabus.html).    
+Please read the [course syllabus](https://jmledford3115.github.io/datascibiol/syllabus.html).  
 
+## Labs  
 1. **Lab 1** | [part 1](https://jmledford3115.github.io/datascibiol/lab1_1.html) | [part 2](https://jmledford3115.github.io/datascibiol/lab1_2.html) 
 2. **Lab 2** | [part 1](https://jmledford3115.github.io/datascibiol/lab2_1.html) | [part 2](https://jmledford3115.github.io/datascibiol/lab2_2.html)  
 3. **Lab 3** | [part 1](https://jmledford3115.github.io/datascibiol/lab3_1.html) | [part 2](https://jmledford3115.github.io/datascibiol/lab3_2.html)
