@@ -27,8 +27,8 @@ These are data taken from comic books and assembled by fans. The include a good 
 
 Check out the way I am loading these data. If I know there are NAs, I can take care of them at the beginning. But, we should do this very cautiously. At times it is better to keep the original columns and data intact.  
 ```{r}
-#superhero_info <- read_csv("data/heroes_information.csv", na = c("", "-99", "-"))
-#superhero_powers <- read_csv("data/super_hero_powers.csv", na = c("", "-99", "-"))
+superhero_info <- read_csv("data/heroes_information.csv", na = c("", "-99", "-"))
+superhero_powers <- read_csv("data/super_hero_powers.csv", na = c("", "-99", "-"))
 ```
 
 ## Data tidy

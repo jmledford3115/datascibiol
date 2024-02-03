@@ -30,8 +30,7 @@ Please read the [course syllabus](https://jmledford3115.github.io/datascibiol/sy
 4. **Homework 4** | [HW 4](https://jmledford3115.github.io/datascibiol/homework/lab4_hw.html)    
 5. **Homework 5** | [HW 5](https://jmledford3115.github.io/datascibiol/homework/lab4_hw.html)   
 6. **Homework 6** | [HW 6](https://jmledford3115.github.io/datascibiol/homework/lab6_hw.html)  
-7. **Homework 7** | [HW 7](https://jmledford3115.github.io/datascibiol/homework/lab7_hw.html)     
- 
+   
 ## Reading  
 [R for Data Science](https://r4ds.had.co.nz/), Grolemund and Wickham (2017).  
 
