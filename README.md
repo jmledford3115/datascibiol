@@ -24,12 +24,12 @@ Please read the [course syllabus](https://jmledford3115.github.io/datascibiol/sy
 7. **Lab 7** | [part 1](https://jmledford3115.github.io/datascibiol/lab7_1.html) | [part 2](https://jmledford3115.github.io/datascibiol/lab7_2.html)
 
 ## Homework
-1. **Homework 1** | [HW 1](https://jmledford3115.github.io/datascibiol/homework/lab1_hw.html)   
-2. **Homework 2** | [HW 2](https://jmledford3115.github.io/datascibiol/homework/lab2_hw.html)  
-3. **Homework 3** | [HW 3](https://jmledford3115.github.io/datascibiol/homework/lab3_hw.html)    
-4. **Homework 4** | [HW 4](https://jmledford3115.github.io/datascibiol/homework/lab4_hw.html)    
-5. **Homework 5** | [HW 5](https://jmledford3115.github.io/datascibiol/homework/lab4_hw.html)   
-6. **Homework 6** | [HW 6](https://jmledford3115.github.io/datascibiol/homework/lab6_hw.html)  
+1. **Homework 1** | [HW 1](https://jmledford3115.github.io/datascibiol/homework/hw1.html)   
+2. **Homework 2** | [HW 2](https://jmledford3115.github.io/datascibiol/homework/hw2.html)  
+3. **Homework 3** | [HW 3](https://jmledford3115.github.io/datascibiol/homework/hw3.html)    
+4. **Homework 4** | [HW 4](https://jmledford3115.github.io/datascibiol/homework/hw4.html)    
+5. **Homework 5** | [HW 5](https://jmledford3115.github.io/datascibiol/homework/hw5.html)   
+6. **Homework 6** | [HW 6](https://jmledford3115.github.io/datascibiol/homework/hw6.html)  
    
 ## Reading  
 [R for Data Science](https://r4ds.had.co.nz/), Grolemund and Wickham (2017).  
