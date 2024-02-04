@@ -28,26 +28,19 @@ library("skimr")
 library("janitor")
 ```
 
-## Load the libraries
-```{r message=FALSE, warning=FALSE}
-library("tidyverse")
-library("janitor")
-library("skimr")
-```
-
 ## Review
 When working with "wild" data, dealing with NA's is a fundamental part of the data cleaning process. Data scientists spend most of their time cleaning and transforming data- including managing NA's. There isn't a single approach that will always work so you need to be careful about using replacement strategies across an entire data set. And, as the data sets become larger NA's can become trickier to deal with.  
 
 For the following, we will use life history data for mammals. The [data](http://esapubs.org/archive/ecol/E084/093/) are from:  
 **S. K. Morgan Ernest. 2003. Life history characteristics of placental non-volant mammals. Ecology 84:3402.**  
 
-## Practice
-1. Load the mammals life history data and clean the names.  
+## Load the mammals life history data and clean the names  
 ```{r}
 life_history <- read_csv("data/mammal_lifehistories_v3.csv") %>% clean_names()
 ```
 
-2. Use one or more of the functions from the last lab to determine if there are NA's in the data, how they are represented, and where they are located.
+## Are there any NA's?
+Sometimes using one or more of the summary functions can give us clues to how the authors have represented missing data. This doesn't always work, but it is a good place to start.
 ```{r}
 glimpse(life_history)
 ```
@@ -56,28 +49,16 @@ glimpse(life_history)
 summary(life_history)
 ```
 
-Here is a new on for you using the `purrr` package. This will give you a quick summary of the number of NA's in each variable.
+Here is a new one for you using the `purrr` package. This will give you a quick summary of the number of NA's in each variable.
 ```{r}
 life_history %>% 
-  purrr::map_df(~ sum(is.na(.)))
+  map_df(~ sum(is.na(.)))
 ```
 
 ## Practice
 1. Can we use a single approach to deal with NA's in this data set? Given what you learned in the previous lab, how would you manage the NA values?
 ```{r}
-life_history <- 
-  life_history %>% 
-  replace_with_na(replace = list(x = -999)) %>% 
-  mutate(newborn=na_if(newborn, ("not measured")))
-```
 
-```{r}
-life_history %>% 
-  purrr::map_df(~ sum(is.na(.)))
-```
-
-```{r}
-names(life_history)
 ```
 
 ## `naniar`
@@ -93,6 +74,7 @@ Notice that `max_life` has no NA's. Does that make sense in the context of this 
 hist(life_history$max_life)
 ```
 
+Let's use `mutate()` and `na_if()` to replace 0's with NA's in `max_life`.
 ```{r}
 life_history <- 
   life_history %>% 
@@ -100,7 +82,7 @@ life_history <-
 ```
 
 ```{r}
-naniar::miss_var_summary(life_history)
+miss_var_summary(life_history)
 ```
 
 We can also use `miss_var_summary` with `group_by()`. This helps us better evaluate where NA's are in the data.
@@ -108,14 +90,21 @@ We can also use `miss_var_summary` with `group_by()`. This helps us better evalu
 life_history %>%
   group_by(order) %>%
   select(order, wean_mass) %>% 
-  naniar::miss_var_summary(order=T)
+  miss_var_summary(order=T)
 ```
 
 `naniar` also has a nice replace function which will allow you to precisely control which values you want replaced with NA's in each variable.
 ```{r}
 life_history %>% 
-  naniar::replace_with_na(replace = list(newborn = "not measured", weaning= -999, wean_mass= -999, afr= -999, max_life= 0, litter_size= -999, gestation= -999, mass= -999)) %>% 
-  naniar::miss_var_summary()
+  replace_with_na(replace = list(newborn = "not measured", 
+                                 weaning= -999, 
+                                 wean_mass= -999, 
+                                 afr= -999, 
+                                 max_life= 0, 
+                                 litter_size= -999, 
+                                 gestation= -999, 
+                                 mass= -999)) %>% 
+miss_var_summary()
 ```
 
 ## Practice
@@ -126,21 +115,17 @@ Some key information:
 
 1. Import the data and do a little exploration. Be sure to clean the names if necessary.
 ```{r}
-cites <- read_csv("data/cites.csv") %>% clean_names()
+
 ```
 
 2. Use `naniar` to summarize the NA's in each variable.
 ```{r}
-naniar::miss_var_summary(cites)
+
 ```
 
 3. Try using `group_by()` with `naniar`. Look specifically at class and `exporter_reported_quantity`. For which taxonomic classes do we have a high proportion of missing export data?
 ```{r}
-cites %>% 
-  group_by(class) %>% 
-  select(class, exporter_reported_quantity) %>% 
-  naniar::miss_var_summary() %>% 
-  arrange(desc(pct_miss))
+
 ```
 
 ## Visualizing NAs
@@ -166,7 +151,7 @@ life_history_advance <-
 ```
 
 ```{r}
-naniar::miss_var_summary(life_history_advance)
+miss_var_summary(life_history_advance)
 ```
 
 ## Wrap-up  
