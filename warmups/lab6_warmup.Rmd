@@ -1,0 +1,61 @@
+---
+title: "Lab 6 Warm-Up"
+date: "`r Sys.Date()`"
+output:
+  html_document:
+    theme: spacelab
+    toc: yes
+    toc_float: yes
+  pdf_document:
+    toc: yes
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+### 1. Load the tidyverse
+```{r}
+library("tidyverse")
+```
+
+### 2. Load the bison data
+```{r}
+bison <- read_csv("data/bison.csv")
+```
+
+### 3. Evaluate the bison data
+```{r}
+glimpse(bison)
+```
+
+### 4. Pull out code, sex, weight, year of birth
+```{r}
+bison_new <- select(bison, "animal_code", "animal_sex", "animal_weight", "animal_yob")
+```
+
+### 5. Pull out the animals born between 1980-1990
+```{r}
+bison_yob <- filter(bison_new, animal_yob>=1980 & animal_yob<=1990)
+```
+
+### 6. How many males and females are represented in the data between 1980-1990?
+```{r}
+table(bison_yob$animal_sex)
+```
+
+### 7. In the 1980-1990 data, are females or males larger on average?
+```{r}
+bison_m <- filter(bison_yob, animal_sex=="M")
+bison_f <- filter(bison_yob, animal_sex=="F")
+```
+
+### 8. Means
+```{r}
+mean(bison_m$animal_weight) #males
+```
+
+```{r}
+mean(bison_f$animal_weight) #females
+```
+

@@ -1,0 +1,44 @@
+---
+title: "lab_4_warm_up"
+output: html_document
+date: "2024-01-23"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## 1. Load the libraries
+```{r}
+library(tidyverse)
+library(palmerpenguins)
+```
+
+## 2. What are the dimensions of `penguins`?
+```{r}
+dim(penguins)
+```
+
+## 3. What are the names of the variables?
+```{r}
+names(penguins)
+```
+```{r}
+glimpse(penguins)
+```
+## 4. How many individuals are on each island?
+```{r}
+penguins <- penguins
+```
+
+```{r}
+table(penguins$island)
+```
+
+```{r}
+summary(penguins$island)
+```
+
+```{r}
+mean(penguins$body_mass_g, na.rm=T)
+```
