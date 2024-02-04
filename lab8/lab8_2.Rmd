@@ -21,15 +21,12 @@ output:
 ```
 
 ## Load the libraries
-```{r}
+```{r message=FALSE, warning=FALSE}
 library("tidyverse")
 library("naniar")
 library("skimr")
 library("janitor")
 ```
-
-## Midterm 1 Review
-Let's briefly review the questions from midterm 1 so you can get an idea of how I was thinking about the problems. Remember, there is more than one way to get at these answers, so don't worry if yours looks different than mine!  
 
 ## Load the libraries
 ```{r message=FALSE, warning=FALSE}
@@ -39,7 +36,7 @@ library("skimr")
 ```
 
 ## Review
-When working with outside or "wild" data, dealing with NA's is a fundamental part of the data cleaning or tidying process. Data scientists spend most of their time cleaning and transforming data- including managing NA's. There isn't a single approach that will always work so you need to be careful about using replacements strategies across an entire data set. And, as the data sets become larger NA's can become trickier to deal with.  
+When working with "wild" data, dealing with NA's is a fundamental part of the data cleaning process. Data scientists spend most of their time cleaning and transforming data- including managing NA's. There isn't a single approach that will always work so you need to be careful about using replacement strategies across an entire data set. And, as the data sets become larger NA's can become trickier to deal with.  
 
 For the following, we will use life history data for mammals. The [data](http://esapubs.org/archive/ecol/E084/093/) are from:  
 **S. K. Morgan Ernest. 2003. Life history characteristics of placental non-volant mammals. Ecology 84:3402.**  
@@ -59,13 +56,14 @@ glimpse(life_history)
 summary(life_history)
 ```
 
+Here is a new on for you using the `purrr` package. This will give you a quick summary of the number of NA's in each variable.
 ```{r}
 life_history %>% 
   purrr::map_df(~ sum(is.na(.)))
 ```
 
-
-3. Can we use a single approach to deal with NA's in this data set? Given what you learned in the previous lab, how would you manage the NA values?
+## Practice
+1. Can we use a single approach to deal with NA's in this data set? Given what you learned in the previous lab, how would you manage the NA values?
 ```{r}
 life_history <- 
   life_history %>% 
