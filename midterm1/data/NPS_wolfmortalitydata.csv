@@ -1,0 +1,865 @@
+﻿park,biolyr,pack,packcode,packsizeAug,mortYN,mortALL,mortLEAD,mortNONLEAD,reprody1,persisty1
+DENA,1996,McKinley River1,89,12,1,4,2,2,0,0
+DENA,1991,Birch Creek N,58,5,1,2,2,0,0,0
+DENA,2017,Eagle Gorge,71,8,1,2,0,2,NULL,1
+DENA,1996,East Fork,72,13,1,2,0,2,1,1
+DENA,1992,Foraker,74,7,1,2,0,2,NULL,1
+DENA,1994,Headquarters,77,6,1,2,0,2,0,1
+DENA,2007,Pinto,101,10,1,2,1,1,0,0
+DENA,2007,Savage,108,NULL,1,2,2,0,1,1
+DENA,1995,Savage1,109,9,1,2,1,1,0,0
+DENA,2003,100 Mile,53,8,1,1,1,0,1,1
+DENA,2003,Castle Rocks2,63,7,1,1,1,0,0,0
+DENA,2007,Chitsia,66,11,1,1,0,1,1,1
+DENA,2003,Death Valley,70,0,1,1,0,1,0,0
+DENA,1988,East Fork,72,19,1,1,0,1,1,1
+DENA,1992,East Fork,72,15,1,1,1,0,1,1
+DENA,2004,East Fork,72,12,1,1,1,0,1,1
+DENA,2005,East Fork,72,14,1,1,1,0,1,1
+DENA,2006,East Fork,72,15,1,1,0,1,1,1
+DENA,2010,East Fork,72,11,1,1,0,1,1,1
+DENA,2014,East Fork,72,17,1,1,0,1,0,1
+DENA,2015,East Fork,72,4,1,1,0,1,1,1
+DENA,2016,East Fork,72,3,1,1,1,0,0,0
+DENA,1988,Ewe Creek,73,5,1,1,0,1,0,1
+DENA,2007,Grant Creek,75,5,1,1,0,1,1,1
+DENA,2012,Grant Creek,75,5,1,1,0,1,1,1
+DENA,2013,Grant Creek,75,7,1,1,0,1,1,1
+DENA,2008,Hot Slough,80,8,1,1,0,1,1,1
+DENA,2017,Iron Creek West,83,2,1,1,0,1,NULL,1
+DENA,2014,John Hansen,85,7,1,1,1,0,0,1
+DENA,2006,Kantishna River,86,1,1,1,0,1,0,1
+DENA,1992,McKinley River1,89,7,1,1,1,0,1,1
+DENA,2007,McLeod2,93,6,1,1,0,1,0,0
+DENA,2003,Mt Margaret,95,12,1,1,0,1,1,1
+DENA,2008,Mt Margaret,95,2,1,1,1,0,1,1
+DENA,2009,Mt Margaret,95,5,1,1,0,1,0,0
+DENA,2003,Muddy River,96,3,1,1,0,1,0,0
+DENA,2016,Myrtle,97,5,1,1,1,0,0,0
+DENA,2013,Nenana River,98,9,1,1,1,0,1,1
+DENA,1997,Pinto Creek,102,NULL,1,1,0,1,1,1
+DENA,1999,Pinto Creek,102,14,1,1,0,1,1,1
+DENA,2017,Riley Creek,104,17,1,1,0,1,NULL,1
+DENA,1994,Savage1,109,9,1,1,1,0,1,1
+DENA,2007,Somber,111,11,1,1,0,1,1,1
+DENA,1990,Stampede,112,3,1,1,0,1,1,1
+DENA,1991,Stampede,112,2,1,1,1,0,1,1
+DENA,2006,Starr Lake,113,3,1,1,1,0,1,1
+DENA,2003,Straightaway,115,11,1,1,1,0,0,1
+DENA,2009,Tonzona,116,1,1,1,0,1,0,0
+DENA,2000,East Fork,72,10,1,1,0,1,1,1
+DENA,2007,Hauke Creek,76,4,1,1,1,0,1,1
+DENA,1993,Headquarters,77,9,1,1,1,0,1,1
+DENA,1994,Little Bear,87,8,1,1,0,1,0,1
+DENA,2000,Sanctuary,106,9,1,1,1,0,0,0
+DENA,1997,100 Mile,53,7,0,0,0,0,1,1
+DENA,1998,100 Mile,53,11,0,0,0,0,1,1
+DENA,1999,100 Mile,53,12,0,0,0,0,1,1
+DENA,2000,100 Mile,53,23,0,0,0,0,1,1
+DENA,2001,100 Mile,53,8,0,0,0,0,1,1
+DENA,2002,100 Mile,53,14,0,0,0,0,1,1
+DENA,2004,100 Mile,53,3,0,0,0,0,0,0
+DENA,2004,Bearpaw,54,5,0,0,0,0,1,1
+DENA,2005,Bearpaw,54,6,0,0,0,0,1,1
+DENA,2006,Bearpaw,54,10,0,0,0,0,1,1
+DENA,2007,Bearpaw,54,10,0,0,0,0,1,1
+DENA,2008,Bearpaw,54,5,0,0,0,0,0,1
+DENA,2009,Bearpaw,54,2,0,0,0,0,1,1
+DENA,2010,Bearpaw,54,6,0,0,0,0,1,1
+DENA,2011,Bearpaw,54,6,0,0,0,0,1,1
+DENA,2012,Bearpaw,54,8,0,0,0,0,1,1
+DENA,2013,Bearpaw,54,1,0,0,0,0,0,1
+DENA,2014,Bearpaw,54,2,0,0,0,0,1,1
+DENA,2015,Bearpaw,54,8,0,0,0,0,1,1
+DENA,2016,Bearpaw,54,16,0,0,0,0,1,1
+DENA,2017,Bearpaw,54,17,0,0,0,0,,1
+DENA,1987,Bearpaw1,55,10,0,0,0,0,0,0
+DENA,1996,Beaver Fork,56,9,0,0,0,0,1,1
+DENA,1997,Beaver Fork,56,6,0,0,0,0,1,1
+DENA,1998,Beaver Fork,56,3,0,0,0,0,0,1
+DENA,1999,Beaver Fork,56,3,0,0,0,0,0,0
+DENA,1987,Birch Creek,57,11,0,0,0,0,1,1
+DENA,1988,Birch Creek,57,23,0,0,0,0,1,1
+DENA,1989,Birch Creek,57,15,0,0,0,0,1,1
+DENA,1999,Birch Hills,59,4,0,0,0,0,0,0
+DENA,2000,Birch Hills,59,0,0,0,0,0,NULL,NULL
+DENA,2008,Boot Lake,60,2,0,0,0,0,0,1
+DENA,2009,Boot Lake,60,3,0,0,0,0,1,1
+DENA,2001,Brooker,61,3,0,0,0,0,0,1
+DENA,2002,Brooker,61,2,0,0,0,0,0,1
+DENA,1997,Caribou Creek,62,4,0,0,0,0,0,0
+DENA,2004,Castle Rocks2,63,1,0,0,0,0,0,NULL
+DENA,2006,Castle Rocks3,64,6,0,0,0,0,1,1
+DENA,2007,Castle Rocks3,64,7,0,0,0,0,1,1
+DENA,2008,Castle Rocks3,64,2,0,0,0,0,0,0
+DENA,1991,Chilchukabena,65,6,0,0,0,0,1,1
+DENA,2004,Chitsia,66,4,0,0,0,0,1,1
+DENA,2005,Chitsia,66,8,0,0,0,0,1,1
+DENA,2006,Chitsia,66,11,0,0,0,0,1,1
+DENA,2008,Chitsia,66,7,0,0,0,0,0,0
+DENA,1989,Chitsia Mountain,67,4,0,0,0,0,1,1
+DENA,1990,Chitsia Mountain,67,8,0,0,0,0,1,1
+DENA,1991,Chitsia Mountain,67,12,0,0,0,0,1,1
+DENA,1992,Chitsia Mountain,67,9,0,0,0,0,1,1
+DENA,1993,Chitsia Mountain,67,8,0,0,0,0,0,1
+DENA,1994,Chitsia Mountain,67,4,0,0,0,0,0,0
+DENA,1986,Clearwater,68,6,0,0,0,0,1,1
+DENA,1987,Clearwater,68,6,0,0,0,0,0,1
+DENA,1988,Clearwater,68,4,0,0,0,0,1,1
+DENA,1989,Clearwater,68,8,0,0,0,0,0,0
+DENA,1995,Corner Lake,69,4,0,0,0,0,1,1
+DENA,1996,Corner Lake,69,7,0,0,0,0,1,1
+DENA,1997,Corner Lake,69,4,0,0,0,0,1,1
+DENA,1998,Corner Lake,69,1,0,0,0,0,0,0
+DENA,2000,Death Valley,70,2,0,0,0,0,0,1
+DENA,2001,Death Valley,70,3,0,0,0,0,0,1
+DENA,2002,Death Valley,70,2,0,0,0,0,1,1
+DENA,2016,Eagle Gorge,71,5,0,0,0,0,1,1
+DENA,1986,East Fork,72,9,0,0,0,0,1,1
+DENA,1987,East Fork,72,8,0,0,0,0,1,1
+DENA,1989,East Fork,72,27,0,0,0,0,1,1
+DENA,1990,East Fork,72,33,0,0,0,0,1,1
+DENA,1991,East Fork,72,16,0,0,0,0,1,1
+DENA,1993,East Fork,72,9,0,0,0,0,1,1
+DENA,1994,East Fork,72,9,0,0,0,0,1,1
+DENA,1995,East Fork,72,14,0,0,0,0,1,1
+DENA,1997,East Fork,72,7,0,0,0,0,1,1
+DENA,1998,East Fork,72,7,0,0,0,0,1,1
+DENA,1999,East Fork,72,9,0,0,0,0,1,1
+DENA,2001,East Fork,72,10,0,0,0,0,1,1
+DENA,2002,East Fork,72,4,0,0,0,0,1,1
+DENA,2003,East Fork,72,8,0,0,0,0,1,1
+DENA,2007,East Fork,72,15,0,0,0,0,1,1
+DENA,2008,East Fork,72,16,0,0,0,0,1,1
+DENA,2009,East Fork,72,12,0,0,0,0,1,1
+DENA,2011,East Fork,72,10,0,0,0,0,1,1
+DENA,2012,East Fork,72,13,0,0,0,0,1,1
+DENA,2013,East Fork,72,20,0,0,0,0,1,1
+DENA,1987,Ewe Creek,73,8,0,0,0,0,1,1
+DENA,1989,Foraker,4,7,0,0,0,0,1,1
+DENA,1990,Foraker,74,9,0,0,0,0,1,1
+DENA,1991,Foraker,74,8,0,0,0,0,1,1
+DENA,1993,Foraker,74,NULL,0,0,0,0,1,1
+DENA,1994,Foraker,74,6,0,0,0,0,1,1
+DENA,1995,Foraker,74,12,0,0,0,0,1,1
+DENA,1996,Foraker,74,NULL,0,0,0,0,1,1
+DENA,1997,Foraker,74,8,0,0,0,0,1,1
+DENA,1998,Foraker,74,8,0,0,0,0,1,1
+DENA,1999,Foraker,74,8,0,0,0,0,1,1
+DENA,2000,Foraker,74,9,0,0,0,0,1,1
+DENA,2001,Foraker,74,1,0,0,0,0,0,0
+DENA,2002,Grant Creek,75,2,0,0,0,0,0,1
+DENA,2003,Grant Creek,75,2,0,0,0,0,1,1
+DENA,2004,Grant Creek,75,5,0,0,0,0,1,1
+DENA,2005,Grant Creek,75,6,0,0,0,0,1,1
+DENA,2006,Grant Creek,75,13,0,0,0,0,1,1
+DENA,2008,Grant Creek,75,6,0,0,0,0,1,1
+DENA,2009,Grant Creek,75,14,0,0,0,0,1,1
+DENA,2010,Grant Creek,75,16,0,0,0,0,1,1
+DENA,2011,Grant Creek,75,13,0,0,0,0,1,1
+DENA,2014,Grant Creek,75,4,0,0,0,0,1,1
+DENA,2015,Grant Creek,75,6,0,0,0,0,1,1
+DENA,2016,Grant Creek,75,12,0,0,0,0,0,1
+DENA,2017,Grant Creek,75,5,0,0,0,0,NULL,NULL
+DENA,2008,Hauke Creek,76,0,0,0,0,0,0,0
+DENA,1986,Headquarters,77,2,0,0,0,0,0,1
+DENA,1987,Headquarters,77,2,0,0,0,0,1,1
+DENA,1988,Headquarters,77,7,0,0,0,0,1,1
+DENA,1989,Headquarters,77,14,0,0,0,0,1,1
+DENA,1990,Headquarters,77,11,0,0,0,0,1,1
+DENA,1991,Headquarters,77,10,0,0,0,0,1,1
+DENA,1992,Headquarters,77,5,0,0,0,0,1,1
+DENA,2002,Herron,78,10,0,0,0,0,0,1
+DENA,2003,Herron,78,7,0,0,0,0,0,1
+DENA,2004,Herron,78,8,0,0,0,0,0,0
+DENA,1988,Highpower,79,8,0,0,0,0,1,1
+DENA,1989,Highpower,79,10,0,0,0,0,1,1
+DENA,1990,Highpower,79,12,0,0,0,0,1,1
+DENA,1991,Highpower,79,11,0,0,0,0,1,1
+DENA,2007,Hot Slough,80,7,0,0,0,0,1,1
+DENA,2009,Hot Slough,80,7,0,0,0,0,0,1
+DENA,2010,Hot Slough,80,3,0,0,0,0,1,1
+DENA,2011,Hot Slough,80,10,0,0,0,0,1,1
+DENA,2012,Hot Slough,80,3,0,0,0,0,0,1
+DENA,2013,Hot Slough,80,3,0,0,0,0,0,1
+DENA,2014,Hot Slough,80,3,0,0,0,0,1,1
+DENA,2015,Hot Slough,80,0,0,0,0,0,0,0
+DENA,2010,Iron Creek,81,9,0,0,0,0,0,1
+DENA,2011,Iron Creek,81,8,0,0,0,0,0,0
+DENA,2013,Iron Creek East,82,5,0,0,0,0,1,1
+DENA,2014,Iron Creek East,82,2,0,0,0,0,0,0
+DENA,2013,Iron Creek West,83,6,0,0,0,0,1,1
+DENA,2014,Iron Creek West,83,6,0,0,0,0,1,1
+DENA,2015,Iron Creek West,83,15,0,0,0,0,1,1
+DENA,2016,Iron Creek West,83,10,0,0,0,0,0,1
+DENA,1993,Jenny Creek,84,6,0,0,0,0,1,1
+DENA,2013,John Hansen,85,8,0,0,0,0,1,1
+DENA,2015,John Hansen,85,3,0,0,0,0,1,1
+DENA,2016,John Hansen,85,8,0,0,0,0,1,1
+DENA,2017,John Hansen,85,15,0,0,0,0,NULL,1
+DENA,2000,Kantishna River,86,6,0,0,0,0,1,1
+DENA,2001,Kantishna River,86,6,0,0,0,0,0,1
+DENA,2002,Kantishna River,86,5,0,0,0,0,1,1
+DENA,2003,Kantishna River,86,8,0,0,0,0,0,1
+DENA,2004,Kantishna River,86,2,0,0,0,0,1,1
+DENA,2005,Kantishna River,86,7,0,0,0,0,0,1
+DENA,2007,Kantishna River,86,1,0,0,0,0,1,1
+DENA,2008,Kantishna River,86,5,0,0,0,0,1,1
+DENA,2009,Kantishna River,86,6,0,0,0,0,1,1
+DENA,2010,Kantishna River,86,8,0,0,0,0,0,NULL
+DENA,1988,Little Bear,87,7,0,0,0,0,1,1
+DENA,1989,Little Bear,87,12,0,0,0,0,NULL,1
+DENA,1991,Little Bear,87,23,0,0,0,0,1,1
+DENA,1992,Little Bear,87,12,0,0,0,0,1,1
+DENA,1993,Little Bear,87,12,0,0,0,0,1,1
+DENA,1995,Little Bear,87,0,0,0,0,0,0,0
+DENA,2004,McKinley River,88,6,0,0,0,0,1,1
+DENA,2005,McKinley River,88,2,0,0,0,0,1,1
+DENA,2006,McKinley River,88,6,0,0,0,0,1,1
+DENA,2007,McKinley River,88,10,0,0,0,0,1,0
+DENA,1990,McKinley River1,89,8,0,0,0,0,1,1
+DENA,1991,McKinley River1,89,9,0,0,0,0,1,1
+DENA,1993,McKinley River1,89,3,0,0,0,0,NULL,1
+DENA,1999,McKinley Slough,90,2,0,0,0,0,1,1
+DENA,2000,McKinley Slough,90,3,0,0,0,0,0,1
+DENA,2001,McKinley Slough,90,2,0,0,0,0,1,1
+DENA,2002,McKinley Slough,90,7,0,0,0,0,1,1
+DENA,2003,McKinley Slough,90,8,0,0,0,0,1,1
+DENA,2004,McKinley Slough,90,8,0,0,0,0,1,1
+DENA,2005,McKinley Slough,90,10,0,0,0,0,1,1
+DENA,2006,McKinley Slough,90,8,0,0,0,0,1,1
+DENA,2007,McKinley Slough,90,15,0,0,0,0,1,1
+DENA,2009,McKinley Slough,90,15,0,0,0,0,1,1
+DENA,2010,McKinley Slough,90,19,0,0,0,0,1,1
+DENA,2011,McKinley Slough,90,15,0,0,0,0,1,1
+DENA,2012,McKinley Slough,90,5,0,0,0,0,0,1
+DENA,2013,McKinley Slough,90,4,0,0,0,0,0,1
+DENA,2014,McKinley Slough,90,2,0,0,0,0,0,1
+DENA,2015,McKinley Slough,90,2,0,0,0,0,0,1
+DENA,2016,McKinley Slough,90,2,0,0,0,0,0,0
+DENA,1987,McLeod,91,7,0,0,0,0,1,1
+DENA,1988,McLeod,91,12,0,0,0,0,1,1
+DENA,1989,McLeod,91,12,0,0,0,0,1,1
+DENA,1990,McLeod,91,20,0,0,0,0,1,1
+DENA,1991,McLeod,91,13,0,0,0,0,1,1
+DENA,1992,McLeod,91,13,0,0,0,0,1,1
+DENA,1993,McLeod,91,15,0,0,0,0,1,1
+DENA,1994,McLeod,91,10,0,0,0,0,0,1
+DENA,1995,McLeod,91,7,0,0,0,0,1,1
+DENA,1996,McLeod,91,13,0,0,0,0,1,1
+DENA,1997,McLeod,91,6,0,0,0,0,0,0
+DENA,1991,McLeod West,92,11,0,0,0,0,1,1
+DENA,2009,Moose Creek,94,2,0,0,0,0,1,1
+DENA,2010,Moose Creek,94,0,0,0,0,0,0,0
+DENA,2000,Mt Margaret,95,3,0,0,0,0,1,1
+DENA,2001,Mt Margaret,95,6,0,0,0,0,1,1
+DENA,2002,Mt Margaret,95,10,0,0,0,0,1,1
+DENA,2004,Mt Margaret,95,7,0,0,0,0,1,1
+DENA,2005,Mt Margaret,95,10,0,0,0,0,1,1
+DENA,2006,Mt Margaret,95,11,0,0,0,0,1,1
+DENA,2007,Mt Margaret,95,7,0,0,0,0,1,1
+DENA,2000,Muddy River,96,2,0,0,0,0,0,1
+DENA,2001,Muddy River,96,4,0,0,0,0,NULL,1
+DENA,2002,Muddy River,96,2,0,0,0,0,NULL,1
+DENA,2015,Myrtle,97,6,0,0,0,0,1,1
+DENA,2009,Nenana River,98,6,0,0,0,0,1,1
+DENA,2010,Nenana River,98,5,0,0,0,0,1,1
+DENA,2011,Nenana River,98,7,0,0,0,0,1,1
+DENA,2012,Nenana River,98,8,0,0,0,0,0,1
+DENA,2014,Nenana River,98,14,0,0,0,0,1,1
+DENA,1999,North Fork,99,5,0,0,0,0,0,1
+DENA,2000,North Fork,99,4,0,0,0,0,1,1
+DENA,2001,North Fork,99,5,0,0,0,0,0,0
+DENA,1998,Otter Creek,100,7,0,0,0,0,1,1
+DENA,1999,Otter Creek,100,6,0,0,0,0,1,1
+DENA,2009,Otter Lake,100,2,0,0,0,0,1,1
+DENA,2006,Pinto,101,5,0,0,0,0,1,1
+DENA,1998,Pinto Creek,102,8,0,0,0,0,1,1
+DENA,2000,Pinto Creek,102,17,0,0,0,0,1,1
+DENA,2001,Pinto Creek,102,17,0,0,0,0,1,1
+DENA,2002,Pinto Creek,102,10,0,0,0,0,1,1
+DENA,1988,Pirate Creek,103,9,0,0,0,0,0,0
+DENA,2014,Riley Creek,104,6,0,0,0,0,1,1
+DENA,2015,Riley Creek,104,9,0,0,0,0,1,1
+DENA,2016,Riley Creek,104,14,0,0,0,0,1,1
+DENA,2018,Riley Creek West,105,2,0,0,0,0,NULL,1
+DENA,1995,Sanctuary,106,5,0,0,0,0,1,1
+DENA,1996,Sanctuary,106,10,0,0,0,0,1,1
+DENA,1997,Sanctuary,106,15,0,0,0,0,1,1
+DENA,1998,Sanctuary,106,3,0,0,0,0,1,1
+DENA,1999,Sanctuary,106,6,0,0,0,0,1,1
+DENA,1997,Sandless Lake,107,6,0,0,0,0,0,1
+DENA,2008,Savage,108,6,0,0,0,0,0,0
+DENA,1993,Savage1,109,8,0,0,0,0,1,1
+DENA,1991,Slippery Creek,110,5,0,0,0,0,1,1
+DENA,1992,Slippery Creek,110,1,0,0,0,0,0,0
+DENA,2008,Somber,111,8,0,0,0,0,0,1
+DENA,2009,Somber,111,2,0,0,0,0,1,1
+DENA,2010,Somber,111,6,0,0,0,0,NULL,1
+DENA,2012,Somber,111,6,0,0,0,0,0,1
+DENA,2013,Somber,111,5,0,0,0,0,0,1
+DENA,2014,Somber,111,2,0,0,0,0,0,1
+DENA,2015,Somber,111,5,0,0,0,0,1,1
+DENA,1988,Stampede,112,7,0,0,0,0,1,1
+DENA,1989,Stampede,112,10,0,0,0,0,0,1
+DENA,1992,Stampede,112,2,0,0,0,0,1,1
+DENA,1993,Stampede,112,3,0,0,0,0,1,1
+DENA,1994,Stampede,112,7,0,0,0,0,1,1
+DENA,1995,Stampede,112,8,0,0,0,0,1,1
+DENA,1997,Stampede,112,2,0,0,0,0,1,1
+DENA,1998,Stampede,112,6,0,0,0,0,1,1
+DENA,1999,Stampede,112,3,0,0,0,0,1,1
+DENA,2000,Stampede,112,2,0,0,0,0,1,1
+DENA,2001,Stampede,112,2,0,0,0,0,0,0
+DENA,2001,Starr Lake,113,2,0,0,0,0,0,1
+DENA,2002,Starr Lake,113,2,0,0,0,0,1,1
+DENA,2003,Starr Lake,113,10,0,0,0,0,1,1
+DENA,2004,Starr Lake,113,7,0,0,0,0,1,1
+DENA,2005,Starr Lake,113,9,0,0,0,0,0,1
+DENA,2007,Starr Lake,113,6,0,0,0,0,1,1
+DENA,2008,Starr Lake,113,3,0,0,0,0,1,1
+DENA,2009,Starr Lake,113,6,0,0,0,0,1,1
+DENA,2010,Starr Lake,113,3,0,0,0,0,0,0
+DENA,1995,Stony,114,2,0,0,0,0,1,1
+DENA,1996,Stony,114,6,0,0,0,0,1,1
+DENA,1997,Stony,114,7,0,0,0,0,0,1
+DENA,1998,Stony,114,3,0,0,0,0,1,1
+DENA,1999,Stony,114,3,0,0,0,0,0,0
+DENA,2000,Straightaway,115,10,0,0,0,0,0,1
+DENA,2001,Straightaway,115,9,0,0,0,0,1,1
+DENA,2002,Straightaway,115,12,0,0,0,0,1,1
+DENA,2004,Straightaway,115,4,0,0,0,0,NULL,1
+DENA,2005,Turtle Hill ,117,3,0,0,0,0,0,1
+DENA,2006,Turtle Hill ,117,3,0,0,0,0,1,1
+DENA,1992,Turtle Hill1,118,8,0,0,0,0,1,1
+DENA,1993,Turtle Hill1,118,7,0,0,0,0,NULL,1
+DENA,1996,White Creek,119,5,0,0,0,0,0,1
+DENA,1997,White Creek,119,3,0,0,0,0,1,1
+DENA,1998,White Creek,119,4,0,0,0,0,1,1
+DENA,1999,White Creek,119,2,0,0,0,0,1,1
+DENA,1987,Windy Creek,120,8,0,0,0,0,1,1
+DENA,1988,Windy Creek,120,5,0,0,0,0,1,1
+GNTP,2010,Buffalo,158,16.8,1,2,0,2,0,0
+GNTP,2012,Phantom Springs,165,9.6,1,4,1,3,1,1
+GNTP,2014,Phantom Springs,165,6,1,2,NULL,NULL,0,1
+GNTP,2017,Phantom Springs,165,2.4,1,2,1,1,0,0
+GNTP,2008,Antelope,157,9.6,1,1,NULL,NULL,1,1
+GNTP,2006,Buffalo,158,15.6,1,1,NULL,NULL,1,1
+GNTP,2008,Buffalo,158,10.8,1,1,NULL,NULL,1,1
+GNTP,2009,Buffalo,158,26.4,1,1,NULL,NULL,0,1
+GNTP,2005,Flat Creek,159,9.6,1,1,0,1,0,0
+GNTP,2019,Huckleberry,161,20.4,1,4,1,3,0,0
+GNTP,2016,Lower Gros Ventre,162,8.4,1,1,1,0,0,1
+GNTP,2018,Lower Gros Ventre,162,9.6,1,3,2,NULL,1,1
+GNTP,2020,Lower Gros Ventre,162,12,1,1,NULL,NULL,1,1
+GNTP,2010,Phantom Springs,165,10.8,1,1,1,0,1,1
+GNTP,2011,Phantom Springs,165,15.6,1,1,0,1,1,1
+GNTP,2015,Phantom Springs,165,3.6,1,1,0,1,1,1
+GNTP,2012,Pinnacle Peak,166,12,1,1,0,1,1,1
+GNTP,2016,Pinnacle Peak,166,15.6,1,2,1,NULL,1,1
+GNTP,2017,Pinnacle Peak,166,12,1,1,1,0,1,1
+GNTP,2019,Pinnacle Peak,166,12,1,2,NULL,NULL,1,0
+GNTP,1999,Teton,167,7.2,1,1,1,0,0,1
+GNTP,2000,Teton,167,4.8,1,1,1,0,1,1
+GNTP,2003,Teton,167,14.4,1,2,0,2,1,1
+GNTP,2004,Teton,167,15.6,1,1,0,1,1,1
+GNTP,2009,Antelope,157,9.6,0,0,0,0,0,1
+GNTP,2010,Antelope,157,4.8,0,0,0,0,0,0
+GNTP,2007,Buffalo,158,18,0,0,0,0,1,1
+GNTP,2019,Horsetail Creek (Murie),160,3.6,0,0,0,0,1,1
+GNTP,2020,Horsetail Creek (Murie),160,4.8,0,0,0,0,1,1
+GNTP,2006,Huckleberry,161,8.4,0,0,0,0,1,1
+GNTP,2007,Huckleberry,161,8.4,0,0,0,0,NULL,1
+GNTP,2008,Huckleberry,161,4.8,0,0,0,0,NULL,1
+GNTP,2009,Huckleberry,161,7.2,0,0,0,0,NULL,1
+GNTP,2010,Huckleberry,161,10.8,0,0,0,0,1,1
+GNTP,2011,Huckleberry,161,6,0,0,0,0,1,1
+GNTP,2012,Huckleberry,161,7.2,0,0,0,0,1,1
+GNTP,2013,Huckleberry,161,13.2,0,0,0,0,0,1
+GNTP,2014,Huckleberry,161,3.6,0,0,0,0,1,1
+GNTP,2015,Huckleberry,161,12,0,0,0,0,1,1
+GNTP,2016,Huckleberry,161,15.6,0,0,0,0,0,1
+GNTP,2017,Huckleberry,161,8.4,0,0,0,0,1,1
+GNTP,2018,Huckleberry,161,12,0,0,0,0,1,1
+GNTP,2011,Lower Gros Ventre,162,3.6,0,0,0,0,1,1
+GNTP,2012,Lower Gros Ventre,162,6,0,0,0,0,0,1
+GNTP,2013,Lower Gros Ventre,162,2.4,0,0,0,0,1,1
+GNTP,2014,Lower Gros Ventre,162,4.8,0,0,0,0,1,1
+GNTP,2015,Lower Gros Ventre,162,6,0,0,0,0,1,1
+GNTP,2017,Lower Gros Ventre,162,6,0,0,0,0,1,1
+GNTP,2019,Lower Gros Ventre,162,14.4,0,0,0,0,1,1
+GNTP,2012,Lower Slide Lake (781M Group),163,2.4,0,0,0,0,0,1
+GNTP,2013,Lower Slide Lake (781M Group),163,2.4,0,0,0,0,0,1
+GNTP,2014,Lower Slide Lake (781M Group),163,2.4,0,0,0,0,0,1
+GNTP,2005,Pacific Creek,164,13.2,0,0,0,0,1,1
+GNTP,2006,Pacific Creek,164,10.8,0,0,0,0,1,1
+GNTP,2007,Pacific Creek,164,15.6,0,0,0,0,1,1
+GNTP,2008,Pacific Creek,164,15.6,0,0,0,0,1,1
+GNTP,2009,Pacific Creek,164,16.8,0,0,0,0,1,1
+GNTP,2010,Pacific Creek,164,14.4,0,0,0,0,1,1
+GNTP,2008,Phantom Springs,165,10.8,0,0,0,0,1,1
+GNTP,2009,Phantom Springs,165,10.8,0,0,0,0,1,1
+GNTP,2013,Phantom Springs,165,13.2,0,0,0,0,0,1
+GNTP,2016,Phantom Springs,165,4.8,0,0,0,0,0,1
+GNTP,2007,Pinnacle Peak,166,2.4,0,0,0,0,1,1
+GNTP,2008,Pinnacle Peak,166,12,0,0,0,0,1,1
+GNTP,2009,Pinnacle Peak,166,16.8,0,0,0,0,1,1
+GNTP,2010,Pinnacle Peak,166,13.2,0,0,0,0,1,1
+GNTP,2011,Pinnacle Peak,166,16.8,0,0,0,0,1,1
+GNTP,2013,Pinnacle Peak,166,14.4,0,0,0,0,1,1
+GNTP,2014,Pinnacle Peak,166,14.4,0,0,0,0,1,1
+GNTP,2015,Pinnacle Peak,166,15.6,0,0,0,0,1,1
+GNTP,2018,Pinnacle Peak,166,9.6,0,0,0,0,1,1
+GNTP,1998,Teton,167,2.4,0,0,0,0,1,1
+GNTP,2001,Teton,167,14.4,0,0,0,0,1,1
+GNTP,2002,Teton,167,16.8,0,0,0,0,1,1
+GNTP,2005,Teton,167,13.2,0,0,0,0,0,1
+GNTP,2006,Teton,167,3.6,0,0,0,0,1,1
+GNTP,2020,Wildcat Ridge,168,NULL,0,0,0,0,1,1
+VNP,1987,tomcodbay,169,6,1,2,NULL,NULL,1,1
+VNP,1988,tomcodbay,169,6,1,1,NULL,NULL,NULL,1
+VNP,1988,cruiserlake,172,NULL,1,1,1,0,1,1
+VNP,2015,Moose River,187,NULL,1,1,NULL,1,NULL,1
+VNP,2016,Moose River,187,NULL,1,1,NULL,1,NULL,1
+VNP,2016,Sheep Ranch,191,NULL,1,1,NULL,1,NULL,1
+VNP,2017,Sheep Ranch,191,NULL,1,2,NULL,2,NULL,1
+VNP,2020,Bowman Bay,182,NULL,1,1,NULL,1,NULL,0
+VNP,2020,Fawn Creek,184,NULL,1,1,NULL,1,NULL,0
+VNP,1988,locatorlake,170,NULL,0,0,0,0,0,1
+VNP,1989,middlepeninsula,171,NULL,0,0,0,0,NULL,1
+VNP,1990,middlepeninsula,171,NULL,0,0,0,0,NULL,1
+VNP,1990,cruiserlake,172,5,0,0,0,0,NULL,1
+VNP,1990,mooserivergrade,173,NULL,0,0,0,0,NULL,1
+VNP,1988,brownsbay,174,NULL,0,0,0,0,1,1
+VNP,1990,brownsbay,174,NULL,0,0,0,0,NULL,1
+VNP,1989,nebraskabay,175,7,0,0,0,0,NULL,1
+VNP,1990,nebraskabay,175,NULL,0,0,0,0,NULL,1
+VNP,1988,bluemoose,176,3,0,0,0,0,NULL,1
+VNP,1989,ratroot,180,NULL,0,0,0,0,NULL,1
+VNP,2014,Ash River,181,NULL,0,0,0,0,NULL,1
+VNP,2015,Ash River,181,NULL,0,0,0,0,NULL,1
+VNP,2015,Bowman Bay,182,NULL,0,0,0,0,NULL,1
+VNP,2015,Sand Point,190,NULL,0,0,0,0,NULL,1
+VNP,2016,Ash River,181,NULL,0,0,0,0,NULL,1
+VNP,2016,Bowman Bay,182,NULL,0,0,0,0,NULL,1
+VNP,2016,Sand Point,190,NULL,0,0,0,0,NULL,1
+VNP,2017,Ash River,181,NULL,0,0,0,0,NULL,0
+VNP,2017,Bowman Bay,182,NULL,0,0,0,0,NULL,1
+VNP,2017,Lightfoot,186,NULL,0,0,0,0,NULL,1
+VNP,2017,Moose River,187,NULL,0,0,0,0,NULL,1
+VNP,2017,Sand Point,190,NULL,0,0,0,0,NULL,1
+VNP,2018,Bowman Bay,182,NULL,0,0,0,0,1,1
+VNP,2018,Fawn Creek,184,NULL,0,0,0,0,NULL,1
+VNP,2018,Lightfoot,186,NULL,0,0,0,0,1,1
+VNP,2018,Moose River,187,NULL,0,0,0,0,NULL,0
+VNP,2018,Sand Point,190,NULL,0,0,0,0,1,1
+VNP,2018,Sheep Ranch,191,NULL,0,0,0,0,NULL,1
+VNP,2019,Cranberry Bay,183,NULL,0,0,0,0,1,1
+VNP,2019,Nashata,188,NULL,0,0,0,0,0,1
+VNP,2019,Paradise,189,NULL,0,0,0,0,1,1
+VNP,2019,Sand Point,190,5,0,0,0,0,NULL,1
+VNP,2019,Shoepack Lake,192,7,0,0,0,0,NULL,1
+VNP,2020,Half-Moon,185,7,0,0,0,0,NULL,1
+VNP,2020,Nashata,188,NULL,0,0,0,0,NULL,1
+VNP,2020,Paradise,189,2,0,0,0,0,NULL,1
+VNP,2020,Sand Point,190,2,0,0,0,0,NULL,1
+VNP,2020,Windsong,193,NULL,0,0,0,0,NULL,1
+YNP,2009,cottonwood,23,12,1,4,1,3,0,0
+YNP,2016,8mile,11,20,1,3,0,3,1,1
+YNP,2017,canyon,20,2,1,3,3,0,0,0
+YNP,2012,junction,33,11,1,3,0,3,1,1
+YNP,2016,junction,33,15,1,3,0,3,1,1
+YNP,2011,642Fgroup,5,10,1,2,1,1,0,0
+YNP,2012,8mile,11,15,1,2,0,2,1,1
+YNP,2012,bechler,16,12,1,2,0,2,1,1
+YNP,2012,lamar,34,13,1,2,1,1,1,1
+YNP,2019,phantom,41,18,1,2,0,2,1,1
+YNP,2020,phantom,41,16,1,2,0,2,1,1
+YNP,2017,prospect,42,10,1,2,1,1,0,0
+YNP,2020,wapiti,51,23,1,2,0,2,1,1
+YNP,2018,1118Fgroup,2,5,1,1,0,1,0,0
+YNP,2020,1155Mgroup,3,3,1,1,1,0,0,0
+YNP,2014,8mile,11,27,1,1,0,1,1,1
+YNP,2017,963Fgroup,13,4,1,1,1,0,0,0
+YNP,2012,blacktail,18,10,1,1,0,1,0,1
+YNP,2014,cougar,24,18,1,1,1,0,1,1
+YNP,2017,cougar,24,7,1,1,0,1,1,1
+YNP,2014,junction,33,13,1,1,0,1,1,1
+YNP,2018,lamar,34,8,1,1,0,1,1,1
+YNP,2012,mollies,38,6,1,1,0,1,1,1
+YNP,2019,mollies,38,12,1,1,0,1,1,1
+YNP,2018,phantom,41,5,1,1,1,0,1,1
+YNP,2014,prospect,42,7,1,1,0,1,1,1
+YNP,2012,snake,46,4,1,1,1,0,1,1
+YNP,2017,snake,46,13,1,1,NULL,NULL,0,1
+YNP,2007,yelldelta,52,22,1,3,0,3,1,1
+YNP,1997,druid,26,5,1,2,1,1,1,1
+YNP,2019,junction,33,21,1,2,0,2,1,1
+YNP,2003,agate,15,13,1,1,0,1,1,1
+YNP,2009,blacktail,18,13,1,1,0,1,1,1
+YNP,2011,blacktail,18,16,1,1,0,1,1,1
+YNP,2013,canyon,20,10,1,1,0,1,0,1
+YNP,2015,cougar,24,7,1,1,1,0,1,1
+YNP,2000,druid,26,27,1,1,0,1,1,1
+YNP,2004,gibbon/mary,29,9,1,1,0,1,1,1
+YNP,2009,gibbon/mary,29,26,1,1,0,1,1,1
+YNP,2010,grayling,30,3,1,1,1,0,NULL,0
+YNP,2007,mollies,38,15,1,1,0,1,1,1
+YNP,2011,mollies,38,23,1,1,0,1,0,1
+YNP,2013,mollies,38,8,1,1,0,1,1,1
+YNP,1996,nezperce,39,9,1,1,0,1,1,1
+YNP,1997,nezperce,39,7,1,1,0,1,1,1
+YNP,2000,nezperce,39,22,1,1,0,1,1,1
+YNP,1995,rose,44,9,1,1,0,1,1,1
+YNP,1998,rose,44,23,1,1,0,1,1,1
+YNP,2007,slough,45,22,1,1,1,0,1,1
+YNP,2009,682Mgroup,6,NULL,0,0,0,0,NULL,1
+YNP,2010,682Mgroup,6,0,0,0,0,0,NULL,0
+YNP,2009,694Fgroup,8,0,0,0,0,0,0,0
+YNP,2013,755Mgroup,9,2,0,0,0,0,1,0
+YNP,2011,8mile,11,17,0,0,0,0,1,1
+YNP,2013,8mile,11,19,0,0,0,0,1,1
+YNP,2015,8mile,11,13,0,0,0,0,1,1
+YNP,2017,8mile,11,18,0,0,0,0,1,1
+YNP,2018,8mile,11,13,0,0,0,0,1,1
+YNP,2020,8mile,11,22,0,0,0,0,1,1
+YNP,2002,agate,15,10,0,0,0,0,1,1
+YNP,2004,agate,15,13,0,0,0,0,1,1
+YNP,2005,agate,15,14,0,0,0,0,1,1
+YNP,2006,agate,15,13,0,0,0,0,1,1
+YNP,2007,agate,15,20,0,0,0,0,1,1
+YNP,2008,agate,15,14,0,0,0,0,1,1
+YNP,2009,agate,15,4,0,0,0,0,1,1
+YNP,2010,agate,15,9,0,0,0,0,1,1
+YNP,2011,agate,15,13,0,0,0,0,1,1
+YNP,2012,agate,15,0,0,0,0,0,0,0
+YNP,2002,bechler,16,4,0,0,0,0,1,1
+YNP,2004,biscuit,17,11,0,0,0,0,0,1
+YNP,2008,blacktail,18,NULL,0,0,0,0,1,1
+YNP,2010,blacktail,18,17,0,0,0,0,1,1
+YNP,2002,buffalofork,19,4,0,0,0,0,1,1
+YNP,2003,buffalofork,19,3,0,0,0,0,0,0
+YNP,2008,canyon,20,6,0,0,0,0,1,1
+YNP,2009,canyon,20,4,0,0,0,0,1,1
+YNP,2010,canyon,20,6,0,0,0,0,1,1
+YNP,2011,canyon,20,8,0,0,0,0,1,1
+YNP,2012,canyon,20,9,0,0,0,0,1,1
+YNP,2014,canyon,20,5,0,0,0,0,1,1
+YNP,2015,canyon,20,6,0,0,0,0,1,1
+YNP,2016,canyon,20,6,0,0,0,0,1,1
+YNP,2021,carnelian,21,0,0,0,0,0,0,0
+YNP,2016,cinnabar,22,3,0,0,0,0,1,1
+YNP,2008,cottonwood,23,4,0,0,0,0,1,1
+YNP,2001,cougar,24,6,0,0,0,0,1,1
+YNP,2002,cougar,24,11,0,0,0,0,1,1
+YNP,2003,cougar,24,14,0,0,0,0,1,1
+YNP,2004,cougar,24,15,0,0,0,0,1,1
+YNP,2005,cougar,24,14,0,0,0,0,1,1
+YNP,2006,cougar,24,4,0,0,0,0,1,1
+YNP,2007,cougar,24,7,0,0,0,0,0,1
+YNP,2008,cougar,24,5,0,0,0,0,1,1
+YNP,2009,cougar,24,6,0,0,0,0,1,1
+YNP,2010,cougar,24,4,0,0,0,0,1,1
+YNP,2011,cougar,24,7,0,0,0,0,1,1
+YNP,2012,cougar,24,11,0,0,0,0,1,1
+YNP,2013,cougar,24,14,0,0,0,0,1,1
+YNP,2016,cougar,24,8,0,0,0,0,1,1
+YNP,2018,cougar,24,10,0,0,0,0,1,1
+YNP,2019,cougar,24,6,0,0,0,0,1,1
+YNP,2020,cougar,24,6,0,0,0,0,1,1
+YNP,2017,crevice,25,NULL,0,0,0,0,1,1
+YNP,1996,druid,26,5,0,0,0,0,1,1
+YNP,1998,druid,26,8,0,0,0,0,1,1
+YNP,1999,druid,26,9,0,0,0,0,1,1
+YNP,2001,druid,26,37,0,0,0,0,1,1
+YNP,2002,druid,26,16,0,0,0,0,1,1
+YNP,2003,druid,26,18,0,0,0,0,1,1
+YNP,2004,druid,26,13,0,0,0,0,1,1
+YNP,2005,druid,26,5,0,0,0,0,1,1
+YNP,2006,druid,26,15,0,0,0,0,1,1
+YNP,2007,druid,26,18,0,0,0,0,1,1
+YNP,2008,druid,26,21,0,0,0,0,1,1
+YNP,2009,druid,26,12,0,0,0,0,0,0
+YNP,2010,druid,26,0,0,0,0,0,0,NULL
+YNP,2008,everts,27,9,0,0,0,0,1,1
+YNP,2009,everts,27,12,0,0,0,0,0,0
+YNP,2002,geode/hell,28,9,0,0,0,0,1,1
+YNP,2003,geode/hell,28,9,0,0,0,0,1,1
+YNP,2004,geode/hell,28,12,0,0,0,0,1,1
+YNP,2005,geode/hell,28,7,0,0,0,0,1,1
+YNP,2003,gibbon/mary,29,NULL,0,0,0,0,1,1
+YNP,2005,gibbon/mary,29,10,0,0,0,0,1,1
+YNP,2006,gibbon/mary,29,12,0,0,0,0,1,1
+YNP,2007,gibbon/mary,29,18,0,0,0,0,1,1
+YNP,2008,gibbon/mary,29,25,0,0,0,0,1,1
+YNP,2010,gibbon/mary,29,8,0,0,0,0,1,1
+YNP,2011,gibbon/mary,29,11,0,0,0,0,1,1
+YNP,2012,gibbon/mary,29,0,0,0,0,0,0,0
+YNP,2009,grayling,30,6,0,0,0,0,NULL,1
+YNP,2004,hayden,31,4,0,0,0,0,1,1
+YNP,2005,hayden,31,5,0,0,0,0,1,1
+YNP,2006,hayden,31,7,0,0,0,0,1,1
+YNP,2007,hayden,31,9,0,0,0,0,NULL,0
+YNP,2019,heart,32,2,0,0,0,0,1,1
+YNP,2020,heart,32,7,0,0,0,0,1,1
+YNP,2015,junction,33,19,0,0,0,0,1,1
+YNP,2017,junction,33,8,0,0,0,0,1,1
+YNP,2018,junction,33,11,0,0,0,0,1,1
+YNP,2020,junction,33,35,0,0,0,0,1,1
+YNP,2010,lamar,34,7,0,0,0,0,1,1
+YNP,2011,lamar,34,11,0,0,0,0,1,1
+YNP,2014,lamar,34,8,0,0,0,0,1,1
+YNP,2015,lamar,34,12,0,0,0,0,1,1
+YNP,2016,lamar,34,4,0,0,0,0,1,1
+YNP,2017,lamar,34,3,0,0,0,0,1,1
+YNP,2008,lava,35,5,0,0,0,0,1,1
+YNP,2009,lava,35,3,0,0,0,0,1,1
+YNP,2010,lava,35,1,0,0,0,0,0,0
+YNP,1996,leopold,36,5,0,0,0,0,1,1
+YNP,1997,leopold,36,10,0,0,0,0,1,1
+YNP,1998,leopold,36,12,0,0,0,0,1,1
+YNP,1999,leopold,36,11,0,0,0,0,1,1
+YNP,2000,leopold,36,15,0,0,0,0,1,1
+YNP,2001,leopold,36,14,0,0,0,0,1,1
+YNP,2002,leopold,36,16,0,0,0,0,1,1
+YNP,2003,leopold,36,21,0,0,0,0,1,1
+YNP,2004,leopold,36,28,0,0,0,0,1,1
+YNP,2005,leopold,36,26,0,0,0,0,1,1
+YNP,2006,leopold,36,20,0,0,0,0,1,1
+YNP,2007,leopold,36,19,0,0,0,0,1,1
+YNP,2008,leopold,36,7,0,0,0,0,0,0
+YNP,1996,lonestar,37,0,0,0,0,0,0,0
+YNP,1995,mollies,38,5,0,0,0,0,1,1
+YNP,1996,mollies,38,2,0,0,0,0,1,1
+YNP,1997,mollies,38,8,0,0,0,0,1,1
+YNP,1998,mollies,38,16,0,0,0,0,1,1
+YNP,1999,mollies,38,15,0,0,0,0,0,1
+YNP,2000,mollies,38,5,0,0,0,0,1,1
+YNP,2001,mollies,38,10,0,0,0,0,1,1
+YNP,2002,mollies,38,13,0,0,0,0,1,1
+YNP,2003,mollies,38,8,0,0,0,0,1,1
+YNP,2004,mollies,38,9,0,0,0,0,0,1
+YNP,2005,mollies,38,7,0,0,0,0,1,1
+YNP,2006,mollies,38,11,0,0,0,0,1,1
+YNP,2008,mollies,38,15,0,0,0,0,1,1
+YNP,2009,mollies,38,17,0,0,0,0,1,1
+YNP,2010,mollies,38,17,0,0,0,0,1,1
+YNP,2014,mollies,38,12,0,0,0,0,1,1
+YNP,2015,mollies,38,17,0,0,0,0,1,1
+YNP,2016,mollies,38,18,0,0,0,0,1,1
+YNP,2017,mollies,38,15,0,0,0,0,1,1
+YNP,2018,mollies,38,10,0,0,0,0,1,1
+YNP,2020,mollies,38,8,0,0,0,0,1,1
+YNP,2006,nezperce,39,0,0,0,0,0,0,NULL
+YNP,1998,nezperce,39,7,0,0,0,0,1,1
+YNP,1999,nezperce,39,12,0,0,0,0,1,1
+YNP,2001,nezperce,39,19,0,0,0,0,1,1
+YNP,2002,nezperce,39,18,0,0,0,0,1,1
+YNP,2003,nezperce,39,18,0,0,0,0,1,1
+YNP,2004,nezperce,39,14,0,0,0,0,1,1
+YNP,2005,nezperce,39,11,0,0,0,0,0,0
+YNP,2006,oxbow,40,12,0,0,0,0,1,1
+YNP,2007,oxbow,40,24,0,0,0,0,1,1
+YNP,2008,oxbow,40,20,0,0,0,0,0,0
+YNP,2015,prospect,42,13,0,0,0,0,1,1
+YNP,2016,prospect,42,12,0,0,0,0,1,1
+YNP,2007,quadrant,43,NULL,0,0,0,0,1,1
+YNP,2008,quadrant,43,4,0,0,0,0,1,1
+YNP,2009,quadrant,43,7,0,0,0,0,1,1
+YNP,2010,quadrant,43,7,0,0,0,0,0,1
+YNP,1996,rose,44,11,0,0,0,0,1,1
+YNP,1997,rose,44,16,0,0,0,0,1,1
+YNP,1999,rose,44,22,0,0,0,0,1,1
+YNP,2000,rose,44,21,0,0,0,0,1,1
+YNP,2001,rose,44,10,0,0,0,0,1,1
+YNP,2002,rose,44,11,0,0,0,0,1,1
+YNP,2003,slough,45,10,0,0,0,0,1,1
+YNP,2004,slough,45,21,0,0,0,0,1,1
+YNP,2005,slough,45,15,0,0,0,0,1,1
+YNP,2006,slough,45,9,0,0,0,0,1,1
+YNP,2004,specimen/silver,47,5,0,0,0,0,NULL,1
+YNP,2010,specimen/silver,47,8,0,0,0,0,0,0
+YNP,2000,swan,48,7,0,0,0,0,1,1
+YNP,2001,swan,48,9,0,0,0,0,1,1
+YNP,2002,swan,48,18,0,0,0,0,1,1
+YNP,2003,swan,48,20,0,0,0,0,1,1
+YNP,2004,swan,48,10,0,0,0,0,1,1
+YNP,2005,swan,48,3,0,0,0,0,1,1
+YNP,1996,thorofare,49,2,0,0,0,0,1,1
+YNP,1997,thorofare,49,8,0,0,0,0,0,0
+YNP,1998,thorofare,49,0,0,0,0,0,NULL,NULL
+YNP,2001,tower,50,4,0,0,0,0,1,1
+YNP,2002,tower,50,2,0,0,0,0,0,0
+YNP,2014,wapiti,51,2,0,0,0,0,1,1
+YNP,2016,wapiti,51,9,0,0,0,0,1,1
+YNP,2017,wapiti,51,21,0,0,0,0,1,1
+YNP,2018,wapiti,51,18,0,0,0,0,1,1
+YNP,2019,wapiti,51,19,0,0,0,0,1,1
+YNP,1995,yelldelta,52,6,0,0,0,0,1,1
+YNP,1996,yelldelta,52,5,0,0,0,0,1,1
+YNP,1997,yelldelta,52,8,0,0,0,0,0,1
+YNP,1998,yelldelta,52,8,0,0,0,0,0,1
+YNP,1999,yelldelta,52,6,0,0,0,0,1,1
+YNP,2000,yelldelta,52,15,0,0,0,0,1,1
+YNP,2001,yelldelta,52,18,0,0,0,0,1,1
+YNP,2002,yelldelta,52,17,0,0,0,0,1,1
+YNP,2003,yelldelta,52,17,0,0,0,0,1,1
+YNP,2004,yelldelta,52,19,0,0,0,0,1,1
+YNP,2005,yelldelta,52,19,0,0,0,0,1,1
+YNP,2006,yelldelta,52,15,0,0,0,0,1,1
+YNP,2009,yelldelta,52,4,0,0,0,0,1,1
+YNP,2010,yelldelta,52,9,0,0,0,0,1,1
+YNP,2011,yelldelta,52,13,0,0,0,0,0,1
+YNP,2012,yelldelta,52,11,0,0,0,0,1,1
+YNP,2013,yelldelta,52,17,0,0,0,0,1,1
+YUCH,2000,70 Mile,121,NULL,1,4,0,4,1,1
+YUCH,2005,70 Mile,121,14,1,2,0,2,1,1
+YUCH,2008,70 Mile,121,9,1,2,0,2,1,1
+YUCH,2012,70 Mile,121,24,1,24,2,22,0,0
+YUCH,2008,Copper Mountain,124,7,1,5,2,3,0,1
+YUCH,2009,Copper Mountain,124,3,1,2,1,1,1,1
+YUCH,1994,Cottonwood,125,16,1,1,0,1,1,1
+YUCH,1996,Cottonwood,125,NULL,1,2,0,2,1,1
+YUCH,2000,Cottonwood,125,9,1,3,0,3,1,1
+YUCH,2005,Cottonwood,125,14,1,14,2,12,0,0
+YUCH,2006,Crescent Creek2,127,3,1,1,0,1,1,1
+YUCH,1996,Edwards Creek1,128,9,1,1,0,1,1,1
+YUCH,2001,Edwards Creek2,129,5,1,1,1,0,1,1
+YUCH,2007,Edwards Creek2,129,3,1,1,1,0,1,1
+YUCH,2004,Fisher Creek,130,6,1,1,0,1,0,1
+YUCH,1996,Flat Creek,131,2,1,1,1,0,0,0
+YUCH,1993,Fourth of July,132,3,1,2,2,0,0,0
+YUCH,2006,Hanna Creek,134,6,1,1,1,0,0,0
+YUCH,2002,Hard Luck Creek,135,0,1,5,1,4,0,0
+YUCH,2011,Lost Creek,137,13,1,8,0,8,1,1
+YUCH,2013,Lost Creek,137,11,1,12,3,9,0,0
+YUCH,2000,Lower Charley1,138,1,1,2,2,0,0,0
+YUCH,2010,Lower Charley2,139,10,1,2,0,2,1,1
+YUCH,2014,Sheep Bluff,144,NULL,1,12,0,12,0,0
+YUCH,2005,Step Mountain2,147,6,1,1,0,1,1,1
+YUCH,2012,Step Mountain2,147,6,1,1,1,0,1,1
+YUCH,1999,Three Finger,149,13,1,1,0,1,1,1
+YUCH,2000,Three Finger,149,12,1,1,1,0,1,1
+YUCH,1995,Washington Creek,152,4,1,2,2,0,0,0
+YUCH,2009,Webber Creek 2,153,NULL,1,4,0,4,0,0
+YUCH,2012,Woodchopper,155,10,1,4,1,3,0,0
+YUCH,2012,Yukon Fork,156,10,1,10,2,8,1,1
+YUCH,2013,Yukon Fork,156,2,1,2,0,2,0,1
+YUCH,1997,Three Finger,149,4,1,1,1,0,1,1
+YUCH,2001,70 Mile,121,9,0,0,0,0,1,1
+YUCH,2002,70 Mile,121,13,0,0,0,0,1,1
+YUCH,2003,70 Mile,121,12,0,0,0,0,1,1
+YUCH,2004,70 Mile,121,8,0,0,0,0,1,1
+YUCH,2006,70 Mile,121,11,0,0,0,0,1,1
+YUCH,2007,70 Mile,121,13,0,0,0,0,1,1
+YUCH,2009,70 Mile,121,12,0,0,0,0,1,1
+YUCH,2010,70 Mile,121,12,0,0,0,0,1,1
+YUCH,2011,70 Mile,121,18,0,0,0,0,1,1
+YUCH,2006,Andrew Creek Pair,122,2,0,0,0,0,0,0
+YUCH,2005,Birch Creek Pair,123,2,0,0,0,0,NULL,1
+YUCH,2006,Copper Mountain,124,5,0,0,0,0,1,1
+YUCH,2007,Copper Mountain,124,5,0,0,0,0,1,1
+YUCH,1993,Cottonwood,125,13,0,0,0,0,1,1
+YUCH,1995,Cottonwood,125,16,0,0,0,0,1,1
+YUCH,1997,Cottonwood,125,7,0,0,0,0,1,1
+YUCH,1998,Cottonwood,125,10,0,0,0,0,1,1
+YUCH,1999,Cottonwood,125,10,0,0,0,0,1,1
+YUCH,2001,Cottonwood,125,8,0,0,0,0,1,1
+YUCH,2002,Cottonwood,125,8,0,0,0,0,0,1
+YUCH,2003,Cottonwood,125,6,0,0,0,0,1,1
+YUCH,2004,Cottonwood,125,12,0,0,0,0,1,1
+YUCH,1993,Crescent Creek1 Pair,126,2,0,0,0,0,0,0
+YUCH,2007,Crescent Creek2,127,6,0,0,0,0,0,0
+YUCH,1995,Edwards Creek1,128,6,0,0,0,0,1,1
+YUCH,1997,Edwards Creek1,128,12,0,0,0,0,0,1
+YUCH,1998,Edwards Creek1,128,1,0,0,0,0,0,0
+YUCH,2002,Edwards Creek2,129,3,0,0,0,0,1,1
+YUCH,2003,Edwards Creek2,129,6,0,0,0,0,0,1
+YUCH,2004,Edwards Creek2,129,5,0,0,0,0,0,1
+YUCH,2005,Edwards Creek2,129,4,0,0,0,0,0,1
+YUCH,2006,Edwards Creek2,129,4,0,0,0,0,0,1
+YUCH,2008,Edwards Creek2,129,6,0,0,0,0,0,0
+YUCH,2000,Fisher Creek,130,11,0,0,0,0,1,1
+YUCH,2001,Fisher Creek,130,14,0,0,0,0,0,1
+YUCH,2002,Fisher Creek,130,2,0,0,0,0,1,1
+YUCH,2003,Fisher Creek,130,4,0,0,0,0,1,1
+YUCH,2005,Fisher Creek,130,2,0,0,0,0,0,0
+YUCH,1993,Flat Creek,131,2,0,0,0,0,0,1
+YUCH,1994,Flat Creek,131,2,0,0,0,0,1,1
+YUCH,1995,Flat Creek,131,5,0,0,0,0,1,1
+YUCH,1998,Godge Creek,133,2,0,0,0,0,1,1
+YUCH,1999,Godge Creek,133,7,0,0,0,0,1,1
+YUCH,2000,Godge Creek,133,8,0,0,0,0,1,1
+YUCH,2001,Godge Creek,133,7,0,0,0,0,1,1
+YUCH,2002,Godge Creek,133,11,0,0,0,0,0,1
+YUCH,1997,Hard Luck Creek,135,6,0,0,0,0,1,1
+YUCH,1998,Hard Luck Creek,135,5,0,0,0,0,1,1
+YUCH,1999,Hard Luck Creek,135,9,0,0,0,0,1,1
+YUCH,2000,Hard Luck Creek,135,12,0,0,0,0,1,1
+YUCH,2001,Hard Luck Creek,135,13,0,0,0,0,0,1
+YUCH,1995,Kathul Mountain,136,6,0,0,0,0,1,1
+YUCH,2008,Lost Creek,137,8,0,0,0,0,1,1
+YUCH,2009,Lost Creek,137,12,0,0,0,0,1,1
+YUCH,2010,Lost Creek,137,7,0,0,0,0,1,1
+YUCH,2012,Lost Creek,137,10,0,0,0,0,1,1
+YUCH,2014,Lost Creek,137,NULL,0,0,0,0,NULL,NULL
+YUCH,1995,Lower Charley1,138,8,0,0,0,0,1,1
+YUCH,1996,Lower Charley1,138,13,0,0,0,0,1,1
+YUCH,1997,Lower Charley1,138,18,0,0,0,0,1,1
+YUCH,1998,Lower Charley1,138,14,0,0,0,0,1,1
+YUCH,1999,Lower Charley1,138,11,0,0,0,0,0,1
+YUCH,2007,Lower Charley2,139,4,0,0,0,0,1,1
+YUCH,2008,Lower Charley2,139,9,0,0,0,0,1,1
+YUCH,2009,Lower Charley2,139,9,0,0,0,0,1,1
+YUCH,2011,Lower Charley2,139,8,0,0,0,0,1,1
+YUCH,2012,Lower Charley2,139,4,0,0,0,0,1,1
+YUCH,1997,Lower Kandik,140,2,0,0,0,0,1,1
+YUCH,1998,Lower Kandik,140,2,0,0,0,0,1,1
+YUCH,1999,Lower Kandik,140,5,0,0,0,0,1,1
+YUCH,2000,Lower Kandik,140,4,0,0,0,0,1,1
+YUCH,2010,Nation River,141,12,0,0,0,0,1,1
+YUCH,2011,Nation River,141,6,0,0,0,0,1,1
+YUCH,2012,Nation River,141,2,0,0,0,0,1,1
+YUCH,2013,Nation River,141,4,0,0,0,0,0,1
+YUCH,1998,Poverty Creek,142,2,0,0,0,0,1,1
+YUCH,1999,Poverty Creek,142,7,0,0,0,0,1,1
+YUCH,2000,Rock Creek,143,2,0,0,0,0,1,1
+YUCH,2012,Sheep Bluff,144,6,0,0,0,0,1,1
+YUCH,2013,Sheep Bluff,144,8,0,0,0,0,1,1
+YUCH,2001,Snowy Peak1,145,0,0,0,0,0,0,0
+YUCH,2012,Snowy Peak2,146,9,0,0,0,0,1,1
+YUCH,2000,Step Mountain2,147,8,0,0,0,0,1,1
+YUCH,2001,Step Mountain2,147,3,0,0,0,0,1,1
+YUCH,2002,Step Mountain2,147,13,0,0,0,0,1,1
+YUCH,2003,Step Mountain2,147,14,0,0,0,0,1,1
+YUCH,2004,Step Mountain2,147,7,0,0,0,0,1,1
+YUCH,2006,Step Mountain2,147,6,0,0,0,0,0,1
+YUCH,2007,Step Mountain2,147,2,0,0,0,0,1,1
+YUCH,2008,Step Mountain2,147,10,0,0,0,0,1,1
+YUCH,2009,Step Mountain2,147,4,0,0,0,0,1,1
+YUCH,2010,Step Mountain2,147,7,0,0,0,0,1,1
+YUCH,2011,Step Mountain2,147,9,0,0,0,0,0,1
+YUCH,2013,Step Mountain2,147,12,0,0,0,0,NULL,1
+YUCH,2007,Sterling Creek,148,7,0,0,0,0,1,1
+YUCH,1993,Three Finger,149,4,0,0,0,0,1,1
+YUCH,1994,Three Finger,149,7,0,0,0,0,1,1
+YUCH,1995,Three Finger,149,3,0,0,0,0,1,1
+YUCH,1996,Three Finger,149,9,0,0,0,0,1,1
+YUCH,1998,Three Finger,149,11,0,0,0,0,1,1
+YUCH,2001,Three Finger,149,11,0,0,0,0,1,1
+YUCH,2002,Three Finger,149,10,0,0,0,0,1,1
+YUCH,2003,Three Finger,150,13,0,0,0,0,1,1
+YUCH,2006,Upper Black River Pair,150,2,0,0,0,0,1,1
+YUCH,2007,Upper Black River Pair,150,3,0,0,0,0,0,1
+YUCH,2008,Upper Black River Pair,150,1,0,0,0,0,0,1
+YUCH,2002,Upper Kandik,151,NULL,0,0,0,0,NULL,1
+YUCH,2003,Upper Kandik,151,NULL,0,0,0,0,NULL,0
+YUCH,1993,Washington Creek,152,2,0,0,0,0,1,1
+YUCH,1994,Washington Creek,152,3,0,0,0,0,1,1
+YUCH,1998,Webber Creek1,154,3,0,0,0,0,1,1
+YUCH,1999,Webber Creek1,154,10,0,0,0,0,1,1
+YUCH,2000,Webber Creek1,154,5,0,0,0,0,1,1
+YUCH,2011,Woodchopper,155,6,0,0,0,0,1,1
+YUCH,2013,Woodchopper,155,0,0,0,0,0,NULL,NULL
+YUCH,2011,Yukon Fork,156,5,0,0,0,0,1,1
+YUCH,2014,Yukon Fork,156,2,0,0,0,0,NULL,1
