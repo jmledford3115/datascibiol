@@ -62,38 +62,34 @@ penguins %>%
 ## Practice
 1. Produce a summary of the mean for bill_length_mm, bill_depth_mm, flipper_length_mm, and body_mass_g within Adelie penguins only. Be sure to provide the number of samples.
 ```{r}
-
+penguins %>% 
+  filter(species=="Adelie") %>% 
+  select(bill_length_mm, bill_depth_mm, flipper_length_mm, body_mass_g) %>% 
+  summarize(mean_bill_length_mm=mean(bill_length_mm, na.rm=T),
+            mean_bill_depth_mm=mean(bill_depth_mm, na.rm=T),
+            mean_flipper_length_mm=mean(flipper_length_mm, na.rm=T),
+            mean_body_mass_g=mean(body_mass_g, na.rm=T),
+            n_samples=n())
 ```
 
 2. How does the mean of `bill_length_mm` compare between penguin species?
 ```{r}
-
+penguins %>% 
+  group_by(species) %>% # remember to group by species
+  summarize(mean_bill_length_mm=mean(bill_length_mm, na.rm=T))
 ```
 
 
 3. For some penguins, their sex is listed as NA. Where do these penguins occur?
 ```{r}
-
+penguins %>% 
+  count(sex, island)
 ```
 
 ## `across()`
-How do we use `filter()` and `select()` across multiple variables? There is a function in dplyr called `across()` which is designed to help make this efficient. 
+How do we use `filter()` and `select()` across multiple variables? There is a function in dplyr called `across()` which is designed to help make this efficient.  
 
-What if we wanted to use `summarize()` to produce distinct counts over multiple variables; i.e. species, island, and sex? Although this isn't a lot of coding you can image that with a lot of variables it would be cumbersome.
-```{r}
-penguins %>%
-  summarize(distinct_species = n_distinct(species),
-            distinct_island = n_distinct(island),
-            distinct_sex = n_distinct(sex))
-```
-
-By using `across()` we can reduce the clutter and make things cleaner. 
-```{r}
-penguins %>%
-  summarize(across(c(species, island, sex), n_distinct))
-```
-
-This is very helpful for continuous variables.
+Here we are summarizing the mean of all variables that contain "mm".
 ```{r}
 penguins %>%
   summarize(across(contains("mm"), mean, na.rm=T))
@@ -125,14 +121,13 @@ penguins %>%
   summarise(across(starts_with("bill"), n_distinct))
 ```
 
-```{r}
-names(penguins)
-```
-
 ## Practice
 1. Produce separate summaries of the mean and standard deviation for bill_length_mm, bill_depth_mm, and flipper_length_mm for each penguin species. Be sure to provide the number of samples.  
 ```{r}
-
+penguins %>% 
+  group_by(species) %>% 
+  summarize(across(c(contains("mm"), body_mass_g), mean, na.rm=T ),
+            n_samples=n())
 ```
 
 ## That's it! Let's take a break and then move on to part 2! 

@@ -16,10 +16,6 @@ output:
 2. Produce summaries of the number of NA's in a data set.   
 3. Replace values with `NA` in a data set as appropriate.  
 
-```{r}
-#install.packages("naniar")
-```
-
 ## Load the libraries
 ```{r message=FALSE, warning=FALSE}
 library("tidyverse")
@@ -35,67 +31,62 @@ For the following, we will use life history data for mammals. The [data](http://
 **S. K. Morgan Ernest. 2003. Life history characteristics of placental non-volant mammals. Ecology 84:3402.**  
 
 ## Load the mammals life history data and clean the names  
-```{r}
+```{r message=FALSE, warning=FALSE}
 life_history <- read_csv("data/mammal_lifehistories_v3.csv") %>% clean_names()
 ```
 
 ## Are there any NA's?
 Sometimes using one or more of the summary functions can give us clues to how the authors have represented missing data. This doesn't always work, but it is a good place to start.
 ```{r}
-glimpse(life_history)
-```
-
-```{r}
 summary(life_history)
 ```
 
-Here is a new one for you using the `purrr` package. This will give you a quick summary of the number of NA's in each variable.
+This will give you a quick summary of the number of NA's in each variable. Notice that, at least for now, it doesn't look like there are any NA's. But, given the size of the data this is unlikely.
 ```{r}
-life_history %>% 
-  map_df(~ sum(is.na(.)))
+life_history %>% map_df(~ sum(is.na(.)))
 ```
 
 ## Practice
 1. Can we use a single approach to deal with NA's in this data set? Given what you learned in the previous lab, how would you manage the NA values?
 ```{r}
+life_history_no_nas <- 
+  read_csv(file = "data/mammal_lifehistories_v3.csv", na = c("NA", " ", ".", "-999")) %>% clean_names() # notice that I am creating a new object/ dataframe that doesn't have any NA's
+```
 
+Recheck
+```{r}
+life_history_no_nas %>% map_df(~ sum(is.na(.))) # we fixed most of the problems
 ```
 
 ## `naniar`
-`naniar` is a package that is built to manage NA's. Many of the functions it performs can also be performed using tidyverse functions, but it does provide some interesting alternatives.  
+[naniar](https://naniar.njtierney.com/articles/replace-with-na.html#:~:text=replace_with_na_all()%20Replaces%20NA%20for,numeric%2C%20is.) is a package that is built to manage NA's. Many of the functions it performs can also be performed using tidyverse functions, but it does provide some interesting alternatives.  
 
-`miss_var_summary` provides a clean summary of NA's across the data frame.
+`miss_var_summary` provides a summary of NA's across the data frame.
 ```{r}
-naniar::miss_var_summary(life_history)
+miss_var_summary(life_history_no_nas)
 ```
 
-Notice that `max_life` has no NA's. Does that make sense in the context of this data?
+Notice that `max_life` has no NA's. Does that make sense in the biological context of this data? Why would an animal have 0 life span?
 ```{r}
-hist(life_history$max_life)
+hist(life_history_no_nas$max_life) #we found another way that NA's are represented
 ```
 
-Let's use `mutate()` and `na_if()` to replace 0's with NA's in `max_life`.
+Let's use `mutate()` and use `na_if()` to replace 0's with NA's in `max_life`. This chunk allows us to address problems in a single variable.
 ```{r}
-life_history <- 
-  life_history %>% 
+life_history_no_nas <- life_history_no_nas %>% 
   mutate(max_life=na_if(max_life, 0))
-```
-
-```{r}
-miss_var_summary(life_history)
 ```
 
 We can also use `miss_var_summary` with `group_by()`. This helps us better evaluate where NA's are in the data.
 ```{r}
-life_history %>%
+life_history_no_nas %>%
   group_by(order) %>%
-  select(order, wean_mass) %>% 
   miss_var_summary(order=T)
 ```
 
-`naniar` also has a nice replace function which will allow you to precisely control which values you want replaced with NA's in each variable.
+`naniar` also has a nice replace functions which will allow you to precisely control which values you want replaced with NA's in each variable. This is a nice alternative to `mutate()` and `na_if()`.  
 ```{r}
-life_history %>% 
+life_history %>% #going back to the original data
   replace_with_na(replace = list(newborn = "not measured", 
                                  weaning= -999, 
                                  wean_mass= -999, 
@@ -107,6 +98,28 @@ life_history %>%
 miss_var_summary()
 ```
 
+You can also use naniar to replace a specific value (like -999) with NA across the entire data set.  
+```{r}
+life_history %>% #going back to the original data
+  replace_with_na_all(condition = ~.x == -999)%>% 
+miss_var_summary()
+```
+
+Finally, naniar has some built-in examples of common values or character strings used to represent NA's. The chunk below will use these built-in parameters to replace NA's across the entire data set.
+```{r}
+common_na_strings
+```
+
+```{r}
+common_na_numbers
+```
+
+```{r}
+life_history %>% #going back to the original data
+  replace_with_na_all(condition = ~.x %in% c(common_na_strings, common_na_numbers)) %>% 
+  mutate(newborn=na_if(newborn, "not measured"))
+```
+
 ## Practice
 Let's practice evaluating NA's in a large data set. The data are compiled from [CITES](https://cites.org/eng). This is the international organization that tracks trade in endangered wildlife. You can find information about the data [here](https://www.kaggle.com/cites/cites-wildlife-trade-database).  
 
@@ -115,43 +128,27 @@ Some key information:
 
 1. Import the data and do a little exploration. Be sure to clean the names if necessary.
 ```{r}
-
+cites <- read_csv("data/cites.csv") %>% clean_names()
 ```
 
 2. Use `naniar` to summarize the NA's in each variable.
 ```{r}
-
+miss_var_summary(cites)
 ```
 
-3. Try using `group_by()` with `naniar`. Look specifically at class and `exporter_reported_quantity`. For which taxonomic classes do we have a high proportion of missing export data?
+3. Try using `group_by()` with `naniar`. Look specifically at `class` and `exporter_reported_quantity`. For which taxonomic classes do we have the highest number of missing export data?
 ```{r}
-
+cites %>%
+  select(class, exporter_reported_quantity) %>% 
+  group_by(class) %>%
+  miss_var_summary() %>% 
+  arrange(desc(n_miss))
 ```
 
-## Visualizing NAs
-There is another package `visdat` that can be used to visualize the proportion of different classes of data, including missing data. But, it is limited by size.
+## Dealing with NA's in advance- nuclear option
+If you are sure that you know how NA's are treated in the data, then you can deal with them in advance using `na()` as part of the `readr` package. Notice that you still need to deal with some variables seperately. For example, you don't want to replace all 0's with NA, just the `max_life` variable.  
 ```{r}
-library(visdat)
-```
-
-```{r}
-vis_dat(life_history) #classes of data
-```
-
-```{r}
-vis_miss(life_history)
-```
-
-## Dealing with NA's in advance
-If you are sure that you know how NA's are treated in the data, then you can deal with them in advance using `na()` as part of the `readr` package.
-```{r}
-life_history_advance <- 
-  readr::read_csv(file = "data/mammal_lifehistories_v3.csv", 
-                  na = c("NA", " ", ".", "-999")) #all NA, blank spaces, .,and -999 are treated as NA
-```
-
-```{r}
-miss_var_summary(life_history_advance)
+read_csv(file = "data/mammal_lifehistories_v3.csv", na = c("NA", " ", ".", "-999", "not measured")) %>% clean_names()
 ```
 
 ## Wrap-up  
