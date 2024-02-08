@@ -1,7 +1,7 @@
 ---
 title: "Homework 7"
-author: "Joel Ledford"
-date: "2024-02-04"
+author: "Your Name Here"
+date: "2024-02-08"
 output:
   html_document: 
     theme: spacelab
