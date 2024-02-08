@@ -10,7 +10,7 @@
 
 
 
-<meta name="date" content="2024-02-04" />
+<meta name="date" content="2024-02-08" />
 
 <title>Midterm Review and across()</title>
 
@@ -1504,7 +1504,7 @@ border-radius: 0px;
 
 <h1 class="title toc-ignore">Midterm Review and
 <code>across()</code></h1>
-<h4 class="date">2024-02-04</h4>
+<h4 class="date">2024-02-08</h4>
 
 </div>
 
@@ -1593,41 +1593,62 @@ different. It is just a matter of personal preference.</p>
 <div id="practice" class="section level2">
 <h2>Practice</h2>
 <ol style="list-style-type: decimal">
-<li><p>Produce a summary of the mean for bill_length_mm, bill_depth_mm,
+<li>Produce a summary of the mean for bill_length_mm, bill_depth_mm,
 flipper_length_mm, and body_mass_g within Adelie penguins only. Be sure
-to provide the number of samples.</p></li>
-<li><p>How does the mean of <code>bill_length_mm</code> compare between
-penguin species?</p></li>
-<li><p>For some penguins, their sex is listed as NA. Where do these
-penguins occur?</p></li>
+to provide the number of samples.</li>
 </ol>
+<pre class="r"><code>penguins %&gt;% 
+  filter(species==&quot;Adelie&quot;) %&gt;% 
+  select(bill_length_mm, bill_depth_mm, flipper_length_mm, body_mass_g) %&gt;% 
+  summarize(mean_bill_length_mm=mean(bill_length_mm, na.rm=T),
+            mean_bill_depth_mm=mean(bill_depth_mm, na.rm=T),
+            mean_flipper_length_mm=mean(flipper_length_mm, na.rm=T),
+            mean_body_mass_g=mean(body_mass_g, na.rm=T),
+            n_samples=n())</code></pre>
+<pre><code>## # A tibble: 1 × 5
+##   mean_bill_length_mm mean_bill_depth_mm mean_flipper_length_mm mean_body_mass_g
+##                 &lt;dbl&gt;              &lt;dbl&gt;                  &lt;dbl&gt;            &lt;dbl&gt;
+## 1                38.8               18.3                   190.            3701.
+## # ℹ 1 more variable: n_samples &lt;int&gt;</code></pre>
+<ol start="2" style="list-style-type: decimal">
+<li>How does the mean of <code>bill_length_mm</code> compare between
+penguin species?</li>
+</ol>
+<pre class="r"><code>penguins %&gt;% 
+  group_by(species) %&gt;% # remember to group by species
+  summarize(mean_bill_length_mm=mean(bill_length_mm, na.rm=T))</code></pre>
+<pre><code>## # A tibble: 3 × 2
+##   species   mean_bill_length_mm
+##   &lt;fct&gt;                   &lt;dbl&gt;
+## 1 Adelie                   38.8
+## 2 Chinstrap                48.8
+## 3 Gentoo                   47.5</code></pre>
+<ol start="3" style="list-style-type: decimal">
+<li>For some penguins, their sex is listed as NA. Where do these
+penguins occur?</li>
+</ol>
+<pre class="r"><code>penguins %&gt;% 
+  count(sex, island)</code></pre>
+<pre><code>## # A tibble: 9 × 3
+##   sex    island        n
+##   &lt;fct&gt;  &lt;fct&gt;     &lt;int&gt;
+## 1 female Biscoe       80
+## 2 female Dream        61
+## 3 female Torgersen    24
+## 4 male   Biscoe       83
+## 5 male   Dream        62
+## 6 male   Torgersen    23
+## 7 &lt;NA&gt;   Biscoe        5
+## 8 &lt;NA&gt;   Dream         1
+## 9 &lt;NA&gt;   Torgersen     5</code></pre>
 </div>
 <div id="across" class="section level2">
 <h2><code>across()</code></h2>
 <p>How do we use <code>filter()</code> and <code>select()</code> across
 multiple variables? There is a function in dplyr called
 <code>across()</code> which is designed to help make this efficient.</p>
-<p>What if we wanted to use <code>summarize()</code> to produce distinct
-counts over multiple variables; i.e. species, island, and sex? Although
-this isn’t a lot of coding you can image that with a lot of variables it
-would be cumbersome.</p>
-<pre class="r"><code>penguins %&gt;%
-  summarize(distinct_species = n_distinct(species),
-            distinct_island = n_distinct(island),
-            distinct_sex = n_distinct(sex))</code></pre>
-<pre><code>## # A tibble: 1 × 3
-##   distinct_species distinct_island distinct_sex
-##              &lt;int&gt;           &lt;int&gt;        &lt;int&gt;
-## 1                3               3            3</code></pre>
-<p>By using <code>across()</code> we can reduce the clutter and make
-things cleaner.</p>
-<pre class="r"><code>penguins %&gt;%
-  summarize(across(c(species, island, sex), n_distinct))</code></pre>
-<pre><code>## # A tibble: 1 × 3
-##   species island   sex
-##     &lt;int&gt;  &lt;int&gt; &lt;int&gt;
-## 1       3      3     3</code></pre>
-<p>This is very helpful for continuous variables.</p>
+<p>Here we are summarizing the mean of all variables that contain
+“mm”.</p>
 <pre class="r"><code>penguins %&gt;%
   summarize(across(contains(&quot;mm&quot;), mean, na.rm=T))</code></pre>
 <pre><code>## Warning: There was 1 warning in `summarize()`.
@@ -1681,10 +1702,6 @@ also work.</p>
 ##   bill_length_mm bill_depth_mm
 ##            &lt;int&gt;         &lt;int&gt;
 ## 1            165            81</code></pre>
-<pre class="r"><code>names(penguins)</code></pre>
-<pre><code>## [1] &quot;species&quot;           &quot;island&quot;            &quot;bill_length_mm&quot;   
-## [4] &quot;bill_depth_mm&quot;     &quot;flipper_length_mm&quot; &quot;body_mass_g&quot;      
-## [7] &quot;sex&quot;               &quot;year&quot;</code></pre>
 </div>
 <div id="practice-1" class="section level2">
 <h2>Practice</h2>
@@ -1693,6 +1710,16 @@ also work.</p>
 bill_length_mm, bill_depth_mm, and flipper_length_mm for each penguin
 species. Be sure to provide the number of samples.</li>
 </ol>
+<pre class="r"><code>penguins %&gt;% 
+  group_by(species) %&gt;% 
+  summarize(across(c(contains(&quot;mm&quot;), body_mass_g), mean, na.rm=T ),
+            n_samples=n())</code></pre>
+<pre><code>## # A tibble: 3 × 6
+##   species   bill_length_mm bill_depth_mm flipper_length_mm body_mass_g n_samples
+##   &lt;fct&gt;              &lt;dbl&gt;         &lt;dbl&gt;             &lt;dbl&gt;       &lt;dbl&gt;     &lt;int&gt;
+## 1 Adelie              38.8          18.3              190.       3701.       152
+## 2 Chinstrap           48.8          18.4              196.       3733.        68
+## 3 Gentoo              47.5          15.0              217.       5076.       124</code></pre>
 </div>
 <div id="thats-it-lets-take-a-break-and-then-move-on-to-part-2" class="section level2">
 <h2>That’s it! Let’s take a break and then move on to part 2!</h2>
