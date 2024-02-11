@@ -1,0 +1,94 @@
+---
+title: "Data Visualization: `ggplot` part 1"
+output:
+  html_document:
+    theme: spacelab
+    toc: yes
+    toc_float: yes
+  pdf_document:
+    toc: yes
+---
+
+## Learning Goals
+*At the end of this exercise, you will be able to:*    
+1. Produce boxplots using `ggplot.`  
+2. Customize labels on axes using `labs` and `themes`.  
+3. Use `color`, `fill`, and `group` to customize plots and improve overall aesthetics.  
+
+##Resources  
+- [ggplot2 cheatsheet](https://www.rstudio.com/wp-content/uploads/2015/03/ggplot2-cheatsheet.pdf)  
+- [`ggplot` themes](https://ggplot2.tidyverse.org/reference/ggtheme.html)  
+- [Rebecca Barter `ggplot` Tutorial](http://www.rebeccabarter.com/blog/2017-11-17-ggplot2_tutorial/)  
+
+## Load the libraries
+```{r message=FALSE, warning=FALSE}
+library(tidyverse)
+library(skimr)
+library(janitor)
+library(palmerpenguins)
+```
+
+## Review
+Now that you have been introduced to `ggplot`, let's practice a few more plot types. Remember that plots are built in layers: **plot= data + geom_ + aesthetics**. We have to specify each of these in order for a plot to be produced. If you get stuck, it is often helpful to stop and make a quick sketch of what you want or expect to see on a piece of scratch paper.  
+
+Let's review using the `penguins` data. First, get an idea of the structure: Are the data tidy? Are there NA's? Are the variables discrete, categorical, or continuous?
+```{r}
+penguins
+```
+
+In a previous lab, we asked how many penguins were measured on each island.
+```{r}
+penguins %>% 
+  count(island)
+```
+
+Make this output more visual by adding a plot...
+```{r}
+penguins %>% 
+  count(island) %>% 
+  ggplot(aes(x=island, y=n))+
+  geom_col()
+```
+
+## Practice
+1. What if we wanted a plot that showed the number of measured penguins for each species?
+
+2. How about average bill length by sex?
+
+## Box Plots
+For the next series of examples, we will use the `homerange` data.  **Database of vertebrate home range sizes.**   
+
+Reference: Tamburello N, Cote IM, Dulvy NK (2015) Energy and the scaling of animal space use. The American Naturalist 186(2):196-211. http://dx.doi.org/10.1086/682070.  
+Data: http://datadryad.org/resource/doi:10.5061/dryad.q5j65/1  
+
+```{r message=FALSE, warning=FALSE}
+homerange <- read_csv("data/Tamburelloetal_HomeRangeDatabase.csv")
+```
+
+Boxplots help us visualize a range of values. So, on the x-axis we typically have something categorical and the y-axis is the range. In the case below, we are plotting `log10.mass` by taxonomic class in the `homerange` data. `geom_boxplot()` is the geom type for a standard box plot. The center line in each box represents the median, not the mean.
+
+Let's look at the variable `log10.mass` grouped by taxonomic class.
+```{r}
+homerange %>% 
+  group_by(class) %>% 
+  summarize(min_log10.mass=min(log10.mass),
+            max_log10.mass=max(log10.mass),
+            median_log10.mass=median(log10.mass))
+```
+
+```{r}
+homerange %>% 
+  ggplot(aes(x = class, y = log10.mass)) +
+  geom_boxplot()
+```
+
+## Practice
+1. There are more herbivores than carnivores in the homerange data, but how do their masses compare? Make a summary and boxplot that compares their masses. Use `log10.mass`.
+
+2. Have a closer look at carnivorous mammals. Summarize the range of log10.mass by family.
+
+3. Now use a boxplot to visualize the range of log10.mass by family of mammalian carnivore.
+
+## Wrap-up  
+Please review the learning goals and be sure to use the code here as a reference when completing the homework.  
+-->[Home](https://jmledford3115.github.io/datascibiol/)

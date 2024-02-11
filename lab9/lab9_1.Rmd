@@ -1,0 +1,170 @@
+---
+title: "Tidyr 1: Tidy data and `pivot_long()`"
+date: "`r Sys.Date()`"
+output:
+  html_document:
+    theme: spacelab
+    toc: yes
+    toc_float: yes
+  pdf_document:
+    toc: yes
+---
+
+> **For Big-Data Scientists, "Janitor Work" Is Key Hurdle to Insights.**  
+> "Data scientists, according to interviews and expert estimates, spend from 50 percent to 80 percent of their time mired in the mundane labor of collecting and preparing data, before it can be explored for useful information."  
+> [New York Times (2014)](http://www.nytimes.com/2014/08/18/technology/for-big-data-scientists-hurdle-to-insights-is-janitor-work.html)
+
+## Learning Goals
+*At the end of this exercise, you will be able to:*    
+1. Explain the difference between tidy and messy data.  
+2. Evaluate a data set as tidy or messy.    
+3. Use the `pivot_longer()` function of `tidyr` to transform data from wide to long format.  
+4. Use `separate()` to split observations within a column.  
+
+## Overview
+The quote above sums up much of the work in data science. Simply put, most of the data that you end up working with will be messy, disorganized, and not **tidy**. By the end of this week, you will have the tools necessary to wrangle messy data into tidy data that are ready for analysis. I know that we have spent a lot of time of data transformation, but this last step is essential to building plots and performing other analyses.  
+
+## Resources  
+- [tidyr `pivot_longer()`](https://tidyr.tidyverse.org/reference/pivot_longer.html)  
+- [pivoting](https://cran.r-project.org/web/packages/tidyr/vignettes/pivot.html)  
+
+## Load the tidyverse
+```{r message=FALSE, warning=FALSE}
+library(tidyverse)
+```
+
+## Tidy data
+Most "wild" data are organized incorrectly for work in R and, as you might expect, the tools used to transform data are a core part of the tidyverse. I will attempt to summarize the most important points below, but you should read [chapter 12 of the data science text](https://r4ds.had.co.nz/tidy-data.html) for a more thorough explanation.  
+
+`Tidy` data follows three conventions:   
+(1) each variable has its own column  
+(2) each observation has its own row  
+(3) each value has its own cell  
+
+This is summarized in the image below. The package used to tidy data is called **tidyr** and is a core part of the tidyverse.  
+![*Tidy Data.*](tidy-1.png)
+
+## `pivot_longer()`  
+Scientists frequently use spreadsheets that are organized to make data entry efficient. This is often referred to as **wide format**. Unfortunately, the wide format creates a problem because column names may actually represent values of a variable. The command `pivot_longer()` shifts data from wide to long format.   
+
+Rules:  
++ `pivot_longer`(cols, names_to, values_to)
++ `cols` - Columns to pivot to longer format
++ `names_to` - Name of the new column; it will contain the column names of gathered columns as values
++ `values_to` - Name of the new column; it will contain the data stored in the values of gathered columns
+
+## Example 1: column names are data
+The following data show results from a drug trial with four treatments on six patients. The values represent resting heart rate.  
+```{r}
+heartrate <- read_csv("data/heartrate.csv")
+heartrate
+```
+
+Let's assess whether or not these data are tidy.  
+(1) each variable has its own column?  
+ 
+(2) each observation has its own row?  
+
+(3) each value has its own cell?  
+  
+To fix this problem, we need to reshape the table to long format while keeping track of column names and values. We do this using `pivot_longer()`. Notice that the dimensions of the data frame change.  
+```{r}
+heartrate %>% 
+  pivot_longer(-patient, #patient will not move
+               names_to = "drug", #make a new column called "drug"
+               values_to="heartrate" #values moved to a new column called "heartrate"
+               )
+```
+
+## Practice
+1. Import the file `relig_income.csv` and store it as a new object `relig_income`.  
+```{r}
+
+```
+
+2. Why are these data untidy?  
+
+3. Use `pivot_longer()` to make the data tidy.  
+```{r}
+
+```
+
+## Example 2: some column names are data
+Some (but not all) of the column names are data. We also have NA's.
+```{r}
+billboard <- read_csv("data/billboard.csv")
+billboard
+```
+
+Solution 1: specify a range of columns that you want to pivot.
+```{r}
+billboard2 <- 
+  billboard %>% 
+  pivot_longer(wk1:wk76, # a range of columns
+               names_to = "week",
+               values_to = "rank", 
+               values_drop_na = TRUE #this will drop the NA's
+               )
+billboard2
+```
+
+Solution 2: OR, specify columns that you want to stay fixed.
+```{r}
+billboard3 <- 
+  billboard %>% 
+  pivot_longer(-c(artist, track, date.entered), #specific columns to stay fixed
+               names_to = "week",
+               values_to = "rank",
+               values_drop_na = TRUE
+               )
+billboard3
+```
+
+Solution 3: identify columns by a prefix, remove the prefix and all NA's.
+```{r}
+billboard %>% 
+   pivot_longer(
+   cols = starts_with("wk"), #columns that start with "wk"
+   names_to = "week",
+   names_prefix = "wk",
+   values_to = "rank",
+   values_drop_na = TRUE)
+```
+
+## Practice  
+1. Import `plant_data.csv` as a new object `plant_data`.  
+```{r}
+
+```
+
+2. Why are these data not tidy?  
+```{r}
+
+```
+
+3. Use `pivot_longer()` to make the data tidy. Focus the data only on genotype, water_sched_prog, and greenhouse.  
+```{r}
+
+```
+
+## Example 3: more than one variable in a column name
+In this case, there are two observations in each column name.
+```{r}
+qpcr_untidy <- read_csv("data/qpcr_untidy.csv")
+qpcr_untidy
+```
+
+`names_sep` helps pull these apart, but we still have "exp" and "rep" to deal with.  
+```{r}
+qpcr_untidy %>% 
+  pivot_longer(
+    exp1_rep1:exp3_rep3,
+    names_to= c("experiment", "replicate"),
+    names_sep="_",
+    values_to="mRNA_expression"
+  )
+```
+
+## That's it! Let's take a break and then move on to part 2!  
+
+-->[Home](https://jmledford3115.github.io/datascibiol/)
