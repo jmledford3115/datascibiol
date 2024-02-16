@@ -26,6 +26,7 @@ library(tidyverse)
 library(skimr)
 library(janitor)
 library(palmerpenguins)
+library(here)
 ```
 
 ## Review
@@ -88,7 +89,7 @@ Reference: Tamburello N, Cote IM, Dulvy NK (2015) Energy and the scaling of anim
 Data: http://datadryad.org/resource/doi:10.5061/dryad.q5j65/1  
 
 ```{r message=FALSE, warning=FALSE}
-homerange <- read_csv(here("lab9", "data", "Tamburelloetal_HomeRangeDatabase.csv"))
+homerange <- read_csv("data/Tamburelloetal_HomeRangeDatabase.csv")
 homerange
 ```
 
