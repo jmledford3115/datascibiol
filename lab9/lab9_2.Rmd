@@ -16,6 +16,9 @@ output:
 2. Evaluate a data set as tidy or untidy.  
 3. Use the `pivot_wider()` function of `tidyr` to transform data from long to wide format.  
  
+## Group Project
+Let's take a few minutes to discuss group projects. What data interest you? Make a plan on doing some internet searches and thinking about data that might work. Think about the kinds of questions you might ask and how they might be addressed. Please complete the [class project survey](https://forms.gle/EJkbGyHN5MycyQpSA) as part of your homework.  
+
 ## Resources  
 - [tidyr `pivot_wider()`](https://tidyr.tidyverse.org/reference/pivot_wider.html)  
 - [pivoting](https://cran.r-project.org/web/packages/tidyr/vignettes/pivot.html)  
