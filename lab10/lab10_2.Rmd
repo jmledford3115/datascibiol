@@ -124,7 +124,7 @@ homerange %>%
 
 ```{r}
 homerange %>% 
-  ggplot(aes(x=trophic.guild, y=mean.mass.g))+
+  ggplot(aes(x=trophic.guild, y=log10.mass))+
   geom_boxplot()
 ```
 
