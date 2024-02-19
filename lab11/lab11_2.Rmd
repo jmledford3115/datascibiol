@@ -13,8 +13,6 @@ output:
 *At the end of this exercise, you will be able to:*    
 1. Build stacked bar plots of categorical variables.  
 2. Build side-by-side barplots using `position= "dodge"`.  
-3. Build histograms and density plots.  
-4. Create new categories with `case_when()`.  
 
 ## Resources
 - [ggplot2 cheatsheet](https://www.rstudio.com/wp-content/uploads/2015/03/ggplot2-cheatsheet.pdf)
