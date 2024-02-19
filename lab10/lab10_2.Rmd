@@ -150,6 +150,7 @@ homerange %>%
 glimpse(homerange)
 ```
 
-## That's it, let's take a break!   
 
+## Wrap-up  
+Please review the learning goals and be sure to use the code here as a reference when completing the homework.    
 -->[Home](https://jmledford3115.github.io/datascibiol/)
