@@ -1,0 +1,54 @@
+---
+title: "Lab 11 Intro"
+date: "`r Sys.Date()`"
+output: ioslides_presentation
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+library("jpeg")
+```
+
+## Seating & Set-up
+1. Please make sure that you sit next to your group members for the rest of the quarter.
+2. Please set-up your computer as normal.
+
+## Warm-up
+For this warm-up, please use the `heartrate` data. Be sure to label your plots!
+```{r}
+library("tidyverse")
+```
+
+```{r}
+heartrate <- read_csv("data/heartrate.csv")
+```
+
+```{r}
+heartrate
+```
+
+1. Make a plot that compares the heartrate of patients for drug a.
+```{r}
+heartrate %>% 
+  ggplot(aes(x=patient, y=a, fill=patient))+
+  geom_col()+
+  labs(title="Comparison of drug A",
+       x=NULL,
+       y="Heartrate")
+```
+
+2. Make a plot that compares heartrate (as a range) for each drug.
+```{r}
+heartrate %>% 
+  pivot_longer(-patient,
+               names_to="drug",
+               values_to = "heartrate") %>% 
+  ggplot(aes(x=drug, y=heartrate, fill=drug))+
+  geom_boxplot(alpha=0.7)+
+  labs(title="Comparison of Heartrate Drugs",
+       x="Drugs",
+       y="Heartrate")
+```
+
+## Group project  
+We will meet in our groups today to compare the data sets that we found. You should try to pick the data set that you think will be most appropriate; i.e. does it have a mix of variables, does it have a story to tell? Once you have a data set, think about the kinds of questions you might ask. Remember, in the end you will need to deliver a 5-6 minute presentation of your work. If you need help, please ask!  
