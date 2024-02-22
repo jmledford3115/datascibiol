@@ -151,31 +151,12 @@ homerange %>%
 ## Create Categories with mutate and case_when()
 `case_when()` is a very handy function from `dplyr` which allows us to calculate a new variable from other variables. We use `case_when()` within `mutate()` to do this.`case_when()` allows us to specify multiple conditions. Let's reclassify the body mass variable into a new factor variable with small, medium, and large animals. In this case, we are making a continuous variable into a categorical variable.  
 ```{r}
-homerange %>% 
-  select(log10.mass) %>% 
-  summarise(min=min(log10.mass),
-            max=max(log10.mass))
-```
 
-```{r}
-summary(homerange$log10.mass)
-```
-
-```{r}
-homerange <- homerange %>% 
-             mutate(mass_category = case_when(log10.mass <= 1.75 ~ "small",
-                                              log10.mass > 1.75 & log10.mass <= 2.75 ~ "medium",
-                                              log10.mass > 2.75 ~ "large"))
 ```
 
 Here we check how the newly created body mass categories compare across `trophic.guild`. 
 ```{r}
-homerange %>% 
-  ggplot(aes(x = mass_category, fill = trophic.guild)) +
-  geom_bar(position="dodge")+
-  labs(title = "Observations by Taxon and Mass Category in Homerange Data",
-       x = "Mass Category",
-       fill = "Trophic Guild")
+
 ```
 
 ## Practice

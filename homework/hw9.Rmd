@@ -137,6 +137,12 @@ univ_calif_final %>%
 
 ```{r}
 univ_calif_final %>% 
+  select(campus, adm_rate) %>%
+  top_n(-1, adm_rate)
+```
+
+```{r}
+univ_calif_final %>% 
   ggplot(aes(x=reorder(campus, adm_rate), y=adm_rate))+
   geom_col()+
   coord_flip()

@@ -191,29 +191,17 @@ homerange %>%
 
 There are other categorical variables that might be interesting to overlay. `facet_wrap()` makes a ribbon of panels by a specified categorical variable and allows you to control how you want them arranged.  
 ```{r}
-homerange %>% 
-  ggplot(aes(x=taxon, y=log10.mass))+
-  geom_boxplot()+
-  facet_wrap(~trophic.guild, ncol=2)+
-  theme(axis.text.x = element_text(angle = 60, hjust=1))
+
 ```
 
 `facet_grid()` allows control over the faceted variable; it can be arranged in rows or columns. rows~columns. 
 ```{r}
-homerange %>% 
-  ggplot(aes(x=taxon, y=log10.mass))+
-  geom_boxplot()+
-  facet_grid(trophic.guild~.)+
-  theme(axis.text.x = element_text(angle = 60, hjust=1))
+
 ```
 
 `facet_grid()` will also allow the comparison of two categorical variables, just remember a~b where a is rows and b is columns.  
 ```{r}
-homerange %>% 
-  ggplot(aes(x=taxon, y=log10.mass))+
-  geom_boxplot()+
-  facet_grid(trophic.guild~thermoregulation)+
-  theme(axis.text.x = element_text(angle = 60, hjust=1))
+
 ```
 
 ## Practice
