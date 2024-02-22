@@ -18,7 +18,7 @@ output:
 ## Review
 Now that you have been introduced to `ggplot`, let's review the plot types from last week and learn how to manipulate their aesthetics to better suit our needs. Aesthetics make a significant visual difference, but you can take it too far so remember that the goal is to produce clean plots that are not distracting.  
 
-## Resources
+##Resources
 - [ggplot2 cheatsheet](https://www.rstudio.com/wp-content/uploads/2015/03/ggplot2-cheatsheet.pdf)
 - [`ggplot` themes](https://ggplot2.tidyverse.org/reference/ggtheme.html)
 - [Rebecca Barter `ggplot` Tutorial](http://www.rebeccabarter.com/blog/2017-11-17-ggplot2_tutorial/)
@@ -40,17 +40,29 @@ Bar plots count the number of observations in a categorical variable. What is th
 
 `geom_col`
 ```{r}
-
+life_history %>% 
+  count(order, sort=T) %>% 
+  ggplot(aes(x=order, y=n))+
+  geom_col()+
+  coord_flip()
 ```
 
 `geom_bar`
 ```{r}
-
+life_history %>% 
+  ggplot(aes(x=order))+
+  geom_bar()+
+  coord_flip()
 ```
 
-Remember that ggplot build plots in layers. These layers can significantly improve the appearance of the plot. What if we wanted a bar plot of the mean mass for each order? Would we use `geom_bar` or `geom_col`?  
+Remember that ggplot build plots in layers. These layers can significantly improve the appearance of the plot. What if we wanted a bar plot of the mean mass for each order?
 ```{r}
-
+life_history %>% 
+  group_by(order) %>% 
+  summarize(mean_mass=mean(mass, na.rm=T)) %>% 
+  ggplot(aes(x=order, y=mean_mass))+
+  geom_col()+
+  coord_flip() #flips the axes
 ```
 
 There are a few problems here. First, the y-axis is in scientific notation. We can fix this by adjusting the options for the session.
@@ -60,28 +72,51 @@ options(scipen=999)#cancels scientific notation for the session
 
 Next, the y-axis is not on a log scale. We can fix this by adding `scale_y_log10()`.
 ```{r}
-
+life_history %>% 
+  group_by(order) %>% 
+  summarize(mean_mass=mean(mass, na.rm=T)) %>% 
+  ggplot(aes(x=order, y=mean_mass))+
+  geom_col()+
+  coord_flip()+
+  scale_y_log10()
 ```
 
 Lastly, we can adjust the x-axis labels to make them more readable. We do this using `reorder`.
 ```{r}
-
+life_history %>% 
+  group_by(order) %>% 
+  summarize(mean_mass=mean(mass, na.rm=T)) %>% 
+  ggplot(aes(x=reorder(order, mean_mass), y=mean_mass))+ #reorder the x-axis
+  geom_col()+
+  coord_flip()+
+  scale_y_log10()
 ```
 
 ## Scatterplots
 Scatter plots allow for comparisons of two continuous variables. Make a scatterplot below that compares gestation time and weaning mass.
 ```{r}
-
+life_history %>% 
+  ggplot(aes(x=gestation, y=wean_mass))+
+  geom_jitter(na.rm=T)+
+  scale_y_log10()
 ```
 
 ## Boxplots
-Box plots help us visualize a range of values. So, on the x-axis we typically have something categorical and the y-axis is the range. Let's make a box plot that compares mass across taxonomic orders.
+Box plots help us visualize a range of values. So, on the x-axis we typically have something categorical and the y-axis is the range. Let's make a box plot that compares mass across orders.
 ```{r}
-
+life_history %>% 
+  ggplot(aes(x=order, y=mass))+
+  geom_boxplot(na.rm=T)+
+  coord_flip()
 ```
 
 ```{r}
-
+life_history %>% 
+  filter(order!="Cetacea") %>% 
+  ggplot(aes(x=order, y=mass))+
+  geom_boxplot(na.rm=T)+
+  coord_flip()+
+  scale_y_log10()
 ```
 
 ## Aesthetics: Labels
@@ -94,7 +129,10 @@ elephants <- read_csv("data/elephantsMF.csv") %>% clean_names()
 
 Make a plot that compares age and height of elephants.
 ```{r}
-
+elephants %>% 
+  ggplot(aes(x=age, y=height)) + 
+  geom_point() + 
+  geom_smooth(method=lm, se=F)
 ```
 
 The plot looks clean, but it is incomplete. A reader unfamiliar with the data might have a difficult time interpreting the labels. To add custom labels, we use the `labs` command.
@@ -110,14 +148,21 @@ elephants %>%
 
 We can improve the plot further by adjusting the size and face of the text. We do this using `theme()`. The `rel()` option changes the relative size of the title to keep things consistent. Adding `hjust` allows control of title position.
 ```{r}
-
+elephants %>% 
+  ggplot(aes(x=age, y=height)) + 
+  geom_point() + 
+  geom_smooth(method=lm, se=F)+
+  labs(title="Elephant Age vs. Height",
+       x="Age",
+       y="Height")+
+  theme(plot.title=element_text(size=rel(1.5), hjust=.5))
 ```
 
 ## Other Aesthetics
 There are lots of options for aesthetics. An aesthetic can be assigned to either numeric or categorical data. `fill` is a common grouping option; notice that an appropriate key is displayed when you use one of these options.
 ```{r}
 elephants %>% 
-  ggplot(aes(x=sex, fill=sex))+ #fill is a grouping option
+  ggplot(aes(x=sex, fill=sex))+
   geom_bar()
 ```
 
@@ -127,6 +172,12 @@ life_history %>%
   ggplot(aes(x=gestation, y=log10(mass), size=mass))+
   geom_point(na.rm=T)
 ```
+
+```{r}
+life_history %>% 
+  filter(gestation>=20)
+```
+
 ## That's it! Let's take a break and then move on to part 2!  
 
 -->[Home](https://jmledford3115.github.io/datascibiol/)

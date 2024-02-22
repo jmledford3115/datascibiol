@@ -13,6 +13,8 @@ output:
 *At the end of this exercise, you will be able to:*    
 1. Build stacked bar plots of categorical variables.  
 2. Build side-by-side barplots using `position= "dodge"`.  
+3. Build histograms and density plots.  
+4. Create new categories with `case_when()`.  
 
 ## Resources
 - [ggplot2 cheatsheet](https://www.rstudio.com/wp-content/uploads/2015/03/ggplot2-cheatsheet.pdf)
@@ -46,17 +48,17 @@ p <- homerange %>%
 
 Play with point size by adjusting the `size` argument.
 ```{r}
-
+p + geom_point(size=1.25)
 ```
 
 We can color the points by a categorical variable.
 ```{r}
-
+p+geom_point(aes(color=thermoregulation), size=1.5)
 ```
 
 We can also map shapes to another categorical variable.
 ```{r}
-
+p+geom_point(aes(shape=thermoregulation, color=thermoregulation), size=1.5) # we use color here and not fill because we are not filling a shape
 ```
 
 ## Barplots and multiple variables
@@ -68,22 +70,45 @@ homerange %>% count(taxon, sort=T)
 
 Now let's make a bar plot of these data.
 ```{r}
-
+homerange %>% 
+  ggplot(aes(x = taxon)) + 
+  geom_bar() +
+  coord_flip() +
+  labs(title = "Observations by Taxon in Homerange Data",
+       x = "Taxonomic Group")
 ```
 
 By specifying `fill=trophic.guild` we build a stacked bar plot that shows the proportion of a given taxonomic group that is an herbivore or carnivore.
 ```{r}
-
+homerange %>% 
+  ggplot(aes(x = taxon, fill = trophic.guild)) + 
+  geom_bar() +
+  coord_flip() +
+  labs(title = "Observations by Taxon in Homerange Data",
+       x = "Taxonomic Group",
+       fill = "Trophic Guild") #fill is the legend title
 ```
 
 We can also have counts of each trophic guild within taxonomic group shown side-by-side by specifying `position="dodge"`.
 ```{r}
-
+homerange %>% 
+  ggplot(aes(x = taxon, fill = trophic.guild)) + 
+  geom_bar(position = "dodge") +
+  labs(title = "Observations by Taxon in Homerange Data",
+       x = "Taxonomic Group",
+       fill = "Trophic Guild") +
+  coord_flip()
 ```
 
 Here is the same plot oriented vertically.
 ```{r}
-
+homerange %>% 
+  ggplot(aes(x = taxon, fill = trophic.guild)) +
+  geom_bar(position = "dodge") +
+  theme(axis.text.x = element_text(angle = 60, hjust = 1)) + #angle is the angle of the text
+  labs(title = "Observations by Taxon in Homerange Data",
+       x = "Taxonomic Group",
+       fill= "Trophic Guild")
 ```
 
 We can also scale all bars to a percentage.
@@ -100,16 +125,31 @@ For this practice, let's use the [palmerpenguins](https://allisonhorst.github.io
 
 1. Make a bar plot that shows counts of individuals by island. Fill by species, and try both a stacked bar plot and `position="dodge"`.
 ```{r}
-
+penguins %>% 
+  ggplot(aes(x = island, fill = species)) + 
+  geom_bar() +
+  labs(title = "Counts of Individuals by Island",
+       x = "Island",
+       fill = "Species")
 ```
 
 ```{r}
-
+penguins %>% 
+  ggplot(aes(x = island, fill = species)) + 
+  geom_bar(position="dodge") +
+  labs(title = "Counts of Individuals by Island",
+       x = "Island",
+       fill = "Species")
 ```
 
 2. Make another bar plot that shows the number of individuals by sex on each island?
 ```{r}
-
+penguins %>% 
+  ggplot(aes(x = island, fill = sex)) + 
+  geom_bar(position="dodge") +
+  labs(title = "Counts of Individuals by Island",
+       x = "Island",
+       fill = "Species")
 ```
 
 ## Using `group`
@@ -122,7 +162,7 @@ homerange %>%
   geom_boxplot()
 ```
 
-I use `group` to make individual box plots for each taxon within class.
+I use `group` to make individual box plots for each taxon.
 ```{r}
 homerange %>% 
   ggplot(aes(x = class, y = log10.mass, group = taxon)) +
@@ -131,9 +171,11 @@ homerange %>%
 
 I can also use `fill` to associate the different taxa with a color coded key.
 ```{r}
-
+homerange %>% 
+  ggplot(aes(x = class, y = log10.mass, fill = taxon)) +
+  geom_boxplot()
 ```
 
-## Wrap-up  
-Please review the learning goals and be sure to use the code here as a reference when completing the homework.    
+## That's it, let's take a break!   
+
 -->[Home](https://jmledford3115.github.io/datascibiol/)

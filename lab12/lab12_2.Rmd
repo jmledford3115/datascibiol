@@ -64,12 +64,14 @@ p + theme_linedraw()+
 ## Practice
 1. Build a scatterplot that compares `log10.mass` and `log10.preymass`. Color the points by `taxon`. Store this plot as object `q`.
 ```{r}
-
+q <- homerange %>% 
+  ggplot(aes(x=log10.mass, y=log10.preymass, color=taxon))+
+  geom_point(na.rm=T)
 ```
 
 2. Use plot `q` but add the classic theme.
 ```{r}
-
+q + theme_classic()
 ```
 
 ## Legends
@@ -93,7 +95,7 @@ library(ggthemes)
 
 Here is a list of the `ggthemes`
 ```{r}
-#ls("package:ggthemes")[grepl("theme_", ls("package:ggthemes"))]
+ls("package:ggthemes")[grepl("theme_", ls("package:ggthemes"))]
 ```
 
 ```{r}
@@ -110,7 +112,7 @@ p +
 ## Practice
 1. Use plot `q` and try the `theme_economist()` theme.
 ```{r}
-
+q+theme_economist()
 ```
 
 ## RColorBrewer
@@ -145,7 +147,8 @@ p+scale_fill_brewer(palette = "Paired")+
 ## Practice
 1. Keep using the `same `q` plot, but test out one of R Color Brewer palettes.
 ```{r}
-
+q+theme_classic()+
+  scale_colour_brewer(palette = "Paired")
 ```
 
 ## Manually Setting Colors
@@ -177,7 +180,8 @@ p+scale_fill_manual(values=my_palette)+
 ## Practice
 1. Keep using the `same `q` plot, but test out one of `paleteer` themes.
 ```{r}
-
+q+theme_classic()+
+  scale_colour_brewer(palette = "Paired")
 ```
 
 ## Faceting
@@ -191,28 +195,46 @@ homerange %>%
 
 There are other categorical variables that might be interesting to overlay. `facet_wrap()` makes a ribbon of panels by a specified categorical variable and allows you to control how you want them arranged.  
 ```{r}
-
+homerange %>% 
+  ggplot(aes(x=taxon, y=log10.mass))+
+  geom_boxplot()+
+  facet_wrap(~trophic.guild, ncol=2)+
+  theme(axis.text.x = element_text(angle = 60, hjust=1))
 ```
 
 `facet_grid()` allows control over the faceted variable; it can be arranged in rows or columns. rows~columns. 
 ```{r}
-
+homerange %>% 
+  ggplot(aes(x=taxon, y=log10.mass))+
+  geom_boxplot()+
+  facet_grid(trophic.guild~.)+
+  theme(axis.text.x = element_text(angle = 60, hjust=1))
 ```
 
 `facet_grid()` will also allow the comparison of two categorical variables, just remember a~b where a is rows and b is columns.  
 ```{r}
-
+homerange %>% 
+  ggplot(aes(x=taxon, y=log10.mass))+
+  geom_boxplot()+
+  facet_grid(trophic.guild~thermoregulation)+
+  theme(axis.text.x = element_text(angle = 60, hjust=1))
 ```
 
 ## Practice
 1. Use facet_wrap to compare the distribution of `log10.mass` by `thermoregulation`.
 ```{r}
-
+homerange %>% 
+  ggplot(aes(x=log10.mass))+
+  geom_density(fill="steelblue", alpha=0.3)+
+  facet_wrap(~thermoregulation)
 ```
 
 2. Use facet_grid to compare the distribution of `log10.mass` by `locomotion`.
 ```{r}
-
+homerange %>% 
+  ggplot(aes(x=log10.hra))+
+  geom_density(fill="steelblue", alpha=0.3)+
+  facet_grid(.~locomotion)
 ```
 
 ## Wrap-up  
