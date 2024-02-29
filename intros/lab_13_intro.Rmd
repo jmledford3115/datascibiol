@@ -9,14 +9,19 @@ knitr::opts_chunk$set(echo = FALSE)
 library("jpeg")
 ```
 
+## Warm-up
+1. Have a look at the midterm 2 key and discuss.  
+2. What is the importance of knitting our work?  
+
 ## Group project  
+### We need to get started on our group projects- there is not much time left.  
 1. Have you decided on a data set?
 2. Have you imported the data into R- do you have an idea of its structure?  
 3. What cleaning challenges do you anticipate?  
 4. What are your initial questions?  
 5. When is your group meeting?  
 
-## Suggestions
+## Tasks
 1. Each person in the group needs an assigned task.  
 2. Make a new repository on GitHub for your project.  
 3. If you get stuck, please come and see us for help.  
