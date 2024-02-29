@@ -1,0 +1,56 @@
+---
+title: "Homework 12"
+author: "Please Add Your Name Here"
+date: "`r Sys.Date()`"
+output:
+  html_document:
+    theme: spacelab
+    toc: no
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Instructions
+Answer the following questions and complete the exercises in RMarkdown. Please embed all of your code and push your final work to your repository. Your final lab report should be organized, clean, and run free from errors. Remember, you must remove the `#` for the included code chunks to run. Be sure to add your name to the author header above. For any included plots, make sure they are clearly labeled. You are free to use any plot type that you feel best communicates the results of your analysis.  
+
+Make sure to use the formatting conventions of RMarkdown to make your report neat and clean!  
+
+## Load the libraries  
+```{r message=FALSE, warning=FALSE}
+library(tidyverse)
+library(janitor)
+library(ggmap)
+``` 
+
+## Load the Data
+We will use two separate data sets for this homework.  
+
+1. The first [data set](https://rcweb.dartmouth.edu/~f002d69/workshops/index_rspatial.html) represent sightings of grizzly bears (Ursos arctos) in Alaska.  
+
+2. The second data set is from Brandell, Ellen E (2021), Serological dataset and R code for: Patterns and processes of pathogen exposure in gray wolves across North America, Dryad, [Dataset](https://doi.org/10.5061/dryad.5hqbzkh51).  
+
+1. Load the `grizzly` data and evaluate its structure.  
+
+2. Use the range of the latitude and longitude to build an appropriate bounding box for your map. 
+3. Load a map from `stamen` in a terrain style projection and display the map.  
+
+4. Build a final map that overlays the recorded observations of grizzly bears in Alaska.  
+
+Let's switch to the wolves data. Brandell, Ellen E (2021), Serological dataset and R code for: Patterns and processes of pathogen exposure in gray wolves across North America, Dryad, [Dataset](https://doi.org/10.5061/dryad.5hqbzkh51).  
+
+5. Load the data and evaluate its structure.  
+
+6. How many distinct wolf populations are included in this study? Mae a new object that restricts the data to the wolf populations in the lower 48 US states.  
+
+7. Use the range of the latitude and longitude to build an appropriate bounding box for your map. 
+
+8.  Load a map from `stamen` in a `terrain-lines` projection and display the map.  
+
+9. Build a final map that overlays the recorded observations of wolves in the lower 48 states.  
+
+10. Use the map from #9 above, but add some aesthetics. Try to `fill` and `color` by population.  
+
+## Push your final code to GitHub!
+Please be sure that you check the `keep md` file in the knit preferences. 
