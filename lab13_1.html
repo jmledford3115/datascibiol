@@ -10,7 +10,7 @@
 
 
 
-<meta name="date" content="2024-02-28" />
+<meta name="date" content="2024-02-29" />
 
 <title>Joins and Lubridate</title>
 
@@ -1503,7 +1503,7 @@ border-radius: 0px;
 
 
 <h1 class="title toc-ignore">Joins and Lubridate</h1>
-<h4 class="date">2024-02-28</h4>
+<h4 class="date">2024-02-29</h4>
 
 </div>
 
@@ -1540,6 +1540,24 @@ library(&quot;lubridate&quot;) #this will help us manage dates</code></pre>
 <p>Now we can list all of the files in a directory. This is very helpful
 when you are working with multiple files at once. We can also get the
 full path names with <code>full.names = TRUE</code>.</p>
+<pre class="r"><code>files &lt;- list.files(path = &quot;data/spiders&quot;, pattern = &quot;.csv&quot;, full.names = TRUE)
+files
+#&gt;  [1] &quot;data/spiders/Alameda .csv&quot;        &quot;data/spiders/Amador .csv&quot;        
+#&gt;  [3] &quot;data/spiders/Butte .csv&quot;          &quot;data/spiders/Calaveras .csv&quot;     
+#&gt;  [5] &quot;data/spiders/Contra Costa .csv&quot;   &quot;data/spiders/Del Norte .csv&quot;     
+#&gt;  [7] &quot;data/spiders/El Dorado .csv&quot;      &quot;data/spiders/Humboldt .csv&quot;      
+#&gt;  [9] &quot;data/spiders/Kern .csv&quot;           &quot;data/spiders/Marin .csv&quot;         
+#&gt; [11] &quot;data/spiders/Mariposa .csv&quot;       &quot;data/spiders/Mendocino .csv&quot;     
+#&gt; [13] &quot;data/spiders/Monterey .csv&quot;       &quot;data/spiders/Napa .csv&quot;          
+#&gt; [15] &quot;data/spiders/Placer .csv&quot;         &quot;data/spiders/Plumas .csv&quot;        
+#&gt; [17] &quot;data/spiders/San Bernandino .csv&quot; &quot;data/spiders/San Francisco .csv&quot; 
+#&gt; [19] &quot;data/spiders/San Mateo .csv&quot;      &quot;data/spiders/Santa Clara .csv&quot;   
+#&gt; [21] &quot;data/spiders/Santa Cruz .csv&quot;     &quot;data/spiders/Shasta .csv&quot;        
+#&gt; [23] &quot;data/spiders/Sierra .csv&quot;         &quot;data/spiders/Siskiyou .csv&quot;      
+#&gt; [25] &quot;data/spiders/Solano .csv&quot;         &quot;data/spiders/Sonoma .csv&quot;        
+#&gt; [27] &quot;data/spiders/Stanislaus .csv&quot;     &quot;data/spiders/Tehama .csv&quot;        
+#&gt; [29] &quot;data/spiders/Trinity .csv&quot;        &quot;data/spiders/Tulare .csv&quot;        
+#&gt; [31] &quot;data/spiders/Tuolumne .csv&quot;       &quot;data/spiders/Yolo .csv&quot;</code></pre>
 <p>Now we want to read each of these files into R without having to do
 them one at a time because there are quite a few. There are several ways
 to do this, but a quick and straightforward way is to import them as a
@@ -1552,8 +1570,14 @@ will iterate over elements of an object, apply a function we specify,
 and return a list. We have a character vector of file paths, so we want
 to iterate over all the path names and apply
 <code>read_csv()</code>.</p>
+<pre class="r"><code>spider_list &lt;- lapply(files, read_csv)</code></pre>
 <p>We can view elements in our list with double brackets. Let’s view the
 data for Butte county.</p>
+<pre class="r"><code>spider_list[[3]]
+#&gt; # A tibble: 1 × 9
+#&gt;   Accession Family    Genus   Country State      County Locality Date  Collector
+#&gt;       &lt;dbl&gt; &lt;chr&gt;     &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;      &lt;chr&gt;  &lt;chr&gt;    &lt;chr&gt; &lt;chr&gt;    
+#&gt; 1   9038509 Telemidae Usofila USA     California Butte  Dry Cre… 2/3/… RO Schus…</code></pre>
 </div>
 <div id="practice" class="section level2">
 <h2>Practice</h2>
@@ -1569,12 +1593,142 @@ names(), you will need to specify an element using [[]].</li>
 <p>We don’t need to here, but for demonstration purposes we can name the
 elements in our list. We want to keep the first element of each list
 element.</p>
+<pre class="r"><code>names &lt;- list.files(path = &quot;data/spiders&quot;, pattern = &quot;.csv&quot;)
+names
+#&gt;  [1] &quot;Alameda .csv&quot;        &quot;Amador .csv&quot;         &quot;Butte .csv&quot;         
+#&gt;  [4] &quot;Calaveras .csv&quot;      &quot;Contra Costa .csv&quot;   &quot;Del Norte .csv&quot;     
+#&gt;  [7] &quot;El Dorado .csv&quot;      &quot;Humboldt .csv&quot;       &quot;Kern .csv&quot;          
+#&gt; [10] &quot;Marin .csv&quot;          &quot;Mariposa .csv&quot;       &quot;Mendocino .csv&quot;     
+#&gt; [13] &quot;Monterey .csv&quot;       &quot;Napa .csv&quot;           &quot;Placer .csv&quot;        
+#&gt; [16] &quot;Plumas .csv&quot;         &quot;San Bernandino .csv&quot; &quot;San Francisco .csv&quot; 
+#&gt; [19] &quot;San Mateo .csv&quot;      &quot;Santa Clara .csv&quot;    &quot;Santa Cruz .csv&quot;    
+#&gt; [22] &quot;Shasta .csv&quot;         &quot;Sierra .csv&quot;         &quot;Siskiyou .csv&quot;      
+#&gt; [25] &quot;Solano .csv&quot;         &quot;Sonoma .csv&quot;         &quot;Stanislaus .csv&quot;    
+#&gt; [28] &quot;Tehama .csv&quot;         &quot;Trinity .csv&quot;        &quot;Tulare .csv&quot;        
+#&gt; [31] &quot;Tuolumne .csv&quot;       &quot;Yolo .csv&quot;</code></pre>
 <p>We will first get the names of each file, but we only want the county
 part. We will use <code>strsplit()</code> for that, which creates a
 nested list of strings.</p>
+<pre class="r"><code>names_list &lt;- strsplit(names, split = &quot; .csv&quot;)
+names_list
+#&gt; [[1]]
+#&gt; [1] &quot;Alameda&quot;
+#&gt; 
+#&gt; [[2]]
+#&gt; [1] &quot;Amador&quot;
+#&gt; 
+#&gt; [[3]]
+#&gt; [1] &quot;Butte&quot;
+#&gt; 
+#&gt; [[4]]
+#&gt; [1] &quot;Calaveras&quot;
+#&gt; 
+#&gt; [[5]]
+#&gt; [1] &quot;Contra Costa&quot;
+#&gt; 
+#&gt; [[6]]
+#&gt; [1] &quot;Del Norte&quot;
+#&gt; 
+#&gt; [[7]]
+#&gt; [1] &quot;El Dorado&quot;
+#&gt; 
+#&gt; [[8]]
+#&gt; [1] &quot;Humboldt&quot;
+#&gt; 
+#&gt; [[9]]
+#&gt; [1] &quot;Kern&quot;
+#&gt; 
+#&gt; [[10]]
+#&gt; [1] &quot;Marin&quot;
+#&gt; 
+#&gt; [[11]]
+#&gt; [1] &quot;Mariposa&quot;
+#&gt; 
+#&gt; [[12]]
+#&gt; [1] &quot;Mendocino&quot;
+#&gt; 
+#&gt; [[13]]
+#&gt; [1] &quot;Monterey&quot;
+#&gt; 
+#&gt; [[14]]
+#&gt; [1] &quot;Napa&quot;
+#&gt; 
+#&gt; [[15]]
+#&gt; [1] &quot;Placer&quot;
+#&gt; 
+#&gt; [[16]]
+#&gt; [1] &quot;Plumas&quot;
+#&gt; 
+#&gt; [[17]]
+#&gt; [1] &quot;San Bernandino&quot;
+#&gt; 
+#&gt; [[18]]
+#&gt; [1] &quot;San Francisco&quot;
+#&gt; 
+#&gt; [[19]]
+#&gt; [1] &quot;San Mateo&quot;
+#&gt; 
+#&gt; [[20]]
+#&gt; [1] &quot;Santa Clara&quot;
+#&gt; 
+#&gt; [[21]]
+#&gt; [1] &quot;Santa Cruz&quot;
+#&gt; 
+#&gt; [[22]]
+#&gt; [1] &quot;Shasta&quot;
+#&gt; 
+#&gt; [[23]]
+#&gt; [1] &quot;Sierra&quot;
+#&gt; 
+#&gt; [[24]]
+#&gt; [1] &quot;Siskiyou&quot;
+#&gt; 
+#&gt; [[25]]
+#&gt; [1] &quot;Solano&quot;
+#&gt; 
+#&gt; [[26]]
+#&gt; [1] &quot;Sonoma&quot;
+#&gt; 
+#&gt; [[27]]
+#&gt; [1] &quot;Stanislaus&quot;
+#&gt; 
+#&gt; [[28]]
+#&gt; [1] &quot;Tehama&quot;
+#&gt; 
+#&gt; [[29]]
+#&gt; [1] &quot;Trinity&quot;
+#&gt; 
+#&gt; [[30]]
+#&gt; [1] &quot;Tulare&quot;
+#&gt; 
+#&gt; [[31]]
+#&gt; [1] &quot;Tuolumne&quot;
+#&gt; 
+#&gt; [[32]]
+#&gt; [1] &quot;Yolo&quot;</code></pre>
 <p>We can then use <code>unlist()</code> to get a vector of the
 names.</p>
+<pre class="r"><code>names_vec &lt;- unlist(names_list)
+names_vec
+#&gt;  [1] &quot;Alameda&quot;        &quot;Amador&quot;         &quot;Butte&quot;          &quot;Calaveras&quot;     
+#&gt;  [5] &quot;Contra Costa&quot;   &quot;Del Norte&quot;      &quot;El Dorado&quot;      &quot;Humboldt&quot;      
+#&gt;  [9] &quot;Kern&quot;           &quot;Marin&quot;          &quot;Mariposa&quot;       &quot;Mendocino&quot;     
+#&gt; [13] &quot;Monterey&quot;       &quot;Napa&quot;           &quot;Placer&quot;         &quot;Plumas&quot;        
+#&gt; [17] &quot;San Bernandino&quot; &quot;San Francisco&quot;  &quot;San Mateo&quot;      &quot;Santa Clara&quot;   
+#&gt; [21] &quot;Santa Cruz&quot;     &quot;Shasta&quot;         &quot;Sierra&quot;         &quot;Siskiyou&quot;      
+#&gt; [25] &quot;Solano&quot;         &quot;Sonoma&quot;         &quot;Stanislaus&quot;     &quot;Tehama&quot;        
+#&gt; [29] &quot;Trinity&quot;        &quot;Tulare&quot;         &quot;Tuolumne&quot;       &quot;Yolo&quot;</code></pre>
 <p>Now we can name the elements in our list.</p>
+<pre class="r"><code>names(spider_list) &lt;- names_vec
+names(spider_list)
+#&gt;  [1] &quot;Alameda&quot;        &quot;Amador&quot;         &quot;Butte&quot;          &quot;Calaveras&quot;     
+#&gt;  [5] &quot;Contra Costa&quot;   &quot;Del Norte&quot;      &quot;El Dorado&quot;      &quot;Humboldt&quot;      
+#&gt;  [9] &quot;Kern&quot;           &quot;Marin&quot;          &quot;Mariposa&quot;       &quot;Mendocino&quot;     
+#&gt; [13] &quot;Monterey&quot;       &quot;Napa&quot;           &quot;Placer&quot;         &quot;Plumas&quot;        
+#&gt; [17] &quot;San Bernandino&quot; &quot;San Francisco&quot;  &quot;San Mateo&quot;      &quot;Santa Clara&quot;   
+#&gt; [21] &quot;Santa Cruz&quot;     &quot;Shasta&quot;         &quot;Sierra&quot;         &quot;Siskiyou&quot;      
+#&gt; [25] &quot;Solano&quot;         &quot;Sonoma&quot;         &quot;Stanislaus&quot;     &quot;Tehama&quot;        
+#&gt; [29] &quot;Trinity&quot;        &quot;Tulare&quot;         &quot;Tuolumne&quot;       &quot;Yolo&quot;</code></pre>
 </div>
 <div id="practice-1" class="section level2">
 <h2>Practice</h2>
@@ -1589,6 +1743,22 @@ County data by name?</li>
 column names. This makes it easy to merge the data together with
 <code>bind_rows()</code> from <code>dplyr</code>.
 <code>bind_rows()</code> matches columns by name.</p>
+<pre class="r"><code>spiders_all &lt;- bind_rows(spider_list)
+spiders_all
+#&gt; # A tibble: 270 × 9
+#&gt;    Accession Family    Genus   Country State     County Locality Date  Collector
+#&gt;        &lt;dbl&gt; &lt;chr&gt;     &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;     &lt;chr&gt;  &lt;chr&gt;    &lt;chr&gt; &lt;chr&gt;    
+#&gt;  1   9038521 Telemidae Usofila USA     Californ… Alame… Berkeley 2/3/… LM Smith 
+#&gt;  2   9038522 Telemidae Usofila USA     Californ… Alame… Castro … 24/3… WM Pearce
+#&gt;  3   9038523 Telemidae Usofila USA     Californ… Alame… Niles, … 2/1/… V Roth   
+#&gt;  4   9038524 Telemidae Usofila USA     Californ… Alame… Oakland  18/2… WG Benti…
+#&gt;  5   9038525 Telemidae Usofila USA     Californ… Alame… Oakland  25/1… R Schust…
+#&gt;  6   9038526 Telemidae Usofila USA     Californ… Alame… Oakland  18/2… WC Benti…
+#&gt;  7   9038527 Telemidae Usofila USA     Californ… Alame… Oakland  10/1… J Helfer 
+#&gt;  8  90386281 Telemidae Usofila USA     Californ… Alame… Oakland… 17/1… Roth, Sc…
+#&gt;  9   9038529 Telemidae Usofila USA     Californ… Alame… Oakland… 17/1… Roth, Sc…
+#&gt; 10  90387441 Telemidae Usofila USA     Californ… Alame… Berkele… 17/2… PR Craig…
+#&gt; # ℹ 260 more rows</code></pre>
 </div>
 <div id="joining-files" class="section level2">
 <h2>Joining Files</h2>
@@ -1617,17 +1787,73 @@ table_B &lt;- read_csv(&quot;data/table_B.csv&quot;)
 #&gt; 
 #&gt; ℹ Use `spec()` to retrieve the full column specification for this data.
 #&gt; ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+<pre class="r"><code>table_A
+#&gt; # A tibble: 3 × 5
+#&gt;   customer_ID n_orders total_value_orders ave_value_orders last_order_date
+#&gt;         &lt;dbl&gt;    &lt;dbl&gt;              &lt;dbl&gt;            &lt;dbl&gt; &lt;chr&gt;          
+#&gt; 1           1        5                500              100 12/7/20        
+#&gt; 2           2       10                240               24 1/2/18         
+#&gt; 3           3        4                 40               10 3/6/20</code></pre>
+<pre class="r"><code>table_B
+#&gt; # A tibble: 3 × 4
+#&gt;   customer_ID   age gender favorite
+#&gt;         &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;  &lt;chr&gt;   
+#&gt; 1           1    50 M      t_shirts
+#&gt; 2           2    44 F      leggings
+#&gt; 3           4    30 F      jumpers</code></pre>
 <p>The general syntax for joins is…</p>
 <pre class="r"><code>#join_type(firstTable, secondTable, by=columnTojoinOn)</code></pre>
 <p><code>inner_join</code><br />
 Where did customers 3 and 4 go?</p>
+<pre class="r"><code>inner_exampleDF &lt;- inner_join(table_A, table_B, by=&quot;customer_ID&quot;)
+inner_exampleDF
+#&gt; # A tibble: 2 × 8
+#&gt;   customer_ID n_orders total_value_orders ave_value_orders last_order_date   age
+#&gt;         &lt;dbl&gt;    &lt;dbl&gt;              &lt;dbl&gt;            &lt;dbl&gt; &lt;chr&gt;           &lt;dbl&gt;
+#&gt; 1           1        5                500              100 12/7/20            50
+#&gt; 2           2       10                240               24 1/2/18             44
+#&gt; # ℹ 2 more variables: gender &lt;chr&gt;, favorite &lt;chr&gt;</code></pre>
 <p><code>left_join</code> Where did customer 4 go? Notice the missing
 data for customer 3.</p>
+<pre class="r"><code>left_exampleDF &lt;- left_join(table_A, table_B, by=&quot;customer_ID&quot;)
+left_exampleDF
+#&gt; # A tibble: 3 × 8
+#&gt;   customer_ID n_orders total_value_orders ave_value_orders last_order_date   age
+#&gt;         &lt;dbl&gt;    &lt;dbl&gt;              &lt;dbl&gt;            &lt;dbl&gt; &lt;chr&gt;           &lt;dbl&gt;
+#&gt; 1           1        5                500              100 12/7/20            50
+#&gt; 2           2       10                240               24 1/2/18             44
+#&gt; 3           3        4                 40               10 3/6/20             NA
+#&gt; # ℹ 2 more variables: gender &lt;chr&gt;, favorite &lt;chr&gt;</code></pre>
 <p><code>right_join</code> Where did customer 3 go? Notice the missing
 data for customer 4.</p>
+<pre class="r"><code>right_exampleDF &lt;- right_join(table_A, table_B, by=&quot;customer_ID&quot;)
+right_exampleDF
+#&gt; # A tibble: 3 × 8
+#&gt;   customer_ID n_orders total_value_orders ave_value_orders last_order_date   age
+#&gt;         &lt;dbl&gt;    &lt;dbl&gt;              &lt;dbl&gt;            &lt;dbl&gt; &lt;chr&gt;           &lt;dbl&gt;
+#&gt; 1           1        5                500              100 12/7/20            50
+#&gt; 2           2       10                240               24 1/2/18             44
+#&gt; 3           4       NA                 NA               NA &lt;NA&gt;               30
+#&gt; # ℹ 2 more variables: gender &lt;chr&gt;, favorite &lt;chr&gt;</code></pre>
 <p><code>full_join</code></p>
+<pre class="r"><code>full_exampleDF &lt;- full_join(table_A, table_B, by=&quot;customer_ID&quot;)
+full_exampleDF
+#&gt; # A tibble: 4 × 8
+#&gt;   customer_ID n_orders total_value_orders ave_value_orders last_order_date   age
+#&gt;         &lt;dbl&gt;    &lt;dbl&gt;              &lt;dbl&gt;            &lt;dbl&gt; &lt;chr&gt;           &lt;dbl&gt;
+#&gt; 1           1        5                500              100 12/7/20            50
+#&gt; 2           2       10                240               24 1/2/18             44
+#&gt; 3           3        4                 40               10 3/6/20             NA
+#&gt; 4           4       NA                 NA               NA &lt;NA&gt;               30
+#&gt; # ℹ 2 more variables: gender &lt;chr&gt;, favorite &lt;chr&gt;</code></pre>
 <p><code>anti_join</code> Provides the rows in the first table for which
 there are not matching values in the second table.</p>
+<pre class="r"><code>anti_exampleDF &lt;- anti_join(table_A, table_B, by=&quot;customer_ID&quot;)
+anti_exampleDF
+#&gt; # A tibble: 1 × 5
+#&gt;   customer_ID n_orders total_value_orders ave_value_orders last_order_date
+#&gt;         &lt;dbl&gt;    &lt;dbl&gt;              &lt;dbl&gt;            &lt;dbl&gt; &lt;chr&gt;          
+#&gt; 1           3        4                 40               10 3/6/20</code></pre>
 </div>
 <div id="joining-the-spider-data" class="section level2">
 <h2>Joining the spider data</h2>
@@ -1635,22 +1861,7 @@ there are not matching values in the second table.</p>
 the field records at a later date, and now we need to join it to our
 <code>spiders_all</code> data frame. The lat/long were recorded into one
 single file for each observation. Let’s read in the lat/long data.</p>
-<pre class="r"><code>spiders_locs &lt;- read_csv(&quot;data/spiders locations/spiders_locations.csv&quot;)
-spiders_locs
-#&gt; # A tibble: 270 × 3
-#&gt;    Accession Latitude Longitude
-#&gt;        &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;
-#&gt;  1   9038521     37.9     -122.
-#&gt;  2   9038522     37.7     -122.
-#&gt;  3   9038523     37.6     -122.
-#&gt;  4   9038524     37.8     -122.
-#&gt;  5   9038525     37.8     -122.
-#&gt;  6   9038526     37.8     -122.
-#&gt;  7   9038527     37.8     -122.
-#&gt;  8  90386281     37.8     -122.
-#&gt;  9   9038529     37.8     -122.
-#&gt; 10  90387441     37.9     -122.
-#&gt; # ℹ 260 more rows</code></pre>
+<pre class="r"><code>spiders_locs &lt;- read_csv(&quot;data/spiders locations/spiders_locations.csv&quot;)</code></pre>
 <p>We will use a join here to merge lat/long to our data frame. Both
 files contain a unique identifier called <code>Accession</code> which we
 will use to join.</p>
@@ -1674,22 +1885,25 @@ analysis. Most importantly, everyone who uses our R script will know
 exactly what we did!</p>
 <p>There is one last thing to change. Did you notice the date column? It
 seems to be in the format Day/Month/Year.</p>
+<pre class="r"><code>#class(spiders_with_locs$Date)
+#glimpse(spiders_with_locs)</code></pre>
 <p>The <code>lubridate</code> package was specifically created to deal
 with dates of all types. There are many useful functions in
 <code>lubridate</code> for working with dates. Please see the excellent
 tutorial provided by <a href="https://www.youtube.com/watch?v=VYAo69WdJZg&amp;ab_channel=RichardOnData">RichardOnData</a>.</p>
 <pre class="r"><code>day &lt;- today()
 day
-#&gt; [1] &quot;2024-02-28&quot;</code></pre>
+#&gt; [1] &quot;2024-02-29&quot;</code></pre>
 <pre class="r"><code>str(day)
-#&gt;  Date[1:1], format: &quot;2024-02-28&quot;</code></pre>
+#&gt;  Date[1:1], format: &quot;2024-02-29&quot;</code></pre>
 <pre class="r"><code>datetime &lt;- now()
 datetime
-#&gt; [1] &quot;2024-02-28 19:26:58 PST&quot;</code></pre>
+#&gt; [1] &quot;2024-02-29 09:08:20 PST&quot;</code></pre>
 <p>We want to change our date column to the standard “YEAR-MO-DA” format
 that R will recognize as a date. Right now it is listed as
 day-month-year. We can use the base R function <code>as.Date()</code> or
 the lubridate function <code>dmy</code> for this.</p>
+<pre class="r"><code>#dmy(spiders_with_locs$Date)</code></pre>
 <p>There are many different options for working with dates and datetimes
 in lubridate including <code>ymd</code>, <code>mdy</code>,
 <code>dmy</code>, <code>mdy_hms</code>, <code>ymd_hms</code>.</p>

@@ -15,8 +15,8 @@ output:
 1. Produce distribution maps in R.  
  
 ## Resources
-- [Overview of Cooordinate Reference Systems in R](https://www.nceas.ucsb.edu/~frazier/RSpatialGuides/OverviewCoordinateReferenceSystems.pdf) 
-- [ggmap](https://cran.r-project.org/web/packages/ggmap/readme/README.html) 
+[Overview of Cooordinate Reference Systems in R](https://www.nceas.ucsb.edu/~frazier/RSpatialGuides/OverviewCoordinateReferenceSystems.pdf)
+[ggmap](https://cran.r-project.org/web/packages/ggmap/readme/README.html)
 
 ## Spatial Data in R
 There are many packages and techniques for working with spatial data in R. We will cover just some of the basics. One nice package is `ggmap`, which allows us to use base maps from Google Maps, OpenStreetMap, and Stamen Maps. It also works well with `ggplot2`.  
@@ -59,28 +59,34 @@ We set the bounding box to a little outside our min and max locations with `f = 
 
 `summary()` gives us our min and max.
 ```{r}
-
+spiders %>% 
+  select(latitude, longitude) %>% 
+  summary()
 ```
 
 Now we set the bounding box. We use the min and max values for latitude and longitude to set the range.  
 ```{r}
-
+lat <- c(34.67, 41.80)
+long <- c(-124.1, -115.5)
+bbox <- make_bbox(long, lat, f = 0.03) #f is the fraction of the bounding box to add to the range
 ```
 
 Let's get a base map for our bounding box area. There are several different map [styles](https://docs.stadiamaps.com/themes/)
 ```{r}
-#map1 <- get_stadiamap(bbox, maptype = "stamen_terrain", zoom=7)
+map1 <- get_stadiamap(bbox, maptype = "stamen_terrain", zoom=7)
 ```
 
 Have a look at the map.  
 ```{r}
-#ggmap(map1)
+ggmap(map1)
 ```
 
 ## Adding Points to Base Map
 `ggmap` works well with `ggplot2`. To add our points we only need to specify the x and y location similar to how we made charts in previous labs. 
 ```{r}
-
+ggmap(map1) + 
+  geom_point(data = spiders, aes(longitude, latitude), size=0.4) +
+  labs(x= "Longitude", y= "Latitude", title="Spider Locations")
 ```
 
 ## Practice
@@ -96,6 +102,10 @@ sharks <- read_csv("data/SharkIncidents_1950_2022_220302.csv") %>%
 ```{r}
 sharks_dups <- sharks %>% 
   distinct(location, .keep_all = TRUE) # remove duplicate locations, but keep the remaining variables
+```
+
+```{r}
+
 ```
 
 ```{r}
