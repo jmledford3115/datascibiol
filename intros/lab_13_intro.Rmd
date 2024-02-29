@@ -1,5 +1,5 @@
 ---
-title: "Lab 13 Intro"
+title: "Lab 12 Intro"
 date: "`r Sys.Date()`"
 output: ioslides_presentation
 ---
@@ -9,23 +9,14 @@ knitr::opts_chunk$set(echo = FALSE)
 library("jpeg")
 ```
 
-## Load the libraries
-```{r}
-library("janitor")
-library("tidyverse")
-library("shiny")
-```
+## Group project  
+1. Have you decided on a data set?
+2. Have you imported the data into R- do you have an idea of its structure?  
+3. What cleaning challenges do you anticipate?  
+4. What are your initial questions?  
+5. When is your group meeting?  
 
-## Warm-up
-For this exercise, let's use some data on elephants. These data are from Phyllis Lee, Stirling University, and are related to Lee, P., et al. (2013), "Enduring consequences of early experiences: 40-year effects on survival and success among African elephants (Loxodonta africana)," Biology Letters, 9: 20130011. [kaggle](https://www.kaggle.com/mostafaelseidy/elephantsmf).  
-
-1. Load the data and evaluate its structure. Clean as appropriate.
-```{r}
-
-```
-
-2. Make a simple shiny app that produces a scatterplot of age vs. height with reactivity assigned to sex. Make sure to include a title and try to incorporate the reference to the data.
-
-```{r, eval=F, echo=T}
-
-```
+## Suggestions
+1. Each person in the group needs an assigned task.  
+2. Make a new repository on GitHub for your project.  
+3. If you get stuck, please come and see us for help.  
