@@ -10,7 +10,7 @@
 
 
 
-<meta name="date" content="2024-02-29" />
+<meta name="date" content="2024-03-01" />
 
 <title>Joins and Lubridate</title>
 
@@ -1503,7 +1503,7 @@ border-radius: 0px;
 
 
 <h1 class="title toc-ignore">Joins and Lubridate</h1>
-<h4 class="date">2024-02-29</h4>
+<h4 class="date">2024-03-01</h4>
 
 </div>
 
@@ -1538,8 +1538,7 @@ using.</p>
 library(&quot;janitor&quot;)
 library(&quot;lubridate&quot;) #this will help us manage dates</code></pre>
 <p>Now we can list all of the files in a directory. This is very helpful
-when you are working with multiple files at once. We can also get the
-full path names with <code>full.names = TRUE</code>.</p>
+when you are working with multiple files at once.</p>
 <pre class="r"><code>files &lt;- list.files(path = &quot;data/spiders&quot;, pattern = &quot;.csv&quot;, full.names = TRUE)
 files
 #&gt;  [1] &quot;data/spiders/Alameda .csv&quot;        &quot;data/spiders/Amador .csv&quot;        
@@ -1587,6 +1586,21 @@ especially when there are many elements. Try exploring the elements in
 <code>spider_list</code> using names(), str(), or glimpse(). For
 names(), you will need to specify an element using [[]].</li>
 </ol>
+<pre class="r"><code>names(spider_list[[1]])
+#&gt; [1] &quot;Accession&quot; &quot;Family&quot;    &quot;Genus&quot;     &quot;Country&quot;   &quot;State&quot;     &quot;County&quot;   
+#&gt; [7] &quot;Locality&quot;  &quot;Date&quot;      &quot;Collector&quot;</code></pre>
+<pre class="r"><code>glimpse(spider_list[[1]])
+#&gt; Rows: 12
+#&gt; Columns: 9
+#&gt; $ Accession &lt;dbl&gt; 9038521, 9038522, 9038523, 9038524, 9038525, 9038526, 903852…
+#&gt; $ Family    &lt;chr&gt; &quot;Telemidae&quot;, &quot;Telemidae&quot;, &quot;Telemidae&quot;, &quot;Telemidae&quot;, &quot;Telemid…
+#&gt; $ Genus     &lt;chr&gt; &quot;Usofila&quot;, &quot;Usofila&quot;, &quot;Usofila&quot;, &quot;Usofila&quot;, &quot;Usofila&quot;, &quot;Usof…
+#&gt; $ Country   &lt;chr&gt; &quot;USA&quot;, &quot;USA&quot;, &quot;USA&quot;, &quot;USA&quot;, &quot;USA&quot;, &quot;USA&quot;, &quot;USA&quot;, &quot;USA&quot;, &quot;USA…
+#&gt; $ State     &lt;chr&gt; &quot;California&quot;, &quot;California&quot;, &quot;California&quot;, &quot;California&quot;, &quot;Cal…
+#&gt; $ County    &lt;chr&gt; &quot;Alameda&quot;, &quot;Alameda&quot;, &quot;Alameda&quot;, &quot;Alameda&quot;, &quot;Alameda&quot;, &quot;Alam…
+#&gt; $ Locality  &lt;chr&gt; &quot;Berkeley&quot;, &quot;Castro Valley&quot;, &quot;Niles, off Niles Cyn. on Palom…
+#&gt; $ Date      &lt;chr&gt; &quot;2/3/1958&quot;, &quot;24/3/1941&quot;, &quot;2/1/1964&quot;, &quot;18/2/1953&quot;, &quot;25/1/1953…
+#&gt; $ Collector &lt;chr&gt; &quot;LM Smith&quot;, &quot;WM Pearce&quot;, &quot;V Roth&quot;, &quot;WG Bentinck&quot;, &quot;R Schuste…</code></pre>
 </div>
 <div id="naming-list-elements" class="section level2">
 <h2>Naming List Elements</h2>
@@ -1736,6 +1750,11 @@ names(spider_list)
 <li>Now that our list elements are named, how could we access the Butte
 County data by name?</li>
 </ol>
+<pre class="r"><code>spider_list[[&quot;Butte&quot;]]
+#&gt; # A tibble: 1 × 9
+#&gt;   Accession Family    Genus   Country State      County Locality Date  Collector
+#&gt;       &lt;dbl&gt; &lt;chr&gt;     &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;      &lt;chr&gt;  &lt;chr&gt;    &lt;chr&gt; &lt;chr&gt;    
+#&gt; 1   9038509 Telemidae Usofila USA     California Butte  Dry Cre… 2/3/… RO Schus…</code></pre>
 </div>
 <div id="merging-files" class="section level2">
 <h2>Merging Files</h2>
@@ -1861,7 +1880,22 @@ anti_exampleDF
 the field records at a later date, and now we need to join it to our
 <code>spiders_all</code> data frame. The lat/long were recorded into one
 single file for each observation. Let’s read in the lat/long data.</p>
-<pre class="r"><code>spiders_locs &lt;- read_csv(&quot;data/spiders locations/spiders_locations.csv&quot;)</code></pre>
+<pre class="r"><code>spiders_locs &lt;- read_csv(&quot;data/spiders locations/spiders_locations.csv&quot;)
+spiders_locs
+#&gt; # A tibble: 270 × 3
+#&gt;    Accession Latitude Longitude
+#&gt;        &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;
+#&gt;  1   9038521     37.9     -122.
+#&gt;  2   9038522     37.7     -122.
+#&gt;  3   9038523     37.6     -122.
+#&gt;  4   9038524     37.8     -122.
+#&gt;  5   9038525     37.8     -122.
+#&gt;  6   9038526     37.8     -122.
+#&gt;  7   9038527     37.8     -122.
+#&gt;  8  90386281     37.8     -122.
+#&gt;  9   9038529     37.8     -122.
+#&gt; 10  90387441     37.9     -122.
+#&gt; # ℹ 260 more rows</code></pre>
 <p>We will use a join here to merge lat/long to our data frame. Both
 files contain a unique identifier called <code>Accession</code> which we
 will use to join.</p>
@@ -1871,6 +1905,33 @@ will use to join.</p>
 <ol style="list-style-type: decimal">
 <li>Which type of join is most appropriate in this case?</li>
 </ol>
+<pre class="r"><code>spiders_with_locs &lt;- 
+  left_join(spiders_all, spiders_locs, by = &quot;Accession&quot;)
+summary(spiders_with_locs)
+#&gt;    Accession           Family             Genus             Country         
+#&gt;  Min.   : 9034549   Length:270         Length:270         Length:270        
+#&gt;  1st Qu.: 9038573   Class :character   Class :character   Class :character  
+#&gt;  Median : 9038644   Mode  :character   Mode  :character   Mode  :character  
+#&gt;  Mean   : 9641191                                                           
+#&gt;  3rd Qu.: 9038718                                                           
+#&gt;  Max.   :90387441                                                           
+#&gt;     State              County            Locality             Date          
+#&gt;  Length:270         Length:270         Length:270         Length:270        
+#&gt;  Class :character   Class :character   Class :character   Class :character  
+#&gt;  Mode  :character   Mode  :character   Mode  :character   Mode  :character  
+#&gt;                                                                             
+#&gt;                                                                             
+#&gt;                                                                             
+#&gt;   Collector            Latitude       Longitude     
+#&gt;  Length:270         Min.   :34.67   Min.   :-124.1  
+#&gt;  Class :character   1st Qu.:37.88   1st Qu.:-122.5  
+#&gt;  Mode  :character   Median :38.19   Median :-122.1  
+#&gt;                     Mean   :38.49   Mean   :-121.6  
+#&gt;                     3rd Qu.:38.88   3rd Qu.:-120.5  
+#&gt;                     Max.   :44.51   Max.   :-115.5
+names(spiders_with_locs)
+#&gt;  [1] &quot;Accession&quot; &quot;Family&quot;    &quot;Genus&quot;     &quot;Country&quot;   &quot;State&quot;     &quot;County&quot;   
+#&gt;  [7] &quot;Locality&quot;  &quot;Date&quot;      &quot;Collector&quot; &quot;Latitude&quot;  &quot;Longitude&quot;</code></pre>
 <p>As a side note, joining data can highlight problems or typos with the
 data when the join does not go as expected.</p>
 </div>
@@ -1885,25 +1946,94 @@ analysis. Most importantly, everyone who uses our R script will know
 exactly what we did!</p>
 <p>There is one last thing to change. Did you notice the date column? It
 seems to be in the format Day/Month/Year.</p>
-<pre class="r"><code>#class(spiders_with_locs$Date)
-#glimpse(spiders_with_locs)</code></pre>
+<pre class="r"><code>class(spiders_with_locs$Date)
+#&gt; [1] &quot;character&quot;
+glimpse(spiders_with_locs)
+#&gt; Rows: 270
+#&gt; Columns: 11
+#&gt; $ Accession &lt;dbl&gt; 9038521, 9038522, 9038523, 9038524, 9038525, 9038526, 903852…
+#&gt; $ Family    &lt;chr&gt; &quot;Telemidae&quot;, &quot;Telemidae&quot;, &quot;Telemidae&quot;, &quot;Telemidae&quot;, &quot;Telemid…
+#&gt; $ Genus     &lt;chr&gt; &quot;Usofila&quot;, &quot;Usofila&quot;, &quot;Usofila&quot;, &quot;Usofila&quot;, &quot;Usofila&quot;, &quot;Usof…
+#&gt; $ Country   &lt;chr&gt; &quot;USA&quot;, &quot;USA&quot;, &quot;USA&quot;, &quot;USA&quot;, &quot;USA&quot;, &quot;USA&quot;, &quot;USA&quot;, &quot;USA&quot;, &quot;USA…
+#&gt; $ State     &lt;chr&gt; &quot;California&quot;, &quot;California&quot;, &quot;California&quot;, &quot;California&quot;, &quot;Cal…
+#&gt; $ County    &lt;chr&gt; &quot;Alameda&quot;, &quot;Alameda&quot;, &quot;Alameda&quot;, &quot;Alameda&quot;, &quot;Alameda&quot;, &quot;Alam…
+#&gt; $ Locality  &lt;chr&gt; &quot;Berkeley&quot;, &quot;Castro Valley&quot;, &quot;Niles, off Niles Cyn. on Palom…
+#&gt; $ Date      &lt;chr&gt; &quot;2/3/1958&quot;, &quot;24/3/1941&quot;, &quot;2/1/1964&quot;, &quot;18/2/1953&quot;, &quot;25/1/1953…
+#&gt; $ Collector &lt;chr&gt; &quot;LM Smith&quot;, &quot;WM Pearce&quot;, &quot;V Roth&quot;, &quot;WG Bentinck&quot;, &quot;R Schuste…
+#&gt; $ Latitude  &lt;dbl&gt; 37.87, 37.73, 37.60, 37.80, 37.80, 37.80, 37.80, 37.82, 37.8…
+#&gt; $ Longitude &lt;dbl&gt; -122.24, -122.07, -121.95, -122.16, -122.16, -122.16, -122.1…</code></pre>
 <p>The <code>lubridate</code> package was specifically created to deal
 with dates of all types. There are many useful functions in
 <code>lubridate</code> for working with dates. Please see the excellent
 tutorial provided by <a href="https://www.youtube.com/watch?v=VYAo69WdJZg&amp;ab_channel=RichardOnData">RichardOnData</a>.</p>
 <pre class="r"><code>day &lt;- today()
 day
-#&gt; [1] &quot;2024-02-29&quot;</code></pre>
+#&gt; [1] &quot;2024-03-01&quot;</code></pre>
 <pre class="r"><code>str(day)
-#&gt;  Date[1:1], format: &quot;2024-02-29&quot;</code></pre>
+#&gt;  Date[1:1], format: &quot;2024-03-01&quot;</code></pre>
 <pre class="r"><code>datetime &lt;- now()
 datetime
-#&gt; [1] &quot;2024-02-29 09:08:20 PST&quot;</code></pre>
+#&gt; [1] &quot;2024-03-01 11:55:05 PST&quot;</code></pre>
 <p>We want to change our date column to the standard “YEAR-MO-DA” format
 that R will recognize as a date. Right now it is listed as
 day-month-year. We can use the base R function <code>as.Date()</code> or
 the lubridate function <code>dmy</code> for this.</p>
-<pre class="r"><code>#dmy(spiders_with_locs$Date)</code></pre>
+<pre class="r"><code>dmy(spiders_with_locs$Date)
+#&gt; Warning: 2 failed to parse.
+#&gt;   [1] &quot;1958-03-02&quot; &quot;1941-03-24&quot; &quot;1964-01-02&quot; &quot;1953-02-18&quot; &quot;1953-01-25&quot;
+#&gt;   [6] &quot;1953-02-18&quot; &quot;1953-12-10&quot; &quot;1953-10-17&quot; &quot;1953-10-17&quot; &quot;1962-02-17&quot;
+#&gt;  [11] &quot;1983-12-21&quot; &quot;1964-01-01&quot; &quot;1995-03-25&quot; &quot;1987-10-17&quot; &quot;1987-10-17&quot;
+#&gt;  [16] &quot;1981-01-24&quot; &quot;1980-09-21&quot; &quot;1980-09-13&quot; &quot;1995-07-15&quot; &quot;1979-04-15&quot;
+#&gt;  [21] &quot;1956-03-02&quot; &quot;1979-02-28&quot; &quot;1975-09-23&quot; &quot;1994-06-11&quot; &quot;1990-12-22&quot;
+#&gt;  [26] &quot;1961-09-01&quot; &quot;1991-08-24&quot; &quot;1977-05-14&quot; &quot;1962-08-11&quot; &quot;1963-08-21&quot;
+#&gt;  [31] &quot;1977-05-25&quot; &quot;1960-05-14&quot; &quot;1961-03-31&quot; &quot;1977-05-25&quot; &quot;1977-05-25&quot;
+#&gt;  [36] &quot;1961-09-04&quot; &quot;1962-08-13&quot; &quot;1979-03-29&quot; &quot;1962-08-15&quot; &quot;1977-05-25&quot;
+#&gt;  [41] &quot;1961-08-31&quot; NA           &quot;1963-08-19&quot; &quot;1961-09-01&quot; &quot;1979-03-29&quot;
+#&gt;  [46] &quot;1960-05-14&quot; &quot;1977-05-16&quot; NA           &quot;1977-04-27&quot; &quot;1977-05-16&quot;
+#&gt;  [51] &quot;1961-09-04&quot; &quot;1961-09-04&quot; &quot;1963-08-17&quot; &quot;1961-09-04&quot; &quot;1960-05-14&quot;
+#&gt;  [56] &quot;1960-05-14&quot; &quot;1972-08-11&quot; &quot;1961-09-04&quot; &quot;1991-02-22&quot; &quot;1991-02-22&quot;
+#&gt;  [61] &quot;1991-02-22&quot; &quot;1953-12-12&quot; &quot;1953-12-05&quot; &quot;1953-05-18&quot; &quot;1961-03-27&quot;
+#&gt;  [66] &quot;1953-09-19&quot; &quot;1953-09-19&quot; &quot;1994-04-20&quot; &quot;1961-05-18&quot; &quot;1962-09-01&quot;
+#&gt;  [71] &quot;1962-09-01&quot; &quot;1946-03-18&quot; &quot;1962-06-02&quot; &quot;1958-04-25&quot; &quot;1958-03-05&quot;
+#&gt;  [76] &quot;1958-02-22&quot; &quot;1959-09-15&quot; &quot;1953-08-13&quot; &quot;1953-08-13&quot; &quot;1961-09-16&quot;
+#&gt;  [81] &quot;1953-09-19&quot; &quot;1961-09-15&quot; &quot;1959-10-01&quot; &quot;1953-04-13&quot; &quot;2006-06-30&quot;
+#&gt;  [86] &quot;1937-07-13&quot; &quot;1994-04-21&quot; &quot;1980-09-30&quot; &quot;1960-03-01&quot; &quot;1982-03-14&quot;
+#&gt;  [91] &quot;1960-03-24&quot; &quot;1991-03-01&quot; &quot;1953-11-08&quot; &quot;1982-03-07&quot; &quot;1987-11-14&quot;
+#&gt;  [96] &quot;1991-03-08&quot; &quot;1986-01-02&quot; &quot;1994-01-15&quot; &quot;1986-02-23&quot; &quot;1991-03-08&quot;
+#&gt; [101] &quot;1982-03-07&quot; &quot;1994-01-30&quot; &quot;1982-04-25&quot; &quot;1994-03-12&quot; &quot;1994-03-19&quot;
+#&gt; [106] &quot;1993-02-27&quot; &quot;1985-12-07&quot; &quot;1990-03-16&quot; &quot;1979-04-07&quot; &quot;1958-09-04&quot;
+#&gt; [111] &quot;1953-04-04&quot; &quot;1953-04-04&quot; &quot;1953-04-04&quot; &quot;1992-09-07&quot; &quot;1993-07-25&quot;
+#&gt; [116] &quot;1990-09-15&quot; &quot;1990-09-21&quot; &quot;1990-09-18&quot; &quot;1991-05-04&quot; &quot;1990-07-20&quot;
+#&gt; [121] &quot;1957-01-05&quot; &quot;1955-05-03&quot; &quot;1957-03-03&quot; &quot;1957-11-15&quot; &quot;1955-02-12&quot;
+#&gt; [126] &quot;1957-08-03&quot; &quot;1958-03-17&quot; &quot;1958-03-15&quot; &quot;1996-05-26&quot; &quot;1964-05-02&quot;
+#&gt; [131] &quot;1991-05-31&quot; &quot;1949-05-30&quot; &quot;1953-12-31&quot; &quot;1958-01-19&quot; &quot;1957-01-06&quot;
+#&gt; [136] &quot;1958-01-22&quot; &quot;1958-01-19&quot; &quot;1957-12-13&quot; &quot;1957-01-06&quot; &quot;1958-12-15&quot;
+#&gt; [141] &quot;1958-01-22&quot; &quot;1954-02-15&quot; &quot;1953-12-31&quot; &quot;1957-01-06&quot; &quot;1962-04-29&quot;
+#&gt; [146] &quot;1957-03-17&quot; &quot;1962-05-22&quot; &quot;1957-05-12&quot; &quot;1953-12-31&quot; &quot;1954-03-14&quot;
+#&gt; [151] &quot;1957-03-16&quot; &quot;1958-01-03&quot; &quot;1959-03-10&quot; &quot;1959-01-03&quot; &quot;1959-03-10&quot;
+#&gt; [156] &quot;1958-03-21&quot; &quot;1959-01-03&quot; &quot;1959-03-19&quot; &quot;1959-03-10&quot; &quot;1958-03-12&quot;
+#&gt; [161] &quot;1959-09-19&quot; &quot;1961-09-05&quot; &quot;1972-04-01&quot; &quot;1954-02-10&quot; &quot;1990-06-29&quot;
+#&gt; [166] &quot;1988-11-18&quot; &quot;1991-05-16&quot; &quot;2001-07-13&quot; &quot;1961-11-05&quot; &quot;1986-09-13&quot;
+#&gt; [171] &quot;1987-01-02&quot; &quot;1991-02-10&quot; &quot;1989-03-11&quot; &quot;1989-03-31&quot; &quot;1989-02-20&quot;
+#&gt; [176] &quot;1954-01-02&quot; &quot;1957-06-02&quot; &quot;1990-01-26&quot; &quot;1983-01-02&quot; &quot;1957-08-28&quot;
+#&gt; [181] &quot;1953-06-14&quot; &quot;1953-12-23&quot; &quot;1991-02-18&quot; &quot;1989-07-08&quot; &quot;1963-08-28&quot;
+#&gt; [186] &quot;1991-02-18&quot; &quot;1979-04-21&quot; &quot;1961-09-15&quot; &quot;1954-07-11&quot; &quot;1979-04-09&quot;
+#&gt; [191] &quot;1961-09-07&quot; &quot;1961-09-07&quot; &quot;1960-06-28&quot; &quot;2000-04-14&quot; &quot;1989-08-06&quot;
+#&gt; [196] &quot;1960-06-28&quot; &quot;1959-09-27&quot; &quot;1959-06-15&quot; &quot;1954-07-11&quot; &quot;1959-06-14&quot;
+#&gt; [201] &quot;1959-12-19&quot; &quot;1995-06-08&quot; &quot;1996-08-30&quot; &quot;1960-04-02&quot; &quot;1989-08-07&quot;
+#&gt; [206] &quot;1995-06-08&quot; &quot;1995-06-09&quot; &quot;1995-06-07&quot; &quot;1991-08-17&quot; &quot;1959-08-22&quot;
+#&gt; [211] &quot;1989-06-17&quot; &quot;1960-02-11&quot; &quot;1983-02-11&quot; &quot;1980-12-07&quot; &quot;1983-02-11&quot;
+#&gt; [216] &quot;1988-01-18&quot; &quot;1954-03-14&quot; &quot;1958-01-22&quot; &quot;1953-12-31&quot; &quot;1953-12-31&quot;
+#&gt; [221] &quot;1953-11-21&quot; &quot;1953-12-31&quot; &quot;2007-01-09&quot; &quot;1991-02-10&quot; &quot;1989-03-31&quot;
+#&gt; [226] &quot;1954-06-26&quot; &quot;1990-10-27&quot; &quot;1996-08-31&quot; &quot;1990-08-13&quot; &quot;1990-10-27&quot;
+#&gt; [231] &quot;1989-10-20&quot; &quot;1954-07-11&quot; &quot;2000-06-22&quot; &quot;1990-04-05&quot; &quot;1990-04-05&quot;
+#&gt; [236] &quot;1979-04-18&quot; &quot;1979-04-18&quot; &quot;1991-07-27&quot; &quot;1991-07-26&quot; &quot;2004-04-28&quot;
+#&gt; [241] &quot;2004-04-27&quot; &quot;2004-05-04&quot; &quot;2004-04-27&quot; &quot;2003-11-19&quot; &quot;2004-04-27&quot;
+#&gt; [246] &quot;2004-04-27&quot; &quot;2003-11-19&quot; &quot;2004-04-28&quot; &quot;2003-08-13&quot; &quot;2003-11-17&quot;
+#&gt; [251] &quot;2003-08-13&quot; &quot;1978-01-20&quot; &quot;1977-05-01&quot; &quot;1979-03-28&quot; &quot;1977-12-18&quot;
+#&gt; [256] &quot;1978-01-10&quot; &quot;1979-04-01&quot; &quot;1978-01-02&quot; &quot;1977-02-21&quot; &quot;1979-02-12&quot;
+#&gt; [261] &quot;1979-03-25&quot; &quot;1977-12-14&quot; &quot;1979-03-25&quot; &quot;1979-04-17&quot; &quot;1978-01-10&quot;
+#&gt; [266] &quot;1979-02-04&quot; &quot;1977-05-12&quot; &quot;1977-03-15&quot; &quot;1981-03-05&quot; &quot;1960-02-09&quot;</code></pre>
 <p>There are many different options for working with dates and datetimes
 in lubridate including <code>ymd</code>, <code>mdy</code>,
 <code>dmy</code>, <code>mdy_hms</code>, <code>ymd_hms</code>.</p>
@@ -1918,12 +2048,31 @@ dateformat5 &lt;- &quot;20200922 170000&quot;</code></pre>
 <ol style="list-style-type: decimal">
 <li>Convert each of the examples above using lubridate.</li>
 </ol>
+<pre class="r"><code>ymd(dateformat1)
+#&gt; [1] &quot;2020-09-22&quot;</code></pre>
+<pre class="r"><code>mdy(dateformat2)
+#&gt; [1] &quot;2020-09-22&quot;</code></pre>
+<pre class="r"><code>dmy(dateformat3)
+#&gt; [1] &quot;2020-09-22&quot;</code></pre>
+<pre class="r"><code>mdy_hms(dateformat4)
+#&gt; [1] &quot;2020-09-22 17:00:00 UTC&quot;</code></pre>
+<pre class="r"><code>ymd_hms(dateformat5)
+#&gt; [1] &quot;2020-09-22 17:00:00 UTC&quot;</code></pre>
 </div>
 <div id="export-for-part-2" class="section level2">
 <h2>Export for part 2</h2>
 <p>We need to save our final data to a <code>.csv</code> so we can use
 it in part 2.</p>
-<pre class="r"><code>#write.csv(spiders_with_locs, file = &quot;spiders_with_locs.csv&quot;, row.names = FALSE)</code></pre>
+<pre class="r"><code>write.csv(spiders_with_locs, file = &quot;spiders_with_locs.csv&quot;, row.names = FALSE)</code></pre>
+</div>
+<div id="installs-for-part-2" class="section level2">
+<h2>Installs for part 2</h2>
+<p>It will be very helpful if you can install the following packages
+before the next lab. Please install them in order! <code>devtools</code>
+and <code>ggmap</code></p>
+<pre class="r"><code>#install.packages(&quot;devtools&quot;)
+#library(devtools)
+#devtools::install_github(&quot;dkahle/ggmap&quot;)</code></pre>
 </div>
 <div id="thats-it-lets-take-a-break" class="section level2">
 <h2>That’s it, let’s take a break!</h2>
