@@ -9,9 +9,9 @@
 <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
-<meta name="author" content="Please Add Your Name Here" />
+<meta name="author" content="Joel Ledford" />
 
-<meta name="date" content="2024-02-19" />
+<meta name="date" content="2024-03-03" />
 
 <title>Homework 9</title>
 
@@ -375,8 +375,8 @@ display: none;
 
 
 <h1 class="title toc-ignore">Homework 9</h1>
-<h4 class="author">Please Add Your Name Here</h4>
-<h4 class="date">2024-02-19</h4>
+<h4 class="author">Joel Ledford</h4>
+<h4 class="date">2024-03-03</h4>
 
 </div>
 
@@ -629,6 +629,13 @@ numerical summary and an appropriate plot.</li>
 ## 6 Davis            0.423
 ## 7 Santa Cruz       0.578
 ## 8 Riverside        0.663</code></pre>
+<pre class="r"><code>univ_calif_final %&gt;% 
+  select(campus, adm_rate) %&gt;%
+  top_n(-1, adm_rate)</code></pre>
+<pre><code>## # A tibble: 1 × 2
+##   campus   adm_rate
+##   &lt;chr&gt;       &lt;dbl&gt;
+## 1 Berkeley    0.169</code></pre>
 <pre class="r"><code>univ_calif_final %&gt;% 
   ggplot(aes(x=reorder(campus, adm_rate), y=adm_rate))+
   geom_col()+

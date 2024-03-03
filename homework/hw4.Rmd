@@ -30,60 +30,101 @@ Reference: Tamburello N, Cote IM, Dulvy NK (2015) Energy and the scaling of anim
 Data: http://datadryad.org/resource/doi:10.5061/dryad.q5j65/1  
 
 **1. Load the data into a new object called `homerange`.**
+Load the data into a new object called `homerange`.
 ```{r}
-
+homerange <- readr::read_csv("data/Tamburelloetal_HomeRangeDatabase.csv")
 ```
 
 **2. Explore the data. Show the dimensions, column names, classes for each variable, and a statistical summary. Keep these as separate code chunks.**  
 ```{r}
+anyNA(homerange)
+```
 
+```{r}
+colnames(homerange)
+```
+
+```{r}
+glimpse(homerange)
+```
+
+```{r}
+summary(homerange)
+```
+
+```{r}
+names(homerange)
 ```
 
 **3. Change the class of the variables `taxon` and `order` to factors and display their levels.**  
 ```{r}
+homerange$taxon <- as.factor(homerange$taxon)
+class(homerange$taxon)
+```
 
+```{r}
+homerange$order <- as.factor(homerange$order)
+class(homerange$order)
+```
+
+```{r}
+levels(homerange$taxon)
+```
+
+```{r}
+levels(homerange$order)
 ```
 
 **4. What taxa are represented in the `homerange` data frame? Make a new data frame `taxa` that is restricted to taxon, common name, class, order, family, genus, species.**  
 ```{r}
-
+taxa <- select(homerange, "taxon", "common.name", "class", "order", "family", "genus", "species")
+taxa
 ```
 
 **5. The variable `taxon` identifies the common name groups of the species represented in `homerange`. Make a table the shows the counts for each of these `taxon`.**  
 ```{r}
-
+table(homerange$taxon)
 ```
 
 **6. The species in `homerange` are also classified into trophic guilds. How many species are represented in each trophic guild.**  
 ```{r}
-
+table(homerange$trophic.guild)
 ```
-
-## Finish 1-6
-
 
 **7. Make two new data frames, one which is restricted to carnivores and another that is restricted to herbivores.**  
 ```{r}
-
+carnivores <- filter(homerange, trophic.guild=="carnivore")
+herbivores <- filter(homerange, trophic.guild=="herbivore")
 ```
 
-**8. Do herbivores or carnivores have, on average, a larger `mean.hra.m2`? Remove any NAs from the data.**  
+**8. Do herbivores or carnivores have, on average, a larger `mean.hra.m2`? Remove any NAs from the data.**
 ```{r}
-
+carnivore_hra <- carnivores[ ,13]
+colMeans(carnivore_hra, na.rm=T)
 ```
 
 ```{r}
-
+herbivore_hra <- herbivores[ ,13]
+colMeans(herbivore_hra, na.rm=T)
 ```
 
 **9. Make a new dataframe `owls` that is limited to the mean mass, log10 mass, family, genus, and species of owls in the database. Which is the smallest owl? What is its common name? Do a little bit of searching online to see what you can learn about this species and provide a link below** 
-```{r}
 
+[Eurasian pygmy owl](https://en.wikipedia.org/wiki/Eurasian_pygmy_owl)
+```{r}
+owls <- select(homerange, "common.name", "order", "family", "genus", "species", "mean.mass.g", "log10.mass")
+owls <- filter(owls, order=="strigiformes")
+owls
 ```
 
 **10. As measured by the data, which bird species has the largest homerange? Show all of your work, please. Look this species up online and tell me about it!**.  
-```{r}
 
+[caracara](https://en.wikipedia.org/wiki/Caracara)
+
+```{r}
+birds <- filter(homerange, taxon=="birds")
+birds <- select(birds, "common.name", "genus", "species", "mean.hra.m2")
+arrange(birds, mean.hra.m2)
 ```
 
 ## Push your final code to GitHub!
