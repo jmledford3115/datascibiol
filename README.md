@@ -29,6 +29,7 @@ Please read the [course syllabus](https://jmledford3115.github.io/datascibiol/sy
 11. **Lab 11** | [part 1](https://jmledford3115.github.io/datascibiol/lab11_1.html) | [part 2](https://jmledford3115.github.io/datascibiol/lab11_2.html)
 12. **Lab 12** | [part 1](https://jmledford3115.github.io/datascibiol/lab12_1.html) | [part 2](https://jmledford3115.github.io/datascibiol/lab12_2.html)
 13. **Lab 13** | [part 1](https://jmledford3115.github.io/datascibiol/lab13_1.html) | [part 2](https://jmledford3115.github.io/datascibiol/lab13_2.html)
+14. **Lab 14** | [part 1](https://jmledford3115.github.io/datascibiol/lab14_1.html) | [part 2](https://jmledford3115.github.io/datascibiol/lab14_2.html)
 
 ## Homework
 1. **Homework 1** | [HW 1](https://jmledford3115.github.io/datascibiol/homework/hw1.html)    
@@ -43,6 +44,7 @@ Please read the [course syllabus](https://jmledford3115.github.io/datascibiol/sy
 10. **Homework 10** | [HW 10](https://jmledford3115.github.io/datascibiol/homework/hw10.html)
 11. **Homework 11** | [HW 11](https://jmledford3115.github.io/datascibiol/homework/hw11.html)
 12. **Homework 12** | [HW 12](https://jmledford3115.github.io/datascibiol/homework/hw12.html)
+13. **Homework 13** | [HW 13](https://jmledford3115.github.io/datascibiol/homework/hw13.html)
    
 ## Midterm  
 1. **Midterm 1** | [Midterm1](https://jmledford3115.github.io/datascibiol/midterm1/midterm1_key.html)

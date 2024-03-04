@@ -1,0 +1,276 @@
+---
+title: "Intro to Shiny Part 2"
+date: "`r Sys.Date()`"
+output:
+  html_document: 
+    theme: spacelab
+    toc: yes
+    toc_float: yes
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+## Learning Goals
+*At the end of this exercise, you will be able to:*  
+1. Run a shiny app from a stand alone script.  
+2. Configure a shiny app to automatically stop when closed.  
+3. Add a new input to the ui.  
+3. Use `shinydashboard` to improve ui aesthetics.  
+
+## Load the Libraries  
+```{r message=FALSE, warning=FALSE}
+library(tidyverse)
+library(shiny)
+library(shinydashboard)
+require(janitor)
+library(palmerpenguins)
+```
+
+## Running A Shiny App from Script
+Copy and pasting code into the console is okay for tiny example apps, but it's not feasible for large apps, especially because advanced shiny apps can be hundreds of lines of code or more. The best way to work on apps is from a stand alone script. R Studio should automatically recognize the shiny app from the basic app building blocks/skeleton. All we have to do to run our app is click the "Run App" button at the top right of the editor window.  
+![Run App button](runapp.png){width=300px}
+
+## Practice
+1. Open and save your finished homerange app from question 2 in part 1 as a stand alone `.R` script. What libraries are required for the app to run? Set the run method in the Run App drop down to "Run External".  
+![Run External](runexternal.png){width=300px}  
+```{r, echo=FALSE}
+homerange <- readr::read_csv("data/Tamburelloetal_HomeRangeDatabase.csv")
+```
+
+```{r, eval=F, echo=T}
+ui <- fluidPage(titlePanel("Homerange Locomotion"),
+                radioButtons("x", "Select Fill Variable", choices=c("trophic.guild", "thermoregulation"), selected="trophic.guild"),
+                plotOutput("plot", width="600px", height="500px")
+)
+
+server <- function(input, output, session) {
+  output$plot <- renderPlot({
+    ggplot(homerange, aes_string(x="locomotion", fill=input$x)) +
+      geom_bar(position="dodge", alpha=0.8, color="black") +
+      theme_light(base_size=18) +
+      labs(x=NULL, y=NULL, fill="Fill Variable")
+  })
+  
+}
+
+shinyApp(ui, server)
+```
+
+## Aesthetics
+There are many ways to adjust shiny apps for better visual appeal. Let's start with some more practice and then add details.
+
+Let's build an app using the `homerange` data that will produce a density plot of `log10.hra` with reactivity assigned to `taxon`.
+```{r}
+homerange %>% 
+  filter(taxon=="mammals") %>% 
+  ggplot(aes(x=log10.hra))+
+  geom_density(fill="steelblue", color="black", alpha=0.6)
+```
+
+```{r}
+
+```
+
+## Adding Numeric Input
+Let's try adding a new numeric input so the user can change the size of the points on the plot with a slider. We can do this with the `sliderInput()` function. The `sliderInput()` function takes a label that the server function will use to access the value, the label that the ui will display to the user, a minimum and maximum value, a starting value, and a step size. Edit the script to include the slider input in the ui and for the server to access the input value.
+```{r, eval=F, echo=T}
+ui <- fluidPage(
+    selectInput("x", "Select X Variable", choices = c("bill_length_mm", "bill_depth_mm", "flipper_length_mm", "body_mass_g"),
+              selected = "bill_length_mm"),
+    selectInput("y", "Select Y Variable", choices = c("bill_length_mm", "bill_depth_mm", "flipper_length_mm", "body_mass_g"),
+              selected = "bill_depth_mm"),
+    sliderInput("pointsize", "Select the Point Size", min = 0.5, max = 3, value = 1, step = 0.5),
+    plotOutput("plot", width = "500px", height = "400px")
+)
+
+server <- function(input, output, session) {
+  session$onSessionEnded(stopApp)
+  output$plot <- renderPlot({
+  ggplot(penguins, aes_string(x = input$x, y = input$y, color="species")) + 
+      geom_point(size=input$pointsize) + 
+      theme_light()
+    })
+}
+
+shinyApp(ui, server)
+```
+
+## ui Layout with `shinydashboard`  
+We now have a functional app, but the layout doesn't look very nice. We can change that with many different methods, but shiny dashboards are simple to use and offer a lot of functionality for making apps look professional quickly.
+
+When working with any package on shiny ui appearance, it's important to know how the ui is laid out. The ui is laid out in a bootstrap grid pattern with 12 columns that can be subdivided into rows. The grid is contained in the `fluidPage()` of our app.  
+
+We won't use `fluidPage()` with `shinydashboard` but rather `dashboardPage()`. A shiny dashboard contains a minimum of a header, a sidebar, and a body. The `dashboardPage()` still contains the bootstrap grid.  
+```{r, eval=F, echo=T}
+ui <- dashboardPage(
+  dashboardHeader(),
+  dashboardSidebar(),
+  dashboardBody()
+)
+
+server <- function(input, output) { }
+
+shinyApp(ui, server)
+```
+
+Let's add our ui and server elements to make a functional dashboard. We will put our ui elements in the `dashboardBody()`. Edit your app script to use the dashboard format. We won't do anything with the sidebar in this tutorial, but see the [R Studio tutorial](https://rstudio.github.io/shinydashboard/get_started.html) for more information.  
+
+Let's go back to our original app that produced a scatterplot for the penguins data.
+```{r}
+
+```
+
+Now let's add our server functions... 
+```{r}
+
+```
+
+
+Boxes are a nice way to group inputs and display outputs in `shinydashboard`. We can display our inputs and outputs in a box with `box()`. Boxes need to be contained in a `fluidRow()`. We will use just one row. Edit your app to contain boxes in the ui.
+```{r, eval=F, echo=T}
+ui <- dashboardPage(
+  
+  dashboardHeader(title = "Penguins"),
+  
+  dashboardSidebar(disable=T),
+  
+  dashboardBody(
+  fluidRow(
+  box(
+    
+    selectInput("x", "Select X Variable", choices = c("bill_length_mm", "bill_depth_mm", "flipper_length_mm", "body_mass_g"), selected = "bill_length_mm"),
+  
+    selectInput("y", "Select Y Variable", choices = c("bill_length_mm", "bill_depth_mm", "flipper_length_mm", "body_mass_g"), selected = "bill_depth_mm"),
+
+), # close the first box    
+
+box(
+  plotOutput("plot", width = "500px", height = "400px")
+) # close the second box
+) # close the row
+) # close the dashboard body
+) # close the ui
+
+server <- function(input, output, session) {
+  
+  session$onSessionEnded(stopApp) #automatically stop the app when we close it
+  
+  output$plot <- renderPlot({
+  ggplot(data=penguins, aes_string(x = input$x, y = input$y, color="species")) + 
+      geom_point() + 
+      theme_light()
+    })
+}
+
+shinyApp(ui, server)
+```
+
+In the code above, each box takes up half the available space (6 columns). Let's make them narrower and add a title. Change your script to match the one below.
+```{r, eval=F, echo=T}
+ui <- dashboardPage(
+  
+  dashboardHeader(title = "Penguins"),
+  
+  dashboardSidebar(disable=T),
+  
+  dashboardBody(
+  fluidRow(
+  box(title = "Plot Options", width = 3,
+    
+    selectInput("x", "Select X Variable", choices = c("bill_length_mm", "bill_depth_mm", "flipper_length_mm", "body_mass_g"), selected = "bill_length_mm"),
+  
+    selectInput("y", "Select Y Variable", choices = c("bill_length_mm", "bill_depth_mm", "flipper_length_mm", "body_mass_g"), selected = "bill_depth_mm"),
+
+), # close the first box    
+
+box(title = "Plot of Penguins Data", width = 9,
+  plotOutput("plot", width = "800px", height = "600px")
+) # close the second box
+) # close the row
+) # close the dashboard body
+) # close the ui
+
+server <- function(input, output, session) {
+  
+  session$onSessionEnded(stopApp) #automatically stop the app when we close it
+  
+  output$plot <- renderPlot({
+  ggplot(data=penguins, aes_string(x = input$x, y = input$y, color="species")) + 
+      geom_point() + 
+      theme_light()
+    })
+}
+
+shinyApp(ui, server)
+```
+
+Whew! We made it! We created a nice looking app with `shinydashboard`. And now we can easily see how even a basic shiny app can become messy and why it's always helpful to include lots of annotations.  
+
+## Practice
+Let's try to build an app that allows users to explore sexual composition of wolf packs by `pop`. These data are from: Brandell, Ellen E (2021), Serological dataset and R code for: Patterns and processes of pathogen exposure in gray wolves across North America, Dryad, [Dataset](https://doi.org/10.5061/dryad.5hqbzkh51)  
+
+1. Start by loading and exploring the data.
+```{r}
+wolves <- read_csv("data/wolves_data/wolves_dataset.csv")
+```
+
+2. For the app, here is a faceted version of what we are looking for. We want the reactive part to be `pop` and you should use `shinydashboard`.
+```{r}
+wolves %>% 
+  filter(sex!="NA") %>% 
+  ggplot(aes(x=sex, fill=sex))+
+  geom_bar()+
+  facet_wrap(~pop)
+```
+
+## Wrap-up  
+Please review the learning goals and be sure to use the code here as a reference when completing the homework.
+
+-->[Home](https://jmledford3115.github.io/datascibiol/)
+
+Sneaky Example...
+```{r, eval=F, echo=T}
+ui <- fluidPage(    
+  
+  #shinythemes::themeSelector(),  # <--- Add this somewhere in the UI
+  theme = shinytheme("cerulean"),
+  
+  titlePanel("Log 10 Homerange by Taxon"), # give the page a title
+  
+  # generate a row with a sidebar
+  sidebarLayout(      
+    
+  # define the sidebar with one input
+  sidebarPanel(
+  selectInput("taxon", " Select Taxon of Interest:", choices=unique(homerange$taxon)), hr(),
+  helpText("Reference: Tamburello N, Cote IM, Dulvy NK (2015) Energy and the scaling of animal space use. The American Naturalist 186(2):196-211.")),
+    
+  # create a spot for the barplot
+  mainPanel(
+  plotOutput("taxonPlot"))
+  )
+  )
+
+  # define a server for the Shiny app
+  server <- function(input, output, session) {
+  
+  # this stops the app upon closing
+  session$onSessionEnded(stopApp)
+  
+  # fill in the spot we created for a plot
+  output$taxonPlot <- renderPlot({
+    
+    homerange %>% 
+    filter(taxon == input$taxon) %>% 
+    ggplot(aes(x=log10.hra)) + 
+    geom_density(color="black", fill="steelblue", alpha=0.6)
+  })
+  }
+
+shinyApp(ui, server)
+```
