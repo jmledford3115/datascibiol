@@ -1,0 +1,77 @@
+---
+title: "GOBY Explore"
+author: "Gabe"
+date: "`r Sys.Date()`"
+output: 
+  html_document:
+    keepmd: yes
+    theme: spacelab
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+**Libraries**
+```{r message=FALSE, warning=FALSE}
+library(tidyverse)
+library(janitor)
+library(here)
+library(naniar)
+```
+
+**Loading Data**
+```{r}
+data <- read_csv("Potential Data/Final Data .csv")
+data <- data%>%
+  na_if("-999")
+```
+**Separating Dates**
+```{r}
+data <-data %>%
+  separate(Date, into = c("day", "month", "year"), sep="/")
+```
+
+**Refining Data**
+```{r}
+value_data <- data%>%
+  select("day", "month", "year", "SiteName", ammNO3f_Val, ammSO4f_Val, ECf_Val, OMCf_Val, SOILf_Val, SVR_Val)
+```
+
+**Mean Data per Year**
+```{r}
+mean_data_by_year <- value_data%>%
+  mutate(SiteName=paste(SiteName, year, sep="_"))%>%
+  group_by(SiteName)%>%
+  summarise(mean_ammNO3=mean(ammNO3f_Val, na.rm=T),
+            mean_ammSO4=mean(ammSO4f_Val, na.rm=T),
+            mean_EC=mean(ECf_Val, na.rm=T),
+            mean_OMC=mean(OMCf_Val, na.rm=T),
+            mean_SOIL=mean(SOILf_Val, na.rm=T),
+            mean_SVR=mean(SVR_Val, na.rm=T))%>%
+  as.data.frame()%>%
+  separate(SiteName, into = c("SiteName", "year"), sep="_")
+```
+
+**Plots showing the mean Standard Visual Range (km) for each year**
+```{r}
+mean_data_by_year%>%
+  ggplot(aes(year, mean_SVR))+
+  geom_point()+
+  facet_wrap(~SiteName)+
+  theme(axis.text.x = element_text(angle=90, hjust = 1))
+```
+
+Some things to note:
+
+- Bliss SP is separated into TRPA for years <2021 and TRPA/RHTS for years =>2021. 
+
+- Death Valley and Wrightwood only have data from years <= 2013. 
+
+- Hoover, CA has the best average visibility per year, while Fresno has the worst. 
+
+- Trinity, CA has no data from 2016. 
+
+- Lava Beds NM has a steady decline in SVR from 2019-2021 (See 2021 Antelope Fire)
+
+

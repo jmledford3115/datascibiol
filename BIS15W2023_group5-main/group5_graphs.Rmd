@@ -1,0 +1,182 @@
+---
+title: "Graphs for Animal Crrossing Presentation"
+author: "Sidney"
+date: "2023-03-05"
+output: html_document
+---
+
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Loading libraries
+```{r message=FALSE, warning=FALSE}
+library(tidyverse)
+library(RColorBrewer)
+library(paletteer)
+library(janitor)
+library(here)
+library(shiny)
+library(shinydashboard)
+library(lubridate)
+```
+
+## Loading the data
+```{r message=FALSE, warning=FALSE}
+bugs <- clean_names(read_csv(here("data","insects.csv")))
+fish <- clean_names(read_csv(here("data","fish.csv")))
+```
+
+## Fixing error in data
+```{r}
+bugs[65,34] <- "Ins45"
+```
+
+## Cleaning up the "bugs" data frame
+```{r}
+bugs <- bugs %>% 
+  select(-"critterpedia_filename", -"furniture_filename", -contains("id"), -contains("sh"), -contains("color"), -"number") %>% 
+  mutate(category = "bugs")
+```
+
+## Cleaning up the "fish" data frame
+```{r}
+fish <- fish %>% 
+  select(-"critterpedia_filename", -"furniture_filename", -contains("id"), -contains("sh"), -contains("color"), -"number", -"lighting_type", -"rain_snow_catch_up", -"size") %>% 
+  mutate(category = "fish")
+```
+
+## Combining "fish" and "bugs" into the "museum" data frame
+```{r message=FALSE, warning=FALSE}
+museum <- full_join(fish, bugs)
+```
+
+## Pivoting the months & times into 2 columns
+```{r}
+ museum <- museum %>%
+  pivot_longer(nh_jan:nh_dec,
+               names_to = "month",
+               names_prefix = "nh_",
+               values_to = "times")
+```
+
+## Separating the "times" column into "start times" and "end times"
+```{r message=FALSE, warning=FALSE}
+museum <- museum %>% 
+  filter(times != "NA") %>% 
+  mutate_all(~ gsub("\\ ", " ", .)) %>% 
+  replace(. == "All day", "0 AM – 24 AM") %>% 
+  separate(times, into = c("start_times","end_times"), sep = " – ") %>% 
+  separate(start_times, into = c("start_times","start_td"), sep = " ") %>% 
+  separate(end_times, into = c("end_times","end_td"), sep = " ")
+```
+
+## Converting "start times" and "end times" to numerics
+```{r}
+museum$start_times <- as.numeric(museum$start_times)
+museum$end_times <- as.numeric(museum$end_times)
+```
+
+## Converting all times to 24 hours
+```{r}
+museum <- museum %>% 
+  mutate(start_times = ifelse(start_times == 12, 0, start_times)) %>% 
+  mutate(start_times = ifelse(start_td == "PM",start_times+12,start_times)) %>%
+  mutate(end_times = ifelse(end_times == 12, 0, end_times)) %>% 
+  mutate(end_times = ifelse(end_td == "PM",end_times+12,end_times)) %>% 
+  select(-"start_td",-"end_td")
+```
+
+## Converting "months" to factors based on the built in "month.abb" levels
+```{r}
+month.abb.l <- tolower(month.abb)
+museum$month <- factor(museum$month, levels = month.abb.l)
+```
+
+## Adding ".png" to the every "icon_filename" value
+```{r}
+museum <- museum %>% 
+  mutate(icon_filename = paste(museum$icon_filename, ".png", sep = ""))
+```
+
+
+
+##Graphs
+
+
+
+#Graph of Avg Sell Price in Each Month + Hour
+```{r}
+
+museum$sell <- as.numeric(museum$sell)
+
+sum_museum <- museum %>% 
+  mutate(end_times = ifelse(museum$start_times > museum$end_times,museum$end_times + 24,museum$end_times)) %>% 
+  group_by(name) %>% 
+  summarize(n_months = mean(n_distinct(month)),
+            n_hours = mean(end_times - start_times),
+            sell = mean(sell)) 
+
+sum_museum$n_hours <-as.factor(sum_museum$n_hours)
+sum_museum$n_months <-as.factor(sum_museum$n_months)
+
+sum_museum %>%
+  ggplot(aes(x=n_months,y=sell, fill=n_months))+
+  geom_boxplot(aes(group=n_months))+
+  theme_classic()+
+  theme(legend.position="none")+
+  labs(title = "Average Sell Price Within a Number of Months",
+       x = "Months",
+       y = "Sell Price",
+       color=NULL)
+  
+
+sum_museum %>% 
+  ggplot(aes(x=n_hours,y=sell, fill=n_hours))+
+  geom_boxplot(aes(group=n_hours))+
+  theme_classic()+
+  theme(legend.position="none")+
+  labs(title = "Average Sell Price Within Hour Availability",
+       x = "Hours",
+       y = "Sell Price",
+       color=NULL)
+```
+
+#Density Curve Representing the Selling Prices of Each Location For Fish
+```{r}
+museum <-museum %>% 
+  filter(category=="fish") %>% 
+  mutate(where=case_when(where_how == "River (clifftop)"~"river",
+                        where_how =="River (mouth)" ~ "river" ,
+                        where_how == "River" ~ "river",
+                        where_how == "Sea" ~ "sea",
+                        where_how == "Sea (rainy days)" ~ "sea",
+                        where_how == "Pier" ~ "sea",
+                        where_how == "Pond" ~ "pond"))
+
+  ggplot(museum, aes(x=sell))+
+  geom_density(data=filter(museum, where_how =="River" | where_how == "River (clifftop)"), color = "slateblue3")+
+  geom_density(data=filter(museum, where_how =="River" | where_how == "River (mouth)"), color = "salmon1")+
+  geom_density(data=filter(museum, where_how =="River"), color = "gray12")+
+  geom_density(data=filter(museum, where_how =="Sea") , color = "gray12")+
+  geom_density(data=filter(museum, where_how =="Sea" | where_how == "Sea (rainy days)"), color = "mediumvioletred")+
+    geom_density(data=filter(museum, where_how =="Sea" | where_how == "Pier"), color = "darkgoldenrod1")+
+    geom_density(data=filter(museum, where_how =="Pond"), color = "gray12")+
+  facet_wrap(~where, ncol=3)+
+  theme_classic()+
+  theme(legend.position="none")+
+  labs(title = "Density of Fish Sell Price by Location",
+       x = "Sell Price",
+       y = NULL,
+       color=NULL) 
+#River and River (clifftop) should overlap -- river fish still appear in river clifftop and river mouth
+#same goes for sea and sea rainy days because there are certain fish that appear only in rainy days 
+```
+
+
+
+
+
+

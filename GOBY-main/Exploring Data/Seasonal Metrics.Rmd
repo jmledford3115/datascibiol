@@ -1,0 +1,140 @@
+---
+title: "GOBY Project Seasonal Mean Metrics"
+author: "Gabe"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+**Loading Packages**
+```{r}
+library(tidyverse)
+library(janitor)
+library(shiny)
+library(shinydashboard)
+library(ggplot2)
+library(naniar)
+library(lubridate)
+library(dplyr)
+library(RColorBrewer)
+library(paletteer)
+```
+
+**Loading the Data**
+```{r}
+visibility <- read_csv("C:/GitHub Repositories/GOBY - Edits/data/CA_visibility_data.csv")
+visibility_tidy <- visibility%>%
+  na_if(-999)
+```
+
+**Designating Seasons**
+*Warning: This code block is not time efficient (O(n)), expect a long run time.*
+```{r}
+seasons <- c()
+
+for (date in visibility_tidy$Date){
+  date <- mdy(date)
+  # Winter Dec 20 - Mar 19 
+  if ((month(date) == 12 & day(date) >= 20) | month(date) %in% c(1, 2) | (month(date) == 3 & day(date) <= 19)){
+    seasons <- c(seasons, "winter")
+  }
+  # Spring Mar 20 - June 20
+  else if ((month(date) == 3 & day(date) >= 20) | month(date) %in% c(4, 5) | (month(date) == 6 & day(date) <= 20)){
+    seasons <- c(seasons, "spring")
+  }
+  # Summer June 21 - Sept 22
+  else if ((month(date) == 6 & day(date) >= 21) | month(date) %in% c(7, 8) | (month(date) == 9 & day(date) <= 22)){
+    seasons <- c(seasons, "summer")
+  }
+  # Autumn Sept 23 - Dec 19
+  else{
+    seasons <- c(seasons, "autumn")
+  }
+}
+
+visibility_tidy$season = seasons
+```
+
+**Separate Dates for plotting**
+```{r}
+visibility_tidy <- visibility_tidy%>%
+  separate(Date, into = c("month", "day", "year"))
+visibility_tidy
+```
+
+**Explore the functionality of separating by season**
+Finding the mean data per year per season.
+```{r}
+mean_by_season <- visibility_tidy%>%
+  mutate(SiteName=paste(SiteName, year, sep="_"))%>%
+  mutate(SiteName=paste(SiteName, season, sep=" "))%>%
+  group_by(SiteName)%>%
+  summarise("mean_ammNO3_ppb"=mean(ammNO3f_Val, na.rm=T),
+            "mean_ammSO4_ppb"=mean(ammSO4f_Val, na.rm=T),
+            "mean_EC_ppb"=mean(ECf_Val, na.rm=T),
+            "mean_OMC_ppb"=mean(OMCf_Val, na.rm=T),
+            "mean_SOIL_ppb"=mean(SOILf_Val, na.rm=T),
+            "mean_SVR_km"=mean(SVR_Val, na.rm=T))%>%
+  as.data.frame()%>%
+  separate(SiteName, into = c("SiteName", "year"), sep="_")%>%
+  separate(year, into = c("year", "season"), sep=" ")
+mean_by_season
+```
+
+**Creating Plots**
+Here is our reference graph:
+```{r}
+mean_by_season%>%
+  filter(SiteName=="Fresno")%>%
+  ggplot(aes(year, mean_SVR_km, fill=season))+
+  geom_col(position = "dodge")
+```
+
+```{r}
+ui <- dashboardPage(
+  dashboardHeader(title="Seasonal Metrics"),
+  dashboardSidebar(disable = T),
+  dashboardBody(
+    fluidRow( 
+      class="text center",
+      box(
+        selectInput("site", "Select Site Name", choices = unique(visibility_tidy$SiteName))
+        ),
+      box(
+        selectInput("y", "Visibility Metric", 
+              choices = c("Standard Visual Range"="mean_SVR_km", "Ammonium Sulfate" = "mean_ammSO4_ppb", 
+                          "Ammonium Nitrate" = "mean_ammNO3_ppb", "Elemental Cabon" = "mean_EC_ppb", 
+                          "Organic Mass Cabon" = "mean_OMC_ppb", "Dust" = "mean_SOIL_ppb"),
+              selected = "mean_SVR_km")
+      ),
+      box(
+         plotOutput("plot", width = "1400px", height = "400px"), width = 12
+      )
+    )
+  )
+)
+
+server <- function(input, output, session) {
+  session$onSessionEnded(stopApp)
+  output$plot <- renderPlot({
+    mean_by_season%>%
+      filter(SiteName == input$site)%>%
+      ggplot(aes_string("year", input$y, fill="season"))+
+      scale_fill_manual(values=c("#00CCE6", "#9BEB01", "#E6E500", "#EB7500"))+
+      geom_col(position = "dodge", color="black")+
+      theme(axis.title = element_text(size = 16),
+            legend.text = element_text(size = 14),
+            legend.title = element_text(size = 16),
+            legend.background = element_rect(fill = "#F1F1F1"))+
+      labs(x="Year", 
+           y=paste(str_split_1(input$y, "_")[2], str_split_1(input$y, "_")[3], sep=" "),
+           fill="Season")
+  })
+}
+
+shinyApp(ui, server, options = list(launch.browser = TRUE))
+```
+

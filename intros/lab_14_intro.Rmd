@@ -1,0 +1,22 @@
+---
+title: "Lab 14 Intro"
+date: "`r Sys.Date()`"
+output: ioslides_presentation
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+library("jpeg")
+```
+
+## Group projects  
+_At this point, you should have:_
+1. Selected a dataset.  
+2. Imported that dataset into RStudio.  
+3. Started working on cleaning and exploring the dataset.  
+4. Assigned tasks to each person in the group.  
+
+## End of Quarter Tasks
+1. Work on the extra credit assignment (if you want the points).  
+2. Communicate any attendance issues to me.  
+3. Organize your repository.  

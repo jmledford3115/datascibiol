@@ -1,0 +1,76 @@
+---
+title: "A Guide to Fishing and Catching Bugs in Animal Crossing: New Horizons"
+author: "Group 5"
+output: html_document
+date: "2023-03-05"
+---
+
+# BIS15W23
+
+
+# Introduction
+
+We will be using data published on Kaggle. The data comes from a spreadsheet with information collected by players of the game Animal Crossing New Horizons. The data contains 30 csv files with information on villagers, clothing, and collectibles from the game. 
+
+In our project we will focus on the fish and insect csv files to create a guide to fishing and catching bugs for the game's museum. 
+
+
+# Animal Crossing: New Horizons
+Animal Crossing: New Horizons is described by Wikipedia as a "social simulation game." Developed and published by Nintendo in 2020, players control a character who moves to a deserted island where they accomplish tasks, build and customize the island, gather and craft items, and create a community of anthropomorphic animals. 
+
+The fish and insect data that we use in our project are some of the season and progress dependent aspects of the game, meaning that some of the organisms only appear for a limited time of the game's year, and that some of the organisms are only unlocked as the player progresses through the game. 
+
+Fish and insects are organisms that can be caught in the game and sold to the museum that serves as a sort of island archive, for collection and display of all of the player's collectibles.
+
+Our project aims to help the player by providing them with a guide to fishing and catching bugs in the game. 
+
+
+# Cleaning the data
+
+## Names: 
+Janitor work
+
+## Removing variables: 
+Variables like the game id of the species, game file names, and the color of the species were removed. 
+
+## Joins 
+The 'fish' and 'insects' data was joined together to create 'museum' data. 
+
+## Seasonality: 
+To work with the varying organisms that can be caught during the different months, (and to account for hemispheres in the game), we cleaned the data so that the catch times were split by hemisphere and organized by hour of the day, by each month.
+
+# Animal Crossing Museum Guide App
+Give an example of a fish you want to catch, which hemisphere you are currently in, and determine when you should fish based on the hours by months chart. 
+
+Which location should you fish in?
+What is the sell price for this fish?
+
+Presentation
+
+## Graphing
+
+
+# Is there a good place to fish to catch a fish with a high sell price?
+
+Density curve: fish price by location
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## Sources
+
+https://www.kaggle.com/datasets/jessicali9530/animal-crossing-new-horizons-nookplaza-dataset
+
+https://en.wikipedia.org/wiki/Animal_Crossing:_New_Horizons#

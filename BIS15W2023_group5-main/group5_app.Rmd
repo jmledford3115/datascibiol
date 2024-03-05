@@ -1,0 +1,211 @@
+---
+title: "App for Animal Crrossing Presentation"
+author: "DQ"
+date: "2023-03-01"
+output: html_document
+---
+
+## Loading libraries
+```{r message=FALSE, warning=FALSE}
+library(tidyverse)
+library(RColorBrewer)
+library(paletteer)
+library(janitor)
+library(here)
+library(shiny)
+library(shinydashboard)
+library(lubridate)
+```
+
+## Loading the data
+```{r message=FALSE, warning=FALSE}
+bugs <- clean_names(read_csv(here("data","insects.csv")))
+fish <- clean_names(read_csv(here("data","fish.csv")))
+```
+
+## Fixing error in data
+```{r}
+bugs[65,34] <- "Ins45"
+```
+
+## Cleaning up the "bugs" data frame
+```{r}
+bugs <- bugs %>% 
+  select(-"critterpedia_filename", -"furniture_filename", -contains("id"), -contains("sh"), -contains("color"), -"number") %>% 
+  mutate(category = "bugs")
+```
+
+## Cleaning up the "fish" data frame
+```{r}
+fish <- fish %>% 
+  select(-"critterpedia_filename", -"furniture_filename", -contains("id"), -contains("sh"), -contains("color"), -"number", -"lighting_type", -"rain_snow_catch_up", -"size") %>% 
+  mutate(category = "fish")
+```
+
+## Combining "fish" and "bugs" into the "museum" data frame
+```{r message=FALSE, warning=FALSE}
+museum <- full_join(fish, bugs)
+```
+
+## Pivoting the months & times into 2 columns
+```{r}
+ museum <- museum %>%
+  pivot_longer(nh_jan:nh_dec,
+               names_to = "month",
+               names_prefix = "nh_",
+               values_to = "times")
+```
+
+## Separating the "times" column into "start times" and "end times"
+```{r message=FALSE, warning=FALSE}
+museum <- museum %>% 
+  filter(times != "NA") %>% 
+  mutate_all(~ gsub("\\ ", " ", .)) %>% 
+  replace(. == "All day", "0 AM – 24 AM") %>% 
+  separate(times, into = c("start_times","end_times"), sep = " – ") %>% 
+  separate(start_times, into = c("start_times","start_td"), sep = " ") %>% 
+  separate(end_times, into = c("end_times","end_td"), sep = " ")
+```
+
+## Converting "start times" and "end times" to numerics
+```{r}
+museum$start_times <- as.numeric(museum$start_times)
+museum$end_times <- as.numeric(museum$end_times)
+```
+
+## Converting all times to 24 hours
+```{r}
+museum <- museum %>% 
+  mutate(start_times = ifelse(start_times == 12, 0, start_times)) %>% 
+  mutate(start_times = ifelse(start_td == "PM",start_times+12,start_times)) %>%
+  mutate(end_times = ifelse(end_times == 12, 0, end_times)) %>% 
+  mutate(end_times = ifelse(end_td == "PM",end_times+12,end_times)) %>% 
+  select(-"start_td",-"end_td")
+```
+
+## Converting "months" to factors based on the built in "month.abb" levels
+```{r}
+month.abb.l <- tolower(month.abb)
+museum$month <- factor(museum$month, levels = month.abb.l)
+```
+
+## Creating a color palatte corresponding to each month
+```{r}
+myColors <- c("#7BAFF7", "#A4D2F1", "#27A34D", "#A9F364", "#FCBBD3", "#F72D2D", "#FF800F", "#FFBE13", "#815800", "#B9923E", "#D6D1B2", "#6B87AE")
+```
+
+## Adding ".png" to the every "icon_filename" value
+```{r}
+museum <- museum %>% 
+  mutate(icon_filename = paste(museum$icon_filename, ".png", sep = ""))
+```
+
+## The finished app
+```{r}
+ui <- dashboardPage(skin = "purple",
+  dashboardHeader(title = "Animal Crossing Museum Guide", titleWidth = 330),
+  dashboardSidebar(disable = T),
+  dashboardBody(
+    fluidRow(
+      box(title = "Hemisphere", width = 2, height = "150px",
+        radioButtons("hemi", "Select Hemisphere", 
+                    choices = c("Northern","Southern"))
+      ),
+      box(title = "Category", width = 2, height = "150px",
+        radioButtons("cat", "Select Category", 
+                    choices = c("Fish","Bugs")),
+      ),
+      box(title = "Species", width = 3, height = "150px",
+        selectInput("spec", "Select Species", 
+                    choices = NULL)
+      ),
+      box(title = NULL, width = 2, height = "150px", align = "center",
+        imageOutput("icon")
+      ),
+      box(title = "Catch Info", width = 3, height = "150px",
+          textOutput("catch_info"),
+          textOutput("weather_info"),
+          textOutput("sell_info")
+      )    
+    ),
+    fluidRow(
+      box(title = "Catching Times by Month", width = 8, align = "center",
+          plotOutput("plot", 
+             width = "600px", 
+             height = "400px")
+      ),
+      box(style='height:420px;overflow-y: scroll;', title = "Currently Available to Catch", width = 4,
+          tableOutput("available")
+      )
+    )
+  )
+)
+
+server <- function(input, output, session) { 
+  observe({
+    new_choices <- unique(filter(museum, category == tolower(input$cat))$name)
+    updateSelectInput(session, "spec", 
+                      choices = new_choices)
+  })
+  output$plot <- renderPlot({
+    if (input$hemi == "Southern"){
+      mod_museum <- mutate(museum, month = month.abb.l[(as.integer(month) + 6 - 1) %% 12 + 1])
+    } else {
+      mod_museum <- museum
+    }
+    ggplot(filter(mod_museum, mod_museum$name == input$spec), 
+           aes_string(x = "month", 
+                      ymin = "start_times", 
+                      ymax = "end_times", 
+                      color = "month"),
+           xlim = c("jan","dec")) +
+      geom_linerange(size = 14) +
+      theme_classic(base_size = 18) +
+      labs(x = NULL,
+           y = "Times (24hrs)") +
+      scale_color_manual(values = myColors, drop = T, limits = levels(museum$month)) +
+      theme(axis.title.y = element_text(size = 24),
+            panel.grid.major.y = element_line(),
+            axis.line = element_blank()) +
+      scale_y_continuous(limits = c(0,24), breaks = seq(0, 24, by = 1)) +
+      xlim("jan","feb","mar","apr","may","jun","jul","aug","sep","oct","nov","dec")
+  })
+  output$catch_info <- renderText({
+    paste("Where/How: ", filter(museum, name == input$spec)$where_how[1])
+  })
+  output$weather_info <- renderText({
+    weather <- filter(museum, name == input$spec)$weather[1]
+    if (is.na(weather)) {
+        NULL
+    } else {
+        paste("Weather: ", weather)
+    }
+  })
+  output$sell_info <- renderText({
+    paste("Sell price: ", filter(museum, name == input$spec)$sell[1])
+  })
+  output$available <- renderTable({
+    if (input$hemi == "Southern"){
+      mod_museum <- mutate(museum, month = month.abb.l[(as.integer(month) + 6 - 1) %% 12 + 1])
+    } else {
+      mod_museum <- museum
+    }
+    select(filter(mod_museum, hour(now())<end_times & hour(now())>start_times & tolower(month(now(),label=T)) == month), "name","where_how") %>% 
+      arrange(name) %>%
+      rename("Where/How"=where_how,"Name"=name)
+  })
+  output$icon <- renderImage({
+    filename <- here("images", filter(museum, name == input$spec)$icon_filename[1])
+    list(src = filename, width = "118px", height = "118px")
+  },
+  deleteFile = FALSE
+  )
+
+  session$onSessionEnded(stopApp)
+}
+
+shinyApp(ui, server)
+```
+
+
+-->[Home](https://jmledford3115.github.io/datascibiol/)

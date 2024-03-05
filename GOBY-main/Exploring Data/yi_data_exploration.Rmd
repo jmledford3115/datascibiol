@@ -1,0 +1,81 @@
+---
+title: "Yukari's Data Exploring"
+output: 
+  html_document: 
+    keep_md: yes
+date: "2023-02-26"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Libraries
+```{r}
+library(tidyverse)
+library(naniar)
+library(janitor)
+library(here)
+```
+
+Load Data
+```{r}
+park_visibility <- readr::read_csv("C:/Users/yukar/OneDrive/Desktop/GOBY-main/Potential Data/Final Data .csv")
+```
+
+```{r}
+glimpse(park_visibility)
+```
+Clean Column Names
+```{r}
+park_visibility <-
+  park_visibility %>% 
+  clean_names()
+names(park_visibility)
+```
+Deal with NA's
+```{r}
+park_visibility <-
+  park_visibility %>% 
+  na_if("-999")
+```
+
+Separate Dates
+```{r}
+park_visibility <-
+  park_visibility %>% 
+  separate("date", into = c("month", "day", "year"), sep = "/")
+```
+
+Playing around with data and making a sample graph
+```{r}
+park_visibility %>% 
+  filter(year == "2011") %>% 
+  group_by(month, site_name) %>% 
+  summarise(mean_amm_no3f_val = mean(amm_no3f_val, na.rm = T)) %>% 
+  ggplot(aes(x = month, y = mean_amm_no3f_val, color = site_name)) +
+  geom_boxplot() +
+  labs(x = "Month",
+       y = "Average Ammonium Nitrate",
+       title = "Average Ammonium Nitrate per Month in 2011")
+```
+
+What does percentile refer to? Percentile visibility? 
+```{r}
+park_visibility %>% 
+  count(site_name, percentile)
+```
+
+More messing with data
+```{r}
+park_visibility %>% 
+  filter(site_name == "Yosemite NP") %>% 
+  group_by(year) %>% 
+  summarise(mean_amm_so4f_val = mean(amm_so4f_val, na.rm = T)) %>% 
+  ggplot(aes(x = year, y = mean_amm_so4f_val)) +
+  geom_col() +
+  labs(x = "Year",
+       y = "Average Ammonium Sulfate",
+       title = "Average Ammonium Sulfate in Yosemite National Park by Year")
+```
+
