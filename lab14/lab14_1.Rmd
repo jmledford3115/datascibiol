@@ -60,7 +60,7 @@ A shiny app consists of a user interface (ui) function, server function, and run
 
 Below is a bare bones shiny app. You can get this code snippet by typing `shinyapp`. It doesn't do anything because we haven't created any inputs with the ui or any outputs with the server.  
 
-```{r}
+```{r, eval=F, echo=T}
 library(shiny)
 
 ui <- fluidPage(
@@ -195,7 +195,7 @@ homerange %>%
 
 2.  Build a shiny app that produces a barplot that explores `locomotion` type with a fill reaction for the variables `trophic.guild` and `thermoregulation`.
 
-```{r}
+```{r, eval=F, echo=T}
 library(shiny)
 
 ui <- fluidPage(

@@ -42,7 +42,7 @@ Copy and pasting code into the console is okay for tiny example apps, but it's n
 homerange <- readr::read_csv("data/Tamburelloetal_HomeRangeDatabase.csv")
 ```
 
-```{r}
+```{r, eval=F, echo=T}
 ui <- fluidPage(titlePanel("Homerange Locomotion"),
                 radioButtons("x", "Select Fill Variable", choices=c("trophic.guild", "thermoregulation"), selected="trophic.guild"),
                 plotOutput("plot", width="600px", height="500px")
@@ -65,7 +65,7 @@ shinyApp(ui, server)
 There are many ways to adjust shiny apps for better visual appeal. Let's start with some more practice and then add details.
 
 Let's build an app using the `homerange` data that will produce a density plot of `log10.hra` with reactivity assigned to `taxon`.
-```{r}
+```{r, eval=F, echo=T}
 library(shiny)
 
 ui <- fluidPage(titlePanel("Log 10 Homerange by Taxon"),
@@ -84,13 +84,6 @@ server <- function(input, output, session) {
 }
 
 shinyApp(ui, server)
-```
-
-```{r}
-homerange %>% 
-  filter(taxon=="mammals") %>% 
-  ggplot(aes(x=log10.hra))+
-  geom_density(fill="steelblue", color="black", alpha=0.6)
 ```
 
 ## Adding Numeric Input
@@ -123,7 +116,7 @@ We now have a functional app, but the layout doesn't look very nice. We can chan
 When working with any package on shiny ui appearance, it's important to know how the ui is laid out. The ui is laid out in a bootstrap grid pattern with 12 columns that can be subdivided into rows. The grid is contained in the `fluidPage()` of our app.  
 
 We won't use `fluidPage()` with `shinydashboard` but rather `dashboardPage()`. A shiny dashboard contains a minimum of a header, a sidebar, and a body. The `dashboardPage()` still contains the bootstrap grid.  
-```{r}
+```{r, eval=F, echo=T}
 ui <- dashboardPage(
   dashboardHeader(),
   dashboardSidebar(),
@@ -294,7 +287,7 @@ wolves %>%
   distinct(pop)
 ```
 
-```{r}
+```{r, eval=F, echo=T}
 ui <- dashboardPage(
   
   dashboardHeader(title = "Sex Composition by Wolf Population"),
