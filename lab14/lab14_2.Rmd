@@ -42,7 +42,7 @@ Copy and pasting code into the console is okay for tiny example apps, but it's n
 homerange <- readr::read_csv("data/Tamburelloetal_HomeRangeDatabase.csv")
 ```
 
-```{r, eval=F, echo=T}
+```{r}
 ui <- fluidPage(titlePanel("Homerange Locomotion"),
                 radioButtons("x", "Select Fill Variable", choices=c("trophic.guild", "thermoregulation"), selected="trophic.guild"),
                 plotOutput("plot", width="600px", height="500px")
@@ -66,14 +66,31 @@ There are many ways to adjust shiny apps for better visual appeal. Let's start w
 
 Let's build an app using the `homerange` data that will produce a density plot of `log10.hra` with reactivity assigned to `taxon`.
 ```{r}
+library(shiny)
+
+ui <- fluidPage(titlePanel("Log 10 Homerange by Taxon"),
+                selectInput("x", "Select Taxon", 
+                            choices=c("birds", "lake fishes", "lizards", "mammals", "marine fishes", "river fishes", "snakes", "tortoises", "turtles"), selected="birds"),
+                plotOutput("plot", width="600px", height="500px")
+)
+
+server <- function(input, output, session) {
+  output$plot <- renderPlot({
+    homerange %>% 
+      filter(taxon==input$x) %>% 
+      ggplot(aes(x=log10.hra))+
+      geom_density(fill="steelblue", color="black", alpha=0.6)
+  })
+}
+
+shinyApp(ui, server)
+```
+
+```{r}
 homerange %>% 
   filter(taxon=="mammals") %>% 
   ggplot(aes(x=log10.hra))+
   geom_density(fill="steelblue", color="black", alpha=0.6)
-```
-
-```{r}
-
 ```
 
 ## Adding Numeric Input
@@ -106,7 +123,7 @@ We now have a functional app, but the layout doesn't look very nice. We can chan
 When working with any package on shiny ui appearance, it's important to know how the ui is laid out. The ui is laid out in a bootstrap grid pattern with 12 columns that can be subdivided into rows. The grid is contained in the `fluidPage()` of our app.  
 
 We won't use `fluidPage()` with `shinydashboard` but rather `dashboardPage()`. A shiny dashboard contains a minimum of a header, a sidebar, and a body. The `dashboardPage()` still contains the bootstrap grid.  
-```{r, eval=F, echo=T}
+```{r}
 ui <- dashboardPage(
   dashboardHeader(),
   dashboardSidebar(),
@@ -121,15 +138,59 @@ shinyApp(ui, server)
 Let's add our ui and server elements to make a functional dashboard. We will put our ui elements in the `dashboardBody()`. Edit your app script to use the dashboard format. We won't do anything with the sidebar in this tutorial, but see the [R Studio tutorial](https://rstudio.github.io/shinydashboard/get_started.html) for more information.  
 
 Let's go back to our original app that produced a scatterplot for the penguins data.
-```{r}
+```{r, eval=F, echo=T}
+ui <- dashboardPage(
+  
+  dashboardHeader(title = "Penguins"), #adds a title
+  
+  dashboardSidebar(disable=T), #turns off the sidebar
+  
+  dashboardBody(
+  
+    selectInput("x", "Select X Variable", choices = c("bill_length_mm", "bill_depth_mm", "flipper_length_mm", "body_mass_g"), selected = "bill_length_mm"),
+    
+  selectInput("y", "Select Y Variable", choices = c("bill_length_mm", "bill_depth_mm", "flipper_length_mm", "body_mass_g"), selected = "bill_depth_mm"),
+  
+  plotOutput("plot", width = "500px", height = "400px"))
+)
 
+server <- function(input, output, session) {
+  
+}
+
+shinyApp(ui, server)
 ```
 
 Now let's add our server functions... 
-```{r}
+```{r, eval=F, echo=T}
+ui <- dashboardPage(
+  
+  dashboardHeader(title = "Penguins"),
+  
+  dashboardSidebar(disable=T),
+  
+  dashboardBody(
+  
+    selectInput("x", "Select X Variable", choices = c("bill_length_mm", "bill_depth_mm", "flipper_length_mm", "body_mass_g"), selected = "bill_length_mm"),
+  
+    selectInput("y", "Select Y Variable", choices = c("bill_length_mm", "bill_depth_mm", "flipper_length_mm", "body_mass_g"), selected = "bill_depth_mm"),
+    
+  plotOutput("plot", width = "500px", height = "400px"))
+)
 
+server <- function(input, output, session) {
+  
+  session$onSessionEnded(stopApp) #automatically stop the app when we close it
+  
+  output$plot <- renderPlot({
+  ggplot(data=penguins, aes_string(x = input$x, y = input$y, color="species")) + 
+      geom_point() + 
+      theme_light()
+    })
+}
+
+shinyApp(ui, server)
 ```
-
 
 Boxes are a nice way to group inputs and display outputs in `shinydashboard`. We can display our inputs and outputs in a box with `box()`. Boxes need to be contained in a `fluidRow()`. We will use just one row. Edit your app to contain boxes in the ui.
 ```{r, eval=F, echo=T}
@@ -226,6 +287,49 @@ wolves %>%
   ggplot(aes(x=sex, fill=sex))+
   geom_bar()+
   facet_wrap(~pop)
+```
+
+```{r}
+wolves %>% 
+  distinct(pop)
+```
+
+```{r}
+ui <- dashboardPage(
+  
+  dashboardHeader(title = "Sex Composition by Wolf Population"),
+  
+  dashboardSidebar(disable=T),
+  
+  dashboardBody(
+  fluidRow(
+  box(width = 3,
+    
+    selectInput("x", "Select Population", choices=unique(wolves$pop)), hr(),
+  
+), # close the first box    
+
+box(width = 7,
+  plotOutput("plot", width = "600px", height = "400px")
+) # close the second box
+) # close the row
+) # close the dashboard body
+) # close the ui
+
+server <- function(input, output, session) { 
+
+  session$onSessionEnded(stopApp) #automatically stop the app when we close it
+  
+  output$plot <- renderPlot({
+      wolves %>% 
+      filter(sex!="NA") %>%
+      filter(pop==input$x) %>%
+      ggplot(aes(x = sex, fill = sex)) +
+      geom_bar()
+    })
+}
+  
+shinyApp(ui, server)
 ```
 
 ## Wrap-up  

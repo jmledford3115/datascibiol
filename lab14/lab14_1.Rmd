@@ -1,5 +1,5 @@
 ---
-title: "Intro to Shiny"
+title: "Intro to Shiny Part 1"
 date: "`r Sys.Date()`"
 output:
   html_document: 
@@ -17,9 +17,9 @@ knitr::opts_chunk$set(
 
 ## Learning Goals
 
-*At the end of this exercise, you will be able to:*
-1. Understand the basic building blocks of a shiny app.  
-2. Understand how shiny works with user inputs to build outputs.  
+*At the end of this exercise, you will be able to:*\
+1. Understand the basic building blocks of a shiny app.\
+2. Understand how shiny works with user inputs to build outputs.
 
 ## Resources
 
@@ -59,7 +59,8 @@ A shiny app consists of a user interface (ui) function, server function, and run
 3.  The `run` function combines the ui and server function to run the app.  
 
 Below is a bare bones shiny app. You can get this code snippet by typing `shinyapp`. It doesn't do anything because we haven't created any inputs with the ui or any outputs with the server.  
-```{r, eval=F, echo=T}
+
+```{r}
 library(shiny)
 
 ui <- fluidPage(
@@ -100,8 +101,7 @@ ui <- fluidPage(
   
     selectInput("x", "Select X Variable", choices = c("bill_length_mm", "bill_depth_mm", "flipper_length_mm", "body_mass_g"), selected = "bill_length_mm"),
     
-
-    
+    selectInput("y", "Select Y Variable", choices = c("bill_length_mm", "bill_depth_mm", "flipper_length_mm", "body_mass_g"), selected = "bill_length_mm")
 )
 
 server <- function(input, output) {
@@ -161,8 +161,9 @@ server <- function(input, output) {
   
   output$plot <- renderPlot({
     
-
-    
+    ggplot(data=penguins, aes_string(x=input$x, y=input$y, color="species"))+
+      geom_point()+
+      theme_light(base_size=18)
   })
   
 }
@@ -174,22 +175,47 @@ Congratulations, you made your first shiny app!
 
 ## Practice
 
-1.  Let's work with the homerange data again, just to keep things consistent. Please load the data as a new object `homerange` and have a look at the column names.  
+1.  Let's work with the homerange data again, just to keep things consistent. Please load the data as a new object `homerange` and have a look at the column names.\
+
 ```{r, echo=FALSE}
 homerange <- read_csv("data/Tamburelloetal_HomeRangeDatabase.csv")
 ```
 
 ```{r}
-
+homerange %>% 
+  ggplot(aes(x=locomotion, fill=trophic.guild))+
+  geom_bar(position="dodge")
 ```
 
 ```{r}
-
+homerange %>% 
+  ggplot(aes(x=locomotion, fill=thermoregulation))+
+  geom_bar(position="dodge")
 ```
 
 2.  Build a shiny app that produces a barplot that explores `locomotion` type with a fill reaction for the variables `trophic.guild` and `thermoregulation`.
-```{r}
 
+```{r}
+library(shiny)
+
+ui <- fluidPage(
+  
+  radioButtons("x", "Select Fill Variable", choices=c("trophic.guild", "thermoregulation"),
+               selected="trophic.guild"),
+  
+  plotOutput("plot")
+)
+
+server <- function(input, output, session) {
+  output$plot <- renderPlot({
+    
+    ggplot(data=homerange, aes_string(x="locomotion", fill=input$x))+
+      geom_bar(position="dodge", alpha=0.8, color="black")+
+      labs(x=NULL, y=NULL, fill="Fill Variable")
+})
+}
+
+shinyApp(ui, server)
 ```
 
 ## Packages for next time
