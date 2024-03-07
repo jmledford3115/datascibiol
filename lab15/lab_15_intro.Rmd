@@ -1,0 +1,26 @@
+---
+title: "Lab 15 Intro"
+author: "Bryshal Moore"
+date: "`r Sys.Date()`"
+output: ioslides_presentation
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+## Setup
+### Login to Chatgpt
+- Login to Chatgpt
+  - Go to https://beta.openai.com/login/
+- If you do not have a ChatGPT account, you can  use Microsoft Copilot in browser
+
+### Enable Github Copilot 
+- if you were accepted for Github Copilot, enable it in RStudio
+  - go to Tools -> Global Options -> Copilot -> Enable Git
+- this should prompt you to login to Github account
+- if you are not accepted, you can just use the Copilot or Chatgpt in the browser
+
+## Open the Lab
+Today, we're exploring how AI can aid in writing, comprehending and troubleshooting our R code. AI is a very valuable tool, but it's important not to rely on it entirely. Building a strong R foundation is still important. These AI tools are not perfect and can be inaccurate solutions. In addition these tools can't read our minds, so understanding R helps us generate better prompts to get better responses. In short, AI should be used as a tool, not a crutch. Additionally, do not forget about other useful resources like Stack Overflow/Exchange, online tutorials, and GitHub issues pages for learning and troubleshooting. Let's combine AI with traditional methods to master R effectively.

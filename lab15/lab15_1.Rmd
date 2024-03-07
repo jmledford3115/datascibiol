@@ -1,0 +1,140 @@
+---
+title: "BIS15L_AI_class"
+author: "Your Name"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Overview
+Today, we're exploring how AI can aid in writing, comprehending and troubleshooting our R code. AI is a very valuable tool, but it's important not to rely on it entirely. Building a strong R foundation is still important. These AI tools are not perfect and can be inaccurate solutions. In addition these tools can't read our minds, so understanding R helps us generate better prompts to get better responses. In short, AI should be used as a tool, not a crutch. Additionally, do not forget about other useful resources like Stack Overflow/Exchange, online tutorials, and GitHub issues pages for learning and troubleshooting. Let's combine AI with traditional methods to master R effectively.
+
+This overview isn't exhaustive of all possible AI tools for R coding, but I believe it is a good start and covers everything you need.
+
+
+**Make sure to enable Github Copilot in RStudio.**
+Go to Tools -> Global Options -> Copilot -> Enable Git
+
+## Learning Goals: 
+*At the end of this exercise, you will be able to:*  
+1. Explain what AI is and what AI tools can be used for R.
+2. Enable Github Copilot in RStudio.
+3. Use Copilot/ChatGPT to write code in RStudio.
+4. Use Copilot/ChatGPT for troubleshooting code in RStudio.
+
+
+## Exploration Questions:
+Lets get some get a feel for what copilot (or ChatGPT) does, use Github Copilot to autocomplete the questions below. You can alternatively paste the questions in ChatGPT or Microsoft Copilot.
+1. What is AI?
+
+2. What is ChatGPT?
+
+3. What is Github Copilot?
+
+4. [Try it yourself: Insert your own question here]
+
+## Load the libraries  
+```{r message=FALSE, warning=FALSE}
+library(tidyverse)
+library(janitor)
+library(dplyr)
+library(shiny)
+library(shinydashboard)
+```
+
+## Load the Data: 
+```{r}
+#load the Netflix Data in your Data folder, save it under the object name netflix
+
+
+```
+
+*Did copilot help you write the code above? Could anything about the prompt be improved to help Copilot understand what you want to do more accurately?*
+
+
+## Lets Practice:
+Explore the elements in your data: include a comment within your code chunk to prompt Copilot to use the function of your choice
+```{r}
+
+
+```
+*Did copilot use your preferred method to get the summary of the data? If not, how could you improve the prompt to get the desired output?*
+
+
+Sort out the movies from the netflix into an new object called netflix_movies
+```{r} 
+
+```
+
+
+Which director has the most movies on netflix?
+```{r}
+
+
+```
+*Do you see anything wrong with the table above, look at row 1. Write a prompt below to fix this.*
+
+[insert your prompt here]
+```{r}
+
+```
+
+
+
+Which director had the most movies by release year and remove the NA's?
+```{r}
+
+
+```
+*See anything else interesting about this table, look at the first director on the table. Could this be a problem and how can we edit the dataset to fix this? Try writing a prompt.*
+
+
+[Insert your prompt here]
+```{r}
+
+```
+
+
+
+Make a bar plot of the top directors with the most movies on netflix
+```{r}
+
+
+```
+*Do you see any issues with this plot? How could we improve the prompt to get a better boxplot? Try writing a prompt.*
+
+[Insert your prompt here]
+```{r}
+
+```
+
+*How about for just 2020*
+
+
+
+[Insert your prompt here]
+```{r}
+
+```
+
+
+*Take a few minutes to make your own plot(s) using prompts, edit prompts until you get a plot that you like.*
+
+
+
+
+
+
+## Lets make the top 10 directors barplot into a Shiny App: use copilot or Chatgpt
+
+
+*Now use ChatGPT, Copilot or previous notes to fix the code*
+
+
+
+
+
+## That's it! Let's take a break and then move on to working on group projects.
