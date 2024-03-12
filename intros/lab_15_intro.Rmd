@@ -1,0 +1,18 @@
+---
+title: "Lab 15 Intro"
+date: "`r Sys.Date()`"
+output: ioslides_presentation
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+library("jpeg")
+```
+
+## Group projects  
+1. Make sure that your group has a clean, organized repository.  
+2. The contributions for each group member should be clear.  
+3. Include the presentation slides in the repository.  
+4. Make sure everyone has a chance to speak.  
+5. You will have 5-6 minutes to present.  
+6. The last homework is an evaluation of your project.   
