@@ -16,32 +16,29 @@ Push your final work to your repository. Your final lab report should be organiz
 
 Again make sure to use the formatting conventions of RMarkdown to make your report neat and clean!  
 
-
 ```{r}
 library(tidyverse)
 library(janitor)
 library(dplyr)
 ```
 
-
 1.
 ```{r}
-blood_count <- read_csv("data/blood_count.csv")
+blood_count <- read_csv("data/blood_count.csv") %>% clean_names()
 ```
 
 2. 
 ```{r}
-glmpse(blood_count)
-
+glimpse(blood_count)
 ```
 
 3. 
 ```{r}
 blood_count %>% 
   group_by(gender) %>% 
-  summarize(min=min(red_blood_cells)
-            mean=maen(red_blood_cells),
-            max=max(red_blood_cells)
+  summarize(min=min(red_blood_cells),
+            mean=mean(red_blood_cells),
+            max=max(red_blood_cells))
 ```
 
 
