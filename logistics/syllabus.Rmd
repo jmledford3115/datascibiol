@@ -34,8 +34,8 @@ Please communicate with the instructional team:
 * If you feel like your performance in class is being significantly impacted by your experiences outside of class. We can work with you to provide additional support and advice, connect you with campus resources, or modify deadlines if warranted by the circumstances.  
 * If something is said in class (by anyone) that makes you feel uncomfortable, please talk to us about it, or provide anonymous feedback.  
 
-## Educational Equity  
-UC Davis is committed to educational equity in the academic setting, and in serving a diverse student body. We encourage all students who are interested in learning more about the Student Disability Center (SDC) to contact them directly at [SDC](mailto:sdc.ucdavis.edu) or 530-752-3184. If you are a student who receives academic accommodation(s), please submit your SDC Letter of Accommodation to us as soon as possible, ideally within the first week of this course.  
+## Student Disability Center
+UC Davis is committed to serving a diverse student body. We encourage all students who are interested in learning more about the Student Disability Center (SDC) to contact them directly at [SDC](mailto:sdc.ucdavis.edu) or 530-752-3184. If you are a student who receives academic accommodation(s), please submit your SDC Letter of Accommodation to us as soon as possible, ideally within the first week of this course.  
 
 ## UC Davis Land Acknowledgement  
 UC Davis has a formal land acknowledgement to recognize the Indigenous people who have lived where UC Davis is today. It was written by the Yocha Dehe Wintun Nation and approved by the three Patwin tribes who inhabit(ed) this land. The land acknowledgement is as follows: “We should take a moment to acknowledge the land on which we are gathered. For thousands of years, this land has been the home of Patwin people. Today, there are three federally recognized Patwin tribes: Cachil DeHe Band of Wintun Indians of the Colusa Indian Community, Kletsel Dehe Wintun Nation, and Yocha Dehe Wintun Nation. The Patwin people have remained committed to the stewardship of this land over many centuries. It has been cherished and protected, as elders have instructed the young through generations. We are honored and grateful to be here today on their traditional lands.”  
@@ -56,16 +56,17 @@ Our class is scheduled for 2-hour blocks on Tuesday and Thursday. Each class wor
 
 There are two exams in the class, both of which are take-home. You may use any resources you like on the exam except for posting questions to open stacks or R programming forums; your work should be entirely your own.  
 
+## Attendance
+As a skills-based lab class, attendance provides you with hands-on experience and help. If you know that you will not be able to attend in-person or you have significant planned absences this quarter, please reconsider enrollment. Our class has collaborative learning as its foundation and requires your attendance.  
+
 ## Grading  
-The class is graded out of 300 points on a straight scale.  
+The class is graded out of 300 points on a straight scale. There are no curves or normalizations applied.  
 
-1. **Attendance (40 points)**. As a skills-based lab class, attendance provides you with hands-on experience and help. If you know that you will not be able to attend in-person or you have significant planned absences this quarter, please reconsider enrollment. BIS 15L is not designed to be a remote class- there are already thousands of courses that teach R online. Our class has collaborative learning as its foundation and requires your attendance.  
+1. **Weekly homework assignments (150 points)**. Each assignment must be completed and uploaded to GitHub prior to the next lab. There are 15 homework assignments total and each assignment is worth 10 points. Homework is due at the start of each lab; no late work is accepted. Homework is graded based on completion and accuracy.  
 
-2. **Weekly homework assignments (130 points)**. Each assignment must be completed and uploaded to GitHub prior to the next lab. There are 15 homework assignments total and each assignment is worth 10 points. Homework is due at the start of each lab; no late work is accepted. To provide flexibility, we drop the two lowest homework assignments for the quarter.  
+2. **Midterms (60 points)**. The midterms help us keep one another accountable. The midterms are open note (i.e. you can use the labs and your homework) but no internet searches or AI are allowed.  Each midterm is worth 30 points.  
 
-3. **Midterms (60 points)**. The midterms help us keep one another accountable. They use a combination of individual and collaborative approaches. Each midterm is worth 30 points.  
-
-4. **Class project (70 points)**. As part of the class, you will form a group to explore a project in data science. The project may be based on any available data of interest to the group and should highlight skills learned in the labs. The group will present their results during the last lab sessions.  
+3. **Class project (90 points)**. As part of the class, you will form a group to explore a project in data science. The project may be based on any available data of interest to the group and should highlight skills learned in the labs. The group will present their results during the last lab sessions.  
 
 If you miss class, please use the [class website](https://jmledford3115.github.io/datascibiol/) and [YouTube channel](https://www.youtube.com/channel/UCFX-MipGKF9jCEXaP-59BzQ) as your guide. We will not be able to provide recordings of the labs, but these two resources will help you work through missed class material.  
 
@@ -79,7 +80,7 @@ Office hours are scheduled each week and are also available by appointment. If t
 I am an associate teaching professor in the department of [Plant Biology](http://www-plb.ucdavis.edu/). My research is focused on education and spider biology. I completed my B.S. at UC Davis in entomology as a community college transfer student. My experience in R involves statistical analysis in education and evolutionary biology. I also teach part of the introductory biology series `BIS2C` (Fall and Winter) and plant biology `PLB10` (Spring).  
 
 ## About Bryshal Moore
-Hello, I’m Bryshal Moore, I also go by Bry (pronounced like try). Hailing from Alabama, my academic journey spans a background in chemistry (B.S.) and biotechnology (M.S.). I'm presently a PhD student in Biochemistry, Molecular, Cellular and Developmental Biology (BMCDB). I am a member of the Data Intensive Biology (DIB) lab, where my research focus centers on the computational analysis of 16S and ITS microbiome data. Recently, I've embraced the versatility of R into my toolkit, utilizing it for dataset analysis and creating quality visually appealing graphs.  
+I’m Bryshal Moore, I also go by Bry (pronounced like try). Hailing from Alabama, my academic journey spans a background in chemistry (B.S.) and biotechnology (M.S.). I'm presently a PhD student in Biochemistry, Molecular, Cellular and Developmental Biology (BMCDB). I am a member of the Data Intensive Biology (DIB) lab, where my research focus centers on the computational analysis of 16S and ITS microbiome data. Recently, I've embraced the versatility of R into my toolkit, utilizing it for dataset analysis and creating quality visually appealing graphs.  
 
 ## Do's and Dont's  
 Learning any programming language is hard; it only gets easier with time and practice. Don't give up!  

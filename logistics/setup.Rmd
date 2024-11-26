@@ -12,13 +12,9 @@ output:
 This quarter we are fortunate to be able to use the computers in the SCC. Each of these computers is up-to-date, and the installed software is exactly the same. This makes following my instructions much easier, but you will likely want to have the ability to work at home. Please follow the directions below to set-up your personal computer.  
 
 ## Setup  
-Before we get started this quarter, it is very important that you spend time making sure that your computer is set-up and ready to go. The first step in this is just basic maintenance; i.e. clean up your desktop and update your OS. Having lots of files on your desktop or multiple tabs open can negatively impact your computer's performance. Data scientists are neat and tidy! Spend time getting yourself organized.  
+Before we get started this quarter, it is important that you spend time making sure that your computer is set-up and ready to go. The first step in this is basic maintenance; i.e. clean up your desktop and update your OS. Having lots of files on your desktop or multiple tabs open can negatively impact your computer's performance. Data scientists are neat and tidy! Spend time getting yourself organized.  
 
 In order to get set-up, you need to do four things:  
-
-+ [R](https://www.r-project.org/)  
-+ [RStudio](https://posit.co/)  
-+ [GitHub Desktop](https://desktop.github.com/)
 
 ### 1. Download the most recent version of R and install
 R is open source and constantly changing. Make regular version checks part of your routine. R will run on a variety of platforms, but there are slight differences between Mac and PC versions.  
@@ -26,15 +22,15 @@ R is open source and constantly changing. Make regular version checks part of yo
 Download the latest version of R [here](https://ftp.osuosl.org/pub/cran/) and install.  
 
 ### 2. Download the most recent version of RStudio and install
-RStudio is a [GUI](https://www.computerhope.com/jargon/g/gui.htm) that allows for more intuitive operation of R and includes numerous additional features. All of our work will be done in RStudio.  
+RStudio is an integrated development environment [IDE](https://en.wikipedia.org/wiki/Integrated_development_environment) that allows for more intuitive operation of R and includes numerous additional features. All of our work will be done in RStudio.  
 
-Download the latest version of RStudio [here](https://posit.co/) and install.  
+Download the latest version of RStudio [here](https://posit.co/products/open-source/rstudio/) and install.  
 
 ### 3. Install tidyverse `install.packages("tidyverse")`    
-We use several packages as part of the class, but the most important is tidyverse.  
+We use several packages as part of the class, but the most important is [tidyverse](https://r4ds.hadley.nz/).  
 
 ### 4. Download the most recent version of GitHub Desktop and install  
-GitHub is the website where we will upload all of our work, including homework and class files. [GitHub Desktop](https://desktop.github.com/) is a [GUI](https://www.computerhope.com/jargon/g/gui.htm) interface that allows us to keep track of changes (version control) and upload.  
+GitHub is the website where we will upload all of our work, including homework and class files. [GitHub Desktop](https://desktop.github.com/) is an interface that allows us to keep track of changes (version control) and upload.  
 
 ### 5. GitHub Account
 You need to make a personal account on GitHub. Navigate to [GitHub](http://www.github.com) and create a free account.  
