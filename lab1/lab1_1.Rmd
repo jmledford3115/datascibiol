@@ -20,7 +20,7 @@ In nearly every field of science, our ability to generate data has exceeded our 
 
 The goal for this course is to help get you started learning to manage, transform, and visualize data using the R programming language. You will learn to clearly and neatly organize messy data, transform it in ways that address your questions, and communicate results in a variety of formats. The course is designed for people with **no prior programming experience**. There is a substantial learning curve but, working together, we will make learning R easier, interesting, and fun.  
 
-This class is NOT focused on statistical analysis or interpretation. The goal is to provide you with the tools you need to perform these tasks.  
+This class is NOT focused on statistical analysis or interpretation. The goal is to provide you with the foundational tools you need to perform these tasks.  
 
 ## First steps  
 It is important that you understand the first two weeks of the class can seem slow, tedious, and frustrating. These first steps are like learning a new language; you often won't know what is being said or why. Please be patient and stick with me! I promise that it will get easier.  
@@ -34,7 +34,7 @@ Given that R is open source, many resources are available online. We will use a 
 - [R cheatsheets](https://posit.co/resources/cheatsheets/)
 
 ## UC Davis  
-Our campus has a wealth of expertise in data science. Should your interests progress, here are some links. They offer regular workshops and maintain archives. Among the goals of this class is to get you set-up so that you can attend these workshops and learn more!  
+Our campus has a wealth of expertise in data science. There is even a [new major](https://www.ucdavis.edu/majors/data-science) in data science. Should your interests progress, here are some links. They offer regular workshops and maintain archives. Among the goals of this class is to get you set-up so that you can attend these workshops and learn more!  
 
 - [Davis R Users Group](http://d-rug.github.io/)  
 - [Data Science Initiative](http://dsi.ucdavis.edu/)  
@@ -61,7 +61,7 @@ We have a main repository for our class [datascibiol](https://github.com/jmledfo
 ## Make Your Own Repository  
 1. Go to [github.com](www.github.com) and login.  
 2. Create a new repository.  
-3. Under repository name, use the title `BIS15W2024_your first initial and lastname`. Mine looks like this: BIS15W2024_jledford  
+3. Under repository name, use the title `BIS15W2025_your first initial and lastname`. Mine looks like this: BIS15W2025_jledford  
 4. Default settings are fine, but do click "Initialize this repository with a README".    
 5. Once the repository is made, click on settings in the top right.  
 6. On the left toolbar click "Collaborators".  

@@ -18,7 +18,7 @@ output:
 [GitHub](http://www.github.com) is a file storage and management site used by programmers. Programmers upload code to repositories (folders) and make it publicly available. We will use Github to store our work in BIS 15L.  
 
 ## R and RStudio  
-R is an open source, **scripting** language. RStudio is a [GUI](https://www.computerhope.com/jargon/g/gui.htm) that is used to interact with R. You need to have R installed in order for RStudio to work. On the desktop in your repository's `lab 1` folder, you should see a file titled `lab1_2.Rmd`. Open this file by double clicking; you should now be in RStudio.  
+R is an open source, **scripting** language. RStudio is an integrated development environment [IDE](https://en.wikipedia.org/wiki/Integrated_development_environment) that is used to interact with R. You need to have R installed in order for RStudio to work. On the desktop in your repository's `lab 1` folder, you should see a file titled `lab1_2.Rmd`. Open this file by double clicking; you should now be in RStudio.  
 
 When you first open RStudio, you should see your screen divided into four quadrants. I will demonstrate each of these, but for now it is enough to know that they display different information and are helpful to manage your work.  
 
