@@ -18,9 +18,6 @@ Please read the [course syllabus](https://jmledford3115.github.io/datascibiol/sy
 ## Labs  
 1. **Lab 1** | [part 1](https://jmledford3115.github.io/datascibiol/lab1_1.html) | [part 2](https://jmledford3115.github.io/datascibiol/lab1_2.html) 
 
-## Homework
-1. **Homework 1** | [HW 1](https://jmledford3115.github.io/datascibiol/homework/hw1.html)    
-
 ## Reading  
 [R for Data Science](https://r4ds.had.co.nz/), Grolemund and Wickham (2017).  
 
