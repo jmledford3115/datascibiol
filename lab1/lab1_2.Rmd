@@ -14,9 +14,6 @@ output:
 2. Perform simple arithmetic in R and RStudio.  
 3. Write, format, and knit an RMarkdown report.  
 
-## GitHub  
-[GitHub](http://www.github.com) is a file storage and management site used by programmers. Programmers upload code to repositories (folders) and make it publicly available. We will use Github to store our work in BIS 15L.  
-
 ## R and RStudio  
 R is an open source, **scripting** language. RStudio is an integrated development environment [IDE](https://en.wikipedia.org/wiki/Integrated_development_environment) that is used to interact with R. You need to have R installed in order for RStudio to work. On the desktop in your repository's `lab 1` folder, you should see a file titled `lab1_2.Rmd`. Open this file by double clicking; you should now be in RStudio.  
 
