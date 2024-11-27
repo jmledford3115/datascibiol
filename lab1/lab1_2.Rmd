@@ -31,6 +31,8 @@ We have a main repository for our class [datascibiol](https://github.com/jmledfo
 5. Once the repository is made, click on settings in the top right.  
 6. On the left toolbar click "Collaborators".  
 7. Add "jmledford3115" and "bryshalm" as collaborators.  
+8. Go to `Settings` and scroll down to `Danger` Zone.  
+9. Change visibility to private.  
 
 ## GitHub Desktop  
 The easiest way to manage your GitHub repository is to use [GitHub desktop](https://desktop.github.com/). This is a  helpful tool that will allow you to manage all of your files. Open the program and login using your GitHub account.  
@@ -50,6 +52,11 @@ You will use your repository to store all of your notes and work. There are thre
 3. `Push` this is the same as upload.    
 
 If you setup [GitHub desktop](https://desktop.github.com/), then you will see that it automatically tracks your changes. Clicking the `Commit to master` button in the bottom left corner means that you are recording a snapshot of your edits locally. Once this is done, you need to upload your changes to GitHub. This is done by clicking `Push origin`. Once you have pushed your changes you can double check by looking at your repository on github.com.    
+
+## Adjust your README
+1. Open the file `README.md` in RStudio.  
+2. Use markdown to add basic information, including your name and a description of the contents.  
+3. Do not add personal information, including your SID.  
 
 ## Practice  
 Since you will use your GitHub repository extensively in class, we need to practice.  
