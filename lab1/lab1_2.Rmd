@@ -1,5 +1,5 @@
 ---
-title: "R, RStudio, and RMarkdown"
+title: "GitHub, GitHub Desktop"
 date: "`r Sys.Date()`"
 output:
   html_document:
@@ -10,158 +10,55 @@ output:
 
 ## Learning Goals  
 *At the end of this exercise, you will be able to:*    
-1. Explain the difference between R and RStudio.  
-2. Perform simple arithmetic in R and RStudio.  
-3. Write, format, and knit an RMarkdown report.  
+1. Create a new repository on GitHub and link it to GitHub Desktop.    
+2. Improve the aesthetics and information about your repository.  
+3. Use GitHub Desktop to manage your repository.  
+4. Commit, push and pull files on GitHub.  
 
-## R and RStudio  
-R is an open source, **scripting** language. RStudio is an integrated development environment [IDE](https://en.wikipedia.org/wiki/Integrated_development_environment) that is used to interact with R. You need to have R installed in order for RStudio to work. On the desktop in your repository's `lab 1` folder, you should see a file titled `lab1_2.Rmd`. Open this file by double clicking; you should now be in RStudio.  
+## GitHub  
+[GitHub](http://www.github.com) is a file storage and management site used by programmers. Programmers upload code to repositories (folders) and make it publicly available. We will use Github to store our work and manage workflows in BIS 15L.  
 
-When you first open RStudio, you should see your screen divided into four quadrants. I will demonstrate each of these, but for now it is enough to know that they display different information and are helpful to manage your work.  
+## Your GitHub account  
+Since we will use GitHub for assignments, you need to have an account and make a repository for BIS 15L. If you followed the [setup instructions](https://jmledford3115.github.io/datascibiol/setup.html) then you should be all set. Please [Email](mailto:bymoore@ucdavis.edu) your GitHub user name to Bry.     
 
-## Working Directory  
-Before you begin to work in RStudio, it is important that you are in the correct "working directory". This is the location on your computer where you are currently working; it is the place where RStudio will save all of your work. At first, many of the problems people encounter in R are because they are not in the correct working directory.  
+We have a main repository for our class [datascibiol](https://github.com/jmledford3115/datascibiol). You should **Star** this repository for future reference.  
 
-Run the following code by clicking the small green arrow to check your current working directory.  
-```{r}
-getwd()
-```
+## Make Your Own Repository  
+1. Go to [github.com](www.github.com) and login.  
+2. Create a new repository.  
+3. Under repository name, use the title `BIS15W2025_your first initial and lastname`. Mine looks like this: BIS15W2025_jledford  
+4. Default settings are fine, but do click "Initialize this repository with a README".    
+5. Once the repository is made, click on settings in the top right.  
+6. On the left toolbar click "Collaborators".  
+7. Add "jmledford3115" and "bryshalm" as collaborators.  
 
-If you are not in the **lab 1 folder**, please navigate to it: Session>Set Working Directory>Choose Directory>Desktop>lab1.  
+## GitHub Desktop  
+The easiest way to manage your GitHub repository is to use [GitHub desktop](https://desktop.github.com/). This is a  helpful tool that will allow you to manage all of your files. Open the program and login using your GitHub account.  
 
-Re-run the code below to confirm.
-```{r}
-getwd()
-```
+## Clone Your Repository  
+In GitHub desktop, you will see your personal repository as an option under `clone repository`. Clone your repository to the desktop. Once you have done this any changes you make to files will be recorded and easily uploaded. Do not move this folder from your desktop.  
 
-## R  
-Double click to open R (not RStudio) and find the carrot `>`. This is where commands are entered. Because R is a scripting language you don't point and click to run commands. Instead, you write instructions that are used by the computer to complete an operation. This makes it hard to learn at first because the instructions are specific. R is **not** tolerant of typos, punctuation errors, errant spaces, or other types of mistakes.  
+## Copy the Class Repository
+In order to keep track of the class files, the last thing you need to do is make a copy of the class repository. I will make regular changes to the class repository including the addition of files and data that you will need. Do a search for `datascibiol` and download a copy to the desktop. You do this by navigating to the repository then going to the small green code button at top right. Click on the code button then go to Download ZIP.  
 
-## Arithmetic  
-You can use R as a calculator; just enter the expression and press return.  Experiment by evaluating the following expression.
-```{r}
-4*12
-```
+Copy the `lab1` folder from the class repository and paste it into your personal repository. By doing this, you have created your own copies of lab materials for lab 1.  
 
-Order of operations applies and you don't need to add an '=' sign.
-```{r}
-(4*12)/2
-```
+## Using GitHub  
+You will use your repository to store all of your notes and work. There are three terms that we need to define:  
+1. `Commit` takes a snapshot of your current progress.    
+2. `Pull` this is the same as download.     
+3. `Push` this is the same as upload.    
 
-```{r}
-2*3
-```
+If you setup [GitHub desktop](https://desktop.github.com/), then you will see that it automatically tracks your changes. Clicking the `Commit to master` button in the bottom left corner means that you are recording a snapshot of your edits locally. Once this is done, you need to upload your changes to GitHub. This is done by clicking `Push origin`. Once you have pushed your changes you can double check by looking at your repository on github.com.    
 
-```{r}
-12/4
-```
-
-What is going on here? How do we adjust this expression so the output is 12?
-```{r}
-(4-2)*6
-```
-
-
-Statistics are what R was originally written for and there are thousands of packages for specialized statistics depending on your needs.  
-
-First, we need to make a vector or string of values which we will store as an object x. More on this later...
-
-```{r}
-x <- c(4, 6, 8, 5, 6, 7, 7, 7)
-```
-
-```{r}
-y <- c(4, 4, 3, 5, 6, 4, 4, 4)
-```
-
-```{r}
-mean(y)
-```
-
-```{r}
-x+y
-```
-
-Now we can calculate the mean of object x.  
-```{r}
-mean(x)
-```
-
-We can do the same thing for median.  
-```{r}
-median(x)
-```
-
-```{r}
-sd(x)
-```
-
-```{r}
-z <- 1
-```
-
-```{r}
-
-```
-
-```{r}
-
-```
-
-```{r}
-x <- 1
-```
-
-```{r}
-rm(x)
-```
-
-## RMarkdown  
-Annotation of code is important for programmers of all levels. When code is annotated, it is easy for others to understand and perhaps more importantly, easier for the person who wrote the code to understand when returning to a project days, months, or even years later. RMarkdown allows us to embed code in annotated chunks, show the results of analyses, and display graphical output all in one file. It is a great way of making a report which can be conveniently output to html or pdf.  
-
-The RMarkdown file can then be exported in a number of formats. If you have questions, the definitive guide to RMarkdown is [here](https://bookdown.org/yihui/rmarkdown/).  
-
-Here is a great [tutorial on RMarkdown](https://www.markdowntutorial.com/).  
-
-## RMarkdown Basics  
-RMarkdown is one of many types of documents that can be created in RStudio and is the one we will use most frequently in BIS 15L.  
-
-1. In RStudio, open a new markdown document: **File>New File>R Markdown** and title it "RMarkdown Practice".  
-2. At the top of the page, the header includes information about the title, author, date, and output. You can edit these fields, but avoid editing output for now.   
-3. There is some generic information at the start of the file that we don't need. Delete lines 12 through 31 to clean things up.  
-4. Hold on to this file, we will use it shortly.  
-
-## Titles and Text
-Have a look at the format of this document; titles are indicated by a `#`. Larger numbers of `#'s` reduce the size of the font. Text with no `#'s` is smallest and not bold. To emphasize words, you can use _italics_ or **bold**. A line break is indicated by two spaces.  
-
-## Links
-I often add links to my RMarkdown files. For a website, include the page name in `[]` and the website address in `()`. [BIS 15L Webpage](https://jmledford3115.github.io/datascibiol/).    
-
-Email is similar, but you need to include `mailto:` in the parentheses. Here is my email: [Joel Ledford](jmledford@ucdavis.edu).    
-
-## Code Chunks
-All R code is inserted between two gray bars called a code chunk. You can insert a new code chunk by clicking "Insert>R" at the top of the page. On a Mac, the shortcut is `option+command+i`.  
-
-## Knit
-In order to make the html file, you need to "Knit" the file. Knitting just means build the file. If you click "Knit" now, it will knit the lab.  
-
-## Practice
-1. Test out the arithmetic capabilities of R; experiment by doing addition, subtraction, multiplication, and division.  
-2. Go back to your "RMarkdown Practice" file and experiment with titles, text, and syntax.  
-3. Copy and paste the following two pieces of code into the document (include the gray code "chunks").      
-
-```{r}
-#install.packages("tidyverse")
-library("tidyverse")
-```
-
-```{r}
-ggplot(mtcars, aes(x = factor(cyl))) +
-    geom_bar()
-```
-
-4. Now `knit` the file to html using the knit button at the top of the page.  
-5. Lastly, commit and push this file to your GitHub repository.  
+## Practice  
+Since you will use your GitHub repository extensively in class, we need to practice.  
+1. Navigate to your repository and find the file `dummy_push` in the `lab 1` folder.   
+2. Open `dummy_push`.  
+3. Add your name under `author` at the top of the page.    
+4. Save this file.  
+5. `Knit` the file.    
+6. Use GitHub Desktop to first `Commit to master` and then `Push origin` to your GitHub repository.    
 
 ## Wrap-up
 Please review the learning goals and be sure to use the code here as a reference when completing the homework.  
