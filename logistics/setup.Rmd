@@ -30,6 +30,6 @@ We use several packages as part of the class, but the most important is [tidyver
 GitHub is the website where we will upload all of our work, including homework and class files. [GitHub Desktop](https://desktop.github.com/) is an interface that allows us to keep track of changes (version control) and upload.  
 
 ### 5. GitHub Account
-You need to make a personal account on GitHub. Navigate to [GitHub](http://www.github.com) and create a free account. You will need to setup 2-factor authentication. The easiest way is to use the GitHub app on your cell phone.    
+You need to make a personal account on GitHub. Navigate to [GitHub](http://www.github.com) and create a free account. You will need to setup 2-factor authentication. The easiest way is to use the GitHub app on your cell phone.      
 
 -->[Home](https://jmledford3115.github.io/datascibiol/)  
