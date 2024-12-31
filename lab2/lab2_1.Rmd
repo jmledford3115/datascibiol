@@ -1,0 +1,162 @@
+---
+title: "Objects, Classes & NAs"
+date: "`r Sys.Date()`"
+output:
+  html_document:
+    theme: spacelab
+    toc: yes
+    toc_float: yes
+  pdf_document:
+    toc: yes
+---
+
+## Learning Goals
+*At the end of this exercise, you will be able to:*    
+1. Define an object in R.  
+2. Use objects to perform calculations.  
+3. Explain the difference between data classes in R.  
+4. Use R to identify the class of specific data.  
+5. Define NA in R.  
+6. Determine whether or not data have NA values.  
+
+## Objects
+In order to access the potential of R we need to assign values or other types of data to `objects`. There is a specific format that I want you to follow, so please pay close attention.  
+
+Assign a value to object 'x'. The '<-' symbol is read as 'gets'. In this case, x gets 42. Make sure that you are in the environment panel and you should see the value associated with 'x'. On a mac, you can push `option` and `-` to automatically generate the gets symbol.  
+```{r}
+x <- 42
+```
+
+To print the object to the screen, just type x.  
+```{r}
+x
+```
+
+Assign a value of 30 to a new object y.
+```{r}
+y <- 30
+```
+
+The = symbol works, but is not a convention followed by most programmers.
+```{r}
+z=10 #do not use
+```
+
+Once objects have been created, you can do things with them.  
+```{r}
+x+y
+```
+
+Make two new objects, treatment and control. The value of treatment is 36 and the value of control is 38.
+```{r}
+treatment <- 36
+control <- 38
+```
+
+What is the sum of treatment and control?
+```{r}
+treatment+control
+```
+
+Here we make a new object `my_experiment` that is the sum of the treatment and control. Notice that I use `_` and not spaces. 
+```{r}
+my_experiment <- treatment+control
+my_experiment
+```
+
+We can also use the function sum to do the same thing. Notice that if I give a new object the same name as an existing object, the old one is replaced.
+```{r}
+my_experiment <- sum(treatment, control)
+my_experiment
+```
+
+## Nomenclature
+We need to be careful about nomenclature when we write code. R allows us to give almost any name we want to an object, but there are exceptions. For example, we don't want to give a name to an object that is the same as a function in R.  
+```{r eval=FALSE, include=TRUE}
+else <- 12
+```
+
+We get an error here because `else` is a function in R. You also don't want to give names that might get confused with functions; i.e. you can assign a value to 'mean' but this could become confusing because mean is used as a function.  
+```{r}
+mean <- 20
+```
+
+What is the mean of 2+8+2? (Do the math in your head first). Does the following code match your prediction?
+```{r}
+2+8+2/3 #this is not correct because R is not following the order of operations
+```
+
+Order of operations applies, so we need to tell R exactly what we want.
+```{r}
+(2+8+2)/3
+```
+
+Here we use the mean function. Notice that we had to use `c` which stands for concatenate. More on this later.  
+```{r}
+mean(c(2, 8, 2))
+```
+
+## Practice
+1. Create three new objects, `venom_GT`, `chiron`, and `veyron`. These are the fastest cars in the world. Assign each car to its top speed. The venom_GT can go 270, chiron is 261, and veyron is 268.  
+
+2. Use arithmetic to calculate the mean top speed for the cars.
+
+3. Use the function `mean()` to calculate the mean top speed for the cars.
+
+## Types of Data
+There are four frequently used `classes` of data: 1. numeric, 2. integer, 3. character, 4. logical.
+```{r}
+my_numeric <- 42
+my_integer <- 2L #adding an L automatically denotes an integer
+my_character <- "universe"
+my_logical <- FALSE
+```
+
+To find out what type of data you are working with, use the `class()` function. This is important because sometimes we will need to change the type of data to perform certain analyses.
+```{r}
+class(my_numeric)
+class(my_integer)
+```
+
+You can use the `is()` and `as()` functions to clarify or specify a type of data.
+```{r}
+is.integer(my_numeric) #is my_numeric an integer?
+```
+
+```{r}
+my_integer <- 
+  as.integer(my_numeric) #create a new object specified as an integer
+```
+
+```{r}
+is.integer(my_integer) #is my_numeric an integer?
+```
+
+## Missing Data
+R has a special way to designate missing data, the NA. NA values in R have specific properties which are very useful if your data contains any missing values. Later this quarter we will have a lab focused on dealing with NAs.  
+
+NA values are used to designate missing data. `is.na` or `anyNA` are useful functions when dealing with NAs in data. 
+```{r}
+my_missing <- NA
+```
+
+```{r}
+is.na(my_missing)
+```
+
+```{r}
+anyNA(my_missing)
+```
+
+## Practice  
+1. Let's create a vector that includes some missing data (we will discuss vectors more in part 2). For now, run the following code chunk.  
+
+2. Calculate the mean of `new_vector`.
+
+3. How do you interpret this result? What does this mean about NAs?  
+
+4. Recalculate the mean using the following code chunk. Why is the useful?  
+
+## That's it! Let's take a break and then move on to part 2!
+
+-->[Home](https://jmledford3115.github.io/datascibiol/)  

@@ -8,22 +8,15 @@ output:
     toc_float: yes
 ---
 
-```{r setup, include = FALSE}
-knitr::opts_chunk$set(
-  collapse = TRUE,
-  comment = "#>"
-)
-```
-
 ## Background  
 In nearly every field of science, our ability to generate data has exceeded our capacity for analysis. For me, this means that there is the potential for loss to science; many important discoveries may go unnoticed because we are unable to efficiently analyze data.  
 
 The goal for this course is to help get you started learning to manage, transform, and visualize data using the R programming language. You will learn to clearly and neatly organize messy data, transform it in ways that address your questions, and communicate results in a variety of formats. The course is designed for people with **no prior programming experience**. There is a substantial learning curve but, working together, we will make learning R easier, interesting, and fun.  
 
-This class is NOT focused on statistical analysis or interpretation. The goal is to provide you with the foundational tools you need to perform these tasks.  
+This class is NOT focused on statistical analysis or interpretation. The goal is to provide you with the tools you need to perform these tasks.  
 
 ## First steps  
-It is important that you understand the first two weeks of the class can seem slow, tedious, and frustrating. These first steps are like learning a new language; you often won't know what is being said or why. Please be patient and stick with me! I promise that it will get easier.  
+The first two weeks of the class can seem slow, tedious, and frustrating. These first steps are like learning a new language; you often won't know what is being said or why. Please be patient and stick with me! I promise that it will get easier.  
 
 ## Resources  
 Given that R is open source, many resources are available online. We will use a combination of resources in the class, but key items are listed below.  
@@ -51,7 +44,7 @@ This quarter we are fortunate to be able to use the computers in the SCC. Each o
 ## Setup your computer  
 Because you will need to work on assignments at home, it is important that you spend time making sure that your computer is set-up and ready to go. The first step in this is basic maintenance; i.e. clean up your desktop and update your OS. Data scientists are neat and tidy! Spend time getting yourself organized, it will pay off.  
 
-Please follow these four steps to set-up you computer [here](https://jmledford3115.github.io/datascibiol/setup.html).  
+Please follow these steps to set-up you computer [here](https://jmledford3115.github.io/datascibiol/setup.html).  
 
 ## That's it! Let's take a break and then move on to part 2!
 

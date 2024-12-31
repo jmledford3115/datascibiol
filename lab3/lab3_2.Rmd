@@ -1,0 +1,115 @@
+---
+title: "Importing Data Frames"
+date: "`r Sys.Date()`"
+output:
+  html_document:
+    theme: spacelab
+    toc: yes
+    toc_float: yes
+  pdf_document:
+    toc: yes
+---
+
+## Learning Goals
+*At the end of this exercise, you will be able to:*    
+1. Import .csv files as data frames using `read_csv()`.  
+2. Use summary functions to explore the dimensions, structure, and contents of a data frame.  
+3. Use the `select()` command of dplyr to sort data frames.  
+
+## Load the tidyverse
+```{r message=FALSE, warning=FALSE}
+library("tidyverse")
+```
+
+## Data Frames Review
+Most scientists record data in spreadsheets. The format of spreadsheets varies, and is often determined by the type of data and how the data were recorded. In R, we can import spreadsheets as data frames. Once imported, we can transform data frames to suit our analytical needs. For the remainder of the course, we will work exclusively with data frames. But, in data science other structures exist that are useful for specific tasks.  
+
+## Tibbles Review
+Data frames are the original data structure in R. Tibbles are a modern take on data frames. Tibbles are data frames, but they tweak some older behaviors to make life a little easier. Tibbles are a core part of the tidyverse, and are used in most tidyverse functions and packages.  
+
+## Practice
+In your lab 3 folder there is another folder titled `data`. Inside the `data` folder there is a `.csv` titled `Gaeta_etal_CLC_data.csv`. Open this data and store them as an object called `fish`.  
+
+The data are from: Gaeta J., G. Sass, S. Carpenter. 2012. Biocomplexity at North Temperate Lakes LTER: Coordinated Field Studies: Large Mouth Bass Growth 2006. Environmental Data Initiative.  [link](https://portal.edirepository.org/nis/mapbrowse?scope=knb-lter-ntl&identifier=267)  
+```{r}
+fish <- read_csv("data/Gaeta_etal_CLC_data.csv")
+```
+
+Notice that when the data are imported, you are presented with a message that tells you how R interpreted the column classes. This is also where error messages will appear if there are problems.  
+
+## Summary functions
+Once data have been uploaded, you may want to get an idea of its structure, contents, and dimensions. I routinely run one or more of these commands when data are first imported.  
+
+We can summarize our data frame with the`summary()` function.  
+```{r}
+#summary(fish)
+```
+
+`glimpse()` is another useful summary function.
+```{r}
+#glimpse(fish)
+```
+
+`nrow()` gives the numbers of rows.
+```{r}
+#nrow(fish)
+```
+
+`ncol` gives the number of columns.
+```{r}
+#ncol(fish)
+```
+
+`dim()` gives the dimensions.
+```{r}
+#dim(fish)
+```
+
+`names` gives the column names.
+```{r}
+#names(fish)
+```
+
+`head()` prints the first n rows of the data frame.
+```{r}
+#head(fish)
+```
+
+`tail()` prinst the last n rows of the data frame.
+```{r}
+#tail(fish)
+```
+
+`table()` is useful when you have a limited number of categorical variables. It produces fast counts of the number of observations in a variable. We will come back to this later... 
+```{r}
+#table(fish$lakeid)
+```
+
+## Select
+Select is a way of sorting data frames by pulling out variables (columns) of interest.
+```{r}
+#select(fish, lakeid, length)
+```
+
+## Filter
+Filter is a way of pulling out observations that meet specific criteria in a variable. We will work a lot more with this in the next lab.  
+```{r}
+#filter(fish, length<=100)
+```
+
+## Practice
+1. Load the data `mammal_lifehistories_v2.csv` and place it into a new object called `mammals`.
+
+2. Provide the dimensions of the data frame.
+
+3. Check the column names in the data frame. 
+
+4. Use `str()` to show the structure of the data frame and its individual columns; compare this to `glimpse()`. 
+
+5. Try the `table()` command to produce counts of mammal order, family, and genus.  
+
+6. Use the `filter()` command to pull out mammals that have a gestation period greater than or equal to one year.  
+
+## Wrap-up
+Please review the learning goals and be sure to use the code here as a reference when completing the homework.  
+-->[Home](https://jmledford3115.github.io/datascibiol/)

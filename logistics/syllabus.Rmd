@@ -28,17 +28,11 @@ In order to complete the homework and exams, you need to be able to run R and RS
 ## UC Davis’ Principles of Community  
 We expect all interactions in this class to be guided by the [UCD Principles of Community](https://diversity.ucdavis.edu/principles-community). This stresses commitment to a climate of equity, inclusiveness and justice that is demonstrated by respecting and celebrating one another. The richness of our learning community and our ability to address pressing societal challenges require all of our unique contributions and perspectives. In this class, we will value open expression of our individualism, within the bounds of courtesy and respect to others. We will confront and reject all manifestations of discrimination, including based on age, citizenship status, disability, ethnicity, gender, gender expression, nationality, race, sexual orientation, socio-economic class, status inside or outside the university, veteran status, religious/non-religious, spiritual or political beliefs, or any other differences among people which have been excuses for misunderstanding, dissension or hatred.  
 
-Please communicate with the instructional team:  
-
-* If you have a name and/or set of pronouns that differ from those that appear in your official records.  
-* If you feel like your performance in class is being significantly impacted by your experiences outside of class. We can work with you to provide additional support and advice, connect you with campus resources, or modify deadlines if warranted by the circumstances.  
-* If something is said in class (by anyone) that makes you feel uncomfortable, please talk to us about it, or provide anonymous feedback.  
-
 ## Student Disability Center
 UC Davis is committed to serving a diverse student body. We encourage all students who are interested in learning more about the Student Disability Center (SDC) to contact them directly at [SDC](mailto:sdc.ucdavis.edu) or 530-752-3184. If you are a student who receives academic accommodation(s), please submit your SDC Letter of Accommodation to us as soon as possible, ideally within the first week of this course.  
 
 ## UC Davis Land Acknowledgement  
-UC Davis has a formal land acknowledgement to recognize the Indigenous people who have lived where UC Davis is today. It was written by the Yocha Dehe Wintun Nation and approved by the three Patwin tribes who inhabit(ed) this land. The land acknowledgement is as follows: “We should take a moment to acknowledge the land on which we are gathered. For thousands of years, this land has been the home of Patwin people. Today, there are three federally recognized Patwin tribes: Cachil DeHe Band of Wintun Indians of the Colusa Indian Community, Kletsel Dehe Wintun Nation, and Yocha Dehe Wintun Nation. The Patwin people have remained committed to the stewardship of this land over many centuries. It has been cherished and protected, as elders have instructed the young through generations. We are honored and grateful to be here today on their traditional lands.”  
+We should take a moment to acknowledge the land on which we are gathered. For thousands of years, this land has been the home of Patwin people. Today, there are three federally recognized Patwin tribes: Cachil DeHe Band of Wintun Indians of the Colusa Indian Community, Kletsel Dehe Wintun Nation, and Yocha Dehe Wintun Nation. The Patwin people have remained committed to the stewardship of this land over many centuries. It has been cherished and protected, as elders have instructed the young through generations. We are honored and grateful to be here today on their traditional lands.   
 
 ## Learning Goals  
 *At the end of this course, you will be able to:*  
@@ -52,19 +46,17 @@ UC Davis has a formal land acknowledgement to recognize the Indigenous people wh
 ## Course Structure  
 Our class has collaborative work as its foundation. Many people learn R on their own and there are thousands of courses designed to teach you the fundamentals. Working as a community is what sets our class apart. We encourage you to work together throughout the class!  
 
-Our class is scheduled for 2-hour blocks on Tuesday and Thursday. Each class works though examples of live coding but includes frequent breaks where we work together to solve problems. Please don't expect this to be a traditional lecture class- we require your active participation. After each class, there will be a homework assignment. We encourage you to work together on these! Since each assignment has many different solutions, the expectation is that your code is free from errors and runs cleanly. See grading below for details.  
-
-There are two exams in the class, both of which are take-home. You may use any resources you like on the exam except for posting questions to open stacks or R programming forums; your work should be entirely your own.  
+Our class is scheduled for 2-hour blocks on Tuesday and Thursday. Each class works though examples of live coding but includes frequent breaks where we work together to solve problems. After each class, there will be a homework assignment. We encourage you to work together on these! Since each assignment has many different solutions, the expectation is that your code is free from errors and runs cleanly. See grading below for details.  
 
 ## Attendance
-As a skills-based lab class, attendance provides you with hands-on experience and help. If you know that you will not be able to attend in-person or you have significant planned absences this quarter, please reconsider enrollment. Our class has collaborative learning as its foundation and requires your attendance.  
+As a skills-based lab class, attendance provides you with hands-on experience and help. If you know that you will not be able to attend in-person or you have significant planned absences this quarter, please reconsider enrollment. Our class has collaborative learning as its foundation and requires your attendance. No grade points are awarded for attendance.  
 
 ## Grading  
-The class is graded out of 300 points on a straight scale. There are no curves or normalizations applied.  
+The class is graded out of 300 points on a straight scale. There are no curves applied.  
 
 1. **Weekly homework assignments (150 points)**. Each assignment must be completed and uploaded to GitHub prior to the next lab. There are 15 homework assignments total and each assignment is worth 10 points. Homework is due at the start of each lab; no late work is accepted. Homework is graded based on completion and accuracy.  
 
-2. **Midterms (60 points)**. The midterms help us keep one another accountable. The midterms are open note (i.e. you can use the labs and your homework) but no internet searches or AI are allowed.  Each midterm is worth 30 points.  
+2. **Midterms (60 points)**. The midterms help us keep one another accountable. The midterms are open note (i.e. you may use the labs and your homework) but no internet searches or AI are allowed.  Each midterm is worth 30 points.  
 
 3. **Class project (90 points)**. As part of the class, you will form a group to explore a project in data science. The project may be based on any available data of interest to the group and should highlight skills learned in the labs. The group will present their results during the last lab sessions.  
 

@@ -10,9 +10,9 @@
 
 
 
-<meta name="date" content="2024-12-26" />
+<meta name="date" content="2024-12-31" />
 
-<title>GitHub, GitHub Desktop</title>
+<title>Importing Data Frames</title>
 
 <script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
 // be compatible with the behavior of Pandoc < 2.8).
@@ -1502,8 +1502,8 @@ border-radius: 0px;
 
 
 
-<h1 class="title toc-ignore">GitHub, GitHub Desktop</h1>
-<h4 class="date">2024-12-26</h4>
+<h1 class="title toc-ignore">Importing Data Frames</h1>
+<h4 class="date">2024-12-31</h4>
 
 </div>
 
@@ -1511,127 +1511,117 @@ border-radius: 0px;
 <div id="learning-goals" class="section level2">
 <h2>Learning Goals</h2>
 <p><em>At the end of this exercise, you will be able to:</em><br />
-1. Create a new repository on GitHub and link it to GitHub
-Desktop.<br />
-2. Improve the aesthetics and information about your repository.<br />
-3. Use GitHub Desktop to manage your repository.<br />
-4. Commit, push and pull files on GitHub.</p>
+1. Import .csv files as data frames using <code>read_csv()</code>.<br />
+2. Use summary functions to explore the dimensions, structure, and
+contents of a data frame.<br />
+3. Use the <code>select()</code> command of dplyr to sort data
+frames.</p>
 </div>
-<div id="github" class="section level2">
-<h2>GitHub</h2>
-<p><a href="http://www.github.com">GitHub</a> is a file storage and
-management site used by programmers. Programmers upload code to
-repositories (folders) and make it publicly available. We will use
-Github to store our work and manage workflows in BIS 15L.</p>
+<div id="load-the-tidyverse" class="section level2">
+<h2>Load the tidyverse</h2>
+<pre class="r"><code>library(&quot;tidyverse&quot;)</code></pre>
 </div>
-<div id="your-github-account" class="section level2">
-<h2>Your GitHub account</h2>
-<p>Since we will use GitHub for assignments, you need to have an account
-and make a repository for BIS 15L. If you followed the <a href="https://jmledford3115.github.io/datascibiol/setup.html">setup
-instructions</a> then you should be all set. Please <a href="mailto:bymoore@ucdavis.edu">Email</a> your GitHub user name to
-Bry.</p>
-<p>We have a main repository for our class <a href="https://github.com/jmledford3115/datascibiol">datascibiol</a>. You
-should <strong>Star</strong> this repository for future reference.</p>
+<div id="data-frames-review" class="section level2">
+<h2>Data Frames Review</h2>
+<p>Most scientists record data in spreadsheets. The format of
+spreadsheets varies, and is often determined by the type of data and how
+the data were recorded. In R, we can import spreadsheets as data frames.
+Once imported, we can transform data frames to suit our analytical
+needs. For the remainder of the course, we will work exclusively with
+data frames. But, in data science other structures exist that are useful
+for specific tasks.</p>
 </div>
-<div id="make-your-own-repository" class="section level2">
-<h2>Make Your Own Repository</h2>
-<ol style="list-style-type: decimal">
-<li>Go to <a href="www.github.com">github.com</a> and login.<br />
-</li>
-<li>Create a new repository.<br />
-</li>
-<li>Under repository name, use the title
-<code>BIS15W2025_your first initial and lastname</code>. Mine looks like
-this: BIS15W2025_jledford<br />
-</li>
-<li>Default settings are fine, but do click “Initialize this repository
-with a README”.<br />
-</li>
-<li>Once the repository is made, click on settings in the top
-right.<br />
-</li>
-<li>On the left toolbar click “Collaborators”.<br />
-</li>
-<li>Add “jmledford3115” and “bryshalm” as collaborators.<br />
-</li>
-<li>Go to <code>Settings</code> and scroll down to <code>Danger</code>
-Zone.<br />
-</li>
-<li>Change visibility to private.</li>
-</ol>
-</div>
-<div id="github-desktop" class="section level2">
-<h2>GitHub Desktop</h2>
-<p>The easiest way to manage your GitHub repository is to use <a href="https://desktop.github.com/">GitHub desktop</a>. This is a helpful
-tool that will allow you to manage all of your files. Open the program
-and login using your GitHub account.</p>
-</div>
-<div id="clone-your-repository" class="section level2">
-<h2>Clone Your Repository</h2>
-<p>In GitHub desktop, you will see your personal repository as an option
-under <code>clone repository</code>. Clone your repository to the
-desktop. Once you have done this any changes you make to files will be
-recorded and easily uploaded. Do not move this folder from your
-desktop.</p>
-</div>
-<div id="copy-the-class-repository" class="section level2">
-<h2>Copy the Class Repository</h2>
-<p>In order to keep track of the class files, the last thing you need to
-do is make a copy of the class repository. I will make regular changes
-to the class repository including the addition of files and data that
-you will need. Do a search for <code>datascibiol</code> and download a
-copy to the desktop. You do this by navigating to the repository then
-going to the small green code button at top right. Click on the code
-button then go to Download ZIP.</p>
-<p>Copy the <code>lab1</code> folder from the class repository and paste
-it into your personal repository. By doing this, you have created your
-own copies of lab materials for lab 1.</p>
-</div>
-<div id="using-github" class="section level2">
-<h2>Using GitHub</h2>
-<p>You will use your repository to store all of your notes and work.
-There are three terms that we need to define:<br />
-1. <code>Commit</code> takes a snapshot of your current progress.<br />
-2. <code>Pull</code> this is the same as download.<br />
-3. <code>Push</code> this is the same as upload.</p>
-<p>If you setup <a href="https://desktop.github.com/">GitHub
-desktop</a>, then you will see that it automatically tracks your
-changes. Clicking the <code>Commit to master</code> button in the bottom
-left corner means that you are recording a snapshot of your edits
-locally. Once this is done, you need to upload your changes to GitHub.
-This is done by clicking <code>Push origin</code>. Once you have pushed
-your changes you can double check by looking at your repository on
-github.com.</p>
-</div>
-<div id="adjust-your-readme" class="section level2">
-<h2>Adjust your README</h2>
-<ol style="list-style-type: decimal">
-<li>Open the file <code>README.md</code> in RStudio.<br />
-</li>
-<li>Use markdown to add basic information, including your name and a
-description of the contents.<br />
-</li>
-<li>Do not add personal information, including your SID.</li>
-</ol>
+<div id="tibbles-review" class="section level2">
+<h2>Tibbles Review</h2>
+<p>Data frames are the original data structure in R. Tibbles are a
+modern take on data frames. Tibbles are data frames, but they tweak some
+older behaviors to make life a little easier. Tibbles are a core part of
+the tidyverse, and are used in most tidyverse functions and
+packages.</p>
 </div>
 <div id="practice" class="section level2">
 <h2>Practice</h2>
-<p>Since you will use your GitHub repository extensively in class, we
-need to practice.<br />
-1. Navigate to your repository and find the file <code>dummy_push</code>
-in the <code>lab 1</code> folder.<br />
-2. Open <code>dummy_push</code>.<br />
-3. Add your name under <code>author</code> at the top of the page.<br />
-4. Save this file.<br />
-5. <code>Knit</code> the file.<br />
-6. Use GitHub Desktop to first <code>Commit to master</code> and then
-<code>Push origin</code> to your GitHub repository.</p>
+<p>In your lab 3 folder there is another folder titled
+<code>data</code>. Inside the <code>data</code> folder there is a
+<code>.csv</code> titled <code>Gaeta_etal_CLC_data.csv</code>. Open this
+data and store them as an object called <code>fish</code>.</p>
+<p>The data are from: Gaeta J., G. Sass, S. Carpenter. 2012.
+Biocomplexity at North Temperate Lakes LTER: Coordinated Field Studies:
+Large Mouth Bass Growth 2006. Environmental Data Initiative. <a href="https://portal.edirepository.org/nis/mapbrowse?scope=knb-lter-ntl&amp;identifier=267">link</a></p>
+<pre class="r"><code>fish &lt;- read_csv(&quot;data/Gaeta_etal_CLC_data.csv&quot;)</code></pre>
+<pre><code>## Rows: 4033 Columns: 6
+## ── Column specification ────────────────────────────────────────────────────────
+## Delimiter: &quot;,&quot;
+## chr (2): lakeid, annnumber
+## dbl (4): fish_id, length, radii_length_mm, scalelength
+## 
+## ℹ Use `spec()` to retrieve the full column specification for this data.
+## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+<p>Notice that when the data are imported, you are presented with a
+message that tells you how R interpreted the column classes. This is
+also where error messages will appear if there are problems.</p>
+</div>
+<div id="summary-functions" class="section level2">
+<h2>Summary functions</h2>
+<p>Once data have been uploaded, you may want to get an idea of its
+structure, contents, and dimensions. I routinely run one or more of
+these commands when data are first imported.</p>
+<p>We can summarize our data frame with the<code>summary()</code>
+function.</p>
+<pre class="r"><code>#summary(fish)</code></pre>
+<p><code>glimpse()</code> is another useful summary function.</p>
+<pre class="r"><code>#glimpse(fish)</code></pre>
+<p><code>nrow()</code> gives the numbers of rows.</p>
+<pre class="r"><code>#nrow(fish)</code></pre>
+<p><code>ncol</code> gives the number of columns.</p>
+<pre class="r"><code>#ncol(fish)</code></pre>
+<p><code>dim()</code> gives the dimensions.</p>
+<pre class="r"><code>#dim(fish)</code></pre>
+<p><code>names</code> gives the column names.</p>
+<pre class="r"><code>#names(fish)</code></pre>
+<p><code>head()</code> prints the first n rows of the data frame.</p>
+<pre class="r"><code>#head(fish)</code></pre>
+<p><code>tail()</code> prinst the last n rows of the data frame.</p>
+<pre class="r"><code>#tail(fish)</code></pre>
+<p><code>table()</code> is useful when you have a limited number of
+categorical variables. It produces fast counts of the number of
+observations in a variable. We will come back to this later…</p>
+<pre class="r"><code>#table(fish$lakeid)</code></pre>
+</div>
+<div id="select" class="section level2">
+<h2>Select</h2>
+<p>Select is a way of sorting data frames by pulling out variables
+(columns) of interest.</p>
+<pre class="r"><code>#select(fish, lakeid, length)</code></pre>
+</div>
+<div id="filter" class="section level2">
+<h2>Filter</h2>
+<p>Filter is a way of pulling out observations that meet specific
+criteria in a variable. We will work a lot more with this in the next
+lab.</p>
+<pre class="r"><code>#filter(fish, length&lt;=100)</code></pre>
+</div>
+<div id="practice-1" class="section level2">
+<h2>Practice</h2>
+<ol style="list-style-type: decimal">
+<li><p>Load the data <code>mammal_lifehistories_v2.csv</code> and place
+it into a new object called <code>mammals</code>.</p></li>
+<li><p>Provide the dimensions of the data frame.</p></li>
+<li><p>Check the column names in the data frame.</p></li>
+<li><p>Use <code>str()</code> to show the structure of the data frame
+and its individual columns; compare this to
+<code>glimpse()</code>.</p></li>
+<li><p>Try the <code>table()</code> command to produce counts of mammal
+order, family, and genus.</p></li>
+<li><p>Use the <code>filter()</code> command to pull out mammals that
+have a gestation period greater than or equal to one year.</p></li>
+</ol>
 </div>
 <div id="wrap-up" class="section level2">
 <h2>Wrap-up</h2>
 <p>Please review the learning goals and be sure to use the code here as
-a reference.</p>
-<p>–&gt;<a href="https://jmledford3115.github.io/datascibiol/">Home</a></p>
+a reference when completing the homework.<br />
+–&gt;<a href="https://jmledford3115.github.io/datascibiol/">Home</a></p>
 </div>
 
 

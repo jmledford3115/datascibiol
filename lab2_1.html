@@ -10,9 +10,9 @@
 
 
 
-<meta name="date" content="2024-12-26" />
+<meta name="date" content="2024-12-31" />
 
-<title>GitHub, GitHub Desktop</title>
+<title>Objects, Classes &amp; NAs</title>
 
 <script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
 // be compatible with the behavior of Pandoc < 2.8).
@@ -1502,8 +1502,8 @@ border-radius: 0px;
 
 
 
-<h1 class="title toc-ignore">GitHub, GitHub Desktop</h1>
-<h4 class="date">2024-12-26</h4>
+<h1 class="title toc-ignore">Objects, Classes &amp; NAs</h1>
+<h4 class="date">2024-12-31</h4>
 
 </div>
 
@@ -1511,126 +1511,147 @@ border-radius: 0px;
 <div id="learning-goals" class="section level2">
 <h2>Learning Goals</h2>
 <p><em>At the end of this exercise, you will be able to:</em><br />
-1. Create a new repository on GitHub and link it to GitHub
-Desktop.<br />
-2. Improve the aesthetics and information about your repository.<br />
-3. Use GitHub Desktop to manage your repository.<br />
-4. Commit, push and pull files on GitHub.</p>
+1. Define an object in R.<br />
+2. Use objects to perform calculations.<br />
+3. Explain the difference between data classes in R.<br />
+4. Use R to identify the class of specific data.<br />
+5. Define NA in R.<br />
+6. Determine whether or not data have NA values.</p>
 </div>
-<div id="github" class="section level2">
-<h2>GitHub</h2>
-<p><a href="http://www.github.com">GitHub</a> is a file storage and
-management site used by programmers. Programmers upload code to
-repositories (folders) and make it publicly available. We will use
-Github to store our work and manage workflows in BIS 15L.</p>
+<div id="objects" class="section level2">
+<h2>Objects</h2>
+<p>In order to access the potential of R we need to assign values or
+other types of data to <code>objects</code>. There is a specific format
+that I want you to follow, so please pay close attention.</p>
+<p>Assign a value to object ‘x’. The ‘&lt;-’ symbol is read as ‘gets’.
+In this case, x gets 42. Make sure that you are in the environment panel
+and you should see the value associated with ‘x’. On a mac, you can push
+<code>option</code> and <code>-</code> to automatically generate the
+gets symbol.</p>
+<pre class="r"><code>x &lt;- 42</code></pre>
+<p>To print the object to the screen, just type x.</p>
+<pre class="r"><code>x</code></pre>
+<pre><code>## [1] 42</code></pre>
+<p>Assign a value of 30 to a new object y.</p>
+<pre class="r"><code>y &lt;- 30</code></pre>
+<p>The = symbol works, but is not a convention followed by most
+programmers.</p>
+<pre class="r"><code>z=10 #do not use</code></pre>
+<p>Once objects have been created, you can do things with them.</p>
+<pre class="r"><code>x+y</code></pre>
+<pre><code>## [1] 72</code></pre>
+<p>Make two new objects, treatment and control. The value of treatment
+is 36 and the value of control is 38.</p>
+<pre class="r"><code>treatment &lt;- 36
+control &lt;- 38</code></pre>
+<p>What is the sum of treatment and control?</p>
+<pre class="r"><code>treatment+control</code></pre>
+<pre><code>## [1] 74</code></pre>
+<p>Here we make a new object <code>my_experiment</code> that is the sum
+of the treatment and control. Notice that I use <code>_</code> and not
+spaces.</p>
+<pre class="r"><code>my_experiment &lt;- treatment+control
+my_experiment</code></pre>
+<pre><code>## [1] 74</code></pre>
+<p>We can also use the function sum to do the same thing. Notice that if
+I give a new object the same name as an existing object, the old one is
+replaced.</p>
+<pre class="r"><code>my_experiment &lt;- sum(treatment, control)
+my_experiment</code></pre>
+<pre><code>## [1] 74</code></pre>
 </div>
-<div id="your-github-account" class="section level2">
-<h2>Your GitHub account</h2>
-<p>Since we will use GitHub for assignments, you need to have an account
-and make a repository for BIS 15L. If you followed the <a href="https://jmledford3115.github.io/datascibiol/setup.html">setup
-instructions</a> then you should be all set. Please <a href="mailto:bymoore@ucdavis.edu">Email</a> your GitHub user name to
-Bry.</p>
-<p>We have a main repository for our class <a href="https://github.com/jmledford3115/datascibiol">datascibiol</a>. You
-should <strong>Star</strong> this repository for future reference.</p>
-</div>
-<div id="make-your-own-repository" class="section level2">
-<h2>Make Your Own Repository</h2>
-<ol style="list-style-type: decimal">
-<li>Go to <a href="www.github.com">github.com</a> and login.<br />
-</li>
-<li>Create a new repository.<br />
-</li>
-<li>Under repository name, use the title
-<code>BIS15W2025_your first initial and lastname</code>. Mine looks like
-this: BIS15W2025_jledford<br />
-</li>
-<li>Default settings are fine, but do click “Initialize this repository
-with a README”.<br />
-</li>
-<li>Once the repository is made, click on settings in the top
-right.<br />
-</li>
-<li>On the left toolbar click “Collaborators”.<br />
-</li>
-<li>Add “jmledford3115” and “bryshalm” as collaborators.<br />
-</li>
-<li>Go to <code>Settings</code> and scroll down to <code>Danger</code>
-Zone.<br />
-</li>
-<li>Change visibility to private.</li>
-</ol>
-</div>
-<div id="github-desktop" class="section level2">
-<h2>GitHub Desktop</h2>
-<p>The easiest way to manage your GitHub repository is to use <a href="https://desktop.github.com/">GitHub desktop</a>. This is a helpful
-tool that will allow you to manage all of your files. Open the program
-and login using your GitHub account.</p>
-</div>
-<div id="clone-your-repository" class="section level2">
-<h2>Clone Your Repository</h2>
-<p>In GitHub desktop, you will see your personal repository as an option
-under <code>clone repository</code>. Clone your repository to the
-desktop. Once you have done this any changes you make to files will be
-recorded and easily uploaded. Do not move this folder from your
-desktop.</p>
-</div>
-<div id="copy-the-class-repository" class="section level2">
-<h2>Copy the Class Repository</h2>
-<p>In order to keep track of the class files, the last thing you need to
-do is make a copy of the class repository. I will make regular changes
-to the class repository including the addition of files and data that
-you will need. Do a search for <code>datascibiol</code> and download a
-copy to the desktop. You do this by navigating to the repository then
-going to the small green code button at top right. Click on the code
-button then go to Download ZIP.</p>
-<p>Copy the <code>lab1</code> folder from the class repository and paste
-it into your personal repository. By doing this, you have created your
-own copies of lab materials for lab 1.</p>
-</div>
-<div id="using-github" class="section level2">
-<h2>Using GitHub</h2>
-<p>You will use your repository to store all of your notes and work.
-There are three terms that we need to define:<br />
-1. <code>Commit</code> takes a snapshot of your current progress.<br />
-2. <code>Pull</code> this is the same as download.<br />
-3. <code>Push</code> this is the same as upload.</p>
-<p>If you setup <a href="https://desktop.github.com/">GitHub
-desktop</a>, then you will see that it automatically tracks your
-changes. Clicking the <code>Commit to master</code> button in the bottom
-left corner means that you are recording a snapshot of your edits
-locally. Once this is done, you need to upload your changes to GitHub.
-This is done by clicking <code>Push origin</code>. Once you have pushed
-your changes you can double check by looking at your repository on
-github.com.</p>
-</div>
-<div id="adjust-your-readme" class="section level2">
-<h2>Adjust your README</h2>
-<ol style="list-style-type: decimal">
-<li>Open the file <code>README.md</code> in RStudio.<br />
-</li>
-<li>Use markdown to add basic information, including your name and a
-description of the contents.<br />
-</li>
-<li>Do not add personal information, including your SID.</li>
-</ol>
+<div id="nomenclature" class="section level2">
+<h2>Nomenclature</h2>
+<p>We need to be careful about nomenclature when we write code. R allows
+us to give almost any name we want to an object, but there are
+exceptions. For example, we don’t want to give a name to an object that
+is the same as a function in R.</p>
+<pre class="r"><code>else &lt;- 12</code></pre>
+<p>We get an error here because <code>else</code> is a function in R.
+You also don’t want to give names that might get confused with
+functions; i.e. you can assign a value to ‘mean’ but this could become
+confusing because mean is used as a function.</p>
+<pre class="r"><code>mean &lt;- 20</code></pre>
+<p>What is the mean of 2+8+2? (Do the math in your head first). Does the
+following code match your prediction?</p>
+<pre class="r"><code>2+8+2/3 #this is not correct because R is not following the order of operations</code></pre>
+<pre><code>## [1] 10.66667</code></pre>
+<p>Order of operations applies, so we need to tell R exactly what we
+want.</p>
+<pre class="r"><code>(2+8+2)/3</code></pre>
+<pre><code>## [1] 4</code></pre>
+<p>Here we use the mean function. Notice that we had to use
+<code>c</code> which stands for concatenate. More on this later.</p>
+<pre class="r"><code>mean(c(2, 8, 2))</code></pre>
+<pre><code>## [1] 4</code></pre>
 </div>
 <div id="practice" class="section level2">
 <h2>Practice</h2>
-<p>Since you will use your GitHub repository extensively in class, we
-need to practice.<br />
-1. Navigate to your repository and find the file <code>dummy_push</code>
-in the <code>lab 1</code> folder.<br />
-2. Open <code>dummy_push</code>.<br />
-3. Add your name under <code>author</code> at the top of the page.<br />
-4. Save this file.<br />
-5. <code>Knit</code> the file.<br />
-6. Use GitHub Desktop to first <code>Commit to master</code> and then
-<code>Push origin</code> to your GitHub repository.</p>
+<ol style="list-style-type: decimal">
+<li><p>Create three new objects, <code>venom_GT</code>,
+<code>chiron</code>, and <code>veyron</code>. These are the fastest cars
+in the world. Assign each car to its top speed. The venom_GT can go 270,
+chiron is 261, and veyron is 268.</p></li>
+<li><p>Use arithmetic to calculate the mean top speed for the
+cars.</p></li>
+<li><p>Use the function <code>mean()</code> to calculate the mean top
+speed for the cars.</p></li>
+</ol>
 </div>
-<div id="wrap-up" class="section level2">
-<h2>Wrap-up</h2>
-<p>Please review the learning goals and be sure to use the code here as
-a reference.</p>
+<div id="types-of-data" class="section level2">
+<h2>Types of Data</h2>
+<p>There are four frequently used <code>classes</code> of data: 1.
+numeric, 2. integer, 3. character, 4. logical.</p>
+<pre class="r"><code>my_numeric &lt;- 42
+my_integer &lt;- 2L #adding an L automatically denotes an integer
+my_character &lt;- &quot;universe&quot;
+my_logical &lt;- FALSE</code></pre>
+<p>To find out what type of data you are working with, use the
+<code>class()</code> function. This is important because sometimes we
+will need to change the type of data to perform certain analyses.</p>
+<pre class="r"><code>class(my_numeric)</code></pre>
+<pre><code>## [1] &quot;numeric&quot;</code></pre>
+<pre class="r"><code>class(my_integer)</code></pre>
+<pre><code>## [1] &quot;integer&quot;</code></pre>
+<p>You can use the <code>is()</code> and <code>as()</code> functions to
+clarify or specify a type of data.</p>
+<pre class="r"><code>is.integer(my_numeric) #is my_numeric an integer?</code></pre>
+<pre><code>## [1] FALSE</code></pre>
+<pre class="r"><code>my_integer &lt;- 
+  as.integer(my_numeric) #create a new object specified as an integer</code></pre>
+<pre class="r"><code>is.integer(my_integer) #is my_numeric an integer?</code></pre>
+<pre><code>## [1] TRUE</code></pre>
+</div>
+<div id="missing-data" class="section level2">
+<h2>Missing Data</h2>
+<p>R has a special way to designate missing data, the NA. NA values in R
+have specific properties which are very useful if your data contains any
+missing values. Later this quarter we will have a lab focused on dealing
+with NAs.</p>
+<p>NA values are used to designate missing data. <code>is.na</code> or
+<code>anyNA</code> are useful functions when dealing with NAs in
+data.</p>
+<pre class="r"><code>my_missing &lt;- NA</code></pre>
+<pre class="r"><code>is.na(my_missing)</code></pre>
+<pre><code>## [1] TRUE</code></pre>
+<pre class="r"><code>anyNA(my_missing)</code></pre>
+<pre><code>## [1] TRUE</code></pre>
+</div>
+<div id="practice-1" class="section level2">
+<h2>Practice</h2>
+<ol style="list-style-type: decimal">
+<li><p>Let’s create a vector that includes some missing data (we will
+discuss vectors more in part 2). For now, run the following code
+chunk.</p></li>
+<li><p>Calculate the mean of <code>new_vector</code>.</p></li>
+<li><p>How do you interpret this result? What does this mean about
+NAs?</p></li>
+<li><p>Recalculate the mean using the following code chunk. Why is the
+useful?</p></li>
+</ol>
+</div>
+<div id="thats-it-lets-take-a-break-and-then-move-on-to-part-2" class="section level2">
+<h2>That’s it! Let’s take a break and then move on to part 2!</h2>
 <p>–&gt;<a href="https://jmledford3115.github.io/datascibiol/">Home</a></p>
 </div>
 

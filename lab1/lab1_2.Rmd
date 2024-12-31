@@ -68,6 +68,6 @@ Since you will use your GitHub repository extensively in class, we need to pract
 6. Use GitHub Desktop to first `Commit to master` and then `Push origin` to your GitHub repository.    
 
 ## Wrap-up
-Please review the learning goals and be sure to use the code here as a reference when completing the homework.  
+Please review the learning goals and be sure to use the code here as a reference.  
 
 -->[Home](https://jmledford3115.github.io/datascibiol/)  
