@@ -17,8 +17,9 @@ Please read the [course syllabus](https://jmledford3115.github.io/datascibiol/sy
 
 ## Labs  
 1. **Lab 1** | [part 1](https://jmledford3115.github.io/datascibiol/lab1_1.html) | [part 2](https://jmledford3115.github.io/datascibiol/lab1_2.html)
-1. **Lab 2** | [part 1](https://jmledford3115.github.io/datascibiol/lab2_1.html) | [part 2](https://jmledford3115.github.io/datascibiol/lab2_2.html)
-1. **Lab 3** | [part 1](https://jmledford3115.github.io/datascibiol/lab3_1.html) | [part 2](https://jmledford3115.github.io/datascibiol/lab3_2.html)
+2. **Lab 2** | [part 1](https://jmledford3115.github.io/datascibiol/lab2_1.html) | [part 2](https://jmledford3115.github.io/datascibiol/lab2_2.html)
+3. **Lab 3** | [part 1](https://jmledford3115.github.io/datascibiol/lab3_1.html) | [part 2](https://jmledford3115.github.io/datascibiol/lab3_2.html)
+4. **Lab 4** | [part 1](https://jmledford3115.github.io/datascibiol/lab4_1.html) | [part 2](https://jmledford3115.github.io/datascibiol/lab4_2.html)
 
 ## Reading  
 [R for Data Science](https://r4ds.had.co.nz/), Grolemund and Wickham (2017).  
