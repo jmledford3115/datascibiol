@@ -55,7 +55,7 @@ Since the data are built-in, they do not need to be stored as a separate data fr
 
 ```
 
-**7. Use `filter` to pull out the insectivore(s) with endangered status.**
+**7. Use `filter` to find the insectivore(s) with endangered status.**
 ```{r}
 
 ```

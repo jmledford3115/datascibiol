@@ -1,5 +1,5 @@
 ---
-title: "Transforming data 1: Dplyr `select()`"
+title: "Dplyr `select()`"
 date: "`r Sys.Date()`"
 output:
   html_document:

@@ -23,13 +23,10 @@ RStudio is an integrated development environment [IDE](https://en.wikipedia.org/
 
 Download the latest version of RStudio [here](https://posit.co/products/open-source/rstudio/) and install.  
 
-### 3. Install tidyverse `install.packages("tidyverse")`    
-We use several packages as part of the class, but the most important is [tidyverse](https://r4ds.hadley.nz/). Copy the `install.packages` line above then paste it into the RStudio console.  
-
-### 4. Download the most recent version of GitHub Desktop and install  
+### 3. Download the most recent version of GitHub Desktop and install  
 GitHub is the website where we will upload all of our work, including homework and class files. [GitHub Desktop](https://desktop.github.com/) is an interface that allows us to keep track of changes (version control) and upload.  
 
-### 5. GitHub Account
+### 4. GitHub Account
 You need to make a personal account on GitHub. Navigate to [GitHub](http://www.github.com) and create a free account. You will need to setup 2-factor authentication. The easiest way is to use the GitHub app on your cell phone.  
 
 -->[Home](https://jmledford3115.github.io/datascibiol/)  

@@ -10,15 +10,16 @@ library("jpeg")
 ```
 
 ## Welcome!
-1. Please find a seat. It may be a bit crowded today!  
+1. If you are registered, please find a seat.  
 2. Take a moment to check out the class Canvas page.  
 3. Take a moment to check out the class webpage.  
+4. Have you joined the class Discord?  
 
 ## Syllabus (brief)
-1. Introductions.  
-2. Equipment.  
-3. Homework, midterms, class project.  
-4. Attendance.  
+1. Introductions  
+2. Equipment
+3. Homework, midterms, class project  
+4. Attendance
 
 ## Meet Your Classmates
 ### *With a partner, discuss the following questions*
@@ -27,7 +28,6 @@ library("jpeg")
 3. How do you think BIS 15L will help you in your major?  
 
 ## Computer Hygiene
-### *Before the next class you should*
 1. Make sure all of the latest updates are installed for your OS.  
 2. Organize your desktop.  
 3. Close all open tabs on your browser.  

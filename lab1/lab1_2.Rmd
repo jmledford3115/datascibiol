@@ -53,11 +53,6 @@ You will use your repository to store all of your notes and work. There are thre
 
 If you setup [GitHub desktop](https://desktop.github.com/), then you will see that it automatically tracks your changes. Clicking the `Commit to master` button in the bottom left corner means that you are recording a snapshot of your edits locally. Once this is done, you need to upload your changes to GitHub. This is done by clicking `Push origin`. Once you have pushed your changes you can double check by looking at your repository on github.com.    
 
-## Adjust your README
-1. Open the file `README.md` in RStudio.  
-2. Use markdown to add basic information, including your name and a description of the contents.  
-3. Do not add personal information, including your SID.  
-
 ## Practice  
 Since you will use your GitHub repository extensively in class, we need to practice.  
 1. Navigate to your repository and find the file `dummy_push` in the `lab 1` folder.   
