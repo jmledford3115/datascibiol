@@ -60,6 +60,10 @@ The class is graded out of 300 points on a straight scale. There are no curves a
 
 3. **Class project (90 points)**. As part of the class, you will form a group to explore a project in data science. The project may be based on any available data of interest to the group and should highlight skills learned in the labs. The group will present their results during the last lab sessions.  
 
+## Academic Integrity
+If you are found to have used unauthorized resources on homework, including old copies of homework posted on GitHub, then you will be referred to SJA. You will then receive a zero on the homework portion of the course. The same policy applies to exams. If you have questions about what is allowed, please ask.  
+
+## Absences
 If you miss class, please use the [class website](https://jmledford3115.github.io/datascibiol/) and [YouTube channel](https://www.youtube.com/channel/UCFX-MipGKF9jCEXaP-59BzQ) as your guide. We will not be able to provide recordings of the labs, but these two resources will help you work through missed class material.  
 
 ## Suggested Reading  
