@@ -15,6 +15,8 @@ This class is designed for students with *no background in computer programming,
 
 Please read the [course syllabus](https://jmledford3115.github.io/datascibiol/syllabus.html).  
 
+The class schedule can be found [here](https://jmledford3115.github.io/datascibiol/logistics/BIS_15L_Schedule_W25.pdf).  
+
 ## Labs  
 1. **Lab 1** | [part 1](https://jmledford3115.github.io/datascibiol/lab1_1.html) | [part 2](https://jmledford3115.github.io/datascibiol/lab1_2.html)
 2. **Lab 2** | [part 1](https://jmledford3115.github.io/datascibiol/lab2_1.html) | [part 2](https://jmledford3115.github.io/datascibiol/lab2_2.html)
