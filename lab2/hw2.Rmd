@@ -26,7 +26,7 @@ Answer the following questions and/or complete the exercises in RMarkdown. Pleas
 
 ```
 
-**4. Make five new vectors that show the name, height in feet, and height in meters of the five tallest mountains in the world.**
+**4. Make three new vectors that show the name, height in feet, and height in meters of the five tallest mountains in the world.**
 ```{r}
 
 ```
