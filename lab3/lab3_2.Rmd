@@ -21,12 +21,6 @@ output:
 library("tidyverse")
 ```
 
-## Data Frames Review
-Most scientists record data in spreadsheets. The format of spreadsheets varies, and is often determined by the type of data and how the data were recorded. In R, we can import spreadsheets as data frames. Once imported, we can transform data frames to suit our analytical needs. For the remainder of the course, we will work exclusively with data frames. But, in data science other structures exist that are useful for specific tasks.  
-
-## Tibbles Review
-Data frames are the original data structure in R. Tibbles are a modern take on data frames. Tibbles are data frames, but they tweak some older behaviors to make life a little easier. Tibbles are a core part of the tidyverse, and are used in most tidyverse functions and packages.  
-
 ## Practice
 In your lab 3 folder there is another folder titled `data`. Inside the `data` folder there is a `.csv` titled `Gaeta_etal_CLC_data.csv`. Open this data and store them as an object called `fish`.  
 
