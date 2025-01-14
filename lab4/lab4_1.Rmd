@@ -159,17 +159,14 @@ mammals <- read_csv("data/mammal_lifehistories_v2.csv")
 
 ```
 
-## Other
-Here are two examples of code that are super helpful to have in your bag of tricks.  
-
-Imported data frames often have a mix of lower and uppercase column names. Use `toupper()` or `tolower()` to fix this issue. I always try to use lowercase to keep things consistent.  
+## Janitor
+Another option is to use the janitor package. The janitor package has a function called `clean_names()` that will make all column names lowercase and replace spaces with underscores.
 ```{r}
-select_all(mammals, tolower)
+#install.packages("janitor")
+library(janitor)
 ```
 
-Another option is to use the janitor package. This package has a function called `clean_names()` that will make all column names lowercase and replace spaces with underscores.
 ```{r}
-library(janitor)
 names(mammals)
 ```
 
