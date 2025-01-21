@@ -20,5 +20,5 @@ library("jpeg")
 
 ## Review from last time
 ### *With a partner, discuss the following questions*
-1. What is the tidyverse?  
+1. How did homework #3 go? Briefly show your work to a partner.  
 2. Take a moment to show your repository on GitHub to a partner. Can you make any improvements?   

@@ -18,7 +18,7 @@ output:
 4. Use `mutate()` and `if_else()` to replace values in a dataframe.  
 
 ## Review
-At this point, you should be comfortable using the `select()` and `filter()` functions of `dplyr`. If you need extra help, please [email me](mailto: jmledford@ucdavis.edu).  
+At this point, you should be comfortable using the `select()` and `filter()` functions of `dplyr`. If you need help, please [email me](mailto: jmledford@ucdavis.edu).  
 
 ## Load the tidyverse
 ```{r message=FALSE, warning=FALSE}
