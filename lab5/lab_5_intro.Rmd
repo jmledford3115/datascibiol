@@ -1,0 +1,37 @@
+---
+title: "Lab 5 Intro"
+date: "`r Sys.Date()`"
+output: ioslides_presentation
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+library("jpeg")
+```
+
+## Setup
+1. Login to the lab computer.    
+2. Navigate to github.com and login.  
+3. Find the class repository "datascibiol" (https://github.com/jmledford3115/datascibiol).  
+4. Download a copy the class repository to the desktop.  
+5. Clone your repository to the desktop using GitHub Desktop.  
+6. Copy the files for today's lab from the class repository and paste them into **your** repository.  
+7. Open today's lab in RStudio.  
+
+## Review from last time
+### *With a partner, discuss the following questions*
+1. How did homework #4 go? Briefly show your work to a partner.  
+2. Why are we using the lab computers and not our personal computers?  
+3. What are your questions about midterm #1?
+
+## Warm-up
+The warm-up will use the fish data from lab 4.  
+
+These data are from: Gaeta J., G. Sass, S. Carpenter. 2012. Biocomplexity at North Temperate Lakes LTER: Coordinated Field Studies: Large Mouth Bass Growth 2006. Environmental Data Initiative.  [link](https://portal.edirepository.org/nis/mapbrowse?scope=knb-lter-ntl&identifier=267). 
+
+You will need the tidyverse to complete the warm-up- be sure to load the library.  
+
+1. Load the fish data. 
+2. Transform the fish data to only include the variables lakeid and length.  Store this as a new dataframe called "fishlength".   
+3. Filter the `fish` data to include the samples from lake "BO".  
+4. Calculate the mean length of fish from lake "BO".  
