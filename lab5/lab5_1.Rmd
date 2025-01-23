@@ -41,7 +41,7 @@ mammals <- rename(mammals, genus="Genus", wean_mass="wean mass", max_life= "max.
 
 Do you remember the easier way?
 ```{r}
-mammals <- clean_names(mammals)
+
 ```
 
 ## Review
@@ -53,23 +53,26 @@ glimpse(fish)
 Let's convert `lakeid` to a factor and have a look at which states are represented in the data.  
 ```{r}
 fish$lakeid <- as.factor(fish$lakeid)
-table(fish$lakeid)
+```
+
+```{r}
+
 ```
 
 Now we can pull out any state of interest.  
 ```{r}
-filter(fish, lakeid=="LJ")
+
 ```
 
 ## Using `filter()` on multiple conditions
 You can also use `filter()` to extract data based on multiple conditions. Below we extract only the fish that have lakeid "AL" and length >350.
 ```{r}
-filter(fish, lakeid == "AL" & length > 350)
+
 ```
 
 Notice that the `|` operator generates a different result. Why?
 ```{r}
-filter(fish, lakeid == "AL" | length > 350)
+
 ```
 
 Rules:  
@@ -80,27 +83,28 @@ Rules:
 
 In this case, we filter out the fish with a length over 400 and a scale length over 11 or a radii length over 8.
 ```{r}
-filter(fish, length > 400, (scalelength > 11 | radii_length_mm > 8))
+
 ```
 
 ## Practice  
 1.  From the `mammals` data, filter all members of the family Bovidae with a mass greater than 450000.
 ```{r}
-bovidae <- filter(mammals, mass>450000 )
-bovidae
+
 ```
 
 2. From the `mammals` data, build a data frame that compares `mass`, `gestation`, and `newborn` among the primate genera `Lophocebus`, `Erythrocebus`, and `Macaca`. Among these genera, which species has the smallest `newborn` mass?
 ```{r}
-mammals2 <- select(mammals, "order", "genus", "mass", "gestation", "newborn")
-mammals3 <- filter(mammals2, order=="Primates")
+
 ```
 
 ```{r}
-mammals4 <- filter(mammals3, genus %in% c("Lophocebus", "Erythrocebus", "Macaca"))
+
 ```
 
-This is crazy, we need away to connect the commands...  
+3. From the `mammals` data, filter all members of the family `Felidae` with a gestation period less than 3 months. As part of this, remove all variables except `genus`, `family`, and `gestation`. Lastly, remove all NA's in the variable `gestation`- in this data they are represented by -999.
+```{r}
+
+```
 
 ## That's it! Let's take a break and then move on to part 2!  
 

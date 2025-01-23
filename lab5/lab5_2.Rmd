@@ -15,14 +15,14 @@ output:
 1. Use pipes to connect functions in dplyr.  
 2. Use `arrange()` to order dplyr outputs.  
 3. Use `mutate()` to add columns in a dataframe.  
-4. Use `mutate()` and `if_else()` to replace values in a dataframe.  
 
 ## Review
 At this point, you should be comfortable using the `select()` and `filter()` functions of `dplyr`. If you need help, please [email me](mailto: jmledford@ucdavis.edu).  
 
-## Load the tidyverse
+## Load the tidyverse and janitor
 ```{r message=FALSE, warning=FALSE}
 library("tidyverse")
+library("janitor")
 ```
 
 ## Load the data
@@ -30,17 +30,17 @@ For this lab, we will use the following two datasets:
 
 1. Gaeta J., G. Sass, S. Carpenter. 2012. Biocomplexity at North Temperate Lakes LTER: Coordinated Field Studies: Large Mouth Bass Growth 2006. Environmental Data Initiative.   [link](https://portal.edirepository.org/nis/mapbrowse?scope=knb-lter-ntl&identifier=267)  
 ```{r}
-fish <- readr::read_csv("data/Gaeta_etal_CLC_data.csv")
+fish <- read_csv("data/Gaeta_etal_CLC_data.csv")
 ```
 
 2. S. K. Morgan Ernest. 2003. Life history characteristics of placental non-volant mammals. Ecology 84:3402.   [link](http://esapubs.org/archive/ecol/E084/093/)  
 ```{r}
-mammals <- readr::read_csv("data/mammal_lifehistories_v2.csv")
+mammals <- read_csv("data/mammal_lifehistories_v2.csv")
 ```
 
-Let's rename some of the `mammals` variables.  
+Rename the `mammals` variables using janitor.  
 ```{r}
-mammals <- rename(mammals, genus="Genus", wean_mass="wean mass", max_life= "max. life", litter_size="litter size", litters_per_year="litters/year")
+mammals <- clean_names(mammals)
 ```
 
 ## Pipes `%>%` 
@@ -56,26 +56,18 @@ filter(fish, lakeid == "AL")
 ```
 
 ```{r}
-fish %>% 
-  select(lakeid, scalelength) %>% 
-  filter(lakeid == "AL")
+
 ```
 
 Here we select family, genus, and species then filter for gestation greater than 15 months.
 ```{r}
-mammals %>% 
-  select("family", "genus", "species", "gestation") %>% 
-  filter(gestation>=15)
+
 ```
 
 ## Practice
 1. We are interested in the fish from the lakes "AL" and "AR" with a radii length between 2 and 4. Extract this information from the `fish` data. Use pipes!  
 ```{r}
-fish %>% # work with the fish data
-  select(lakeid, radii_length_mm) %>% #pull out variables of int
-  filter(lakeid=="AL" | lakeid=="AR") %>% #only these lakes
-  filter(between(radii_length_mm, 2, 4)) %>% #between 2 and 4
-  arrange(desc(radii_length_mm)) #sort to make easier to read
+
 ```
 
 ## `arrange()`
@@ -95,19 +87,39 @@ fish %>%
 
 `arrange()` can be very helpful in combination with the other functions.
 ```{r}
-fish %>% 
-  select(lakeid, length, fish_id, scalelength) %>% 
-  filter(lakeid=="AL") %>% 
-  arrange(fish_id)
+
 ```
 
 ## Practice
 1. We are interested in the radii length and scalelength of fish with the id `300`. Extract this information from the `fish` data. Please sort the data by radii length.
 ```{r}
-fish %>% 
-  select(fish_id, radii_length_mm, scalelength) %>% 
-  filter(fish_id==300) %>% 
-  arrange(radii_length_mm)
+
+```
+
+2. Let's re-do question #3 from part 1, but this time using pipes.  
+
+From the `mammals` data, filter all members of the family `Felidae` with a gestation period less than 3 months. As part of this, remove all variables except `genus`, `family`, and `gestation`. Lastly, remove all NA's in the variable `gestation`- in this data they are represented by -999. Sort by gestation.
+```{r}
+
+```
+
+## `mutate()`  
+Mutate allows us to create a new column from existing columns in a data frame. We are doing a small introduction here and will add some additional functions later.  
+
+Let's convert the `scalelength` variable from millimeters to centimeters.  
+```{r}
+
+```
+
+## Practice
+1. In the mammals data, let's convert the mass variable from grams to kilograms.  Don't forget to remove those pesky -999's and arrange in descending order.
+```{r}
+
+```
+
+2. Using the mammals data, compare wean mass to gestation. Create a new column that calculates the ratio of wean mass to gestation. Arrange the data by this ratio in descending order. Don't forget to remove the -999's from wean mass and gestation.
+```{r}
+
 ```
 
 ## Wrap-up  
