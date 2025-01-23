@@ -71,26 +71,22 @@ filter(fish, near(radii_length_mm, 2, tol = 0.2))
 ## Practice
 1. Filter the `fish` data to include the samples from lake "BO".
 ```{r}
-
+filter(fish, lakeid == "BO")
 ```
 
 2. Filter the data to include all lakes except "AR".
 ```{r}
-
+filter(fish, lakeid != "AR")
 ```
 
 3. Filter the fish data to include all fish with a scalelength within 0.25 of 8.
 ```{r}
-
+filter(fish, near(scalelength, 8, tol = 0.25))
 ```
 
 4. Filter the fish data to include fish with a scalelength between 2 and 4.
 ```{r}
-
-```
-
-```{r}
-
+filter(fish, between(scalelength, 2, 4))
 ```
 
 ## Wrap-up  

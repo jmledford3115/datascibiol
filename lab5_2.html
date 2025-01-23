@@ -10,7 +10,7 @@
 
 
 
-<meta name="date" content="2025-01-22" />
+<meta name="date" content="2025-01-23" />
 
 <title>Pipes, arrange()</title>
 
@@ -1503,7 +1503,7 @@ border-radius: 0px;
 
 
 <h1 class="title toc-ignore">Pipes, <code>arrange()</code></h1>
-<h4 class="date">2025-01-22</h4>
+<h4 class="date">2025-01-23</h4>
 
 </div>
 
@@ -1598,8 +1598,39 @@ Notice that we only need to call the data one time.</p>
 ##  9 AL         301 3            194            2.97        3.34
 ## 10 AL         301 2            194            2.29        3.34
 ## # ℹ 373 more rows</code></pre>
+<pre class="r"><code>fish %&gt;% 
+  select(lakeid, scalelength) %&gt;% 
+  filter(lakeid == &quot;AL&quot;)</code></pre>
+<pre><code>## # A tibble: 383 × 2
+##    lakeid scalelength
+##    &lt;chr&gt;        &lt;dbl&gt;
+##  1 AL            2.70
+##  2 AL            2.70
+##  3 AL            2.70
+##  4 AL            3.02
+##  5 AL            3.02
+##  6 AL            3.02
+##  7 AL            3.02
+##  8 AL            3.34
+##  9 AL            3.34
+## 10 AL            3.34
+## # ℹ 373 more rows</code></pre>
 <p>Here we select family, genus, and species then filter for gestation
 greater than 15 months.</p>
+<pre class="r"><code>mammals %&gt;% 
+  select(&quot;family&quot;, &quot;genus&quot;, &quot;species&quot;, &quot;gestation&quot;) %&gt;% 
+  filter(gestation&gt;=15)</code></pre>
+<pre><code>## # A tibble: 8 × 4
+##   family         genus         species       gestation
+##   &lt;chr&gt;          &lt;chr&gt;         &lt;chr&gt;             &lt;dbl&gt;
+## 1 Delphinidae    Globicephala  macrorhynchus      15.2
+## 2 Physeteridae   Physeter      catodon            15.8
+## 3 Rhinocerotidae Ceratotherium simum              15.9
+## 4 Rhinocerotidae Diceros       bicornis           16.1
+## 5 Rhinocerotidae Rhinoceros    unicornis          16.4
+## 6 Rhinocerotidae Rhinoceros    sondaicus          16.5
+## 7 Elephantidae   Elephas       maximus            21.1
+## 8 Elephantidae   Loxodonta     africana           21.5</code></pre>
 </div>
 <div id="practice" class="section level2">
 <h2>Practice</h2>
@@ -1608,6 +1639,25 @@ greater than 15 months.</p>
 radii length between 2 and 4. Extract this information from the
 <code>fish</code> data. Use pipes!</li>
 </ol>
+<pre class="r"><code>fish %&gt;% # work with the fish data
+  select(lakeid, radii_length_mm) %&gt;% #pull out variables of int
+  filter(lakeid==&quot;AL&quot; | lakeid==&quot;AR&quot;) %&gt;% #only these lakes
+  filter(between(radii_length_mm, 2, 4)) %&gt;% #between 2 and 4
+  arrange(desc(radii_length_mm)) #sort to make easier to read</code></pre>
+<pre><code>## # A tibble: 253 × 2
+##    lakeid radii_length_mm
+##    &lt;chr&gt;            &lt;dbl&gt;
+##  1 AR                4.00
+##  2 AR                3.99
+##  3 AR                3.99
+##  4 AR                3.98
+##  5 AR                3.98
+##  6 AR                3.96
+##  7 AR                3.94
+##  8 AR                3.94
+##  9 AR                3.94
+## 10 AL                3.94
+## # ℹ 243 more rows</code></pre>
 </div>
 <div id="arrange" class="section level2">
 <h2><code>arrange()</code></h2>
@@ -1651,15 +1701,45 @@ excel. Note that the default is ascending order.</p>
 ## # ℹ 4,023 more rows</code></pre>
 <p><code>arrange()</code> can be very helpful in combination with the
 other functions.</p>
+<pre class="r"><code>fish %&gt;% 
+  select(lakeid, length, fish_id, scalelength) %&gt;% 
+  filter(lakeid==&quot;AL&quot;) %&gt;% 
+  arrange(fish_id)</code></pre>
+<pre><code>## # A tibble: 383 × 4
+##    lakeid length fish_id scalelength
+##    &lt;chr&gt;   &lt;dbl&gt;   &lt;dbl&gt;       &lt;dbl&gt;
+##  1 AL        167     299        2.70
+##  2 AL        167     299        2.70
+##  3 AL        167     299        2.70
+##  4 AL        175     300        3.02
+##  5 AL        175     300        3.02
+##  6 AL        175     300        3.02
+##  7 AL        175     300        3.02
+##  8 AL        194     301        3.34
+##  9 AL        194     301        3.34
+## 10 AL        194     301        3.34
+## # ℹ 373 more rows</code></pre>
 </div>
 <div id="practice-1" class="section level2">
 <h2>Practice</h2>
 <ol style="list-style-type: decimal">
-<li><p>We are interested in the radii length and scalelength of fish
-with the id <code>300</code>. Extract this information from the
-<code>fish</code> data. Please sort the data by radii length.</p></li>
-<li><p>Let’s re-do question #3 from part 1, but this time using
-pipes.</p></li>
+<li>We are interested in the radii length and scalelength of fish with
+the id <code>300</code>. Extract this information from the
+<code>fish</code> data. Please sort the data by radii length.</li>
+</ol>
+<pre class="r"><code>fish %&gt;% 
+  select(fish_id, radii_length_mm, scalelength) %&gt;% 
+  filter(fish_id==300) %&gt;% 
+  arrange(radii_length_mm)</code></pre>
+<pre><code>## # A tibble: 4 × 3
+##   fish_id radii_length_mm scalelength
+##     &lt;dbl&gt;           &lt;dbl&gt;       &lt;dbl&gt;
+## 1     300            1.23        3.02
+## 2     300            2.14        3.02
+## 3     300            2.67        3.02
+## 4     300            3.02        3.02</code></pre>
+<ol start="2" style="list-style-type: decimal">
+<li>Let’s re-do question #3 from part 1, but this time using pipes.</li>
 </ol>
 <p>From the <code>mammals</code> data, filter all members of the family
 <code>Felidae</code> with a gestation period less than 3 months. As part
@@ -1667,6 +1747,34 @@ of this, remove all variables except <code>genus</code>,
 <code>family</code>, and <code>gestation</code>. Lastly, remove all NA’s
 in the variable <code>gestation</code>- in this data they are
 represented by -999. Sort by gestation.</p>
+<pre class="r"><code>mammals %&gt;% 
+  select(genus, family, gestation) %&gt;% 
+  filter(family==&quot;Felidae&quot; &amp; gestation&lt;3) %&gt;% 
+  filter(gestation!=&quot;-999&quot;) %&gt;% 
+  arrange(gestation)</code></pre>
+<pre><code>## # A tibble: 20 × 3
+##    genus        family  gestation
+##    &lt;chr&gt;        &lt;chr&gt;       &lt;dbl&gt;
+##  1 Lynx         Felidae      1.86
+##  2 Felis        Felidae      2.05
+##  3 Felis        Felidae      2.15
+##  4 Prionailurus Felidae      2.17
+##  5 Lynx         Felidae      2.18
+##  6 Lynx         Felidae      2.18
+##  7 Felis        Felidae      2.2 
+##  8 Felis        Felidae      2.2 
+##  9 Prionailurus Felidae      2.23
+## 10 Prionailurus Felidae      2.29
+## 11 Herpailurus  Felidae      2.33
+## 12 Lynx         Felidae      2.33
+## 13 Leptailurus  Felidae      2.36
+## 14 Otocolobus   Felidae      2.37
+## 15 Caracal      Felidae      2.43
+## 16 Oncifelis    Felidae      2.45
+## 17 Leopardus    Felidae      2.51
+## 18 Leopardus    Felidae      2.64
+## 19 Catopuma     Felidae      2.67
+## 20 Leopardus    Felidae      2.67</code></pre>
 </div>
 <div id="mutate" class="section level2">
 <h2><code>mutate()</code></h2>
@@ -1675,18 +1783,76 @@ data frame. We are doing a small introduction here and will add some
 additional functions later.</p>
 <p>Let’s convert the <code>scalelength</code> variable from millimeters
 to centimeters.</p>
+<pre class="r"><code>fish %&gt;% 
+  mutate(scalelength_cm = scalelength/10) %&gt;% 
+  select(lakeid, scalelength, scalelength_cm)</code></pre>
+<pre><code>## # A tibble: 4,033 × 3
+##    lakeid scalelength scalelength_cm
+##    &lt;chr&gt;        &lt;dbl&gt;          &lt;dbl&gt;
+##  1 AL            2.70          0.270
+##  2 AL            2.70          0.270
+##  3 AL            2.70          0.270
+##  4 AL            3.02          0.302
+##  5 AL            3.02          0.302
+##  6 AL            3.02          0.302
+##  7 AL            3.02          0.302
+##  8 AL            3.34          0.334
+##  9 AL            3.34          0.334
+## 10 AL            3.34          0.334
+## # ℹ 4,023 more rows</code></pre>
 </div>
 <div id="practice-2" class="section level2">
 <h2>Practice</h2>
 <ol style="list-style-type: decimal">
-<li><p>In the mammals data, let’s convert the mass variable from grams
-to kilograms. Don’t forget to remove those pesky -999’s and arrange in
-descending order.</p></li>
-<li><p>Using the mammals data, compare wean mass to gestation. Create a
-new column that calculates the ratio of wean mass to gestation. Arrange
-the data by this ratio in descending order. Don’t forget to remove the
--999’s from wean mass and gestation.</p></li>
+<li>In the mammals data, let’s convert the mass variable from grams to
+kilograms. Don’t forget to remove those pesky -999’s and arrange in
+descending order.</li>
 </ol>
+<pre class="r"><code>mammals %&gt;% 
+  filter(mass!=&quot;-999&quot;) %&gt;% 
+  mutate(mass_kg = mass/1000) %&gt;% 
+  select(genus, mass, mass_kg) %&gt;% 
+  arrange(desc(mass_kg))</code></pre>
+<pre><code>## # A tibble: 1,355 × 3
+##    genus              mass mass_kg
+##    &lt;chr&gt;             &lt;dbl&gt;   &lt;dbl&gt;
+##  1 Balaenoptera 149000000  149000 
+##  2 Balaena       80000000   80000 
+##  3 Balaenoptera  66800000   66800 
+##  4 Megaptera     30000000   30000 
+##  5 Eschrichtius  25066667.  25067.
+##  6 Eubalaena     23000000   23000 
+##  7 Eubalaena     23000000   23000 
+##  8 Balaenoptera  20000000   20000 
+##  9 Balaenoptera  16266667.  16267.
+## 10 Physeter      15400000   15400 
+## # ℹ 1,345 more rows</code></pre>
+<ol start="2" style="list-style-type: decimal">
+<li>Using the mammals data, compare wean mass to gestation. Create a new
+column that calculates the ratio of wean mass to gestation. Arrange the
+data by this ratio in descending order. Don’t forget to remove the
+-999’s from wean mass and gestation.</li>
+</ol>
+<pre class="r"><code>mammals %&gt;% 
+  select(genus, mass, wean_mass, gestation) %&gt;% 
+  mutate(mass_kg = mass/1000) %&gt;% 
+  filter(wean_mass!=&quot;-999&quot; &amp; gestation!=&quot;-999&quot; &amp; mass!=&quot;-999&quot;) %&gt;% 
+  mutate(wean_gestation_ratio = wean_mass/gestation) %&gt;% 
+  arrange(desc(wean_gestation_ratio))</code></pre>
+<pre><code>## # A tibble: 372 × 6
+##    genus              mass wean_mass gestation mass_kg wean_gestation_ratio
+##    &lt;chr&gt;             &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;                &lt;dbl&gt;
+##  1 Balaenoptera 149000000  19075000      10.7  149000              1781046.
+##  2 Rhinoceros     1602333.   885812.     16.4    1602.               53882.
+##  3 Hippopotamus   1258333.   237500       7.75   1258.               30645.
+##  4 Loxodonta      3507000    600000      21.5    3507                27959.
+##  5 Camelus         434000    253484      12.6     434                20054.
+##  6 Bison           497667.   157500       8.93    498.               17637.
+##  7 Odobenus        650000    200000      11.5     650                17391.
+##  8 Mirounga        579400    130192.      7.63    579.               17063.
+##  9 Mirounga        716667.   138037.      8.45    717.               16336.
+## 10 Syncerus        504667.   166000      11.0     505.               15050.
+## # ℹ 362 more rows</code></pre>
 </div>
 <div id="wrap-up" class="section level2">
 <h2>Wrap-up</h2>

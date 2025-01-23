@@ -155,10 +155,18 @@ new_vector <- c(7, 6.2, 5, 9, NA, 4, 9.8, 7, 3, 2)
 ```
 
 2. Calculate the mean of `new_vector`.
+```{r}
+mean(new_vector)
+```
 
-3. How do you interpret this result? What does this mean about NAs?  
+3. How do you interpret this result? What does this mean about NAs? 
+NA's are not included in the calculation of the mean.
 
 4. Recalculate the mean using the following code chunk. Why is the useful?  
+```{r}
+mean(new_vector, na.rm = TRUE) #removes NA values
+```
+
 
 ## That's it! Let's take a break and then move on to part 2!
 

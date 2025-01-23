@@ -93,16 +93,36 @@ Filter is a way of pulling out observations that meet specific criteria in a var
 
 ## Practice
 1. Load the data `mammal_lifehistories_v2.csv` and place it into a new object called `mammals`.
+```{r}
+mammals <- read_csv("data/mammal_lifehistories_v2.csv")
+```
 
 2. Provide the dimensions of the data frame.
+```{r}
+dim(mammals)
+```
 
 3. Check the column names in the data frame. 
+```{r}
+names(mammals)
+```
 
 4. Use `str()` to show the structure of the data frame and its individual columns; compare this to `glimpse()`. 
+```{r}
+str(mammals)
+glimpse(mammals)
+```
 
 5. Try the `table()` command to produce counts of mammal order, family, and genus.  
+```{r}
+table(mammals$order)
+```
 
 6. Use the `filter()` command to pull out mammals that have a gestation period greater than or equal to one year.  
+```{r}
+filter(mammals, gestation >= 365)
+```
+
 
 ## Wrap-up
 Please review the learning goals and be sure to use the code here as a reference when completing the homework.  

@@ -57,10 +57,19 @@ my_vector_sequence[10]
 
 ## Practice
 1. Use `[]` to determine which element in `my_vector_sequence` has a value of 15.
+```{r}
+my_vector_sequence[15]
+```
 
-2. We can use operators such as <, >, ==, <==, etc. Show all values in `my_vector_sequence` that are less than or equal to 10.  
+2. We can use operators such as <, >, ==, <==, etc. Show all values in `my_vector_sequence` that are less than or equal to 10. 
+```{r}
+my_vector_sequence <= 10
+```
 
 3. If you use `[]` then you only get the values, not the logical evaluation of the entire vector. Experiment with this by adjusting the chunk below.    
+```{r}
+my_vector_sequence[my_vector_sequence <= 10]
+```
 
 ## Data Frames
 The data frame is the most common way to organize data within R. A data frame can store data of many different classes. We usually don't build data frames in RStudio, but this example will show you how they are structured.  

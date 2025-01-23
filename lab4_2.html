@@ -10,7 +10,7 @@
 
 
 
-<meta name="date" content="2025-01-20" />
+<meta name="date" content="2025-01-23" />
 
 <title>Dplyr filter()</title>
 
@@ -1503,7 +1503,7 @@ border-radius: 0px;
 
 
 <h1 class="title toc-ignore">Dplyr <code>filter()</code></h1>
-<h4 class="date">2025-01-20</h4>
+<h4 class="date">2025-01-23</h4>
 
 </div>
 
@@ -1680,14 +1680,80 @@ to specify a tolerance.</p>
 <div id="practice" class="section level2">
 <h2>Practice</h2>
 <ol style="list-style-type: decimal">
-<li><p>Filter the <code>fish</code> data to include the samples from
-lake “BO”.</p></li>
-<li><p>Filter the data to include all lakes except “AR”.</p></li>
-<li><p>Filter the fish data to include all fish with a scalelength
-within 0.25 of 8.</p></li>
-<li><p>Filter the fish data to include fish with a scalelength between 2
-and 4.</p></li>
+<li>Filter the <code>fish</code> data to include the samples from lake
+“BO”.</li>
 </ol>
+<pre class="r"><code>filter(fish, lakeid == &quot;BO&quot;)</code></pre>
+<pre><code>## # A tibble: 197 × 6
+##    lakeid fish_id annnumber length radii_length_mm scalelength
+##    &lt;chr&gt;    &lt;dbl&gt; &lt;chr&gt;      &lt;dbl&gt;           &lt;dbl&gt;       &lt;dbl&gt;
+##  1 BO         389 EDGE         104           1.50         1.50
+##  2 BO         389 1            104           0.736        1.50
+##  3 BO         390 EDGE         105           1.59         1.59
+##  4 BO         390 1            105           0.698        1.59
+##  5 BO         391 EDGE         107           1.43         1.43
+##  6 BO         391 1            107           0.695        1.43
+##  7 BO         392 EDGE         124           2.11         2.11
+##  8 BO         392 2            124           1.36         2.11
+##  9 BO         392 1            124           0.792        2.11
+## 10 BO         393 EDGE         141           2.16         2.16
+## # ℹ 187 more rows</code></pre>
+<ol start="2" style="list-style-type: decimal">
+<li>Filter the data to include all lakes except “AR”.</li>
+</ol>
+<pre class="r"><code>filter(fish, lakeid != &quot;AR&quot;)</code></pre>
+<pre><code>## # A tibble: 3,771 × 6
+##    lakeid fish_id annnumber length radii_length_mm scalelength
+##    &lt;chr&gt;    &lt;dbl&gt; &lt;chr&gt;      &lt;dbl&gt;           &lt;dbl&gt;       &lt;dbl&gt;
+##  1 AL         299 EDGE         167            2.70        2.70
+##  2 AL         299 2            167            2.04        2.70
+##  3 AL         299 1            167            1.31        2.70
+##  4 AL         300 EDGE         175            3.02        3.02
+##  5 AL         300 3            175            2.67        3.02
+##  6 AL         300 2            175            2.14        3.02
+##  7 AL         300 1            175            1.23        3.02
+##  8 AL         301 EDGE         194            3.34        3.34
+##  9 AL         301 3            194            2.97        3.34
+## 10 AL         301 2            194            2.29        3.34
+## # ℹ 3,761 more rows</code></pre>
+<ol start="3" style="list-style-type: decimal">
+<li>Filter the fish data to include all fish with a scalelength within
+0.25 of 8.</li>
+</ol>
+<pre class="r"><code>filter(fish, near(scalelength, 8, tol = 0.25))</code></pre>
+<pre><code>## # A tibble: 236 × 6
+##    lakeid fish_id annnumber length radii_length_mm scalelength
+##    &lt;chr&gt;    &lt;dbl&gt; &lt;chr&gt;      &lt;dbl&gt;           &lt;dbl&gt;       &lt;dbl&gt;
+##  1 AL         309 EDGE         355            7.89        7.89
+##  2 AL         309 13           355            7.56        7.89
+##  3 AL         309 12           355            7.36        7.89
+##  4 AL         309 11           355            7.16        7.89
+##  5 AL         309 10           355            6.77        7.89
+##  6 AL         309 9            355            6.39        7.89
+##  7 AL         309 8            355            5.96        7.89
+##  8 AL         309 7            355            5.44        7.89
+##  9 AL         309 6            355            4.74        7.89
+## 10 AL         309 5            355            4.06        7.89
+## # ℹ 226 more rows</code></pre>
+<ol start="4" style="list-style-type: decimal">
+<li>Filter the fish data to include fish with a scalelength between 2
+and 4.</li>
+</ol>
+<pre class="r"><code>filter(fish, between(scalelength, 2, 4))</code></pre>
+<pre><code>## # A tibble: 723 × 6
+##    lakeid fish_id annnumber length radii_length_mm scalelength
+##    &lt;chr&gt;    &lt;dbl&gt; &lt;chr&gt;      &lt;dbl&gt;           &lt;dbl&gt;       &lt;dbl&gt;
+##  1 AL         299 EDGE         167            2.70        2.70
+##  2 AL         299 2            167            2.04        2.70
+##  3 AL         299 1            167            1.31        2.70
+##  4 AL         300 EDGE         175            3.02        3.02
+##  5 AL         300 3            175            2.67        3.02
+##  6 AL         300 2            175            2.14        3.02
+##  7 AL         300 1            175            1.23        3.02
+##  8 AL         301 EDGE         194            3.34        3.34
+##  9 AL         301 3            194            2.97        3.34
+## 10 AL         301 2            194            2.29        3.34
+## # ℹ 713 more rows</code></pre>
 </div>
 <div id="wrap-up" class="section level2">
 <h2>Wrap-up</h2>

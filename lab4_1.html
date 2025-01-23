@@ -10,7 +10,7 @@
 
 
 
-<meta name="date" content="2025-01-20" />
+<meta name="date" content="2025-01-23" />
 
 <title>Dplyr select()</title>
 
@@ -1503,7 +1503,7 @@ border-radius: 0px;
 
 
 <h1 class="title toc-ignore">Dplyr <code>select()</code></h1>
-<h4 class="date">2025-01-20</h4>
+<h4 class="date">2025-01-23</h4>
 
 </div>
 
@@ -1522,7 +1522,8 @@ names to variables in data frames.</p>
 <p>For the remainder of the quarter, we will work within the
 <code>tidyverse</code>. At the start of each lab, the library needs to
 be loaded as shown below.</p>
-<pre class="r"><code>library(&quot;tidyverse&quot;)</code></pre>
+<pre class="r"><code>library(&quot;tidyverse&quot;)
+library(&quot;janitor&quot;)</code></pre>
 </div>
 <div id="load-the-data" class="section level2">
 <h2>Load the data</h2>
@@ -1779,26 +1780,136 @@ placental non-volant mammals. Ecology 84:3402.</strong></p>
 ## ℹ Use `spec()` to retrieve the full column specification for this data.
 ## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
 <ol style="list-style-type: decimal">
-<li><p>Use one or more of your favorite functions to assess the
-structure of the data.</p></li>
-<li><p>Are there any NAs? Are you sure? Try taking an average of
-<code>max. life</code> as a test.</p></li>
-<li><p>What are the names of the columns in the <code>mammals</code>
-data?</p></li>
-<li><p>Rename any columns that have capitol letters or punctuation
-issues.</p></li>
-<li><p>We are only interested in the variables <code>genus</code>,
+<li>Use one or more of your favorite functions to assess the structure
+of the data.</li>
+</ol>
+<pre class="r"><code>summary(mammals)</code></pre>
+<pre><code>##     order              family             Genus             species         
+##  Length:1440        Length:1440        Length:1440        Length:1440       
+##  Class :character   Class :character   Class :character   Class :character  
+##  Mode  :character   Mode  :character   Mode  :character   Mode  :character  
+##                                                                             
+##                                                                             
+##                                                                             
+##       mass             gestation          newborn             weaning       
+##  Min.   :     -999   Min.   :-999.00   Min.   :   -999.0   Min.   :-999.00  
+##  1st Qu.:       50   1st Qu.:-999.00   1st Qu.:   -999.0   1st Qu.:-999.00  
+##  Median :      403   Median :   1.05   Median :      2.6   Median :   0.73  
+##  Mean   :   383577   Mean   :-287.25   Mean   :   6703.1   Mean   :-427.17  
+##  3rd Qu.:     7009   3rd Qu.:   4.50   3rd Qu.:     98.0   3rd Qu.:   2.00  
+##  Max.   :149000000   Max.   :  21.46   Max.   :2250000.0   Max.   :  48.00  
+##    wean mass             AFR            max. life       litter size      
+##  Min.   :    -999   Min.   :-999.00   Min.   :-999.0   Min.   :-999.000  
+##  1st Qu.:    -999   1st Qu.:-999.00   1st Qu.:-999.0   1st Qu.:   1.000  
+##  Median :    -999   Median :   2.50   Median :-999.0   Median :   2.270  
+##  Mean   :   16049   Mean   :-408.12   Mean   :-490.3   Mean   : -55.634  
+##  3rd Qu.:      10   3rd Qu.:  15.61   3rd Qu.: 147.2   3rd Qu.:   3.835  
+##  Max.   :19075000   Max.   : 210.00   Max.   :1368.0   Max.   :  14.180  
+##   litters/year     
+##  Min.   :-999.000  
+##  1st Qu.:-999.000  
+##  Median :   0.375  
+##  Mean   :-477.141  
+##  3rd Qu.:   1.155  
+##  Max.   :   7.500</code></pre>
+<ol start="2" style="list-style-type: decimal">
+<li>Are there any NAs? Are you sure? Try taking an average of
+<code>max. life</code> as a test.</li>
+</ol>
+<pre class="r"><code>anyNA(mammals)</code></pre>
+<pre><code>## [1] FALSE</code></pre>
+<ol start="3" style="list-style-type: decimal">
+<li>What are the names of the columns in the <code>mammals</code>
+data?</li>
+</ol>
+<pre class="r"><code>names(mammals)</code></pre>
+<pre><code>##  [1] &quot;order&quot;        &quot;family&quot;       &quot;Genus&quot;        &quot;species&quot;      &quot;mass&quot;        
+##  [6] &quot;gestation&quot;    &quot;newborn&quot;      &quot;weaning&quot;      &quot;wean mass&quot;    &quot;AFR&quot;         
+## [11] &quot;max. life&quot;    &quot;litter size&quot;  &quot;litters/year&quot;</code></pre>
+<ol start="4" style="list-style-type: decimal">
+<li>Rename any columns that have capitol letters or punctuation
+issues.</li>
+</ol>
+<pre class="r"><code>mammals &lt;- clean_names(mammals)</code></pre>
+<ol start="5" style="list-style-type: decimal">
+<li>We are only interested in the variables <code>genus</code>,
 <code>species</code>, and <code>mass</code>. Use <code>select()</code>
 to build a new dataframe <code>mass</code> focused on these
-variables.</p></li>
-<li><p>What if we only wanted to exclude <code>order</code> and
-<code>family</code>? Use the <code>-</code> operator to make the code
-efficient.</p></li>
-<li><p>Select the columns that include “mass” as part of the
-name.</p></li>
-<li><p>Select all of the columns that are of class
-<code>character</code>.</p></li>
+variables.</li>
 </ol>
+<pre class="r"><code>select(mammals, &quot;genus&quot;, &quot;species&quot;, &quot;mass&quot;)</code></pre>
+<pre><code>## # A tibble: 1,440 × 3
+##    genus       species          mass
+##    &lt;chr&gt;       &lt;chr&gt;           &lt;dbl&gt;
+##  1 Antilocapra americana      45375 
+##  2 Addax       nasomaculatus 182375 
+##  3 Aepyceros   melampus       41480 
+##  4 Alcelaphus  buselaphus    150000 
+##  5 Ammodorcas  clarkei        28500 
+##  6 Ammotragus  lervia         55500 
+##  7 Antidorcas  marsupialis    30000 
+##  8 Antilope    cervicapra     37500 
+##  9 Bison       bison         497667.
+## 10 Bison       bonasus       500000 
+## # ℹ 1,430 more rows</code></pre>
+<ol start="6" style="list-style-type: decimal">
+<li>What if we only wanted to exclude <code>order</code> and
+<code>family</code>? Use the <code>-</code> operator to make the code
+efficient.</li>
+</ol>
+<pre class="r"><code>select(mammals, -&quot;order&quot;, -&quot;family&quot;)</code></pre>
+<pre><code>## # A tibble: 1,440 × 11
+##    genus      species   mass gestation newborn weaning wean_mass    afr max_life
+##    &lt;chr&gt;      &lt;chr&gt;    &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;     &lt;dbl&gt;  &lt;dbl&gt;    &lt;dbl&gt;
+##  1 Antilocap… americ… 4.54e4      8.13   3246.    3         8900   13.5      142
+##  2 Addax      nasoma… 1.82e5      9.39   5480     6.5       -999   27.3      308
+##  3 Aepyceros  melamp… 4.15e4      6.35   5093     5.63     15900   16.7      213
+##  4 Alcelaphus busela… 1.5 e5      7.9   10167.    6.5       -999   23.0      240
+##  5 Ammodorcas clarkei 2.85e4      6.8    -999  -999         -999 -999       -999
+##  6 Ammotragus lervia  5.55e4      5.08   3810     4         -999   14.9      251
+##  7 Antidorcas marsup… 3   e4      5.72   3910     4.04      -999   10.2      228
+##  8 Antilope   cervic… 3.75e4      5.5    3846     2.13      -999   20.1      255
+##  9 Bison      bison   4.98e5      8.93  20000    10.7     157500   29.4      300
+## 10 Bison      bonasus 5   e5      9.14  23000.    6.6       -999   30.0      324
+## # ℹ 1,430 more rows
+## # ℹ 2 more variables: litter_size &lt;dbl&gt;, litters_year &lt;dbl&gt;</code></pre>
+<ol start="7" style="list-style-type: decimal">
+<li>Select the columns that include “mass” as part of the name.</li>
+</ol>
+<pre class="r"><code>select(mammals, contains(&quot;mass&quot;))</code></pre>
+<pre><code>## # A tibble: 1,440 × 2
+##       mass wean_mass
+##      &lt;dbl&gt;     &lt;dbl&gt;
+##  1  45375       8900
+##  2 182375       -999
+##  3  41480      15900
+##  4 150000       -999
+##  5  28500       -999
+##  6  55500       -999
+##  7  30000       -999
+##  8  37500       -999
+##  9 497667.    157500
+## 10 500000       -999
+## # ℹ 1,430 more rows</code></pre>
+<ol start="8" style="list-style-type: decimal">
+<li>Select all of the columns that are of class
+<code>character</code>.</li>
+</ol>
+<pre class="r"><code>select_if(mammals, is.character)</code></pre>
+<pre><code>## # A tibble: 1,440 × 4
+##    order        family         genus       species      
+##    &lt;chr&gt;        &lt;chr&gt;          &lt;chr&gt;       &lt;chr&gt;        
+##  1 Artiodactyla Antilocapridae Antilocapra americana    
+##  2 Artiodactyla Bovidae        Addax       nasomaculatus
+##  3 Artiodactyla Bovidae        Aepyceros   melampus     
+##  4 Artiodactyla Bovidae        Alcelaphus  buselaphus   
+##  5 Artiodactyla Bovidae        Ammodorcas  clarkei      
+##  6 Artiodactyla Bovidae        Ammotragus  lervia       
+##  7 Artiodactyla Bovidae        Antidorcas  marsupialis  
+##  8 Artiodactyla Bovidae        Antilope    cervicapra   
+##  9 Artiodactyla Bovidae        Bison       bison        
+## 10 Artiodactyla Bovidae        Bison       bonasus      
+## # ℹ 1,430 more rows</code></pre>
 </div>
 <div id="janitor" class="section level2">
 <h2>Janitor</h2>
@@ -1807,15 +1918,10 @@ a function called <code>clean_names()</code> that will make all column
 names lowercase and replace spaces with underscores.</p>
 <pre class="r"><code>#install.packages(&quot;janitor&quot;)
 library(janitor)</code></pre>
-<pre><code>## 
-## Attaching package: &#39;janitor&#39;</code></pre>
-<pre><code>## The following objects are masked from &#39;package:stats&#39;:
-## 
-##     chisq.test, fisher.test</code></pre>
 <pre class="r"><code>names(mammals)</code></pre>
-<pre><code>##  [1] &quot;order&quot;        &quot;family&quot;       &quot;Genus&quot;        &quot;species&quot;      &quot;mass&quot;        
-##  [6] &quot;gestation&quot;    &quot;newborn&quot;      &quot;weaning&quot;      &quot;wean mass&quot;    &quot;AFR&quot;         
-## [11] &quot;max. life&quot;    &quot;litter size&quot;  &quot;litters/year&quot;</code></pre>
+<pre><code>##  [1] &quot;order&quot;        &quot;family&quot;       &quot;genus&quot;        &quot;species&quot;      &quot;mass&quot;        
+##  [6] &quot;gestation&quot;    &quot;newborn&quot;      &quot;weaning&quot;      &quot;wean_mass&quot;    &quot;afr&quot;         
+## [11] &quot;max_life&quot;     &quot;litter_size&quot;  &quot;litters_year&quot;</code></pre>
 <pre class="r"><code>clean_names(mammals)</code></pre>
 <pre><code>## # A tibble: 1,440 × 13
 ##    order  family genus species   mass gestation newborn weaning wean_mass    afr

@@ -33,14 +33,29 @@ spring <- c("Buckeye", "Buckeye", "Buckeye", "Benton", "Benton", "Benton", "Trav
 ```
 
 1. Build a data frame called `hsprings` with the above data. Name the temperature column `temp_C`. Print out the data frame.  
+```{r}
+hsprings <- data.frame(temp_C = temp, name = name, spring = spring)
+```
 
 2. Change the column titled `name` to `scientist`, leave the other column names the same. Print out the data frame names.  
+```{r}
+names(hsprings)[2] <- "scientist"
+```
 
 3. Our scientists forgot to record the depth data for each spring. Here it is as a vector, add it as a new column called depth_ft: `c(4.15, 4.13, 4.12, 3.21, 3.23, 3.20, 5.67, 5.65, 5.66)`. Print out the data frame.
+```{r}
+depth <- c(4.15, 4.13, 4.12, 3.21, 3.23, 3.20, 5.67, 5.65, 5.66)
+```
 
 4. Calculate the mean temperature of all of the temperature measurements.
+```{r}
+mean(hsprings$temp_C)
+```
 
 5. Save your hot springs data as a `.csv` file! Do not allow row names. 
+```{r}
+write_csv(hsprings, "hsprings_data.csv")
+```
 
 6. Go to the environment panel and push the broom to clear your environment.  
 

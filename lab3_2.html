@@ -10,7 +10,7 @@
 
 
 
-<meta name="date" content="2025-01-13" />
+<meta name="date" content="2025-01-23" />
 
 <title>Importing Data Frames</title>
 
@@ -1503,7 +1503,7 @@ border-radius: 0px;
 
 
 <h1 class="title toc-ignore">Importing Data Frames</h1>
-<h4 class="date">2025-01-13</h4>
+<h4 class="date">2025-01-23</h4>
 
 </div>
 
@@ -1586,18 +1586,105 @@ lab.</p>
 <div id="practice-1" class="section level2">
 <h2>Practice</h2>
 <ol style="list-style-type: decimal">
-<li><p>Load the data <code>mammal_lifehistories_v2.csv</code> and place
-it into a new object called <code>mammals</code>.</p></li>
-<li><p>Provide the dimensions of the data frame.</p></li>
-<li><p>Check the column names in the data frame.</p></li>
-<li><p>Use <code>str()</code> to show the structure of the data frame
-and its individual columns; compare this to
-<code>glimpse()</code>.</p></li>
-<li><p>Try the <code>table()</code> command to produce counts of mammal
-order, family, and genus.</p></li>
-<li><p>Use the <code>filter()</code> command to pull out mammals that
-have a gestation period greater than or equal to one year.</p></li>
+<li>Load the data <code>mammal_lifehistories_v2.csv</code> and place it
+into a new object called <code>mammals</code>.</li>
 </ol>
+<pre class="r"><code>mammals &lt;- read_csv(&quot;data/mammal_lifehistories_v2.csv&quot;)</code></pre>
+<pre><code>## Rows: 1440 Columns: 13
+## ── Column specification ────────────────────────────────────────────────────────
+## Delimiter: &quot;,&quot;
+## chr (4): order, family, Genus, species
+## dbl (9): mass, gestation, newborn, weaning, wean mass, AFR, max. life, litte...
+## 
+## ℹ Use `spec()` to retrieve the full column specification for this data.
+## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+<ol start="2" style="list-style-type: decimal">
+<li>Provide the dimensions of the data frame.</li>
+</ol>
+<pre class="r"><code>dim(mammals)</code></pre>
+<pre><code>## [1] 1440   13</code></pre>
+<ol start="3" style="list-style-type: decimal">
+<li>Check the column names in the data frame.</li>
+</ol>
+<pre class="r"><code>names(mammals)</code></pre>
+<pre><code>##  [1] &quot;order&quot;        &quot;family&quot;       &quot;Genus&quot;        &quot;species&quot;      &quot;mass&quot;        
+##  [6] &quot;gestation&quot;    &quot;newborn&quot;      &quot;weaning&quot;      &quot;wean mass&quot;    &quot;AFR&quot;         
+## [11] &quot;max. life&quot;    &quot;litter size&quot;  &quot;litters/year&quot;</code></pre>
+<ol start="4" style="list-style-type: decimal">
+<li>Use <code>str()</code> to show the structure of the data frame and
+its individual columns; compare this to <code>glimpse()</code>.</li>
+</ol>
+<pre class="r"><code>str(mammals)</code></pre>
+<pre><code>## spc_tbl_ [1,440 × 13] (S3: spec_tbl_df/tbl_df/tbl/data.frame)
+##  $ order       : chr [1:1440] &quot;Artiodactyla&quot; &quot;Artiodactyla&quot; &quot;Artiodactyla&quot; &quot;Artiodactyla&quot; ...
+##  $ family      : chr [1:1440] &quot;Antilocapridae&quot; &quot;Bovidae&quot; &quot;Bovidae&quot; &quot;Bovidae&quot; ...
+##  $ Genus       : chr [1:1440] &quot;Antilocapra&quot; &quot;Addax&quot; &quot;Aepyceros&quot; &quot;Alcelaphus&quot; ...
+##  $ species     : chr [1:1440] &quot;americana&quot; &quot;nasomaculatus&quot; &quot;melampus&quot; &quot;buselaphus&quot; ...
+##  $ mass        : num [1:1440] 45375 182375 41480 150000 28500 ...
+##  $ gestation   : num [1:1440] 8.13 9.39 6.35 7.9 6.8 5.08 5.72 5.5 8.93 9.14 ...
+##  $ newborn     : num [1:1440] 3246 5480 5093 10167 -999 ...
+##  $ weaning     : num [1:1440] 3 6.5 5.63 6.5 -999 ...
+##  $ wean mass   : num [1:1440] 8900 -999 15900 -999 -999 ...
+##  $ AFR         : num [1:1440] 13.5 27.3 16.7 23 -999 ...
+##  $ max. life   : num [1:1440] 142 308 213 240 -999 251 228 255 300 324 ...
+##  $ litter size : num [1:1440] 1.85 1 1 1 1 1.37 1 1 1 1 ...
+##  $ litters/year: num [1:1440] 1 0.99 0.95 -999 -999 2 -999 1.89 1 1 ...
+##  - attr(*, &quot;spec&quot;)=
+##   .. cols(
+##   ..   order = col_character(),
+##   ..   family = col_character(),
+##   ..   Genus = col_character(),
+##   ..   species = col_character(),
+##   ..   mass = col_double(),
+##   ..   gestation = col_double(),
+##   ..   newborn = col_double(),
+##   ..   weaning = col_double(),
+##   ..   `wean mass` = col_double(),
+##   ..   AFR = col_double(),
+##   ..   `max. life` = col_double(),
+##   ..   `litter size` = col_double(),
+##   ..   `litters/year` = col_double()
+##   .. )
+##  - attr(*, &quot;problems&quot;)=&lt;externalptr&gt;</code></pre>
+<pre class="r"><code>glimpse(mammals)</code></pre>
+<pre><code>## Rows: 1,440
+## Columns: 13
+## $ order          &lt;chr&gt; &quot;Artiodactyla&quot;, &quot;Artiodactyla&quot;, &quot;Artiodactyla&quot;, &quot;Artiod…
+## $ family         &lt;chr&gt; &quot;Antilocapridae&quot;, &quot;Bovidae&quot;, &quot;Bovidae&quot;, &quot;Bovidae&quot;, &quot;Bov…
+## $ Genus          &lt;chr&gt; &quot;Antilocapra&quot;, &quot;Addax&quot;, &quot;Aepyceros&quot;, &quot;Alcelaphus&quot;, &quot;Amm…
+## $ species        &lt;chr&gt; &quot;americana&quot;, &quot;nasomaculatus&quot;, &quot;melampus&quot;, &quot;buselaphus&quot;,…
+## $ mass           &lt;dbl&gt; 45375.0, 182375.0, 41480.0, 150000.0, 28500.0, 55500.0,…
+## $ gestation      &lt;dbl&gt; 8.13, 9.39, 6.35, 7.90, 6.80, 5.08, 5.72, 5.50, 8.93, 9…
+## $ newborn        &lt;dbl&gt; 3246.36, 5480.00, 5093.00, 10166.67, -999.00, 3810.00, …
+## $ weaning        &lt;dbl&gt; 3.00, 6.50, 5.63, 6.50, -999.00, 4.00, 4.04, 2.13, 10.7…
+## $ `wean mass`    &lt;dbl&gt; 8900, -999, 15900, -999, -999, -999, -999, -999, 157500…
+## $ AFR            &lt;dbl&gt; 13.53, 27.27, 16.66, 23.02, -999.00, 14.89, 10.23, 20.1…
+## $ `max. life`    &lt;dbl&gt; 142, 308, 213, 240, -999, 251, 228, 255, 300, 324, 300,…
+## $ `litter size`  &lt;dbl&gt; 1.85, 1.00, 1.00, 1.00, 1.00, 1.37, 1.00, 1.00, 1.00, 1…
+## $ `litters/year` &lt;dbl&gt; 1.00, 0.99, 0.95, -999.00, -999.00, 2.00, -999.00, 1.89…</code></pre>
+<ol start="5" style="list-style-type: decimal">
+<li>Try the <code>table()</code> command to produce counts of mammal
+order, family, and genus.</li>
+</ol>
+<pre class="r"><code>table(mammals$order)</code></pre>
+<pre><code>## 
+##   Artiodactyla      Carnivora        Cetacea     Dermoptera     Hyracoidea 
+##            161            197             55              2              4 
+##    Insectivora     Lagomorpha  Macroscelidea Perissodactyla      Pholidota 
+##             91             42             10             15              7 
+##       Primates    Proboscidea       Rodentia     Scandentia        Sirenia 
+##            156              2            665              7              5 
+##  Tubulidentata      Xenarthra 
+##              1             20</code></pre>
+<ol start="6" style="list-style-type: decimal">
+<li>Use the <code>filter()</code> command to pull out mammals that have
+a gestation period greater than or equal to one year.</li>
+</ol>
+<pre class="r"><code>filter(mammals, gestation &gt;= 365)</code></pre>
+<pre><code>## # A tibble: 0 × 13
+## # ℹ 13 variables: order &lt;chr&gt;, family &lt;chr&gt;, Genus &lt;chr&gt;, species &lt;chr&gt;,
+## #   mass &lt;dbl&gt;, gestation &lt;dbl&gt;, newborn &lt;dbl&gt;, weaning &lt;dbl&gt;, wean mass &lt;dbl&gt;,
+## #   AFR &lt;dbl&gt;, max. life &lt;dbl&gt;, litter size &lt;dbl&gt;, litters/year &lt;dbl&gt;</code></pre>
 </div>
 <div id="wrap-up" class="section level2">
 <h2>Wrap-up</h2>

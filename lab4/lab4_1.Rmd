@@ -20,6 +20,7 @@ output:
 For the remainder of the quarter, we will work within the `tidyverse`. At the start of each lab, the library needs to be loaded as shown below.  
 ```{r message=FALSE, warning=FALSE}
 library("tidyverse")
+library("janitor")
 ```
 
 ## Load the data
@@ -121,42 +122,42 @@ mammals <- read_csv("data/mammal_lifehistories_v2.csv")
 
 1. Use one or more of your favorite functions to assess the structure of the data.  
 ```{r}
-
+summary(mammals)
 ```
 
 2. Are there any NAs? Are you sure? Try taking an average of `max. life` as a test.  
 ```{r}
-
+anyNA(mammals)
 ```
 
 3. What are the names of the columns in the `mammals` data?
 ```{r}
-
+names(mammals)
 ```
 
 4. Rename any columns that have capitol letters or punctuation issues.  
 ```{r}
-
+mammals <- clean_names(mammals)
 ```
 
 5. We are only interested in the variables `genus`, `species`, and `mass`. Use `select()` to build a new dataframe `mass` focused on these variables.
 ```{r}
-
+select(mammals, "genus", "species", "mass")
 ```
 
 6. What if we only wanted to exclude `order` and `family`? Use the `-` operator to make the code efficient.
 ```{r}
-
+select(mammals, -"order", -"family")
 ```
 
 7. Select the columns that include "mass" as part of the name.  
 ```{r}
-
+select(mammals, contains("mass"))
 ```
 
 8. Select all of the columns that are of class `character`.  
 ```{r}
-
+select_if(mammals, is.character)
 ```
 
 ## Janitor
