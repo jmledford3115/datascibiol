@@ -100,6 +100,14 @@ mammals3 <- filter(mammals2, order=="Primates")
 mammals4 <- filter(mammals3, genus %in% c("Lophocebus", "Erythrocebus", "Macaca"))
 ```
 
+```{r}
+mammals %>% 
+  select(genus, species, mass, gestation, newborn) %>% 
+  filter(genus %in% c("Lophocebus", "Erythrocebus", "Macaca")) %>% 
+  arrange(newborn)
+```
+
+
 This is crazy, we need away to connect the commands...  
 
 ## That's it! Let's take a break and then move on to part 2!  

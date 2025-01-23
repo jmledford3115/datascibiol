@@ -1691,6 +1691,28 @@ which species has the smallest <code>newborn</code> mass?</li>
 <pre class="r"><code>mammals2 &lt;- select(mammals, &quot;order&quot;, &quot;genus&quot;, &quot;mass&quot;, &quot;gestation&quot;, &quot;newborn&quot;)
 mammals3 &lt;- filter(mammals2, order==&quot;Primates&quot;)</code></pre>
 <pre class="r"><code>mammals4 &lt;- filter(mammals3, genus %in% c(&quot;Lophocebus&quot;, &quot;Erythrocebus&quot;, &quot;Macaca&quot;))</code></pre>
+<pre class="r"><code>mammals %&gt;% 
+  select(genus, species, mass, gestation, newborn) %&gt;% 
+  filter(genus %in% c(&quot;Lophocebus&quot;, &quot;Erythrocebus&quot;, &quot;Macaca&quot;)) %&gt;% 
+  arrange(newborn)</code></pre>
+<pre><code>## # A tibble: 15 × 5
+##    genus        species        mass gestation newborn
+##    &lt;chr&gt;        &lt;chr&gt;         &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;
+##  1 Macaca       maura         5575       5.43    390.
+##  2 Macaca       radiata       3735       5.43    391.
+##  3 Macaca       cyclopis      6317.      5.4     401 
+##  4 Macaca       fascicularis  3456.      5.49    408.
+##  5 Macaca       silenus       4875       5.94    418 
+##  6 Macaca       sinica        3495    -999       446 
+##  7 Macaca       sylvanus      9753.      5.49    450 
+##  8 Macaca       nigra         6212.      5.78    458.
+##  9 Lophocebus   albigena      6726.      5.97    462.
+## 10 Macaca       mulatta       5413.      5.47    476.
+## 11 Macaca       nemestrina    6133.      5.71    476.
+## 12 Macaca       arctoides     7308.      6       486.
+## 13 Macaca       fuscata       8858.      5.72    505.
+## 14 Macaca       thibetana    10037.      5.67    533.
+## 15 Erythrocebus patas         5883.      5.56    546.</code></pre>
 <p>This is crazy, we need away to connect the commands…</p>
 </div>
 <div id="thats-it-lets-take-a-break-and-then-move-on-to-part-2" class="section level2">
