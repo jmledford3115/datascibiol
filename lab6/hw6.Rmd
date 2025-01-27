@@ -1,0 +1,109 @@
+---
+title: "Homework 6"
+author: "Type Your Name Here"
+date: "`r Sys.Date()`"
+output:
+  html_document: 
+    theme: spacelab
+    keep_md: yes
+---
+
+## Instructions
+Answer the following questions and/or complete the exercises in RMarkdown. Please embed all of your code and push the final work to your repository. Your report should be organized, clean, and run free from errors. Remember, you must remove the `#` for any included code chunks to run.  
+
+## Load the tidyverse
+```{r message=FALSE, warning=FALSE}
+library("tidyverse")
+library("janitor")
+```
+
+## Load the superhero data
+Let's have a little fun with this one! We are going to explore data on superheroes. These are data taken from comic books and assembled by devoted fans. The include a good mix of categorical and continuous data.  Data taken from: https://www.kaggle.com/claudiodavi/superhero-set  
+
+Load the `heroes_information.csv` and `super_hero_powers.csv` data. Make sure the columns are cleanly named.
+```{r}
+superhero_info <- read_csv("data/heroes_information.csv", na = c("", "-99", "-")) %>% clean_names()
+superhero_powers <- read_csv("data/super_hero_powers.csv", na = c("", "-99", "-")) %>% clean_names()
+```
+
+1. For the superhero_info data, how many bad, good, and neutral superheros are there? Try using count() and/ or tabyl().
+```{r}
+
+```
+
+```{r}
+
+```
+
+2. Notice that we have some bad superheros! Who are they? List their names below.  
+```{r}
+
+```
+
+```{r}
+
+```
+
+3. How many distinct "races" are represented in `superhero_info`?
+```{r}
+
+```
+
+## Good and Bad
+4. Let's make two different data frames, one focused on the "good guys" and another focused on the "bad guys".
+```{r}
+
+```
+
+```{r}
+
+```
+
+5. Who are the good Vampires?
+```{r}
+
+```
+
+6. Who has the height advantage- bad guys or good guys? Convert their height to meters and sort from tallest to shortest.  
+```{r}
+
+```
+
+```{r}
+
+```
+
+## `superhero_powers`
+Have a quick look at the `superhero_powers` data frame.  
+
+7. How many superheros have a combination of agility, stealth, super_strength, and stamina?
+```{r}
+
+```
+
+```{r}
+
+```
+
+8. Who is the most powerful superhero? Have a look at the code chunk below. Use the internet to annotate each line of code so you know how it works. It's OK to use AI to help you with this task.
+```{r}
+superhero_powers %>%
+  mutate(across(-1, ~ ifelse(. == TRUE, 1, 0))) %>% 
+  mutate(total_powers = rowSums(across(-1))) %>% 
+  select(hero_names, total_powers) %>% 
+  arrange(-total_powers)
+```
+
+## Your Favorite
+9. Pick your favorite superhero and let's see their powers!  
+```{r}
+
+```
+
+10. Can you find your hero in the superhero_info data? Show their info!  
+```{r}
+
+```
+
+## Knit and Upload
+Please knit your work as a .pdf or .html file and upload to Canvas. Homework is due before the start of the next lab. No late work is accepted. Make sure to use the formatting conventions of RMarkdown to make your report neat and clean!  

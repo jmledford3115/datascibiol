@@ -1,0 +1,145 @@
+---
+title: "`summarize()` and `group_by()`"
+date: "`r Sys.Date()`"
+output:
+  html_document:
+    theme: spacelab
+    toc: yes
+    toc_float: yes
+  pdf_document:
+    toc: yes
+---
+
+## Learning Goals
+*At the end of this exercise, you will be able to:*    
+1. Produce clean summaries of data using `summarize()`.  
+4. Use `group_by()` in combination with `summarize()` to produce grouped summaries of data.  
+
+## Load the tidyverse and janitor
+```{r message=FALSE, warning=FALSE}
+library("tidyverse")
+library("janitor")
+```
+
+## Load the data
+For this lab, we will use the built-in data on mammal sleep patterns. From: _V. M. Savage and G. B. West. A quantitative, theoretical framework for understanding mammalian sleep. Proceedings of the National Academy of Sciences, 104 (3):1051-1056, 2007_.
+```{r}
+msleep <- msleep
+```
+
+## `summarize()`
+`summarize()` will produce summary statistics for a given variable in a data frame. For example, if you are asked to calculate the mean of `sleep_total` for large and small mammals you could do this using a combination of commands, but it isn't very efficient or clean. We can do better!  
+
+For example, if we define "large" as having a `bodywt` greater than 200 then we get the following:
+```{r}
+large <- msleep %>% 
+  filter(bodywt > 200) %>% 
+  arrange(desc(bodywt))
+large
+```
+
+```{r}
+mean(large$sleep_total)
+```
+
+We can accomplish the same task using the `summarize()` function.  
+
+Large mammals
+```{r}
+msleep %>% 
+  filter(bodywt>200) %>% 
+  summarize(mean_sleep_lg=mean(sleep_total))
+```
+
+Small mammals
+```{r}
+msleep %>% 
+  filter(bodywt<10)%>% 
+  summarize(mean_sleep_sm=mean(sleep_total))
+```
+
+You can also combine functions to make summaries for multiple variables.
+```{r}
+msleep %>% 
+  filter(bodywt>200) %>% 
+  summarize(mean_sleep_lg=mean(sleep_total),
+            min_sleep_lg=min(sleep_total),
+            max_sleep_lg=max(sleep_total),
+            sd_sleep_lg=sd(sleep_total),
+            total=n())
+```
+
+Maybe you want to summarize all of the numeric variables in the data frame. You can use the `where()` function to select only the numeric variables.
+```{r}
+msleep %>% 
+  select(where(is.numeric)) %>% 
+  summarize(across(everything(), mean, na.rm=TRUE))
+```
+
+## Practice
+1. What is the mean, min, and max `bodywt` for the taxonomic order Primates? Provide the total number of observations.
+```{r}
+
+```
+
+`n_distinct()` is a handy way of cleanly presenting the number of distinct observations. Notice that there are multiple genera with over 100 in body weight.
+```{r}
+msleep %>% 
+  filter(bodywt > 100)
+```
+
+Here we show the number of distinct genera over 100 in body weight.
+```{r}
+msleep %>% 
+  filter(bodywt > 100) %>% 
+  summarize(n_genera=n_distinct(genus))
+```
+
+There are many other useful summary statistics, depending on your needs: sd(), min(), max(), median(), sum(), n() (returns the length of a column), first() (returns first value in a column), last() (returns last value in a column) and n_distinct() (number of distinct values in a column).
+
+## Practice
+1. How many genera are represented in the msleep data frame?
+```{r}
+
+```
+
+2. What are the min, max, and mean `sleep_total` for all of the mammals? Be sure to include the total n.
+```{r}
+
+```
+
+## Counts
+Although `summarize()` is helpful, oftentimes we are only interested in counts. The [janitor package](https://garthtarr.github.io/meatR/janitor.html) does a lot with counts, but there are also functions that are part of dplyr that are useful.  
+
+For example, if we wanted to count the number of observations for each `vore` category in the `msleep` data frame we could do the following:
+```{r}
+msleep %>% 
+  count(vore)
+```
+
+You can even combine multiple variables to get counts. For example, if we wanted to count the number of observations for each `vore` category within each `order` category we could do the following:
+```{r}
+msleep %>% 
+  count(vore, order)
+```
+
+The tabyl() function from the janitor package is also very useful for producing counts and percentages.  
+```{r}
+msleep %>% 
+  tabyl(vore)
+```
+
+## Practice
+1. In the taxonomic order Carnivora, count the number of observations for each conservation status.
+```{r}
+
+```
+
+2. Among herbivores, which taxonomic order is most represented?
+```{r}
+
+```
+
+## That's it! Let's take a break and then move on to part 2! 
+
+-->[Home](https://jmledford3115.github.io/datascibiol/)  
