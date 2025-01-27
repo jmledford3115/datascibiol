@@ -1,0 +1,154 @@
+---
+title: "`group_by()`"
+date: "`r Sys.Date()`"
+output:
+  html_document:
+    theme: spacelab
+    toc: yes
+    toc_float: yes
+  pdf_document:
+    toc: yes
+---
+
+## Learning Goals
+*At the end of this exercise, you will be able to:*    
+1. Produce clear, concise summaries using a variety of functions in `dplyr` and `janitor.`  
+2. Use the `across()` operator to produce summaries across multiple variables.  
+
+## Load the libraries
+```{r message=FALSE, warning=FALSE}
+library("tidyverse")
+library("janitor")
+```
+
+## Load the data
+For this lab, we will use [palmerpenguins](https://allisonhorst.github.io/palmerpenguins/articles/intro.html). They are from the publication: Gorman KB, Williams TD, Fraser WR (2014). Ecological sexual dimorphism and environmental variability within a community of Antarctic penguins (genus _Pygoscelis_). PLoS ONE 9(3):e90081. https://doi.org/10.1371/journal.pone.0090081.  
+
+To use these data, they need to be installed.
+```{r}
+#install.packages("palmerpenguins")
+```
+
+Load the library.
+```{r}
+library("palmerpenguins")
+penguins <- penguins
+```
+
+## Review
+`summarize()` is a function in `dplyr` that allows us to produce summaries of data. It's output is a new dataframe. If we were interested in the mean body weight of _Adeile_ penguins, we could use `summarize()`.
+```{r}
+penguins %>% #loads the data and pipes it to the filter function
+  filter(species=="Adelie") %>% #pulls out only the Adelie penguins
+  summarize(mean_body_mass=mean(body_mass_g, na.rm=T), #calculates the mean
+            n=n()) #number of observations
+```
+
+Notice that there are three species in the data.
+```{r}
+penguins %>% 
+  count(species)
+```
+
+What if we wanted to summarize basic statistics for each species? We could still use `filter()` but this is cumbersome. Show how you would do this below.
+```{r}
+
+```
+
+## `group_by()`
+The `summarize()` function is most useful when used in conjunction with `group_by()`. This allows us to group data by a categorical variable(s) of interest.
+```{r}
+
+```
+
+## Practice
+Use the built-in `msleep` data to answer the following questions.  
+
+1. Calculate the min, max, mean, and total number of observations for body weight by feeding ecology in the msleep data.
+```{r}
+
+```
+
+2. Calculate mean brain weight by taxonomic order in the msleep data.
+```{r}
+
+```
+
+3. Try running the code again, but this time add `na.rm=TRUE`. What is the problem with Cetacea?
+```{r}
+
+```
+
+```{r}
+
+```
+
+## Review
+The summarize() and group_by() functions are powerful tools that we can use to produce clean summaries of data. Especially when used together, we can quickly group variables of interest and save time. You can also group by more than one categorical variable.
+
+What if we are interested in the number of observations (penguins) by species and island?
+```{r}
+penguins %>% 
+  group_by(species, island) %>% 
+  summarize(n=n(), .groups= 'keep') #.groups= 'keep' is used to keep the grouping variable in the output
+```
+
+## Practice
+1. How does the mean of `bill_length_mm` compare between penguin species?
+```{r}
+
+```
+
+2. For some penguins, their sex is listed as NA. Where do these penguins occur?
+```{r}
+
+```
+
+## `across()`
+What about using `filter()` and `select()` across multiple variables? There is a function in dplyr called `across()` which is designed to work across multiple variables. Have a look at Rebecca Barter's awesome blog [here](http://www.rebeccabarter.com/blog/2020-07-09-across/).    
+
+What if we wanted to apply `summarize()` in order to produce distinct counts over multiple variables; i.e. species, island, and sex? Although this isn't a lot of coding you can image that with a lot of variables it would be cumbersome.
+```{r}
+penguins %>%
+  summarize(distinct_species = n_distinct(species),
+            distinct_island = n_distinct(island),
+            distinct_sex = n_distinct(sex))
+```
+
+By using `across()` we can reduce the clutter and make things cleaner. 
+```{r}
+penguins %>%
+  summarize(across(c(species, island, sex), n_distinct))
+```
+
+This is very helpful for numeric variables.
+```{r}
+penguins %>%
+  summarize(across(where(is.numeric), mean, na.rm=T)) %>% 
+  select(!year) #removes the year variable
+```
+
+`group_by` also works.
+```{r}
+penguins %>%
+  group_by(sex) %>% 
+  summarize(across(contains("mm"), mean, na.rm=T))
+```
+
+## Practice
+1. Produce separate summaries of the mean and standard deviation for bill_length_mm, bill_depth_mm, and flipper_length_mm for each penguin species. Be sure to provide the number of samples.
+
+Mean
+```{r}
+
+```
+
+Standard Deviation
+```{r}
+
+```
+
+## Wrap-up  
+
+Please review the learning goals and be sure to use the code here as a reference when completing the homework.  
+-->[Home](https://jmledford3115.github.io/datascibiol/)

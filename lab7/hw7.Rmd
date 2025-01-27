@@ -1,0 +1,96 @@
+---
+title: "Homework 7"
+author: "Joel Ledford"
+date: "`r Sys.Date()`"
+output:
+  html_document: 
+    theme: spacelab
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Instructions
+Answer the following questions and complete the exercises in RMarkdown. Please embed all of your code and push your final work to your repository. Your final lab report should be organized, clean, and run free from errors. Remember, you must remove the `#` for the included code chunks to run. Be sure to add your name to the author header above.  
+
+Make sure to use the formatting conventions of RMarkdown to make your report neat and clean!  
+
+## Load the libraries
+```{r message=FALSE, warning=FALSE}
+library(tidyverse)
+```
+
+For this assignment we are going to work with a data set from the [United Nations Food and Agriculture Organization](http://www.fao.org/about/en/) on world fisheries.
+
+Load the data `fisheries.csv` as a new object titled `fisheries`.
+```{r}
+fisheries <- read_csv("data/fisheries.csv")
+```
+
+1. Explore the data. What are the names of the variables, what are the dimensions, are there any NA's, what are the classes of the variables, etc.? You may use the functions that you prefer.
+```{r}
+
+```
+
+2. How many countries are represented in the data? Provide a count and list their names.
+```{r}
+
+```
+
+```{r}
+
+```
+
+3. Based on the `asfis_species_number`, how many different fish species were caught?
+```{r}
+
+```
+
+4. What is the total catch for each `isscaap_taxonomic_group` in the data set?
+```{r}
+
+```
+
+5. Based on the `asfis_species_name`, what are the top 5 most caught species? (note: "Osteichthyes" is not a species, it refers to unidentified fish. You should filter this one out.).
+```{r}
+
+```
+
+6. For the species that was caught the most, which country had the highest catch?
+```{r}
+
+```
+
+7. Which country had the largest overall catch between the years 2002-2012?
+```{r}
+
+```
+
+8. Which country had the largest catch in a single year? What year was it? 
+```{r}
+
+```
+
+9. Fishing practices for sharks, rays, chimaeras and other cartilaginous fish (group 38) are of particular concern due to their conservation status. Make a new dataframe `sharks` that only contains data on this group. 
+```{r}
+
+```
+
+10. Using the `sharks` dataframe, use `mutate()` to create a new column called `fishing_pressure` that is based on the total catch. If the total catch is greater than 75, the fishing pressure is considered "high", otherwise it is considered "moderate".
+```{r}
+
+```
+
+11. For sharks, how does the average catch differ between high and moderate fishing pressure?
+```{r}
+
+```
+
+12. Perform one analysis of your choice on the fisheries dataframe that includes a minimum of three lines of code and two functions. Write a seentence or two that explains the intent of your code.
+```{r}
+
+```
+
+## Push your final code to GitHub!
+Please be sure that you check the `keep md` file in the knit preferences.   

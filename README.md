@@ -24,6 +24,7 @@ The class schedule can be found [here](https://jmledford3115.github.io/datascibi
 4. **Lab 4** | [part 1](https://jmledford3115.github.io/datascibiol/lab4_1.html) | [part 2](https://jmledford3115.github.io/datascibiol/lab4_2.html)
 5. **Lab 5** | [part 1](https://jmledford3115.github.io/datascibiol/lab5_1.html) | [part 2](https://jmledford3115.github.io/datascibiol/lab5_2.html)
 6. **Lab 6** | [part 1](https://jmledford3115.github.io/datascibiol/lab6_1.html) | [part 2](https://jmledford3115.github.io/datascibiol/lab6_2.html)
+7. **Lab 7** | [part 1](https://jmledford3115.github.io/datascibiol/lab7.html)| [part 2](https://jmledford3115.github.io/datascibiol/hw7.html)
 
 ## Reading  
 [R for Data Science](https://r4ds.had.co.nz/), Grolemund and Wickham (2017).  
