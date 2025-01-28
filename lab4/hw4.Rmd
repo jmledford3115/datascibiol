@@ -23,60 +23,61 @@ Since the data are built-in, they do not need to be stored as a separate data fr
 
 **1. Learn about the data and variables by using the help function in R.**
 ```{r}
-
+?msleep
 ```
 
 **2. What are the names of the variables in msleep?**  
 ```{r}
-
+names(msleep)
 ```
 
 **3. Use one of the summary functions you have learned to get an idea of the structure of the data.**  
 ```{r}
-
+glimpse(msleep)
 ```
 
 ```{r}
-
+summary(msleep)
 ```
 
 **4. The variable `conservation` categorizes the conservation status of the mammals in the data. How many mammals are endangered?**
 ```{r}
-
+table(msleep$conservation)
 ```
 
 **5. Use `filter` to pull out the endangered mammals. Store this as a new object called `endangered`.**
 ```{r}
-
+endangered <- filter(msleep, conservation == "en")
 ```
 
 **6. The variable `vore` categorizes the feeding strategy of the mammals in the data. How many mammals are in each category of `vore`?**
 ```{r}
-
+table(msleep$vore)
 ```
 
 **7. Use `filter` to find the insectivore(s) with endangered status.**
 ```{r}
-
+filter(endangered, vore == "insecti")
 ```
 
 **8. We are interested in two groups; small and large mammals. Let's define small as less than or equal to 1kg body weight and large as greater than or equal to 200kg body weight. Make two new dataframes (large and small) based on these parameters.**
 ```{r}
-
+small <- filter(msleep, bodywt <= 1)
+large <- filter(msleep, bodywt >= 200)
 ```
 
 **9. Do large or small animals sleep longer on average?** 
 ```{r}
-
+mean(small$sleep_total)
 ```
 
 ```{r}
-
+mean(large$sleep_total)
 ```
 
 **10. Which animal sleeps the least among the entire dataframe?**
 ```{r}
-
+filter(msleep, sleep_total == min(sleep_total))
 ```
 
 ## Knit and Upload

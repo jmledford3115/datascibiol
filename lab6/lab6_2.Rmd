@@ -1,5 +1,5 @@
 ---
-title: "`summarize()` and `group_by()`"
+title: "`summarize()` and `count()`"
 date: "`r Sys.Date()`"
 output:
   html_document:
