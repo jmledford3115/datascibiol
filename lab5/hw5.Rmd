@@ -24,55 +24,71 @@ Reference: Koerner SE, Poulsen JR, Blanchard EJ, Okouyi J, Clark CJ. Vertebrate 
 
 **1. Load `IvindoData_DryadVersion.csv` and store it as a new object called `gabon`.**
 ```{r}
-
+gabon <- read_csv("data/IvindoData_DryadVersion.csv")
 ```
 
 **2. Use one or more of the summary functions you have learned to get an idea of the structure of the data.**  
 ```{r}
-
+glimpse(gabon)
 ```
   
 **3. Use `mutate()` Change the variables `HuntCat`, `LandUse`, and `TransectID` to factors.**
 ```{r}
-
+gabon <- gabon %>% 
+  mutate(HuntCat = as.factor(HuntCat),
+         LandUse = as.factor(LandUse),
+         TransectID = as.factor(TransectID))
 ```
 
 **4. Use `filter` to make three new dataframes focused only on 1. national parks, 2. logging concessions, and 3. neither. Have a look at the README in the data folder so you understand the variables.**
 ```{r}
-
+parks <- filter(gabon, LandUse == "Park")
+logging <- filter(gabon, LandUse == "Logging")
+neither <- filter(gabon, LandUse == "Neither")
 ```
 
 **5. How many transects are recorded for each land use type?**
 ```{r}
-
+table(gabon$LandUse)
 ```
 
 **6. For which land use type (national parks, logging, or neither) is average all species diversity the greatest?**
 ```{r}
-
+mean(parks$Diversity_AllSpecies)
 ```
 
 ```{r}
-
+mean(logging$Diversity_AllSpecies)
 ```
 
 ```{r}
-
+mean(neither$Diversity_AllSpecies)
 ```
 
 **7. Use `filter` to find the transect that has the highest relative abundance of elephants. What land use type is this? Use `arrange()` to sort your results.** 
 ```{r}
-
+gabon %>% 
+  select(TransectID, LandUse, RA_Elephant) %>% 
+  arrange(desc(RA_Elephant))
 ```
 
 **8. Use `filter` to find all transects that have greater than 15 tree species or a breast height diameter between 50 and 60cm.  **
 ```{r}
+gabon %>% 
+  select(TransectID, Veg_Rich, Veg_DBH) %>% 
+  filter(Veg_Rich > 16 | (Veg_DBH >= 50 & Veg_DBH <= 60))
+```
 
+```{r}
+names(gabon)
 ```
 
 **9.Which transects and land use types have more than 10 tree species and 10 mammal species? Use `arrange()` to sort by the number of tree species.**
 ```{r}
-
+gabon %>% 
+  select(TransectID, Veg_Rich, Rich_MammalSpecies, LandUse) %>% 
+  filter(Veg_Rich > 10 & Rich_MammalSpecies > 10) %>% 
+  arrange(desc(Veg_Rich))
 ```
 
 **10. Explore the data! Develop one question on your own that includes at least two lines of code. **
