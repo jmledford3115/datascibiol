@@ -10,9 +10,9 @@
 
 
 
-<meta name="date" content="2025-01-27" />
+<meta name="date" content="2025-01-30" />
 
-<title>group_by()</title>
+<title>goup_by()</title>
 
 <script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
 // be compatible with the behavior of Pandoc < 2.8).
@@ -1502,8 +1502,8 @@ border-radius: 0px;
 
 
 
-<h1 class="title toc-ignore"><code>group_by()</code></h1>
-<h4 class="date">2025-01-27</h4>
+<h1 class="title toc-ignore"><code>goup_by()</code></h1>
+<h4 class="date">2025-01-30</h4>
 
 </div>
 
@@ -1532,6 +1532,7 @@ community of Antarctic penguins (genus <em>Pygoscelis</em>). PLoS ONE
 <pre class="r"><code>#install.packages(&quot;palmerpenguins&quot;)</code></pre>
 <p>Load the library.</p>
 <pre class="r"><code>library(&quot;palmerpenguins&quot;)
+?penguins
 penguins &lt;- penguins</code></pre>
 </div>
 <div id="review" class="section level2">
@@ -1539,15 +1540,8 @@ penguins &lt;- penguins</code></pre>
 <p><code>summarize()</code> is a function in <code>dplyr</code> that
 allows us to produce summaries of data. It’s output is a new dataframe.
 If we were interested in the mean body weight of <em>Adeile</em>
-penguins, we could use <code>summarize()</code>.</p>
-<pre class="r"><code>penguins %&gt;% #loads the data and pipes it to the filter function
-  filter(species==&quot;Adelie&quot;) %&gt;% #pulls out only the Adelie penguins
-  summarize(mean_body_mass=mean(body_mass_g, na.rm=T), #calculates the mean
-            n=n()) #number of observations</code></pre>
-<pre><code>## # A tibble: 1 × 2
-##   mean_body_mass     n
-##            &lt;dbl&gt; &lt;int&gt;
-## 1          3701.   152</code></pre>
+penguins, we could use <code>summarize()</code>. Do this below,
+please.</p>
 <p>Notice that there are three species in the data.</p>
 <pre class="r"><code>penguins %&gt;% 
   count(species)</code></pre>
@@ -1557,15 +1551,24 @@ penguins, we could use <code>summarize()</code>.</p>
 ## 1 Adelie      152
 ## 2 Chinstrap    68
 ## 3 Gentoo      124</code></pre>
-<p>What if we wanted to summarize basic statistics for each species? We
-could still use <code>filter()</code> but this is cumbersome. Show how
-you would do this below.</p>
+<p>What if we wanted to summarize basic statistics for each species?</p>
 </div>
 <div id="group_by" class="section level2">
 <h2><code>group_by()</code></h2>
 <p>The <code>summarize()</code> function is most useful when used in
 conjunction with <code>group_by()</code>. This allows us to group data
 by a categorical variable(s) of interest.</p>
+<pre class="r"><code>penguins %&gt;% 
+  group_by(species) %&gt;% #we are grouping by species, a categorical variable
+  summarize(mean_body_mass=mean(body_mass_g, na.rm=T),
+            sd_body_mass=sd(body_mass_g, na.rm=T),
+            n=n())</code></pre>
+<pre><code>## # A tibble: 3 × 4
+##   species   mean_body_mass sd_body_mass     n
+##   &lt;fct&gt;              &lt;dbl&gt;        &lt;dbl&gt; &lt;int&gt;
+## 1 Adelie             3701.         459.   152
+## 2 Chinstrap          3733.         384.    68
+## 3 Gentoo             5076.         504.   124</code></pre>
 </div>
 <div id="practice" class="section level2">
 <h2>Practice</h2>
@@ -1604,8 +1607,8 @@ species and island?</p>
 <div id="practice-1" class="section level2">
 <h2>Practice</h2>
 <ol style="list-style-type: decimal">
-<li><p>How does the mean of <code>bill_length_mm</code> compare between
-penguin species?</p></li>
+<li><p>How does the mean of <code>bill_length_mm</code> compare by
+island and penguin species?</p></li>
 <li><p>For some penguins, their sex is listed as NA. Where do these
 penguins occur?</p></li>
 </ol>
@@ -1636,21 +1639,19 @@ things cleaner.</p>
 ##   species island   sex
 ##     &lt;int&gt;  &lt;int&gt; &lt;int&gt;
 ## 1       3      3     3</code></pre>
+<p>The new version.</p>
+<pre class="r"><code>penguins %&gt;%
+  summarize(across(c(species, island, sex), \(x) n_distinct(x, na.rm = TRUE)))</code></pre>
+<pre><code>## # A tibble: 1 × 3
+##   species island   sex
+##     &lt;int&gt;  &lt;int&gt; &lt;int&gt;
+## 1       3      3     2</code></pre>
+<pre class="r"><code># The function takes x (each column in the specified range) and applies n_distinct(x, na.rm = TRUE)</code></pre>
 <p>This is very helpful for numeric variables.</p>
 <pre class="r"><code>penguins %&gt;%
-  summarize(across(where(is.numeric), mean, na.rm=T)) %&gt;% 
+  summarize(across(where(is.numeric), \(x) mean(x, na.rm = TRUE))) %&gt;% 
+  # The function takes x (each column in the specified range) and applies mean(x, na.rm = TRUE) to compute the mean while removing NA values
   select(!year) #removes the year variable</code></pre>
-<pre><code>## Warning: There was 1 warning in `summarize()`.
-## ℹ In argument: `across(where(is.numeric), mean, na.rm = T)`.
-## Caused by warning:
-## ! The `...` argument of `across()` is deprecated as of dplyr 1.1.0.
-## Supply arguments directly to `.fns` through an anonymous function instead.
-## 
-##   # Previously
-##   across(a:b, mean, na.rm = TRUE)
-## 
-##   # Now
-##   across(a:b, \(x) mean(x, na.rm = TRUE))</code></pre>
 <pre><code>## # A tibble: 1 × 4
 ##   bill_length_mm bill_depth_mm flipper_length_mm body_mass_g
 ##            &lt;dbl&gt;         &lt;dbl&gt;             &lt;dbl&gt;       &lt;dbl&gt;
@@ -1658,7 +1659,7 @@ things cleaner.</p>
 <p><code>group_by</code> also works.</p>
 <pre class="r"><code>penguins %&gt;%
   group_by(sex) %&gt;% 
-  summarize(across(contains(&quot;mm&quot;), mean, na.rm=T))</code></pre>
+  summarize(across(contains(&quot;mm&quot;), \(x) mean(x, na.rm = TRUE)))</code></pre>
 <pre><code>## # A tibble: 3 × 4
 ##   sex    bill_length_mm bill_depth_mm flipper_length_mm
 ##   &lt;fct&gt;           &lt;dbl&gt;         &lt;dbl&gt;             &lt;dbl&gt;
@@ -1675,6 +1676,20 @@ species. Be sure to provide the number of samples.</li>
 </ol>
 <p>Mean</p>
 <p>Standard Deviation</p>
+<p>Supply a list of functions</p>
+<pre class="r"><code>penguins %&gt;% 
+  group_by(species) %&gt;% 
+  summarize(across(contains(&quot;mm&quot;), list(mean = \(x) mean(x, na.rm = TRUE), 
+                                        sd = \(x) sd(x, na.rm = TRUE))),
+            n=n())</code></pre>
+<pre><code>## # A tibble: 3 × 8
+##   species   bill_length_mm_mean bill_length_mm_sd bill_depth_mm_mean
+##   &lt;fct&gt;                   &lt;dbl&gt;             &lt;dbl&gt;              &lt;dbl&gt;
+## 1 Adelie                   38.8              2.66               18.3
+## 2 Chinstrap                48.8              3.34               18.4
+## 3 Gentoo                   47.5              3.08               15.0
+## # ℹ 4 more variables: bill_depth_mm_sd &lt;dbl&gt;, flipper_length_mm_mean &lt;dbl&gt;,
+## #   flipper_length_mm_sd &lt;dbl&gt;, n &lt;int&gt;</code></pre>
 </div>
 <div id="wrap-up" class="section level2">
 <h2>Wrap-up</h2>

@@ -1,5 +1,5 @@
 ---
-title: "`group_by()`"
+title: "`goup_by()`"
 date: "`r Sys.Date()`"
 output:
   html_document:
@@ -32,16 +32,14 @@ To use these data, they need to be installed.
 Load the library.
 ```{r}
 library("palmerpenguins")
+?penguins
 penguins <- penguins
 ```
 
 ## Review
-`summarize()` is a function in `dplyr` that allows us to produce summaries of data. It's output is a new dataframe. If we were interested in the mean body weight of _Adeile_ penguins, we could use `summarize()`.
+`summarize()` is a function in `dplyr` that allows us to produce summaries of data. It's output is a new dataframe. If we were interested in the mean body weight of _Adeile_ penguins, we could use `summarize()`. Do this below, please.
 ```{r}
-penguins %>% #loads the data and pipes it to the filter function
-  filter(species=="Adelie") %>% #pulls out only the Adelie penguins
-  summarize(mean_body_mass=mean(body_mass_g, na.rm=T), #calculates the mean
-            n=n()) #number of observations
+
 ```
 
 Notice that there are three species in the data.
@@ -50,7 +48,7 @@ penguins %>%
   count(species)
 ```
 
-What if we wanted to summarize basic statistics for each species? We could still use `filter()` but this is cumbersome. Show how you would do this below.
+What if we wanted to summarize basic statistics for each species? 
 ```{r}
 
 ```
@@ -58,7 +56,11 @@ What if we wanted to summarize basic statistics for each species? We could still
 ## `group_by()`
 The `summarize()` function is most useful when used in conjunction with `group_by()`. This allows us to group data by a categorical variable(s) of interest.
 ```{r}
-
+penguins %>% 
+  group_by(species) %>% #we are grouping by species, a categorical variable
+  summarize(mean_body_mass=mean(body_mass_g, na.rm=T),
+            sd_body_mass=sd(body_mass_g, na.rm=T),
+            n=n())
 ```
 
 ## Practice
@@ -94,7 +96,27 @@ penguins %>%
 ```
 
 ## Practice
-1. How does the mean of `bill_length_mm` compare between penguin species?
+1. How does the mean of `bill_length_mm` compare by island and penguin species?
+```{r}
+
+```
+
+```{r}
+
+```
+
+```{r}
+
+```
+
+```{r}
+
+```
+
+```{r}
+
+```
+
 ```{r}
 
 ```
@@ -121,10 +143,18 @@ penguins %>%
   summarize(across(c(species, island, sex), n_distinct))
 ```
 
+The new version.
+```{r}
+penguins %>%
+  summarize(across(c(species, island, sex), \(x) n_distinct(x, na.rm = TRUE)))
+# The function takes x (each column in the specified range) and applies n_distinct(x, na.rm = TRUE)
+```
+
 This is very helpful for numeric variables.
 ```{r}
 penguins %>%
-  summarize(across(where(is.numeric), mean, na.rm=T)) %>% 
+  summarize(across(where(is.numeric), \(x) mean(x, na.rm = TRUE))) %>% 
+  # The function takes x (each column in the specified range) and applies mean(x, na.rm = TRUE) to compute the mean while removing NA values
   select(!year) #removes the year variable
 ```
 
@@ -132,7 +162,7 @@ penguins %>%
 ```{r}
 penguins %>%
   group_by(sex) %>% 
-  summarize(across(contains("mm"), mean, na.rm=T))
+  summarize(across(contains("mm"), \(x) mean(x, na.rm = TRUE)))
 ```
 
 ## Practice
@@ -146,6 +176,15 @@ Mean
 Standard Deviation
 ```{r}
 
+```
+
+Supply a list of functions
+```{r}
+penguins %>% 
+  group_by(species) %>% 
+  summarize(across(contains("mm"), list(mean = \(x) mean(x, na.rm = TRUE), 
+                                        sd = \(x) sd(x, na.rm = TRUE))),
+            n=n())
 ```
 
 ## Wrap-up  
