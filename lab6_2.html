@@ -10,7 +10,7 @@
 
 
 
-<meta name="date" content="2025-01-28" />
+<meta name="date" content="2025-01-29" />
 
 <title>summarize() and count()</title>
 
@@ -1504,7 +1504,7 @@ border-radius: 0px;
 
 <h1 class="title toc-ignore"><code>summarize()</code> and
 <code>count()</code></h1>
-<h4 class="date">2025-01-28</h4>
+<h4 class="date">2025-01-29</h4>
 
 </div>
 
@@ -1591,18 +1591,14 @@ frame. You can use the <code>where()</code> function to select only the
 numeric variables.</p>
 <pre class="r"><code>msleep %&gt;% 
   select(where(is.numeric)) %&gt;% 
-  summarize(across(everything(), mean, na.rm=TRUE))</code></pre>
-<pre><code>## Warning: There was 1 warning in `summarize()`.
-## ℹ In argument: `across(everything(), mean, na.rm = TRUE)`.
-## Caused by warning:
-## ! The `...` argument of `across()` is deprecated as of dplyr 1.1.0.
-## Supply arguments directly to `.fns` through an anonymous function instead.
-## 
-##   # Previously
-##   across(a:b, mean, na.rm = TRUE)
-## 
-##   # Now
-##   across(a:b, \(x) mean(x, na.rm = TRUE))</code></pre>
+  summarize_all(mean)</code></pre>
+<pre><code>## # A tibble: 1 × 6
+##   sleep_total sleep_rem sleep_cycle awake brainwt bodywt
+##         &lt;dbl&gt;     &lt;dbl&gt;       &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;
+## 1        10.4        NA          NA  13.6      NA   166.</code></pre>
+<pre class="r"><code>msleep %&gt;% 
+  select(where(is.numeric)) %&gt;% 
+  summarize_all(mean, na.rm=TRUE)</code></pre>
 <pre><code>## # A tibble: 1 × 6
 ##   sleep_total sleep_rem sleep_cycle awake brainwt bodywt
 ##         &lt;dbl&gt;     &lt;dbl&gt;       &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;
@@ -1614,6 +1610,16 @@ numeric variables.</p>
 <li>What is the mean, min, and max <code>bodywt</code> for the taxonomic
 order Primates? Provide the total number of observations.</li>
 </ol>
+<pre class="r"><code>msleep %&gt;% 
+  filter(order==&quot;Primates&quot;) %&gt;% 
+  summarize(mean_bodywt=mean(bodywt),
+            min_bodywt=min(bodywt),
+            max_bodywt=max(bodywt),
+            total=n())</code></pre>
+<pre><code>## # A tibble: 1 × 4
+##   mean_bodywt min_bodywt max_bodywt total
+##         &lt;dbl&gt;      &lt;dbl&gt;      &lt;dbl&gt; &lt;int&gt;
+## 1        13.9        0.2         62    12</code></pre>
 <p><code>n_distinct()</code> is a handy way of cleanly presenting the
 number of distinct observations. Notice that there are multiple genera
 with over 100 in body weight.</p>
@@ -1643,6 +1649,18 @@ weight.</p>
 ##   n_genera
 ##      &lt;int&gt;
 ## 1        9</code></pre>
+<pre class="r"><code>bodywt_sm &lt;- msleep %&gt;% 
+  filter(bodywt &gt; 100)</code></pre>
+<pre class="r"><code>unique(bodywt_sm$genus)</code></pre>
+<pre><code>## [1] &quot;Bos&quot;           &quot;Elephas&quot;       &quot;Equus&quot;         &quot;Giraffa&quot;      
+## [5] &quot;Globicephalus&quot; &quot;Loxodonta&quot;     &quot;Panthera&quot;      &quot;Tapirus&quot;      
+## [9] &quot;Tursiops&quot;</code></pre>
+<pre class="r"><code>bodywt_sm %&gt;% 
+  distinct(genus) %&gt;% 
+  pull(genus)</code></pre>
+<pre><code>## [1] &quot;Bos&quot;           &quot;Elephas&quot;       &quot;Equus&quot;         &quot;Giraffa&quot;      
+## [5] &quot;Globicephalus&quot; &quot;Loxodonta&quot;     &quot;Panthera&quot;      &quot;Tapirus&quot;      
+## [9] &quot;Tursiops&quot;</code></pre>
 <p>There are many other useful summary statistics, depending on your
 needs: sd(), min(), max(), median(), sum(), n() (returns the length of a
 column), first() (returns first value in a column), last() (returns last
@@ -1652,11 +1670,27 @@ column).</p>
 <div id="practice-1" class="section level2">
 <h2>Practice</h2>
 <ol style="list-style-type: decimal">
-<li><p>How many genera are represented in the msleep data
-frame?</p></li>
-<li><p>What are the min, max, and mean <code>sleep_total</code> for all
-of the mammals? Be sure to include the total n.</p></li>
+<li>How many genera are represented in the msleep data frame?</li>
 </ol>
+<pre class="r"><code>msleep %&gt;% 
+  summarize(n_genera=n_distinct(genus))</code></pre>
+<pre><code>## # A tibble: 1 × 1
+##   n_genera
+##      &lt;int&gt;
+## 1       77</code></pre>
+<ol start="2" style="list-style-type: decimal">
+<li>What are the min, max, and mean <code>sleep_total</code> for all of
+the mammals? Be sure to include the total n.</li>
+</ol>
+<pre class="r"><code>msleep%&gt;% 
+  summarize(mean_sleep_total=mean(sleep_total),
+            minsleep_total=min(sleep_total),
+            max_sleep_total=max(sleep_total),
+            total=n())</code></pre>
+<pre><code>## # A tibble: 1 × 4
+##   mean_sleep_total minsleep_total max_sleep_total total
+##              &lt;dbl&gt;          &lt;dbl&gt;           &lt;dbl&gt; &lt;int&gt;
+## 1             10.4            1.9            19.9    83</code></pre>
 </div>
 <div id="counts" class="section level2">
 <h2>Counts</h2>
@@ -1711,11 +1745,39 @@ producing counts and percentages.</p>
 <div id="practice-2" class="section level2">
 <h2>Practice</h2>
 <ol style="list-style-type: decimal">
-<li><p>In the taxonomic order Carnivora, count the number of
-observations for each conservation status.</p></li>
-<li><p>Among herbivores, which taxonomic order is most
-represented?</p></li>
+<li>In the taxonomic order Carnivora, count the number of observations
+for each conservation status.</li>
 </ol>
+<pre class="r"><code>msleep %&gt;% 
+  filter(order==&quot;Carnivora&quot;) %&gt;% 
+  count(conservation)</code></pre>
+<pre><code>## # A tibble: 6 × 2
+##   conservation     n
+##   &lt;chr&gt;        &lt;int&gt;
+## 1 domesticated     2
+## 2 en               1
+## 3 lc               2
+## 4 nt               1
+## 5 vu               3
+## 6 &lt;NA&gt;             3</code></pre>
+<ol start="2" style="list-style-type: decimal">
+<li>Among herbivores, which taxonomic order is most represented?</li>
+</ol>
+<pre class="r"><code>msleep %&gt;% 
+  filter(vore==&quot;herbi&quot;) %&gt;% 
+  count(order)</code></pre>
+<pre><code>## # A tibble: 9 × 2
+##   order              n
+##   &lt;chr&gt;          &lt;int&gt;
+## 1 Artiodactyla       5
+## 2 Diprotodontia      1
+## 3 Hyracoidea         2
+## 4 Lagomorpha         1
+## 5 Perissodactyla     3
+## 6 Pilosa             1
+## 7 Primates           1
+## 8 Proboscidea        2
+## 9 Rodentia          16</code></pre>
 </div>
 <div id="thats-it-lets-take-a-break-and-then-move-on-to-part-2" class="section level2">
 <h2>That’s it! Let’s take a break and then move on to part 2!</h2>
