@@ -37,9 +37,12 @@ penguins <- penguins
 ```
 
 ## Review
-`summarize()` is a function in `dplyr` that allows us to produce summaries of data. It's output is a new dataframe. If we were interested in the mean body weight of _Adeile_ penguins, we could use `summarize()`. Do this below, please.
+`summarize()` is a function in `dplyr` that allows us to produce summaries of data. It's output is a new dataframe. If we were interested in the mean body weight of _Adeile_ penguins, we could use `summarize()`.
 ```{r}
-
+penguins %>% #loads the data and pipes it to the filter function
+  filter(species=="Adelie") %>% #pulls out only the Adelie penguins
+  summarize(mean_body_mass=mean(body_mass_g, na.rm=T), #calculates the mean
+            n=n()) #number of observations
 ```
 
 Notice that there are three species in the data.
@@ -48,9 +51,25 @@ penguins %>%
   count(species)
 ```
 
-What if we wanted to summarize basic statistics for each species? 
+What if we wanted to summarize basic statistics for each species? We could still use `filter()` but this is cumbersome.
 ```{r}
+penguins %>% 
+  filter(species=="Adelie") %>%
+  summarize(mean_body_mass=mean(body_mass_g, na.rm=T),
+            sd_body_mass=sd(body_mass_g, na.rm=T),
+            n=n())
 
+penguins %>% 
+  filter(species=="Chinstrap") %>%
+  summarize(mean_body_mass=mean(body_mass_g, na.rm=T),
+            sd_body_mass=sd(body_mass_g, na.rm=T),
+            n=n())
+
+penguins %>% 
+  filter(species=="Gentoo") %>%
+  summarize(mean_body_mass=mean(body_mass_g, na.rm=T),
+            sd_body_mass=sd(body_mass_g, na.rm=T),
+            n=n())
 ```
 
 ## `group_by()`
@@ -68,21 +87,32 @@ Use the built-in `msleep` data to answer the following questions.
 
 1. Calculate the min, max, mean, and total number of observations for body weight by feeding ecology in the msleep data.
 ```{r}
-
+msleep %>%
+  group_by(vore) %>% #we are grouping by feeding ecology, a categorical variable
+  summarize(min_bodywt = min(bodywt),
+            max_bodywt = max(bodywt),
+            mean_bodywt = mean(bodywt),
+            total=n())
 ```
 
 2. Calculate mean brain weight by taxonomic order in the msleep data.
 ```{r}
-
+msleep %>% 
+  group_by(order) %>% 
+  summarize(mean_brain_wt=mean(brainwt))
 ```
 
 3. Try running the code again, but this time add `na.rm=TRUE`. What is the problem with Cetacea?
 ```{r}
-
+msleep %>% 
+  group_by(order) %>% 
+  summarize(mean_brain_wt=mean(brainwt, na.rm=T))
 ```
 
 ```{r}
-
+msleep %>% 
+  filter(order=="Cetacea") %>% 
+  select(order, genus, brainwt)
 ```
 
 ## Review
@@ -98,32 +128,39 @@ penguins %>%
 ## Practice
 1. How does the mean of `bill_length_mm` compare by island and penguin species?
 ```{r}
-
+x <- penguins %>% 
+  group_by(island, species) %>% 
+  summarize(mean_bill_length_mm=mean(bill_length_mm, na.rm=T), .groups= 'keep')
 ```
 
 ```{r}
-
+x %>% summarize(n=n())
 ```
 
 ```{r}
-
+y <- penguins %>% 
+  group_by(island, species) %>% 
+  summarize(mean_bill_length_mm=mean(bill_length_mm, na.rm=T), .groups= 'drop')
 ```
 
 ```{r}
-
+y %>% summarize(n=n())
 ```
 
 ```{r}
-
+z <- penguins %>% 
+  group_by(island, species) %>% 
+  summarize(mean_bill_length_mm=mean(bill_length_mm, na.rm=T), .groups= 'drop_last')
 ```
 
 ```{r}
-
+z %>% summarize(n=n())
 ```
 
 2. For some penguins, their sex is listed as NA. Where do these penguins occur?
 ```{r}
-
+penguins %>% 
+  count(sex, island)
 ```
 
 ## `across()`
@@ -143,7 +180,7 @@ penguins %>%
   summarize(across(c(species, island, sex), n_distinct))
 ```
 
-The new version.
+The new version. The reason why I show you this is because you don't want to leave with code that is already outdated. Remember, R is under constant revision so expect changes.
 ```{r}
 penguins %>%
   summarize(across(c(species, island, sex), \(x) n_distinct(x, na.rm = TRUE)))
@@ -170,12 +207,16 @@ penguins %>%
 
 Mean
 ```{r}
-
+penguins %>%
+  group_by(sex) %>% 
+  summarize(across(contains("mm"), \(x) mean(x, na.rm = TRUE)))
 ```
 
 Standard Deviation
 ```{r}
-
+penguins %>%
+  group_by(sex) %>% 
+  summarize(across(contains("mm"), \(x) sd(x, na.rm = TRUE)))
 ```
 
 Supply a list of functions
