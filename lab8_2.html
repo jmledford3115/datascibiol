@@ -1642,11 +1642,66 @@ frame change.</p>
 <div id="practice" class="section level2">
 <h2>Practice</h2>
 <ol style="list-style-type: decimal">
-<li><p>Import the file <code>relig_income.csv</code> and store it as a
-new object <code>relig_income</code>.</p></li>
-<li><p>Why are these data untidy?</p></li>
+<li>Import the file <code>relig_income.csv</code> and store it as a new
+object <code>relig_income</code>.</li>
+</ol>
+<pre class="r"><code>relig_income &lt;- read_csv(&quot;data/relig_income.csv&quot;)</code></pre>
+<pre><code>## Rows: 18 Columns: 11
+## ── Column specification ────────────────────────────────────────────────────────
+## Delimiter: &quot;,&quot;
+## chr  (1): religion
+## dbl (10): &lt;$10k, $10-20k, $20-30k, $30-40k, $40-50k, $50-75k, $75-100k, $100...
+## 
+## ℹ Use `spec()` to retrieve the full column specification for this data.
+## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+<pre class="r"><code>relig_income</code></pre>
+<pre><code>## # A tibble: 18 × 11
+##    religion `&lt;$10k` `$10-20k` `$20-30k` `$30-40k` `$40-50k` `$50-75k` `$75-100k`
+##    &lt;chr&gt;      &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;      &lt;dbl&gt;
+##  1 Agnostic      27        34        60        81        76       137        122
+##  2 Atheist       12        27        37        52        35        70         73
+##  3 Buddhist      27        21        30        34        33        58         62
+##  4 Catholic     418       617       732       670       638      1116        949
+##  5 Don’t k…      15        14        15        11        10        35         21
+##  6 Evangel…     575       869      1064       982       881      1486        949
+##  7 Hindu          1         9         7         9        11        34         47
+##  8 Histori…     228       244       236       238       197       223        131
+##  9 Jehovah…      20        27        24        24        21        30         15
+## 10 Jewish        19        19        25        25        30        95         69
+## 11 Mainlin…     289       495       619       655       651      1107        939
+## 12 Mormon        29        40        48        51        56       112         85
+## 13 Muslim         6         7         9        10         9        23         16
+## 14 Orthodox      13        17        23        32        32        47         38
+## 15 Other C…       9         7        11        13        13        14         18
+## 16 Other F…      20        33        40        46        49        63         46
+## 17 Other W…       5         2         3         4         2         7          3
+## 18 Unaffil…     217       299       374       365       341       528        407
+## # ℹ 3 more variables: `$100-150k` &lt;dbl&gt;, `&gt;150k` &lt;dbl&gt;,
+## #   `Don&#39;t know/refused` &lt;dbl&gt;</code></pre>
+<ol start="2" style="list-style-type: decimal">
+<li><p>Why are these data untidy?<br />
+Variable names are actually data</p></li>
 <li><p>Use <code>pivot_longer()</code> to make the data tidy.</p></li>
 </ol>
+<pre class="r"><code>relig_income %&gt;% 
+  pivot_longer(-religion,
+               names_to = &quot;income&quot;, #make a new column called &quot;income&quot;
+               values_to = &quot;total&quot; #values moved to a new column called &quot;total&quot;
+               )</code></pre>
+<pre><code>## # A tibble: 180 × 3
+##    religion income             total
+##    &lt;chr&gt;    &lt;chr&gt;              &lt;dbl&gt;
+##  1 Agnostic &lt;$10k                 27
+##  2 Agnostic $10-20k               34
+##  3 Agnostic $20-30k               60
+##  4 Agnostic $30-40k               81
+##  5 Agnostic $40-50k               76
+##  6 Agnostic $50-75k              137
+##  7 Agnostic $75-100k             122
+##  8 Agnostic $100-150k            109
+##  9 Agnostic &gt;150k                 84
+## 10 Agnostic Don&#39;t know/refused    96
+## # ℹ 170 more rows</code></pre>
 </div>
 <div id="example-2-some-column-names-are-data" class="section level2">
 <h2>Example 2: some column names are data</h2>
@@ -1757,12 +1812,68 @@ NA’s.</p>
 <div id="practice-1" class="section level2">
 <h2>Practice</h2>
 <ol style="list-style-type: decimal">
-<li><p>Import <code>plant_data.csv</code> as a new object
-<code>plant_data</code>.</p></li>
-<li><p>Why are these data not tidy?</p></li>
-<li><p>Use <code>pivot_longer()</code> to make the data tidy. Focus the
-data only on genotype, water_sched_prog, and greenhouse.</p></li>
+<li>Import <code>plant_data.csv</code> as a new object
+<code>plant_data</code>.</li>
 </ol>
+<pre class="r"><code>plant_data &lt;- read_csv(&quot;data/plant_data.csv&quot;)</code></pre>
+<pre><code>## Rows: 3 Columns: 33
+## ── Column specification ────────────────────────────────────────────────────────
+## Delimiter: &quot;,&quot;
+## chr  (3): genotype, water_sched_prog, greenhouse
+## dbl (30): day1, day2, day3, day4, day5, day6, day7, day8, day9, day10, day11...
+## 
+## ℹ Use `spec()` to retrieve the full column specification for this data.
+## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+<pre class="r"><code>plant_data</code></pre>
+<pre><code>## # A tibble: 3 × 33
+##   genotype water_sched_prog greenhouse  day1  day2  day3  day4  day5  day6  day7
+##   &lt;chr&gt;    &lt;chr&gt;            &lt;chr&gt;      &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+## 1 control  A                A761        21.7  19.9  20.7  19.4  20.2  19.2  20.6
+## 2 mutant1  A                A761        24.3  24.9  25.2  25.3  27.4  25.5  25.4
+## 3 mutant2  A                A761        20.7  21.3  21.3  22.5  19.8  21.4  21.9
+## # ℹ 23 more variables: day8 &lt;dbl&gt;, day9 &lt;dbl&gt;, day10 &lt;dbl&gt;, day11 &lt;dbl&gt;,
+## #   day12 &lt;dbl&gt;, day13 &lt;dbl&gt;, day14 &lt;dbl&gt;, day15 &lt;dbl&gt;, day16 &lt;dbl&gt;,
+## #   day17 &lt;dbl&gt;, day18 &lt;dbl&gt;, day19 &lt;dbl&gt;, day20 &lt;dbl&gt;, day21 &lt;dbl&gt;,
+## #   day22 &lt;dbl&gt;, day23 &lt;dbl&gt;, day24 &lt;dbl&gt;, day25 &lt;dbl&gt;, day26 &lt;dbl&gt;,
+## #   day27 &lt;dbl&gt;, day28 &lt;dbl&gt;, day29 &lt;dbl&gt;, day30 &lt;dbl&gt;</code></pre>
+<ol start="2" style="list-style-type: decimal">
+<li>Why are these data not tidy?<br />
+Variable names are data</li>
+</ol>
+<pre class="r"><code>names(plant_data)</code></pre>
+<pre><code>##  [1] &quot;genotype&quot;         &quot;water_sched_prog&quot; &quot;greenhouse&quot;       &quot;day1&quot;            
+##  [5] &quot;day2&quot;             &quot;day3&quot;             &quot;day4&quot;             &quot;day5&quot;            
+##  [9] &quot;day6&quot;             &quot;day7&quot;             &quot;day8&quot;             &quot;day9&quot;            
+## [13] &quot;day10&quot;            &quot;day11&quot;            &quot;day12&quot;            &quot;day13&quot;           
+## [17] &quot;day14&quot;            &quot;day15&quot;            &quot;day16&quot;            &quot;day17&quot;           
+## [21] &quot;day18&quot;            &quot;day19&quot;            &quot;day20&quot;            &quot;day21&quot;           
+## [25] &quot;day22&quot;            &quot;day23&quot;            &quot;day24&quot;            &quot;day25&quot;           
+## [29] &quot;day26&quot;            &quot;day27&quot;            &quot;day28&quot;            &quot;day29&quot;           
+## [33] &quot;day30&quot;</code></pre>
+<ol start="3" style="list-style-type: decimal">
+<li>Use <code>pivot_longer()</code> to make the data tidy. Focus the
+data only on genotype, water_sched_prog, and greenhouse.</li>
+</ol>
+<pre class="r"><code>plant_data %&gt;% 
+  pivot_longer(-c(genotype, water_sched_prog, greenhouse),
+               names_to = &quot;v1&quot;,
+               values_to = &quot;v2&quot;,
+               values_drop_na = T
+               )</code></pre>
+<pre><code>## # A tibble: 90 × 5
+##    genotype water_sched_prog greenhouse v1       v2
+##    &lt;chr&gt;    &lt;chr&gt;            &lt;chr&gt;      &lt;chr&gt; &lt;dbl&gt;
+##  1 control  A                A761       day1   21.7
+##  2 control  A                A761       day2   19.9
+##  3 control  A                A761       day3   20.7
+##  4 control  A                A761       day4   19.4
+##  5 control  A                A761       day5   20.2
+##  6 control  A                A761       day6   19.2
+##  7 control  A                A761       day7   20.6
+##  8 control  A                A761       day8   19.9
+##  9 control  A                A761       day9   19.2
+## 10 control  A                A761       day10  20.4
+## # ℹ 80 more rows</code></pre>
 </div>
 <div id="example-3-more-than-one-variable-in-a-column-name" class="section level2">
 <h2>Example 3: more than one variable in a column name</h2>
@@ -1788,33 +1899,34 @@ data only on genotype, water_sched_prog, and greenhouse.</p></li>
 ## # ℹ 2 more variables: exp3_rep2 &lt;dbl&gt;, exp3_rep3 &lt;dbl&gt;</code></pre>
 <p><code>names_sep</code> helps pull these apart, but we still have
 “exp” and “rep” to deal with.</p>
-<pre class="r"><code>qpcr_untidy %&gt;% 
+<pre class="r"><code>qpcr &lt;- qpcr_untidy %&gt;% 
   pivot_longer(
     exp1_rep1:exp3_rep3,
     names_to= c(&quot;experiment&quot;, &quot;replicate&quot;),
     names_sep=&quot;_&quot;,
     values_to=&quot;mRNA_expression&quot;
   )</code></pre>
-<pre><code>## # A tibble: 45 × 4
-##    gene  experiment replicate mRNA_expression
-##    &lt;chr&gt; &lt;chr&gt;      &lt;chr&gt;               &lt;dbl&gt;
-##  1 A     exp1       rep1                 21.7
-##  2 A     exp1       rep2                 19.8
-##  3 A     exp1       rep3                 20.7
-##  4 A     exp2       rep1                 18.3
-##  5 A     exp2       rep2                 20.4
-##  6 A     exp2       rep3                 17.6
-##  7 A     exp3       rep1                 20.6
-##  8 A     exp3       rep2                 19.9
-##  9 A     exp3       rep3                 19.2
-## 10 B     exp1       rep1                 24.3
+<pre class="r"><code>qpcr %&gt;% 
+  separate(experiment, into = c(&quot;experiment&quot;, &quot;number&quot;), sep = 3)</code></pre>
+<pre><code>## # A tibble: 45 × 5
+##    gene  experiment number replicate mRNA_expression
+##    &lt;chr&gt; &lt;chr&gt;      &lt;chr&gt;  &lt;chr&gt;               &lt;dbl&gt;
+##  1 A     exp        1      rep1                 21.7
+##  2 A     exp        1      rep2                 19.8
+##  3 A     exp        1      rep3                 20.7
+##  4 A     exp        2      rep1                 18.3
+##  5 A     exp        2      rep2                 20.4
+##  6 A     exp        2      rep3                 17.6
+##  7 A     exp        3      rep1                 20.6
+##  8 A     exp        3      rep2                 19.9
+##  9 A     exp        3      rep3                 19.2
+## 10 B     exp        1      rep1                 24.3
 ## # ℹ 35 more rows</code></pre>
 </div>
 <div id="wrap-up" class="section level2">
 <h2>Wrap-up</h2>
 <p>Please review the learning goals and be sure to use the code here as
-a reference when completing the homework.</p>
-<p>–&gt;<a href="https://jmledford3115.github.io/datascibiol/">Home</a></p>
+a reference when completing the homework. –&gt;<a href="https://jmledford3115.github.io/datascibiol/">Home</a></p>
 </div>
 
 

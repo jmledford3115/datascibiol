@@ -54,7 +54,15 @@ life_history %>%
 ## Practice
 1. Can we use a single approach to deal with NA's in this data set? Given what you learned in the previous lab, how would you manage the NA values?
 ```{r}
+life_history_no_nas <- 
+  read_csv("data/mammal_lifehistories_v3.csv", na = c("NA", " ", ".", "-999")) %>% 
+  clean_names() # notice that I am creating a new dataframe that doesn't have any NA's
+```
 
+Recheck
+```{r}
+life_history_no_nas %>% 
+  summarize(across(everything(), ~ sum(is.na(.))))
 ```
 
 ## `naniar`
@@ -133,17 +141,21 @@ Some key information:
 
 1. Import the data and do a little exploration. Be sure to clean the names if necessary.
 ```{r}
-
+cites <- read_csv("data/cites.csv") %>% clean_names()
 ```
 
 2. Use `naniar` to summarize the NA's in each variable.
 ```{r}
-
+miss_var_summary(cites)
 ```
 
 3. Try using `group_by()` with `naniar`. Look specifically at `class` and `exporter_reported_quantity`. For which taxonomic classes do we have the highest number of missing export data?
 ```{r}
-
+cites %>%
+  select(class, exporter_reported_quantity) %>% 
+  group_by(class) %>%
+  miss_var_summary() %>% 
+  arrange(desc(n_miss))
 ```
 
 ## Dealing with NA's in advance- nuclear option

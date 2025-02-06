@@ -1785,15 +1785,73 @@ can find information about the data <a href="https://www.kaggle.com/cites/cites-
 <a href="https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2">country
 codes</a></p>
 <ol style="list-style-type: decimal">
-<li><p>Import the data and do a little exploration. Be sure to clean the
-names if necessary.</p></li>
-<li><p>Use <code>naniar</code> to summarize the NA’s in each
-variable.</p></li>
-<li><p>Try using <code>group_by()</code> with <code>naniar</code>. Look
+<li>Import the data and do a little exploration. Be sure to clean the
+names if necessary.</li>
+</ol>
+<pre class="r"><code>cites &lt;- read_csv(&quot;data/cites.csv&quot;) %&gt;% clean_names()</code></pre>
+<pre><code>## Rows: 67161 Columns: 16
+## ── Column specification ────────────────────────────────────────────────────────
+## Delimiter: &quot;,&quot;
+## chr (13): App., Taxon, Class, Order, Family, Genus, Importer, Exporter, Orig...
+## dbl  (3): Year, Importer reported quantity, Exporter reported quantity
+## 
+## ℹ Use `spec()` to retrieve the full column specification for this data.
+## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+<ol start="2" style="list-style-type: decimal">
+<li>Use <code>naniar</code> to summarize the NA’s in each variable.</li>
+</ol>
+<pre class="r"><code>miss_var_summary(cites)</code></pre>
+<pre><code>## # A tibble: 16 × 3
+##    variable                   n_miss pct_miss
+##    &lt;chr&gt;                       &lt;int&gt;    &lt;num&gt;
+##  1 unit                        60759  90.5   
+##  2 origin                      41518  61.8   
+##  3 importer_reported_quantity  35295  52.6   
+##  4 exporter_reported_quantity  23140  34.5   
+##  5 class                       20224  30.1   
+##  6 purpose                      6059   9.02  
+##  7 genus                        1459   2.17  
+##  8 exporter                      573   0.853 
+##  9 source                        544   0.810 
+## 10 family                        461   0.686 
+## 11 importer                       71   0.106 
+## 12 order                          57   0.0849
+## 13 year                            0   0     
+## 14 app                             0   0     
+## 15 taxon                           0   0     
+## 16 term                            0   0</code></pre>
+<ol start="3" style="list-style-type: decimal">
+<li>Try using <code>group_by()</code> with <code>naniar</code>. Look
 specifically at <code>class</code> and
 <code>exporter_reported_quantity</code>. For which taxonomic classes do
-we have the highest number of missing export data?</p></li>
+we have the highest number of missing export data?</li>
 </ol>
+<pre class="r"><code>cites %&gt;%
+  select(class, exporter_reported_quantity) %&gt;% 
+  group_by(class) %&gt;%
+  miss_var_summary() %&gt;% 
+  arrange(desc(n_miss))</code></pre>
+<pre><code>## # A tibble: 17 × 4
+## # Groups:   class [17]
+##    class          variable                   n_miss pct_miss
+##    &lt;chr&gt;          &lt;chr&gt;                       &lt;int&gt;    &lt;num&gt;
+##  1 &lt;NA&gt;           exporter_reported_quantity   7002     34.6
+##  2 Reptilia       exporter_reported_quantity   5323     28.9
+##  3 Anthozoa       exporter_reported_quantity   3858     43.9
+##  4 Mammalia       exporter_reported_quantity   3731     43.9
+##  5 Aves           exporter_reported_quantity   1792     26.1
+##  6 Actinopteri    exporter_reported_quantity    726     26.3
+##  7 Amphibia       exporter_reported_quantity    190     45.2
+##  8 Bivalvia       exporter_reported_quantity    165     61.3
+##  9 Gastropoda     exporter_reported_quantity    104     54.5
+## 10 Insecta        exporter_reported_quantity     74     23.9
+## 11 Hydrozoa       exporter_reported_quantity     61     33.7
+## 12 Elasmobranchii exporter_reported_quantity     58     51.3
+## 13 Arachnida      exporter_reported_quantity     32     47.8
+## 14 Hirudinoidea   exporter_reported_quantity     11     32.4
+## 15 Holothuroidea  exporter_reported_quantity     10    100  
+## 16 Dipneusti      exporter_reported_quantity      3     75  
+## 17 Coelacanthi    exporter_reported_quantity      0      0</code></pre>
 </div>
 <div id="dealing-with-nas-in-advance--nuclear-option" class="section level2">
 <h2>Dealing with NA’s in advance- nuclear option</h2>
