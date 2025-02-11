@@ -1,0 +1,194 @@
+---
+title: "Data Visualization: `ggplot` part 1"
+date: "`r Sys.Date()`"
+output:
+  html_document:
+    theme: spacelab
+    toc: yes
+    toc_float: yes
+  pdf_document:
+    toc: yes
+---
+
+## Learning Goals
+*At the end of this exercise, you will be able to:*    
+1. Understand and apply the syntax of building plots using `ggplot2`.  
+2. Build a boxplot using `ggplot2`.  
+3. Build a scatterplot using `ggplot2`.  
+4. Build a barplot using `ggplot2` and show the difference between `stat=count` and `stat=identity`.  
+
+## Where have we been, and where are we going?
+At this point you should feel comfortable working in RStudio and using `dplyr` and `tidyr.` You also know how to produce statistical summaries of data and deal with NA's. It is OK if you need to go back through the labs and find bits of code that work for you, that's what most people do!     
+
+##Resources  
+- [ggplot2 cheatsheet](https://posit.co/resources/cheatsheets/)  
+
+## Libraries
+```{r message=FALSE, warning=FALSE}
+library(tidyverse)
+library(naniar)
+library(janitor)
+```
+
+## Grammar of Graphics
+The ability to quickly produce and edit graphs and charts is a strength of R. These data visualizations are produced by the package `ggplot2` and it is a core part of the tidyverse. The syntax for using ggplot is specific and common to all of the plots. This is what Hadley Wickham calls a [Grammar of Graphics](http://vita.had.co.nz/papers/layered-grammar.pdf). The "gg" in `ggplot` stands for grammar of graphics.
+
+## Philosophy
+What makes a good chart? In my opinion a good chart is elegant in its simplicity. It provides a clean, clear visual of the data without being overwhelming to the reader. This can be hard to do and takes some careful thinking. Always keep in mind that the reader will almost never know the data as well as you do so you need to be mindful about presenting the facts.  
+
+## Data Types
+We first need to define some of the data types we will use to build plots.  
+
++ `discrete` quantitative data that only contains integers
++ `continuous` quantitative data that can take any numerical value
++ `categorical` qualitative data that can take on a limited number of values
+
+## Basics
+The syntax used by ggplot takes some practice to get used to, especially for customizing plots, but the basic elements are the same. It is helpful to think of plots as being built up in layers.  
+
+In short, **plot= data + geom_ + aesthetics**.  
+
+We start by calling the ggplot function, identifying the data, and specifying the axes. We then add the `geom` type to describe how we want our data represented. Each `geom_` works with specific types of data and R is capable of building plots of single variables, multiple variables, and even maps. Lastly, we add aesthetics.
+
+## Example
+To make things easy, let's start with some built in data.
+```{r}
+names(iris)
+```
+
+```{r}
+glimpse(iris)
+```
+
+To make a plot, we need to first specify the data and map the aesthetics. The aesthetics include how each variable in our data set will be used. In the example below, I am using the aes() function to identify the x and y variables in the plot.
+```{r}
+
+```
+
+Notice that we have a nice background, labeled axes, and even a value range of our variables on the y-axis- but no plot. This is because we need to tell ggplot how we want our data represented. This is called the geometry or `geom()`. There are many types of `geom`, see the ggplot [cheatsheet](https://posit.co/resources/cheatsheets/).
+
+Here we specify that we want a boxplot, indicated by `geom_boxplot()`.
+```{r}
+
+```
+
+## Practice
+1. Use the iris data to build a scatterplot that compares sepal length vs. sepal width. Use the cheat sheet for help to find the correct `geom_` for a scatterplot.
+```{r}
+
+```
+
+```{r}
+
+```
+
+
+## Scatterplots and barplots
+Now that we have a general idea of the syntax, let's start by working with two common plots: 1) scatter plots and 2) bar plots.
+
+## Data
+**Database of vertebrate home range sizes.**  
+Reference: Tamburello N, Cote IM, Dulvy NK (2015) Energy and the scaling of animal space use. The American Naturalist 186(2):196-211. http://dx.doi.org/10.1086/682070.  
+Data: http://datadryad.org/resource/doi:10.5061/dryad.q5j65/1  
+```{r}
+homerange <- read_csv("data/Tamburelloetal_HomeRangeDatabase.csv")
+```
+
+## Practice
+1. What is the structure of the `homerange` data? Does it have any NA's? Is it tidy? Do a quick exploratory analysis of your choice below.
+```{r}
+
+```
+
+```{r}
+
+```
+
+### 1. Scatter Plots
+Scatter plots are good at revealing relationships that are not readily visible in the raw data. For now, we will not add regression aka. "best of fit" lines or calculate any r^2^ values.  
+
+In the case below, we are exploring whether or not there is a relationship between animal mass and home range. We are using the **log transformed values** because there is a large difference in mass and home range among the different species in the data.
+```{r}
+
+```
+
+```{r}
+
+```
+
+In big data sets with lots of overlapping values, over-plotting can be an issue. `geom_jitter()` is similar to `geom_point()` but it helps with over plotting by adding some random noise to the data and separating some of the individual points.
+```{r}
+
+```
+
+To add a regression (best of fit) line, we just add another layer.
+```{r}
+
+```
+
+### Practice
+1. What is the relationship between log10.hra and log10.preymass? What do you notice about how ggplot treats NA's?
+```{r}
+
+```
+
+```{r}
+
+```
+
+### Bar Plot: `geom_bar()`
+The simplest type of bar plot counts the number of observations in a categorical variable. In this case, we want to know how many observations are present in the variable `trophic.guild`. Notice that we do not specify a y-axis because it is count by default.  
+
+```{r}
+
+```
+
+```{r}
+
+```
+
+Also notice that we can use pipes! The `mapping=` function is implied by `aes` and so is often left out. 
+```{r}
+
+```
+
+### Bar Plot: `geom_col()`
+Unlike `geom_bar()`, `geom_col()` allows us to specify an x-axis and a y-axis.
+```{r}
+
+```
+
+`geom_bar()` with `stat="identity"`
+`stat="identity"` allows us to map a variable to the y-axis so that we aren't restricted to counts.
+```{r}
+
+```
+
+## Practice
+1. Filter the `homerange` data to include `mammals` only.
+```{r}
+
+```
+
+```{r}
+
+```
+
+
+2. Are there more herbivores or carnivores in mammals? Make a bar plot that shows their relative numbers.
+```{r}
+
+```
+
+```{r}
+
+```
+
+3. Make a bar plot that shows the masses of the top 10 smallest mammals.
+```{r}
+
+```
+
+## Wrap-up  
+Please review the learning goals and be sure to use the code here as a reference when completing the homework.    
+-->[Home](https://jmledford3115.github.io/datascibiol/)

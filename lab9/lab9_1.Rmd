@@ -1,0 +1,145 @@
+---
+title: "Tidyr 2: `pivot_wider()`"
+date: "`r Sys.Date()`"
+output:
+  html_document:
+    theme: spacelab
+    toc: yes
+    toc_float: yes
+  pdf_document:
+    toc: yes
+---
+
+## Learning Goals
+*At the end of this exercise, you will be able to:*    
+1. Explain the difference between tidy and messy data.  
+2. Evaluate a data set as tidy or untidy.  
+3. Use the `pivot_wider()` function of `tidyr` to transform data from long to wide format.  
+ 
+## Resources  
+- [tidyr `pivot_wider()`](https://tidyr.tidyverse.org/reference/pivot_wider.html)  
+- [pivoting](https://cran.r-project.org/web/packages/tidyr/vignettes/pivot.html)  
+- [R Ladies Sydney](https://rladiessydney.org/courses/ryouwithme/02-cleanitup-5/)  
+
+## Review
+Last time we learned the fundamentals of tidy data and used the `pivot_longer()` function to wrangle a few examples of frequently encountered untidy data. In the second part of today's lab we will look at a few more examples of `pivot_longer()` but also use the `pivot_wider()` function to deal with another type of untidy data.  
+
+## Load the tidyverse
+```{r}
+library("tidyverse")
+```
+
+## `pivot_longer()`
+Recall that we use `pivot_longer()` when our column names actually represent variables. A classic example would be that the column names represent observations of a variable.
+```{r}
+datasets::USPersonalExpenditure
+?USPersonalExpenditure
+```
+
+Here we add a new column of expenditure types, which are stored as rownames above, with `mutate()`. The `USPersonalExpenditures` data also needs to be converted to a data frame before we can use the tidyverse functions, because it comes as a matrix.
+```{r}
+expenditures <- USPersonalExpenditure %>% 
+  as_tibble() %>% #this transforms the matrix into a data frame
+  mutate(expenditure = rownames(USPersonalExpenditure))
+expenditures
+```
+
+## Practice
+1. Are these data tidy? Please use `pivot_longer()` to tidy the data.
+```{r}
+
+```
+
+2. Restrict the data to medical and health expenditures only. Sort in ascending order.
+```{r}
+
+```
+
+## `separate()`
+In this new heart rate example, we have the sex of each patient included with their name. Are these data tidy? No, there is more than one value per cell in the patient column and the columns a, b, c, d once again represent values.
+```{r}
+heartrate2 <- read_csv("data/heartrate2.csv")
+heartrate2
+```
+
+We need to start by separating the patient names from their sexes. `separate()` needs to know which column you want to split, the names of the new columns, and what to look for in terms of breaks in the data.
+```{r}
+heartrate2 %>% 
+  separate(patient, into= c("patient", "sex"), sep = "_")
+```
+
+Another way of using separate is to specify the position of the split. In this case, we want to split the patient column at the last character.
+```{r}
+heartrate2 %>% 
+  separate(patient, into= c("patient", "sex"), sep = -1)
+```
+
+We would still need to deal with the "_" in the patient column. We can do this using the stringr package.
+```{r}
+heartrate2 %>% 
+  separate(patient, into= c("patient", "sex"), sep = -1) %>% 
+  mutate(patient=str_remove(patient, "_"))
+```
+
+## Practice
+1. Re-examine `heartrate2`. Use `separate()` for the sexes, `pivot_longer()` to tidy, and `arrange()` to organize by patient and drug. Store this as a new object `heartrate3`.  
+```{r}
+
+```
+
+2. `unite()` is the opposite of separate(). Its syntax is straightforward. You only need to give a new column name and then list the columns to combine with a separation character.  Give it a try below by recombining patient and sex from `heartrate3`.  
+```{r}
+
+```
+
+## `pivot_wider()`
+The opposite of `pivot_longer()`. You use `pivot_wider()` when you have an observation scattered across multiple rows. In the example below, `cases` and `population` represent variable names not observations.  
+
+Rules:  
++ `pivot_wider`(names_from, values_from)  
++ `names_from` - Values in the `names_from` column will become new column names  
++ `values_from` - Cell values will be taken from the `values_from` column  
+
+```{r}
+tb_data <- read_csv("data/tb_data.csv")
+tb_data
+```
+
+When using `pivot_wider()` we use `names_from` to identify the variables (new column names) and `values_from` to identify the values associated with the new columns.
+```{r}
+tb_data %>% 
+  pivot_wider(names_from = "key", #the observations under key will become new columns
+              values_from = "value") #the values under value will be moved to the new columns
+```
+
+## Practice
+1. Load the `gene_exp.csv` data as a new object `gene_exp`. Are these data tidy? Use `pivot_wider()` to tidy the data.
+```{r}
+
+```
+
+```{r}
+
+```
+
+## Practice
+For the last practice example, I will use data from the [R Ladies Sydney](https://rladiessydney.org/courses/ryouwithme/02-cleanitup-5/) blog. This data is compiled by the NSW Office of Environment and contains the _Enterococci_ counts in water samples obtained from Sydney beaches as part of the Beachwatch Water Quality Program.  
+
+1. Load the beachbugs data and have a look.
+```{r}
+
+```
+
+2. Use `pivot_wider` to transform the data into wide format.
+```{r}
+
+```
+
+3. Now, use `pivot_longer` to transform them back to long!
+```{r}
+
+```
+
+## Wrap-up  
+Please review the learning goals and be sure to use the code here as a reference when completing the homework.  
+-->[Home](https://jmledford3115.github.io/datascibiol/)
