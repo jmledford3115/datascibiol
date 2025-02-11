@@ -1585,11 +1585,45 @@ expenditures</code></pre>
 <div id="practice" class="section level2">
 <h2>Practice</h2>
 <ol style="list-style-type: decimal">
-<li><p>Are these data tidy? Please use <code>pivot_longer()</code> to
-tidy the data.</p></li>
-<li><p>Restrict the data to medical and health expenditures only. Sort
-in ascending order.</p></li>
+<li>Are these data tidy? Please use <code>pivot_longer()</code> to tidy
+the data.</li>
 </ol>
+<pre class="r"><code>expenditures %&gt;% 
+  pivot_longer(-expenditure,
+               names_to = &quot;year&quot;,
+               values_to = &quot;bn_dollars&quot;)</code></pre>
+<pre><code>## # A tibble: 25 × 3
+##    expenditure         year  bn_dollars
+##    &lt;chr&gt;               &lt;chr&gt;      &lt;dbl&gt;
+##  1 Food and Tobacco    1940        22.2
+##  2 Food and Tobacco    1945        44.5
+##  3 Food and Tobacco    1950        59.6
+##  4 Food and Tobacco    1955        73.2
+##  5 Food and Tobacco    1960        86.8
+##  6 Household Operation 1940        10.5
+##  7 Household Operation 1945        15.5
+##  8 Household Operation 1950        29  
+##  9 Household Operation 1955        36.5
+## 10 Household Operation 1960        46.2
+## # ℹ 15 more rows</code></pre>
+<ol start="2" style="list-style-type: decimal">
+<li>Restrict the data to medical and health expenditures only. Sort in
+ascending order.</li>
+</ol>
+<pre class="r"><code>expenditures %&gt;% 
+  pivot_longer(-expenditure,
+               names_to = &quot;year&quot;,
+               values_to = &quot;bn_dollars&quot;) %&gt;% 
+  filter(expenditure==&quot;Medical and Health&quot;) %&gt;% 
+  arrange(-bn_dollars)</code></pre>
+<pre><code>## # A tibble: 5 × 3
+##   expenditure        year  bn_dollars
+##   &lt;chr&gt;              &lt;chr&gt;      &lt;dbl&gt;
+## 1 Medical and Health 1960       21.1 
+## 2 Medical and Health 1955       14   
+## 3 Medical and Health 1950        9.71
+## 4 Medical and Health 1945        5.76
+## 5 Medical and Health 1940        3.53</code></pre>
 </div>
 <div id="separate" class="section level2">
 <h2><code>separate()</code></h2>
@@ -1663,15 +1697,53 @@ can do this using the stringr package.</p>
 <div id="practice-1" class="section level2">
 <h2>Practice</h2>
 <ol style="list-style-type: decimal">
-<li><p>Re-examine <code>heartrate2</code>. Use <code>separate()</code>
-for the sexes, <code>pivot_longer()</code> to tidy, and
+<li>Re-examine <code>heartrate2</code>. Use <code>separate()</code> for
+the sexes, <code>pivot_longer()</code> to tidy, and
 <code>arrange()</code> to organize by patient and drug. Store this as a
-new object <code>heartrate3</code>.</p></li>
-<li><p><code>unite()</code> is the opposite of separate(). Its syntax is
+new object <code>heartrate3</code>.</li>
+</ol>
+<pre class="r"><code>heartrate3 &lt;- heartrate2 %&gt;% 
+  separate(patient, into=c(&quot;patient&quot;, &quot;sex&quot;), sep=&quot;_&quot;) %&gt;% 
+  pivot_longer(-c(patient, sex),
+               names_to = &quot;drug&quot;,
+               values_to = &quot;heartrate&quot;)
+heartrate3</code></pre>
+<pre><code>## # A tibble: 24 × 4
+##    patient  sex   drug  heartrate
+##    &lt;chr&gt;    &lt;chr&gt; &lt;chr&gt;     &lt;dbl&gt;
+##  1 Margaret f     a            72
+##  2 Margaret f     b            74
+##  3 Margaret f     c            80
+##  4 Margaret f     d            68
+##  5 Frank    m     a            84
+##  6 Frank    m     b            84
+##  7 Frank    m     c            88
+##  8 Frank    m     d            76
+##  9 Hawkeye  m     a            64
+## 10 Hawkeye  m     b            66
+## # ℹ 14 more rows</code></pre>
+<ol start="2" style="list-style-type: decimal">
+<li><code>unite()</code> is the opposite of separate(). Its syntax is
 straightforward. You only need to give a new column name and then list
 the columns to combine with a separation character. Give it a try below
-by recombining patient and sex from <code>heartrate3</code>.</p></li>
+by recombining patient and sex from <code>heartrate3</code>.</li>
 </ol>
+<pre class="r"><code>heartrate3 %&gt;% 
+  unite(patient_sex, &quot;patient&quot;, &quot;sex&quot;, sep=&quot;_&quot;)</code></pre>
+<pre><code>## # A tibble: 24 × 3
+##    patient_sex drug  heartrate
+##    &lt;chr&gt;       &lt;chr&gt;     &lt;dbl&gt;
+##  1 Margaret_f  a            72
+##  2 Margaret_f  b            74
+##  3 Margaret_f  c            80
+##  4 Margaret_f  d            68
+##  5 Frank_m     a            84
+##  6 Frank_m     b            84
+##  7 Frank_m     c            88
+##  8 Frank_m     d            76
+##  9 Hawkeye_m   a            64
+## 10 Hawkeye_m   b            66
+## # ℹ 14 more rows</code></pre>
 </div>
 <div id="pivot_wider" class="section level2">
 <h2><code>pivot_wider()</code></h2>
@@ -1734,6 +1806,34 @@ columns.</p>
 <code>gene_exp</code>. Are these data tidy? Use
 <code>pivot_wider()</code> to tidy the data.</li>
 </ol>
+<pre class="r"><code>gene_exp &lt;- read_csv(&quot;data/gene_exp.csv&quot;)</code></pre>
+<pre><code>## Rows: 6 Columns: 3
+## ── Column specification ────────────────────────────────────────────────────────
+## Delimiter: &quot;,&quot;
+## chr (2): gene_id, type
+## dbl (1): L4_values
+## 
+## ℹ Use `spec()` to retrieve the full column specification for this data.
+## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+<pre class="r"><code>gene_exp</code></pre>
+<pre><code>## # A tibble: 6 × 3
+##   gene_id type      L4_values
+##   &lt;chr&gt;   &lt;chr&gt;         &lt;dbl&gt;
+## 1 gene1   treatment      15.6
+## 2 gene1   control        19.3
+## 3 gene2   treatment      22.2
+## 4 gene2   control        16.0
+## 5 gene3   treatment      17.7
+## 6 gene3   control        26.9</code></pre>
+<pre class="r"><code>gene_exp %&gt;% 
+  pivot_wider(names_from = &quot;type&quot;,
+              values_from = &quot;L4_values&quot;)</code></pre>
+<pre><code>## # A tibble: 3 × 3
+##   gene_id treatment control
+##   &lt;chr&gt;       &lt;dbl&gt;   &lt;dbl&gt;
+## 1 gene1        15.6    19.3
+## 2 gene2        22.2    16.0
+## 3 gene3        17.7    26.9</code></pre>
 </div>
 <div id="practice-3" class="section level2">
 <h2>Practice</h2>
@@ -1743,12 +1843,75 @@ Environment and contains the <em>Enterococci</em> counts in water
 samples obtained from Sydney beaches as part of the Beachwatch Water
 Quality Program.</p>
 <ol style="list-style-type: decimal">
-<li><p>Load the beachbugs data and have a look.</p></li>
-<li><p>Use <code>pivot_wider</code> to transform the data into wide
-format.</p></li>
-<li><p>Now, use <code>pivot_longer</code> to transform them back to
-long!</p></li>
+<li>Load the beachbugs data and have a look.</li>
 </ol>
+<pre class="r"><code>beachbugs &lt;- read_csv(&quot;data/beachbugs_long.csv&quot;)</code></pre>
+<pre><code>## Rows: 66 Columns: 3
+## ── Column specification ────────────────────────────────────────────────────────
+## Delimiter: &quot;,&quot;
+## chr (1): site
+## dbl (2): year, buglevels
+## 
+## ℹ Use `spec()` to retrieve the full column specification for this data.
+## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+<pre class="r"><code>beachbugs</code></pre>
+<pre><code>## # A tibble: 66 × 3
+##     year site                    buglevels
+##    &lt;dbl&gt; &lt;chr&gt;                       &lt;dbl&gt;
+##  1  2013 Bondi Beach                 32.2 
+##  2  2013 Bronte Beach                26.8 
+##  3  2013 Clovelly Beach               9.28
+##  4  2013 Coogee Beach                39.7 
+##  5  2013 Gordons Bay (East)          24.8 
+##  6  2013 Little Bay Beach           122.  
+##  7  2013 Malabar Beach              101.  
+##  8  2013 Maroubra Beach              47.1 
+##  9  2013 South Maroubra Beach        39.3 
+## 10  2013 South Maroubra Rockpool     96.4 
+## # ℹ 56 more rows</code></pre>
+<ol start="2" style="list-style-type: decimal">
+<li>Use <code>pivot_wider</code> to transform the data into wide
+format.</li>
+</ol>
+<pre class="r"><code>beachbugs_wide &lt;- beachbugs %&gt;% 
+  pivot_wider(names_from = site,
+              values_from = buglevels)
+beachbugs_wide</code></pre>
+<pre><code>## # A tibble: 6 × 12
+##    year `Bondi Beach` `Bronte Beach` `Clovelly Beach` `Coogee Beach`
+##   &lt;dbl&gt;         &lt;dbl&gt;          &lt;dbl&gt;            &lt;dbl&gt;          &lt;dbl&gt;
+## 1  2013          32.2           26.8             9.28           39.7
+## 2  2014          11.1           17.5            13.8            52.6
+## 3  2015          14.3           23.6             8.82           40.3
+## 4  2016          19.4           61.3            11.3            59.5
+## 5  2017          13.2           16.8             7.93           20.7
+## 6  2018          22.9           43.4            10.6            21.6
+## # ℹ 7 more variables: `Gordons Bay (East)` &lt;dbl&gt;, `Little Bay Beach` &lt;dbl&gt;,
+## #   `Malabar Beach` &lt;dbl&gt;, `Maroubra Beach` &lt;dbl&gt;,
+## #   `South Maroubra Beach` &lt;dbl&gt;, `South Maroubra Rockpool` &lt;dbl&gt;,
+## #   `Tamarama Beach` &lt;dbl&gt;</code></pre>
+<ol start="3" style="list-style-type: decimal">
+<li>Now, use <code>pivot_longer</code> to transform them back to
+long!</li>
+</ol>
+<pre class="r"><code>beachbugs_wide %&gt;% 
+  pivot_longer(-year,
+               names_to = &quot;site&quot;,
+               values_to = &quot;buglevels&quot;)</code></pre>
+<pre><code>## # A tibble: 66 × 3
+##     year site                    buglevels
+##    &lt;dbl&gt; &lt;chr&gt;                       &lt;dbl&gt;
+##  1  2013 Bondi Beach                 32.2 
+##  2  2013 Bronte Beach                26.8 
+##  3  2013 Clovelly Beach               9.28
+##  4  2013 Coogee Beach                39.7 
+##  5  2013 Gordons Bay (East)          24.8 
+##  6  2013 Little Bay Beach           122.  
+##  7  2013 Malabar Beach              101.  
+##  8  2013 Maroubra Beach              47.1 
+##  9  2013 South Maroubra Beach        39.3 
+## 10  2013 South Maroubra Rockpool     96.4 
+## # ℹ 56 more rows</code></pre>
 </div>
 <div id="wrap-up" class="section level2">
 <h2>Wrap-up</h2>
