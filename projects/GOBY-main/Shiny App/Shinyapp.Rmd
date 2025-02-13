@@ -1,0 +1,90 @@
+---
+title: "Bapp"
+output: html_document
+date: "2023-03-02"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(tidyverse)
+library(palmerpenguins)
+library(ggplot2)
+library(shiny)
+library(shinydashboard)
+library(naniar)
+library(janitor)
+library(readr)
+library(dplyr)
+```
+
+```{r}
+improve_visibility <- read_csv("CA_visibility_data.csv", na=c("-999")) %>% 
+  clean_names() %>% 
+  select(date, site_name, state,svr_val) %>% 
+  separate(date, into = c("month", "day", "year"))
+```
+
+```{r}
+ui <- fluidPage(imageOutput("picture", height = "600px", width = "100%"),
+                dashboardPage( skin = "black",
+ dashboardHeader(disable = TRUE),
+  dashboardSidebar(disable = TRUE),
+  
+  dashboardBody(
+   
+    tags$head(
+      tags$style(HTML(".box{border-radius: 20px; box-shadow: 5px 5px 10px #888888;}"
+                      ))),
+    
+  fluidRow( class="text center",
+  box(width = 2, height = 650,
+      radioButtons("x", "Choose The Site", choices = c("Agua Tibia", "Bliss SP (TRPA)", "Bliss SP (TRPA) (RHTS)", "Death Valley NP", "Dome Lands Wilderness", "Fresno", "Hoover", "Joshua Tree NP", "Kaiser", "Lake Tahoe Community College", "Lassen Volcanic NP", "Lava Beds NM", "Owens Valley", "Pinnacles NM", "Point Reyes National Seashore", "Redwood NP", "San Gabriel", "San Gorgonio Wilderness", "San Rafael", "Sequoia NP", "Trinity", "Wrightwood", "Yosemite NP")
+)
+),  #Close box     
+
+box(title = h2("Standard Visual Range Over the Year", align="center"), width = 6, height= 650, align="center",solidHeader = T,
+plotOutput("plot", width = "550px", height = "525px")),
+
+box(title="", width = 4, height = 650,
+imageOutput("image"), style ="text-align: center;"
+),
+) #close fluidrow
+) #close dashboardbody
+) #close dashboard page
+)
+server <- function(input, output, session) {
+  output$plot <- renderPlot({
+  improve_visibility %>% 
+  group_by(site_name, year) %>% 
+  summarize("Mean_Standard_Visual_Range_km"= mean(svr_val, na.rm = T)) %>% 
+  filter(site_name==input$x) %>% 
+  ggplot(aes(x=year, y=Mean_Standard_Visual_Range_km,group=2, color=Mean_Standard_Visual_Range_km))+
+  geom_line(size=1.5,alpha=0.8)+
+  geom_point(size=5)+
+      theme(axis.title.x = element_text(size = 23, margin = margin(t = 15)))+
+      theme(axis.title.y = element_text(size = 23,  margin = margin(r = 20)))+
+      theme(axis.text = element_text(size = 14))+
+      labs(y = "Average Standard Visual Range (km)")+
+      labs(x = "Year")+
+      scale_color_gradient(low="blue", high="red")+
+      guides(color = FALSE)
+  })
+  output$image <- renderImage({
+    list(src = "map.png", height = "570px", width="450px")
+  }, deleteFile = FALSE)
+  
+  output$picture <- renderImage({
+    list(src= "picture.jpg", height = "90%", width= "100%")
+  }, deleteFile = FALSE)
+    
+  }
+
+shinyApp(ui, server, options = list(launch.browser = TRUE))
+```
+
+
+
+

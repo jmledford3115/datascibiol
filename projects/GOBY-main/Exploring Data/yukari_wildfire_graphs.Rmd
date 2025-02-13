@@ -1,0 +1,184 @@
+---
+title: "Wildfire Graphs"
+author: "Yukari"
+date: "2023-03-09"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+**Loading Packages**
+```{r}
+library(tidyverse)
+library(janitor)
+library(shiny)
+library(shinydashboard)
+library(ggplot2)
+library(naniar)
+library(lubridate)
+library(dplyr)
+library(RColorBrewer)
+```
+
+**Loading the Data**
+```{r}
+visibility <- readr::read_csv("CA_visibility_data.csv")
+visibility <- visibility%>%
+  na_if(-999)
+```
+
+**Separate Dates for plotting**
+```{r}
+visibility <- visibility%>%
+  separate(Date, into = c("month", "day", "year"))
+visibility
+```
+
+**Make Plots**
+Yosemite National Park - 2016 -> 2017 -> 2018
+Empire Fire, Ferguson Fire
+```{r}
+visibility %>% 
+  group_by(SiteName, year) %>% 
+  filter(SiteName=="Yosemite NP") %>% 
+  summarize(mean_ano3_year= mean(ammNO3f_Val, na.rm = T)) %>% 
+  ggplot(aes(x=year, y=mean_ano3_year)) +
+  geom_line(color="red", 
+            alpha = 0.8, 
+            group = 1) +
+  geom_point() +
+  geom_label(label = "Ferguson Fire",
+            x = 8,
+            y = .59,
+            color = "black",
+            fill = NA) +
+  labs(title = "Mean Ammonium Nitrate in Yosemite National Park",
+       x = "Year",
+       y = "Ammonium Nitrate (ug/m^3)")
+
+ggsave("yosemitenp_ammno3.png",
+       plot = last_plot())
+```
+
+```{r}
+visibility %>% 
+  group_by(SiteName, year) %>% 
+  filter(SiteName=="Yosemite NP") %>% 
+  summarize(mean_aso4_year= mean(ammSO4f_Val, na.rm = T)) %>% 
+  ggplot(aes(x=year, y=mean_aso4_year))+
+  geom_line(color="red", 
+            alpha = 0.8, 
+            group = 1) +
+  geom_point() + 
+  geom_label(label = "Ferguson Fire",
+            x = 8,
+            y = .79,
+            color = "black",
+            fill = NA) +
+  labs(title = "Mean Ammonium Sulfate in Yosemite National Park",
+       x = "Year",
+       y = "Ammonium Sulfate (ug/m^3)")
+
+ggsave("yosemitenp_ammso4.png",
+       plot = last_plot())
+```
+```{r}
+visibility %>% 
+  group_by(SiteName, year) %>% 
+  filter(SiteName=="Yosemite NP") %>% 
+  summarize(mean_omc_year= mean(OMCf_Val, na.rm = T)) %>% 
+  ggplot(aes(x=year, y=mean_omc_year))+
+  geom_line(color="red", 
+            alpha = 0.8, 
+            group = 1) + 
+  geom_point() +
+  geom_label(label = "Ferguson Fire",
+            x = 8,
+            y = 10,
+            color = "black",
+            fill = NA) +
+  labs(title = "Mean OMC in Yosemite National Park",
+       x = "Year",
+       y = "Organic Mass by Carbon (ug/m^3)")
+
+ggsave("yosemitenp_omc.png",
+       plot = last_plot())
+```
+
+Lassen Volcanic National Park - 2020 -> 2021 
+Dixie Fire
+```{r}
+visibility %>% 
+  group_by(SiteName, year) %>% 
+  filter(SiteName=="Lassen Volcanic NP") %>% 
+  summarize(mean_ano3_year= mean(ammNO3f_Val, na.rm = T)) %>% 
+  ggplot(aes(x=year, y=mean_ano3_year)) +
+  geom_line(color="red", 
+            alpha = 0.8, 
+            group = 1) +
+  geom_point() +
+  geom_label(label = "Dixie Fire",
+            x = 11,
+            y = .22,
+            color = "black",
+            fill = NA) +
+  labs(title = "Mean Ammonium Nitrate in Lassen Volcanic National Park",
+       x = "Year",
+       y = "Ammonium Nitrate (ug/m^3)")
+
+ggsave("lassenvolcanicnp_ammno3.png",
+       plot = last_plot(),
+       width = 7,
+       height = 5)
+```
+```{r}
+visibility %>% 
+  group_by(SiteName, year) %>% 
+  filter(SiteName=="Lassen Volcanic NP") %>% 
+  summarize(mean_aso4_year= mean(ammSO4f_Val, na.rm = T)) %>% 
+  ggplot(aes(x=year, y=mean_aso4_year))+
+  geom_line(color="red", 
+            alpha = 0.8, 
+            group = 1) +
+  geom_point() + 
+  geom_label(label = "Dixie Fire",
+            x = 11,
+            y = .465,
+            color = "black",
+            fill = NA) +
+  labs(title = "Mean Ammonium Sulfate in Lassen Volcanic National Park",
+       x = "Year",
+       y = "Ammonium Sulfate (ug/m^3)")
+
+ggsave("lassenvolcanicnp_ammso4.png",
+       plot = last_plot(),
+       width = 7,
+       height = 5)
+```
+```{r}
+visibility %>% 
+  group_by(SiteName, year) %>% 
+  filter(SiteName=="Lassen Volcanic NP") %>% 
+  summarize(mean_omc_year= mean(OMCf_Val, na.rm = T)) %>% 
+  ggplot(aes(x=year, y=mean_omc_year))+
+  geom_line(color="red", 
+            alpha = 0.8, 
+            group = 1) + 
+  geom_point() +
+  geom_label(label = "Dixie Fire",
+            x = 11,
+            y = 5.6,
+            color = "black",
+            fill = NA) +
+  labs(title = "Mean OMC in Lassen Volcanic National Park",
+       x = "Year",
+       y = "Organic Mass by Carbon (ug/m^3)")
+
+ggsave("lassenvolcanicnp_omc.png",
+       plot = last_plot(),
+       width = 7,
+       height = 5)
+```
+
