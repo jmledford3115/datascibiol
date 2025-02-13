@@ -1,0 +1,36 @@
+---
+title: "Lab 8 Intro"
+date: "`r Sys.Date()`"
+output: ioslides_presentation
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+library("jpeg")
+library("tidyverse")
+```
+
+## Setup
+1. Login to the lab computer.    
+2. Navigate to github.com and login.  
+3. Find the class repository "datascibiol" (https://github.com/jmledford3115/datascibiol).  
+4. Download a copy the class repository to the desktop.  
+5. Clone your repository to the desktop using GitHub Desktop.  
+6. Copy the files for today's lab from the class repository and paste them into **your** repository.  
+7. Open today's lab in RStudio.  
+
+## Warm-up
+Use the heartrate data from the previous lab to answer the following questions.  
+```{r}
+heartrate <- read_csv("data/heartrate.csv")
+```
+
+1. Make a barplot that shows the heartrate for drug a for each patient.
+```{r}
+
+```
+
+2. Make a barplot that shows the average heartrate for each drug.
+```{r}
+
+```
