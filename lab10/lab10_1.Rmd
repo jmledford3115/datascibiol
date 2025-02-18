@@ -11,9 +11,7 @@ output:
 
 ## Learning Goals
 *At the end of this exercise, you will be able to:*    
-1. Produce boxplots using `ggplot.`  
-2. Customize labels on axes using `labs` and `themes`.  
-3. Use `color`, `fill`, and `group` to customize plots and improve overall aesthetics.  
+1. Produce boxplots using `ggplot`. 
 
 ##Resources  
 - [ggplot2 cheatsheet](https://www.rstudio.com/wp-content/uploads/2015/03/ggplot2-cheatsheet.pdf)  

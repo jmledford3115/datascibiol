@@ -101,5 +101,3 @@ Use `separate()` to separate institution name into two new columns "UNIV" and "C
 ```{r}
 
 ```
-
-## Knit Your Output and Post to [GitHub](https://github.com/FRS417-DataScienceBiologists)

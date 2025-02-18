@@ -1,0 +1,50 @@
+---
+title: "Homework 11"
+author: "Your Name Here"
+date: "`r Sys.Date()`"
+output:
+  html_document: default
+  pdf_document: default
+---
+
+## Instructions
+Answer the following questions and complete the exercises in RMarkdown. Please embed all of your code and push your final work to your repository. Your final lab report should be organized, clean, and run free from errors. Remember, you must remove the `#` for the included code chunks to run. Be sure to add your name to the author header above.  
+
+Make sure to use the formatting conventions of RMarkdown to make your report neat and clean!    
+
+## Background
+In the `data` folder, you will find data about shark incidents in California between 1950-2022. The [data](https://catalog.data.gov/dataset/shark-incident-database-california-56167) are from: State of California- Shark Incident Database.   
+
+## Load the libraries
+```{r message=FALSE, warning=FALSE}
+library("tidyverse")
+library("janitor")
+library("naniar")
+```
+
+## Load the data
+Run the following code chunk to import the data.
+```{r message=FALSE, warning=FALSE}
+sharks <- read_csv("data/SharkIncidents_1950_2022_220302.csv") %>% clean_names()
+```
+
+## Questions
+1. Start by doing some data exploration using your preferred function(s). What is the structure of the data? Where are the missing values and how are they represented?  
+
+2. Notice that there are some incidents identified as "NOT COUNTED". These should be removed from the data because they were either not sharks, unverified, or were provoked. It's OK to replace the `sharks` object.
+
+3. Are there any "hotspots" for shark incidents in California? Make a table and plot that shows the total number of incidents per county. Which county has the highest number of incidents?
+
+4. Are there months of the year when incidents are more likely to occur? Make a table and a plot that shows the total number of incidents by month. Which month has the highest number of incidents?  
+
+5. How do the number and types of injuries compare by county? Make a table that shows the number of injury types by county. Which county has the highest number incidents?
+
+6. Use the table from #5 to make a plot that shows the total number of incidents by county.
+
+7. In the data, `mode` refers to a type of activity. Which activity is associated with the highest number of incidents?
+
+8. Make a plot that compares the number of incidents by activity.
+
+9. Which shark species is involved in the highest number of incidents?  
+
+10. Are all incidents involving Great White's fatal? Make a plot that shows the number and types of incidents for Great White's only.  
