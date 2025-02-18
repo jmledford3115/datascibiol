@@ -1,0 +1,23 @@
+---
+title: "Lab 11 Intro"
+date: "`r Sys.Date()`"
+output: ioslides_presentation
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+library("jpeg")
+```
+
+## Seating & Set-up
+1. Please make sure that you sit next to your group members for the rest of the quarter.
+2. Please set-up your computer as normal.
+
+## Group project  
+We will meet in our groups today to compare the data sets that we found so far. Questions to consider:  
+
+1. Does it have a mix of variables?  
+2. Does it have a story to tell?
+3. Is there enough to show the range of skills we have learned this quarter?    
+
+Remember, in the end you will need to deliver a 5-6 minute presentation of your work. If you need help, please ask!  
