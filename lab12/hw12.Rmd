@@ -1,0 +1,63 @@
+---
+title: "Lab 12 Homework"
+author: "Your Name Here"
+date: "`r Sys.Date()`"
+output:
+  html_document:
+    theme: spacelab
+    toc: no
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Instructions
+Answer the following questions and complete the exercises in RMarkdown. Please embed all of your code and push your final work to your repository. Your final lab report should be organized, clean, and run free from errors. Remember, you must remove the `#` for the included code chunks to run. Be sure to add your name to the author header above. For any included plots, make sure they are clearly labeled. You are free to use any plot type that you feel best communicates the results of your analysis.  
+
+Make sure to use the formatting conventions of RMarkdown to make your report neat and clean!  
+
+## Load the libraries
+```{r message=FALSE, warning=FALSE}
+library(tidyverse)
+library(janitor)
+library(naniar)
+``` 
+
+```{r}
+options(scipen = 999)
+```
+
+## Resources
+The idea for this assignment came from [Rebecca Barter's](http://www.rebeccabarter.com/blog/2017-11-17-ggplot2_tutorial/) ggplot tutorial so if you get stuck this is a good place to have a look.  
+
+## Gapminder
+For this assignment, we are going to use the dataset [gapminder](https://cran.r-project.org/web/packages/gapminder/index.html). Gapminder includes information about economics, population, and life expectancy from countries all over the world. You will need to install it before use.  
+```{r}
+#install.packages("gapminder")
+library("gapminder")
+```
+
+1. Use the function(s) of your choice to get an idea of the overall structure of the data frame, including its dimensions, column names, variable classes, etc. As part of this, determine how NA's are treated in the data.   
+
+2. How many countries are represented in this dataset? Make a table and a plot that shows the number of countries by continent.  
+
+3. Which country has the largest population growth since 1952? Show this as a table.  
+
+
+4. Make a plot that shows population growth for the country you found in question #3. This plot should show the change over time.  
+
+5. How has global life expectancy changed between 1952 and 2007? Show the min, mean, and max for all countries in the dataset. Show this as a table.  
+
+6. Make a plot that shows how mean life expectancy has changed over time for each continent. What is your interpretation of what happened in Africa between 1987 and 2002?  
+
+7. We are interested in the relationship between per capita GDP and life expectancy; i.e. does having more money help you live longer? Show this as a plot.  
+
+8. Which five countries have had the highest GDP per capita growth over the years represented in this dataset? Show this as a table.  
+
+9. How does per capita GDP growth compare between these same five countries? Show this as a plot.  
+
+10. Do one analysis of your choice that includes a table and plot as outputs.  
+
+## Knit and Upload
+Please knit your work as a .pdf or .html file and upload to Canvas. Homework is due before the start of the next lab. No late work is accepted. Make sure to use the formatting conventions of RMarkdown to make your report neat and clean! 
