@@ -56,7 +56,7 @@ Rules:
 + `values_to` - Name of the new column; it will contain the data stored in the values of gathered columns
 
 ## Example 1: column names are data
-The following data show results from a drug trial with four treatments on six patients. The values represent resting heart rate.  
+The following data show results from a drug trial with four treatments on six patients. The values represent resting heart rate.
 ```{r}
 heartrate <- read_csv("data/heartrate.csv")
 heartrate
