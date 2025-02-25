@@ -26,50 +26,59 @@ Data: http://datadryad.org/resource/doi:10.5061/dryad.q5j65/1
 
 **1. Load the data into a new object called `homerange`.**
 ```{r}
-
+homerange <- read_csv("data/Tamburelloetal_HomeRangeDatabase.csv")
 ```
 
 **2. What are the dimensions of the dataframe?**  
 ```{r}
-
+dim(homerange)
 ```
 
 **3. Are there any NA's in the dataframe? Try using summary to determine which variables have more or less NA's.**
 ```{r}
-
+anyNA(homerange)
 ```
 
 **4. What are the names of the columns in the dataframe?**
 ```{r}
-
+names(homerange)
 ```
 
 **5. Based on the summary output, do you see anything in the data that looks strange? Think like a biologist and consider the variables.**  
 
+_Some of the variables have stange values, like -999_. 
 
 **6. The `min` and `max` functions can be used to find the minimum and maximum values in a vector. Use these functions to find the minimum and maximum values for the variable `mean.mass.g`.**  
 ```{r}
+min(homerange$mean.mass.g)
+```
 
+```{r}
+max(homerange$mean.mass.g)
 ```
 
 **7. Change the class of the variables `taxon` and `order` to factors and display their levels.**  
 ```{r}
+homerange$taxon <- as.factor(homerange$taxon)
+```
 
+```{r}
+homerange$order <- as.factor(homerange$order)
 ```
 
 **8. Use `select` to pull out the variables taxon and common.name.**  
 ```{r}
-
+select(homerange, taxon, common.name)
 ```
 
 **9. Use `filter` to pull out all mammals from the data.**
 ```{r}
-
+filter(homerange, taxon == "mammals")
 ```
 
 **10. What is the largest `mean.hra.m2` for mammals? This is a very large number! Which animal has this homerange? Look them up online and see if you can figure out why this number is so large.**
 ```{r}
-
+max(filter(homerange, taxon == "mammals")$mean.hra.m2)
 ```
 
 ## Knit and Upload
