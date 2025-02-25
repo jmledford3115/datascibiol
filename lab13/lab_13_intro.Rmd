@@ -1,0 +1,26 @@
+---
+title: "Lab 13 Intro"
+date: "`r Sys.Date()`"
+output: ioslides_presentation
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+library("jpeg")
+```
+
+## Seating & Set-up
+1. Please make sure that you sit next to your group members for the rest of the quarter.
+2. Please set-up your computer as normal.
+
+## Stadia Maps
+1. Make an account with [Stadia Maps](https://client.stadiamaps.com/signup/).  
+2. You need to add a "property" which is just a name for your project.  
+3. Once you have an account, you can get an API key.  
+4. You will need the key today to use the maps.  
+
+## Group project Check-in
+1. You should have settled on the data you plan to use.  
+2. Who is doing what? Make sure everyone has a job to do.  
+3. Keep your code updated in your repository.  
+4. If you are stuck, please see us for help.  
