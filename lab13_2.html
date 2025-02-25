@@ -10,7 +10,7 @@
 
 
 
-<meta name="date" content="2025-02-24" />
+<meta name="date" content="2025-02-25" />
 
 <title>Joins and Lubridate</title>
 
@@ -1503,7 +1503,7 @@ border-radius: 0px;
 
 
 <h1 class="title toc-ignore">Joins and Lubridate</h1>
-<h4 class="date">2025-02-24</h4>
+<h4 class="date">2025-02-25</h4>
 
 </div>
 
@@ -1648,6 +1648,11 @@ will use to join.</p>
 <ol style="list-style-type: decimal">
 <li>Which type of join is most appropriate in this case?</li>
 </ol>
+<pre class="r"><code>spiders_with_locs &lt;- 
+  left_join(spider_records, spiders_locs, by = &quot;Accession&quot;)</code></pre>
+<pre class="r"><code>names(spiders_with_locs) #make sure it worked</code></pre>
+<pre><code>##  [1] &quot;Accession&quot; &quot;Family&quot;    &quot;Genus&quot;     &quot;Country&quot;   &quot;State&quot;     &quot;County&quot;   
+##  [7] &quot;Locality&quot;  &quot;Date&quot;      &quot;Collector&quot; &quot;Latitude&quot;  &quot;Longitude&quot;</code></pre>
 <p>As a side note, joining data can highlight problems or typos with the
 data when the join does not go as expected.</p>
 </div>
@@ -1656,21 +1661,41 @@ data when the join does not go as expected.</p>
 <p>Did you notice the date column? It seems to be in the format
 Day/Month/Year and is of class character. We need to change this to a
 date format that R will recognize.</p>
+<pre class="r"><code>glimpse(spiders_with_locs)</code></pre>
+<pre><code>## Rows: 270
+## Columns: 11
+## $ Accession &lt;dbl&gt; 9038521, 9038522, 9038523, 9038524, 9038525, 9038526, 903852…
+## $ Family    &lt;chr&gt; &quot;Telemidae&quot;, &quot;Telemidae&quot;, &quot;Telemidae&quot;, &quot;Telemidae&quot;, &quot;Telemid…
+## $ Genus     &lt;chr&gt; &quot;Usofila&quot;, &quot;Usofila&quot;, &quot;Usofila&quot;, &quot;Usofila&quot;, &quot;Usofila&quot;, &quot;Usof…
+## $ Country   &lt;chr&gt; &quot;USA&quot;, &quot;USA&quot;, &quot;USA&quot;, &quot;USA&quot;, &quot;USA&quot;, &quot;USA&quot;, &quot;USA&quot;, &quot;USA&quot;, &quot;USA…
+## $ State     &lt;chr&gt; &quot;California&quot;, &quot;California&quot;, &quot;California&quot;, &quot;California&quot;, &quot;Cal…
+## $ County    &lt;chr&gt; &quot;Alameda&quot;, &quot;Alameda&quot;, &quot;Alameda&quot;, &quot;Alameda&quot;, &quot;Alameda&quot;, &quot;Alam…
+## $ Locality  &lt;chr&gt; &quot;Berkeley&quot;, &quot;Castro Valley&quot;, &quot;Niles, off Niles Cyn. on Palom…
+## $ Date      &lt;chr&gt; &quot;2/3/1958&quot;, &quot;24/3/1941&quot;, &quot;2/1/1964&quot;, &quot;18/2/1953&quot;, &quot;25/1/1953…
+## $ Collector &lt;chr&gt; &quot;LM Smith&quot;, &quot;WM Pearce&quot;, &quot;V Roth&quot;, &quot;WG Bentinck&quot;, &quot;R Schuste…
+## $ Latitude  &lt;dbl&gt; 37.87, 37.73, 37.60, 37.80, 37.80, 37.80, 37.80, 37.82, 37.8…
+## $ Longitude &lt;dbl&gt; -122.24, -122.07, -121.95, -122.16, -122.16, -122.16, -122.1…</code></pre>
 <p>The <code>lubridate</code> package was created to deal with dates of
 all types. There are many useful functions in <code>lubridate</code> for
 working with dates. Please see the excellent tutorial provided by <a href="https://www.youtube.com/watch?v=VYAo69WdJZg&amp;ab_channel=RichardOnData">RichardOnData</a>.</p>
 <pre class="r"><code>day &lt;- today()
 day</code></pre>
-<pre><code>## [1] &quot;2025-02-24&quot;</code></pre>
+<pre><code>## [1] &quot;2025-02-25&quot;</code></pre>
 <pre class="r"><code>str(day)</code></pre>
-<pre><code>##  Date[1:1], format: &quot;2025-02-24&quot;</code></pre>
+<pre><code>##  Date[1:1], format: &quot;2025-02-25&quot;</code></pre>
 <pre class="r"><code>datetime &lt;- now()
 datetime</code></pre>
-<pre><code>## [1] &quot;2025-02-24 19:16:46 PST&quot;</code></pre>
+<pre><code>## [1] &quot;2025-02-25 14:34:16 PST&quot;</code></pre>
 <p>We want to change our date column to the standard “YEAR-MO-DA” format
 that R will recognize as a date. Right now it is listed as
 day-month-year. We can use the lubridate function <code>dmy</code> for
 this.</p>
+<pre class="r"><code>spiders_with_locs &lt;- spiders_with_locs %&gt;% 
+  mutate(Date = dmy(Date))</code></pre>
+<pre><code>## Warning: There was 1 warning in `mutate()`.
+## ℹ In argument: `Date = dmy(Date)`.
+## Caused by warning:
+## !  2 failed to parse.</code></pre>
 <p>There are many different options for working with dates and datetimes
 in lubridate including <code>ymd</code>, <code>mdy</code>,
 <code>dmy</code>, <code>mdy_hms</code>, <code>ymd_hms</code>.</p>
@@ -1685,7 +1710,18 @@ dateformat5 &lt;- &quot;20200922 170000&quot;</code></pre>
 <ol style="list-style-type: decimal">
 <li>Convert each of the examples above using lubridate.</li>
 </ol>
+<pre class="r"><code>ymd(dateformat1)</code></pre>
+<pre><code>## [1] &quot;2020-09-22&quot;</code></pre>
+<pre class="r"><code>mdy(dateformat2)</code></pre>
+<pre><code>## [1] &quot;2020-09-22&quot;</code></pre>
+<pre class="r"><code>dmy(dateformat3)</code></pre>
+<pre><code>## [1] &quot;2020-09-22&quot;</code></pre>
+<pre class="r"><code>mdy_hms(dateformat4)</code></pre>
+<pre><code>## [1] &quot;2020-09-22 17:00:00 UTC&quot;</code></pre>
+<pre class="r"><code>ymd_hms(dateformat5)</code></pre>
+<pre><code>## [1] &quot;2020-09-22 17:00:00 UTC&quot;</code></pre>
 <p>Let’s save our final data to a <code>.csv</code>.</p>
+<pre class="r"><code>write.csv(spiders_with_locs, file = &quot;spiders_with_locs.csv&quot;, row.names = FALSE)</code></pre>
 </div>
 <div id="thats-it-lets-take-a-break" class="section level2">
 <h2>That’s it, let’s take a break!</h2>

@@ -92,11 +92,12 @@ We will use a join here to merge lat/long to our data frame. Both files contain 
 ## Practice
 1. Which type of join is most appropriate in this case?  
 ```{r}
-
+spiders_with_locs <- 
+  left_join(spider_records, spiders_locs, by = "Accession")
 ```
 
 ```{r}
-
+names(spiders_with_locs) #make sure it worked
 ```
 
 As a side note, joining data can highlight problems or typos with the data when the join does not go as expected.  
@@ -104,7 +105,7 @@ As a side note, joining data can highlight problems or typos with the data when 
 ## Formatting Dates
 Did you notice the date column? It seems to be in the format Day/Month/Year and is of class character. We need to change this to a date format that R will recognize.
 ```{r}
-
+glimpse(spiders_with_locs)
 ```
 
 The `lubridate` package was created to deal with dates of all types. There are many useful functions in `lubridate` for working with dates. Please see the excellent tutorial provided by [RichardOnData](https://www.youtube.com/watch?v=VYAo69WdJZg&ab_channel=RichardOnData).
@@ -124,7 +125,8 @@ datetime
 
 We want to change our date column to the standard "YEAR-MO-DA" format that R will recognize as a date. Right now it is listed as day-month-year. We can use the lubridate function `dmy` for this. 
 ```{r}
-
+spiders_with_locs <- spiders_with_locs %>% 
+  mutate(Date = dmy(Date))
 ```
 
 There are many different options for working with dates and datetimes in lubridate including `ymd`, `mdy`, `dmy`, `mdy_hms`, `ymd_hms`.
@@ -139,28 +141,28 @@ dateformat5 <- "20200922 170000"
 ## Practice 
 1. Convert each of the examples above using lubridate.
 ```{r}
-
+ymd(dateformat1)
 ```
 
 ```{r}
-
+mdy(dateformat2)
 ```
 
 ```{r}
-
+dmy(dateformat3)
 ```
 
 ```{r}
-
+mdy_hms(dateformat4)
 ```
 
 ```{r}
-
+ymd_hms(dateformat5)
 ```
 
 Let's save our final data to a `.csv`.
 ```{r}
-
+write.csv(spiders_with_locs, file = "spiders_with_locs.csv", row.names = FALSE)
 ```
 
 ## That's it, let's take a break!   
