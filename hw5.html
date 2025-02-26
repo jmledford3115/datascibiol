@@ -13,7 +13,7 @@
 
 <meta name="date" content="2025-02-26" />
 
-<title>Homework 7</title>
+<title>Homework 5</title>
 
 <script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
 // be compatible with the behavior of Pandoc < 2.8).
@@ -374,7 +374,7 @@ display: none;
 
 
 
-<h1 class="title toc-ignore">Homework 7</h1>
+<h1 class="title toc-ignore">Homework 5</h1>
 <h4 class="author">Key</h4>
 <h4 class="date">2025-02-26</h4>
 
@@ -383,321 +383,181 @@ display: none;
 
 <div id="instructions" class="section level2">
 <h2>Instructions</h2>
-<p>Answer the following questions and complete the exercises in
-RMarkdown. Please embed all of your code and push your final work to
-your repository. Your final lab report should be organized, clean, and
-run free from errors. Remember, you must remove the <code>#</code> for
-the included code chunks to run. Be sure to add your name to the author
-header above.</p>
-<p>Make sure to use the formatting conventions of RMarkdown to make your
-report neat and clean!</p>
+<p>Answer the following questions and/or complete the exercises in
+RMarkdown. Please embed all of your code and push the final work to your
+repository. Your report should be organized, clean, and run free from
+errors. Remember, you must remove the <code>#</code> for any included
+code chunks to run.</p>
 </div>
-<div id="load-the-libraries" class="section level2">
-<h2>Load the libraries</h2>
-<pre class="r"><code>library(tidyverse)</code></pre>
-<p>For this assignment we are going to work with a data set from the <a href="http://www.fao.org/about/en/">United Nations Food and Agriculture
-Organization</a> on world fisheries.</p>
-<p>Load the data <code>fisheries.csv</code> as a new object titled
-<code>fisheries</code>.</p>
-<pre class="r"><code>fisheries &lt;- read_csv(&quot;data/fisheries.csv&quot;)</code></pre>
-<pre><code>## Rows: 376771 Columns: 10
+<div id="load-the-tidyverse" class="section level2">
+<h2>Load the tidyverse</h2>
+<pre class="r"><code>library(&quot;tidyverse&quot;)
+library(&quot;janitor&quot;)</code></pre>
+</div>
+<div id="data" class="section level2">
+<h2>Data</h2>
+<p>For this assignment, we will use data from a study on vertebrate
+community composition and impacts from defaunation in <a href="https://en.wikipedia.org/wiki/Gabon">Gabon, Africa</a>. One thing
+to notice is that the data include 24 separate transects. Each transect
+represents a path through different forest management areas.</p>
+<p>Reference: Koerner SE, Poulsen JR, Blanchard EJ, Okouyi J, Clark CJ.
+Vertebrate community composition and diversity declines along a
+defaunation gradient radiating from rural villages in Gabon. <em>Journal
+of Applied Ecology</em>. 2016. This paper, along with a description of
+the variables is included inside the data folder.</p>
+<p><strong>1. Load <code>IvindoData_DryadVersion.csv</code> and store it
+as a new object called <code>gabon</code>.</strong></p>
+<pre class="r"><code>gabon &lt;- read_csv(&quot;data/IvindoData_DryadVersion.csv&quot;)</code></pre>
+<pre><code>## Rows: 24 Columns: 26
 ## ── Column specification ────────────────────────────────────────────────────────
 ## Delimiter: &quot;,&quot;
-## chr (6): country, common_name, isscaap_taxonomic_group, asfis_species_number...
-## dbl (4): isscaap_group_number, fao_major_fishing_area, year, catch
+## chr  (2): HuntCat, LandUse
+## dbl (24): TransectID, Distance, NumHouseholds, Veg_Rich, Veg_Stems, Veg_lian...
 ## 
 ## ℹ Use `spec()` to retrieve the full column specification for this data.
 ## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
-<ol style="list-style-type: decimal">
-<li>Explore the data. What are the names of the variables, what are the
-dimensions, are there any NA’s, what are the classes of the variables,
-etc.? You may use the functions that you prefer.</li>
-</ol>
-<pre class="r"><code>glimpse(fisheries)</code></pre>
-<pre><code>## Rows: 376,771
-## Columns: 10
-## $ country                 &lt;chr&gt; &quot;Albania&quot;, &quot;Albania&quot;, &quot;Albania&quot;, &quot;Albania&quot;, &quot;A…
-## $ common_name             &lt;chr&gt; &quot;Angelsharks, sand devils nei&quot;, &quot;Angelsharks, …
-## $ isscaap_group_number    &lt;dbl&gt; 38, 38, 38, 38, 38, 38, 38, 38, 38, 38, 38, 38…
-## $ isscaap_taxonomic_group &lt;chr&gt; &quot;Sharks, rays, chimaeras&quot;, &quot;Sharks, rays, chim…
-## $ asfis_species_number    &lt;chr&gt; &quot;10903XXXXX&quot;, &quot;10903XXXXX&quot;, &quot;10903XXXXX&quot;, &quot;109…
-## $ asfis_species_name      &lt;chr&gt; &quot;Squatinidae&quot;, &quot;Squatinidae&quot;, &quot;Squatinidae&quot;, &quot;…
-## $ fao_major_fishing_area  &lt;dbl&gt; 37, 37, 37, 37, 37, 37, 37, 37, 37, 37, 37, 37…
-## $ measure                 &lt;chr&gt; &quot;Quantity (tonnes)&quot;, &quot;Quantity (tonnes)&quot;, &quot;Qua…
-## $ year                    &lt;dbl&gt; 1995, 1996, 1997, 1998, 1999, 2000, 2001, 2002…
-## $ catch                   &lt;dbl&gt; NA, 53, 20, 31, 30, 30, 16, 79, 1, 4, 68, 55, …</code></pre>
-<ol start="2" style="list-style-type: decimal">
-<li>How many countries are represented in the data? Provide a count and
-list their names.</li>
-</ol>
-<pre class="r"><code>fisheries %&gt;% 
-  summarize(n_countries = n_distinct(country))</code></pre>
-<pre><code>## # A tibble: 1 × 1
-##   n_countries
-##         &lt;int&gt;
-## 1         203</code></pre>
-<pre class="r"><code>fisheries$country %&gt;% unique()</code></pre>
-<pre><code>##   [1] &quot;Albania&quot;                   &quot;Algeria&quot;                  
-##   [3] &quot;American Samoa&quot;            &quot;Angola&quot;                   
-##   [5] &quot;Anguilla&quot;                  &quot;Antigua and Barbuda&quot;      
-##   [7] &quot;Argentina&quot;                 &quot;Aruba&quot;                    
-##   [9] &quot;Australia&quot;                 &quot;Bahamas&quot;                  
-##  [11] &quot;Bahrain&quot;                   &quot;Bangladesh&quot;               
-##  [13] &quot;Barbados&quot;                  &quot;Belgium&quot;                  
-##  [15] &quot;Belize&quot;                    &quot;Benin&quot;                    
-##  [17] &quot;Bermuda&quot;                   &quot;Bonaire/S.Eustatius/Saba&quot; 
-##  [19] &quot;Bosnia and Herzegovina&quot;    &quot;Brazil&quot;                   
-##  [21] &quot;British Indian Ocean Ter&quot;  &quot;British Virgin Islands&quot;   
-##  [23] &quot;Brunei Darussalam&quot;         &quot;Bulgaria&quot;                 
-##  [25] &quot;Cabo Verde&quot;                &quot;Cambodia&quot;                 
-##  [27] &quot;Cameroon&quot;                  &quot;Canada&quot;                   
-##  [29] &quot;Cayman Islands&quot;            &quot;Channel Islands&quot;          
-##  [31] &quot;Chile&quot;                     &quot;China&quot;                    
-##  [33] &quot;China, Hong Kong SAR&quot;      &quot;China, Macao SAR&quot;         
-##  [35] &quot;Colombia&quot;                  &quot;Comoros&quot;                  
-##  [37] &quot;Congo, Dem. Rep. of the&quot;   &quot;Congo, Republic of&quot;       
-##  [39] &quot;Cook Islands&quot;              &quot;Costa Rica&quot;               
-##  [41] &quot;Croatia&quot;                   &quot;Cuba&quot;                     
-##  [43] &quot;Cura\xe7ao&quot;                &quot;Cyprus&quot;                   
-##  [45] &quot;C\xf4te d&#39;Ivoire&quot;          &quot;Denmark&quot;                  
-##  [47] &quot;Djibouti&quot;                  &quot;Dominica&quot;                 
-##  [49] &quot;Dominican Republic&quot;        &quot;Ecuador&quot;                  
-##  [51] &quot;Egypt&quot;                     &quot;El Salvador&quot;              
-##  [53] &quot;Equatorial Guinea&quot;         &quot;Eritrea&quot;                  
-##  [55] &quot;Estonia&quot;                   &quot;Ethiopia&quot;                 
-##  [57] &quot;Falkland Is.(Malvinas)&quot;    &quot;Faroe Islands&quot;            
-##  [59] &quot;Fiji, Republic of&quot;         &quot;Finland&quot;                  
-##  [61] &quot;France&quot;                    &quot;French Guiana&quot;            
-##  [63] &quot;French Polynesia&quot;          &quot;French Southern Terr&quot;     
-##  [65] &quot;Gabon&quot;                     &quot;Gambia&quot;                   
-##  [67] &quot;Georgia&quot;                   &quot;Germany&quot;                  
-##  [69] &quot;Ghana&quot;                     &quot;Gibraltar&quot;                
-##  [71] &quot;Greece&quot;                    &quot;Greenland&quot;                
-##  [73] &quot;Grenada&quot;                   &quot;Guadeloupe&quot;               
-##  [75] &quot;Guam&quot;                      &quot;Guatemala&quot;                
-##  [77] &quot;Guinea&quot;                    &quot;GuineaBissau&quot;             
-##  [79] &quot;Guyana&quot;                    &quot;Haiti&quot;                    
-##  [81] &quot;Honduras&quot;                  &quot;Iceland&quot;                  
-##  [83] &quot;India&quot;                     &quot;Indonesia&quot;                
-##  [85] &quot;Iran (Islamic Rep. of)&quot;    &quot;Iraq&quot;                     
-##  [87] &quot;Ireland&quot;                   &quot;Isle of Man&quot;              
-##  [89] &quot;Israel&quot;                    &quot;Italy&quot;                    
-##  [91] &quot;Jamaica&quot;                   &quot;Japan&quot;                    
-##  [93] &quot;Jordan&quot;                    &quot;Kenya&quot;                    
-##  [95] &quot;Kiribati&quot;                  &quot;Korea, Dem. People&#39;s Rep&quot; 
-##  [97] &quot;Korea, Republic of&quot;        &quot;Kuwait&quot;                   
-##  [99] &quot;Latvia&quot;                    &quot;Lebanon&quot;                  
-## [101] &quot;Liberia&quot;                   &quot;Libya&quot;                    
-## [103] &quot;Lithuania&quot;                 &quot;Madagascar&quot;               
-## [105] &quot;Malaysia&quot;                  &quot;Maldives&quot;                 
-## [107] &quot;Malta&quot;                     &quot;Marshall Islands&quot;         
-## [109] &quot;Martinique&quot;                &quot;Mauritania&quot;               
-## [111] &quot;Mauritius&quot;                 &quot;Mayotte&quot;                  
-## [113] &quot;Mexico&quot;                    &quot;Micronesia, Fed.States of&quot;
-## [115] &quot;Monaco&quot;                    &quot;Montenegro&quot;               
-## [117] &quot;Montserrat&quot;                &quot;Morocco&quot;                  
-## [119] &quot;Mozambique&quot;                &quot;Myanmar&quot;                  
-## [121] &quot;Namibia&quot;                   &quot;Nauru&quot;                    
-## [123] &quot;Netherlands&quot;               &quot;Netherlands Antilles&quot;     
-## [125] &quot;New Caledonia&quot;             &quot;New Zealand&quot;              
-## [127] &quot;Nicaragua&quot;                 &quot;Nigeria&quot;                  
-## [129] &quot;Niue&quot;                      &quot;Norfolk Island&quot;           
-## [131] &quot;Northern Mariana Is.&quot;      &quot;Norway&quot;                   
-## [133] &quot;Oman&quot;                      &quot;Other nei&quot;                
-## [135] &quot;Pakistan&quot;                  &quot;Palau&quot;                    
-## [137] &quot;Palestine, Occupied Tr.&quot;   &quot;Panama&quot;                   
-## [139] &quot;Papua New Guinea&quot;          &quot;Peru&quot;                     
-## [141] &quot;Philippines&quot;               &quot;Pitcairn Islands&quot;         
-## [143] &quot;Poland&quot;                    &quot;Portugal&quot;                 
-## [145] &quot;Puerto Rico&quot;               &quot;Qatar&quot;                    
-## [147] &quot;Romania&quot;                   &quot;Russian Federation&quot;       
-## [149] &quot;R\xe9union&quot;                &quot;Saint Barth\xe9lemy&quot;      
-## [151] &quot;Saint Helena&quot;              &quot;Saint Kitts and Nevis&quot;    
-## [153] &quot;Saint Lucia&quot;               &quot;Saint Vincent/Grenadines&quot; 
-## [155] &quot;SaintMartin&quot;               &quot;Samoa&quot;                    
-## [157] &quot;Sao Tome and Principe&quot;     &quot;Saudi Arabia&quot;             
-## [159] &quot;Senegal&quot;                   &quot;Serbia and Montenegro&quot;    
-## [161] &quot;Seychelles&quot;                &quot;Sierra Leone&quot;             
-## [163] &quot;Singapore&quot;                 &quot;Sint Maarten&quot;             
-## [165] &quot;Slovenia&quot;                  &quot;Solomon Islands&quot;          
-## [167] &quot;Somalia&quot;                   &quot;South Africa&quot;             
-## [169] &quot;Spain&quot;                     &quot;Sri Lanka&quot;                
-## [171] &quot;St. Pierre and Miquelon&quot;   &quot;Sudan&quot;                    
-## [173] &quot;Sudan (former)&quot;            &quot;Suriname&quot;                 
-## [175] &quot;Svalbard and Jan Mayen&quot;    &quot;Sweden&quot;                   
-## [177] &quot;Syrian Arab Republic&quot;      &quot;Taiwan Province of China&quot; 
-## [179] &quot;Tanzania, United Rep. of&quot;  &quot;Thailand&quot;                 
-## [181] &quot;TimorLeste&quot;                &quot;Togo&quot;                     
-## [183] &quot;Tokelau&quot;                   &quot;Tonga&quot;                    
-## [185] &quot;Trinidad and Tobago&quot;       &quot;Tunisia&quot;                  
-## [187] &quot;Turkey&quot;                    &quot;Turks and Caicos Is.&quot;     
-## [189] &quot;Tuvalu&quot;                    &quot;US Virgin Islands&quot;        
-## [191] &quot;Ukraine&quot;                   &quot;Un. Sov. Soc. Rep.&quot;       
-## [193] &quot;United Arab Emirates&quot;      &quot;United Kingdom&quot;           
-## [195] &quot;United States of America&quot;  &quot;Uruguay&quot;                  
-## [197] &quot;Vanuatu&quot;                   &quot;Venezuela, Boliv Rep of&quot;  
-## [199] &quot;Viet Nam&quot;                  &quot;Wallis and Futuna Is.&quot;    
-## [201] &quot;Yemen&quot;                     &quot;Yugoslavia SFR&quot;           
-## [203] &quot;Zanzibar&quot;</code></pre>
-<ol start="3" style="list-style-type: decimal">
-<li>Based on the <code>asfis_species_number</code>, how many different
-(i.e.) fish species were caught?</li>
-</ol>
-<pre class="r"><code>fisheries%&gt;% 
-  mutate(asfis_species_number=as.factor(asfis_species_number)) %&gt;%
-  summarize(n_taxa=n_distinct(asfis_species_number))</code></pre>
-<pre><code>## # A tibble: 1 × 1
-##   n_taxa
-##    &lt;int&gt;
-## 1   1551</code></pre>
-<ol start="4" style="list-style-type: decimal">
-<li>What is the total catch for each
-<code>isscaap_taxonomic_group</code> in the data set?</li>
-</ol>
-<pre class="r"><code>fisheries %&gt;% 
-  group_by(isscaap_taxonomic_group) %&gt;% 
-  summarize(total_catch=sum(catch, na.rm=T)) %&gt;% 
-  arrange(desc(total_catch))</code></pre>
-<pre><code>## # A tibble: 30 × 2
-##    isscaap_taxonomic_group         total_catch
-##    &lt;chr&gt;                                 &lt;dbl&gt;
-##  1 Herrings, sardines, anchovies       1898529
-##  2 Cods, hakes, haddocks               1218092
-##  3 Miscellaneous pelagic fishes        1217644
-##  4 Miscellaneous coastal fishes         995248
-##  5 Tunas, bonitos, billfishes           978951
-##  6 Marine fishes not identified         863949
-##  7 Miscellaneous demersal fishes        452445
-##  8 Squids, cuttlefishes, octopuses      311928
-##  9 Sharks, rays, chimaeras              263569
-## 10 Shrimps, prawns                      228203
-## # ℹ 20 more rows</code></pre>
-<ol start="5" style="list-style-type: decimal">
-<li>Based on the <code>asfis_species_name</code>, what are the top 5
-most caught species? (note: “Osteichthyes” is not a species, it refers
-to unidentified fish. You should filter this one out.).</li>
-</ol>
-<pre class="r"><code>fisheries %&gt;% 
-  filter(asfis_species_name != &quot;Osteichthyes&quot;) %&gt;%
-  group_by(asfis_species_number, asfis_species_name) %&gt;%
-  summarize(total_catch=sum(catch, na.rm=T), .groups=&#39;keep&#39;) %&gt;% 
-  arrange(-total_catch)</code></pre>
-<pre><code>## # A tibble: 1,547 × 3
-## # Groups:   asfis_species_number, asfis_species_name [1,547]
-##    asfis_species_number asfis_species_name      total_catch
-##    &lt;chr&gt;                &lt;chr&gt;                         &lt;dbl&gt;
-##  1 1210600208           Engraulis ringens            540739
-##  2 1480401601           Theragra chalcogramma        473722
-##  3 1210500105           Clupea harengus              264304
-##  4 1480400202           Gadus morhua                 217930
-##  5 1750102501           Katsuwonus pelamis           194923
-##  6 1210501303           Sardinops sagax              176094
-##  7 1750100201           Scomber japonicus            175444
-##  8 1702300405           Trachurus murphyi            152034
-##  9 1210501301           Sardinops melanostictus      144774
-## 10 1230400201           Mallotus villosus            131239
-## # ℹ 1,537 more rows</code></pre>
-<ol start="6" style="list-style-type: decimal">
-<li>For the species that was caught the most, which country had the
-highest catch?</li>
-</ol>
-<pre class="r"><code>fisheries %&gt;% 
-  filter(asfis_species_name == &quot;Engraulis ringens&quot;) %&gt;%
-  group_by(country) %&gt;% 
-  summarize(catch_total=sum(catch, na.rm=T)) %&gt;% 
-  arrange(desc(catch_total))</code></pre>
-<pre><code>## # A tibble: 3 × 2
-##   country catch_total
-##   &lt;chr&gt;         &lt;dbl&gt;
-## 1 Peru         439717
-## 2 Chile        100694
-## 3 Ecuador         328</code></pre>
-<ol start="7" style="list-style-type: decimal">
-<li>Which country had the largest overall catch between the years
-2002-2012?</li>
-</ol>
-<pre class="r"><code>fisheries%&gt;% 
-  filter(year&gt;=2002 &amp; year&lt;=2012) %&gt;%
-  group_by(country) %&gt;% 
-  summarize(catch_total=sum(catch, na.rm=T)) %&gt;% 
-  arrange(desc(catch_total))</code></pre>
-<pre><code>## # A tibble: 200 × 2
-##    country                  catch_total
-##    &lt;chr&gt;                          &lt;dbl&gt;
-##  1 China                         269238
-##  2 United States of America      167309
-##  3 Russian Federation            112028
-##  4 Indonesia                     104362
-##  5 Japan                         104152
-##  6 Chile                          97030
-##  7 Spain                          92286
-##  8 Peru                           86482
-##  9 Portugal                       69778
-## 10 India                          69681
-## # ℹ 190 more rows</code></pre>
-<ol start="8" style="list-style-type: decimal">
-<li>Which country had the largest catch in a single year? What year was
-it?</li>
-</ol>
-<pre class="r"><code>fisheries %&gt;% 
-  group_by(country, year) %&gt;% 
-  summarize(catch_total=sum(catch, na.rm=T), .groups = &#39;keep&#39;) %&gt;% 
-  arrange(desc(catch_total))</code></pre>
-<pre><code>## # A tibble: 11,583 × 3
-## # Groups:   country, year [11,583]
-##    country  year catch_total
-##    &lt;chr&gt;   &lt;dbl&gt;       &lt;dbl&gt;
-##  1 Peru     1970       77000
-##  2 Peru     1971       76800
-##  3 Peru     1968       62700
-##  4 China    2001       39327
-##  5 Japan    1972       30167
-##  6 Japan    1988       29701
-##  7 China    2002       28967
-##  8 China    2010       27851
-##  9 Japan    1976       27825
-## 10 China    1998       27593
-## # ℹ 11,573 more rows</code></pre>
-<ol start="9" style="list-style-type: decimal">
-<li>Fishing practices for sharks, rays, chimaeras and other
-cartilaginous fish (group 38) are of particular concern due to their
-conservation status. Make a new dataframe <code>sharks</code> that only
-contains data on this group.</li>
-</ol>
-<pre class="r"><code>sharks &lt;- fisheries %&gt;% 
-  filter(isscaap_taxonomic_group == &quot;Sharks, rays, chimaeras&quot;)</code></pre>
-<ol start="10" style="list-style-type: decimal">
-<li>Using the <code>sharks</code> dataframe, use <code>mutate()</code>
-to create a new column called <code>fishing_pressure</code> that is
-based on the total catch. If the total catch is greater than 75, the
-fishing pressure is considered “high”, otherwise it is considered
-“moderate”.</li>
-</ol>
-<pre class="r"><code>sharks &lt;- sharks %&gt;% 
-  mutate(fishing_pressure=ifelse(catch&gt;75, &quot;high&quot;, &quot;moderate&quot;))</code></pre>
-<ol start="11" style="list-style-type: decimal">
-<li>For sharks, how does the average catch differ between high and
-moderate fishing pressure?</li>
-</ol>
-<pre class="r"><code>sharks %&gt;% 
-  filter(catch&gt;0 | catch!=&quot;NA&quot;) %&gt;% 
-  group_by(fishing_pressure) %&gt;%
-  summarize(avg_catch=mean(catch, na.rm=T))</code></pre>
-<pre><code>## # A tibble: 2 × 2
-##   fishing_pressure avg_catch
-##   &lt;chr&gt;                &lt;dbl&gt;
-## 1 high                  86.6
-## 2 moderate              14.3</code></pre>
-<ol start="12" style="list-style-type: decimal">
-<li>Perform one analysis of your choice on the fisheries dataframe that
-includes a minimum of three lines of code and two functions. Write a
-seentence or two that explains the intent of your code.</li>
-</ol>
+<p><strong>2. Use one or more of the summary functions you have learned
+to get an idea of the structure of the data.</strong></p>
+<pre class="r"><code>glimpse(gabon)</code></pre>
+<pre><code>## Rows: 24
+## Columns: 26
+## $ TransectID              &lt;dbl&gt; 1, 2, 2, 3, 4, 5, 6, 7, 8, 9, 13, 14, 15, 16, …
+## $ Distance                &lt;dbl&gt; 7.14, 17.31, 18.32, 20.85, 15.95, 17.47, 24.06…
+## $ HuntCat                 &lt;chr&gt; &quot;Moderate&quot;, &quot;None&quot;, &quot;None&quot;, &quot;None&quot;, &quot;None&quot;, &quot;N…
+## $ NumHouseholds           &lt;dbl&gt; 54, 54, 29, 29, 29, 29, 29, 54, 25, 73, 46, 56…
+## $ LandUse                 &lt;chr&gt; &quot;Park&quot;, &quot;Park&quot;, &quot;Park&quot;, &quot;Logging&quot;, &quot;Park&quot;, &quot;Pa…
+## $ Veg_Rich                &lt;dbl&gt; 16.67, 15.75, 16.88, 12.44, 17.13, 16.50, 14.7…
+## $ Veg_Stems               &lt;dbl&gt; 31.20, 37.44, 32.33, 29.39, 36.00, 29.22, 31.2…
+## $ Veg_liana               &lt;dbl&gt; 5.78, 13.25, 4.75, 9.78, 13.25, 12.88, 8.38, 8…
+## $ Veg_DBH                 &lt;dbl&gt; 49.57, 34.59, 42.82, 36.62, 41.52, 44.07, 51.2…
+## $ Veg_Canopy              &lt;dbl&gt; 3.78, 3.75, 3.43, 3.75, 3.88, 2.50, 4.00, 4.00…
+## $ Veg_Understory          &lt;dbl&gt; 2.89, 3.88, 3.00, 2.75, 3.25, 3.00, 2.38, 2.71…
+## $ RA_Apes                 &lt;dbl&gt; 1.87, 0.00, 4.49, 12.93, 0.00, 2.48, 3.78, 6.1…
+## $ RA_Birds                &lt;dbl&gt; 52.66, 52.17, 37.44, 59.29, 52.62, 38.64, 42.6…
+## $ RA_Elephant             &lt;dbl&gt; 0.00, 0.86, 1.33, 0.56, 1.00, 0.00, 1.11, 0.43…
+## $ RA_Monkeys              &lt;dbl&gt; 38.59, 28.53, 41.82, 19.85, 41.34, 43.29, 46.2…
+## $ RA_Rodent               &lt;dbl&gt; 4.22, 6.04, 1.06, 3.66, 2.52, 1.83, 3.10, 1.26…
+## $ RA_Ungulate             &lt;dbl&gt; 2.66, 12.41, 13.86, 3.71, 2.53, 13.75, 3.10, 8…
+## $ Rich_AllSpecies         &lt;dbl&gt; 22, 20, 22, 19, 20, 22, 23, 19, 19, 19, 21, 22…
+## $ Evenness_AllSpecies     &lt;dbl&gt; 0.793, 0.773, 0.740, 0.681, 0.811, 0.786, 0.81…
+## $ Diversity_AllSpecies    &lt;dbl&gt; 2.452, 2.314, 2.288, 2.006, 2.431, 2.429, 2.56…
+## $ Rich_BirdSpecies        &lt;dbl&gt; 11, 10, 11, 8, 8, 10, 11, 11, 11, 9, 11, 11, 1…
+## $ Evenness_BirdSpecies    &lt;dbl&gt; 0.732, 0.704, 0.688, 0.559, 0.799, 0.771, 0.80…
+## $ Diversity_BirdSpecies   &lt;dbl&gt; 1.756, 1.620, 1.649, 1.162, 1.660, 1.775, 1.92…
+## $ Rich_MammalSpecies      &lt;dbl&gt; 11, 10, 11, 11, 12, 12, 12, 8, 8, 10, 10, 11, …
+## $ Evenness_MammalSpecies  &lt;dbl&gt; 0.736, 0.705, 0.650, 0.619, 0.736, 0.694, 0.77…
+## $ Diversity_MammalSpecies &lt;dbl&gt; 1.764, 1.624, 1.558, 1.484, 1.829, 1.725, 1.92…</code></pre>
+<p><strong>3. Use <code>mutate()</code> Change the variables
+<code>HuntCat</code>, <code>LandUse</code>, and <code>TransectID</code>
+to factors.</strong></p>
+<pre class="r"><code>gabon &lt;- gabon %&gt;% 
+  mutate(HuntCat = as.factor(HuntCat),
+         LandUse = as.factor(LandUse),
+         TransectID = as.factor(TransectID))</code></pre>
+<p><strong>4. Use <code>filter</code> to make three new dataframes
+focused only on 1. national parks, 2. logging concessions, and 3.
+neither. Have a look at the README in the data folder so you understand
+the variables.</strong></p>
+<pre class="r"><code>parks &lt;- filter(gabon, LandUse == &quot;Park&quot;)
+logging &lt;- filter(gabon, LandUse == &quot;Logging&quot;)
+neither &lt;- filter(gabon, LandUse == &quot;Neither&quot;)</code></pre>
+<p><strong>5. How many transects are recorded for each land use
+type?</strong></p>
+<pre class="r"><code>table(gabon$LandUse)</code></pre>
+<pre><code>## 
+## Logging Neither    Park 
+##      13       4       7</code></pre>
+<p><strong>6. For which land use type (national parks, logging, or
+neither) is average all species diversity the greatest?</strong></p>
+<pre class="r"><code>mean(parks$Diversity_AllSpecies)</code></pre>
+<pre><code>## [1] 2.425143</code></pre>
+<pre class="r"><code>mean(logging$Diversity_AllSpecies)</code></pre>
+<pre><code>## [1] 2.232538</code></pre>
+<pre class="r"><code>mean(neither$Diversity_AllSpecies)</code></pre>
+<pre><code>## [1] 2.3575</code></pre>
+<p><strong>7. Use <code>filter</code> to find the transect that has the
+highest relative abundance of elephants. What land use type is this? Use
+<code>arrange()</code> to sort your results.</strong></p>
+<pre class="r"><code>gabon %&gt;% 
+  select(TransectID, LandUse, RA_Elephant) %&gt;% 
+  arrange(desc(RA_Elephant))</code></pre>
+<pre><code>## # A tibble: 24 × 3
+##    TransectID LandUse RA_Elephant
+##    &lt;fct&gt;      &lt;fct&gt;         &lt;dbl&gt;
+##  1 18         Logging        2.3 
+##  2 8          Neither        2.2 
+##  3 2          Park           1.33
+##  4 6          Park           1.11
+##  5 4          Park           1   
+##  6 13         Logging        0.99
+##  7 2          Park           0.86
+##  8 21         Neither        0.77
+##  9 3          Logging        0.56
+## 10 14         Logging        0.52
+## # ℹ 14 more rows</code></pre>
+<p><strong>8. Use <code>filter</code> to find all transects that have
+greater than 15 tree species or a breast height diameter between 50 and
+60cm. </strong></p>
+<pre class="r"><code>gabon %&gt;% 
+  select(TransectID, Veg_Rich, Veg_DBH) %&gt;% 
+  filter(Veg_Rich &gt; 16 | (Veg_DBH &gt;= 50 &amp; Veg_DBH &lt;= 60))</code></pre>
+<pre><code>## # A tibble: 12 × 3
+##    TransectID Veg_Rich Veg_DBH
+##    &lt;fct&gt;         &lt;dbl&gt;   &lt;dbl&gt;
+##  1 1              16.7    49.6
+##  2 2              16.9    42.8
+##  3 4              17.1    41.5
+##  4 5              16.5    44.1
+##  5 6              14.8    51.2
+##  6 14             15.8    52.1
+##  7 15             10.9    54.8
+##  8 17             14.2    57.7
+##  9 21             16.2    50.4
+## 10 22             17.1    39.3
+## 11 24             16.8    44.2
+## 12 26             18.8    35.6</code></pre>
+<pre class="r"><code>names(gabon)</code></pre>
+<pre><code>##  [1] &quot;TransectID&quot;              &quot;Distance&quot;               
+##  [3] &quot;HuntCat&quot;                 &quot;NumHouseholds&quot;          
+##  [5] &quot;LandUse&quot;                 &quot;Veg_Rich&quot;               
+##  [7] &quot;Veg_Stems&quot;               &quot;Veg_liana&quot;              
+##  [9] &quot;Veg_DBH&quot;                 &quot;Veg_Canopy&quot;             
+## [11] &quot;Veg_Understory&quot;          &quot;RA_Apes&quot;                
+## [13] &quot;RA_Birds&quot;                &quot;RA_Elephant&quot;            
+## [15] &quot;RA_Monkeys&quot;              &quot;RA_Rodent&quot;              
+## [17] &quot;RA_Ungulate&quot;             &quot;Rich_AllSpecies&quot;        
+## [19] &quot;Evenness_AllSpecies&quot;     &quot;Diversity_AllSpecies&quot;   
+## [21] &quot;Rich_BirdSpecies&quot;        &quot;Evenness_BirdSpecies&quot;   
+## [23] &quot;Diversity_BirdSpecies&quot;   &quot;Rich_MammalSpecies&quot;     
+## [25] &quot;Evenness_MammalSpecies&quot;  &quot;Diversity_MammalSpecies&quot;</code></pre>
+<p><strong>9.Which transects and land use types have more than 10 tree
+species and 10 mammal species? Use <code>arrange()</code> to sort by the
+number of tree species.</strong></p>
+<pre class="r"><code>gabon %&gt;% 
+  select(TransectID, Veg_Rich, Rich_MammalSpecies, LandUse) %&gt;% 
+  filter(Veg_Rich &gt; 10 &amp; Rich_MammalSpecies &gt; 10) %&gt;% 
+  arrange(desc(Veg_Rich))</code></pre>
+<pre><code>## # A tibble: 9 × 4
+##   TransectID Veg_Rich Rich_MammalSpecies LandUse
+##   &lt;fct&gt;         &lt;dbl&gt;              &lt;dbl&gt; &lt;fct&gt;  
+## 1 4              17.1                 12 Park   
+## 2 22             17.1                 12 Logging
+## 3 2              16.9                 11 Park   
+## 4 24             16.8                 12 Park   
+## 5 1              16.7                 11 Park   
+## 6 5              16.5                 12 Park   
+## 7 14             15.8                 11 Logging
+## 8 6              14.8                 12 Park   
+## 9 3              12.4                 11 Logging</code></pre>
+<p><strong>10. Explore the data! Develop one question on your own that
+includes at least two lines of code. </strong></p>
 </div>
-<div id="push-your-final-code-to-github" class="section level2">
-<h2>Push your final code to GitHub!</h2>
-<p>Please be sure that you check the <code>keep md</code> file in the
-knit preferences.</p>
+<div id="knit-and-upload" class="section level2">
+<h2>Knit and Upload</h2>
+<p>Please knit your work as a .pdf or .html file and upload to Canvas.
+Homework is due before the start of the next lab. No late work is
+accepted. Make sure to use the formatting conventions of RMarkdown to
+make your report neat and clean!</p>
 </div>
 
 

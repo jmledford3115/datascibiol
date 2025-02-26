@@ -13,7 +13,7 @@
 
 <meta name="date" content="2025-02-26" />
 
-<title>Homework 7</title>
+<title>Homework 4</title>
 
 <script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
 // be compatible with the behavior of Pandoc < 2.8).
@@ -374,7 +374,7 @@ display: none;
 
 
 
-<h1 class="title toc-ignore">Homework 7</h1>
+<h1 class="title toc-ignore">Homework 4</h1>
 <h4 class="author">Key</h4>
 <h4 class="date">2025-02-26</h4>
 
@@ -383,321 +383,128 @@ display: none;
 
 <div id="instructions" class="section level2">
 <h2>Instructions</h2>
-<p>Answer the following questions and complete the exercises in
-RMarkdown. Please embed all of your code and push your final work to
-your repository. Your final lab report should be organized, clean, and
-run free from errors. Remember, you must remove the <code>#</code> for
-the included code chunks to run. Be sure to add your name to the author
-header above.</p>
-<p>Make sure to use the formatting conventions of RMarkdown to make your
-report neat and clean!</p>
+<p>Answer the following questions and/or complete the exercises in
+RMarkdown. Please embed all of your code and push the final work to your
+repository. Your report should be organized, clean, and run free from
+errors. Remember, you must remove the <code>#</code> for any included
+code chunks to run.</p>
 </div>
-<div id="load-the-libraries" class="section level2">
-<h2>Load the libraries</h2>
+<div id="load-the-tidyverse" class="section level2">
+<h2>Load the tidyverse</h2>
 <pre class="r"><code>library(tidyverse)</code></pre>
-<p>For this assignment we are going to work with a data set from the <a href="http://www.fao.org/about/en/">United Nations Food and Agriculture
-Organization</a> on world fisheries.</p>
-<p>Load the data <code>fisheries.csv</code> as a new object titled
-<code>fisheries</code>.</p>
-<pre class="r"><code>fisheries &lt;- read_csv(&quot;data/fisheries.csv&quot;)</code></pre>
-<pre><code>## Rows: 376771 Columns: 10
-## ── Column specification ────────────────────────────────────────────────────────
-## Delimiter: &quot;,&quot;
-## chr (6): country, common_name, isscaap_taxonomic_group, asfis_species_number...
-## dbl (4): isscaap_group_number, fao_major_fishing_area, year, catch
-## 
-## ℹ Use `spec()` to retrieve the full column specification for this data.
-## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
-<ol style="list-style-type: decimal">
-<li>Explore the data. What are the names of the variables, what are the
-dimensions, are there any NA’s, what are the classes of the variables,
-etc.? You may use the functions that you prefer.</li>
-</ol>
-<pre class="r"><code>glimpse(fisheries)</code></pre>
-<pre><code>## Rows: 376,771
-## Columns: 10
-## $ country                 &lt;chr&gt; &quot;Albania&quot;, &quot;Albania&quot;, &quot;Albania&quot;, &quot;Albania&quot;, &quot;A…
-## $ common_name             &lt;chr&gt; &quot;Angelsharks, sand devils nei&quot;, &quot;Angelsharks, …
-## $ isscaap_group_number    &lt;dbl&gt; 38, 38, 38, 38, 38, 38, 38, 38, 38, 38, 38, 38…
-## $ isscaap_taxonomic_group &lt;chr&gt; &quot;Sharks, rays, chimaeras&quot;, &quot;Sharks, rays, chim…
-## $ asfis_species_number    &lt;chr&gt; &quot;10903XXXXX&quot;, &quot;10903XXXXX&quot;, &quot;10903XXXXX&quot;, &quot;109…
-## $ asfis_species_name      &lt;chr&gt; &quot;Squatinidae&quot;, &quot;Squatinidae&quot;, &quot;Squatinidae&quot;, &quot;…
-## $ fao_major_fishing_area  &lt;dbl&gt; 37, 37, 37, 37, 37, 37, 37, 37, 37, 37, 37, 37…
-## $ measure                 &lt;chr&gt; &quot;Quantity (tonnes)&quot;, &quot;Quantity (tonnes)&quot;, &quot;Qua…
-## $ year                    &lt;dbl&gt; 1995, 1996, 1997, 1998, 1999, 2000, 2001, 2002…
-## $ catch                   &lt;dbl&gt; NA, 53, 20, 31, 30, 30, 16, 79, 1, 4, 68, 55, …</code></pre>
-<ol start="2" style="list-style-type: decimal">
-<li>How many countries are represented in the data? Provide a count and
-list their names.</li>
-</ol>
-<pre class="r"><code>fisheries %&gt;% 
-  summarize(n_countries = n_distinct(country))</code></pre>
-<pre><code>## # A tibble: 1 × 1
-##   n_countries
-##         &lt;int&gt;
-## 1         203</code></pre>
-<pre class="r"><code>fisheries$country %&gt;% unique()</code></pre>
-<pre><code>##   [1] &quot;Albania&quot;                   &quot;Algeria&quot;                  
-##   [3] &quot;American Samoa&quot;            &quot;Angola&quot;                   
-##   [5] &quot;Anguilla&quot;                  &quot;Antigua and Barbuda&quot;      
-##   [7] &quot;Argentina&quot;                 &quot;Aruba&quot;                    
-##   [9] &quot;Australia&quot;                 &quot;Bahamas&quot;                  
-##  [11] &quot;Bahrain&quot;                   &quot;Bangladesh&quot;               
-##  [13] &quot;Barbados&quot;                  &quot;Belgium&quot;                  
-##  [15] &quot;Belize&quot;                    &quot;Benin&quot;                    
-##  [17] &quot;Bermuda&quot;                   &quot;Bonaire/S.Eustatius/Saba&quot; 
-##  [19] &quot;Bosnia and Herzegovina&quot;    &quot;Brazil&quot;                   
-##  [21] &quot;British Indian Ocean Ter&quot;  &quot;British Virgin Islands&quot;   
-##  [23] &quot;Brunei Darussalam&quot;         &quot;Bulgaria&quot;                 
-##  [25] &quot;Cabo Verde&quot;                &quot;Cambodia&quot;                 
-##  [27] &quot;Cameroon&quot;                  &quot;Canada&quot;                   
-##  [29] &quot;Cayman Islands&quot;            &quot;Channel Islands&quot;          
-##  [31] &quot;Chile&quot;                     &quot;China&quot;                    
-##  [33] &quot;China, Hong Kong SAR&quot;      &quot;China, Macao SAR&quot;         
-##  [35] &quot;Colombia&quot;                  &quot;Comoros&quot;                  
-##  [37] &quot;Congo, Dem. Rep. of the&quot;   &quot;Congo, Republic of&quot;       
-##  [39] &quot;Cook Islands&quot;              &quot;Costa Rica&quot;               
-##  [41] &quot;Croatia&quot;                   &quot;Cuba&quot;                     
-##  [43] &quot;Cura\xe7ao&quot;                &quot;Cyprus&quot;                   
-##  [45] &quot;C\xf4te d&#39;Ivoire&quot;          &quot;Denmark&quot;                  
-##  [47] &quot;Djibouti&quot;                  &quot;Dominica&quot;                 
-##  [49] &quot;Dominican Republic&quot;        &quot;Ecuador&quot;                  
-##  [51] &quot;Egypt&quot;                     &quot;El Salvador&quot;              
-##  [53] &quot;Equatorial Guinea&quot;         &quot;Eritrea&quot;                  
-##  [55] &quot;Estonia&quot;                   &quot;Ethiopia&quot;                 
-##  [57] &quot;Falkland Is.(Malvinas)&quot;    &quot;Faroe Islands&quot;            
-##  [59] &quot;Fiji, Republic of&quot;         &quot;Finland&quot;                  
-##  [61] &quot;France&quot;                    &quot;French Guiana&quot;            
-##  [63] &quot;French Polynesia&quot;          &quot;French Southern Terr&quot;     
-##  [65] &quot;Gabon&quot;                     &quot;Gambia&quot;                   
-##  [67] &quot;Georgia&quot;                   &quot;Germany&quot;                  
-##  [69] &quot;Ghana&quot;                     &quot;Gibraltar&quot;                
-##  [71] &quot;Greece&quot;                    &quot;Greenland&quot;                
-##  [73] &quot;Grenada&quot;                   &quot;Guadeloupe&quot;               
-##  [75] &quot;Guam&quot;                      &quot;Guatemala&quot;                
-##  [77] &quot;Guinea&quot;                    &quot;GuineaBissau&quot;             
-##  [79] &quot;Guyana&quot;                    &quot;Haiti&quot;                    
-##  [81] &quot;Honduras&quot;                  &quot;Iceland&quot;                  
-##  [83] &quot;India&quot;                     &quot;Indonesia&quot;                
-##  [85] &quot;Iran (Islamic Rep. of)&quot;    &quot;Iraq&quot;                     
-##  [87] &quot;Ireland&quot;                   &quot;Isle of Man&quot;              
-##  [89] &quot;Israel&quot;                    &quot;Italy&quot;                    
-##  [91] &quot;Jamaica&quot;                   &quot;Japan&quot;                    
-##  [93] &quot;Jordan&quot;                    &quot;Kenya&quot;                    
-##  [95] &quot;Kiribati&quot;                  &quot;Korea, Dem. People&#39;s Rep&quot; 
-##  [97] &quot;Korea, Republic of&quot;        &quot;Kuwait&quot;                   
-##  [99] &quot;Latvia&quot;                    &quot;Lebanon&quot;                  
-## [101] &quot;Liberia&quot;                   &quot;Libya&quot;                    
-## [103] &quot;Lithuania&quot;                 &quot;Madagascar&quot;               
-## [105] &quot;Malaysia&quot;                  &quot;Maldives&quot;                 
-## [107] &quot;Malta&quot;                     &quot;Marshall Islands&quot;         
-## [109] &quot;Martinique&quot;                &quot;Mauritania&quot;               
-## [111] &quot;Mauritius&quot;                 &quot;Mayotte&quot;                  
-## [113] &quot;Mexico&quot;                    &quot;Micronesia, Fed.States of&quot;
-## [115] &quot;Monaco&quot;                    &quot;Montenegro&quot;               
-## [117] &quot;Montserrat&quot;                &quot;Morocco&quot;                  
-## [119] &quot;Mozambique&quot;                &quot;Myanmar&quot;                  
-## [121] &quot;Namibia&quot;                   &quot;Nauru&quot;                    
-## [123] &quot;Netherlands&quot;               &quot;Netherlands Antilles&quot;     
-## [125] &quot;New Caledonia&quot;             &quot;New Zealand&quot;              
-## [127] &quot;Nicaragua&quot;                 &quot;Nigeria&quot;                  
-## [129] &quot;Niue&quot;                      &quot;Norfolk Island&quot;           
-## [131] &quot;Northern Mariana Is.&quot;      &quot;Norway&quot;                   
-## [133] &quot;Oman&quot;                      &quot;Other nei&quot;                
-## [135] &quot;Pakistan&quot;                  &quot;Palau&quot;                    
-## [137] &quot;Palestine, Occupied Tr.&quot;   &quot;Panama&quot;                   
-## [139] &quot;Papua New Guinea&quot;          &quot;Peru&quot;                     
-## [141] &quot;Philippines&quot;               &quot;Pitcairn Islands&quot;         
-## [143] &quot;Poland&quot;                    &quot;Portugal&quot;                 
-## [145] &quot;Puerto Rico&quot;               &quot;Qatar&quot;                    
-## [147] &quot;Romania&quot;                   &quot;Russian Federation&quot;       
-## [149] &quot;R\xe9union&quot;                &quot;Saint Barth\xe9lemy&quot;      
-## [151] &quot;Saint Helena&quot;              &quot;Saint Kitts and Nevis&quot;    
-## [153] &quot;Saint Lucia&quot;               &quot;Saint Vincent/Grenadines&quot; 
-## [155] &quot;SaintMartin&quot;               &quot;Samoa&quot;                    
-## [157] &quot;Sao Tome and Principe&quot;     &quot;Saudi Arabia&quot;             
-## [159] &quot;Senegal&quot;                   &quot;Serbia and Montenegro&quot;    
-## [161] &quot;Seychelles&quot;                &quot;Sierra Leone&quot;             
-## [163] &quot;Singapore&quot;                 &quot;Sint Maarten&quot;             
-## [165] &quot;Slovenia&quot;                  &quot;Solomon Islands&quot;          
-## [167] &quot;Somalia&quot;                   &quot;South Africa&quot;             
-## [169] &quot;Spain&quot;                     &quot;Sri Lanka&quot;                
-## [171] &quot;St. Pierre and Miquelon&quot;   &quot;Sudan&quot;                    
-## [173] &quot;Sudan (former)&quot;            &quot;Suriname&quot;                 
-## [175] &quot;Svalbard and Jan Mayen&quot;    &quot;Sweden&quot;                   
-## [177] &quot;Syrian Arab Republic&quot;      &quot;Taiwan Province of China&quot; 
-## [179] &quot;Tanzania, United Rep. of&quot;  &quot;Thailand&quot;                 
-## [181] &quot;TimorLeste&quot;                &quot;Togo&quot;                     
-## [183] &quot;Tokelau&quot;                   &quot;Tonga&quot;                    
-## [185] &quot;Trinidad and Tobago&quot;       &quot;Tunisia&quot;                  
-## [187] &quot;Turkey&quot;                    &quot;Turks and Caicos Is.&quot;     
-## [189] &quot;Tuvalu&quot;                    &quot;US Virgin Islands&quot;        
-## [191] &quot;Ukraine&quot;                   &quot;Un. Sov. Soc. Rep.&quot;       
-## [193] &quot;United Arab Emirates&quot;      &quot;United Kingdom&quot;           
-## [195] &quot;United States of America&quot;  &quot;Uruguay&quot;                  
-## [197] &quot;Vanuatu&quot;                   &quot;Venezuela, Boliv Rep of&quot;  
-## [199] &quot;Viet Nam&quot;                  &quot;Wallis and Futuna Is.&quot;    
-## [201] &quot;Yemen&quot;                     &quot;Yugoslavia SFR&quot;           
-## [203] &quot;Zanzibar&quot;</code></pre>
-<ol start="3" style="list-style-type: decimal">
-<li>Based on the <code>asfis_species_number</code>, how many different
-(i.e.) fish species were caught?</li>
-</ol>
-<pre class="r"><code>fisheries%&gt;% 
-  mutate(asfis_species_number=as.factor(asfis_species_number)) %&gt;%
-  summarize(n_taxa=n_distinct(asfis_species_number))</code></pre>
-<pre><code>## # A tibble: 1 × 1
-##   n_taxa
-##    &lt;int&gt;
-## 1   1551</code></pre>
-<ol start="4" style="list-style-type: decimal">
-<li>What is the total catch for each
-<code>isscaap_taxonomic_group</code> in the data set?</li>
-</ol>
-<pre class="r"><code>fisheries %&gt;% 
-  group_by(isscaap_taxonomic_group) %&gt;% 
-  summarize(total_catch=sum(catch, na.rm=T)) %&gt;% 
-  arrange(desc(total_catch))</code></pre>
-<pre><code>## # A tibble: 30 × 2
-##    isscaap_taxonomic_group         total_catch
-##    &lt;chr&gt;                                 &lt;dbl&gt;
-##  1 Herrings, sardines, anchovies       1898529
-##  2 Cods, hakes, haddocks               1218092
-##  3 Miscellaneous pelagic fishes        1217644
-##  4 Miscellaneous coastal fishes         995248
-##  5 Tunas, bonitos, billfishes           978951
-##  6 Marine fishes not identified         863949
-##  7 Miscellaneous demersal fishes        452445
-##  8 Squids, cuttlefishes, octopuses      311928
-##  9 Sharks, rays, chimaeras              263569
-## 10 Shrimps, prawns                      228203
-## # ℹ 20 more rows</code></pre>
-<ol start="5" style="list-style-type: decimal">
-<li>Based on the <code>asfis_species_name</code>, what are the top 5
-most caught species? (note: “Osteichthyes” is not a species, it refers
-to unidentified fish. You should filter this one out.).</li>
-</ol>
-<pre class="r"><code>fisheries %&gt;% 
-  filter(asfis_species_name != &quot;Osteichthyes&quot;) %&gt;%
-  group_by(asfis_species_number, asfis_species_name) %&gt;%
-  summarize(total_catch=sum(catch, na.rm=T), .groups=&#39;keep&#39;) %&gt;% 
-  arrange(-total_catch)</code></pre>
-<pre><code>## # A tibble: 1,547 × 3
-## # Groups:   asfis_species_number, asfis_species_name [1,547]
-##    asfis_species_number asfis_species_name      total_catch
-##    &lt;chr&gt;                &lt;chr&gt;                         &lt;dbl&gt;
-##  1 1210600208           Engraulis ringens            540739
-##  2 1480401601           Theragra chalcogramma        473722
-##  3 1210500105           Clupea harengus              264304
-##  4 1480400202           Gadus morhua                 217930
-##  5 1750102501           Katsuwonus pelamis           194923
-##  6 1210501303           Sardinops sagax              176094
-##  7 1750100201           Scomber japonicus            175444
-##  8 1702300405           Trachurus murphyi            152034
-##  9 1210501301           Sardinops melanostictus      144774
-## 10 1230400201           Mallotus villosus            131239
-## # ℹ 1,537 more rows</code></pre>
-<ol start="6" style="list-style-type: decimal">
-<li>For the species that was caught the most, which country had the
-highest catch?</li>
-</ol>
-<pre class="r"><code>fisheries %&gt;% 
-  filter(asfis_species_name == &quot;Engraulis ringens&quot;) %&gt;%
-  group_by(country) %&gt;% 
-  summarize(catch_total=sum(catch, na.rm=T)) %&gt;% 
-  arrange(desc(catch_total))</code></pre>
-<pre><code>## # A tibble: 3 × 2
-##   country catch_total
-##   &lt;chr&gt;         &lt;dbl&gt;
-## 1 Peru         439717
-## 2 Chile        100694
-## 3 Ecuador         328</code></pre>
-<ol start="7" style="list-style-type: decimal">
-<li>Which country had the largest overall catch between the years
-2002-2012?</li>
-</ol>
-<pre class="r"><code>fisheries%&gt;% 
-  filter(year&gt;=2002 &amp; year&lt;=2012) %&gt;%
-  group_by(country) %&gt;% 
-  summarize(catch_total=sum(catch, na.rm=T)) %&gt;% 
-  arrange(desc(catch_total))</code></pre>
-<pre><code>## # A tibble: 200 × 2
-##    country                  catch_total
-##    &lt;chr&gt;                          &lt;dbl&gt;
-##  1 China                         269238
-##  2 United States of America      167309
-##  3 Russian Federation            112028
-##  4 Indonesia                     104362
-##  5 Japan                         104152
-##  6 Chile                          97030
-##  7 Spain                          92286
-##  8 Peru                           86482
-##  9 Portugal                       69778
-## 10 India                          69681
-## # ℹ 190 more rows</code></pre>
-<ol start="8" style="list-style-type: decimal">
-<li>Which country had the largest catch in a single year? What year was
-it?</li>
-</ol>
-<pre class="r"><code>fisheries %&gt;% 
-  group_by(country, year) %&gt;% 
-  summarize(catch_total=sum(catch, na.rm=T), .groups = &#39;keep&#39;) %&gt;% 
-  arrange(desc(catch_total))</code></pre>
-<pre><code>## # A tibble: 11,583 × 3
-## # Groups:   country, year [11,583]
-##    country  year catch_total
-##    &lt;chr&gt;   &lt;dbl&gt;       &lt;dbl&gt;
-##  1 Peru     1970       77000
-##  2 Peru     1971       76800
-##  3 Peru     1968       62700
-##  4 China    2001       39327
-##  5 Japan    1972       30167
-##  6 Japan    1988       29701
-##  7 China    2002       28967
-##  8 China    2010       27851
-##  9 Japan    1976       27825
-## 10 China    1998       27593
-## # ℹ 11,573 more rows</code></pre>
-<ol start="9" style="list-style-type: decimal">
-<li>Fishing practices for sharks, rays, chimaeras and other
-cartilaginous fish (group 38) are of particular concern due to their
-conservation status. Make a new dataframe <code>sharks</code> that only
-contains data on this group.</li>
-</ol>
-<pre class="r"><code>sharks &lt;- fisheries %&gt;% 
-  filter(isscaap_taxonomic_group == &quot;Sharks, rays, chimaeras&quot;)</code></pre>
-<ol start="10" style="list-style-type: decimal">
-<li>Using the <code>sharks</code> dataframe, use <code>mutate()</code>
-to create a new column called <code>fishing_pressure</code> that is
-based on the total catch. If the total catch is greater than 75, the
-fishing pressure is considered “high”, otherwise it is considered
-“moderate”.</li>
-</ol>
-<pre class="r"><code>sharks &lt;- sharks %&gt;% 
-  mutate(fishing_pressure=ifelse(catch&gt;75, &quot;high&quot;, &quot;moderate&quot;))</code></pre>
-<ol start="11" style="list-style-type: decimal">
-<li>For sharks, how does the average catch differ between high and
-moderate fishing pressure?</li>
-</ol>
-<pre class="r"><code>sharks %&gt;% 
-  filter(catch&gt;0 | catch!=&quot;NA&quot;) %&gt;% 
-  group_by(fishing_pressure) %&gt;%
-  summarize(avg_catch=mean(catch, na.rm=T))</code></pre>
-<pre><code>## # A tibble: 2 × 2
-##   fishing_pressure avg_catch
-##   &lt;chr&gt;                &lt;dbl&gt;
-## 1 high                  86.6
-## 2 moderate              14.3</code></pre>
-<ol start="12" style="list-style-type: decimal">
-<li>Perform one analysis of your choice on the fisheries dataframe that
-includes a minimum of three lines of code and two functions. Write a
-seentence or two that explains the intent of your code.</li>
-</ol>
 </div>
-<div id="push-your-final-code-to-github" class="section level2">
-<h2>Push your final code to GitHub!</h2>
-<p>Please be sure that you check the <code>keep md</code> file in the
-knit preferences.</p>
+<div id="data" class="section level2">
+<h2>Data</h2>
+<p>For this assignment, we are going to use built-in data on mammal
+sleep patterns <code>mleep</code>. The data are taken from: V. M. Savage
+and G. B. West. A quantitative, theoretical framework for understanding
+mammalian sleep. Proceedings of the National Academy of Sciences, 104
+(3):1051-1056, 2007.</p>
+<p>Since the data are built-in, they do not need to be stored as a
+separate data frame in order to use them.</p>
+<p><strong>1. Learn about the data and variables by using the help
+function in R.</strong></p>
+<pre class="r"><code>?msleep</code></pre>
+<p><strong>2. What are the names of the variables in
+msleep?</strong></p>
+<pre class="r"><code>names(msleep)</code></pre>
+<pre><code>##  [1] &quot;name&quot;         &quot;genus&quot;        &quot;vore&quot;         &quot;order&quot;        &quot;conservation&quot;
+##  [6] &quot;sleep_total&quot;  &quot;sleep_rem&quot;    &quot;sleep_cycle&quot;  &quot;awake&quot;        &quot;brainwt&quot;     
+## [11] &quot;bodywt&quot;</code></pre>
+<p><strong>3. Use one of the summary functions you have learned to get
+an idea of the structure of the data.</strong></p>
+<pre class="r"><code>glimpse(msleep)</code></pre>
+<pre><code>## Rows: 83
+## Columns: 11
+## $ name         &lt;chr&gt; &quot;Cheetah&quot;, &quot;Owl monkey&quot;, &quot;Mountain beaver&quot;, &quot;Greater shor…
+## $ genus        &lt;chr&gt; &quot;Acinonyx&quot;, &quot;Aotus&quot;, &quot;Aplodontia&quot;, &quot;Blarina&quot;, &quot;Bos&quot;, &quot;Bra…
+## $ vore         &lt;chr&gt; &quot;carni&quot;, &quot;omni&quot;, &quot;herbi&quot;, &quot;omni&quot;, &quot;herbi&quot;, &quot;herbi&quot;, &quot;carn…
+## $ order        &lt;chr&gt; &quot;Carnivora&quot;, &quot;Primates&quot;, &quot;Rodentia&quot;, &quot;Soricomorpha&quot;, &quot;Art…
+## $ conservation &lt;chr&gt; &quot;lc&quot;, NA, &quot;nt&quot;, &quot;lc&quot;, &quot;domesticated&quot;, NA, &quot;vu&quot;, NA, &quot;dome…
+## $ sleep_total  &lt;dbl&gt; 12.1, 17.0, 14.4, 14.9, 4.0, 14.4, 8.7, 7.0, 10.1, 3.0, 5…
+## $ sleep_rem    &lt;dbl&gt; NA, 1.8, 2.4, 2.3, 0.7, 2.2, 1.4, NA, 2.9, NA, 0.6, 0.8, …
+## $ sleep_cycle  &lt;dbl&gt; NA, NA, NA, 0.1333333, 0.6666667, 0.7666667, 0.3833333, N…
+## $ awake        &lt;dbl&gt; 11.9, 7.0, 9.6, 9.1, 20.0, 9.6, 15.3, 17.0, 13.9, 21.0, 1…
+## $ brainwt      &lt;dbl&gt; NA, 0.01550, NA, 0.00029, 0.42300, NA, NA, NA, 0.07000, 0…
+## $ bodywt       &lt;dbl&gt; 50.000, 0.480, 1.350, 0.019, 600.000, 3.850, 20.490, 0.04…</code></pre>
+<pre class="r"><code>summary(msleep)</code></pre>
+<pre><code>##      name              genus               vore              order          
+##  Length:83          Length:83          Length:83          Length:83         
+##  Class :character   Class :character   Class :character   Class :character  
+##  Mode  :character   Mode  :character   Mode  :character   Mode  :character  
+##                                                                             
+##                                                                             
+##                                                                             
+##                                                                             
+##  conservation        sleep_total      sleep_rem      sleep_cycle    
+##  Length:83          Min.   : 1.90   Min.   :0.100   Min.   :0.1167  
+##  Class :character   1st Qu.: 7.85   1st Qu.:0.900   1st Qu.:0.1833  
+##  Mode  :character   Median :10.10   Median :1.500   Median :0.3333  
+##                     Mean   :10.43   Mean   :1.875   Mean   :0.4396  
+##                     3rd Qu.:13.75   3rd Qu.:2.400   3rd Qu.:0.5792  
+##                     Max.   :19.90   Max.   :6.600   Max.   :1.5000  
+##                                     NA&#39;s   :22      NA&#39;s   :51      
+##      awake          brainwt            bodywt        
+##  Min.   : 4.10   Min.   :0.00014   Min.   :   0.005  
+##  1st Qu.:10.25   1st Qu.:0.00290   1st Qu.:   0.174  
+##  Median :13.90   Median :0.01240   Median :   1.670  
+##  Mean   :13.57   Mean   :0.28158   Mean   : 166.136  
+##  3rd Qu.:16.15   3rd Qu.:0.12550   3rd Qu.:  41.750  
+##  Max.   :22.10   Max.   :5.71200   Max.   :6654.000  
+##                  NA&#39;s   :27</code></pre>
+<p><strong>4. The variable <code>conservation</code> categorizes the
+conservation status of the mammals in the data. How many mammals are
+endangered?</strong></p>
+<pre class="r"><code>table(msleep$conservation)</code></pre>
+<pre><code>## 
+##           cd domesticated           en           lc           nt           vu 
+##            2           10            4           27            4            7</code></pre>
+<p><strong>5. Use <code>filter</code> to pull out the endangered
+mammals. Store this as a new object called
+<code>endangered</code>.</strong></p>
+<pre class="r"><code>endangered &lt;- filter(msleep, conservation == &quot;en&quot;)</code></pre>
+<p><strong>6. The variable <code>vore</code> categorizes the feeding
+strategy of the mammals in the data. How many mammals are in each
+category of <code>vore</code>?</strong></p>
+<pre class="r"><code>table(msleep$vore)</code></pre>
+<pre><code>## 
+##   carni   herbi insecti    omni 
+##      19      32       5      20</code></pre>
+<p><strong>7. Use <code>filter</code> to find the insectivore(s) with
+endangered status.</strong></p>
+<pre class="r"><code>filter(endangered, vore == &quot;insecti&quot;)</code></pre>
+<pre><code>## # A tibble: 1 × 11
+##   name    genus vore  order conservation sleep_total sleep_rem sleep_cycle awake
+##   &lt;chr&gt;   &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;              &lt;dbl&gt;     &lt;dbl&gt;       &lt;dbl&gt; &lt;dbl&gt;
+## 1 Giant … Prio… inse… Cing… en                  18.1       6.1          NA   5.9
+## # ℹ 2 more variables: brainwt &lt;dbl&gt;, bodywt &lt;dbl&gt;</code></pre>
+<p><strong>8. We are interested in two groups; small and large mammals.
+Let’s define small as less than or equal to 1kg body weight and large as
+greater than or equal to 200kg body weight. Make two new dataframes
+(large and small) based on these parameters.</strong></p>
+<pre class="r"><code>small &lt;- filter(msleep, bodywt &lt;= 1)
+large &lt;- filter(msleep, bodywt &gt;= 200)</code></pre>
+<p><strong>9. Do large or small animals sleep longer on
+average?</strong></p>
+<pre class="r"><code>mean(small$sleep_total)</code></pre>
+<pre><code>## [1] 12.65833</code></pre>
+<pre class="r"><code>mean(large$sleep_total)</code></pre>
+<pre><code>## [1] 3.3</code></pre>
+<p><strong>10. Which animal sleeps the least among the entire
+dataframe?</strong></p>
+<pre class="r"><code>filter(msleep, sleep_total == min(sleep_total))</code></pre>
+<pre><code>## # A tibble: 1 × 11
+##   name    genus vore  order conservation sleep_total sleep_rem sleep_cycle awake
+##   &lt;chr&gt;   &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;              &lt;dbl&gt;     &lt;dbl&gt;       &lt;dbl&gt; &lt;dbl&gt;
+## 1 Giraffe Gira… herbi Arti… cd                   1.9       0.4          NA  22.1
+## # ℹ 2 more variables: brainwt &lt;dbl&gt;, bodywt &lt;dbl&gt;</code></pre>
+</div>
+<div id="knit-and-upload" class="section level2">
+<h2>Knit and Upload</h2>
+<p>Please knit your work as a .pdf or .html file and upload to Canvas.
+Homework is due before the start of the next lab. No late work is
+accepted. Make sure to use the formatting conventions of RMarkdown to
+make your report neat and clean!</p>
 </div>
 
 

@@ -13,7 +13,7 @@
 
 <meta name="date" content="2025-02-26" />
 
-<title>Homework 7</title>
+<title>Homework 8</title>
 
 <script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
 // be compatible with the behavior of Pandoc < 2.8).
@@ -374,7 +374,7 @@ display: none;
 
 
 
-<h1 class="title toc-ignore">Homework 7</h1>
+<h1 class="title toc-ignore">Homework 8</h1>
 <h4 class="author">Key</h4>
 <h4 class="date">2025-02-26</h4>
 
@@ -394,305 +394,342 @@ report neat and clean!</p>
 </div>
 <div id="load-the-libraries" class="section level2">
 <h2>Load the libraries</h2>
-<pre class="r"><code>library(tidyverse)</code></pre>
-<p>For this assignment we are going to work with a data set from the <a href="http://www.fao.org/about/en/">United Nations Food and Agriculture
-Organization</a> on world fisheries.</p>
-<p>Load the data <code>fisheries.csv</code> as a new object titled
-<code>fisheries</code>.</p>
-<pre class="r"><code>fisheries &lt;- read_csv(&quot;data/fisheries.csv&quot;)</code></pre>
-<pre><code>## Rows: 376771 Columns: 10
-## ── Column specification ────────────────────────────────────────────────────────
-## Delimiter: &quot;,&quot;
-## chr (6): country, common_name, isscaap_taxonomic_group, asfis_species_number...
-## dbl (4): isscaap_group_number, fao_major_fishing_area, year, catch
-## 
-## ℹ Use `spec()` to retrieve the full column specification for this data.
-## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
-<ol style="list-style-type: decimal">
-<li>Explore the data. What are the names of the variables, what are the
-dimensions, are there any NA’s, what are the classes of the variables,
-etc.? You may use the functions that you prefer.</li>
-</ol>
-<pre class="r"><code>glimpse(fisheries)</code></pre>
-<pre><code>## Rows: 376,771
-## Columns: 10
-## $ country                 &lt;chr&gt; &quot;Albania&quot;, &quot;Albania&quot;, &quot;Albania&quot;, &quot;Albania&quot;, &quot;A…
-## $ common_name             &lt;chr&gt; &quot;Angelsharks, sand devils nei&quot;, &quot;Angelsharks, …
-## $ isscaap_group_number    &lt;dbl&gt; 38, 38, 38, 38, 38, 38, 38, 38, 38, 38, 38, 38…
-## $ isscaap_taxonomic_group &lt;chr&gt; &quot;Sharks, rays, chimaeras&quot;, &quot;Sharks, rays, chim…
-## $ asfis_species_number    &lt;chr&gt; &quot;10903XXXXX&quot;, &quot;10903XXXXX&quot;, &quot;10903XXXXX&quot;, &quot;109…
-## $ asfis_species_name      &lt;chr&gt; &quot;Squatinidae&quot;, &quot;Squatinidae&quot;, &quot;Squatinidae&quot;, &quot;…
-## $ fao_major_fishing_area  &lt;dbl&gt; 37, 37, 37, 37, 37, 37, 37, 37, 37, 37, 37, 37…
-## $ measure                 &lt;chr&gt; &quot;Quantity (tonnes)&quot;, &quot;Quantity (tonnes)&quot;, &quot;Qua…
-## $ year                    &lt;dbl&gt; 1995, 1996, 1997, 1998, 1999, 2000, 2001, 2002…
-## $ catch                   &lt;dbl&gt; NA, 53, 20, 31, 30, 30, 16, 79, 1, 4, 68, 55, …</code></pre>
-<ol start="2" style="list-style-type: decimal">
-<li>How many countries are represented in the data? Provide a count and
-list their names.</li>
-</ol>
-<pre class="r"><code>fisheries %&gt;% 
-  summarize(n_countries = n_distinct(country))</code></pre>
-<pre><code>## # A tibble: 1 × 1
-##   n_countries
-##         &lt;int&gt;
-## 1         203</code></pre>
-<pre class="r"><code>fisheries$country %&gt;% unique()</code></pre>
-<pre><code>##   [1] &quot;Albania&quot;                   &quot;Algeria&quot;                  
-##   [3] &quot;American Samoa&quot;            &quot;Angola&quot;                   
-##   [5] &quot;Anguilla&quot;                  &quot;Antigua and Barbuda&quot;      
-##   [7] &quot;Argentina&quot;                 &quot;Aruba&quot;                    
-##   [9] &quot;Australia&quot;                 &quot;Bahamas&quot;                  
-##  [11] &quot;Bahrain&quot;                   &quot;Bangladesh&quot;               
-##  [13] &quot;Barbados&quot;                  &quot;Belgium&quot;                  
-##  [15] &quot;Belize&quot;                    &quot;Benin&quot;                    
-##  [17] &quot;Bermuda&quot;                   &quot;Bonaire/S.Eustatius/Saba&quot; 
-##  [19] &quot;Bosnia and Herzegovina&quot;    &quot;Brazil&quot;                   
-##  [21] &quot;British Indian Ocean Ter&quot;  &quot;British Virgin Islands&quot;   
-##  [23] &quot;Brunei Darussalam&quot;         &quot;Bulgaria&quot;                 
-##  [25] &quot;Cabo Verde&quot;                &quot;Cambodia&quot;                 
-##  [27] &quot;Cameroon&quot;                  &quot;Canada&quot;                   
-##  [29] &quot;Cayman Islands&quot;            &quot;Channel Islands&quot;          
-##  [31] &quot;Chile&quot;                     &quot;China&quot;                    
-##  [33] &quot;China, Hong Kong SAR&quot;      &quot;China, Macao SAR&quot;         
-##  [35] &quot;Colombia&quot;                  &quot;Comoros&quot;                  
-##  [37] &quot;Congo, Dem. Rep. of the&quot;   &quot;Congo, Republic of&quot;       
-##  [39] &quot;Cook Islands&quot;              &quot;Costa Rica&quot;               
-##  [41] &quot;Croatia&quot;                   &quot;Cuba&quot;                     
-##  [43] &quot;Cura\xe7ao&quot;                &quot;Cyprus&quot;                   
-##  [45] &quot;C\xf4te d&#39;Ivoire&quot;          &quot;Denmark&quot;                  
-##  [47] &quot;Djibouti&quot;                  &quot;Dominica&quot;                 
-##  [49] &quot;Dominican Republic&quot;        &quot;Ecuador&quot;                  
-##  [51] &quot;Egypt&quot;                     &quot;El Salvador&quot;              
-##  [53] &quot;Equatorial Guinea&quot;         &quot;Eritrea&quot;                  
-##  [55] &quot;Estonia&quot;                   &quot;Ethiopia&quot;                 
-##  [57] &quot;Falkland Is.(Malvinas)&quot;    &quot;Faroe Islands&quot;            
-##  [59] &quot;Fiji, Republic of&quot;         &quot;Finland&quot;                  
-##  [61] &quot;France&quot;                    &quot;French Guiana&quot;            
-##  [63] &quot;French Polynesia&quot;          &quot;French Southern Terr&quot;     
-##  [65] &quot;Gabon&quot;                     &quot;Gambia&quot;                   
-##  [67] &quot;Georgia&quot;                   &quot;Germany&quot;                  
-##  [69] &quot;Ghana&quot;                     &quot;Gibraltar&quot;                
-##  [71] &quot;Greece&quot;                    &quot;Greenland&quot;                
-##  [73] &quot;Grenada&quot;                   &quot;Guadeloupe&quot;               
-##  [75] &quot;Guam&quot;                      &quot;Guatemala&quot;                
-##  [77] &quot;Guinea&quot;                    &quot;GuineaBissau&quot;             
-##  [79] &quot;Guyana&quot;                    &quot;Haiti&quot;                    
-##  [81] &quot;Honduras&quot;                  &quot;Iceland&quot;                  
-##  [83] &quot;India&quot;                     &quot;Indonesia&quot;                
-##  [85] &quot;Iran (Islamic Rep. of)&quot;    &quot;Iraq&quot;                     
-##  [87] &quot;Ireland&quot;                   &quot;Isle of Man&quot;              
-##  [89] &quot;Israel&quot;                    &quot;Italy&quot;                    
-##  [91] &quot;Jamaica&quot;                   &quot;Japan&quot;                    
-##  [93] &quot;Jordan&quot;                    &quot;Kenya&quot;                    
-##  [95] &quot;Kiribati&quot;                  &quot;Korea, Dem. People&#39;s Rep&quot; 
-##  [97] &quot;Korea, Republic of&quot;        &quot;Kuwait&quot;                   
-##  [99] &quot;Latvia&quot;                    &quot;Lebanon&quot;                  
-## [101] &quot;Liberia&quot;                   &quot;Libya&quot;                    
-## [103] &quot;Lithuania&quot;                 &quot;Madagascar&quot;               
-## [105] &quot;Malaysia&quot;                  &quot;Maldives&quot;                 
-## [107] &quot;Malta&quot;                     &quot;Marshall Islands&quot;         
-## [109] &quot;Martinique&quot;                &quot;Mauritania&quot;               
-## [111] &quot;Mauritius&quot;                 &quot;Mayotte&quot;                  
-## [113] &quot;Mexico&quot;                    &quot;Micronesia, Fed.States of&quot;
-## [115] &quot;Monaco&quot;                    &quot;Montenegro&quot;               
-## [117] &quot;Montserrat&quot;                &quot;Morocco&quot;                  
-## [119] &quot;Mozambique&quot;                &quot;Myanmar&quot;                  
-## [121] &quot;Namibia&quot;                   &quot;Nauru&quot;                    
-## [123] &quot;Netherlands&quot;               &quot;Netherlands Antilles&quot;     
-## [125] &quot;New Caledonia&quot;             &quot;New Zealand&quot;              
-## [127] &quot;Nicaragua&quot;                 &quot;Nigeria&quot;                  
-## [129] &quot;Niue&quot;                      &quot;Norfolk Island&quot;           
-## [131] &quot;Northern Mariana Is.&quot;      &quot;Norway&quot;                   
-## [133] &quot;Oman&quot;                      &quot;Other nei&quot;                
-## [135] &quot;Pakistan&quot;                  &quot;Palau&quot;                    
-## [137] &quot;Palestine, Occupied Tr.&quot;   &quot;Panama&quot;                   
-## [139] &quot;Papua New Guinea&quot;          &quot;Peru&quot;                     
-## [141] &quot;Philippines&quot;               &quot;Pitcairn Islands&quot;         
-## [143] &quot;Poland&quot;                    &quot;Portugal&quot;                 
-## [145] &quot;Puerto Rico&quot;               &quot;Qatar&quot;                    
-## [147] &quot;Romania&quot;                   &quot;Russian Federation&quot;       
-## [149] &quot;R\xe9union&quot;                &quot;Saint Barth\xe9lemy&quot;      
-## [151] &quot;Saint Helena&quot;              &quot;Saint Kitts and Nevis&quot;    
-## [153] &quot;Saint Lucia&quot;               &quot;Saint Vincent/Grenadines&quot; 
-## [155] &quot;SaintMartin&quot;               &quot;Samoa&quot;                    
-## [157] &quot;Sao Tome and Principe&quot;     &quot;Saudi Arabia&quot;             
-## [159] &quot;Senegal&quot;                   &quot;Serbia and Montenegro&quot;    
-## [161] &quot;Seychelles&quot;                &quot;Sierra Leone&quot;             
-## [163] &quot;Singapore&quot;                 &quot;Sint Maarten&quot;             
-## [165] &quot;Slovenia&quot;                  &quot;Solomon Islands&quot;          
-## [167] &quot;Somalia&quot;                   &quot;South Africa&quot;             
-## [169] &quot;Spain&quot;                     &quot;Sri Lanka&quot;                
-## [171] &quot;St. Pierre and Miquelon&quot;   &quot;Sudan&quot;                    
-## [173] &quot;Sudan (former)&quot;            &quot;Suriname&quot;                 
-## [175] &quot;Svalbard and Jan Mayen&quot;    &quot;Sweden&quot;                   
-## [177] &quot;Syrian Arab Republic&quot;      &quot;Taiwan Province of China&quot; 
-## [179] &quot;Tanzania, United Rep. of&quot;  &quot;Thailand&quot;                 
-## [181] &quot;TimorLeste&quot;                &quot;Togo&quot;                     
-## [183] &quot;Tokelau&quot;                   &quot;Tonga&quot;                    
-## [185] &quot;Trinidad and Tobago&quot;       &quot;Tunisia&quot;                  
-## [187] &quot;Turkey&quot;                    &quot;Turks and Caicos Is.&quot;     
-## [189] &quot;Tuvalu&quot;                    &quot;US Virgin Islands&quot;        
-## [191] &quot;Ukraine&quot;                   &quot;Un. Sov. Soc. Rep.&quot;       
-## [193] &quot;United Arab Emirates&quot;      &quot;United Kingdom&quot;           
-## [195] &quot;United States of America&quot;  &quot;Uruguay&quot;                  
-## [197] &quot;Vanuatu&quot;                   &quot;Venezuela, Boliv Rep of&quot;  
-## [199] &quot;Viet Nam&quot;                  &quot;Wallis and Futuna Is.&quot;    
-## [201] &quot;Yemen&quot;                     &quot;Yugoslavia SFR&quot;           
-## [203] &quot;Zanzibar&quot;</code></pre>
-<ol start="3" style="list-style-type: decimal">
-<li>Based on the <code>asfis_species_number</code>, how many different
-(i.e.) fish species were caught?</li>
-</ol>
-<pre class="r"><code>fisheries%&gt;% 
-  mutate(asfis_species_number=as.factor(asfis_species_number)) %&gt;%
-  summarize(n_taxa=n_distinct(asfis_species_number))</code></pre>
-<pre><code>## # A tibble: 1 × 1
-##   n_taxa
-##    &lt;int&gt;
-## 1   1551</code></pre>
-<ol start="4" style="list-style-type: decimal">
-<li>What is the total catch for each
-<code>isscaap_taxonomic_group</code> in the data set?</li>
-</ol>
-<pre class="r"><code>fisheries %&gt;% 
-  group_by(isscaap_taxonomic_group) %&gt;% 
-  summarize(total_catch=sum(catch, na.rm=T)) %&gt;% 
-  arrange(desc(total_catch))</code></pre>
-<pre><code>## # A tibble: 30 × 2
-##    isscaap_taxonomic_group         total_catch
-##    &lt;chr&gt;                                 &lt;dbl&gt;
-##  1 Herrings, sardines, anchovies       1898529
-##  2 Cods, hakes, haddocks               1218092
-##  3 Miscellaneous pelagic fishes        1217644
-##  4 Miscellaneous coastal fishes         995248
-##  5 Tunas, bonitos, billfishes           978951
-##  6 Marine fishes not identified         863949
-##  7 Miscellaneous demersal fishes        452445
-##  8 Squids, cuttlefishes, octopuses      311928
-##  9 Sharks, rays, chimaeras              263569
-## 10 Shrimps, prawns                      228203
-## # ℹ 20 more rows</code></pre>
-<ol start="5" style="list-style-type: decimal">
-<li>Based on the <code>asfis_species_name</code>, what are the top 5
-most caught species? (note: “Osteichthyes” is not a species, it refers
-to unidentified fish. You should filter this one out.).</li>
-</ol>
-<pre class="r"><code>fisheries %&gt;% 
-  filter(asfis_species_name != &quot;Osteichthyes&quot;) %&gt;%
-  group_by(asfis_species_number, asfis_species_name) %&gt;%
-  summarize(total_catch=sum(catch, na.rm=T), .groups=&#39;keep&#39;) %&gt;% 
-  arrange(-total_catch)</code></pre>
-<pre><code>## # A tibble: 1,547 × 3
-## # Groups:   asfis_species_number, asfis_species_name [1,547]
-##    asfis_species_number asfis_species_name      total_catch
-##    &lt;chr&gt;                &lt;chr&gt;                         &lt;dbl&gt;
-##  1 1210600208           Engraulis ringens            540739
-##  2 1480401601           Theragra chalcogramma        473722
-##  3 1210500105           Clupea harengus              264304
-##  4 1480400202           Gadus morhua                 217930
-##  5 1750102501           Katsuwonus pelamis           194923
-##  6 1210501303           Sardinops sagax              176094
-##  7 1750100201           Scomber japonicus            175444
-##  8 1702300405           Trachurus murphyi            152034
-##  9 1210501301           Sardinops melanostictus      144774
-## 10 1230400201           Mallotus villosus            131239
-## # ℹ 1,537 more rows</code></pre>
-<ol start="6" style="list-style-type: decimal">
-<li>For the species that was caught the most, which country had the
-highest catch?</li>
-</ol>
-<pre class="r"><code>fisheries %&gt;% 
-  filter(asfis_species_name == &quot;Engraulis ringens&quot;) %&gt;%
-  group_by(country) %&gt;% 
-  summarize(catch_total=sum(catch, na.rm=T)) %&gt;% 
-  arrange(desc(catch_total))</code></pre>
-<pre><code>## # A tibble: 3 × 2
-##   country catch_total
-##   &lt;chr&gt;         &lt;dbl&gt;
-## 1 Peru         439717
-## 2 Chile        100694
-## 3 Ecuador         328</code></pre>
-<ol start="7" style="list-style-type: decimal">
-<li>Which country had the largest overall catch between the years
-2002-2012?</li>
-</ol>
-<pre class="r"><code>fisheries%&gt;% 
-  filter(year&gt;=2002 &amp; year&lt;=2012) %&gt;%
-  group_by(country) %&gt;% 
-  summarize(catch_total=sum(catch, na.rm=T)) %&gt;% 
-  arrange(desc(catch_total))</code></pre>
-<pre><code>## # A tibble: 200 × 2
-##    country                  catch_total
-##    &lt;chr&gt;                          &lt;dbl&gt;
-##  1 China                         269238
-##  2 United States of America      167309
-##  3 Russian Federation            112028
-##  4 Indonesia                     104362
-##  5 Japan                         104152
-##  6 Chile                          97030
-##  7 Spain                          92286
-##  8 Peru                           86482
-##  9 Portugal                       69778
-## 10 India                          69681
-## # ℹ 190 more rows</code></pre>
-<ol start="8" style="list-style-type: decimal">
-<li>Which country had the largest catch in a single year? What year was
-it?</li>
-</ol>
-<pre class="r"><code>fisheries %&gt;% 
-  group_by(country, year) %&gt;% 
-  summarize(catch_total=sum(catch, na.rm=T), .groups = &#39;keep&#39;) %&gt;% 
-  arrange(desc(catch_total))</code></pre>
-<pre><code>## # A tibble: 11,583 × 3
-## # Groups:   country, year [11,583]
-##    country  year catch_total
-##    &lt;chr&gt;   &lt;dbl&gt;       &lt;dbl&gt;
-##  1 Peru     1970       77000
-##  2 Peru     1971       76800
-##  3 Peru     1968       62700
-##  4 China    2001       39327
-##  5 Japan    1972       30167
-##  6 Japan    1988       29701
-##  7 China    2002       28967
-##  8 China    2010       27851
-##  9 Japan    1976       27825
-## 10 China    1998       27593
-## # ℹ 11,573 more rows</code></pre>
-<ol start="9" style="list-style-type: decimal">
-<li>Fishing practices for sharks, rays, chimaeras and other
-cartilaginous fish (group 38) are of particular concern due to their
-conservation status. Make a new dataframe <code>sharks</code> that only
-contains data on this group.</li>
-</ol>
-<pre class="r"><code>sharks &lt;- fisheries %&gt;% 
-  filter(isscaap_taxonomic_group == &quot;Sharks, rays, chimaeras&quot;)</code></pre>
-<ol start="10" style="list-style-type: decimal">
-<li>Using the <code>sharks</code> dataframe, use <code>mutate()</code>
-to create a new column called <code>fishing_pressure</code> that is
-based on the total catch. If the total catch is greater than 75, the
-fishing pressure is considered “high”, otherwise it is considered
-“moderate”.</li>
-</ol>
-<pre class="r"><code>sharks &lt;- sharks %&gt;% 
-  mutate(fishing_pressure=ifelse(catch&gt;75, &quot;high&quot;, &quot;moderate&quot;))</code></pre>
-<ol start="11" style="list-style-type: decimal">
-<li>For sharks, how does the average catch differ between high and
-moderate fishing pressure?</li>
-</ol>
-<pre class="r"><code>sharks %&gt;% 
-  filter(catch&gt;0 | catch!=&quot;NA&quot;) %&gt;% 
-  group_by(fishing_pressure) %&gt;%
-  summarize(avg_catch=mean(catch, na.rm=T))</code></pre>
-<pre><code>## # A tibble: 2 × 2
-##   fishing_pressure avg_catch
-##   &lt;chr&gt;                &lt;dbl&gt;
-## 1 high                  86.6
-## 2 moderate              14.3</code></pre>
-<ol start="12" style="list-style-type: decimal">
-<li>Perform one analysis of your choice on the fisheries dataframe that
-includes a minimum of three lines of code and two functions. Write a
-seentence or two that explains the intent of your code.</li>
-</ol>
+<pre class="r"><code>library(tidyverse)
+library(janitor)
+library(skimr)
+library(naniar)</code></pre>
+</div>
+<div id="data" class="section level2">
+<h2>Data</h2>
+<p><strong>1. For this homework, we will use two different data sets.
+Please load <code>amniota</code> and <code>amphibio</code>.</strong></p>
+<p><code>amniota</code> data:<br />
+Myhrvold N, Baldridge E, Chan B, Sivam D, Freeman DL, Ernest SKM (2015).
+“An amniote life-history database to perform comparative analyses with
+birds, mammals, and reptiles.” <em>Ecology</em>, <em>96</em>, 3109. doi:
+10.1890/15-0846.1 (URL: <a href="https://doi.org/10.1890/15-0846.1" class="uri">https://doi.org/10.1890/15-0846.1</a>).</p>
+<pre class="r"><code>amniota &lt;- read_csv(&quot;data/amniota.csv&quot;)</code></pre>
+<p><code>amphibio</code> data:<br />
+Oliveira BF, São-Pedro VA, Santos-Barrera G, Penone C, Costa GC (2017).
+“AmphiBIO, a global database for amphibian ecological traits.”
+<em>Scientific Data</em>, <em>4</em>, 170123. doi:
+10.1038/sdata.2017.123 (URL: <a href="https://doi.org/10.1038/sdata.2017.123" class="uri">https://doi.org/10.1038/sdata.2017.123</a>).</p>
+<pre class="r"><code>amphibio &lt;- read_csv(&quot;data/amphibio.csv&quot;) %&gt;% clean_names()</code></pre>
+</div>
+<div id="questions" class="section level2">
+<h2>Questions</h2>
+<p><strong>2. Do some exploratory analysis of the <code>amniota</code>
+data set. Use the function(s) of your choice. Try to get an idea of how
+NA’s are represented in the data.</strong></p>
+<pre class="r"><code>glimpse(amniota) #NA&#39;s are represented by -999</code></pre>
+<pre><code>## Rows: 21,322
+## Columns: 36
+## $ class                                 &lt;chr&gt; &quot;Aves&quot;, &quot;Aves&quot;, &quot;Aves&quot;, &quot;Aves&quot;, …
+## $ order                                 &lt;chr&gt; &quot;Accipitriformes&quot;, &quot;Accipitrifor…
+## $ family                                &lt;chr&gt; &quot;Accipitridae&quot;, &quot;Accipitridae&quot;, …
+## $ genus                                 &lt;chr&gt; &quot;Accipiter&quot;, &quot;Accipiter&quot;, &quot;Accip…
+## $ species                               &lt;chr&gt; &quot;albogularis&quot;, &quot;badius&quot;, &quot;bicolo…
+## $ subspecies                            &lt;dbl&gt; -999, -999, -999, -999, -999, -9…
+## $ common_name                           &lt;chr&gt; &quot;Pied Goshawk&quot;, &quot;Shikra&quot;, &quot;Bicol…
+## $ female_maturity_d                     &lt;dbl&gt; -999.000, 363.468, -999.000, -99…
+## $ litter_or_clutch_size_n               &lt;dbl&gt; -999.000, 3.250, 2.700, -999.000…
+## $ litters_or_clutches_per_y             &lt;dbl&gt; -999, 1, -999, -999, 1, -999, -9…
+## $ adult_body_mass_g                     &lt;dbl&gt; 251.500, 140.000, 345.000, 142.0…
+## $ maximum_longevity_y                   &lt;dbl&gt; -999.00000, -999.00000, -999.000…
+## $ gestation_d                           &lt;dbl&gt; -999, -999, -999, -999, -999, -9…
+## $ weaning_d                             &lt;dbl&gt; -999, -999, -999, -999, -999, -9…
+## $ birth_or_hatching_weight_g            &lt;dbl&gt; -999, -999, -999, -999, -999, -9…
+## $ weaning_weight_g                      &lt;dbl&gt; -999, -999, -999, -999, -999, -9…
+## $ egg_mass_g                            &lt;dbl&gt; -999.00, 21.00, 32.00, -999.00, …
+## $ incubation_d                          &lt;dbl&gt; -999.00, 30.00, -999.00, -999.00…
+## $ fledging_age_d                        &lt;dbl&gt; -999.00, 32.00, -999.00, -999.00…
+## $ longevity_y                           &lt;dbl&gt; -999.00000, -999.00000, -999.000…
+## $ male_maturity_d                       &lt;dbl&gt; -999, -999, -999, -999, -999, -9…
+## $ inter_litter_or_interbirth_interval_y &lt;dbl&gt; -999, -999, -999, -999, -999, -9…
+## $ female_body_mass_g                    &lt;dbl&gt; 352.500, 168.500, 390.000, -999.…
+## $ male_body_mass_g                      &lt;dbl&gt; 223.000, 125.000, 212.000, 142.0…
+## $ no_sex_body_mass_g                    &lt;dbl&gt; -999.0, 123.0, -999.0, -999.0, -…
+## $ egg_width_mm                          &lt;dbl&gt; -999, -999, -999, -999, -999, -9…
+## $ egg_length_mm                         &lt;dbl&gt; -999, -999, -999, -999, -999, -9…
+## $ fledging_mass_g                       &lt;dbl&gt; -999, -999, -999, -999, -999, -9…
+## $ adult_svl_cm                          &lt;dbl&gt; -999.00, 30.00, 39.50, -999.00, …
+## $ male_svl_cm                           &lt;dbl&gt; -999, -999, -999, -999, -999, -9…
+## $ female_svl_cm                         &lt;dbl&gt; -999, -999, -999, -999, -999, -9…
+## $ birth_or_hatching_svl_cm              &lt;dbl&gt; -999, -999, -999, -999, -999, -9…
+## $ female_svl_at_maturity_cm             &lt;dbl&gt; -999, -999, -999, -999, -999, -9…
+## $ female_body_mass_at_maturity_g        &lt;dbl&gt; -999, -999, -999, -999, -999, -9…
+## $ no_sex_svl_cm                         &lt;dbl&gt; -999, -999, -999, -999, -999, -9…
+## $ no_sex_maturity_d                     &lt;dbl&gt; -999, -999, -999, -999, -999, -9…</code></pre>
+<p><strong>3. Do some exploratory analysis of the <code>amphibio</code>
+data set. Use the function(s) of your choice. Try to get an idea of how
+NA’s are represented in the data.</strong></p>
+<pre class="r"><code>glimpse(amphibio) #NA&#39;s are represented by &quot;NA&quot;</code></pre>
+<pre><code>## Rows: 6,776
+## Columns: 38
+## $ id                      &lt;chr&gt; &quot;Anf0001&quot;, &quot;Anf0002&quot;, &quot;Anf0003&quot;, &quot;Anf0004&quot;, &quot;A…
+## $ order                   &lt;chr&gt; &quot;Anura&quot;, &quot;Anura&quot;, &quot;Anura&quot;, &quot;Anura&quot;, &quot;Anura&quot;, &quot;…
+## $ family                  &lt;chr&gt; &quot;Allophrynidae&quot;, &quot;Alytidae&quot;, &quot;Alytidae&quot;, &quot;Alyt…
+## $ genus                   &lt;chr&gt; &quot;Allophryne&quot;, &quot;Alytes&quot;, &quot;Alytes&quot;, &quot;Alytes&quot;, &quot;A…
+## $ species                 &lt;chr&gt; &quot;Allophryne ruthveni&quot;, &quot;Alytes cisternasii&quot;, &quot;…
+## $ fos                     &lt;dbl&gt; NA, NA, NA, NA, NA, 1, 1, 1, 1, 1, 1, 1, 1, NA…
+## $ ter                     &lt;dbl&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1…
+## $ aqu                     &lt;dbl&gt; 1, 1, 1, 1, NA, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, …
+## $ arb                     &lt;dbl&gt; 1, 1, 1, 1, 1, 1, NA, NA, NA, NA, NA, NA, NA, …
+## $ leaves                  &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
+## $ flowers                 &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
+## $ seeds                   &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
+## $ fruits                  &lt;lgl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
+## $ arthro                  &lt;dbl&gt; 1, 1, 1, NA, 1, 1, 1, 1, 1, NA, 1, 1, NA, NA, …
+## $ vert                    &lt;dbl&gt; NA, NA, NA, NA, NA, NA, 1, NA, NA, NA, 1, 1, N…
+## $ diu                     &lt;dbl&gt; 1, NA, NA, NA, NA, NA, 1, 1, 1, NA, 1, 1, NA, …
+## $ noc                     &lt;dbl&gt; 1, 1, 1, NA, 1, 1, 1, 1, 1, NA, 1, 1, 1, NA, N…
+## $ crepu                   &lt;dbl&gt; 1, NA, NA, NA, NA, 1, NA, NA, NA, NA, NA, NA, …
+## $ wet_warm                &lt;dbl&gt; NA, NA, NA, NA, 1, 1, NA, NA, NA, NA, 1, NA, N…
+## $ wet_cold                &lt;dbl&gt; 1, NA, NA, NA, NA, NA, 1, NA, NA, NA, NA, NA, …
+## $ dry_warm                &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
+## $ dry_cold                &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
+## $ body_mass_g             &lt;dbl&gt; 31.00, 6.10, NA, NA, 2.31, 13.40, 21.80, NA, N…
+## $ age_at_maturity_min_y   &lt;dbl&gt; NA, 2.0, 2.0, NA, 3.0, 2.0, 3.0, NA, NA, NA, 4…
+## $ age_at_maturity_max_y   &lt;dbl&gt; NA, 2.0, 2.0, NA, 3.0, 3.0, 5.0, NA, NA, NA, 4…
+## $ body_size_mm            &lt;dbl&gt; 31.0, 50.0, 55.0, NA, 40.0, 55.0, 80.0, 60.0, …
+## $ size_at_maturity_min_mm &lt;dbl&gt; NA, 27, NA, NA, NA, 35, NA, NA, NA, NA, NA, NA…
+## $ size_at_maturity_max_mm &lt;dbl&gt; NA, 36.0, NA, NA, NA, 40.5, NA, NA, NA, NA, NA…
+## $ longevity_max_y         &lt;dbl&gt; NA, 6, NA, NA, NA, 7, 9, NA, NA, NA, NA, NA, N…
+## $ litter_size_min_n       &lt;dbl&gt; 300, 60, 40, NA, 7, 53, 300, 1500, 1000, NA, 2…
+## $ litter_size_max_n       &lt;dbl&gt; 300, 180, 40, NA, 20, 171, 1500, 1500, 1000, N…
+## $ reproductive_output_y   &lt;dbl&gt; 1, 4, 1, 4, 1, 4, 6, 1, 1, 1, 1, 1, 1, 1, NA, …
+## $ offspring_size_min_mm   &lt;dbl&gt; NA, 2.6, NA, NA, 5.4, 2.6, 1.5, NA, 1.5, NA, 1…
+## $ offspring_size_max_mm   &lt;dbl&gt; NA, 3.5, NA, NA, 7.0, 5.0, 2.0, NA, 1.5, NA, 1…
+## $ dir                     &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, N…
+## $ lar                     &lt;dbl&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, N…
+## $ viv                     &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, N…
+## $ obs                     &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…</code></pre>
+<p><strong>4. How many total NA’s are in each data set? Do these values
+make sense? Are NA’s represented by values?</strong></p>
+<p><code>amniota</code><br />
+<em>For such a large data set, it is unlikely that there are no
+NA’s.</em></p>
+<pre class="r"><code>miss_var_summary(amniota)</code></pre>
+<pre><code>## # A tibble: 36 × 3
+##    variable                  n_miss pct_miss
+##    &lt;chr&gt;                      &lt;int&gt;    &lt;num&gt;
+##  1 class                          0        0
+##  2 order                          0        0
+##  3 family                         0        0
+##  4 genus                          0        0
+##  5 species                        0        0
+##  6 subspecies                     0        0
+##  7 common_name                    0        0
+##  8 female_maturity_d              0        0
+##  9 litter_or_clutch_size_n        0        0
+## 10 litters_or_clutches_per_y      0        0
+## # ℹ 26 more rows</code></pre>
+<p><code>amphibio</code></p>
+<pre class="r"><code>miss_var_summary(amphibio)</code></pre>
+<pre><code>## # A tibble: 38 × 3
+##    variable n_miss pct_miss
+##    &lt;chr&gt;     &lt;int&gt;    &lt;num&gt;
+##  1 fruits     6774    100. 
+##  2 flowers    6772     99.9
+##  3 seeds      6772     99.9
+##  4 leaves     6752     99.6
+##  5 dry_cold   6735     99.4
+##  6 vert       6657     98.2
+##  7 obs        6651     98.2
+##  8 wet_cold   6625     97.8
+##  9 crepu      6608     97.5
+## 10 dry_warm   6572     97.0
+## # ℹ 28 more rows</code></pre>
+<p><strong>5. Make any necessary replacements in the data such that all
+NA’s appear as “NA”.</strong></p>
+<pre class="r"><code>amniota_tidy &lt;- amniota %&gt;% 
+  replace_with_na_all(condition = ~.x == -999)</code></pre>
+<p>Notice that the <code>female_maturity_d</code> column has a value of
+-30258.711. This is likely a placeholder for missing data.</p>
+<pre class="r"><code>summary(amniota_tidy)</code></pre>
+<pre><code>##     class              order              family             genus          
+##  Length:21322       Length:21322       Length:21322       Length:21322      
+##  Class :character   Class :character   Class :character   Class :character  
+##  Mode  :character   Mode  :character   Mode  :character   Mode  :character  
+##                                                                             
+##                                                                             
+##                                                                             
+##                                                                             
+##    species            subspecies    common_name        female_maturity_d 
+##  Length:21322       Min.   : NA     Length:21322       Min.   :-30258.7  
+##  Class :character   1st Qu.: NA     Class :character   1st Qu.:   288.4  
+##  Mode  :character   Median : NA     Mode  :character   Median :   365.0  
+##                     Mean   :NaN                        Mean   :   691.2  
+##                     3rd Qu.: NA                        3rd Qu.:   819.3  
+##                     Max.   : NA                        Max.   :  9131.2  
+##                     NA&#39;s   :21322                      NA&#39;s   :17849     
+##  litter_or_clutch_size_n litters_or_clutches_per_y adult_body_mass_g  
+##  Min.   :  0.900         Min.   : 0.120            Min.   :        0  
+##  1st Qu.:  2.000         1st Qu.: 1.000            1st Qu.:       15  
+##  Median :  2.800         Median : 1.050            Median :       44  
+##  Mean   :  3.826         Mean   : 1.752            Mean   :    37493  
+##  3rd Qu.:  4.150         3rd Qu.: 2.000            3rd Qu.:      238  
+##  Max.   :156.000         Max.   :52.000            Max.   :149000000  
+##  NA&#39;s   :8244            NA&#39;s   :16374             NA&#39;s   :4645       
+##  maximum_longevity_y  gestation_d        weaning_d      
+##  Min.   :  0.083     Min.   :   5.00   Min.   :   1.94  
+##  1st Qu.:  6.000     1st Qu.:  29.91   1st Qu.:  27.75  
+##  Median : 12.308     Median :  63.92   Median :  51.60  
+##  Mean   : 16.466     Mean   : 105.28   Mean   : 113.05  
+##  3rd Qu.: 22.000     3rd Qu.: 151.88   3rd Qu.: 129.83  
+##  Max.   :211.000     Max.   :7396.92   Max.   :1826.25  
+##  NA&#39;s   :15822       NA&#39;s   :18926     NA&#39;s   :19279    
+##  birth_or_hatching_weight_g weaning_weight_g     egg_mass_g      
+##  Min.   :0.00e+00           Min.   :       1   Min.   :   0.218  
+##  1st Qu.:1.30e+00           1st Qu.:      13   1st Qu.:   2.100  
+##  Median :5.90e+00           Median :      43   Median :   5.100  
+##  Mean   :4.48e+03           Mean   :   41386   Mean   :  22.252  
+##  3rd Qu.:4.39e+01           3rd Qu.:     850   3rd Qu.:  20.100  
+##  Max.   :2.25e+06           Max.   :17000000   Max.   :1500.000  
+##  NA&#39;s   :17779              NA&#39;s   :20258      NA&#39;s   :15907     
+##   incubation_d     fledging_age_d   longevity_y      male_maturity_d  
+##  Min.   :   2.00   Min.   :  1.0   Min.   :  0.083   Min.   :  30.44  
+##  1st Qu.:  17.00   1st Qu.: 16.5   1st Qu.:  5.500   1st Qu.: 365.00  
+##  Median :  29.25   Median : 27.5   Median : 10.700   Median : 365.25  
+##  Mean   :  46.67   Mean   : 36.8   Mean   : 13.521   Mean   : 787.16  
+##  3rd Qu.:  59.50   3rd Qu.: 46.0   3rd Qu.: 18.200   3rd Qu.: 913.00  
+##  Max.   :1762.00   Max.   :345.0   Max.   :177.000   Max.   :9131.25  
+##  NA&#39;s   :17682     NA&#39;s   :19478   NA&#39;s   :15822     NA&#39;s   :19278    
+##  inter_litter_or_interbirth_interval_y female_body_mass_g male_body_mass_g 
+##  Min.   :0.047                         Min.   :      0    Min.   :      0  
+##  1st Qu.:0.318                         1st Qu.:     14    1st Qu.:     16  
+##  Median :0.999                         Median :     41    Median :     48  
+##  Mean   :0.907                         Mean   :   2076    Mean   :   6197  
+##  3rd Qu.:1.000                         3rd Qu.:    220    3rd Qu.:    246  
+##  Max.   :4.847                         Max.   :3700000    Max.   :4545000  
+##  NA&#39;s   :19904                         NA&#39;s   :14113      NA&#39;s   :14679    
+##  no_sex_body_mass_g   egg_width_mm    egg_length_mm    fledging_mass_g  
+##  Min.   :        0   Min.   :  2.50   Min.   :  2.50   Min.   :   4.85  
+##  1st Qu.:       13   1st Qu.:  8.00   1st Qu.: 10.94   1st Qu.:  14.60  
+##  Median :       35   Median : 13.00   Median : 19.98   Median :  24.80  
+##  Mean   :    68952   Mean   : 22.99   Mean   : 36.40   Mean   : 452.27  
+##  3rd Qu.:      164   3rd Qu.: 35.90   3rd Qu.: 58.92   3rd Qu.: 107.00  
+##  Max.   :136000000   Max.   :125.00   Max.   :455.00   Max.   :9992.00  
+##  NA&#39;s   :11663       NA&#39;s   :20727    NA&#39;s   :20702    NA&#39;s   :21111    
+##   adult_svl_cm      male_svl_cm     female_svl_cm      birth_or_hatching_svl_cm
+##  Min.   :   1.79   Min.   :  1.57   Min.   :   1.800   Min.   :  0.400         
+##  1st Qu.:   9.50   1st Qu.: 21.41   1st Qu.:   5.756   1st Qu.:  2.450         
+##  Median :  18.50   Median : 35.85   Median :   8.150   Median :  3.300         
+##  Mean   :  38.20   Mean   : 50.44   Mean   :  20.609   Mean   : 12.099         
+##  3rd Qu.:  40.50   3rd Qu.: 63.39   3rd Qu.:  17.721   3rd Qu.:  5.256         
+##  Max.   :3049.00   Max.   :315.20   Max.   :1125.000   Max.   :759.999         
+##  NA&#39;s   :14274     NA&#39;s   :21040    NA&#39;s   :20242      NA&#39;s   :20085           
+##  female_svl_at_maturity_cm female_body_mass_at_maturity_g no_sex_svl_cm   
+##  Min.   :  2.85            Min.   :    30.0               Min.   :   1.7  
+##  1st Qu.:  4.90            1st Qu.:    82.5               1st Qu.:   5.7  
+##  Median :  6.00            Median : 97050.0               Median :   7.7  
+##  Mean   : 18.69            Mean   : 97032.5               Mean   :  20.0  
+##  3rd Qu.:  8.40            3rd Qu.:194000.0               3rd Qu.:  11.0  
+##  Max.   :580.00            Max.   :194000.0               Max.   :3300.0  
+##  NA&#39;s   :21120             NA&#39;s   :21318                  NA&#39;s   :16052   
+##  no_sex_maturity_d
+##  Min.   :   33.0  
+##  1st Qu.:  365.3  
+##  Median :  913.1  
+##  Mean   : 1604.5  
+##  3rd Qu.: 2008.9  
+##  Max.   :14610.0  
+##  NA&#39;s   :20860</code></pre>
+<pre class="r"><code>amniota_tidy %&gt;% 
+  filter(female_maturity_d==&quot;-30258.711&quot;) </code></pre>
+<pre><code>## # A tibble: 4 × 36
+##   class order      family genus species subspecies common_name female_maturity_d
+##   &lt;chr&gt; &lt;chr&gt;      &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt;        &lt;dbl&gt; &lt;chr&gt;                   &lt;dbl&gt;
+## 1 Aves  Accipitri… Accip… Circ… melano…         NA Pied Harri…           -30259.
+## 2 Aves  Passerifo… Vidui… Vidua funerea         NA Dusky Indi…           -30259.
+## 3 Aves  Passerifo… Vidui… Vidua nigeri…         NA Quailfinch…           -30259.
+## 4 Aves  Passerifo… Vidui… Vidua purpur…         NA Purple Ind…           -30259.
+## # ℹ 28 more variables: litter_or_clutch_size_n &lt;dbl&gt;,
+## #   litters_or_clutches_per_y &lt;dbl&gt;, adult_body_mass_g &lt;dbl&gt;,
+## #   maximum_longevity_y &lt;dbl&gt;, gestation_d &lt;dbl&gt;, weaning_d &lt;dbl&gt;,
+## #   birth_or_hatching_weight_g &lt;dbl&gt;, weaning_weight_g &lt;dbl&gt;, egg_mass_g &lt;dbl&gt;,
+## #   incubation_d &lt;dbl&gt;, fledging_age_d &lt;dbl&gt;, longevity_y &lt;dbl&gt;,
+## #   male_maturity_d &lt;dbl&gt;, inter_litter_or_interbirth_interval_y &lt;dbl&gt;,
+## #   female_body_mass_g &lt;dbl&gt;, male_body_mass_g &lt;dbl&gt;, …</code></pre>
+<p>I am using ifelse here because I need to be careful with replacing
+values.</p>
+<pre class="r"><code>amniota_tidy &lt;- amniota_tidy %&gt;% 
+  mutate(female_maturity_d=ifelse(female_maturity_d&lt;0, NA, female_maturity_d))</code></pre>
+<p><strong>6. Use the package <code>naniar</code> to produce a summary,
+including percentages, of missing data in each column for the
+<code>amniota</code> data.</strong></p>
+<pre class="r"><code>miss_var_summary(amniota_tidy) #how many NAs with percentages</code></pre>
+<pre><code>## # A tibble: 36 × 3
+##    variable                       n_miss pct_miss
+##    &lt;chr&gt;                           &lt;int&gt;    &lt;num&gt;
+##  1 subspecies                      21322    100  
+##  2 female_body_mass_at_maturity_g  21318    100. 
+##  3 female_svl_at_maturity_cm       21120     99.1
+##  4 fledging_mass_g                 21111     99.0
+##  5 male_svl_cm                     21040     98.7
+##  6 no_sex_maturity_d               20860     97.8
+##  7 egg_width_mm                    20727     97.2
+##  8 egg_length_mm                   20702     97.1
+##  9 weaning_weight_g                20258     95.0
+## 10 female_svl_cm                   20242     94.9
+## # ℹ 26 more rows</code></pre>
+<p><strong>7. Use the package <code>naniar</code> to produce a summary,
+including percentages, of missing data in each column for the
+<code>amphibio</code> data.</strong></p>
+<pre class="r"><code>miss_var_summary(amphibio)</code></pre>
+<pre><code>## # A tibble: 38 × 3
+##    variable n_miss pct_miss
+##    &lt;chr&gt;     &lt;int&gt;    &lt;num&gt;
+##  1 fruits     6774    100. 
+##  2 flowers    6772     99.9
+##  3 seeds      6772     99.9
+##  4 leaves     6752     99.6
+##  5 dry_cold   6735     99.4
+##  6 vert       6657     98.2
+##  7 obs        6651     98.2
+##  8 wet_cold   6625     97.8
+##  9 crepu      6608     97.5
+## 10 dry_warm   6572     97.0
+## # ℹ 28 more rows</code></pre>
+<p><strong>8. For the <code>amniota</code> data, calculate the number of
+NAs in the <code>egg_mass_g</code> column sorted by taxonomic class;
+i.e. how many NA’s are present in the <code>egg_mass_g</code> column in
+birds, mammals, and reptiles? Does this results make sense biologically?
+How do these results affect your interpretation of NA’s?</strong></p>
+<p><em>NAs could reflect missing data (no observations were recorded) or
+it could reflect data that are truly not applicable.</em></p>
+<pre class="r"><code>amniota_tidy %&gt;%
+  select(class, egg_mass_g) %&gt;% 
+  group_by(class) %&gt;%
+  naniar::miss_var_summary(order=T)</code></pre>
+<pre><code>## # A tibble: 3 × 4
+## # Groups:   class [3]
+##   class    variable   n_miss pct_miss
+##   &lt;chr&gt;    &lt;chr&gt;       &lt;int&gt;    &lt;num&gt;
+## 1 Aves     egg_mass_g   4914     50.1
+## 2 Mammalia egg_mass_g   4953    100  
+## 3 Reptilia egg_mass_g   6040     92.0</code></pre>
+<p><strong>9. The <code>amphibio</code> data have variables that
+classify species as fossorial (burrowing), terrestrial, aquatic, or
+arboreal.Calculate the number of NA’s in each of these variables. Do you
+think that the authors intend us to think that there are NA’s in these
+columns or could they represent something else? Explain.</strong></p>
+<pre class="r"><code>amphibio %&gt;% 
+  select(fos, ter, arb, aqu) %&gt;%
+  miss_var_summary()</code></pre>
+<pre><code>## # A tibble: 4 × 3
+##   variable n_miss pct_miss
+##   &lt;chr&gt;     &lt;int&gt;    &lt;num&gt;
+## 1 fos        6053     89.3
+## 2 arb        4347     64.2
+## 3 aqu        2810     41.5
+## 4 ter        1104     16.3</code></pre>
+<p><strong>10. Now that we know how NA’s are represented in the
+<code>amniota</code> data, how would you load the data such that the
+values which represent NA’s are automatically converted?</strong></p>
+<pre class="r"><code>#read_csv(file = &quot;data/amniota.csv&quot;, na = c(&quot;-999&quot;))</code></pre>
+<p><strong>11. Please complete the class project survey at: <a href="https://forms.gle/H2j69Z3ZtbLH3efW6">BIS 15L Group
+Project</a></strong></p>
 </div>
 <div id="push-your-final-code-to-github" class="section level2">
 <h2>Push your final code to GitHub!</h2>
