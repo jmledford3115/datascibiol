@@ -1,0 +1,24 @@
+---
+title: "Lab 14 Intro"
+date: "`r Sys.Date()`"
+output: ioslides_presentation
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+library("jpeg")
+```
+
+## Seating & Set-up
+1. Please make sure that you sit next to your group members for the rest of the quarter.
+2. Please set-up your computer as normal.
+
+## Repos
+1. Your repository is a collection of the work you have done in BIS 15L.  
+2. It should be neat, clean, and professional.  
+3. You can easily turn it into a webpage (https://docs.github.com/en/pages).  
+
+## Group project Check-in
+1. How is your progress?  
+2. What will be finished by Tuesday?  
+3. Make a plan.  
