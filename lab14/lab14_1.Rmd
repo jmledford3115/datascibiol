@@ -54,7 +54,17 @@ A shiny app consists of a user interface (ui) function, server function, and run
 
 Below is a bare bones shiny app. You can get this code snippet by typing `shinyapp` + shift + tab. It doesn't do anything because we haven't created any inputs with the ui or any outputs with the server.  
 ```{r, eval=F, echo=T}
+library(shiny)
 
+ui <- fluidPage(
+  
+)
+
+server <- function(input, output, session) {
+  
+}
+
+shinyApp(ui, server)
 ```
 
 For the rest of the lab we will work on building an example app using `palmerpenguins`.
@@ -62,9 +72,7 @@ For the rest of the lab we will work on building an example app using `palmerpen
 ## Shiny Inputs
 There are many types of inputs in shiny, see the [shiny cheat sheet](https://shiny.posit.co/r/articles/start/cheatsheet/). Our example app uses `selectInput()`, which takes a set of predefined choices and supplies them to the user in a drop down menu format. We are working with the `palmerpenguins` data set, so we want the selections to be the column names of the data frame.
 
-Let's get the names of the `palmerpenguins` data frame and add them as a `selectInput()` to our ui. `selectInput()` takes several arguments including the label that the server function will use, the label that will display to the user, the selection choices, and the initially selected choice.  
-
-I always start by making a simple example plot without shiny so I know where I am going.  
+Let's get the names of the `palmerpenguins` data frame and add them as a `selectInput()` to our ui. `selectInput()` takes several arguments including the label that the server function will use, the label that will display to the user, the selection choices, and the initially selected choice. I always start by making a simple example plot so I know where I am going.  
 ```{r}
 penguins %>% 
   ggplot(aes(x=bill_length_mm, y=body_mass_g))+
@@ -73,12 +81,41 @@ penguins %>%
 
 Since we will make a scatterplot, let's focus on the continuous variables. The first step is to setup the x variable input.
 ```{r, eval=F, echo=T}
+ui <- fluidPage(
+    selectInput("x", # we are naming the select input "x"
+                "Select X Variable", # this is the label that will display to the user
+                choices = c("bill_length_mm", "bill_depth_mm", "flipper_length_mm", "body_mass_g"), # these are the choices the user will have
+                selected = "bill_length_mm") # this is the initially selected choice
+)
 
+server <- function(input, output) {
+  
+}
+
+shinyApp(ui, server)
 ```
 
 Let's repeat the process for the y variable input.
 ```{r, eval=F, echo=T}
+ui <- fluidPage(
+  
+    selectInput("x", 
+                "Select X Variable", 
+                choices = c("bill_length_mm", "bill_depth_mm", "flipper_length_mm", "body_mass_g"), 
+                selected = "bill_length_mm"),
+    
+    selectInput("y", 
+                "Select Y Variable", 
+                choices = c("bill_length_mm", "bill_depth_mm", "flipper_length_mm", "body_mass_g"), 
+                selected = "body_mass_g")
 
+    ) #closes the fluidPage
+
+server <- function(input, output) {
+  
+}
+
+shinyApp(ui, server)
 ```
 
 ## Server Side
@@ -118,7 +155,34 @@ penguins %>%
 ```
 
 ```{r, eval=F, echo=T}
+ui <- fluidPage(
+  
+    selectInput("x", 
+                "Select X Variable", 
+                choices = c("bill_length_mm", "bill_depth_mm", "flipper_length_mm", "body_mass_g"), 
+                selected = "bill_length_mm"),
+    
+    selectInput("y", 
+                "Select Y Variable", 
+                choices = c("bill_length_mm", "bill_depth_mm", "flipper_length_mm", "body_mass_g"), 
+                selected = "body_mass_g"),
+    
+    plotOutput("plot", width="500px", height="400px")
+)
 
+server <- function(input, output, session) {
+  
+  output$plot <- renderPlot({
+    
+    ggplot(data=penguins, 
+           aes_string(x=input$x, y=input$y, color="species"))+
+      geom_point(na.rm=T)+
+      theme_light(base_size=14)
+  })
+  
+}
+
+shinyApp(ui, server)
 ```
 
 Congratulations, you made your first shiny app!
@@ -144,7 +208,30 @@ homerange %>%
 
 2.  Build a shiny app that produces a barplot that explores `locomotion` type with a fill reaction for the variables `trophic.guild` and `thermoregulation`.
 ```{r, eval=F, echo=T}
+library(shiny)
 
+ui <- fluidPage(
+  
+  radioButtons("x", 
+               "Select Fill Variable", 
+               choices=c("trophic.guild", "thermoregulation"),
+               selected="trophic.guild"),
+  
+  plotOutput("plot")
+)
+
+server <- function(input, output, session) {
+  
+  output$plot <- renderPlot({
+    
+    ggplot(data=homerange, 
+           aes_string(x="locomotion", fill=input$x))+
+      geom_bar(position="dodge", alpha=0.8, color="black")+
+      labs(x=NULL, y=NULL, fill="Fill Variable")
+})
+}
+
+shinyApp(ui, server)
 ```
 
 ## Packages for next time
