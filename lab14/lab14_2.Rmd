@@ -423,7 +423,7 @@ shinyApp(ui, server)
 ```
 
 Here is an example with multiple tabs...
-```{r}
+```{r, eval=F, echo=T}
 library(shinydashboard)
 
 ui <- dashboardPage(
