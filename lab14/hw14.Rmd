@@ -1,0 +1,54 @@
+---
+title: "Homework 14"
+author: "Key"
+date: "`r Sys.Date()`"
+output:
+  html_document:
+    theme: spacelab
+    toc: no
+---
+
+## Instructions
+Answer the following questions and complete the exercises in RMarkdown. Please embed all of your code and push your final work to your repository. Your final lab report should be organized, clean, and run free from errors. Remember, you must remove the `#` for the included code chunks to run. Be sure to add your name to the author header above.  
+
+Make sure to use the formatting conventions of RMarkdown to make your report neat and clean!  
+
+## Load the libraries
+```{r message=FALSE, warning=FALSE}
+library(tidyverse)
+library(janitor)
+library(shiny)
+library(shinydashboard)
+library(shinythemes)
+``` 
+
+## Load the data
+For this assignment, we will use the built-in mammals sleep dataset. The data are from: V. M. Savage and G. B. West. A quantitative, theoretical framework for understanding mammalian sleep. Proceedings of the National Academy of Sciences, 104 (3):1051-1056, 2007.
+```{r}
+msleep <- msleep
+```
+
+1. Explore the data set. What are the column names?
+```{r}
+
+```
+
+2. Make a boxplot of the total sleep time for each type of vore diet. Try using some aesthetics to make the plot look nice, including a fill by vore.
+```{r}
+
+```
+
+3. The boxplot is fine, but we can build in reactivity so that every variable related to sleep can be explored. These variables include: sleep_total, sleep_rem, sleep_cycle, and awake. Create a shiny app that allows the user to select the variable of interest and then displays a boxplot by type of vore.
+```{r, eval=F, echo=T}
+
+```
+
+4. Make a density plot that shows the distribution of the total sleep time for each type of vore diet. Try using some aesthetics to make the plot look nice, including a fill by vore.
+```{r}
+
+```
+
+5. The density plot is fine, but we can build in reactivity so that the user can select each vore type. Create a shiny app that allows the user to select the vore type of interest and then displays a density plot of the total sleep time.
+```{r, eval=F, echo=T}
+
+```
