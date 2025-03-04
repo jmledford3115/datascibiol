@@ -1,0 +1,30 @@
+---
+title: "Midterm Intro"
+date: "`r Sys.Date()`"
+output: ioslides_presentation
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+library("jpeg")
+```
+
+## Setup
+1. Login to the lab computer.    
+2. Navigate to github.com and login.  
+3. Clone your repository to the desktop using GitHub Desktop.  
+4. Wait for the midterm to be released.  
+
+## Midterm
+1. Find the class repository "datascibiol" (https://github.com/jmledford3115/datascibiol).   
+2. Download a copy the class repository to the desktop.  
+3. Copy the midterm folder and paste it into **your** repository.  
+4. Open the midterm .rmd file(s) and wait for instructions.  
+
+## Submit the Midterm
+1. Save your work and knit the .rmd file.  
+2. Open the .html file and "print" it to a .pdf file in Google Chrome (not Safari).    
+3. Go to the class Canvas page and open Gradescope.  
+4. Submit your .pdf file to the midterm assignment- be sure to assign the pages to the correct questions.  
+5. Commit and push your work to your repository.  
+6. Failure to follow the submission instructions will result in a 5 point deduction.  
