@@ -93,7 +93,12 @@ The OTU table and taxonomy table of a phyloseq object must be a matrix and not a
 
 ## Create a Phyloseq Object
 ```{r}
+otu <- otu_table(otu_mat, taxa_are_rows = TRUE)
+tax <- tax_table(tax_mat)
+samples <- sample_data(sample_df)
 
+ps <- phyloseq(otu, tax, samples)
+ps
 ```
 
 ### Normalize the Data
@@ -108,19 +113,32 @@ Use total sum scaling to normalize the data
 ## Alpha Diversity
 What if we want the alpha diversity of our data. *Alpha diversity measures numbers of each genera and the evenness or distribution of a genera*.
 ```{r}
-
+plot_richness(ps, x = "Study.Group", measures = c("Shannon"), color = "Study.Group")
 ```
 
 
 We can also do multiple diversity indexes and even add layers to this plot similar to ggplot
 ```{r}
-
+plot_richness(ps, x="Study.Group", measures=c("Shannon", "Chao1"), color = "Study.Group", title = "Alpha Diversity Infants Predisposed to T1D")+
+  labs(x = "Study Group")
 ```
 
 ### Practice
 Make your own plot, but also include Observed and Simpson indexes. Costumize as desired including the colors using `scale_colour_manual`. Store in an object called alpha_div.
 ```{r}
+alpha_div <- plot_richness(ps, x="Study.Group", measures=c("Shannon", "Chao1", "Observed", "Simpson"), color = "Study.Group", title = "Alpha Diversity Infants Predisposed to T1D") + scale_colour_manual(values = c("darkgreen", "orchid4"), labels =c("diabetic", "none diabetic")) +
+  labs(x = "Study Group") +
+  geom_boxplot(alpha = 0.2)+
+  scale_x_discrete(labels = c("case" = "diabetic", "control" = "none diabetic"))
 
+alpha_div
+```
+
+remove a layer
+```{r}
+alpha_div$layers <-  alpha_div$layers[-1]
+
+alpha_div
 ```
 
 
@@ -128,19 +146,23 @@ Make your own plot, but also include Observed and Simpson indexes. Costumize as 
 Calculate Bray-Curtis distance matrix
 ```{r}
 
-
+# Calculate Bray-Curtis distance matrix
+dis_mat <- distance(ps, method = "bray")
 ```
-
 
 Do PCoA using the Bray-Curtis distance matrix
 ```{r}
-
-
+# Perform PCoA using the Bray-Curtis distance matrix
+pcoa_data <- ordinate(ps, method = "PCoA", distance = dis_mat)
 ```
+
 
 Plot a PCoA
 ```{r}
-
+# Plot the PCoA results
+plot_ordination(ps, pcoa_data, color = "Study.Group") +
+  geom_point(size = 4) +
+  ggtitle("PCoA: Bray-Curtis Dissimilarity") 
   
 ```
 
@@ -148,59 +170,113 @@ Plot a PCoA
 ### Practice
 Make a NMDS plot and customize
 ```{r}
-
+# Perform NMDS using the Bray-Curtis distance matrix
+pcoa_data <- ordinate(ps, method = "NMDS", distance = dis_mat)
 
 
 ```
 
 ```{r}
 
-
+# Plot the NMDS results
+plot_ordination(ps, pcoa_data, color = "Study.Group") +
+  geom_point(size = 4) +
+  ggtitle("NMDS: Bray-Curtis Dissimilarity")
  
+```
+
+```{r}
+# Plot the NMDS results
+plot_ordination(ps, pcoa_data, color = "Study.Group", shape = "AAB_positive") +
+  geom_point(size = 4) +
+  scale_colour_manual(values = c("darkgreen", "orchid4"), 
+                      labels =c("diabetic", "nonn-diabetic")) +
+  labs(color = "study group", shape = "ABA", title = "NMDS: Bray-Curtis Dissimilarity" ) + 
+  scale_shape_manual(values= c(16, 17),
+                     labels =c("FALSE" = "negative", "TRUE" = "positive"))
 ```
 
 
 ## Taxonomy
 Make a taxonomy plot
 ```{r}
-
+plot_bar(ps, fill = "phylum")
 ```
 
 
+```{r}
+plot_bar(ps, x = "Subject", y = "Abundance", fill = "phylum") +
+  geom_bar(aes(color=phylum, fill=phylum), stat="identity", position="stack")
+```
 
-
+### Subset the data
 Lets subset the data for intants at or over 600 days old
 ```{r, echo=FALSE, results="hide"}
 
+age_sd <- sample_df %>% 
+  mutate(Sample = rownames(sample_df)) %>% 
+  group_by(Subject) %>% 
+  filter(Age >= 600) %>% 
+  as.data.frame() %>% 
+    ungroup()  
+
+age_sd <- column_to_rownames(age_sd, var = "Sample")
+
 ```
 
+```{r}
+sample_rn <- rownames(age_sd)
+```
 
 Match the rownames to the otu table
 ```{r}
+age_otu <- otu_mat %>% 
+  as.data.frame() %>% 
+  select(all_of(sample_rn))
 
+
+as.matrix(age_otu)
 ```
 
 
 
 Create a new phyloseq object
 ```{r}
-
+ps_age<- phyloseq(
+  otu_table(as.matrix(age_otu), taxa_are_rows = T),
+  tax_table(as.matrix(tax_mat)),
+  sample_data(age_sd))
 ```
 
 Make a new taxonomy plot
 ```{r}
-
+plot_bar(ps_age, fill = "phylum")
 ```
 
+```{r}
+plot_bar(ps_age, x = "Subject", y = "Abundance", fill = "phylum") +
+  geom_bar(aes(color=phylum, fill=phylum), stat="identity", position="stack") +
+  facet_wrap(Study.Group~.)
+```
 
+### Relative Abundance
 Lets take the Relative abundance of our genera
 ```{r}
-
+ps_phylum <- ps_age %>%
+  tax_glom(taxrank = "phylum") %>%                     # agglomerate at phylum level
+  transform_sample_counts(function(x) {x/sum(x)} ) %>% # Transform to rel. abundance
+ psmelt() 
 ```
 
 Make new plot based on relative abundance data
 ```{r}
-
+ggplot(ps_phylum, aes(x = Subject, y = Abundance, fill = phylum)) +
+  geom_bar(stat = "identity") +
+  facet_wrap(Study.Group~.) +
+  coord_flip()+
+  ylab("Relative Abundance") +
+  ggtitle("Phylum Composition Toddlers Predisposed for T1D") +
+ scale_fill_discrete(labels = c("Firmicutes_C" = "Firmicutes C", "Firmicutes_A" = "Firmicutes A", "Firmicutes_B" = "Firmicutes B"))
 
 ```
 
@@ -209,16 +285,45 @@ Make new plot based on relative abundance data
 Try creating a graph for class instead of phylum
 ```{r}
 
+ps_class <- ps_age %>%
+  tax_glom(taxrank = "class") %>%                     # agglomerate at phylum level
+  transform_sample_counts(function(x) {x/sum(x)} ) %>% # Transform to rel. abundance
+ psmelt() 
+```
 
+```{r}
+ggplot(ps_class, aes(x = Subject, y = Abundance, fill = class)) +
+  geom_bar(stat = "identity") +
+  facet_wrap(Study.Group~.) +
+  coord_flip()+
+  ylab("Relative Abundance") +
+  ggtitle("Phylum Composition Toddlers Predisposed for T1D") 
 ```
 
 
 ### Bonus 
 Try replotting your alpha and beta diversity plots with the phyloseq object that accounts for age >600. 
-```{r}
 
+**Alpha Diversity**
+```{r}
+plot_richness(ps_age, x="Study.Group", measures=c("Shannon", "Chao1", "Observed", "Simpson"), color = "Study.Group", title = "Alpha Diversity Infants Predisposed to T1D") + scale_colour_manual(values = c("darkgreen", "orchid4"), labels =c("diabetic", "none diabetic")) +
+  labs(x = "Study Group") +
+  geom_boxplot(alpha = 0.2)+
+  scale_x_discrete(labels = c("case" = "diabetic", "control" = "none diabetic"))
 ```
 
+
+```{r}
+# Calculate Bray-Curtis distance matrix
+dis_mat <- distance(ps_age, method = "bray")
+# Perform PCoA using the Bray-Curtis distance matrix
+pcoa_data <- ordinate(ps_age, method = "PCoA", distance = dis_mat)
+# Plot the PCoA results
+plot_ordination(ps_age, pcoa_data, color = "Study.Group") +
+  geom_point(size = 4) +
+  ggtitle("PCoA: Bray-Curtis Dissimilarity")
+
+```
 
 ## Wrap-up  
 
