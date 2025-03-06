@@ -42,20 +42,58 @@ heart <- read_csv("data/heart.csv")
 
 ## Questions
 Problem 1. (1 point) Use the function of your choice to provide a data summary.
+```{r}
+glimpse(heart)
+```
+
 
 Problem 2. (1 point) Let's explore the demographics of participants included in the study. What is the number of males and females? Show this as a table.  
+```{r}
+#how many males and females
+heart %>%
+  count(gender)
+  
+```
+
 
 Problem 3. (2 points) What is the average age of participants by gender? Show this as a table.
+```{r}
+#average age
+heart %>%
+  group_by(gender) %>% 
+  summarise(mean_age = mean(age))
+```
+
 
 Problem 4. (1 point) Among males and females, how many have/do not have heart disease? Show this as a table, grouped by gender.  
 
 Problem 5. (4 points) What is the percentage of males and females with heart disease? Show this as a table, grouped by gender.  
 
 Problem 6. (3 points) Make a plot that shows the results of your analysis from problem 5. If you couldn't get the percentages to work, then make a plot that shows the number of participants with and without heart disease by gender.
+```{r}
+#percentage
+heart %>%
+  group_by
+```
+
 
 Problem 7. (3 points) Is there a relationship between age and cholesterol levels? Make a plot that shows this relationship separated by gender (hint: use faceting or make two plots). Be sure to add a line of best fit (linear regression line).
+```{r}
+#age and cholesterol
+heart %>%
+  ggplot(aes(x = age, y =
+```
+
 
 Problem 8. (3 points) What is the range of resting blood pressure for participants by type of chest pain? Make a plot that shows this information.
+```{r}
+#resting blood pressure by chest pain
+heart %>%
+  ggplot(aes(x = cp, y = trestbps)) +
+  geom_boxplot() +
+  theme_minimal()
+```
+
 
 Problem 9. (4 points) What is the distribution of maximum heart rate achieved, separated by gender and whether or not the patient has heart disease? Make a plot that shows this information- you must use faceting.
 
