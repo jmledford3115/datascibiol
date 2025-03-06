@@ -19,7 +19,7 @@ output:
 - [phyloseq tutorial](https://vaulot.github.io/tutorials/Phyloseq_tutorial.html)
 
 ## Install Phyloseq
-*Be sure to recomment out after installing*
+*Be sure to re-comment out after installing*
 ```{r}
 #install.packages(phyloseq)
 ```
