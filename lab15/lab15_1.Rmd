@@ -1,0 +1,228 @@
+---
+title: "Metagenome Data Analysis using Phyloseq"
+output:
+  html_document:
+    theme: spacelab
+    toc: yes
+    toc_float: yes
+  pdf_document:
+    toc: yes
+---
+
+## Learning Goals
+*At the end of this exercise, you will be able to:*
+1. Explore metagenomic data in R.
+2. Modify data for using phyloseq.
+3. Calculate diversity metrics and make resulting plots.
+
+## Resources
+- [phyloseq tutorial](https://vaulot.github.io/tutorials/Phyloseq_tutorial.html)
+
+## Install Phyloseq
+*Be sure to recomment out after installing*
+```{r}
+#install.packages(phyloseq)
+```
+
+## Load Libraries
+```{r}
+library(tidyverse)
+library(janitor)
+library(ggplot2)
+library(phyloseq)
+```
+
+## Data
+For this tutorial, we will use: 
+[KOSTIC_INFANTS_DIABETES_2015](https://pubmed.ncbi.nlm.nih.gov/25662751/). The data are from: Kostic AD, et al (2015) The Dynamics of the Human Infant Gut Microbiome in Development and in Progression towards Type 1 Diabetes. 
+These data are a modified from the  borenstein-lab's repository [microbiome-metabolome-curated-data](https://github.com/borenstein-lab/microbiome-metabolome-curated-data/tree/main)
+
+**OTU Table**
+```{r}
+otu_mat <- read.csv("data/OTU_Table_KOSTIC_INFANTS_DIABETES.csv")
+```
+
+**Taxonomy Table**
+```{r}
+tax_mat <- read.csv("data/Tax_Table_KOSTIC_INFANTS_DIABETES.csv") 
+```
+
+**Sample Data**
+```{r}
+sample_df <- read.csv("data/Sample_Data_KOSTIC_INFANTS_DIABETES.csv") 
+```
+
+
+## Explore 
+Use the function of your choice to provide to explore each dataframe.
+```{r, echo=FALSE, results="hide"}
+
+```
+
+```{r, echo=FALSE, results="hide"}
+
+```
+
+```{r, echo=FALSE, results="hide"}
+
+```
+
+
+
+## Manipulate Data for Phyloseq
+```{r}
+otu_mat <- otu_mat %>% 
+    tibble::column_to_rownames("X") 
+
+tax_mat <- tax_mat %>% 
+    tibble::column_to_rownames("X")
+```
+
+```{r}
+sample_df <- sample_df %>% 
+    tibble::column_to_rownames("Sample") 
+
+```
+
+
+The OTU table and taxonomy table of a phyloseq object must be a matrix and not a dataframe
+```{r}
+  otu_mat <- as.matrix(otu_mat)
+  tax_mat <- as.matrix(tax_mat)
+```
+
+## Create a Phyloseq Object
+```{r}
+
+```
+
+### Normalize the Data
+Use total sum scaling to normalize the data
+```{r}
+  total <-  median(sample_sums(ps))
+  standf <-  function(x, t=total) round(t * (x / sum(x)))
+  ps <- transform_sample_counts(ps, standf)
+```
+
+
+## Alpha Diversity
+What if we want the alpha diversity of our data. *Alpha diversity measures numbers of each genera and the evenness or distribution of a genera*.
+```{r}
+
+```
+
+
+We can also do multiple diversity indexes and even add layers to this plot similar to ggplot
+```{r}
+
+```
+
+### Practice
+Make your own plot, but also include Observed and Simpson indexes. Costumize as desired including the colors using `scale_colour_manual`. Store in an object called alpha_div.
+```{r}
+
+```
+
+
+## Beta Diversity
+Calculate Bray-Curtis distance matrix
+```{r}
+
+
+```
+
+
+Do PCoA using the Bray-Curtis distance matrix
+```{r}
+
+
+```
+
+Plot a PCoA
+```{r}
+
+  
+```
+
+
+### Practice
+Make a NMDS plot and customize
+```{r}
+
+
+
+```
+
+```{r}
+
+
+ 
+```
+
+
+## Taxonomy
+Make a taxonomy plot
+```{r}
+
+```
+
+
+
+
+Lets subset the data for intants at or over 600 days old
+```{r, echo=FALSE, results="hide"}
+
+```
+
+
+Match the rownames to the otu table
+```{r}
+
+```
+
+
+
+Create a new phyloseq object
+```{r}
+
+```
+
+Make a new taxonomy plot
+```{r}
+
+```
+
+
+Lets take the Relative abundance of our genera
+```{r}
+
+```
+
+Make new plot based on relative abundance data
+```{r}
+
+
+```
+
+
+### Practice 
+Try creating a graph for class instead of phylum
+```{r}
+
+
+```
+
+
+### Bonus 
+Try replotting your alpha and beta diversity plots with the phyloseq object that accounts for age >600. 
+```{r}
+
+```
+
+
+## Wrap-up  
+
+Be sure to save, knit and push your work.
+
+**Time to work on Group Projects!**
+

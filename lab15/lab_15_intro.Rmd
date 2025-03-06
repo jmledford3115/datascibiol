@@ -1,0 +1,34 @@
+---
+title: "Lab 15 Intro"
+date: "`r Sys.Date()`"
+output: ioslides_presentation
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+library("jpeg")
+```
+
+## Repos
+1. Your repository is a collection of the work you have done in BIS 15L.  
+2. It should be neat, clean, and professional.  
+3. You can easily turn it into a webpage (https://docs.github.com/en/pages).  
+4. After today, all of our labs will be finished so it's a good time to download.  
+
+## AI
+1. Two popular options: GitHub Copilot and ChatGPT.  
+2. Copilot is a generative code completion tool that integrates with RStudio.  
+3. ChatGPT is a generative AI chatbot that can help you with coding, analysis, and interpretation depending on the model.  
+
+## Discussion
+1. Have you used AI?
+2. What is generative AI?
+3. What is the difference between intelligence and AI?  
+4. What are some examples of ethical issues with AI?  
+5. Do you think professors can detect AI?  
+6. What is your prediction for AI over the next 5 years? 
+
+## Group project
+1. What is left to do?  
+2. Who is doing what? Make sure everyone has a job.  
+3. Who is making the presentation?  

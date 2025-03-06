@@ -1,0 +1,117 @@
+---
+title: "Untitled"
+author: "Bryshal Moore"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+## Load the libraries
+```{r}
+library(tidyverse)
+library(dplyr)
+library(janitor)
+library(naniar)
+```
+
+Data Source: https://github.com/borenstein-lab/microbiome-metabolome-curated-data/blob/main/data/processed_data/KOSTIC_INFANTS_DIABETES_2015/mtb.tsv
+## Load the metadata dataframe
+```{r}
+infant_t1d <- read.delim("data/KOSTIC_INFANTS_DIABETES_2015_metadata.tsv")
+```
+
+## View Data
+Get a view of the data
+```{r}
+glimpse(infant_t1d)
+```
+
+```{r}
+names(infant_t1d)
+```
+
+```{r}
+infant_t1d <- infant_t1d %>% 
+  select(!c(DOI, Dataset, Publication.Name))
+```
+
+## Load the Genera Data
+This dataframe will be the taxonomy and the otu dataframe
+```{r}
+genera <- read.delim("data/genera.counts.tsv")
+
+genera
+```
+
+
+
+## Make the OTU Table
+Transpose the genera data frame
+```{r}
+genera_t <-setNames(data.frame(t(genera[, -1])), genera [,1])
+head(genera_t)
+```
+
+
+```{r}
+o <- genera_t %>% 
+   mutate(OTU_ID = sprintf("genera%03d", row_number())) 
+  
+otu <- o
+
+```
+
+
+```{r}
+rownames(otu) <- otu$OTU_ID  # Set OTU column as row names
+otu_tab <- otu %>% select(-OTU_ID)  # Remove the OTU column
+```
+
+```{r}
+head(otu_tab)
+```
+
+
+## Make the Taxonomy Table
+```{r}
+
+tax <-o %>% 
+  select( OTU_ID) %>% 
+  rownames_to_column(var = "Taxonomy")
+```
+
+```{r}
+rownames(tax) <- tax$OTU_ID
+```
+
+```{r}
+tax_tab <- tax %>% 
+  select(-OTU_ID) %>% 
+  separate(Taxonomy, into= c(NA, "domain"), sep = "d__") %>% 
+  separate(domain, into=c("domain", "phylum"), sep=".p__") %>% 
+  separate(phylum, into = c("phylum", "class"), sep = ".c__") %>% 
+  separate(class, into = c("class", "order"), sep = ".o__") %>% 
+  separate(order, into = c("order", "family"), sep = ".f__") %>% 
+  separate(family, into = c("family", "genus"), sep = ".g__")
+
+```
+
+
+## Save new data tables as csv 
+```{r}
+write.csv(otu_tab, file = "OTU_Table_KOSTIC_INFANTS_DIABETES.csv", row.names = T)
+```
+
+```{r}
+write.csv(tax_tab, file = "Tax_Table_KOSTIC_INFANTS_DIABETES.csv", row.names = T)
+```
+
+```{r}
+# write.csv(infant_t1d, file = "Sample_Data_KOSTIC_INFANTS_DIABETES.csv", row.names = F)
+
+```
+
