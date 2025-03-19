@@ -1,0 +1,69 @@
+# BIS 15L Project Rubric
+
+## Purpose
+Prepare an original project that showcases the range of skills learned in BIS 15L.
+
+## Background
+In BIS 15L, you learned a range of skills including data cleaning, transformation, and visualization. This project is intended to help you practice these skills by developing an independent project. Your project should be a showcase of all that you learned over the quarter.
+
+## Structure
+The structure of your project should follow the midterm exams. Each of the following must be demonstrated and preceded by clear, thoughtful, and logical questions. You must address a minimum of **15 questions** distributed across the sections.
+
+## Rubric
+Each of the following elements will be graded with the corresponding point values. The project is worth a total of **90 points**.
+
+---
+
+### 1. Data (6 points total)
+- Dataset approved by the instructor or TA (**2 points**)
+- Citation for the dataset (**1 point**)
+- Includes both continuous and categorical variables (**1 point**)
+- Cleaned with appropriate labels and missing values handled (**2 points**)
+
+---
+
+### 2. Exploration (8 points total)
+- Clear summary of data classes for each variable (**1 point**)
+- Identification and handling of missing values (**2 points**)
+- Basic statistics provided for all relevant variables (e.g., mean, standard deviation, number of observations) (**5 points**)
+
+---
+
+### 3. Visualization (28 points total)
+- All plots have clear titles, labels, and keys where appropriate (**4 points**)
+- Consistent aesthetics used throughout the project (**4 points**)
+- Appropriate use of the following visualizations:
+  - Barplots for counts (**4 points**)
+  - Scatterplots for relationships between continuous variables (**4 points**)
+  - Boxplots for range and distribution of continuous variables (**4 points**)
+  - Histograms and/or density plots for distributions of continuous variables (**4 points**)
+  - At least one plot utilizing faceting (**4 points**)
+- Proper scaling, axis limits, and avoidance of misleading visualizations (**4 points**)
+
+---
+
+### 4. Structure & Coding (18 points total)
+- All code runs free from errors and successfully knits to an HTML report (**8 points**)
+- Each analysis is preceded by a clear question that is directly addressed by the code (**10 points**)
+
+---
+
+### 5. Shiny Application (20 points total)
+- Functional, stand-alone Shiny app provided (**12 points**)
+- Clear stated purpose of the Shiny app (**4 points**)
+- Reactions and interactivity in the Shiny app are appropriate to the stated purpose (**4 points**)
+
+---
+
+### 6. GitHub (10 points total)
+- Project contents are organized in a GitHub repository with a clear, well-formatted README file (**6 points**)
+- README must include project description, installation instructions, and data source details (**4 points**)
+
+---
+
+## Additional Notes
+- Partial credit may be awarded where applicable.
+- Clarity, readability, and documentation of code are expected throughout the project.
+- Failure to submit a working HTML file will result in a significant deduction.
+
+**Total: 90 points**
