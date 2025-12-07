@@ -31,9 +31,6 @@ We expect all interactions in this class to be guided by the [UCD Principles of 
 ## Student Disability Center
 UC Davis is committed to serving a diverse student body. We encourage all students who are interested in learning more about the Student Disability Center (SDC) to contact them directly at [SDC](mailto:sdc.ucdavis.edu) or 530-752-3184. If you are a student who receives academic accommodation(s), please submit your SDC Letter of Accommodation to us as soon as possible, ideally within the first week of this course.  
 
-## UC Davis Land Acknowledgement  
-We should take a moment to acknowledge the land on which we are gathered. For thousands of years, this land has been the home of Patwin people. Today, there are three federally recognized Patwin tribes: Cachil DeHe Band of Wintun Indians of the Colusa Indian Community, Kletsel Dehe Wintun Nation, and Yocha Dehe Wintun Nation. The Patwin people have remained committed to the stewardship of this land over many centuries. It has been cherished and protected, as elders have instructed the young through generations. We are honored and grateful to be here today on their traditional lands.   
-
 ## Learning Goals  
 *At the end of this course, you will be able to:*  
 1. Use R and RStudio to perform basic analyses including arithmetic and basic statistics.  
@@ -44,12 +41,12 @@ We should take a moment to acknowledge the land on which we are gathered. For th
 6. Use Shiny to build an interactive application.  
 
 ## Course Structure  
-Our class has collaborative work as its foundation. Many people learn R on their own and there are thousands of courses designed to teach you the fundamentals. Working as a community is what sets our class apart. We encourage you to work together throughout the class!  
+Our class has collaborative work as its foundation. Many people learn R on their own and there are thousands of online courses, workshops, and seminars designed to teach you the fundamentals. Working as a community is what sets our class apart. We encourage you to work together throughout the class!  
 
 Our class is scheduled for 2-hour blocks on Tuesday and Thursday. Each class works though examples of live coding but includes frequent breaks where we work together to solve problems. After each class, there will be a homework assignment. We encourage you to work together on these! Since each assignment has many different solutions, the expectation is that your code is free from errors and runs cleanly. See grading below for details.  
 
 ## Attendance
-As a skills-based lab class, attendance provides you with hands-on experience and help. If you know that you will not be able to attend in-person or you have significant planned absences this quarter, please reconsider enrollment. Our class has collaborative learning as its foundation and requires your attendance. No grade points are awarded for attendance.  
+As a skills-based lab class, attendance provides you with hands-on experience and help. If you know that you will not be able to attend in-person or you have significant planned absences this quarter, please reconsider enrollment. No grade points are awarded for attendance.  
 
 ## Grading  
 The class is graded out of 300 points on a straight scale. There are no curves applied.  
