@@ -1,7 +1,0 @@
-type,colony,Expression
-nurse,1,.99
-for,1,1.93
-nurse,2,1
-for,2,2.36
-nurse,3,.24
-for,3,1.96

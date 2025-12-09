@@ -18,7 +18,7 @@ knitr::include_graphics("images/learn_to_code.png")
 > [Wired Magazine (2017)](https://www.wired.com/2017/03/biologists-teaching-code-survive/)
 
 ## Course Summary  
-In BIS 015L, you will be introduced to the fundamentals of data science with emphasis on data frequently used by biologists. We will use the R software environment to develop and practice skills including data management, transformation, analysis, and visualization. Examples will span a range of disciplines including social science, ecology, evolution, and genetics. Labs will use a problem-solving approach where we build on previously learned skills culminating in a small, group-based project. 
+In BIS 015L, you will be introduced to the fundamentals of data science with emphasis on data frequently used by biologists. We will use the R software environment to develop and practice skills including data management, transformation, analysis, and visualization. We will also learn ethical usage of AI. Examples will span a range of disciplines including social science, ecology, evolution, and genetics. Labs will use a problem-solving approach where we build on previously learned skills culminating in a small, group-based project. 
 
 This class is designed for students with *no background in computer programming, R, or statistics*. Our assumption is that you know how to turn a computer on and use a mouse- that's it!  
 
@@ -33,15 +33,15 @@ UC Davis is committed to serving a diverse student body. We encourage all studen
 
 ## Learning Goals  
 *At the end of this course, you will be able to:*  
-1. Use R and RStudio to perform basic analyses including arithmetic and basic statistics.  
-2. Work with multiple types of data in R and RStudio including vectors, data frames, and nucleotide sequences.  
-3. Import and transform complex, messy data for analysis in R.  
-4. Produce a variety of plots and charts to visualize results of data analysis.  
-5. Build an exploratory analysis pipeline that can be applied to a variety of data types and structures.  
+1. Setup and maintain an informative and organized repository on GitHub for data science projects.  
+2. Use R and RStudio to perform basic data science tasks including data import, cleaning, transformation, analysis, and visualization.  
+3. Build reproducible data science workflows using R scripts and R Markdown documents.  
+4. Understand and apply ethical practices when using AI tools in data science.  
+5. Communicate results using data visualizations and written summaries.  
 6. Use Shiny to build an interactive application.  
 
 ## Course Structure  
-Our class has collaborative work as its foundation. Many people learn R on their own and there are thousands of online courses, workshops, and seminars designed to teach you the fundamentals. Working as a community is what sets our class apart. We encourage you to work together throughout the class!  
+Our class has collaborative work as its foundation. Working as a community is what sets our class apart. We encourage you to work together throughout the class.    
 
 Our class is scheduled for 2-hour blocks on Tuesday and Thursday. Each class works though examples of live coding but includes frequent breaks where we work together to solve problems. After each class, there will be a homework assignment. We encourage you to work together on these! Since each assignment has many different solutions, the expectation is that your code is free from errors and runs cleanly. See grading below for details.  
 
@@ -51,9 +51,9 @@ As a skills-based lab class, attendance provides you with hands-on experience an
 ## Grading  
 The class is graded out of 300 points on a straight scale. There are no curves applied.  
 
-1. **Weekly homework assignments (150 points)**. Each assignment must be completed and uploaded to GitHub prior to the next lab. There are 15 homework assignments total and each assignment is worth 10 points. Homework is due at the start of each lab; no late work is accepted. Homework is graded based on completion and accuracy.  
+1. **Weekly homework assignments (150 points)**. Each assignment must be completed and uploaded to GitHub prior to the next lab. There are 15 homework assignments and each assignment is worth 10 points. Homework is due at the start of each lab; no late work is accepted. Homework is graded based on completion _and_ accuracy.  
 
-2. **Midterms (60 points)**. The midterms help us keep one another accountable. The midterms are open note (i.e. you may use the labs and your homework) but no internet searches or AI are allowed.  Each midterm is worth 30 points.  
+2. **Midterms (60 points)**. The midterms help us keep one another accountable. The midterms are open note (i.e. you may use the labs and your homework) but no internet searches or AI are allowed. Each midterm is worth 30 points.  
 
 3. **Class project (90 points)**. As part of the class, you will form a group to explore a project in data science. The project may be based on any available data of interest to the group and should highlight skills learned in the labs. The group will present their results during the last lab sessions.  
 
@@ -61,16 +61,16 @@ The class is graded out of 300 points on a straight scale. There are no curves a
 If you are found to have used unauthorized resources on homework, including old copies of homework posted on GitHub, then you will be referred to SJA. You will then receive a zero on the homework portion of the course. The same policy applies to exams. If you have questions about what is allowed, please ask.  
 
 ## Absences
-If you miss class, please use the [class website](https://jmledford3115.github.io/datascibiol/) and [YouTube channel](https://www.youtube.com/channel/UCFX-MipGKF9jCEXaP-59BzQ) as your guide. We will not be able to provide recordings of the labs, but these two resources will help you work through missed class material.  
+If you miss class, please use the [class website](https://jmledford3115.github.io/datascibiol/) as your guide. We will not be able to provide recordings of the labs, but these two resources will help you work through missed class material.  
 
 ## Suggested Reading  
-[R for Data Science](https://r4ds.had.co.nz/), Grolemund and Wickham (2017).  
+[R for Data Science, 2nd edition](https://r4ds.had.co.nz/), Grolemund and Wickham (2017). This book is available for free online and is an excellent resource for learning R and data science.  
 
 ## Office Hours  
 Office hours are scheduled each week and are also available by appointment. If there are problems with the assignments, it is important that we communicate together as a class. Please use the class discord as a first step so we all benefit.  
 
 ## About Joel Ledford  
-I am an associate teaching professor in the department of [Plant Biology](http://www-plb.ucdavis.edu/). My research is focused on education and spider biology. I completed my B.S. at UC Davis in entomology as a community college transfer student. My experience in R involves statistical analysis in education and evolutionary biology. I also teach part of the introductory biology series `BIS2C` (Fall and Winter) and plant biology `PLB10` (Spring).  
+I am a teaching professor in the department of [Plant Biology](http://www-plb.ucdavis.edu/). My research is focused on education and spider biology. I completed my B.S. at UC Davis in entomology as a community college transfer student. My experience in R involves statistical analysis in education and evolutionary biology.    
 
 ## About Bryshal Moore
 I’m Bryshal Moore, I also go by Bry (pronounced like try). Hailing from Alabama, my academic journey spans a background in chemistry (B.S.) and biotechnology (M.S.). I'm presently a PhD student in Biochemistry, Molecular, Cellular and Developmental Biology (BMCDB). I am a member of the Data Intensive Biology (DIB) lab, where my research focus centers on the computational analysis of 16S and ITS microbiome data. Recently, I've embraced the versatility of R into my toolkit, utilizing it for dataset analysis and creating quality visually appealing graphs.  
@@ -80,6 +80,7 @@ Learning any programming language is hard; it only gets easier with time and pra
 
 + Please *do* ask questions, get help from class partners, and complete assignments on-time.  
 + Please *don't* miss class or get behind on the homework.  
++ Please *don't* become overly reliant on AI; question *all* output from AI sources.
 
 We are very open to suggestions, especially when it comes to relevant and interesting examples. If you find data that are especially interesting to you please let us know and we will do our best to incorporate them into class examples. Most of all, have fun learning R and if you are not then let us know!  
 
