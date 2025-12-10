@@ -23,5 +23,8 @@ The class schedule can be found [here](https://jmledford3115.github.io/datascibi
 ## Setup Your Computer  
 Easy [setup instructions](https://jmledford3115.github.io/datascibiol/logistics/setup.html) for your personal computer.  
 
+## Labs  
+1. **Lab 1** | [part 1](https://jmledford3115.github.io/datascibiol/lab1/lab1_1.html) | [part 2](https://jmledford3115.github.io/datascibiol/lab1/lab1_2.html) 
+
 ## About the Class  
 This class has been developed with the generous help of Bryshal Moore, Hannah Houts, Katherine Ransom, Rebecca Godwin, Min-Yao Jhu, Julin Maloof, and the students of BIS 15L.  

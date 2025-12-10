@@ -1,5 +1,5 @@
 ---
-title: "Getting Started"
+title: "Lab 1.1"
 date: "`r Sys.Date()`"
 output:
   html_document:
