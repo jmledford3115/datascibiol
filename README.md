@@ -18,10 +18,10 @@ Please read the [course syllabus](https://jmledford3115.github.io/datascibiol/lo
 The class schedule can be found [here](https://jmledford3115.github.io/datascibiol/logistics/BIS_15L_Schedule_W26.pdf).  
 
 ## Reading  
-[R for Data Science, 2nd edition](https://r4ds.had.co.nz/). 
+[R for Data Science, 2nd edition](https://r4ds.hadley.nz/). 
 
 ## Setup Your Computer  
-Easy [setup instructions](https://jmledford3115.github.io/datascibiol/setup.html) for your personal computer.  
+Easy [setup instructions](https://jmledford3115.github.io/datascibiol/logistics/setup.html) for your personal computer.  
 
 ## About the Class  
 This class has been developed with the generous help of Bryshal Moore, Hannah Houts, Katherine Ransom, Rebecca Godwin, Min-Yao Jhu, Julin Maloof, and the students of BIS 15L!  

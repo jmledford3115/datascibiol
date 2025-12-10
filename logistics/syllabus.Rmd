@@ -60,7 +60,7 @@ If you are found to have used unauthorized resources on homework, including old 
 If you miss class, please use the [class website](https://jmledford3115.github.io/datascibiol/) as your guide. We will not be able to provide recordings of the labs, but these two resources will help you work through missed class material.  
 
 ## Suggested Reading  
-[R for Data Science, 2nd edition](https://r4ds.had.co.nz/). This book is available for free online and is an excellent resource for learning R and data science.  
+[R for Data Science, 2nd edition](https://r4ds.hadley.nz/). This book is available for free online and is an excellent resource for learning R and data science.  
 
 ## Office Hours  
 Office hours are scheduled each week and are also available by appointment. If there are problems with the assignments, it is important that we communicate together as a class. Please use the class discord as a first step so we all benefit.  
