@@ -12,15 +12,13 @@ library("jpeg")
 ## Welcome!
 1. If you are registered, please find a seat.  
 2. Take a moment to check out the class Canvas page.  
-3. Take a moment to check out the class webpage.  
-4. Have you joined the class Discord?  
+3. Have you joined the class Discord?  
 
 ## Syllabus (brief)
 1. Introductions  
 2. Equipment
 3. Homework, midterms, class project  
 4. Attendance
-5. Waitlist
 
 ## Meet Your Classmates
 ### *With a partner, discuss the following questions*
