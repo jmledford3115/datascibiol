@@ -6,8 +6,6 @@ output:
     theme: spacelab
 ---
 
-## Setup
-
 Before we get started this quarter, it is important that you spend time making sure that your computer is set-up and ready to go. The first step in this is basic maintenance; i.e. clean up your desktop and update your OS. Having lots of files on your desktop or multiple tabs open can negatively impact your computer's performance. Data scientists are neat and tidy! Spend time getting yourself organized.
 
 In order to get set-up, you need to do four things:
