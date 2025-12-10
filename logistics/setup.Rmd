@@ -4,29 +4,30 @@ date: "`r Sys.Date()`"
 output:
   html_document:
     theme: spacelab
-    toc: yes
-    toc_float: yes
 ---
 
-## Setup  
-Before we get started this quarter, it is important that you spend time making sure that your computer is set-up and ready to go. The first step in this is basic maintenance; i.e. clean up your desktop and update your OS. Having lots of files on your desktop or multiple tabs open can negatively impact your computer's performance. Data scientists are neat and tidy! Spend time getting yourself organized.  
+## Setup
 
-In order to get set-up, you need to do four things:  
+Before we get started this quarter, it is important that you spend time making sure that your computer is set-up and ready to go. The first step in this is basic maintenance; i.e. clean up your desktop and update your OS. Having lots of files on your desktop or multiple tabs open can negatively impact your computer's performance. Data scientists are neat and tidy! Spend time getting yourself organized.
+
+In order to get set-up, you need to do four things:
 
 ### 1. Download the most recent version of R and install
-R is open source and constantly changing. Make regular version checks part of your routine. R will run on a variety of platforms, but there are slight differences between Mac and PC versions.  
 
-Download the latest version of R [here](https://ftp.osuosl.org/pub/cran/) and install.  
+R is open source and constantly changing. Make regular version checks part of your routine. R will run on a variety of platforms, but there are slight differences between Mac and PC versions.
+
+Download the latest version of R [here](https://ftp.osuosl.org/pub/cran/) and install.
 
 ### 2. Download the most recent version of RStudio and install
-RStudio is an integrated development environment [IDE](https://en.wikipedia.org/wiki/Integrated_development_environment) that allows for more intuitive operation of R and includes numerous additional features. All of our work will be done in RStudio.  
 
-Download the latest version of RStudio [here](https://posit.co/products/open-source/rstudio/) and install.  
+RStudio is an integrated development environment [IDE](https://en.wikipedia.org/wiki/Integrated_development_environment) that allows for more intuitive operation of R and includes numerous additional features. All of our work will be done in RStudio.
 
-### 3. Download the most recent version of GitHub Desktop and install  
-GitHub is the website where we will upload all of our work, including homework and class files. [GitHub Desktop](https://desktop.github.com/) is an interface that allows us to keep track of changes (version control) and upload.  
+Download the latest version of RStudio [here](https://posit.co/products/open-source/rstudio/) and install.
+
+### 3. Download the most recent version of GitHub Desktop and install
+
+GitHub is the website where we will upload all of our work, including homework and class files. [GitHub Desktop](https://desktop.github.com/) is an interface that allows us to keep track of changes (version control) and upload.
 
 ### 4. GitHub Account
-You need to make a personal account on GitHub. Navigate to [GitHub](http://www.github.com) and create a free account. You will need to setup 2-factor authentication. The easiest way is to use the GitHub app on your cell phone.  
 
--->[Home](https://jmledford3115.github.io/datascibiol/)  
+You need to make a personal account on GitHub. Navigate to [GitHub](http://www.github.com) and create a free account. You will need to setup 2-factor authentication. The easiest way is to use the GitHub app on your cell phone.  

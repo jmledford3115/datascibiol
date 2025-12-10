@@ -4,10 +4,6 @@ date: "`r Sys.Date()`"
 output:
   html_document:
     theme: spacelab
-    toc: yes
-    toc_float: yes
-  word_document:
-    toc: yes
 ---    
 ```{r echo=FALSE, fig.align="center", out.width="40%"}
 knitr::include_graphics("images/learn_to_code.png")
@@ -29,7 +25,7 @@ In order to complete the homework and exams, you need to be able to run R and RS
 We expect all interactions in this class to be guided by the [UCD Principles of Community](https://diversity.ucdavis.edu/principles-community). This stresses commitment to a climate of equity, inclusiveness and justice that is demonstrated by respecting and celebrating one another. The richness of our learning community and our ability to address pressing societal challenges require all of our unique contributions and perspectives. In this class, we will value open expression of our individualism, within the bounds of courtesy and respect to others. We will confront and reject all manifestations of discrimination, including based on age, citizenship status, disability, ethnicity, gender, gender expression, nationality, race, sexual orientation, socio-economic class, status inside or outside the university, veteran status, religious/non-religious, spiritual or political beliefs, or any other differences among people which have been excuses for misunderstanding, dissension or hatred.  
 
 ## Student Disability Center
-UC Davis is committed to serving a diverse student body. We encourage all students who are interested in learning more about the Student Disability Center (SDC) to contact them directly at [SDC](mailto:sdc.ucdavis.edu) or 530-752-3184. If you are a student who receives academic accommodation(s), please submit your SDC Letter of Accommodation to us as soon as possible, ideally within the first week of this course.  
+UC Davis is committed to serving a diverse student body. We encourage all students who are interested in learning more about the Student Disability Center (SDC) to contact them directly at [SDC](https://sdc.ucdavis.edu/) or 530-752-3184. If you are a student who receives academic accommodation(s), please submit your SDC Letter of Accommodation to us as soon as possible, ideally within the first week of this course.  
 
 ## Learning Goals  
 *At the end of this course, you will be able to:*  
@@ -64,16 +60,10 @@ If you are found to have used unauthorized resources on homework, including old 
 If you miss class, please use the [class website](https://jmledford3115.github.io/datascibiol/) as your guide. We will not be able to provide recordings of the labs, but these two resources will help you work through missed class material.  
 
 ## Suggested Reading  
-[R for Data Science, 2nd edition](https://r4ds.had.co.nz/), Grolemund and Wickham (2017). This book is available for free online and is an excellent resource for learning R and data science.  
+[R for Data Science, 2nd edition](https://r4ds.had.co.nz/). This book is available for free online and is an excellent resource for learning R and data science.  
 
 ## Office Hours  
 Office hours are scheduled each week and are also available by appointment. If there are problems with the assignments, it is important that we communicate together as a class. Please use the class discord as a first step so we all benefit.  
-
-## About Joel Ledford  
-I am a teaching professor in the department of [Plant Biology](http://www-plb.ucdavis.edu/). My research is focused on education and spider biology. I completed my B.S. at UC Davis in entomology as a community college transfer student. My experience in R involves statistical analysis in education and evolutionary biology.    
-
-## About Bryshal Moore
-I’m Bryshal Moore, I also go by Bry (pronounced like try). Hailing from Alabama, my academic journey spans a background in chemistry (B.S.) and biotechnology (M.S.). I'm presently a PhD student in Biochemistry, Molecular, Cellular and Developmental Biology (BMCDB). I am a member of the Data Intensive Biology (DIB) lab, where my research focus centers on the computational analysis of 16S and ITS microbiome data. Recently, I've embraced the versatility of R into my toolkit, utilizing it for dataset analysis and creating quality visually appealing graphs.  
 
 ## Do's and Dont's  
 Learning any programming language is hard; it only gets easier with time and practice. Don't give up!  
@@ -83,5 +73,3 @@ Learning any programming language is hard; it only gets easier with time and pra
 + Please *don't* become overly reliant on AI; question *all* output from AI sources.
 
 We are very open to suggestions, especially when it comes to relevant and interesting examples. If you find data that are especially interesting to you please let us know and we will do our best to incorporate them into class examples. Most of all, have fun learning R and if you are not then let us know!  
-
--->[Home](https://jmledford3115.github.io/datascibiol/)

@@ -18,7 +18,7 @@ Please read the [course syllabus](https://jmledford3115.github.io/datascibiol/lo
 The class schedule can be found [here](https://jmledford3115.github.io/datascibiol/logistics/BIS_15L_Schedule_W26.pdf).  
 
 ## Reading  
-[R for Data Science](https://r4ds.had.co.nz/), Grolemund and Wickham (2017).  
+[R for Data Science, 2nd edition](https://r4ds.had.co.nz/). 
 
 ## Setup Your Computer  
 Easy [setup instructions](https://jmledford3115.github.io/datascibiol/setup.html) for your personal computer.  
