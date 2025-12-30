@@ -41,3 +41,13 @@ This quarter we are fortunate to be able to use the computers in the SCC. Each o
 Because you will need to work on assignments at home, it is important that you spend time making sure that your computer is set-up and ready to go. The first step in this is basic maintenance; i.e. clean up your desktop and update your OS. Data scientists are neat and tidy! Spend time getting yourself organized, it will pay off.  
 
 Please follow these steps to set-up you computer [here](https://jmledford3115.github.io/datascibiol/logistics/setup.html).  
+
+## Computer Hygiene
+1. Make sure all of the latest updates are installed for your OS.  
+2. Organize your desktop.  
+3. Close all open tabs on your browser.  
+4. Completely shut down and restart your computer.  
+5. Wipe down the keyboard and clean your screen.  
+6. Commit to keeping your computer happy and healthy this quarter. 
+
+## 

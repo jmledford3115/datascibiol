@@ -45,13 +45,13 @@ Our class is scheduled for 2-hour blocks on Tuesday and Thursday. Each class wor
 As a skills-based lab class, attendance provides you with hands-on experience and help. If you know that you will not be able to attend in-person or you have significant planned absences this quarter, please reconsider enrollment. No grade points are awarded for attendance.  
 
 ## Grading  
-The class is graded out of 300 points on a straight scale. There are no curves applied. Final grades are assigned strictly using standard UCD cutoffs in Canvas. No adjustments (grade bumps) will be applied.  
+The class is graded out of 350 points on a straight scale. There are no curves applied. Final grades are assigned strictly using standard UCD cutoffs in Canvas. No adjustments (grade bumps) will be applied.  
 
 1. **Weekly homework assignments (150 points)**. Each assignment must be completed and uploaded to GitHub prior to the next lab. There are 15 homework assignments and each assignment is worth 10 points. Homework is due at the start of each lab; no late work is accepted. Homework is graded based on completion _and_ accuracy.  
 
-2. **Midterms (60 points)**. The midterms help us keep one another accountable. The midterms are open note (i.e. you may use the labs and your homework) but no internet searches or AI are allowed. Each midterm is worth 30 points.  
+2. **Midterms (100 points)**. The midterms help us keep one another accountable. The midterms are open note (i.e. you may use the labs and your homework) but no internet searches or AI are allowed. Each midterm is worth 50 points.  
 
-3. **Class project (90 points)**. As part of the class, you will form a group to explore a project in data science. The project may be based on any available data of interest to the group and should highlight skills learned in the labs. The group will present their results during the last lab sessions.  
+3. **Class project (100 points)**. As part of the class, you will form a group to explore a project in data science. The project may be based on any available data of interest to the group and should highlight skills learned in the labs. The group will present their results during the last lab sessions.  
 
 ## Academic Integrity
 If you are found to have used unauthorized resources on homework, including old copies of homework posted on GitHub, then you will be referred to SJA. You will then receive a zero on the homework portion of the course. The same policy applies to exams. If you have questions about what is allowed, please ask.  
@@ -63,7 +63,7 @@ If you miss class, please use the [class website](https://jmledford3115.github.i
 [R for Data Science, 2nd edition](https://r4ds.hadley.nz/). This book is available for free online and is an excellent resource for learning R and data science.  
 
 ## Office Hours  
-Office hours are scheduled each week and are also available by appointment. If there are problems with the assignments, it is important that we communicate together as a class. Please use the class discord as a first step so we all benefit.  
+Office hours are scheduled each week and are also available by appointment. If there are problems with the assignments, it is important that we communicate together as a class. Please use the class Canvas site as a first step so we all benefit.  
 
 ## Do's and Dont's  
 Learning any programming language is hard; it only gets easier with time and practice. Don't give up!  
