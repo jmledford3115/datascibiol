@@ -10,7 +10,7 @@ In nearly every field of science, our ability to generate data has exceeded our 
 
 The goal for this course is to help get you started using the R programming language. You will learn to clearly and neatly organize messy data, transform it in ways that address your questions, and communicate results in a variety of formats. The course is designed for people with **no prior programming experience**. There is a substantial learning curve but, working together, we will make learning R easier, interesting, and fun.  
 
-This class is NOT focused on statistical analysis or interpretation. The goal is to provide you with the foundational tools you need to perform these tasks.  
+This class is NOT focused on statistical analysis, interpretation, or modeling. The goal is to provide you with the foundational tools you need to perform these tasks.  
 
 ## First steps  
 The first two weeks of the class can seem slow, tedious, and frustrating. These first steps are like learning a new language; you often won't know what is being said or why. Please be patient- I promise that it will get easier.  
@@ -19,17 +19,17 @@ The first two weeks of the class can seem slow, tedious, and frustrating. These 
 Given that R is open source, many resources are available online. We will use a combination of resources in the class, but key items are listed below.  
 
 - [Class GitHub Website](https://jmledford3115.github.io/datascibiol/)  
-- [R for data science](https://r4ds.hadley.nz/)
+- [R for data science, 2e](https://r4ds.hadley.nz/)
 - [R cheatsheets](https://posit.co/resources/cheatsheets/)
 
 ## UC Davis  
-Our campus has a wealth of expertise in data science. There is even a [new major](https://www.ucdavis.edu/majors/data-science) in data science. Should your interests progress, here are some links. They offer regular workshops and maintain archives. Among the goals of this class is to get you set-up so that you can attend these workshops and learn more!  
+Our campus has a wealth of expertise in data science. There is even a [major](https://www.ucdavis.edu/majors/data-science) in data science. Should your interests progress, here are some links. The Davis R Users Group offers regular workshops. Among the goals of this class is to get you set-up so that you can attend and learn more!  
 
 - [Davis R Users Group](http://d-rug.github.io/)  
 - [Data Science Initiative](http://dsi.ucdavis.edu/)  
 
 ## Help!  
-When you need help with homework or a class topic, please post on our [class discord page](https://discord.gg/5Z8Scwhj). We are here to support you and everyone should participate, please.  
+When you need help with homework or a class topic, please post on the class Canvas site. We are here to support you and everyone should participate, please.  
 
 ## Lab 1 Goals  
 The goal of lab 1 is to get everyone started using R, RStudio, and GitHub. All of our work will be done in RStudio and uploaded to the class GitHub repository. It is important that everyone is set-up correctly before we are done today. In the spirit of the R universe, our class is a community. If you see someone struggling, please give them some help.  
@@ -42,7 +42,9 @@ Because you will need to work on assignments at home, it is important that you s
 
 Please follow these steps to set-up you computer [here](https://jmledford3115.github.io/datascibiol/logistics/setup.html).  
 
-## Computer Hygiene
+## Computer Hygiene  
+Keeping your computer happy and healthy takes some work. Here are some steps that you can take to make sure that your computer is running optimally.  
+
 1. Make sure all of the latest updates are installed for your OS.  
 2. Organize your desktop.  
 3. Close all open tabs on your browser.  
@@ -50,4 +52,13 @@ Please follow these steps to set-up you computer [here](https://jmledford3115.gi
 5. Wipe down the keyboard and clean your screen.  
 6. Commit to keeping your computer happy and healthy this quarter. 
 
-## 
+## R vs. RStudio  
+R is the programming language that we will use in this class. RStudio is an interface (Integrated Development Environment, IDE) that makes using R easier. It's a graphical interface that allows you to write and run code, visualize data, and manage files. RStudio is not required to use R, but it makes the experience much more user-friendly.  
+
+## RStudio Layout  
+When you open RStudio, you will see that the window is divided into four sections. Each of these sections has a specific function that we will use throughout the course.  
+
+1. **Source (Top Left)**: This is where you write and edit R scripts and RMarkdown files.  
+2. **Console (Bottom Left)**: This is where R executes your commands.   
+3. **Environment (Top Right)**: The Environment tab shows all the objects (like data frames, vectors, etc.) that you have created during your R session.  
+4. **Files/Plots/Packages/Help/Viewer (Bottom Right)**: This section has multiple tabs. The Files tab allows you to navigate your file system. The Plots tab displays any graphs you create. The Packages tab lets you manage R packages. The Help tab provides access to R documentation, and the Viewer tab is used for viewing local web content.  
