@@ -14,12 +14,10 @@ output:
 4. Commit, push and pull files on GitHub.  
 
 ## GitHub  
-[GitHub](http://www.github.com) is a file storage and management site used by programmers. Programmers upload code to repositories (folders) and make it publicly available. We will use Github to store our work and manage workflows in BIS 15L.  
+[GitHub](http://www.github.com) is a file storage and management site used by programmers. Programmers upload code to repositories (folders) and make it publicly available. We will use Github to store our work and manage workflows in BIS 15L. We have a main repository for our class [datascibiol](https://github.com/jmledford3115/datascibiol). You should **Star** this repository for future reference.  
 
 ## Your GitHub account  
-Since we will use GitHub for assignments, you need to have an account and make a repository for BIS 15L. If you followed the [setup instructions](https://jmledford3115.github.io/datascibiol/setup.html) then you should be all set. Please [Email](mailto:bymoore@ucdavis.edu) your GitHub user name to Bry.     
-
-We have a main repository for our class [datascibiol](https://github.com/jmledford3115/datascibiol). You should **Star** this repository for future reference.  
+Since we will use GitHub for assignments and projects, you need to have a personal BIS 15L repository. If you followed the [setup instructions](https://jmledford3115.github.io/datascibiol/logistics/setup.html) then you should be ready to make a repository using the instructions below. Please [Email](mailto:bymoore@ucdavis.edu) your GitHub user name to Bry.  
 
 ## Make Your Own Repository  
 1. Go to [github.com](www.github.com) and login.  
