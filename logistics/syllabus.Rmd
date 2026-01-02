@@ -27,6 +27,8 @@ We expect all interactions in this class to be guided by the [UCD Principles of 
 ## Student Disability Center
 UC Davis is committed to serving a diverse student body. We encourage all students who are interested in learning more about the Student Disability Center (SDC) to contact them directly at [SDC](https://sdc.ucdavis.edu/) or 530-752-3184. If you are a student who receives academic accommodation(s), please submit your SDC Letter of Accommodation to us as soon as possible, ideally within the first week of this course.  
 
+I make every effort to ensure all content in this course is Accessible and meets WCAG 2.1 guidelines. If you find any content in this course to be inaccessible, please notify me as quickly as possible.  
+
 ## Learning Goals  
 *At the end of this course, you will be able to:*  
 1. Setup and maintain an informative and organized repository on GitHub for data science projects.  
