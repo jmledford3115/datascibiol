@@ -18,9 +18,9 @@ Download the latest version of R [here](https://ftp.osuosl.org/pub/cran/) and in
 
 ### 2. Download the most recent version of RStudio and install
 
-RStudio is an integrated development environment [IDE](https://en.wikipedia.org/wiki/Integrated_development_environment) that allows for more intuitive operation of R and includes numerous additional features. All of our work will be done in RStudio.
+RStudio is an integrated development environment [IDE](https://en.wikipedia.org/wiki/Integrated_development_environment) that allows for more intuitive operation of R and includes numerous additional features. All of our work will be done in RStudio.  
 
-Download the latest version of RStudio [here](https://posit.co/products/open-source/rstudio/) and install.
+Download the latest version of RStudio [here](https://posit.co/products/open-source/rstudio/) and install.  
 
 ### 3. Download the most recent version of GitHub Desktop and install
 
@@ -29,3 +29,7 @@ GitHub is the website where we will upload all of our work, including homework a
 ### 4. GitHub Account
 
 You need to make a personal account on GitHub. Navigate to [GitHub](http://www.github.com) and create a free account. You will need to setup 2-factor authentication. The easiest way is to use the GitHub app on your cell phone.  
+
+### Don't Forget!  
+
+Your keyboard, laptop screen, mouse, and phone get dirty! Please take a few minutes to wipe them down. Lightly damp microfiber cloths work well but avoid using harsh cleaners.  
