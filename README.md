@@ -15,7 +15,7 @@ This class is designed for students with *no background in computer programming,
 
 Please read the [course syllabus](https://jmledford3115.github.io/datascibiol/logistics/syllabus.html).  
 
-The class schedule can be found [here](https://jmledford3115.github.io/datascibiol/logistics/BIS_15L_Schedule_W26.pdf).  
+The class schedule can be found [here](https://jmledford3115.github.io/datascibiol/logistics/BIS15LScheduleW26.html).  
 
 ## Reading  
 [R for Data Science, 2e](https://r4ds.hadley.nz/).  
