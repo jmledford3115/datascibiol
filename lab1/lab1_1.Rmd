@@ -8,11 +8,11 @@ output:
 
 In nearly every field of science, our ability to generate data has exceeded our capacity for analysis. For me, this means that there is the potential for loss to science; many important discoveries may go unnoticed because we are unable to efficiently analyze data. AI is helping a lot with this, but there is still a need for people who can manage, transform, and visualize data. This course is designed to give you the tools you need to do this using the R programming language.  
 
-What about AI? Will programming become an irrelevant skill? AI is a powerful tool, but it is just that. To use it effectively, you need to understand the data you are working with and the questions you are trying to answer. Programming skills will help you do this.  
-
 The goal for this course is to help get you started using the R programming language. You will learn to clearly and neatly organize messy data, transform it in ways that address your questions, and communicate results in a variety of formats. The course is designed for people with **no prior programming experience**. There is a substantial learning curve but, working together, we will make learning R easier, interesting, and fun.  
 
 This class is NOT focused on statistical analysis, interpretation, or modeling. The goal is to provide you with the foundational skills you need to perform these tasks.   
+
+**What about AI?** Will programming become an irrelevant skill? AI is a powerful tool, but it is just that. To use it effectively, you need to understand the data you are working with and the questions you are trying to answer. Programming skills can help you use AI more effectively.  
 
 ## First steps  
 The first two weeks of the class can seem slow, tedious, and frustrating. These first steps are like learning a new language; you often won't know what is being said or why. Please be patient- I promise that it will get easier.  

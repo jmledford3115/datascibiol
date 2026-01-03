@@ -17,9 +17,9 @@ Answer the following questions and/or complete the exercises in RMarkdown. Pleas
 
 **3. Navigate to the `datascibiol` repository on GitHub. Notice that near the bottom there is a description of the repository. You want something like this on your repository! It is built by making edits to the `README.md` file using RMarkdown. Edit your repository's `README.md` file so that you have an informative description, including your email address. Be creative! You don't need to just copy mine. There are lots of examples online.**  
 
-**4. Make sure that you have completed `dummy_push.Rmd`. This includes a successful upload to your repository.** 
+**4. Please put a link to your GitHub repository below.**
 
-**5. Please put a link to your GitHub repository below.** 
+**5. Make sure that your repository includes the practice file `dummy_push` from lab 1.2. If you have not done so already, please add your name to this file, knit it, and push it to your repository.**  
 
 ## Knit and Upload
 Please knit your work as an .html file and upload to Canvas. Homework is due before the start of the next lab. No late work is accepted. Make sure to use the formatting conventions of RMarkdown to make your report neat and clean!  
