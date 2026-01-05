@@ -49,6 +49,12 @@ You will use your repository to store all of your notes and work. There are thre
 
 If you setup [GitHub desktop](https://desktop.github.com/), then you will see that it automatically tracks your changes. Clicking the `Commit to master` button in the bottom left corner means that you are recording a snapshot of your edits locally. Once this is done, you need to upload your changes to GitHub. This is done by clicking `Push origin`. Once you have pushed your changes you can double check by looking at your repository on github.com.    
 
+## RMarkdown
+The file format we use in class is called a markdown file. RMarkdown files have the extension `.Rmd` and can be created in RStudio by going to `File > New File > RMarkdown`. RMarkdown files allow you to combine text, code, and output in a single document.  
+
+## Knitting
+RMarkdown files need to be `knit` in order to produce a final document. This is done by clicking the `Knit` button at the top of the RStudio window. Knitting produces a final document in HTML format. You will turn in all homework assignments as knitted HTML files. If your code does not work, then the file will not knit.    
+
 ## Practice  
 Since you will use your GitHub repository extensively in class, we need to practice.  
 1. Navigate to your repository and find the file `dummy_push` in the `lab 1` folder.   
