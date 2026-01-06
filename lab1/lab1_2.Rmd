@@ -22,7 +22,7 @@ Since we will use GitHub for assignments and projects, you need to have a person
 ## Make Your Own Repository  
 1. Go to [github.com](www.github.com) and login.  
 2. Create a new repository.  
-3. Under repository name, use the title `BIS15W2026_your first initial and lastname`. Mine looks like this: BIS15W2026_jledford  
+3. Under repository name, use the title `BIS15L_W26_yourfirstinitialyourlastname`. Mine looks like this: BIS15L_W26_jmledford  
 4. Default settings are fine, but do click "Initialize this repository with a README".    
 5. Once the repository is made, click on settings in the top right.  
 6. On the left toolbar click "Collaborators".  
