@@ -189,7 +189,7 @@ NA values are used to designate missing data. `is.na` or `anyNA` are useful func
 ## Practice  
 1. Let's create a vector that includes some missing data. For now, run the following code chunk.  
 ```{r}
-
+new_vector <- c(7, 6.2, 5, 9, NA, 4, 9.8, 7, 3, 2)
 ```
 
 2. Calculate the mean of `new_vector`.
@@ -201,7 +201,5 @@ NA values are used to designate missing data. `is.na` or `anyNA` are useful func
 
 4. Recalculate the mean using the following code chunk. Why is the useful?  
 ```{r}
-
+mean(new_vector, na.rm = TRUE) #removes NA values
 ```
-
--->[Home](https://jmledford3115.github.io/datascibiol/)  
