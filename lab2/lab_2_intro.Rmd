@@ -15,8 +15,14 @@ library("jpeg")
 3. Find the class repository "datascibiol" (https://github.com/jmledford3115/datascibiol).  
 4. Download a copy the class repository to the desktop.  
 5. Clone your repository to the desktop using GitHub Desktop.  
-6. Copy the files for today's lab from the class repository and paste them into **your** repository.  
-7. Open today's lab in RStudio.  
+6. Delete the copy of lab 2 from your repository- I made changes since last time.  
+7. Copy the files for today's lab (lab 2) from the class repository and paste them into **your** repository.  
+8. Open today's lab in RStudio.  
+
+## Homework
+1. Double-check to make sure your homework is submitted.  
+2. If you are done, please help a neighbor if they need it.  
+3. Compare your repository to mine: https://github.com/jmledford3115/BIS15L_W26_jmledford
 
 ## Review from last time
 ### *With a partner, discuss the following questions*
@@ -24,7 +30,7 @@ library("jpeg")
 2. What is GitHub and GitHub Desktop and why are they useful to programmers?  
 3. What is version control and why is it useful to programmers?  
 4. What is a repository?  
-5. What is the difference between committing and pushing?
+5. What is the difference between committing and pushing?  
 
 ## AI
 1. In BIS 15L, we will use AI as a tool to make us more efficient programmers.  
