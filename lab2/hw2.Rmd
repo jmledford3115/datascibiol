@@ -1,0 +1,43 @@
+---
+title: "Homework 2"
+author: "Your Name Here"
+date: "`r Sys.Date()`"
+output:
+  html_document: 
+    theme: spacelab
+---
+
+## Instructions
+Answer the following questions and/or complete the exercises in RMarkdown. Please embed all of your code and push the final work to your repository. Your report should be organized, clean, and run free from errors. Remember, you must remove the `#` for any included code chunks to run.
+
+**1. Check your current working directory and show the code you used below.**
+```{r}
+
+```
+
+**2. Make a new folder in your lab 2 folder called `homework`. Now, change your current working directory to the `homework` folder using the setwd() function.**
+```{r}
+
+```
+
+**3. Assign a new object `pi` to a value of 3.14159. You should now see the object `pi` in the environment window in the top right.** 
+```{r}
+
+```
+
+**4. Write a code chunk that divides `pi` by 2. Use the help command `?` to learn how to use the `round` function to limit your result to 4 significant digits.**  
+```{r}
+
+```
+
+**5. Calculate the mean for: 2, 8, 4, 6, NA, 4, 9, 9, 10, NA. Please start by making a new vector `x` that holds these values then use `mean` to perform the calculation.**  
+```{r}
+
+```
+
+```{r}
+
+```
+
+## Knit and Upload
+Please knit your work as an .html file and upload to Canvas. Homework is due before the start of the next lab. No late work is accepted. Make sure to use the formatting conventions of RMarkdown to make your report neat and clean!  
