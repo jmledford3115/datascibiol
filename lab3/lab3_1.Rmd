@@ -1,0 +1,139 @@
+---
+title: "Lab 3.1"
+date: "`r Sys.Date()`"
+output:
+  html_document:
+    theme: spacelab
+    toc: yes
+    toc_float: yes
+  pdf_document:
+    toc: yes
+---
+
+## Learning Goals
+*At the end of this exercise, you will be able to:*    
+1. Define data structure.    
+2. Build a new vector and call elements within it.  
+3. Combine a series of vectors into a data frame.  
+4. Name columns and rows in a data frame.  
+5. Select columns and rows and use summary functions.   
+6. Write your data frame to a csv file!  
+
+## Load the tidyverse
+A library is a collection of R functions and data sets. The [tidyverse](https://tidyverse.org/) is a collection of R packages designed for data science. For this course, we will be using many of the packages in the tidyverse. We load the tidyverse with the command below.  
+```{r}
+library("tidyverse")
+```
+
+## Data Structures
+In addition to classes of data, R also organizes data in different ways. These are called data structures and include vectors, lists, matrices, data frames, and factors. Here, we will introduce vectors and data frames.  
+
+## Vectors
+Vectors are a common way of organizing data in R.  We create vectors using the `c` command. The `c` stands for concatenate. We used this command in lab 2.  
+
+A numeric vector.
+```{r}
+my_vector <- c(10, 20, 30)
+```
+
+A character vector.
+```{r}
+days_of_the_week <- c("Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday")
+```
+
+A convenient trick for creating a vector to play around with is to generate a sequence of numbers.
+```{r}
+my_vector_sequence <- c(1:100)
+```
+
+## Identifying vector elements
+We can use `[]` to pull out elements in a vector. We just need to specify their position in the vector; i.e. day 3 is Wednesday.
+```{r}
+
+```
+
+```{r}
+
+```
+
+## Practice
+1. Use `[]` to determine which element in `my_vector_sequence` has a value of 15.
+```{r}
+
+```
+
+2. We can use operators such as <, >, ==, <==, etc. Show all values in `my_vector_sequence` that are less than or equal to 10. 
+```{r}
+
+```
+
+3. If you use `[]` then you only get the values, not the logical evaluation of the entire vector. Experiment with this by adjusting the chunk below.    
+```{r}
+my_vector_sequence[my_vector_sequence <= 10]
+```
+
+## Data Frames
+The data frame is the most common way to organize data within R. A data frame stores data of many different classes. Essentially, data frames are spreadsheets like you would find in Excel. We usually don't build data frames in RStudio from scratch, but this example will show you how they are structured.  
+
+Let's build separate vectors that include length (in), weight (oz), and sex of three [ruby-throated hummingbirds](https://www.audubon.org/field-guide/bird/ruby-throated-hummingbird).  
+```{r}
+Sex <- c("male", "female", "male")
+Length <- c(3.2, 3.7, 3.4)
+Weight <- c(2.9, 4.0, 3.1)
+```
+
+Since we work in the tidyverse, we use `tibble()` to create a data frame.  
+```{r}
+
+```
+
+Notice that not only are the data neat and clean looking, there is also information provided about the class of data. `dbl` means that the value is a type of numeric [double precision floating point](http://uc-r.github.io/integer_double/).  
+```{r}
+
+```
+
+What are the column names of our data frame? Notice that R defaulted to using the names of our vectors, but we could name them something else when creating the data frame, or rename them later.  
+```{r}
+
+```
+
+What are the dimensions of the `hbirds` data frame? The `dim()` and `str()` commands provide this information.   
+```{r}
+
+```
+
+```{r}
+
+```
+
+Let's use lowercase names when we create the data frame. We just changed to lowercase here, but we could use any names we wish.  
+```{r}
+
+```
+
+## Accessing Data Frame Columns and Rows 
+The same methods of selecting elements in vectors and data matrices apply to data frames. We use `[]`. We have two positions where the first applies to the rows, and the second to the columns.  
+
+The first row.  
+```{r}
+
+```
+
+The third column.  
+```{r}
+
+```
+
+## Calculations
+We can use the `$` to access a column (variable) in a data frame. Here we calculate the mean length of the hummingbirds.  
+```{r}
+
+```
+
+## Writing Data to File
+We should save our hbirds data frame so we can use it again later! There are many ways to save data in R, here we write our data frame to a csv file. We use `row.names = FALSE` to avoid row numbers from printing out. 
+```{r}
+
+```
+
+## That's it! Let's take a break and then move on to part 2!  

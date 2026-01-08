@@ -1,0 +1,79 @@
+---
+title: "Homework 3"
+author: "Your Name Here"
+date: "`r Sys.Date()`"
+output:
+  html_document: 
+    theme: spacelab
+---
+
+## Instructions
+Answer the following questions and/or complete the exercises in RMarkdown. Please embed all of your code and push the final work to your repository. Your report should be organized, clean, and run free from errors. Remember, you must remove the `#` for any included code chunks to run.  
+
+## Load the tidyverse
+```{r}
+library("tidyverse")
+```
+
+In order to answer the questions below, you will need to do a little online research.
+
+**1. Make three new vectors that show the name, height in feet, and height in meters of the five tallest mountains in the world.**
+```{r}
+
+```
+
+**2. Combine these vectors into a data frame called `mountains`.**
+```{r}
+
+```
+
+**3. What is the mean height of the mountains in feet?**
+```{r}
+
+```
+
+**4. When were each of these mountains first climbed (i.e. in what year)? Make a new vector `first_climbed` and add it to the `mountains` data frame.**
+```{r}
+
+```
+
+```{r}
+
+```
+
+**5. How many times have each of these mountains been climbed? Make a new vector `summits` and add it to the `mountains` data frame.**
+```{r}
+
+```
+
+**6. Which mountain has the highest number of fatalities? Make a new vector `fatalities` and add it to the `mountains` data frame.**
+```{r}
+
+```
+
+**7. What is the fatality rate (i.e., fatalities divided by summits) for each mountain? Create a new vector `fatality_rate` and add it to the `mountains` data frame.**
+```{r}
+
+```
+
+**8. Write your data frame to a .csv file called `mountains_data`.**
+```{r}
+
+```
+
+**9. Clear your environment panel by cliking on the broom icon. Then read in your `mountains_data.csv` file to a new object called `mountains`.**
+```{r}
+
+```
+
+```{r}
+
+```
+
+**10. Use a summary function of your choice to show the structure of your `mountains` data frame.**
+```{r}
+
+```
+
+## Knit and Upload
+Please knit your work as an .html file and upload to Canvas. Homework is due before the start of the next lab. No late work is accepted. Make sure to use the formatting conventions of RMarkdown to make your report neat and clean!  

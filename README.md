@@ -26,10 +26,12 @@ Easy [setup instructions](https://jmledford3115.github.io/datascibiol/logistics/
 ## Labs  
 1. **Lab 1** | [part 1](https://jmledford3115.github.io/datascibiol/lab1/lab1_1.html) | [part 2](https://jmledford3115.github.io/datascibiol/lab1/lab1_2.html) 
 2. **Lab 2** | [part 1](https://jmledford3115.github.io/datascibiol/lab2/lab2_1.html)
+3. **Lab 3** | [part 1](https://jmledford3115.github.io/datascibiol/lab3/lab3_1.html) | [part 2](https://jmledford3115.github.io/datascibiol/lab3/lab3_2.html)
 
 ## Homework  
 1. [Homework 1](https://jmledford3115.github.io/datascibiol/lab1/hw1.html)
 2. [Homework 2](https://jmledford3115.github.io/datascibiol/lab2/hw2.html)
+3. [Homework 3](https://jmledford3115.github.io/datascibiol/lab3/hw3.html)
 
 ## About the Class  
 This class has been developed with the generous help of Bryshal Moore, Hannah Houts, Katherine Ransom, Rebecca Godwin, Min-Yao Jhu, Julin Maloof, and the students of BIS 15L.  
