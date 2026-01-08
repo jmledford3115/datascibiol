@@ -22,7 +22,7 @@ output:
 ## Working Directories and Paths
 Before we get started with R, it is important to understand the concept of working directories and paths. A working directory is the folder on your computer where R will look for files to read in and where it will save files that you create. You can check your current working directory using the `getwd()` function.
 ```{r}
-
+getwd() #checks your current working directory
 ```
 
 What if you find that you are not in the correct working directory? You can change your working directory in two ways. The first is to look at the Session menu at the top of RStudio. Click on Session -> Set Working Directory -> Choose Directory. Then navigate to the folder you want to use as your working directory. 
@@ -39,51 +39,54 @@ In order to access the potential of R we need to assign values or other types of
 
 Assign a value to object 'x'. The '<-' symbol is read as 'gets'. In this case, x gets 42. Make sure that you are in the environment panel and you should see the value associated with 'x'. On a mac, you can push `option` and `-` to automatically generate the gets symbol.  
 ```{r}
-
+x <- 42
 ```
 
 To print the object to the screen, just type x.  
 ```{r}
-
+x
 ```
 
 Assign a value of 30 to a new object y.
 ```{r}
-
+y <- 30
 ```
 
 The = symbol works, but is not a convention followed by most programmers.
 ```{r}
-
+z=10 #do not use
 ```
 
 Once objects have been created, you can do things with them.  
 ```{r}
-
+x+y
 ```
 
 ```{r}
-
+x/y
 ```
 
 Make two new objects, treatment and control. The value of treatment is 36 and the value of control is 38.
 ```{r}
-
+treatment <- 36
+control <- 38
 ```
 
 What is the sum of treatment and control?
 ```{r}
-
+treatment+control
 ```
 
 Here we make a new object `my_experiment` that is the sum of the treatment and control. Notice that I use `_` and not spaces. 
 ```{r}
-
+my_experiment <- treatment+control
+my_experiment
 ```
 
 We can also use the function sum to do the same thing. Notice that if I give a new object the same name as an existing object, the old one is replaced.
 ```{r}
-
+my_experiment <- sum(treatment, control)
+my_experiment
 ```
 
 To learn more about the sum function, use the help command `?`.
@@ -99,43 +102,46 @@ We need to be careful about nomenclature when we write code. R allows us to give
 
 We get an error here because `else` is a function in R. You also don't want to give names that might get confused with functions; i.e. you can assign a value to 'mean' but this could become confusing because mean is also a function.  
 ```{r}
-
+mean <- 20
 ```
 
 What is the mean of 2+8+2? (Do the math in your head first). Does the following code match your prediction?
 ```{r}
-
+2+8+2/3
 ```
 
 Order of operations applies, so we need to tell R exactly what we want.
 ```{r}
-
+(2+8+2)/3
 ```
 
 Here we use the mean function. Notice that we use `c` which stands for concatenate. This combines the three numbers into a single object that the mean function can use. This type of data structure is called a vector.
 ```{r}
-
+mean(c(2, 8, 2))
 ```
 
 Why does this not work?
 ```{r}
-
+mean(2, 8, 2)
 ```
 
 ## Practice
 1. Create three new objects, `venom_GT`, `chiron`, and `veyron`. These are the fastest cars in the world. Assign each car to its top speed. The venom_GT can go 270, chiron is 261, and veyron is 268. 
 ```{r}
-
+venom_GT <- 270
+chiron <- 261
+veyron <- 268
 ```
 
 2. Use arithmetic to calculate the mean top speed for the cars.
 ```{r}
-
+mean_speed <- (venom_GT + chiron + veyron) / 3
+mean_speed
 ```
 
 3. Use the function `mean()` to calculate the mean top speed for the cars.
 ```{r}
-
+mean(c(venom_GT, chiron, veyron))
 ```
 
 ## Types of Data
@@ -149,25 +155,26 @@ my_logical <- FALSE
 
 To find out what type of data you are working with, use the `class()` function. This is important because sometimes we will need to change the type of data to perform certain analyses.
 ```{r}
-
+class(my_numeric)
 ```
 
 ```{r}
-
+class(my_integer)
 ```
 
 You can use the `is()` and `as()` functions to clarify or specify a type of data.
 ```{r}
-
+is.integer(my_numeric) #is my_numeric an integer?
 ```
 
 Let's convert my_numeric to an integer.
 ```{r}
-
+my_numeric <- 
+  as.integer(my_numeric) #create a new object specified as an integer
 ```
 
 ```{r}
-
+is.integer(my_integer) #is my_numeric an integer?
 ```
 
 ## Missing Data
@@ -175,15 +182,15 @@ R has a special way to designate missing data, the NA. NA values in R have speci
 
 NA values are used to designate missing data. `is.na` or `anyNA` are useful functions when dealing with NAs in data. 
 ```{r}
-
+my_missing <- NA
 ```
 
 ```{r}
-
+is.na(my_missing)
 ```
 
 ```{r}
-
+anyNA(my_missing)
 ```
 
 ## Practice  
@@ -194,12 +201,15 @@ new_vector <- c(7, 6.2, 5, 9, NA, 4, 9.8, 7, 3, 2)
 
 2. Calculate the mean of `new_vector`.
 ```{r}
-
+mean(new_vector)
 ```
 
 3. How do you interpret this result? What does this mean about NAs? 
+NA's are not included in the calculation of the mean.
 
 4. Recalculate the mean using the following code chunk. Why is the useful?  
 ```{r}
 mean(new_vector, na.rm = TRUE) #removes NA values
 ```
+
+-->[Home](https://jmledford3115.github.io/datascibiol/)  
