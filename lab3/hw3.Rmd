@@ -61,7 +61,7 @@ In order to answer the questions below, you will need to do a little online rese
 
 ```
 
-**9. Clear your environment panel by cliking on the broom icon. Then read in your `mountains_data.csv` file to a new object called `mountains`.**
+**9. Clear your environment panel by clicking on the broom icon. Then read in your `mountains_data.csv` file to a new object called `mountains`.**
 ```{r}
 
 ```
