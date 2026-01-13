@@ -123,7 +123,7 @@ We can summarize our data frame with the`summary()` function.
 
 ```
 
-`tail()` prinst the last n rows of the data frame.
+`tail()` prints the last n rows of the data frame.
 ```{r}
 
 ```
