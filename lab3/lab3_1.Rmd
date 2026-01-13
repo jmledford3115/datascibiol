@@ -49,22 +49,22 @@ my_vector_sequence <- c(1:100)
 ## Identifying vector elements
 We can use `[]` to pull out elements in a vector. We just need to specify their position in the vector; i.e. day 3 is Wednesday.
 ```{r}
-
+days_of_the_week[4]
 ```
 
 ```{r}
-
+my_vector_sequence[10]
 ```
 
 ## Practice
 1. Use `[]` to determine which element in `my_vector_sequence` has a value of 15.
 ```{r}
-
+my_vector_sequence[15]
 ```
 
 2. We can use operators such as <, >, ==, <==, etc. Show all values in `my_vector_sequence` that are less than or equal to 10. 
 ```{r}
-
+my_vector_sequence <= 10
 ```
 
 3. If you use `[]` then you only get the values, not the logical evaluation of the entire vector. Experiment with this by adjusting the chunk below.    
@@ -84,31 +84,32 @@ Weight <- c(2.9, 4.0, 3.1)
 
 Since we work in the tidyverse, we use `tibble()` to create a data frame.  
 ```{r}
-
+hbirds <- tibble(Sex, Length, Weight)
 ```
 
 Notice that not only are the data neat and clean looking, there is also information provided about the class of data. `dbl` means that the value is a type of numeric [double precision floating point](http://uc-r.github.io/integer_double/).  
 ```{r}
-
+hbirds
 ```
 
 What are the column names of our data frame? Notice that R defaulted to using the names of our vectors, but we could name them something else when creating the data frame, or rename them later.  
 ```{r}
-
+names(hbirds)
 ```
 
 What are the dimensions of the `hbirds` data frame? The `dim()` and `str()` commands provide this information.   
 ```{r}
-
+dim(hbirds)
 ```
 
 ```{r}
-
+str(hbirds)
 ```
 
 Let's use lowercase names when we create the data frame. We just changed to lowercase here, but we could use any names we wish.  
 ```{r}
-
+hbirds <- tibble(sex=Sex, length=Length, weight_g=Weight)
+hbirds
 ```
 
 ## Accessing Data Frame Columns and Rows 
@@ -116,24 +117,24 @@ The same methods of selecting elements in vectors and data matrices apply to dat
 
 The first row.  
 ```{r}
-
+hbirds[1,]
 ```
 
 The third column.  
 ```{r}
-
+hbirds[ ,3]
 ```
 
 ## Calculations
 We can use the `$` to access a column (variable) in a data frame. Here we calculate the mean length of the hummingbirds.  
 ```{r}
-
+mean(hbirds$length)
 ```
 
 ## Writing Data to File
 We should save our hbirds data frame so we can use it again later! There are many ways to save data in R, here we write our data frame to a csv file. We use `row.names = FALSE` to avoid row numbers from printing out. 
 ```{r}
-
+write.csv(hbirds, "hbirds_data.csv", row.names = FALSE)
 ```
 
 ## That's it! Let's take a break and then move on to part 2!  

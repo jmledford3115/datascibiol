@@ -10,7 +10,7 @@
 
 
 
-<meta name="date" content="2026-01-08" />
+<meta name="date" content="2026-01-13" />
 
 <title>Lab 3.1</title>
 
@@ -1503,7 +1503,7 @@ border-radius: 0px;
 
 
 <h1 class="title toc-ignore">Lab 3.1</h1>
-<h4 class="date">2026-01-08</h4>
+<h4 class="date">2026-01-13</h4>
 
 </div>
 
@@ -1529,8 +1529,8 @@ command below.</p>
 ## ✔ dplyr     1.1.4     ✔ readr     2.1.6
 ## ✔ forcats   1.0.1     ✔ stringr   1.6.0
 ## ✔ ggplot2   4.0.1     ✔ tibble    3.3.0
-## ✔ lubridate 1.9.4     ✔ tidyr     1.3.1
-## ✔ purrr     1.2.0     
+## ✔ lubridate 1.9.4     ✔ tidyr     1.3.2
+## ✔ purrr     1.2.1     
 ## ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
 ## ✖ dplyr::filter() masks stats::filter()
 ## ✖ dplyr::lag()    masks stats::lag()
@@ -1561,18 +1561,38 @@ generate a sequence of numbers.</p>
 <p>We can use <code>[]</code> to pull out elements in a vector. We just
 need to specify their position in the vector; i.e. day 3 is
 Wednesday.</p>
+<pre class="r"><code>days_of_the_week[4]</code></pre>
+<pre><code>## [1] &quot;Thursday&quot;</code></pre>
+<pre class="r"><code>my_vector_sequence[10]</code></pre>
+<pre><code>## [1] 10</code></pre>
 </div>
 <div id="practice" class="section level2">
 <h2>Practice</h2>
 <ol style="list-style-type: decimal">
-<li><p>Use <code>[]</code> to determine which element in
-<code>my_vector_sequence</code> has a value of 15.</p></li>
-<li><p>We can use operators such as &lt;, &gt;, ==, &lt;==, etc. Show
-all values in <code>my_vector_sequence</code> that are less than or
-equal to 10.</p></li>
-<li><p>If you use <code>[]</code> then you only get the values, not the
+<li>Use <code>[]</code> to determine which element in
+<code>my_vector_sequence</code> has a value of 15.</li>
+</ol>
+<pre class="r"><code>my_vector_sequence[15]</code></pre>
+<pre><code>## [1] 15</code></pre>
+<ol start="2" style="list-style-type: decimal">
+<li>We can use operators such as &lt;, &gt;, ==, &lt;==, etc. Show all
+values in <code>my_vector_sequence</code> that are less than or equal to
+10.</li>
+</ol>
+<pre class="r"><code>my_vector_sequence &lt;= 10</code></pre>
+<pre><code>##   [1]  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE FALSE FALSE
+##  [13] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+##  [25] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+##  [37] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+##  [49] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+##  [61] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+##  [73] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+##  [85] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+##  [97] FALSE FALSE FALSE FALSE</code></pre>
+<ol start="3" style="list-style-type: decimal">
+<li>If you use <code>[]</code> then you only get the values, not the
 logical evaluation of the entire vector. Experiment with this by
-adjusting the chunk below.</p></li>
+adjusting the chunk below.</li>
 </ol>
 <pre class="r"><code>my_vector_sequence[my_vector_sequence &lt;= 10]</code></pre>
 <pre><code>##  [1]  1  2  3  4  5  6  7  8  9 10</code></pre>
@@ -1592,18 +1612,43 @@ Length &lt;- c(3.2, 3.7, 3.4)
 Weight &lt;- c(2.9, 4.0, 3.1)</code></pre>
 <p>Since we work in the tidyverse, we use <code>tibble()</code> to
 create a data frame.</p>
+<pre class="r"><code>hbirds &lt;- tibble(Sex, Length, Weight)</code></pre>
 <p>Notice that not only are the data neat and clean looking, there is
 also information provided about the class of data. <code>dbl</code>
 means that the value is a type of numeric <a href="http://uc-r.github.io/integer_double/">double precision floating
 point</a>.</p>
+<pre class="r"><code>hbirds</code></pre>
+<pre><code>## # A tibble: 3 × 3
+##   Sex    Length Weight
+##   &lt;chr&gt;   &lt;dbl&gt;  &lt;dbl&gt;
+## 1 male      3.2    2.9
+## 2 female    3.7    4  
+## 3 male      3.4    3.1</code></pre>
 <p>What are the column names of our data frame? Notice that R defaulted
 to using the names of our vectors, but we could name them something else
 when creating the data frame, or rename them later.</p>
+<pre class="r"><code>names(hbirds)</code></pre>
+<pre><code>## [1] &quot;Sex&quot;    &quot;Length&quot; &quot;Weight&quot;</code></pre>
 <p>What are the dimensions of the <code>hbirds</code> data frame? The
 <code>dim()</code> and <code>str()</code> commands provide this
 information.</p>
+<pre class="r"><code>dim(hbirds)</code></pre>
+<pre><code>## [1] 3 3</code></pre>
+<pre class="r"><code>str(hbirds)</code></pre>
+<pre><code>## tibble [3 × 3] (S3: tbl_df/tbl/data.frame)
+##  $ Sex   : chr [1:3] &quot;male&quot; &quot;female&quot; &quot;male&quot;
+##  $ Length: num [1:3] 3.2 3.7 3.4
+##  $ Weight: num [1:3] 2.9 4 3.1</code></pre>
 <p>Let’s use lowercase names when we create the data frame. We just
 changed to lowercase here, but we could use any names we wish.</p>
+<pre class="r"><code>hbirds &lt;- tibble(sex=Sex, length=Length, weight_g=Weight)
+hbirds</code></pre>
+<pre><code>## # A tibble: 3 × 3
+##   sex    length weight_g
+##   &lt;chr&gt;   &lt;dbl&gt;    &lt;dbl&gt;
+## 1 male      3.2      2.9
+## 2 female    3.7      4  
+## 3 male      3.4      3.1</code></pre>
 </div>
 <div id="accessing-data-frame-columns-and-rows" class="section level2">
 <h2>Accessing Data Frame Columns and Rows</h2>
@@ -1611,12 +1656,26 @@ changed to lowercase here, but we could use any names we wish.</p>
 apply to data frames. We use <code>[]</code>. We have two positions
 where the first applies to the rows, and the second to the columns.</p>
 <p>The first row.</p>
+<pre class="r"><code>hbirds[1,]</code></pre>
+<pre><code>## # A tibble: 1 × 3
+##   sex   length weight_g
+##   &lt;chr&gt;  &lt;dbl&gt;    &lt;dbl&gt;
+## 1 male     3.2      2.9</code></pre>
 <p>The third column.</p>
+<pre class="r"><code>hbirds[ ,3]</code></pre>
+<pre><code>## # A tibble: 3 × 1
+##   weight_g
+##      &lt;dbl&gt;
+## 1      2.9
+## 2      4  
+## 3      3.1</code></pre>
 </div>
 <div id="calculations" class="section level2">
 <h2>Calculations</h2>
 <p>We can use the <code>$</code> to access a column (variable) in a data
 frame. Here we calculate the mean length of the hummingbirds.</p>
+<pre class="r"><code>mean(hbirds$length)</code></pre>
+<pre><code>## [1] 3.433333</code></pre>
 </div>
 <div id="writing-data-to-file" class="section level2">
 <h2>Writing Data to File</h2>
@@ -1624,6 +1683,7 @@ frame. Here we calculate the mean length of the hummingbirds.</p>
 There are many ways to save data in R, here we write our data frame to a
 csv file. We use <code>row.names = FALSE</code> to avoid row numbers
 from printing out.</p>
+<pre class="r"><code>write.csv(hbirds, &quot;hbirds_data.csv&quot;, row.names = FALSE)</code></pre>
 </div>
 <div id="thats-it-lets-take-a-break-and-then-move-on-to-part-2" class="section level2">
 <h2>That’s it! Let’s take a break and then move on to part 2!</h2>

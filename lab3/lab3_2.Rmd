@@ -44,7 +44,7 @@ Notice that when the data are imported, you are presented with a message that te
 
 Use the `str()` function to get an idea of the data structure of `hot_springs`.  
 ```{r}
-
+str(hot_springs)
 ```
 
 ## Change column classes
@@ -54,27 +54,27 @@ Recall that factors are categorical variables that have a fixed number of possib
 
 What is the class of the scientist column? Let's change it to factor and then show the levels of that factor.  
 ```{r}
-
+class(hot_springs$scientist)
 ```
 
 ```{r}
-
+hot_springs$scientist <- as.factor(hot_springs$scientist)
 ```
 
 Did our change work? We can also check the levels of each column.
 ```{r}
-
+levels(hot_springs$scientist)
 ```
 
 ## Practice
 1. Change the class of the springs column to factor.
 ```{r}
-
+hot_springs$spring <- as.factor(hot_springs$spring)
 ```
 
 2. What are the levels of the springs column?
 ```{r}
-
+levels(hot_springs$spring)
 ```
 
 ## Importing Data from a Published Study
@@ -82,7 +82,7 @@ In your lab 3 folder there is another folder titled `data`. Inside the `data` fo
 
 The data are from: Gaeta J., G. Sass, S. Carpenter. 2012. Biocomplexity at North Temperate Lakes LTER: Coordinated Field Studies: Large Mouth Bass Growth 2006. Environmental Data Initiative.  [link](https://portal.edirepository.org/nis/mapbrowse?scope=knb-lter-ntl&identifier=267)  
 ```{r}
-
+fish <- read_csv("data/Gaeta_etal_CLC_data.csv")
 ```
 
 ## Additional summary functions
@@ -90,71 +90,72 @@ Once data have been loaded, you need to get an idea of its structure, contents, 
 
 We can summarize our data frame with the`summary()` function.  
 ```{r}
-
+summary(fish)
 ```
 
 `glimpse()` is another useful summary function.
 ```{r}
-
+glimpse(fish)
 ```
 
 `nrow()` gives the numbers of rows.
 ```{r}
-
+nrow(fish)
 ```
 
 `ncol` gives the number of columns.
 ```{r}
-
+ncol(fish)
 ```
 
 `dim()` gives the dimensions.
 ```{r}
-
+dim(fish)
 ```
 
 `names` gives the column names.
 ```{r}
-
+names(fish)
 ```
 
 `head()` prints the first n rows of the data frame.
 ```{r}
-
+head(fish)
 ```
 
 `tail()` prinst the last n rows of the data frame.
 ```{r}
-
+tail(fish)
 ```
 
 `table()` is useful when you have a limited number of categorical variables. It produces fast counts of the number of observations in a variable.
 ```{r}
-
+table(fish$lakeid)
 ```
 
 ## Practice
 1. Load the data `mammal_lifehistories_v2.csv` and place it into a new object called `mammals`.
 ```{r}
-
+mammals <- read_csv("data/mammal_lifehistories_v2.csv")
 ```
 
 2. Provide the dimensions of the data frame.
 ```{r}
-
+dim(mammals)
 ```
 
 3. Check the column names in the data frame. 
 ```{r}
-
+names(mammals)
 ```
 
 4. Use `str()` to show the structure of the data frame and its individual columns; compare this to `glimpse()`. 
 ```{r}
-
+str(mammals)
+glimpse(mammals)
 ```
 
 5. Try the `table()` command to produce counts of mammal order.  
 ```{r}
-
+table(mammals$order)
 ```
