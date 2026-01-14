@@ -1,0 +1,42 @@
+---
+title: "Homework 4"
+author: "Your Name Here"
+date: "`r Sys.Date()`"
+output:
+  html_document: 
+    theme: spacelab
+---
+
+## Instructions
+Answer the following questions and/or complete the exercises in RMarkdown. Please embed all of your code and push the final work to your repository. Your report should be organized, clean, and run free from errors. Remember, you must remove the `#` for any included code chunks to run. Any plots must have appropriate titles and aesthetics.  
+
+## Load the tidyverse
+```{r}
+library("tidyverse")
+options(scipen = 999) #disable scientific notation
+```
+
+For this homework, we will be using the `msleep` dataset from the `ggplot2` package. This dataset contains information about the sleep habits of various mammals. [Reference](https://ggplot2.tidyverse.org/reference/msleep.html): V. M. Savage and G. B. West. A quantitative, theoretical framework for understanding mammalian sleep. Proceedings of the National Academy of Sciences, 104 (3):1051-1056, 2007.
+
+**1. Use a summary function of your choice to get an idea of the structure of the msleep data.**
+
+**2. What are the names of the variables? To get a better idea of what the variables mean, you can use `?msleep`.**
+
+**3. Make a plot that shows the number of mammals in each vore type. Which vore type is most represented in the data?**
+
+**4. What is the average length of time that each mammal sleeps?**
+
+**5. Use `summary()` to get a quick idea of the range of values for the variable `bodywt`.**
+
+**6. Build a plot that shows the range of `bodywt.` by vore type. Because the range of `bodywt` is so variable, you will need to scale the y-axis. You do this by adding `scale_y_log10()` as another layer.**
+
+**7. Is there a relationship between body weight and total sleep time? Add appropriate labels and a title to your plot.**
+
+**8. Which vore type tends to sleep the most? Build a plot to support your answer.**
+
+**9. Is there a relationship between brain weight and body weight? Build a plot to support your answer.**
+
+**10. Build one plot of your choice that provides additional insight into the msleep dataset. Be sure to include appropriate labels and a title.**
+
+## Knit and Upload
+Please knit your work as an .html file and upload to Canvas. Homework is due before the start of the next lab. No late work is accepted. Make sure to use the formatting conventions of RMarkdown to make your report neat and clean!  

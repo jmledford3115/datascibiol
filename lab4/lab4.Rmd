@@ -1,0 +1,177 @@
+---
+title: "Lab 4"
+date: "`r Sys.Date()`"
+output:
+  html_document:
+    theme: spacelab
+    toc: yes
+    toc_float: yes
+  pdf_document:
+    toc: yes
+---
+
+## Learning Goals
+*At the end of this exercise, you will be able to:*    
+1. Understand and apply the syntax of building plots using `ggplot2`.  
+2. Build a boxplot using `ggplot2`.  
+3. Build a scatterplot using `ggplot2`.  
+4. Build a barplot using `ggplot2`.
+
+##Resources  
+- [R for Data Science 2e](https://r4ds.hadley.nz/data-visualize.html) 
+- [ggplot2 cheatsheet](https://posit.co/resources/cheatsheets/)  
+
+## Libraries
+```{r}
+library(tidyverse)
+library(palmerpenguins)
+```
+
+## Grammar of Graphics
+The ability to quickly produce and customize graphs is a strength of R. Data visualizations are produced by the package `ggplot2` and it is a core part of the tidyverse. The syntax for using ggplot is specific and common to all types of plots. This is what Hadley Wickham calls a [Grammar of Graphics](http://vita.had.co.nz/papers/layered-grammar.pdf). The "gg" in `ggplot` stands for grammar of graphics.
+
+## Philosophy
+What makes a good chart? In my opinion a good chart is elegant in its simplicity. It provides a clean, clear visual of the data without being overwhelming to the reader. This can be hard to do and takes some careful thinking. Always keep in mind that the reader will almost never know the data as well as you do so you need to be mindful about how you present the facts.  
+
+## Data Types
+We first need to define some of the data types we will use to build plots.  
+
++ `discrete` quantitative data that only contains integers
++ `continuous` quantitative data that can take any numerical value
++ `categorical` qualitative data that can take on a limited number of values
+
+## Basics
+The syntax used by ggplot takes some practice to get used to, especially for customizing plots, but the basic elements are the same. It is helpful to think of plots as being built up in layers.  
+
+In short, **plot= data + geom_ + aesthetics**.  
+
+We start by calling the ggplot function, identifying the data, and specifying the axes. We then add the `geom` type to describe how we want our data represented. Each `geom_` works with specific types of data and R is capable of building plots of single variables, multiple variables, and even maps. Lastly, we add aesthetics.
+
+## Example
+To make things easy, let's start with some built in data.
+```{r}
+
+```
+
+```{r}
+
+```
+
+Let's start by asking the question: How does body mass vary among penguin species?
+
+To make a plot, we need to first specify the data and map the aesthetics. The aesthetics include how each variable in our data set will be used. In the example below, I am using the aes() function to identify the x and y variables in the plot.
+```{r}
+
+```
+
+Notice that we have a nice background, labeled axes, and even a value range of our variables on the y-axis- but no plot. This is because we need to tell ggplot how we want our data represented. This is called the geometry or `geom()`. There are many types of `geom`, see the ggplot [cheatsheet](https://posit.co/resources/cheatsheets/).
+
+Here we want a boxplot, specified by `geom_boxplot()`. We will explore boxplots in more detail later, but for now we just need an example.
+```{r}
+
+```
+
+## Practice
+1. How does flipper length vary among penguin species?
+```{r}
+
+```
+
+```{r}
+
+```
+
+## Scatterplots and barplots
+Now that we have a general idea of the syntax, let's explore two common plots: 1) scatter plots and 2) bar plots.
+
+### 1. Scatter Plots
+Scatter plots are good at revealing relationships that are not readily visible in the raw data.   
+
+Let's ask the question: Is there a relationship between body mass and flipper length?
+```{r}
+
+```
+
+```{r}
+
+```
+
+Notice the warning! R is telling us that there are some missing values in our data. This is common in real world data sets. R automatically omits these missing values when plotting. We can also deal with the NA's explicitly using the `na.rm=T` function.  
+```{r}
+
+```
+
+To add a regression (best of fit) line, we add another layer.
+```{r}
+
+```
+
+This graph is fine, but it doesn't distinguish between species. It might be helpful for the reader to see how each species is represented. We can do this by mapping the color aesthetic to species.
+```{r}
+
+```
+
+The plot above looks good, but I think it's a bit messy having the regression line presented for each species. When we add the color aesthetic, it is passed down to all layers. To fix this, we can move the color aesthetic to just the geom_point layer.
+```{r}
+
+```
+
+Another helpful aesthetic is `shape` which can be used to distinguish points by shape instead of or in addition to color. A common approach is to map both color and shape to the same variable.
+```{r}
+
+```
+
+But don't we want a title? We do this using the `labs()` function.
+```{r}
+
+```
+
+### Practice
+1. Is there a relationship between bill length and bill depth?
+```{r}
+
+```
+
+```{r}
+
+```
+
+### Bar Plot: `geom_bar()`
+The simplest type of bar plot counts the number of observations in a categorical variable. In this case, we want to know how many observations are present in the variable `species`. Notice that we do not specify a y-axis because it is count by default.  
+```{r}
+
+```
+
+```{r}
+
+```
+
+What if we want to use the color aesthetic like we did for `geom_point` above? Let's try...
+```{r}
+
+```
+
+This doesn't work because the color aesthetic is being applied to the bars themselves. Instead, we need to use `fill` to color the inside of the bars.
+```{r}
+
+```
+
+## Practice
+1. Make a bar plot showing the number of penguins on each island.
+```{r}
+
+```
+
+```{r}
+
+```
+
+2. Make a bar plot showing the number of penguins of each species on each island. (Hint: use `fill` to distinguish species)
+```{r}
+
+```
+
+## Wrap-up  
+Please review the learning goals and be sure to use the code here as a reference when completing the homework.    
+
+-->[Home](https://jmledford3115.github.io/datascibiol/)
