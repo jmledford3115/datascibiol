@@ -10,7 +10,7 @@
 
 
 
-<meta name="date" content="2026-01-19" />
+<meta name="date" content="2026-01-20" />
 
 <title>Lab 5.1</title>
 
@@ -1503,7 +1503,7 @@ border-radius: 0px;
 
 
 <h1 class="title toc-ignore">Lab 5.1</h1>
-<h4 class="date">2026-01-19</h4>
+<h4 class="date">2026-01-20</h4>
 
 </div>
 
@@ -1548,6 +1548,34 @@ community of Antarctic penguins (genus <em>Pygoscelis</em>). PLoS ONE
 <h2>Data Structure</h2>
 <p>Once data have been uploaded, let’s get an idea of its structure,
 contents, and dimensions.</p>
+<pre class="r"><code>glimpse(penguins)</code></pre>
+<pre><code>## Rows: 344
+## Columns: 8
+## $ species           &lt;fct&gt; Adelie, Adelie, Adelie, Adelie, Adelie, Adelie, Adel…
+## $ island            &lt;fct&gt; Torgersen, Torgersen, Torgersen, Torgersen, Torgerse…
+## $ bill_length_mm    &lt;dbl&gt; 39.1, 39.5, 40.3, NA, 36.7, 39.3, 38.9, 39.2, 34.1, …
+## $ bill_depth_mm     &lt;dbl&gt; 18.7, 17.4, 18.0, NA, 19.3, 20.6, 17.8, 19.6, 18.1, …
+## $ flipper_length_mm &lt;int&gt; 181, 186, 195, NA, 193, 190, 181, 195, 193, 190, 186…
+## $ body_mass_g       &lt;int&gt; 3750, 3800, 3250, NA, 3450, 3650, 3625, 4675, 3475, …
+## $ sex               &lt;fct&gt; male, female, female, NA, female, male, female, male…
+## $ year              &lt;int&gt; 2007, 2007, 2007, 2007, 2007, 2007, 2007, 2007, 2007…</code></pre>
+<pre class="r"><code>summary(penguins)</code></pre>
+<pre><code>##       species          island    bill_length_mm  bill_depth_mm  
+##  Adelie   :152   Biscoe   :168   Min.   :32.10   Min.   :13.10  
+##  Chinstrap: 68   Dream    :124   1st Qu.:39.23   1st Qu.:15.60  
+##  Gentoo   :124   Torgersen: 52   Median :44.45   Median :17.30  
+##                                  Mean   :43.92   Mean   :17.15  
+##                                  3rd Qu.:48.50   3rd Qu.:18.70  
+##                                  Max.   :59.60   Max.   :21.50  
+##                                  NA&#39;s   :2       NA&#39;s   :2      
+##  flipper_length_mm  body_mass_g       sex           year     
+##  Min.   :172.0     Min.   :2700   female:165   Min.   :2007  
+##  1st Qu.:190.0     1st Qu.:3550   male  :168   1st Qu.:2007  
+##  Median :197.0     Median :4050   NA&#39;s  : 11   Median :2008  
+##  Mean   :200.9     Mean   :4202                Mean   :2008  
+##  3rd Qu.:213.0     3rd Qu.:4750                3rd Qu.:2009  
+##  Max.   :231.0     Max.   :6300                Max.   :2009  
+##  NA&#39;s   :2         NA&#39;s   :2</code></pre>
 </div>
 <div id="tidyverse" class="section level2">
 <h2>Tidyverse</h2>
@@ -1582,29 +1610,201 @@ which they appear in the output.</p>
 sense. However, for larger dataframes with many variables,
 <code>select()</code> is very useful. Let’s look at the fish data
 again.</p>
+<pre class="r"><code>names(penguins)</code></pre>
+<pre><code>## [1] &quot;species&quot;           &quot;island&quot;            &quot;bill_length_mm&quot;   
+## [4] &quot;bill_depth_mm&quot;     &quot;flipper_length_mm&quot; &quot;body_mass_g&quot;      
+## [7] &quot;sex&quot;               &quot;year&quot;</code></pre>
 <p>We are only interested in species and body mass. We can use
 <code>select()</code> to extract these columns.</p>
+<pre class="r"><code>select(penguins, species, body_mass_g)</code></pre>
+<pre><code>## # A tibble: 344 × 2
+##    species body_mass_g
+##    &lt;fct&gt;         &lt;int&gt;
+##  1 Adelie         3750
+##  2 Adelie         3800
+##  3 Adelie         3250
+##  4 Adelie           NA
+##  5 Adelie         3450
+##  6 Adelie         3650
+##  7 Adelie         3625
+##  8 Adelie         4675
+##  9 Adelie         3475
+## 10 Adelie         4250
+## # ℹ 334 more rows</code></pre>
+<pre class="r"><code>penguins &lt;- penguins</code></pre>
 <p>To add a range of columns use <code>start_col:end_col</code>.</p>
+<pre class="r"><code>select(penguins, species:flipper_length_mm)</code></pre>
+<pre><code>## # A tibble: 344 × 5
+##    species island    bill_length_mm bill_depth_mm flipper_length_mm
+##    &lt;fct&gt;   &lt;fct&gt;              &lt;dbl&gt;         &lt;dbl&gt;             &lt;int&gt;
+##  1 Adelie  Torgersen           39.1          18.7               181
+##  2 Adelie  Torgersen           39.5          17.4               186
+##  3 Adelie  Torgersen           40.3          18                 195
+##  4 Adelie  Torgersen           NA            NA                  NA
+##  5 Adelie  Torgersen           36.7          19.3               193
+##  6 Adelie  Torgersen           39.3          20.6               190
+##  7 Adelie  Torgersen           38.9          17.8               181
+##  8 Adelie  Torgersen           39.2          19.6               195
+##  9 Adelie  Torgersen           34.1          18.1               193
+## 10 Adelie  Torgersen           42            20.2               190
+## # ℹ 334 more rows</code></pre>
 <p>The ! operator is useful in select. It allows us to select everything
 except the specified variables.</p>
+<pre class="r"><code>select(penguins, !body_mass_g)</code></pre>
+<pre><code>## # A tibble: 344 × 7
+##    species island    bill_length_mm bill_depth_mm flipper_length_mm sex     year
+##    &lt;fct&gt;   &lt;fct&gt;              &lt;dbl&gt;         &lt;dbl&gt;             &lt;int&gt; &lt;fct&gt;  &lt;int&gt;
+##  1 Adelie  Torgersen           39.1          18.7               181 male    2007
+##  2 Adelie  Torgersen           39.5          17.4               186 female  2007
+##  3 Adelie  Torgersen           40.3          18                 195 female  2007
+##  4 Adelie  Torgersen           NA            NA                  NA &lt;NA&gt;    2007
+##  5 Adelie  Torgersen           36.7          19.3               193 female  2007
+##  6 Adelie  Torgersen           39.3          20.6               190 male    2007
+##  7 Adelie  Torgersen           38.9          17.8               181 female  2007
+##  8 Adelie  Torgersen           39.2          19.6               195 male    2007
+##  9 Adelie  Torgersen           34.1          18.1               193 &lt;NA&gt;    2007
+## 10 Adelie  Torgersen           42            20.2               190 &lt;NA&gt;    2007
+## # ℹ 334 more rows</code></pre>
 <p>Alternatively, you can use the <code>c()</code> function to exclude
 multiple columns.</p>
+<pre class="r"><code>select(penguins, !c(species, island, year, sex))</code></pre>
+<pre><code>## # A tibble: 344 × 4
+##    bill_length_mm bill_depth_mm flipper_length_mm body_mass_g
+##             &lt;dbl&gt;         &lt;dbl&gt;             &lt;int&gt;       &lt;int&gt;
+##  1           39.1          18.7               181        3750
+##  2           39.5          17.4               186        3800
+##  3           40.3          18                 195        3250
+##  4           NA            NA                  NA          NA
+##  5           36.7          19.3               193        3450
+##  6           39.3          20.6               190        3650
+##  7           38.9          17.8               181        3625
+##  8           39.2          19.6               195        4675
+##  9           34.1          18.1               193        3475
+## 10           42            20.2               190        4250
+## # ℹ 334 more rows</code></pre>
 <p>For very large data frames with lots of variables,
 <code>select()</code> utilizes lots of different operators to make
 things easier. Let’s say we are only interested in the variables that
 deal with length.</p>
+<pre class="r"><code>select(penguins, contains(&quot;mm&quot;))</code></pre>
+<pre><code>## # A tibble: 344 × 3
+##    bill_length_mm bill_depth_mm flipper_length_mm
+##             &lt;dbl&gt;         &lt;dbl&gt;             &lt;int&gt;
+##  1           39.1          18.7               181
+##  2           39.5          17.4               186
+##  3           40.3          18                 195
+##  4           NA            NA                  NA
+##  5           36.7          19.3               193
+##  6           39.3          20.6               190
+##  7           38.9          17.8               181
+##  8           39.2          19.6               195
+##  9           34.1          18.1               193
+## 10           42            20.2               190
+## # ℹ 334 more rows</code></pre>
 <p><code>starts_with()</code></p>
+<pre class="r"><code>select(penguins, starts_with(&quot;bill&quot;))</code></pre>
+<pre><code>## # A tibble: 344 × 2
+##    bill_length_mm bill_depth_mm
+##             &lt;dbl&gt;         &lt;dbl&gt;
+##  1           39.1          18.7
+##  2           39.5          17.4
+##  3           40.3          18  
+##  4           NA            NA  
+##  5           36.7          19.3
+##  6           39.3          20.6
+##  7           38.9          17.8
+##  8           39.2          19.6
+##  9           34.1          18.1
+## 10           42            20.2
+## # ℹ 334 more rows</code></pre>
 <p><code>ends_with()</code></p>
+<pre class="r"><code>select(penguins, ends_with(&quot;mm&quot;))</code></pre>
+<pre><code>## # A tibble: 344 × 3
+##    bill_length_mm bill_depth_mm flipper_length_mm
+##             &lt;dbl&gt;         &lt;dbl&gt;             &lt;int&gt;
+##  1           39.1          18.7               181
+##  2           39.5          17.4               186
+##  3           40.3          18                 195
+##  4           NA            NA                  NA
+##  5           36.7          19.3               193
+##  6           39.3          20.6               190
+##  7           38.9          17.8               181
+##  8           39.2          19.6               195
+##  9           34.1          18.1               193
+## 10           42            20.2               190
+## # ℹ 334 more rows</code></pre>
 <p>You can also select columns based on the class of data.</p>
+<pre class="r"><code>select(penguins, where(is.numeric))</code></pre>
+<pre><code>## # A tibble: 344 × 5
+##    bill_length_mm bill_depth_mm flipper_length_mm body_mass_g  year
+##             &lt;dbl&gt;         &lt;dbl&gt;             &lt;int&gt;       &lt;int&gt; &lt;int&gt;
+##  1           39.1          18.7               181        3750  2007
+##  2           39.5          17.4               186        3800  2007
+##  3           40.3          18                 195        3250  2007
+##  4           NA            NA                  NA          NA  2007
+##  5           36.7          19.3               193        3450  2007
+##  6           39.3          20.6               190        3650  2007
+##  7           38.9          17.8               181        3625  2007
+##  8           39.2          19.6               195        4675  2007
+##  9           34.1          18.1               193        3475  2007
+## 10           42            20.2               190        4250  2007
+## # ℹ 334 more rows</code></pre>
 <p>There are a few verbs that go with <code>select()</code> because they
 deal with columns. One of these is <code>rename()</code>.
 <code>rename()</code> allows you to rename columns in a dataframe. The
 format is <code>new_name = old_name</code>.</p>
+<pre class="r"><code>rename(penguins, body_mass=body_mass_g)</code></pre>
+<pre><code>## # A tibble: 344 × 8
+##    species island bill_length_mm bill_depth_mm flipper_length_mm body_mass sex  
+##    &lt;fct&gt;   &lt;fct&gt;           &lt;dbl&gt;         &lt;dbl&gt;             &lt;int&gt;     &lt;int&gt; &lt;fct&gt;
+##  1 Adelie  Torge…           39.1          18.7               181      3750 male 
+##  2 Adelie  Torge…           39.5          17.4               186      3800 fema…
+##  3 Adelie  Torge…           40.3          18                 195      3250 fema…
+##  4 Adelie  Torge…           NA            NA                  NA        NA &lt;NA&gt; 
+##  5 Adelie  Torge…           36.7          19.3               193      3450 fema…
+##  6 Adelie  Torge…           39.3          20.6               190      3650 male 
+##  7 Adelie  Torge…           38.9          17.8               181      3625 fema…
+##  8 Adelie  Torge…           39.2          19.6               195      4675 male 
+##  9 Adelie  Torge…           34.1          18.1               193      3475 &lt;NA&gt; 
+## 10 Adelie  Torge…           42            20.2               190      4250 &lt;NA&gt; 
+## # ℹ 334 more rows
+## # ℹ 1 more variable: year &lt;int&gt;</code></pre>
 <p>Alternatively, you can rename from within select.</p>
+<pre class="r"><code>select(penguins, species, body_mass=body_mass_g)</code></pre>
+<pre><code>## # A tibble: 344 × 2
+##    species body_mass
+##    &lt;fct&gt;       &lt;int&gt;
+##  1 Adelie       3750
+##  2 Adelie       3800
+##  3 Adelie       3250
+##  4 Adelie         NA
+##  5 Adelie       3450
+##  6 Adelie       3650
+##  7 Adelie       3625
+##  8 Adelie       4675
+##  9 Adelie       3475
+## 10 Adelie       4250
+## # ℹ 334 more rows</code></pre>
 <p>The second is <code>relocate()</code>. <code>relocate()</code> allows
 you to move columns to different locations within a dataframe. Let’s say
 we want to move <code>length</code> to be the first column in the
 dataframe.</p>
+<pre class="r"><code>relocate(penguins, year)</code></pre>
+<pre><code>## # A tibble: 344 × 8
+##     year species island    bill_length_mm bill_depth_mm flipper_length_mm
+##    &lt;int&gt; &lt;fct&gt;   &lt;fct&gt;              &lt;dbl&gt;         &lt;dbl&gt;             &lt;int&gt;
+##  1  2007 Adelie  Torgersen           39.1          18.7               181
+##  2  2007 Adelie  Torgersen           39.5          17.4               186
+##  3  2007 Adelie  Torgersen           40.3          18                 195
+##  4  2007 Adelie  Torgersen           NA            NA                  NA
+##  5  2007 Adelie  Torgersen           36.7          19.3               193
+##  6  2007 Adelie  Torgersen           39.3          20.6               190
+##  7  2007 Adelie  Torgersen           38.9          17.8               181
+##  8  2007 Adelie  Torgersen           39.2          19.6               195
+##  9  2007 Adelie  Torgersen           34.1          18.1               193
+## 10  2007 Adelie  Torgersen           42            20.2               190
+## # ℹ 334 more rows
+## # ℹ 2 more variables: body_mass_g &lt;int&gt;, sex &lt;fct&gt;</code></pre>
 </div>
 <div id="practice" class="section level2">
 <h2>Practice</h2>
@@ -1615,17 +1815,88 @@ V. M. Savage and G. B. West. A quantitative, theoretical framework for
 understanding mammalian sleep. Proceedings of the National Academy of
 Sciences, 104 (3):1051-1056, 2007.</p>
 <ol style="list-style-type: decimal">
-<li><p>What are the names in the <code>msleep</code> dataframe?</p></li>
-<li><p>Use <code>glimpse()</code> to get an idea of the structure of the
-<code>msleep</code> dataframe.</p></li>
-<li><p>Make a new dataframe that only includes the variables
-<code>order</code>, <code>genus</code>, and
-<code>bodywt.</code></p></li>
-<li><p>What if we are only interested in the numeric variables? Make a
-new dataframe that is restricted to numerics.</p></li>
-<li><p>Make a dataframe that includes all variables except
-<code>name.</code></p></li>
+<li>What are the names in the <code>msleep</code> dataframe?</li>
 </ol>
+<pre class="r"><code>names(msleep)</code></pre>
+<pre><code>##  [1] &quot;name&quot;         &quot;genus&quot;        &quot;vore&quot;         &quot;order&quot;        &quot;conservation&quot;
+##  [6] &quot;sleep_total&quot;  &quot;sleep_rem&quot;    &quot;sleep_cycle&quot;  &quot;awake&quot;        &quot;brainwt&quot;     
+## [11] &quot;bodywt&quot;</code></pre>
+<ol start="2" style="list-style-type: decimal">
+<li>Use <code>glimpse()</code> to get an idea of the structure of the
+<code>msleep</code> dataframe.</li>
+</ol>
+<pre class="r"><code>glimpse(msleep)</code></pre>
+<pre><code>## Rows: 83
+## Columns: 11
+## $ name         &lt;chr&gt; &quot;Cheetah&quot;, &quot;Owl monkey&quot;, &quot;Mountain beaver&quot;, &quot;Greater shor…
+## $ genus        &lt;chr&gt; &quot;Acinonyx&quot;, &quot;Aotus&quot;, &quot;Aplodontia&quot;, &quot;Blarina&quot;, &quot;Bos&quot;, &quot;Bra…
+## $ vore         &lt;chr&gt; &quot;carni&quot;, &quot;omni&quot;, &quot;herbi&quot;, &quot;omni&quot;, &quot;herbi&quot;, &quot;herbi&quot;, &quot;carn…
+## $ order        &lt;chr&gt; &quot;Carnivora&quot;, &quot;Primates&quot;, &quot;Rodentia&quot;, &quot;Soricomorpha&quot;, &quot;Art…
+## $ conservation &lt;chr&gt; &quot;lc&quot;, NA, &quot;nt&quot;, &quot;lc&quot;, &quot;domesticated&quot;, NA, &quot;vu&quot;, NA, &quot;dome…
+## $ sleep_total  &lt;dbl&gt; 12.1, 17.0, 14.4, 14.9, 4.0, 14.4, 8.7, 7.0, 10.1, 3.0, 5…
+## $ sleep_rem    &lt;dbl&gt; NA, 1.8, 2.4, 2.3, 0.7, 2.2, 1.4, NA, 2.9, NA, 0.6, 0.8, …
+## $ sleep_cycle  &lt;dbl&gt; NA, NA, NA, 0.1333333, 0.6666667, 0.7666667, 0.3833333, N…
+## $ awake        &lt;dbl&gt; 11.9, 7.0, 9.6, 9.1, 20.0, 9.6, 15.3, 17.0, 13.9, 21.0, 1…
+## $ brainwt      &lt;dbl&gt; NA, 0.01550, NA, 0.00029, 0.42300, NA, NA, NA, 0.07000, 0…
+## $ bodywt       &lt;dbl&gt; 50.000, 0.480, 1.350, 0.019, 600.000, 3.850, 20.490, 0.04…</code></pre>
+<ol start="3" style="list-style-type: decimal">
+<li>Make a new dataframe that only includes the variables
+<code>order</code>, <code>genus</code>, and <code>bodywt.</code></li>
+</ol>
+<pre class="r"><code>select(msleep, &quot;order&quot;, &quot;genus&quot;, &quot;bodywt&quot;)</code></pre>
+<pre><code>## # A tibble: 83 × 3
+##    order        genus        bodywt
+##    &lt;chr&gt;        &lt;chr&gt;         &lt;dbl&gt;
+##  1 Carnivora    Acinonyx     50    
+##  2 Primates     Aotus         0.48 
+##  3 Rodentia     Aplodontia    1.35 
+##  4 Soricomorpha Blarina       0.019
+##  5 Artiodactyla Bos         600    
+##  6 Pilosa       Bradypus      3.85 
+##  7 Carnivora    Callorhinus  20.5  
+##  8 Rodentia     Calomys       0.045
+##  9 Carnivora    Canis        14    
+## 10 Artiodactyla Capreolus    14.8  
+## # ℹ 73 more rows</code></pre>
+<ol start="4" style="list-style-type: decimal">
+<li>What if we are only interested in the numeric variables? Make a new
+dataframe that is restricted to numerics.</li>
+</ol>
+<pre class="r"><code>select(msleep, where(is.numeric))</code></pre>
+<pre><code>## # A tibble: 83 × 6
+##    sleep_total sleep_rem sleep_cycle awake  brainwt  bodywt
+##          &lt;dbl&gt;     &lt;dbl&gt;       &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;   &lt;dbl&gt;
+##  1        12.1      NA        NA      11.9 NA        50    
+##  2        17         1.8      NA       7    0.0155    0.48 
+##  3        14.4       2.4      NA       9.6 NA         1.35 
+##  4        14.9       2.3       0.133   9.1  0.00029   0.019
+##  5         4         0.7       0.667  20    0.423   600    
+##  6        14.4       2.2       0.767   9.6 NA         3.85 
+##  7         8.7       1.4       0.383  15.3 NA        20.5  
+##  8         7        NA        NA      17   NA         0.045
+##  9        10.1       2.9       0.333  13.9  0.07     14    
+## 10         3        NA        NA      21    0.0982   14.8  
+## # ℹ 73 more rows</code></pre>
+<ol start="5" style="list-style-type: decimal">
+<li>Make a dataframe that includes all variables except
+<code>name.</code></li>
+</ol>
+<pre class="r"><code>select(msleep, !name)</code></pre>
+<pre><code>## # A tibble: 83 × 10
+##    genus       vore  order  conservation sleep_total sleep_rem sleep_cycle awake
+##    &lt;chr&gt;       &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt;              &lt;dbl&gt;     &lt;dbl&gt;       &lt;dbl&gt; &lt;dbl&gt;
+##  1 Acinonyx    carni Carni… lc                  12.1      NA        NA      11.9
+##  2 Aotus       omni  Prima… &lt;NA&gt;                17         1.8      NA       7  
+##  3 Aplodontia  herbi Roden… nt                  14.4       2.4      NA       9.6
+##  4 Blarina     omni  Soric… lc                  14.9       2.3       0.133   9.1
+##  5 Bos         herbi Artio… domesticated         4         0.7       0.667  20  
+##  6 Bradypus    herbi Pilosa &lt;NA&gt;                14.4       2.2       0.767   9.6
+##  7 Callorhinus carni Carni… vu                   8.7       1.4       0.383  15.3
+##  8 Calomys     &lt;NA&gt;  Roden… &lt;NA&gt;                 7        NA        NA      17  
+##  9 Canis       carni Carni… domesticated        10.1       2.9       0.333  13.9
+## 10 Capreolus   herbi Artio… lc                   3        NA        NA      21  
+## # ℹ 73 more rows
+## # ℹ 2 more variables: brainwt &lt;dbl&gt;, bodywt &lt;dbl&gt;</code></pre>
 </div>
 <div id="thats-it-lets-take-a-break-and-then-move-on-to-part-2" class="section level2">
 <h2>That’s it! Let’s take a break and then move on to part 2!</h2>

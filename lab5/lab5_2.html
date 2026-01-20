@@ -10,7 +10,7 @@
 
 
 
-<meta name="date" content="2026-01-19" />
+<meta name="date" content="2026-01-20" />
 
 <title>Lab 5.2</title>
 
@@ -1503,7 +1503,7 @@ border-radius: 0px;
 
 
 <h1 class="title toc-ignore">Lab 5.2</h1>
-<h4 class="date">2026-01-19</h4>
+<h4 class="date">2026-01-20</h4>
 
 </div>
 
@@ -1562,25 +1562,147 @@ extract data that meet specific criteria within a row. Let’s say that we
 are interested only in the Adelie penguins from the
 <code>penguins</code> data frame. We can use <code>filter()</code> to
 extract these observations.</p>
+<pre class="r"><code>glimpse(penguins)</code></pre>
+<pre><code>## Rows: 344
+## Columns: 8
+## $ species           &lt;fct&gt; Adelie, Adelie, Adelie, Adelie, Adelie, Adelie, Adel…
+## $ island            &lt;fct&gt; Torgersen, Torgersen, Torgersen, Torgersen, Torgerse…
+## $ bill_length_mm    &lt;dbl&gt; 39.1, 39.5, 40.3, NA, 36.7, 39.3, 38.9, 39.2, 34.1, …
+## $ bill_depth_mm     &lt;dbl&gt; 18.7, 17.4, 18.0, NA, 19.3, 20.6, 17.8, 19.6, 18.1, …
+## $ flipper_length_mm &lt;int&gt; 181, 186, 195, NA, 193, 190, 181, 195, 193, 190, 186…
+## $ body_mass_g       &lt;int&gt; 3750, 3800, 3250, NA, 3450, 3650, 3625, 4675, 3475, …
+## $ sex               &lt;fct&gt; male, female, female, NA, female, male, female, male…
+## $ year              &lt;int&gt; 2007, 2007, 2007, 2007, 2007, 2007, 2007, 2007, 2007…</code></pre>
+<pre class="r"><code>filter(penguins, species==&quot;Adelie&quot;)</code></pre>
+<pre><code>## # A tibble: 152 × 8
+##    species island    bill_length_mm bill_depth_mm flipper_length_mm body_mass_g
+##    &lt;fct&gt;   &lt;fct&gt;              &lt;dbl&gt;         &lt;dbl&gt;             &lt;int&gt;       &lt;int&gt;
+##  1 Adelie  Torgersen           39.1          18.7               181        3750
+##  2 Adelie  Torgersen           39.5          17.4               186        3800
+##  3 Adelie  Torgersen           40.3          18                 195        3250
+##  4 Adelie  Torgersen           NA            NA                  NA          NA
+##  5 Adelie  Torgersen           36.7          19.3               193        3450
+##  6 Adelie  Torgersen           39.3          20.6               190        3650
+##  7 Adelie  Torgersen           38.9          17.8               181        3625
+##  8 Adelie  Torgersen           39.2          19.6               195        4675
+##  9 Adelie  Torgersen           34.1          18.1               193        3475
+## 10 Adelie  Torgersen           42            20.2               190        4250
+## # ℹ 142 more rows
+## # ℹ 2 more variables: sex &lt;fct&gt;, year &lt;int&gt;</code></pre>
+<pre class="r"><code>names(penguins)</code></pre>
+<pre><code>## [1] &quot;species&quot;           &quot;island&quot;            &quot;bill_length_mm&quot;   
+## [4] &quot;bill_depth_mm&quot;     &quot;flipper_length_mm&quot; &quot;body_mass_g&quot;      
+## [7] &quot;sex&quot;               &quot;year&quot;</code></pre>
 <p>Similarly, if we are only interested in penguins with a body mass
 greater than or equal to 5500g we can use <code>filter()</code> to
 extract these observations.</p>
+<pre class="r"><code>filter(penguins, body_mass_g&gt;=5500)</code></pre>
+<pre><code>## # A tibble: 33 × 8
+##    species island bill_length_mm bill_depth_mm flipper_length_mm body_mass_g
+##    &lt;fct&gt;   &lt;fct&gt;           &lt;dbl&gt;         &lt;dbl&gt;             &lt;int&gt;       &lt;int&gt;
+##  1 Gentoo  Biscoe           50            16.3               230        5700
+##  2 Gentoo  Biscoe           50            15.2               218        5700
+##  3 Gentoo  Biscoe           49            16.1               216        5550
+##  4 Gentoo  Biscoe           48.4          14.6               213        5850
+##  5 Gentoo  Biscoe           49.3          15.7               217        5850
+##  6 Gentoo  Biscoe           49.2          15.2               221        6300
+##  7 Gentoo  Biscoe           50.2          14.3               218        5700
+##  8 Gentoo  Biscoe           47.8          15                 215        5650
+##  9 Gentoo  Biscoe           50            15.3               220        5550
+## 10 Gentoo  Biscoe           59.6          17                 230        6050
+## # ℹ 23 more rows
+## # ℹ 2 more variables: sex &lt;fct&gt;, year &lt;int&gt;</code></pre>
 <ul>
 <li><code>filter()</code> allows all of the expected operators;
 i.e. &gt;, &gt;=, &lt;, &lt;=, != (not equal), and == (equal).</li>
 </ul>
 <p>Using the <code>!</code> operator allows for the exclusion of
 specific observations.</p>
+<pre class="r"><code>filter(penguins, species!=&quot;Chinstrap&quot;)</code></pre>
+<pre><code>## # A tibble: 276 × 8
+##    species island    bill_length_mm bill_depth_mm flipper_length_mm body_mass_g
+##    &lt;fct&gt;   &lt;fct&gt;              &lt;dbl&gt;         &lt;dbl&gt;             &lt;int&gt;       &lt;int&gt;
+##  1 Adelie  Torgersen           39.1          18.7               181        3750
+##  2 Adelie  Torgersen           39.5          17.4               186        3800
+##  3 Adelie  Torgersen           40.3          18                 195        3250
+##  4 Adelie  Torgersen           NA            NA                  NA          NA
+##  5 Adelie  Torgersen           36.7          19.3               193        3450
+##  6 Adelie  Torgersen           39.3          20.6               190        3650
+##  7 Adelie  Torgersen           38.9          17.8               181        3625
+##  8 Adelie  Torgersen           39.2          19.6               195        4675
+##  9 Adelie  Torgersen           34.1          18.1               193        3475
+## 10 Adelie  Torgersen           42            20.2               190        4250
+## # ℹ 266 more rows
+## # ℹ 2 more variables: sex &lt;fct&gt;, year &lt;int&gt;</code></pre>
 </div>
 <div id="using-filter-with-multiple-observations" class="section level2">
 <h2>Using <code>filter()</code> with multiple observations</h2>
 <p>The <code>%in%</code> <a href="https://www.tutorialspoint.com/r/r_operators.htm">operator</a>
 determines whether or not a value is part of a vector.</p>
+<pre class="r"><code>filter(penguins, body_mass_g %in% c(5250, 5500))</code></pre>
+<pre><code>## # A tibble: 8 × 8
+##   species island bill_length_mm bill_depth_mm flipper_length_mm body_mass_g
+##   &lt;fct&gt;   &lt;fct&gt;           &lt;dbl&gt;         &lt;dbl&gt;             &lt;int&gt;       &lt;int&gt;
+## 1 Gentoo  Biscoe           47.3          15.3               222        5250
+## 2 Gentoo  Biscoe           44.4          17.3               219        5250
+## 3 Gentoo  Biscoe           51.1          16.5               225        5250
+## 4 Gentoo  Biscoe           49.1          15                 228        5500
+## 5 Gentoo  Biscoe           46.8          16.1               215        5500
+## 6 Gentoo  Biscoe           53.4          15.8               219        5500
+## 7 Gentoo  Biscoe           48.1          15.1               209        5500
+## 8 Gentoo  Biscoe           51.5          16.3               230        5500
+## # ℹ 2 more variables: sex &lt;fct&gt;, year &lt;int&gt;</code></pre>
 <p>Alternatively, you can use <code>between</code> if you are looking
 for a range of specific values.</p>
+<pre class="r"><code>filter(penguins, between(body_mass_g, 5250, 5500))</code></pre>
+<pre><code>## # A tibble: 21 × 8
+##    species island bill_length_mm bill_depth_mm flipper_length_mm body_mass_g
+##    &lt;fct&gt;   &lt;fct&gt;           &lt;dbl&gt;         &lt;dbl&gt;             &lt;int&gt;       &lt;int&gt;
+##  1 Gentoo  Biscoe           47.6          14.5               215        5400
+##  2 Gentoo  Biscoe           48.7          15.1               222        5350
+##  3 Gentoo  Biscoe           47.3          15.3               222        5250
+##  4 Gentoo  Biscoe           48.4          16.3               220        5400
+##  5 Gentoo  Biscoe           44.4          17.3               219        5250
+##  6 Gentoo  Biscoe           48.7          15.7               208        5350
+##  7 Gentoo  Biscoe           50.5          15.9               225        5400
+##  8 Gentoo  Biscoe           45.2          15.8               215        5300
+##  9 Gentoo  Biscoe           48.5          14.1               220        5300
+## 10 Gentoo  Biscoe           46.2          14.9               221        5300
+## # ℹ 11 more rows
+## # ℹ 2 more variables: sex &lt;fct&gt;, year &lt;int&gt;</code></pre>
 <p>How would you use <code>%in%</code> to get the same result?</p>
+<pre class="r"><code>filter(penguins, body_mass_g %in% c(5250, 5300, 5350, 5400, 5450, 5500))</code></pre>
+<pre><code>## # A tibble: 21 × 8
+##    species island bill_length_mm bill_depth_mm flipper_length_mm body_mass_g
+##    &lt;fct&gt;   &lt;fct&gt;           &lt;dbl&gt;         &lt;dbl&gt;             &lt;int&gt;       &lt;int&gt;
+##  1 Gentoo  Biscoe           47.6          14.5               215        5400
+##  2 Gentoo  Biscoe           48.7          15.1               222        5350
+##  3 Gentoo  Biscoe           47.3          15.3               222        5250
+##  4 Gentoo  Biscoe           48.4          16.3               220        5400
+##  5 Gentoo  Biscoe           44.4          17.3               219        5250
+##  6 Gentoo  Biscoe           48.7          15.7               208        5350
+##  7 Gentoo  Biscoe           50.5          15.9               225        5400
+##  8 Gentoo  Biscoe           45.2          15.8               215        5300
+##  9 Gentoo  Biscoe           48.5          14.1               220        5300
+## 10 Gentoo  Biscoe           46.2          14.9               221        5300
+## # ℹ 11 more rows
+## # ℹ 2 more variables: sex &lt;fct&gt;, year &lt;int&gt;</code></pre>
 <p>You can also extract observations “near” a certain value but you need
 to specify a tolerance.</p>
+<pre class="r"><code>filter(penguins, near(body_mass_g, 5400, tol=100))</code></pre>
+<pre><code>## # A tibble: 9 × 8
+##   species island bill_length_mm bill_depth_mm flipper_length_mm body_mass_g
+##   &lt;fct&gt;   &lt;fct&gt;           &lt;dbl&gt;         &lt;dbl&gt;             &lt;int&gt;       &lt;int&gt;
+## 1 Gentoo  Biscoe           47.6          14.5               215        5400
+## 2 Gentoo  Biscoe           48.7          15.1               222        5350
+## 3 Gentoo  Biscoe           48.4          16.3               220        5400
+## 4 Gentoo  Biscoe           48.7          15.7               208        5350
+## 5 Gentoo  Biscoe           50.5          15.9               225        5400
+## 6 Gentoo  Biscoe           52.5          15.6               221        5450
+## 7 Gentoo  Biscoe           50            15.9               224        5350
+## 8 Gentoo  Biscoe           52.2          17.1               228        5400
+## 9 Gentoo  Biscoe           49.9          16.1               213        5400
+## # ℹ 2 more variables: sex &lt;fct&gt;, year &lt;int&gt;</code></pre>
 </div>
 <div id="practice" class="section level2">
 <h2>Practice</h2>
@@ -1588,23 +1710,132 @@ to specify a tolerance.</p>
 Biocomplexity at North Temperate Lakes LTER: Coordinated Field Studies:
 Large Mouth Bass Growth 2006. Environmental Data Initiative. <a href="https://portal.edirepository.org/nis/mapbrowse?scope=knb-lter-ntl&amp;identifier=267">link</a></p>
 <ol style="list-style-type: decimal">
-<li><p>Load the data</p></li>
-<li><p>Filter the <code>fish</code> data to include the samples from
-lake “BO”.</p></li>
-<li><p>Filter the data to include all lakes except “AR”.</p></li>
-<li><p>Filter the fish data to include all fish with a scalelength
-within 0.25 of 8.</p></li>
-<li><p>Filter the fish data to include fish with a scalelength between 2
-and 4.</p></li>
+<li>Load the data</li>
 </ol>
+<pre class="r"><code>fish &lt;- read_csv(&quot;data/Gaeta_etal_CLC_data.csv&quot;)</code></pre>
+<pre><code>## Rows: 4033 Columns: 6
+## ── Column specification ────────────────────────────────────────────────────────
+## Delimiter: &quot;,&quot;
+## chr (2): lakeid, annnumber
+## dbl (4): fish_id, length, radii_length_mm, scalelength
+## 
+## ℹ Use `spec()` to retrieve the full column specification for this data.
+## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+<pre class="r"><code>glimpse(fish)</code></pre>
+<pre><code>## Rows: 4,033
+## Columns: 6
+## $ lakeid          &lt;chr&gt; &quot;AL&quot;, &quot;AL&quot;, &quot;AL&quot;, &quot;AL&quot;, &quot;AL&quot;, &quot;AL&quot;, &quot;AL&quot;, &quot;AL&quot;, &quot;AL&quot;, …
+## $ fish_id         &lt;dbl&gt; 299, 299, 299, 300, 300, 300, 300, 301, 301, 301, 301,…
+## $ annnumber       &lt;chr&gt; &quot;EDGE&quot;, &quot;2&quot;, &quot;1&quot;, &quot;EDGE&quot;, &quot;3&quot;, &quot;2&quot;, &quot;1&quot;, &quot;EDGE&quot;, &quot;3&quot;, …
+## $ length          &lt;dbl&gt; 167, 167, 167, 175, 175, 175, 175, 194, 194, 194, 194,…
+## $ radii_length_mm &lt;dbl&gt; 2.697443, 2.037518, 1.311795, 3.015477, 2.670733, 2.13…
+## $ scalelength     &lt;dbl&gt; 2.697443, 2.697443, 2.697443, 3.015477, 3.015477, 3.01…</code></pre>
+<ol start="2" style="list-style-type: decimal">
+<li>Filter the <code>fish</code> data to include the samples from lake
+“BO”.</li>
+</ol>
+<pre class="r"><code>filter(fish, lakeid==&quot;BO&quot;)</code></pre>
+<pre><code>## # A tibble: 197 × 6
+##    lakeid fish_id annnumber length radii_length_mm scalelength
+##    &lt;chr&gt;    &lt;dbl&gt; &lt;chr&gt;      &lt;dbl&gt;           &lt;dbl&gt;       &lt;dbl&gt;
+##  1 BO         389 EDGE         104           1.50         1.50
+##  2 BO         389 1            104           0.736        1.50
+##  3 BO         390 EDGE         105           1.59         1.59
+##  4 BO         390 1            105           0.698        1.59
+##  5 BO         391 EDGE         107           1.43         1.43
+##  6 BO         391 1            107           0.695        1.43
+##  7 BO         392 EDGE         124           2.11         2.11
+##  8 BO         392 2            124           1.36         2.11
+##  9 BO         392 1            124           0.792        2.11
+## 10 BO         393 EDGE         141           2.16         2.16
+## # ℹ 187 more rows</code></pre>
+<ol start="3" style="list-style-type: decimal">
+<li>Filter the data to include all lakes except “AR”.</li>
+</ol>
+<pre class="r"><code>filter(fish, lakeid!=&quot;AR&quot;)</code></pre>
+<pre><code>## # A tibble: 3,771 × 6
+##    lakeid fish_id annnumber length radii_length_mm scalelength
+##    &lt;chr&gt;    &lt;dbl&gt; &lt;chr&gt;      &lt;dbl&gt;           &lt;dbl&gt;       &lt;dbl&gt;
+##  1 AL         299 EDGE         167            2.70        2.70
+##  2 AL         299 2            167            2.04        2.70
+##  3 AL         299 1            167            1.31        2.70
+##  4 AL         300 EDGE         175            3.02        3.02
+##  5 AL         300 3            175            2.67        3.02
+##  6 AL         300 2            175            2.14        3.02
+##  7 AL         300 1            175            1.23        3.02
+##  8 AL         301 EDGE         194            3.34        3.34
+##  9 AL         301 3            194            2.97        3.34
+## 10 AL         301 2            194            2.29        3.34
+## # ℹ 3,761 more rows</code></pre>
+<ol start="4" style="list-style-type: decimal">
+<li>Filter the fish data to include all fish with a scalelength within
+0.25 of 8.</li>
+</ol>
+<pre class="r"><code>filter(fish, near(scalelength, 8, tol=0.25))</code></pre>
+<pre><code>## # A tibble: 236 × 6
+##    lakeid fish_id annnumber length radii_length_mm scalelength
+##    &lt;chr&gt;    &lt;dbl&gt; &lt;chr&gt;      &lt;dbl&gt;           &lt;dbl&gt;       &lt;dbl&gt;
+##  1 AL         309 EDGE         355            7.89        7.89
+##  2 AL         309 13           355            7.56        7.89
+##  3 AL         309 12           355            7.36        7.89
+##  4 AL         309 11           355            7.16        7.89
+##  5 AL         309 10           355            6.77        7.89
+##  6 AL         309 9            355            6.39        7.89
+##  7 AL         309 8            355            5.96        7.89
+##  8 AL         309 7            355            5.44        7.89
+##  9 AL         309 6            355            4.74        7.89
+## 10 AL         309 5            355            4.06        7.89
+## # ℹ 226 more rows</code></pre>
+<ol start="5" style="list-style-type: decimal">
+<li>Filter the fish data to include fish with a scalelength between 2
+and 4.</li>
+</ol>
+<pre class="r"><code>filter(fish, between(scalelength, 2, 4))</code></pre>
+<pre><code>## # A tibble: 723 × 6
+##    lakeid fish_id annnumber length radii_length_mm scalelength
+##    &lt;chr&gt;    &lt;dbl&gt; &lt;chr&gt;      &lt;dbl&gt;           &lt;dbl&gt;       &lt;dbl&gt;
+##  1 AL         299 EDGE         167            2.70        2.70
+##  2 AL         299 2            167            2.04        2.70
+##  3 AL         299 1            167            1.31        2.70
+##  4 AL         300 EDGE         175            3.02        3.02
+##  5 AL         300 3            175            2.67        3.02
+##  6 AL         300 2            175            2.14        3.02
+##  7 AL         300 1            175            1.23        3.02
+##  8 AL         301 EDGE         194            3.34        3.34
+##  9 AL         301 3            194            2.97        3.34
+## 10 AL         301 2            194            2.29        3.34
+## # ℹ 713 more rows</code></pre>
 </div>
 <div id="using-filter-on-multiple-conditions" class="section level2">
 <h2>Using <code>filter()</code> on multiple conditions</h2>
 <p>You can also use <code>filter()</code> to extract data based on
 multiple conditions. Below we extract the Chinstrap penguins that have a
 body mass greater than 4500g.</p>
+<pre class="r"><code>filter(penguins, species==&quot;Chinstrap&quot; &amp; body_mass_g&gt; 4500)</code></pre>
+<pre><code>## # A tibble: 2 × 8
+##   species   island bill_length_mm bill_depth_mm flipper_length_mm body_mass_g
+##   &lt;fct&gt;     &lt;fct&gt;           &lt;dbl&gt;         &lt;dbl&gt;             &lt;int&gt;       &lt;int&gt;
+## 1 Chinstrap Dream            52.8          20                 205        4550
+## 2 Chinstrap Dream            52            20.7               210        4800
+## # ℹ 2 more variables: sex &lt;fct&gt;, year &lt;int&gt;</code></pre>
 <p>Notice that the <code>|</code> operator generates a different result.
 Why?</p>
+<pre class="r"><code>filter(penguins, species==&quot;Chinstrap&quot; | body_mass_g&gt; 4500)</code></pre>
+<pre><code>## # A tibble: 181 × 8
+##    species island    bill_length_mm bill_depth_mm flipper_length_mm body_mass_g
+##    &lt;fct&gt;   &lt;fct&gt;              &lt;dbl&gt;         &lt;dbl&gt;             &lt;int&gt;       &lt;int&gt;
+##  1 Adelie  Torgersen           39.2          19.6               195        4675
+##  2 Adelie  Dream               39.8          19.1               184        4650
+##  3 Adelie  Dream               39.6          18.8               190        4600
+##  4 Adelie  Torgersen           42.9          17.6               196        4700
+##  5 Adelie  Biscoe              41            20                 203        4725
+##  6 Adelie  Biscoe              43.2          19                 197        4775
+##  7 Adelie  Biscoe              45.6          20.3               191        4600
+##  8 Gentoo  Biscoe              50            16.3               230        5700
+##  9 Gentoo  Biscoe              50            15.2               218        5700
+## 10 Gentoo  Biscoe              47.6          14.5               215        5400
+## # ℹ 171 more rows
+## # ℹ 2 more variables: sex &lt;fct&gt;, year &lt;int&gt;</code></pre>
 <p>Rules:<br />
 + <code>filter(condition1, condition2)</code> will return rows where
 both conditions are met. By default the , means &amp;.<br />
@@ -1614,6 +1845,31 @@ where condition one is true but condition 2 is not.<br />
 condition 1 or condition 2 is met.</p>
 <p>In this case, we filter out the penguins with a body mass over 5000g
 and a bill length over 50mm or a bill depth over 18mm.</p>
+<pre class="r"><code>filter(penguins, body_mass_g&gt;5000 &amp; (bill_length_mm&gt;50 | bill_depth_mm&gt;18))</code></pre>
+<pre><code>## # A tibble: 20 × 8
+##    species island bill_length_mm bill_depth_mm flipper_length_mm body_mass_g
+##    &lt;fct&gt;   &lt;fct&gt;           &lt;dbl&gt;         &lt;dbl&gt;             &lt;int&gt;       &lt;int&gt;
+##  1 Gentoo  Biscoe           50.2          14.3               218        5700
+##  2 Gentoo  Biscoe           59.6          17                 230        6050
+##  3 Gentoo  Biscoe           50.5          15.9               222        5550
+##  4 Gentoo  Biscoe           50.5          15.9               225        5400
+##  5 Gentoo  Biscoe           50.4          15.3               224        5550
+##  6 Gentoo  Biscoe           54.3          15.7               231        5650
+##  7 Gentoo  Biscoe           50.7          15                 223        5550
+##  8 Gentoo  Biscoe           51.1          16.3               220        6000
+##  9 Gentoo  Biscoe           52.5          15.6               221        5450
+## 10 Gentoo  Biscoe           50.8          17.3               228        5600
+## 11 Gentoo  Biscoe           51.3          14.2               218        5300
+## 12 Gentoo  Biscoe           52.1          17                 230        5550
+## 13 Gentoo  Biscoe           52.2          17.1               228        5400
+## 14 Gentoo  Biscoe           50.8          15.7               226        5200
+## 15 Gentoo  Biscoe           51.1          16.5               225        5250
+## 16 Gentoo  Biscoe           55.9          17                 228        5600
+## 17 Gentoo  Biscoe           53.4          15.8               219        5500
+## 18 Gentoo  Biscoe           51.5          16.3               230        5500
+## 19 Gentoo  Biscoe           55.1          16                 230        5850
+## 20 Gentoo  Biscoe           50.4          15.7               222        5750
+## # ℹ 2 more variables: sex &lt;fct&gt;, year &lt;int&gt;</code></pre>
 </div>
 <div id="pipes" class="section level2">
 <h2>Pipes <code>%&gt;%</code></h2>
@@ -1625,24 +1881,122 @@ function.</p>
 We can use pipes to first select the species and body mass columns then
 filter that output only for Gentoo penguins. Notice that we only need to
 call the data one time.</p>
+<pre class="r"><code>penguins %&gt;% 
+  select(species, body_mass_g) %&gt;% 
+  filter(species==&quot;Gentoo&quot;)</code></pre>
+<pre><code>## # A tibble: 124 × 2
+##    species body_mass_g
+##    &lt;fct&gt;         &lt;int&gt;
+##  1 Gentoo         4500
+##  2 Gentoo         5700
+##  3 Gentoo         4450
+##  4 Gentoo         5700
+##  5 Gentoo         5400
+##  6 Gentoo         4550
+##  7 Gentoo         4800
+##  8 Gentoo         5200
+##  9 Gentoo         4400
+## 10 Gentoo         5150
+## # ℹ 114 more rows</code></pre>
 <p>We can sort the output of <code>filter()</code> using the
 <code>arrange()</code> function. Here we filter for Gentoo penguins and
 then sort them by body mass in ascending order.</p>
+<pre class="r"><code>penguins %&gt;% 
+  select(species, body_mass_g) %&gt;% 
+  filter(species==&quot;Gentoo&quot;) %&gt;% 
+  arrange(body_mass_g)</code></pre>
+<pre><code>## # A tibble: 124 × 2
+##    species body_mass_g
+##    &lt;fct&gt;         &lt;int&gt;
+##  1 Gentoo         3950
+##  2 Gentoo         4100
+##  3 Gentoo         4150
+##  4 Gentoo         4200
+##  5 Gentoo         4200
+##  6 Gentoo         4200
+##  7 Gentoo         4300
+##  8 Gentoo         4300
+##  9 Gentoo         4350
+## 10 Gentoo         4375
+## # ℹ 114 more rows</code></pre>
 <p>To sort in descending order, wrap the variable name in
 <code>desc()</code>.</p>
+<pre class="r"><code>penguins %&gt;% 
+  select(species, body_mass_g) %&gt;% 
+  filter(species==&quot;Gentoo&quot;) %&gt;% 
+  arrange(desc(body_mass_g))</code></pre>
+<pre><code>## # A tibble: 124 × 2
+##    species body_mass_g
+##    &lt;fct&gt;         &lt;int&gt;
+##  1 Gentoo         6300
+##  2 Gentoo         6050
+##  3 Gentoo         6000
+##  4 Gentoo         6000
+##  5 Gentoo         5950
+##  6 Gentoo         5950
+##  7 Gentoo         5850
+##  8 Gentoo         5850
+##  9 Gentoo         5850
+## 10 Gentoo         5800
+## # ℹ 114 more rows</code></pre>
+<p><code>slice()</code></p>
+<pre class="r"><code>penguins %&gt;% 
+  select(species, body_mass_g) %&gt;% 
+  filter(species==&quot;Gentoo&quot;) %&gt;% 
+  slice_min(body_mass_g, n=1)#don&#39;t forget to specify the variable</code></pre>
+<pre><code>## # A tibble: 1 × 2
+##   species body_mass_g
+##   &lt;fct&gt;         &lt;int&gt;
+## 1 Gentoo         3950</code></pre>
+<pre class="r"><code>?slice</code></pre>
 </div>
 <div id="practice-1" class="section level2">
 <h2>Practice</h2>
 <p>Let’s use the fish data again to keep things simple.</p>
 <ol style="list-style-type: decimal">
-<li><p>We are interested in the radii length and scalelength of fish
-with the id <code>300</code>. Extract this information from the
-<code>fish</code> data. Please sort the data by radii length.</p></li>
-<li><p>We are interested in the fish from the lakes “AL” and “AR” with a
+<li>We are interested in the radii length and scalelength of fish with
+the id <code>300</code>. Extract this information from the
+<code>fish</code> data. Please sort the data by radii length.</li>
+</ol>
+<pre class="r"><code>names(fish)</code></pre>
+<pre><code>## [1] &quot;lakeid&quot;          &quot;fish_id&quot;         &quot;annnumber&quot;       &quot;length&quot;         
+## [5] &quot;radii_length_mm&quot; &quot;scalelength&quot;</code></pre>
+<pre class="r"><code>fish %&gt;% 
+  select(fish_id, radii_length_mm, scalelength) %&gt;% 
+  filter(fish_id==300) %&gt;% 
+  arrange(scalelength)</code></pre>
+<pre><code>## # A tibble: 4 × 3
+##   fish_id radii_length_mm scalelength
+##     &lt;dbl&gt;           &lt;dbl&gt;       &lt;dbl&gt;
+## 1     300            3.02        3.02
+## 2     300            2.67        3.02
+## 3     300            2.14        3.02
+## 4     300            1.23        3.02</code></pre>
+<ol start="2" style="list-style-type: decimal">
+<li>We are interested in the fish from the lakes “AL” and “AR” with a
 radii length between 2 and 4. Extract this information from the
 <code>fish</code> data. Please sort the data in descending order by
-radii length.</p></li>
+radii length.</li>
 </ol>
+<pre class="r"><code>fish %&gt;% 
+  select(lakeid, radii_length_mm) %&gt;% 
+  filter(lakeid==&quot;AL&quot; | lakeid==&quot;AR&quot;) %&gt;% 
+  filter(between(radii_length_mm, 2, 4)) %&gt;% 
+  arrange(desc(radii_length_mm))</code></pre>
+<pre><code>## # A tibble: 253 × 2
+##    lakeid radii_length_mm
+##    &lt;chr&gt;            &lt;dbl&gt;
+##  1 AR                4.00
+##  2 AR                3.99
+##  3 AR                3.99
+##  4 AR                3.98
+##  5 AR                3.98
+##  6 AR                3.96
+##  7 AR                3.94
+##  8 AR                3.94
+##  9 AR                3.94
+## 10 AL                3.94
+## # ℹ 243 more rows</code></pre>
 </div>
 <div id="wrap-up" class="section level2">
 <h2>Wrap-up</h2>
