@@ -27,11 +27,11 @@ These data are from: Gorman KB, Williams TD, Fraser WR (2014). Ecological sexual
 ## Data Structure
 Once data have been uploaded, let's get an idea of its structure, contents, and dimensions.  
 ```{r}
-
+glimpse(penguins)
 ```
 
 ```{r}
-
+summary(penguins)
 ```
 
 ## Tidyverse
@@ -47,62 +47,66 @@ The verb `select()` allows you to pull out columns of interest from a dataframe;
 
 For smaller dataframes, `select()` may not make much sense. However, for larger dataframes with many variables, `select()` is very useful. Let's look at the fish data again.
 ```{r}
-
+names(penguins)
 ```
 
 We are only interested in species and body mass. We can use `select()` to extract these columns.
 ```{r}
+select(penguins, species, body_mass_g)
+```
 
+```{r}
+penguins <- penguins
 ```
 
 To add a range of columns use `start_col:end_col`.
 ```{r}
-
+select(penguins, species:flipper_length_mm)
 ```
 
 The ! operator is useful in select. It allows us to select everything except the specified variables.
 ```{r}
-
+select(penguins, !body_mass_g)
 ```
 
 Alternatively, you can use the `c()` function to exclude multiple columns.
 ```{r}
-
+select(penguins, !c(species, island, year, sex))
 ```
 
 For very large data frames with lots of variables, `select()` utilizes lots of different operators to make things easier. Let's say we are only interested in the variables that deal with length.
 ```{r}
-
+select(penguins, contains("mm"))
 ```
 
 `starts_with()`
 ```{r}
-
+select(penguins, starts_with("bill"))
 ```
 
 `ends_with()`
 ```{r}
-
+select(penguins, ends_with("mm"))
 ```
 
 You can also select columns based on the class of data.  
 ```{r}
-
+select(penguins, where(is.numeric))
 ```
 
 There are a few verbs that go with `select()` because they deal with columns. One of these is `rename()`. `rename()` allows you to rename columns in a dataframe. The format is `new_name = old_name`.
 ```{r}
-
+rename(penguins, body_mass=body_mass_g)
 ```
 
 Alternatively, you can rename from within select.
 ```{r}
-
+select(penguins, species, body_mass=body_mass_g)
 ```
 
 The second is `relocate()`. `relocate()` allows you to move columns to different locations within a dataframe. Let's say we want to move `length` to be the first column in the dataframe.
 ```{r}
-
+relocate(penguins, year)
 ```
 
 ## Practice  
@@ -110,27 +114,27 @@ For these exercises, we will use the `msleep` dataset from the `ggplot2` package
 
 1. What are the names in the `msleep` dataframe?
 ```{r}
-
+names(msleep)
 ```
 
 2. Use `glimpse()` to get an idea of the structure of the `msleep` dataframe.
 ```{r}
-
+glimpse(msleep)
 ```
 
 3. Make a new dataframe that only includes the variables `order`, `genus`, and `bodywt.`
 ```{r}
-
+select(msleep, "order", "genus", "bodywt")
 ```
 
 4. What if we are only interested in the numeric variables? Make a new dataframe that is restricted to numerics.
 ```{r}
-
+select(msleep, where(is.numeric))
 ```
 
 5. Make a dataframe that includes all variables except `name.`
 ```{r}
-
+select(msleep, !name)
 ```
 
 ## That's it! Let's take a break and then move on to part 2! 
