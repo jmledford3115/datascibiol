@@ -50,35 +50,40 @@ We start by calling the ggplot function, identifying the data, and specifying th
 ## Example
 To make things easy, let's start with some built in data.
 ```{r}
-
+names(penguins)
 ```
 
 ```{r}
-
+glimpse(penguins) #notice that we have a mix of categorical and continuous data
 ```
 
 Let's start by asking the question: How does body mass vary among penguin species?
 
 To make a plot, we need to first specify the data and map the aesthetics. The aesthetics include how each variable in our data set will be used. In the example below, I am using the aes() function to identify the x and y variables in the plot.
 ```{r}
-
+ggplot(data=penguins, #specify the data
+       mapping=aes(x=species, y=body_mass_g)) #map the aesthetics
 ```
 
 Notice that we have a nice background, labeled axes, and even a value range of our variables on the y-axis- but no plot. This is because we need to tell ggplot how we want our data represented. This is called the geometry or `geom()`. There are many types of `geom`, see the ggplot [cheatsheet](https://posit.co/resources/cheatsheets/).
 
 Here we want a boxplot, specified by `geom_boxplot()`. We will explore boxplots in more detail later, but for now we just need an example.
 ```{r}
-
+ggplot(data=penguins, #specify the data
+       mapping=aes(x=species, y=body_mass_g))+ #map the aesthetics
+  geom_boxplot() #add the plot type
 ```
 
 ## Practice
 1. How does flipper length vary among penguin species?
 ```{r}
-
+names(penguins)
 ```
 
 ```{r}
-
+ggplot(data=penguins, 
+       mapping=aes(x=species, y=flipper_length_mm))+
+  geom_boxplot()
 ```
 
 ## Scatterplots and barplots
@@ -89,86 +94,120 @@ Scatter plots are good at revealing relationships that are not readily visible i
 
 Let's ask the question: Is there a relationship between body mass and flipper length?
 ```{r}
-
+names(penguins)
 ```
 
 ```{r}
-
+ggplot(data=penguins, #specify the data
+       mapping=aes(x=body_mass_g, y=flipper_length_mm))+ #map the aesthetics
+  geom_point() #add the plot type
 ```
 
 Notice the warning! R is telling us that there are some missing values in our data. This is common in real world data sets. R automatically omits these missing values when plotting. We can also deal with the NA's explicitly using the `na.rm=T` function.  
 ```{r}
-
+ggplot(data=penguins, #specify the data
+       mapping=aes(x=body_mass_g, y=flipper_length_mm))+ #map the aesthetics
+  geom_point(na.rm=T) #add the plot type, disregard NA's
 ```
 
 To add a regression (best of fit) line, we add another layer.
 ```{r}
-
+ggplot(data=penguins, #specify the data
+       mapping=aes(x=body_mass_g, y=flipper_length_mm))+ #map the aesthetics
+  geom_point()+ #add the plot type
+  geom_smooth(method=lm, se=T) #add a regression line
 ```
 
 This graph is fine, but it doesn't distinguish between species. It might be helpful for the reader to see how each species is represented. We can do this by mapping the color aesthetic to species.
 ```{r}
-
+ggplot(data=penguins, #specify the data
+       mapping=aes(x=body_mass_g, y=flipper_length_mm, color=species))+ #map the aesthetics
+  geom_point()+ #add the plot type, map color to species
+  geom_smooth(method=lm, se=T) #add a regression line
 ```
 
 The plot above looks good, but I think it's a bit messy having the regression line presented for each species. When we add the color aesthetic, it is passed down to all layers. To fix this, we can move the color aesthetic to just the geom_point layer.
 ```{r}
-
+ggplot(data=penguins, #specify the data
+       mapping=aes(x=body_mass_g, y=flipper_length_mm))+ #map the aesthetics
+  geom_point(mapping = aes(color = species))+ #add the plot type, map color to species
+  geom_smooth(method=lm, se=T) #add a regression line
 ```
 
 Another helpful aesthetic is `shape` which can be used to distinguish points by shape instead of or in addition to color. A common approach is to map both color and shape to the same variable.
 ```{r}
-
+ggplot(data=penguins, #specify the data
+       mapping=aes(x=body_mass_g, y=flipper_length_mm))+ #map the aesthetics
+  geom_point(mapping = aes(color = species, shape=species))+ #add the plot type, map color to species
+  geom_smooth(method=lm, se=T) #add a regression line
 ```
 
 But don't we want a title? We do this using the `labs()` function.
 ```{r}
-
+ggplot(data=penguins, #specify the data
+       mapping=aes(x=body_mass_g, y=flipper_length_mm))+ #map the aesthetics
+  geom_point(mapping = aes(color = species, shape=species))+ #add the plot type, map color to species
+  geom_smooth(method=lm, se=T)+ #add a regression line
+  labs(title = "Body mass (g) vs. Flipper length (mm)")
 ```
 
 ### Practice
 1. Is there a relationship between bill length and bill depth?
 ```{r}
-
+names(penguins)
 ```
 
 ```{r}
-
+ggplot(data=penguins,
+       mapping=aes(x=bill_length_mm, y=bill_depth_mm))+
+  geom_point(mapping=aes(color=species))+
+  geom_smooth(method=lm, se=T)+
+  labs(title="Bill length (mm) vs. Bill depth (mm)")
 ```
 
 ### Bar Plot: `geom_bar()`
 The simplest type of bar plot counts the number of observations in a categorical variable. In this case, we want to know how many observations are present in the variable `species`. Notice that we do not specify a y-axis because it is count by default.  
 ```{r}
-
+names(penguins)
 ```
 
 ```{r}
-
+ggplot(data=penguins, #specify the data
+       mapping=aes(x=species))+ #map the aesthetics
+  geom_bar() #good for counts
 ```
 
 What if we want to use the color aesthetic like we did for `geom_point` above? Let's try...
 ```{r}
-
+ggplot(data=penguins, #specify the data
+       mapping=aes(x=species))+ #map the aesthetics
+  geom_bar(mapping=aes(color=species)) #good for counts
 ```
 
 This doesn't work because the color aesthetic is being applied to the bars themselves. Instead, we need to use `fill` to color the inside of the bars.
 ```{r}
-
+ggplot(data=penguins, #specify the data
+       mapping=aes(x=species))+ #map the aesthetics
+  geom_bar(mapping=aes(fill=species)) #good for counts
 ```
 
 ## Practice
 1. Make a bar plot showing the number of penguins on each island.
 ```{r}
-
+names(penguins)
 ```
 
 ```{r}
-
+ggplot(data=penguins, 
+       mapping=aes(x=island))+
+  geom_bar(mapping=aes(fill=island))
 ```
 
 2. Make a bar plot showing the number of penguins of each species on each island. (Hint: use `fill` to distinguish species)
 ```{r}
-
+ggplot(data=penguins,
+       mapping=aes(x=island))+
+  geom_bar(mapping=aes(fill=species), position="dodge")
 ```
 
 ## Wrap-up  
