@@ -1,0 +1,154 @@
+---
+title: "Lab 5.2"
+date: "`r Sys.Date()`"
+output:
+  html_document:
+    theme: spacelab
+    toc: yes
+    toc_float: yes
+  pdf_document:
+    toc: yes
+---
+
+## Learning Goals  
+*At the end of this exercise, you will be able to:*    
+1. Use the `filter()` function of `dplyr` to extract observations of interest.  
+2. Use `filter()` on multiple conditions to extract observations of interest.  
+3. Use `arrange()` to sort data frames by specific variables.  
+4. Use pipes `%>%` to connect multiple functions.
+
+## Load the tidyverse
+```{r}
+library("tidyverse")
+library("palmerpenguins") #load the palmerpenguins package
+```
+
+## Palmerpenguins
+These data are from: Gorman KB, Williams TD, Fraser WR (2014). Ecological sexual dimorphism and environmental variability within a community of Antarctic penguins (genus _Pygoscelis_). PLoS ONE 9(3):e90081. https://doi.org/10.1371/journal.pone.0090081
+
+## Review  
+In the previous lab, we used `select()` to extract columns of interest from a data frame. This helps us focus our attention on the variables relevant to our question. However, it doesn't allow us to extract information in rows. The `filter()` function allows us to extract data in rows that meet specific criteria.  
+
+## `filter()`
+Unlike `select()`, `filter()` allows us to extract data that meet specific criteria within a row. Let's say that we are interested only in the Adelie penguins from the `penguins` data frame. We can use `filter()` to extract these observations.  
+```{r}
+
+```
+
+Similarly, if we are only interested in penguins with a body mass greater than or equal to 5500g we can use `filter()` to extract these observations.  
+```{r}
+
+```
+
++ `filter()` allows all of the expected operators; i.e. >, >=, <, <=, != (not equal), and == (equal).  
+
+Using the `!` operator allows for the exclusion of specific observations.
+```{r}
+
+```
+
+## Using `filter()` with multiple observations  
+The `%in%` [operator](https://www.tutorialspoint.com/r/r_operators.htm) determines whether or not a value is part of a vector.    
+```{r}
+
+```
+
+Alternatively, you can use `between` if you are looking for a range of specific values.  
+```{r}
+
+```
+
+How would you use `%in%` to get the same result?
+```{r}
+
+```
+
+You can also extract observations "near" a certain value but you need to specify a tolerance.  
+```{r}
+
+```
+
+## Practice
+The data are from: Gaeta J., G. Sass, S. Carpenter. 2012. Biocomplexity at North Temperate Lakes LTER: Coordinated Field Studies: Large Mouth Bass Growth 2006. Environmental Data Initiative.  [link](https://portal.edirepository.org/nis/mapbrowse?scope=knb-lter-ntl&identifier=267)  
+
+1. Load the data
+```{r}
+
+```
+
+2. Filter the `fish` data to include the samples from lake "BO".
+```{r}
+
+```
+
+3. Filter the data to include all lakes except "AR".
+```{r}
+
+```
+
+4. Filter the fish data to include all fish with a scalelength within 0.25 of 8.
+```{r}
+
+```
+
+5. Filter the fish data to include fish with a scalelength between 2 and 4.
+```{r}
+
+```
+
+## Using `filter()` on multiple conditions
+You can also use `filter()` to extract data based on multiple conditions. Below we extract the Chinstrap penguins that have a body mass greater than 4500g.
+```{r}
+
+```
+
+Notice that the `|` operator generates a different result. Why?
+```{r}
+
+```
+
+Rules:  
++ `filter(condition1, condition2)` will return rows where both conditions are met. By default the , means &.    
++ `filter(condition1, !condition2)` will return all rows where condition one is true but condition 2 is not.  
++ `filter(condition1 | condition2)` will return rows where condition 1 or condition 2 is met.  
+
+In this case, we filter out the penguins with a body mass over 5000g and a bill length over 50mm or a bill depth over 18mm.
+```{r}
+
+```
+
+## Pipes `%>%` 
+In order to start combining `select()`, `filter()`, and other functions efficiently, we need to learn pipes. Pipes feed the output from one function into the input of another function.  
+
+Let's say we are only interested in the body mass of Gentoo penguins. We can use pipes to first select the species and body mass columns then filter that output only for Gentoo penguins. Notice that we only need to call the data one time.
+```{r}
+
+```
+
+We can sort the output of `filter()` using the `arrange()` function. Here we filter for Gentoo penguins and then sort them by body mass in ascending order.
+```{r}
+
+```
+
+To sort in descending order, wrap the variable name in `desc()`.
+```{r}
+
+```
+
+## Practice
+Let's use the fish data again to keep things simple.
+
+1. We are interested in the radii length and scalelength of fish with the id `300`. Extract this information from the `fish` data. Please sort the data by radii length.
+```{r}
+
+```
+
+2. We are interested in the fish from the lakes "AL" and "AR" with a radii length between 2 and 4. Extract this information from the `fish` data. Please sort the data in descending order by radii length.
+```{r}
+
+```
+
+## Wrap-up  
+
+Please review the learning goals and be sure to use the code here as a reference when completing the homework.  
+-->[Home](https://jmledford3115.github.io/datascibiol/)
