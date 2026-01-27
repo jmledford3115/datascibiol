@@ -22,18 +22,18 @@ library("janitor")
 ```
 
 ## Data
-For this lab, we will use the built-in data on mammal sleep patterns. From: _V. M. Savage and G. B. West. A quantitative, theoretical framework for understanding mammalian sleep. Proceedings of the National Academy of Sciences, 104 (3):1051-1056, 2007_.
-```{r}
-
-```
+For this lab, we will use the built-in data on mammal sleep patterns, `msleep`. From: _V. M. Savage and G. B. West. A quantitative, theoretical framework for understanding mammalian sleep. Proceedings of the National Academy of Sciences, 104 (3):1051-1056, 2007_.
 
 ## Summary statistics
 When first exploring data, it is often a good idea to produce some basic summary statistics. This can help you identify potential problems with the data (e.g., outliers, missing values, skew) as well as get a general sense of the distribution of values for a given variable. So far, you have learned to calculate summary statistics using _base R_ functions such as `mean()`, `sd()`, `min()`, and `max()`.  
 
 ## Practice
-1. Calculate the mean body weight of large and small mammals in msleep. Large mammals have a body weight greater than 150, while small mammals have a body weight less than 10.
+1. Calculate the mean body weight of large and small mammals in msleep. Large mammals have a body weight greater than 150, while small mammals have a body weight less than 10. I did large mammals for you as an example.  
 ```{r}
-
+large <- msleep %>% 
+  filter(bodywt > 150) %>% 
+  arrange(desc(bodywt))
+large
 ```
 
 ```{r}
@@ -113,11 +113,6 @@ Not to be confused with n(), which counts the total number of observations.
 
 ## Practice
 1. How many genera are represented in the msleep data frame?
-```{r}
-
-```
-
-2. What are the min, max, and mean `sleep_total` for all of the mammals? Be sure to include the total n.
 ```{r}
 
 ```

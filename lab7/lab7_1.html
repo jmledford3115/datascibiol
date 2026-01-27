@@ -1521,10 +1521,11 @@ library(&quot;janitor&quot;)</code></pre>
 </div>
 <div id="data" class="section level2">
 <h2>Data</h2>
-<p>For this lab, we will use the built-in data on mammal sleep patterns.
-From: <em>V. M. Savage and G. B. West. A quantitative, theoretical
-framework for understanding mammalian sleep. Proceedings of the National
-Academy of Sciences, 104 (3):1051-1056, 2007</em>.</p>
+<p>For this lab, we will use the built-in data on mammal sleep patterns,
+<code>msleep</code>. From: <em>V. M. Savage and G. B. West. A
+quantitative, theoretical framework for understanding mammalian sleep.
+Proceedings of the National Academy of Sciences, 104 (3):1051-1056,
+2007</em>.</p>
 </div>
 <div id="summary-statistics" class="section level2">
 <h2>Summary statistics</h2>
@@ -1541,8 +1542,28 @@ R</em> functions such as <code>mean()</code>, <code>sd()</code>,
 <ol style="list-style-type: decimal">
 <li>Calculate the mean body weight of large and small mammals in msleep.
 Large mammals have a body weight greater than 150, while small mammals
-have a body weight less than 10.</li>
+have a body weight less than 10. I did large mammals for you as an
+example.</li>
 </ol>
+<pre class="r"><code>large &lt;- msleep %&gt;% 
+  filter(bodywt &gt; 150) %&gt;% 
+  arrange(desc(bodywt))
+large</code></pre>
+<pre><code>## # A tibble: 11 × 11
+##    name   genus vore  order conservation sleep_total sleep_rem sleep_cycle awake
+##    &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;              &lt;dbl&gt;     &lt;dbl&gt;       &lt;dbl&gt; &lt;dbl&gt;
+##  1 Afric… Loxo… herbi Prob… vu                   3.3      NA        NA      20.7
+##  2 Asian… Elep… herbi Prob… en                   3.9      NA        NA      20.1
+##  3 Giraf… Gira… herbi Arti… cd                   1.9       0.4      NA      22.1
+##  4 Pilot… Glob… carni Ceta… cd                   2.7       0.1      NA      21.4
+##  5 Cow    Bos   herbi Arti… domesticated         4         0.7       0.667  20  
+##  6 Horse  Equus herbi Peri… domesticated         2.9       0.6       1      21.1
+##  7 Brazi… Tapi… herbi Peri… vu                   4.4       1         0.9    19.6
+##  8 Donkey Equus herbi Peri… domesticated         3.1       0.4      NA      20.9
+##  9 Bottl… Turs… carni Ceta… &lt;NA&gt;                 5.2      NA        NA      18.8
+## 10 Tiger  Pant… carni Carn… en                  15.8      NA        NA       8.2
+## 11 Lion   Pant… carni Carn… vu                  13.5      NA        NA      10.5
+## # ℹ 2 more variables: brainwt &lt;dbl&gt;, bodywt &lt;dbl&gt;</code></pre>
 </div>
 <div id="summarize" class="section level2">
 <h2><code>summarize()</code></h2>
@@ -1579,10 +1600,7 @@ column from a data frame as a vector.</p>
 <div id="practice-2" class="section level2">
 <h2>Practice</h2>
 <ol style="list-style-type: decimal">
-<li><p>How many genera are represented in the msleep data
-frame?</p></li>
-<li><p>What are the min, max, and mean <code>sleep_total</code> for all
-of the mammals? Be sure to include the total n.</p></li>
+<li>How many genera are represented in the msleep data frame?</li>
 </ol>
 </div>
 <div id="counts" class="section level2">

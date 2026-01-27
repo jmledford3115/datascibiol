@@ -22,28 +22,92 @@ For this assignment, we will use data from a study on elephants and the effects 
 Reference: [Chiyo, Patrick I., Vincent Obanda, and David K. Korir. “Illegal tusk harvest and the decline of tusk size in the African elephant.” Ecology and Evolution 5, 22: 5216–5229 (2015)](https://doi.org/10.1002/ece3.1769). Data deposited at [Dryad Digital Repository](https://doi.org/10.5061/dryad.h6t7j).  
 
 **1. Before starting data analysis, read the abstract of the paper to get an idea of the questions being asked. In 2-3 sentences, describe what the study is testing and the variables involved.**  
+\
+\
+\
+\
+\
 
 **2. Load `elephants.csv` and store it as a new object called `elephants`.**  
+\
+\
+\
+\
+\
 
 **3. Clean the data by converting variable names to lowercase with no spaces or special characters.**  
+\
+\
+\
+\
+\
 
 **4. Use one or more of the summary functions you have learned to get an idea of the structure of the data.**   
+\
+\
+\
+\
+\
 
 **5. Use `mutate()` Change the variables `years_of_sample_collection`, `elephant_id`, and `sex` to factors. Be sure to store the output as a new dataframe and use it for the remaining questions.**  
+\
+\
+\
+\
+\
 
 **6. From which years were data collected? Show the sample periods below.**  
+\
+\
+\
+\
+\
 
 **7. How many males and females were sampled in this study?**  
+\
+\
+\
+\
+\
 
 **8. What is the mean, median, and standard deviation for age of males and females included in the study? Separate the results by year of sample collection. Does the sampling look even between years and sexes?**  
+\
+\
+\
+\
+\
 
 **9. Is age (independent variable) a positive predictor of tusk length (dependent variable)? Create a plot that shows the relationship between these variables and add a linear model fit line.**  
+\
+\
+\
+\
+\
 
 **10. Is shoulder height (independent variable) a positive predictor of tusk length (dependent variable)? Create a plot that shows the relationship between these variables and add a linear model fit line.**  
+\
+\
+\
+\
+\
 
 **11. The authors argue that because poachers preferentially target elephants with large tusks, this has resulted in a decrease in average tusk length. Is this supported by the data? Show your code and calculations below.**  
+\
+\
+\
+\
+\
 
 **12. Male elephants reach effective sexual maturity at 25 years while females are sexually mature at 12 years. Make a new dataframe that extracts only the males and females at sexual maturity. Then, make a plot that shows the range of tusk length between the two sample periods for these mature elephants.**   
+\
+\
+\
+\
+\
 
-## Knit and Upload
-Please knit your work as an .html file and upload to Canvas. Homework is due before the start of the next lab. No late work is accepted. Make sure to use the formatting conventions of RMarkdown to make your report neat and clean!  
+## Submit the Homework
+1. Save your work and knit the .rmd file.  
+2. Open the .html file and "print" it to a .pdf file in Google Chrome (not Safari).    
+3. Go to the class Canvas page and open Gradescope.  
+4. Submit your .pdf file to the homework assignment- be sure to assign the pages to the correct questions.  
+5. Commit and push your work to your repository. 
