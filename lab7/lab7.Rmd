@@ -150,7 +150,7 @@ The tabyl() function from the janitor package is also very useful for producing 
 
 ```
 
-2. Among herbivores, which order is most represented? Return the top 5 orders with counts, sorted descending
+2. Among herbivores, which order is most represented? Return the top 5 orders with counts, sorted in descending order.
 ```{r}
 
 ```

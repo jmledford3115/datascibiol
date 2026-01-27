@@ -21,71 +21,29 @@ For this assignment, we will use data from a study on elephants and the effects 
 
 Reference: [Chiyo, Patrick I., Vincent Obanda, and David K. Korir. “Illegal tusk harvest and the decline of tusk size in the African elephant.” Ecology and Evolution 5, 22: 5216–5229 (2015)](https://doi.org/10.1002/ece3.1769). Data deposited at [Dryad Digital Repository](https://doi.org/10.5061/dryad.h6t7j).  
 
-**1. Before starting data analysis, read the abstract of the paper to get an idea of the questions being asked. In 2-3 sentences, describe what the study is testing and what variables are involved.**  
+**1. Before starting data analysis, read the abstract of the paper to get an idea of the questions being asked. In 2-3 sentences, describe what the study is testing and the variables involved.**  
 
-**2. Load `elephants.csv` and store it as a new object called `elephants`.**
-```{r}
+**2. Load `elephants.csv` and store it as a new object called `elephants`.**  
 
-```
+**3. Clean the data by converting variable names to lowercase with no spaces or special characters.**  
 
-**3. Clean the data by converting variable names to lowercase with no spaces or special characters.**
-```{r}
+**4. Use one or more of the summary functions you have learned to get an idea of the structure of the data.**   
 
-```
+**5. Use `mutate()` Change the variables `years_of_sample_collection`, `elephant_id`, and `sex` to factors. Be sure to store the output as a new dataframe and use it for the remaining questions.**  
 
-**4. Use one or more of the summary functions you have learned to get an idea of the structure of the data.**  
-```{r}
+**6. From which years were data collected? Show the sample periods below.**  
 
-```
+**7. How many males and females were sampled in this study?**  
 
-**5. Use `mutate()` Change the variables `years_of_sample_collection`, `elephant_id`, and `sex` to factors. Be sure to store the output as a new dataframe and use it for the remaining questions.**
-```{r}
+**8. What is the mean, median, and standard deviation for age of males and females included in the study? Separate the results by year of sample collection. Does the sampling look even between years and sexes?**  
 
-```
+**9. Is age (independent variable) a positive predictor of tusk length (dependent variable)? Create a plot that shows the relationship between these variables and add a linear model fit line.**  
 
-```{r}
+**10. Is shoulder height (independent variable) a positive predictor of tusk length (dependent variable)? Create a plot that shows the relationship between these variables and add a linear model fit line.**  
 
-```
+**11. The authors argue that because poachers preferentially target elephants with large tusks, this has resulted in a decrease in average tusk length. Is this supported by the data? Show your code and calculations below.**  
 
-**6. From which years were data collected? Show the sample periods below.**
-```{r}
-
-```
-
-**7. How many males and females were sampled in this study?**
-```{r}
-
-```
-
-**8. Is shoulder height (independent variable) a positive predictor of tusk length (dependent variable)? Create a plot that shows the relationship between these variables and add a linear model fit line.**
-
-```{r}
-
-```
-
-**9. The authors argue that because poachers preferentially target elephants with large tusks, this has resulted in a decrease in average tusk length. Is this supported by the data? Show your code and calculations below.**
-
-
-```{r}
-
-```
-
-```{r}
-
-```
-
-```{r}
-
-```
-
-```{r}
-
-```
-
-**10. Male elephants reach effective sexual maturity at 25-30 years while females are sexually mature between 12-15. Make a new dataframe that extracts only the males and females at sexual maturity. Then, make a plot that shows the range of tusk length between the two sample periods for these mature elephants.** 
-```{r}
-
-```
+**12. Male elephants reach effective sexual maturity at 25 years while females are sexually mature at 12 years. Make a new dataframe that extracts only the males and females at sexual maturity. Then, make a plot that shows the range of tusk length between the two sample periods for these mature elephants.**   
 
 ## Knit and Upload
 Please knit your work as an .html file and upload to Canvas. Homework is due before the start of the next lab. No late work is accepted. Make sure to use the formatting conventions of RMarkdown to make your report neat and clean!  
