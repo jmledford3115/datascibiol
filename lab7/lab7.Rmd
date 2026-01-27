@@ -1,0 +1,158 @@
+---
+title: "Lab 7"
+date: "`r Sys.Date()`"
+output:
+  html_document:
+    theme: spacelab
+    toc: yes
+    toc_float: yes
+  pdf_document:
+    toc: yes
+---
+
+## Learning Goals
+*At the end of this exercise, you will be able to:*    
+1. Produce statistical summaries using `summarize()`.  
+4. Produce counts using `count()`.  
+
+## Load the libraries
+```{r message=FALSE, warning=FALSE}
+library("tidyverse")
+library("janitor")
+```
+
+## Data
+For this lab, we will use the built-in data on mammal sleep patterns. From: _V. M. Savage and G. B. West. A quantitative, theoretical framework for understanding mammalian sleep. Proceedings of the National Academy of Sciences, 104 (3):1051-1056, 2007_.
+```{r}
+
+```
+
+## Summary statistics
+When first exploring data, it is often a good idea to produce some basic summary statistics. This can help you identify potential problems with the data (e.g., outliers, missing values, skew) as well as get a general sense of the distribution of values for a given variable. So far, you have learned to calculate summary statistics using _base R_ functions such as `mean()`, `sd()`, `min()`, and `max()`.  
+
+## Practice
+1. Calculate the mean body weight of large and small mammals in msleep. Large mammals have a body weight greater than 150, while small mammals have a body weight less than 10.
+```{r}
+
+```
+
+```{r}
+
+```
+
+```{r}
+
+```
+
+```{r}
+
+```
+
+## `summarize()`
+Fortunately, dplyr has some functions that make producing summary statistics easier. The verb `summarize()` produces summary statistics for a given variable in a data frame. Let's try the examples above using `summarize()`. 
+
+Large mammals
+```{r}
+
+```
+
+Small mammals
+```{r}
+
+```
+
+You can also combine functions to make summaries for multiple variables.
+```{r}
+
+```
+
+Maybe you want to summarize all of the numeric variables in the data frame. You can use the `where()` function to select only the numeric variables.
+```{r}
+
+```
+
+Don't forget to remove NA's.
+```{r}
+
+```
+
+This is a little more efficient.
+```{r}
+
+```
+
+## Practice
+1. What is the mean, min, and max `bodywt` for the taxonomic order Primates? Provide the total number of observations.
+```{r}
+
+```
+
+`n_distinct()` is a handy way of cleanly presenting the number of distinct observations. Notice that there are 9 genera with over 100 in body weight.
+```{r}
+
+```
+
+Here we show the number of distinct genera over 100 in body weight.
+```{r}
+
+```
+
+Not to be confused with n(), which counts the total number of observations.
+```{r}
+
+```
+
+```{r}
+
+```
+
+`pull()` is another useful verb that extracts a single column from a data frame as a vector.
+```{r}
+
+```
+
+## Practice
+1. How many genera are represented in the msleep data frame?
+```{r}
+
+```
+
+2. What are the min, max, and mean `sleep_total` for all of the mammals? Be sure to include the total n.
+```{r}
+
+```
+
+## Counts
+Although `summarize()` is helpful, oftentimes we are only interested in counts. The [janitor package](https://garthtarr.github.io/meatR/janitor.html) does a lot with counts, but there are also functions that are part of dplyr that are useful.  
+
+For example, if we wanted to count the number of observations for each `vore` category in the `msleep` data frame we could do the following:
+```{r}
+
+```
+
+```{r}
+
+```
+
+You can even combine multiple variables to get counts. For example, if we wanted to count the number of observations for each `vore` category within each `order` category we could do the following:
+```{r}
+
+```
+
+The tabyl() function from the janitor package is also very useful for producing counts and percentages.  
+```{r}
+
+```
+
+## Practice
+1. In the taxonomic order Carnivora, count the number of observations for each conservation status.
+```{r}
+
+```
+
+2. Among herbivores, which order is most represented? Return the top 5 orders with counts, sorted descending
+```{r}
+
+```
+
+-->[Home](https://jmledford3115.github.io/datascibiol/)  
