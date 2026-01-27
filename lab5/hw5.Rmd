@@ -11,7 +11,7 @@ output:
 Answer the following questions and/or complete the exercises in RMarkdown. Please embed all of your code and push the final work to your repository. Your report should be organized, clean, and run free from errors. Remember, you must remove the `#` for any included code chunks to run. Any plots must have appropriate titles and aesthetics.  
 
 ## Load the tidyverse
-```{r}
+```{r message=FALSE, warning=FALSE}
 library("tidyverse")
 options(scipen=999) #turn off scientific notation
 ```

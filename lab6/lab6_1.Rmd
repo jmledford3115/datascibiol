@@ -34,25 +34,33 @@ Recall that the the verbs `select()` and `filter()` are used to extract columns 
 
 1. Select species, island, and body mass from the penguins data. Arrange results by body mass.
 ```{r}
-
+penguins %>% 
+  select(species, island, body_mass_g) %>% 
+  arrange(body_mass_g)
 ```
 
 2. Filter the penguins data to only include observations from Biscoe and Dream islands.
 ```{r}
-
+penguins %>% 
+  filter(island=="Biscoe" | island=="Dream")
 ```
 
 ```{r}
-
+penguins %>% 
+  filter(island==c("Biscoe", "Dream"))
 ```
 
 ```{r}
-
+penguins %>% 
+  filter(island %in% c("Biscoe", "Dream"))
 ```
 
 3. Make a plot that shows the relationship between body mass and flipper length. How does this compare among different species?
 ```{r}
-
+penguins %>% 
+  ggplot(aes(x=flipper_length_mm, y=body_mass_g, color=species)) +
+  geom_point() +
+  geom_smooth(method="lm", se=FALSE)
 ```
 
 ## `distinct()`
@@ -60,34 +68,45 @@ Recall that the the verbs `select()` and `filter()` are used to extract columns 
 
 One helpful approach to new data is to find any duplicated rows. If we first look at the dimensions of the penguins data, we see it has 344 rows and 8 columns.
 ```{r}
-
+dim(penguins)
 ```
 
 Using `distinct()` across all rows, we see there are no duplicates. This means every row contains unique observations across all variables.
 ```{r}
-
+penguins %>% 
+  distinct()
 ```
 
 But if we only look at species, we can see that there are only 3 unique species in the data.
 ```{r}
-
+penguins %>% 
+  distinct(species)
 ```
 
 What if we want to know which islands each species occurs on?
 ```{r}
-
+penguins %>% 
+  distinct(species, island, .keep_all=TRUE)
 ```
 
 ## `mutate()`
 `mutate()` is another verb that acts on columns. It allows us to create new columns from existing columns in a data frame. When we use `mutate()`, the columns are added to the end of the dataframe by default. Let's create a new column that converts body mass from grams to kilograms.
 ```{r}
-
+penguins %>%
+  mutate(body_mass_kg = body_mass_g/1000) %>% 
+  select(species, body_mass_g, body_mass_kg) %>% 
+  arrange(body_mass_kg)
 ```
 
 ## `mutate()` and `across()`
 We use `across()` within `mutate()` to apply a function to multiple columns. This is especially helpful when cleaning data. For example, let's say we want to convert all columns that end with `mm` to centimeters. We can use `across()` to do this.
 ```{r}
-
+penguins %>%
+  mutate(across(ends_with("mm"), ~./10)) %>%
+  select(species, 
+         bill_length_cm=bill_length_mm, 
+         bill_depth_cm=bill_depth_mm, 
+         flipper_length_cm=flipper_length_mm)
 ```
 
 What does the `~./10` mean? The `~` indicates that what follows is a formula (lambda function). The `.` represents the current column being processed. So, `./10` means "take the current column and divide it by 10". This operation is applied to all columns that end with `mm`.
@@ -99,36 +118,40 @@ We already learned how to use `rename()` to change column names. We also learned
 
 Let's have a look at some new data focused on mammal lifehistories. The data are from: S. K. Morgan Ernest. 2003. Life history characteristics of placental non-volant mammals. Ecology 84:3402.   [link](http://esapubs.org/archive/ecol/E084/093/)  
 ```{r}
-
+mammals <- read_csv("data/mammal_lifehistories_v2.csv")
 ```
 
 What is the structure of the data? Are there any NA's or other issues?
 ```{r}
-
+glimpse(mammals)
 ```
 
 One thing to notice is the column names are inconsistent. This is going to cause problems for us down the line. We could rename each column, one at a time, using `rename()`, but that would be tedious. Instead, we can use the `clean_names()` function from the `janitor` package to fix all of the column names at once.
 ```{r}
-
+mammals <- mammals %>% 
+  clean_names()
 ```
 
 ```{r}
-
+glimpse(mammals)
 ```
 
 Notice that `clean_names()` has converted all column names to lowercase and replaced spaces with underscores. But, no adjustments were made to the data itself. What if we want to change observations from upper case to lower case?
 ```{r}
-
+mammals %>% 
+  mutate(across(c("order", "family"), tolower)) #specific columns
 ```
 
 This will change all columns to lower case. But, notice what happens to numeric columns.
 ```{r}
-
+mammals %>% 
+  mutate(across(everything(), tolower)) #all columns
 ```
 
 For this reason, it might be better to use `where` so we can specify only character columns.
 ```{r}
-
+mammals <- mammals %>%
+  mutate(across(where(is.character), tolower)) #all character columns
 ```
 
 ## `if_else()`
@@ -136,41 +159,70 @@ We briefly introduce `if_else()` here because it allows us to use `mutate()` but
 
 Have a look at the data from mammals below. Notice that the values for newborn include `-999.00`. This is sometimes used as a placeholder for NA (but, is a really bad idea). We can use `if_else()` to replace `-999.00` with `NA`.  
 ```{r}
-
+mammals %>% 
+  select(genus, species, newborn) %>% 
+  arrange(newborn)
 ```
 
 ```{r}
-
+mammals %>% 
+  select(genus, species, newborn) %>%
+  mutate(newborn_new = ifelse(newborn == -999.00, NA, newborn))%>% 
+  arrange(newborn)
 ```
 
 ## Practice
 1. Following the example above, convert all -999 values in the mammals dataframe to NA.
 ```{r}
-
+mammals <- mammals %>%
+  mutate(across(c(mass, wean_mass, gestation, max_life, newborn, weaning, litter_size, afr, litters_year),
+                ~ifelse(. == -999, NA, .)))
 ```
 
 ```{r}
-
+summary(mammals)
 ```
 
 2. In the mammals data, make a new column `mass_kg` that that converts mass from grams to kilograms. Select the columns genus, species, mass, and mass_kg, and arrange the data by mass_kg in descending order. What is the common name for the species with the highest mass?  
+_blue whale_
 ```{r}
-
+mammals %>% 
+  mutate(mass_kg = mass/1000) %>% 
+  select(genus, species, mass, mass_kg) %>% 
+  arrange(desc(mass_kg))
 ```
 
 3. What is the relationship between gestation and newborn mass?
 ```{r}
+mammals %>% 
+  mutate(mass_kg = mass/1000) %>% 
+  mutate(wean_gestation_ratio = log10(newborn/gestation)) %>% 
+  select(genus, species, wean_gestation_ratio) %>% 
+  arrange(desc(wean_gestation_ratio))
+```
 
+```{r}
+mammals %>% 
+  ggplot(aes(x=gestation, y=log10(newborn))) +
+  geom_point()+
+  geom_smooth(method="lm", se=FALSE)
 ```
 
 4. Which mammal has the longest life span in years?  
+_fin whale_
 ```{r}
-
+mammals %>% 
+  select(family, genus, species, max_life) %>% 
+  mutate(max_life_new = max_life/12) %>%
+  arrange(desc(max_life_new))
 ```
 
 5. Do larger mammals live longer?
 ```{r}
-
+mammals %>% 
+  ggplot(aes(x=log10(mass), y=max_life)) +
+  geom_point()+
+  geom_smooth(method="lm", se=FALSE)
 ```
 
 -->[Home](https://jmledford3115.github.io/datascibiol/)  
