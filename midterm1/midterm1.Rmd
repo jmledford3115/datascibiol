@@ -1,0 +1,156 @@
+---
+title: "Midterm 1 W26"
+author: "Your Name Here"
+date: "`r Sys.Date()`"
+output:
+  html_document: default
+  pdf_document: default
+---
+
+## Instructions
+Answer the following questions and complete the exercises in RMarkdown. Please embed all of your code and push your final work to your repository. Your code must be organized, clean, and run free from errors. Remember, you must remove the `#` for any included code chunks to run. Be sure to add your name to the author header above. 
+
+Your code must knit in order to be considered. If you are stuck and cannot answer a question, then comment out your code and knit the document. You may use your notes, labs, and homework to help you complete this exam. Do not use any other resources- including AI assistance or other students' work.  
+
+Don't forget to answer any questions that are asked in the prompt! Each question must be coded; it cannot be answered by a sort in a spreadsheet or a written response only.  
+
+For all plots you create, a title and clearly labeled axes must be provided. We also expect pipes `%>%` to be used wherever possible.  
+
+Be sure to push your completed midterm to your repository and upload the document to Gradescope. This exam is worth 50 points.  
+
+Please load the following libraries.
+```{r message=FALSE, warning=FALSE}
+library(tidyverse)
+library(janitor)
+```
+
+## Part 1: Repository
+
+**Question 1. (3 points) Before you start analyzing data, please put a link to your GitHub repository below. Your repository should have a clear README and be well-organized. Add `jmledford3115` and `bryshalm` as collaborators to your repository if you haven't already done so.**  
+
+Link to repository:
+\
+\
+\
+\
+\
+
+## Part 2: Data and Analysis
+
+In the midterm 1 folder there is a second folder called `data`. Inside the `data` folder, there is a .csv file called `anolis_dat.csv`. These data came from [D. Luke Mahler, Liam J. Revell, Richard E. Glor, Jonathan B. Losos, ECOLOGICAL OPPORTUNITY AND THE RATE OF MORPHOLOGICAL EVOLUTION IN THE DIVERSIFICATION OF GREATER ANTILLEAN ANOLES, Evolution, Volume 64, Issue 9, 1 September 2010, Pages 2731–2745](https://academic.oup.com/evolut/article/64/9/2731/6854302?login=true). The original research article is included in the data folder.  
+
+_Anolis_ is a genus of lizards commonly known as anoles. Anoles are found throughout the Americas, but are especially diverse in the Caribbean. The data include morphological measurements for _Anolis_ lizards from the islands of the Greater Antilles. These data can be used to study patterns of morphological evolution and adaptation in _Anolis_ lizards.  
+
+The variables include:  
+- `species`: Species name of the anole lizard.    
+- `habitat`: Habitat type where the lizard was found.  
+- `hindlimb_length_mm`: Length of the lizard's hindlimbs (in millimeters).  
+- `tail_length_mm `: Length of the lizard's tail (in millimeters).    
+- `body_length_mm`: Length of the lizard's body (in millimeters).   
+- `toepad_lamellae_count`: Count of lamellae on the lizard's toepads.  
+- `island`: Island where the lizard was found.  
+
+**Question 2. (2 points) Load the data and store it as an object called `anolis`.**
+\
+\
+\
+\
+\
+
+**Question 3. (2 points) Use a summary function of your choice to get an idea of the structure of the data.**
+\
+\
+\
+\
+\
+
+**Question 4. (2 points) Clean the variable names so they are all lowercase and without special characters or spaces. Be sure to use the cleaned data for all subsequent analyses.**
+\
+\
+\
+\
+\
+
+**Question 5. (4 points) Convert the `habitat` and `island` variables to factors.**
+\
+\
+\
+\
+\
+
+**Question 6. (2 points) Anole species were sampled from multiple islands. Which islands are represented in the data? Display the island names.**
+\
+\
+\
+\
+\
+
+**Question 7. (4 points) Is sampling equal across islands? Create a plot to visualize the number of anole species sampled from each island. Be sure to label your axes and add a title.**
+\
+\
+\
+\
+\
+
+**Question 8. (2 points) Which habitat types are represented in the data? Display the names of the habitat types.**
+\
+\
+\
+\
+\
+
+**Question 9. (4 points) Is sampling equal across habitat types? Create a plot to visualize the number of anole species sampled from each habitat type. Be sure to label your axes and add a title.**
+\
+\
+\
+\
+\
+
+**Question 10. (4 points) The morphology of anoles varies based on their habitat. How does the range of hindlimb length compare among different habitats? Create a plot to visualize the distribution of hindlimb lengths across habitat types. Be sure to label your axes and add a title.**
+\
+\
+\
+\
+\
+
+**Question 11. (4 points) The plot above is compelling, but don't we expect larger lizards to have longer limbs? What about tail length? Shouldn't longer lizards have longer tails? To correct for this, make two new columns: 1. `ratio_of_hindlimb_to_body`, and 2. `ratio_of_tail_to_body`. Don't forget to add these columns to the anolis data frame.**
+\
+\
+\
+\
+\
+
+**Question 12. (4 points) Create a new plot that examines the distribution of `ratio_of_hindlimb_to_body` across habitat types. How does this plot differ from the one you made in Problem 10?  Be sure to label your axes and add a title.**
+\
+\
+\
+\
+\
+
+**Problem 13. (4 points) A longer tail provides better balance and agility. Create a plot that examines the relationship between body length and tail length. Color the points by habitat type and add a line of best fit. What does this plot suggest about the relationship between body length and tail length? What do you notice about lizards in the `Grass-bush` habitat? Be sure to label your axes and add a title.**
+\
+\
+\
+\
+\
+
+**Problem 14. (4 points) Toepad lamellae are transverse, plate-like structures found on the ventral surface of the digits. They are a key adaptation that allows anoles to cling to and move efficiently on smooth and vertical surfaces. What is the mean number of toepad lamellae for each habitat type?**
+\
+\
+\
+\
+\
+
+**Problem 15. (5 points) The number of toepad lamellae is significantly different for trunk-crown species. But, is this consistent across all islands? Make a plot that shows the range in number of toepad lamellae by island for trunk-crown species only. Be sure to label your axes and add a title.**
+\
+\
+\
+\
+\
+
+## Submit the Midterm
+1. Save your work and knit the .rmd file.  
+2. Open the .html file and "print" it to a .pdf file in Google Chrome (not Safari).    
+3. Go to the class Canvas page and open Gradescope.  
+4. Submit your .pdf file to the midterm assignment- be sure to assign the pages to the correct questions.  
+5. Commit and push your work to your repository. 
