@@ -1,0 +1,39 @@
+CL_History.txt
+
+This file dcouments the history (version number/date):
+
+FAO code-list history:
+2017.0.1  15-Dec-2017  first internal release
+2018.0.1  22-Jan-2018  removed incorrect 3alfa-code from ISSCAPP_GROUP
+2018.1.0  23-Mar-2018  updated codelists
+2018.1.1  25-May-2018  updated codelists
+2019.1.0  04-Apr-2019  updated codelists
+2020.1.0  09-Nov-2020  first export from corporate MDM system
+2021.1.0  14-Jun-2021  updated codelists
+2021.1.0  29-Sep-2021  added new trade DSD, added reginal DSD
+2022.1.0  08-Aug-2022  renamed CWP code-lists for publishing in CKAN; changes to FishStat
+2023.1.1  19-Apr-2023  updated codelists
+2024.1.0  29-Mar-2024  updated codelists
+2025.1.0  27-Mar-2025  updated codelists
+
+FAO time-series history:
+2017.1.0  13-Mar-2017  release of 2017 data
+2017.1.1  20-Apr-2017  Aquaculture/Capture/GlobalProduction: changed Code column of CL_FI_AREA_GROUPS to area code
+2018.1.0  23-Mar-2018  Aquaculture/Capture/GlobalProduction release
+2018.1.1  23-Apr-2018  corrected Aquaculture value
+2018.1.2  24-May-2018  Aquaculture: added Unit, renamed Environment to Production_Source
+2018.1.2  25-May-2018  Production: added Unit
+2019.1.0  16-May-2019  release of 2019 data
+2020.1.0  21-May-2020  release of Aquaculture/Capture/GlobalProduction
+2021.1.0  14-Jun-2021  release of Aquaculture/Capture/GlobalProduction; new format
+2021.1.0  29-Sep-2021  release of Trade and Processed Production data; release of regional data
+2022.1.0  29-Mar-2022  release of Aquaculture/Capture/GlobalProduction
+2022.1.1  08-Aug-2022  updated Aquaculture/Capture: updated country notes only
+2022.1.0  08-Aug-2022  release of Regional data
+2023.1.1  19-Apr-2023  release of Aquaculture/Capture/GlobalProduction 1950-2021
+2023.1.0  07-Jul-2023  release of Trade data 1976-2021
+2023.1.0  11-Jul-2023  release of Regional data
+2024.1.0  29-Mar-2024  release of Aquaculture/Capture/GlobalProduction 1950-2022
+2024.1.1  04-Jul-2024  release of Regional data
+2024.1.0  30-Jul-2024  release of Trade data and Processed Production 1976-2022
+2025.1.0  28-Mar-2025  release of Aquaculture/Capture/GlobalProduction 1950-2023

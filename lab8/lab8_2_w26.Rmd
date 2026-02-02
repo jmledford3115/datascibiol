@@ -1,0 +1,166 @@
+---
+title: "Lab 8.2"
+date: "`r Sys.Date()`"
+output:
+  html_document:
+    theme: spacelab
+    toc: yes
+    toc_float: yes
+  pdf_document:
+    toc: yes
+---
+
+## Learning Goals
+*At the end of this exercise, you will be able to:*    
+1. Define `NA` and describe how they are treated in R.  
+2. Produce summaries of the number of NA's in a data set.   
+3. Replace values with `NA` in a data set as appropriate.  
+
+## Install the package `naniar`
+The [naniar](https://naniar.njtierney.com/) package includes some useful tools to manage NA's.
+```{r}
+#install.packages("naniar")
+```
+
+## Load the libraries
+```{r message=FALSE, warning=FALSE}
+library("tidyverse")
+library("naniar")
+library("janitor")
+```
+
+## Review
+When working with "wild" data, dealing with NA's is a fundamental part of the data cleaning process. Data scientists spend much of their time cleaning and transforming data- including managing NA's. There isn't a single approach that will always work so you need to be careful about using replacement strategies across an entire data set. And, as the data sets become larger NA's can become trickier to deal with.  
+
+For the following, we will use life history data for mammals. The [data](http://esapubs.org/archive/ecol/E084/093/) are from:  
+**S. K. Morgan Ernest. 2003. Life history characteristics of placental non-volant mammals. Ecology 84:3402.**  
+
+## Load the mammals life history data and clean the names  
+```{r message=FALSE, warning=FALSE}
+life_history <- read_csv("data/mammal_lifehistories_v3.csv") %>% clean_names()
+```
+
+## Are there any NA's?
+Sometimes using one or more of the summary functions can give us clues to how the authors have represented missing data. This doesn't always work, but it is a good place to start.  
+```{r}
+
+```
+
+```{r}
+
+```
+
+## Where are the NA's?
+This will give you a quick summary of the number of NA's in each variable. Notice that, at least for now, it doesn't look like there are NA's in most variables because they are still represented by -999.
+```{r}
+
+```
+
+Here we look for all of the -999's.
+```{r}
+
+```
+
+## Dealing with NA's using `read_csv()`
+In the case of `-999` as NA, we can use `read_csv` to replace these values when we import the data. But, I only do this once I understand how NA's are represented in the data. Sometimes, they are represented in multiple ways.
+```{r message=FALSE, warning=FALSE}
+
+```
+
+Rechecking for NA's. Now we see that there are NA's in many of the variables.
+```{r}
+
+```
+
+## Did we catch them all?
+Sometimes it can be helpful to do a quick scan using view() or glimpse() to see if there are any other odd values that might represent NA's. Notice that `not measured` is used in `newborn`.
+```{r}
+
+```
+
+```{r}
+
+```
+
+Notice that `max_life` has no NA's. Does that make sense? How likely is it that we know the lifespan for all of the species in the data set?
+```{r}
+
+```
+
+```{r}
+
+```
+
+Let's use `mutate()` and use `na_if()` to replace 0's with NA's in `max_life`. This chunk allows us to address problems in a single variable.
+```{r}
+
+```
+
+## `naniar`
+[naniar](https://naniar.njtierney.com/) is a package that manages NA's. Many of the functions it performs can also be performed using tidyverse functions, but it provides some nice alternatives.  
+
+`miss_var_summary` provides a summary of NA's across the data frame.
+```{r}
+
+```
+
+A unique feature of `naniar` is that it can produce visuals to help evaluate NA's. Here we use `gg_miss_var` to visualize the number of NA's in each variable.
+```{r}
+
+```
+
+We can also use `geom_miss_point()` to visualize where NA's are located in a scatter plot. Here we see that there are NA's in `wean_mass` across the range of `mass`.
+```{r}
+
+```
+
+We can also use `miss_var_summary` with `group_by()`. This helps us better evaluate where NA's are in the data.
+```{r}
+
+```
+
+`naniar` has nice replace functions which will allow you to precisely control which values you want replaced with NA's in each variable. This is a nice alternative to `mutate()` and `na_if()`.  
+```{r}
+
+```
+
+You can also use naniar to replace a specific value (like -999) with NA across the entire data set.  
+```{r}
+
+```
+
+Finally, naniar has some built-in examples of common values or character strings used to represent NA's. The chunk below will use these built-in parameters to replace NA's across the entire data set.
+```{r}
+
+```
+
+```{r}
+
+```
+
+```{r}
+
+```
+
+## Practice
+Let's practice evaluating NA's in a large data set. The data are compiled from [CITES](https://cites.org/eng). This is the international organization that tracks trade in endangered wildlife. You can find information about the data [here](https://www.kaggle.com/cites/cites-wildlife-trade-database).  
+
+Some key information:  
+[country codes](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)  
+
+1. Import the data and do a little exploration. Be sure to clean the names if necessary.
+```{r message=FALSE, warning=FALSE}
+
+```
+
+2. Use `naniar` to summarize the NA's in each variable.
+```{r}
+
+```
+
+3. Try using `group_by()` with `naniar`. Look specifically at `class` and `exporter_reported_quantity`. For which taxonomic classes do we have the highest number of missing export data?
+```{r}
+
+```
+
+-->[Home](https://jmledford3115.github.io/datascibiol/)

@@ -1,0 +1,82 @@
+---
+title: "fisheries_clean"
+author: "Key"
+date: "`r Sys.Date()`"
+output:
+  html_document: 
+    theme: spacelab
+    keep_md: yes
+---
+
+## Background
+These data were collected from the [United Nations Food and Agriculture Organization](https://www.fao.org/fishery/en/collection/capture) on world fisheries. The data are stored in separate .csv files that must be cleaned and joined. The steps below show the process used to clean the data.
+
+## Load the libraries
+```{r message=FALSE, warning=FALSE}
+library("tidyverse")
+library("janitor")
+library("naniar")
+```
+
+## Load all .csv files in the `Capture_2025.1.0/` folder 
+```{r message=FALSE, warning=FALSE}
+data_list <- list.files(
+  path = "Capture_2025.1.0",
+  pattern = "\\.csv$",
+  full.names = TRUE
+) %>% 
+  set_names(basename(.)) %>% 
+  map(read_csv)
+```
+
+## Load the first dataframe in the list and clean the variable names
+```{r}
+fisheries <- data_list[[1]] %>% 
+  clean_names()
+```
+
+## Load the second dataframe in the list and clean the variable names
+```{r}
+countries <- data_list[[2]] %>% 
+  clean_names() %>% 
+  select(country_un_code=un_code, name_en, continent_group_en, geo_region_group_en)
+```
+
+## Join `fisheries` and `countries` by the variable `country_un_code`
+```{r}
+fisheries2 <- fisheries %>% 
+  left_join(countries, by="country_un_code")
+```
+
+## Load the third dataframe in the list and clean the variable names
+```{r}
+species <- data_list[[3]] %>% 
+  clean_names() %>% 
+  select(species_alpha_3_code=x3a_code, taxonomic_code, name_en, scientific_name)
+```
+
+## Join the `species` dataframe to `fisheries2` by the variable `species_alpha_3_code`
+```{r}
+fisheries3 <- fisheries2 %>% 
+  left_join(species, by="species_alpha_3_code")
+```
+
+## Reorder the dataframe columns for easier viewing
+```{r}
+fisheries_clean <- fisheries3 %>% 
+  select(
+    period,
+    continent=continent_group_en,
+    geo_region=geo_region_group_en,
+    country=name_en.x,
+    scientific_name,
+    common_name=name_en.y,
+    taxonomic_code,
+    catch=value,
+    status)
+```
+
+## Export the cleaned dataframe as `fisheries_clean.csv` in the `data/` folder
+```{r}
+write_csv(fisheries_clean, "data/fisheries_clean.csv")
+```

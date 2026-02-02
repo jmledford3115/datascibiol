@@ -1,0 +1,63 @@
+---
+title: "Homework 8"
+author: "Your Name Here"
+date: "2026-02-01"
+output:
+  html_document: 
+    theme: spacelab
+    keep_md: yes
+---
+
+## Instructions
+Answer the following questions and/or complete the exercises in RMarkdown. Please embed all of your code and push the final work to your repository. Your report should be organized, clean, and run free from errors. Remember, you must remove the `#` for any included code chunks to run.  
+
+## Load the libraries
+
+``` r
+library("tidyverse")
+library("janitor")
+library("naniar")
+options(scipen = 999)
+```
+
+## About the Data
+For this assignment we are going to work with a data set from the [United Nations Food and Agriculture Organization](https://www.fao.org/fishery/en/collection/capture) on world fisheries. These data were downloaded and cleaned using the `fisheries_clean.Rmd` script.  
+
+Load the data `fisheries_clean.csv` as a new object titled `fisheries_clean`.
+
+``` r
+fisheries_clean <- read_csv("data/fisheries_clean.csv")
+```
+
+1. Explore the data. What are the names of the variables, what are the dimensions, are there any NA's, what are the classes of the variables, etc.? You may use the functions that you prefer.
+
+
+2. Convert the following variables to factors: `period`, `continent`, `geo_region`, `country`, `scientific_name`, `common_name`, `taxonomic_code`, and `status`.
+
+
+3. Are there any missing values in the data? If so, which variables contain missing values and how many are missing for each variable?
+
+
+4. How many countries are represented in the data?
+
+
+5. The variables `common_name` and `taxonomic_code` both refer to species. How many unique species are represented in the data based on each of these variables? Are the numbers the same or different?
+
+
+6. In 2023, what were the top five countries that had the highest overall catch?
+
+
+7. In 2023, what were the top 10 most caught species? To keep things simple, assume `common_name` is sufficient to identify species. What does `NEI` stand for in some of the common names? How might this be concerning from a fisheries management perspective?
+
+
+8. For the species that was caught the most above (not NEI), which country had the highest catch in 2023?
+
+
+9. How has fishing of this species changed over the last decade (2013-2023)? Create a  plot showing total catch by year for this species.
+
+
+10. Perform one exploratory analysis of your choice. Make sure to clearly state the question you are asking before writing any code.
+
+
+## Knit and Upload
+Please knit your work as an .html file and upload to Canvas. Homework is due before the start of the next lab. No late work is accepted. Make sure to use the formatting conventions of RMarkdown to make your report neat and clean!  

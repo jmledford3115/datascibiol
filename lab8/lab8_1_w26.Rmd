@@ -1,0 +1,96 @@
+---
+title: "Lab 8.1"
+date: "`r Sys.Date()`"
+output:
+  html_document:
+    theme: spacelab
+    toc: yes
+    toc_float: yes
+  pdf_document:
+    toc: yes
+---
+
+## Learning Goals
+*At the end of this exercise, you will be able to:*    
+1. Use `group_by` to group data by categorical variables.  
+2. Use `summarize` to produce summary statistics for grouped data.
+
+## Load the libraries
+```{r message=FALSE, warning=FALSE}
+library("tidyverse")
+library("janitor")
+```
+
+## Load the data
+For this lab, let's go back to the elephants data from homework 7. The data are from: [Chiyo, Patrick I., Vincent Obanda, and David K. Korir. “Illegal tusk harvest and the decline of tusk size in the African elephant.” Ecology and Evolution 5, 22: 5216–5229 (2015)](https://doi.org/10.1002/ece3.1769). Data deposited at [Dryad Digital Repository](https://doi.org/10.5061/dryad.h6t7j). 
+```{r message=FALSE, warning=FALSE}
+elephants <- read_csv("data/elephants.csv") %>% 
+  clean_names() %>% 
+  mutate(across(where(is.character), as.factor))
+```
+
+## Review
+`summarize()` is a verb in `dplyr` that allows us to produce summaries of data. It's output is a new dataframe. In lab 7, we learned how `summarize()` can be used to produce quick statistical summaries.  
+
+1. What is the average age, shoulder height, tusk length, and tusk circumference for all elephants in the data set?
+```{r}
+
+```
+
+We can include multiple functions using this same structure, but it becomes cumbersome.
+```{r}
+
+```
+
+## `group_by()`
+The `summarize()` function is often more useful when used with `group_by()`. `group_by()` allows us to group data by a categorical variable(s) of interest.   
+```{r}
+
+```
+
+Notice that the output doesn't look different, but two groups are indicated. Any verbs that follow `group_by()` will be applied to each group separately. For example, what is the average age, shoulder height, tusk length, and tusk circumference for males and females?
+```{r}
+
+```
+
+We can group by more than one variable.
+```{r}
+
+```
+
+Do you remember this question from homework 7?  
+
+"What is the mean, median, and standard deviation for age of males and females included in the study? Separate the results by year of sample collection. Does the sampling look even between years and sexes?"
+
+Without `group_by()`, we had to produce multiple code chunks- we are now more efficient!
+```{r}
+
+```
+
+```{r}
+
+```
+
+```{r}
+
+```
+
+## Practice
+Use the built-in `msleep` data to answer the following questions.  
+
+1. Calculate the min, max, mean, and total number of observations for body weight by vore.  
+```{r}
+
+```
+
+2. Calculate mean brain weight by taxonomic order in the msleep data.
+```{r}
+
+```
+
+3. Try running the code again, but this time add `na.rm=TRUE`. What is the problem with Cetacea?
+```{r}
+
+```
+
+-->[Home](https://jmledford3115.github.io/datascibiol/)

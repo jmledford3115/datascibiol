@@ -1,0 +1,137 @@
+
+The complete reference data archive can be found here:
+https://github.com/openfigis/RefData
+
+File-names:
+===========
+ReadMe.md       the general overview
+CL_Index.txt    (this file) The index of code-lists
+CL_History.txt  describing the version history
+
+code-list file-naming convention:
+CL*.csv         Individual code-lists
+HCL*.csv        Hierarchical code-lists (parent->child grouping)
+CL_*GROUP.csv   A user-friendly summary
+FSJ_*.csv       FishStat metadata defintions
+DSD_* "Data Structure Definition": describes how information in a specific dataset is structured. It defines the dimensions, measures and their related attributes.
+
+
+FAO code-lists:
+===============
+commodity/CL_FI_COMMODITY_ISSCFC.csv                  ISSCFC (International Standard Statistical Classification of Fisheries Commodities)
+
+country/CL_FI_COUNTRY_CONTINENT.csv                   Continents
+country/CL_FI_COUNTRY_ECOCLASS.csv                    Economic Classes
+country/CL_FI_COUNTRY_ECOGROUP.csv                    Economic Groups 
+country/CL_FI_COUNTRY_FAO.csv                         FAO offices
+country/CL_FI_COUNTRY_GEOREGION.csv                   Geographic Regions
+country/CL_FI_COUNTRY_GROUPS.csv                      Country summary
+country/CL_FI_COUNTRY_M49.csv                         Country items
+country/CL_FI_COUNTRY_OTHER.csv                       Other (country related) groups
+country/CL_FI_COUNTRY_SDGREGION.csv                   SDG (Sustainable Development Goals) Subregions 
+country/CL_FI_COUNTRY_SDGSUBREGION.csv                SDG (Sustainable Development Goals) Subcontinents
+country/CL_FI_COUNTRY_SUBCONTINENT.csv                Sub-Continent groups
+country/CL_FI_RFB.csv                                 Regional Fishery Bodies (RFB)
+country/HCL_FI_COUNTRY_CONTINENT_GEOREGION.csv        hierarchy COUNTRY_CONTINENT->COUNTRY_GEOREGION
+country/HCL_FI_COUNTRY_ECOCLASS_COUNTRY.csv           hierarchy COUNTRY_ECOCLASS->COUNTRY_M49
+country/HCL_FI_COUNTRY_ECOGROUP_COUNTRY.csv           hierarchy COUNTRY_ECOGROUP->COUNTRY_M49
+country/HCL_FI_COUNTRY_FAO_COUNTRY.csv                hierarchy COUNTRY_FAO->COUNTRY_M49
+country/HCL_FI_COUNTRY_GEOREGION_COUNTRY.csv          hierarchy COUNTRY_GEOREGION->COUNTRY_M49
+country/HCL_FI_COUNTRY_OTHER_COUNTRY.csv              hierarchy COUNTRY_OTHER->COUNTRY_M49
+country/HCL_FI_COUNTRY_SDGREGION_SDGSUBREGION.csv     hierarchy COUNTRY_SDGREGION->COUNTRY_SDGSUBREGION
+country/HCL_FI_COUNTRY_SDGSUBREGION_COUNTRY.csv       hierarchy COUNTRY_SDGSUBREGION->COUNTRY_M49
+country/HCL_FI_COUNTRY_SUBCONTINENT_COUNTRY.csv       hierarchy COUNTRY_SUBCONTINENT->COUNTRY_M49      
+country/HCL_FI_RFB_RFB_COUNTRY.csv                    hierarchy CL_FI_RFB->CL_FI_COUNTRY_M49
+
+species/CL_FI_SPECIES_FAMILY.csv                   ASFIS (taxonomic) families
+species/CL_FI_SPECIES_FAOSTAT.csv                  FAOSTAT species groups
+species/CL_FI_SPECIES_GROUPS.csv                   Species summary
+species/CL_FI_SPECIES_ISSCAAP_DIVISION.csv         ISSCAAP divisions 
+species/CL_FI_SPECIES_ISSCAAP_GROUP.csv            ISSCAAP groups
+species/CL_FI_SPECIES_ITEM.csv                     ASFIS (Aquatic Sciences and Fisheries Information System) species 
+species/CL_FI_SPECIES_MAJOR.csv                    ASFIS (taxonomic) major groups
+species/CL_FI_SPECIES_ORDER.csv                    ASFIS (taxonomic) orders
+species/CL_FI_SPECIES_YEARBOOK.csv                 FAO statistical yearbook species groups
+species/HCL_FI_SPECIES_FAMILY_ITEM.csv             hierarchy SPECIES_FAMILY->SPECIES_ITEM
+species/HCL_FI_SPECIES_FAOSTAT_ISSCAAPGRP.csv      hierarchy SPECIES_FAOSTAT->SPECIES_ISSCAAP_GROUP
+species/HCL_FI_SPECIES_ISSCAAPDIV_ISSCAAPGRP.csv   hierarchy SPECIES_ISSCAAP_DIVISION->SPECIES_ISSCAAP_GROUP
+species/HCL_FI_SPECIES_ISSCAAPGRP_ITEM.csv         hierarchy SPECIES_ISSCAAP_GROUP->SPECIES_ITEM
+species/HCL_FI_SPECIES_MAJOR_ORDER.csv             hierarchy SPECIES_MAJOR->SPECIES_ORDER
+species/HCL_FI_SPECIES_ORDER_FAMILY.csv            hierarchy SPECIES_ORDER->SPECIES_FAMILY
+species/HCL_FI_SPECIES_ORDER_ITEM.csv              hierarchy SPECIES_ORDER->SPECIES_ITEM
+species/HCL_FI_SPECIES_YEARBOK_ISSCAAPGRP.csv      hierarchy SPECIES_YEARBOOK->SPECIES_ISSCAAP_GROUP
+
+waterarea/CL_FI_WATERAREA_DIVISION.csv               CWP Divisions
+waterarea/CL_FI_WATERAREA_GROUPS.csv                 Waterarea summary  
+waterarea/CL_FI_WATERAREA_INLANDMARINE.csv           Inland/Marine Areas (top level)
+waterarea/CL_FI_WATERAREA_MAJOR.csv                  CWP Major Areas
+waterarea/CL_FI_WATERAREA_OCEAN.csv                  Oceans
+waterarea/CL_FI_WATERAREA_REGION.csv                 Fishing Regions
+waterarea/CL_FI_WATERAREA_SUBAREA.csv                CWP Subareas
+waterarea/CL_FI_WATERAREA_SUBDIVISION.csv            CWP Subdivisions
+waterarea/CL_FI_WATERAREA_SUBOCEAN.csv               Suboceans
+waterarea/CL_FI_WATERAREA_SUBUNIT.csv                CWP Subunits
+waterarea/HCL_FI_WATERAREA_COUNTRY_MAJOR.csv         hierarchy COUNTRY->MAJOR
+waterarea/HCL_FI_WATERAREA_DIVISION_SUBDIVISION.csv  hierarchy DIVISION->SUBDIVISION
+waterarea/HCL_FI_WATERAREA_INLANDMARINE_MAJOR.csv    hierarchy INLANDMARINE->MAJOR
+waterarea/HCL_FI_WATERAREA_INLANDMARINE_OCEAN.csv    hierarchy INLANDMARINE->OCEAN
+waterarea/HCL_FI_WATERAREA_MAJOR_DIVISION.csv        hierarchy MAJOR->DIVISION
+waterarea/HCL_FI_WATERAREA_MAJOR_SUBAREA.csv         hierarchy MAJOR->SUBAREA
+waterarea/HCL_FI_WATERAREA_OCEAN_MAJOR.csv           hierarchy OCEAN->MAJOR
+waterarea/HCL_FI_WATERAREA_REGION_MAJOR.csv          hierarchy REGION->MAJOR
+waterarea/HCL_FI_WATERAREA_SUBAREA_DIVISION.csv      hierarchy SUBAREA->DIVISION
+waterarea/HCL_FI_WATERAREA_SUBDIVISION_SUBUNIT.csv   hierarchy SUBDIVISION->SUBUNIT
+waterarea/HCL_FI_WATERAREA_SUBOCEAN_MAJOR.csv        hierarchy SUBOCEAN->MAJOR
+
+gear/CL_CWP_GEAR_GROUPS.csv        Gear summary
+gear/CL_CWP_GEAR_LEVEL1.csv        ISSCFG gear level1 (International Standard Statistical Classification of Fisheries Gears)
+gear/CL_CWP_GEAR_LEVEL2.csv        ISSCFG gear level2 (International Standard Statistical Classification of Fisheries Gears)
+gear/HCL_CWP_GEARL1_GEARL2.csv     hierarchy ISSCFG gear level1->level2
+
+Vessel/CL_CWP_VESSEL_GRT_LEVEL1.csv
+Vessel/CL_CWP_VESSEL_GRT_LEVEL2.csv
+Vessel/CL_CWP_VESSEL_LOA_CLASS.csv
+Vessel/CL_CWP_VESSEL_LEVEL1.csv
+Vessel/CL_CWP_VESSEL_LEVEL2.csv
+Vessel/CL_FI_VESSEL_GROUPS.csv
+Vessel/CL_FI_VESSEL_GRT_GROUPS.csv
+Vessel/HCL_CWP_VESSEL_GRTL1_GRTL2.csv
+Vessel/HCL_CWP_VESSEL_TYPE_L1L2.csv
+
+misc/CL_FI_CURRENCY.csv                   Currencies used by FAO
+misc/CL_FI_DISPOSITION.csv                Disposition element
+misc/CL_FI_FBS_ELEMENT.csv                FBS (Food Balance Sheet) element
+misc/CL_FI_GENDER.csv                     Gender
+misc/CL_FI_OCCUPATION.csv                 Occupation
+misc/CL_FI_PPRODUCTION_ELEMENT.csv        Commodity: Processed Production element
+misc/CL_FI_PRODENVIRONMENT.csv            Aquaculture: Production environment
+misc/CL_FI_PRODUCTION_SOURCE.csv          Global Production: source
+misc/CL_FI_PRODUCTION_SOURCE_DET.csv      Global Production: detailed source
+misc/CL_FI_SYMBOL.csv                     Obsolete: FAO Statistical Symbols (Old FishStat Flags)
+misc/CL_FI_SYMBOL_FIGIS.csv               Obsolete: FAO FIGIS Statistical Symbols (Flags)
+misc/CL_FI_SYMBOL_SDMX.csv                FAO SDMX Statistical Symbols ((FishStat Flags)
+misc/CL_FI_TRADEFLOW.csv                  Commodity: trade flow
+misc/CL_FI_TRADEFLOW_DET.csv              Commodity: detailed trade flow
+misc/CL_FI_WORK_AREA.csv                  work area
+misc/HCL_FI_PRODSOURCE_PRODSOURCEDET.csv  hierarchy PRODUCTION_SOURCE->PRODUCTION_SOURCE_DET
+
+FishStat/FSJ_ATTRIBUTE.csv       FishStat attributes
+FishStat/FSJ_BUILTIN.csv         FishStat built-in MEASURE, UNIT, MULTIPLIER
+FishStat/FSJ_CONCEPT.csv         FishStat concept (code-list)
+FishStat/FSJ_DATASET.csv         FishStat dataset
+FishStat/FSJ_DATASET_DCAT.csv    FishStat dataset catalog (work in progress)
+FishStat/FSJ_DIMENSION.csv       FishStat dimension
+FishStat/FSJ_MEASURE.csv         FishStat measure
+FishStat/FSJ_PERIOD.csv          FishStat period
+FishStat/FSJ_QUERY_MEASURE.csv   FishStat measure for query panel
+FishStat/FSJ_RELATION.csv        FishStat relation
+FishStat/FSJ_SDMX_DIMENSION.csv  SDMX export: dimensions
+FishStat/FSJ_SDMX_FRAGMENT.csv   SDMX export: code-list fragments
+FishStat/FSJ_TIMSERIES.csv       FishStat time-series
+FishStat/FSJ_UNIT.csv            FishStat unit
+FishStat/FSJ_WORKSPACE.csv       FishStat workspace
+FishStat/HCL_FSJ_DATASET_CONCEPT.csv    hierarchy dataset->concept
+FishStat/HCL_FSJ_DATASET_DCAT.csv       hierarchy DCAT
+FishStat/HCL_FSJ_DATASET_RELATION.csv   hierarchy dataset->relation
+FishStat/HCL_FSJ_WORKSPACE_DATASET.csv  hierarchy workspace->dataset
+*
