@@ -1,0 +1,27 @@
+---
+title: "Lab 8 Intro"
+date: "`r Sys.Date()`"
+output: ioslides_presentation
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+library("jpeg")
+```
+
+## Setup
+1. Login to the lab computer.    
+2. Navigate to github.com and login.  
+3. Find the class repository "datascibiol" (https://github.com/jmledford3115/datascibiol).  
+4. Download a copy the class repository to the desktop.  
+5. Clone your repository to the desktop using GitHub Desktop.  
+6. Copy the files for today's lab from the class repository and paste them into **your** repository.  
+7. Open today's lab in RStudio.  
+
+## Midterm 1 De-Brief
+1. Thank you for following the upload instructions! If you don't follow instructions and we have to complete upload for you, expect a minor deduction.  
+2. Please use tidyverse functions for all data manipulation and plotting.  
+3. Visuals almost always look better in color.  
+4. As we focus more on interpretation, be sure not to simply re-state the question in your answers.  
+5. Nearly every plot also asks for a written interpretation.  
+6. Please provide one answer per question.  
