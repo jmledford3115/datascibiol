@@ -39,7 +39,20 @@ elephants <- read_csv("data/elephants.csv") %>%
 
 We can include multiple functions using this same structure, but it becomes cumbersome.
 ```{r}
-
+elephants %>% 
+  summarize(
+    across(
+      where(is.numeric),
+      list(
+        mean   = ~mean(.x, na.rm = TRUE),
+        median = ~median(.x, na.rm = TRUE),
+        sd     = ~sd(.x, na.rm = TRUE),
+        min    = ~min(.x, na.rm = TRUE),
+        max    = ~max(.x, na.rm = TRUE),
+        n      = ~sum(!is.na(.x))
+      )
+    )
+  )
 ```
 
 ## `group_by()`
