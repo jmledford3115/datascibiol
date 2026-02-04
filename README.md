@@ -31,7 +31,7 @@ Easy [setup instructions](https://jmledford3115.github.io/datascibiol/logistics/
 5. **Lab 5** | [part 1](https://jmledford3115.github.io/datascibiol/lab5/lab5_1.html) | [part 2](https://jmledford3115.github.io/datascibiol/lab5/lab5_2.html)
 6. **Lab 6** | [part 1](https://jmledford3115.github.io/datascibiol/lab6/lab6_1.html)
 7. **Lab 7** | [part 1](https://jmledford3115.github.io/datascibiol/lab7/lab7_1.html)
-8. **Lab 8** | [part 1](https://jmledford3115.github.io/datascibiol/lab8/lab8_1.html) | [part 2](https://jmledford3115.github.io/datascibiol/lab8/lab8_2.html)
+8. **Lab 8** | [part 1](https://jmledford3115.github.io/datascibiol/lab8/lab8_1.html)
 
 ## Homework  
 1. [Homework 1](https://jmledford3115.github.io/datascibiol/lab1/hw1.html)
