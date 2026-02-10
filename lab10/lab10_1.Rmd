@@ -1,0 +1,106 @@
+---
+title: "Lab 10.1"
+output:
+  html_document:
+    theme: spacelab
+    toc: yes
+    toc_float: yes
+  pdf_document:
+    toc: yes
+---
+
+## Learning Goals
+*At the end of this exercise, you will be able to:*    
+1. Review how to make barplots, scatterplots, and boxplots using `ggplot`.      
+2. Use aesthetics to improve readability of plots.          
+
+## Load the libraries
+```{r message=FALSE, warning=FALSE}
+library("tidyverse")
+library("janitor")
+```
+
+## Resources
+- [ggplot2 cheatsheet](https://rstudio.github.io/cheatsheets/data-visualization.pdf)
+- [ggplot themes](https://ggplot2.tidyverse.org/reference/ggtheme.html)
+- [Rebecca Barter `ggplot` Tutorial](http://www.rebeccabarter.com/blog/2017-11-17-ggplot2_tutorial/)
+
+## Review
+We have already learned the basics of ggplot, but let's review the plot types we have learned thus far. We will use the mammal life history data to practice. The [data](http://esapubs.org/archive/ecol/E084/093/) are from: *S. K. Morgan Ernest. 2003. Life history characteristics of placental non-volant mammals. Ecology 84:3402.*
+```{r message=FALSE, warning=FALSE}
+life_history <- read_csv("data/mammal_lifehistories_v2.csv", na="-999") %>% 
+  clean_names()
+```
+
+## Bar Plots
+Recall that `geom_bar` is used when you want to count the number of observations in a categorical variable. `geom_col` is used when you have already counted the number of observations (or you have a defined x and y) and want to plot those counts.
+
+Make two bar plots showing the number of observations for each order of mammals using both geom types.  
+
+`geom_bar`
+```{r}
+
+```
+
+`geom_col`
+```{r}
+
+```
+
+What if we wanted a bar plot of the mean mass for each order?
+```{r}
+
+```
+
+There are a few problems here. First, the y-axis is in scientific notation. We can fix this by adjusting the options for the session.
+```{r}
+options(scipen=999) #cancels scientific notation for the session
+```
+
+Next, the y-axis is not on a log scale. We can fix this by adding `scale_y_log10()`.
+```{r}
+
+```
+
+Lastly, we can adjust the x-axis labels to make them more readable. We do this using `reorder`.
+```{r}
+
+```
+
+## Scatterplots
+Scatter plots allow for comparisons of two continuous variables. Make a scatterplot that compares gestation time and wean mass.
+```{r}
+
+```
+
+## Boxplots
+Box plots are used to visualize a range of values. So, on the x-axis we have a categorical variable and the y-axis is the range. Make a box plot that compares mass across orders.
+```{r}
+
+```
+
+## Aesthetics: Labels
+Now that we have practiced scatter plots, bar plots, and box plots we need to learn how to adjust their appearance to suit our needs. Let's start with labeling x and y axes.  
+
+```{r}
+
+```
+
+Is there a relationship between mass and litter size; i.e. do larger mammals have more offspring?
+```{r}
+
+```
+
+The plot looks clean, but it is incomplete. A reader unfamiliar with the data might have a difficult time interpreting the labels. To add custom labels, we use the `labs` command.
+```{r}
+
+```
+
+We can adjust the plot further by specifying the size and face of the text. We do this using `theme()`. The `rel()` option changes the relative size of the title to keep things consistent. Adding `hjust` controls the title position.
+```{r}
+
+```
+
+## That's it! Let's take a break and then move on to part 2!  
+
+-->[Home](https://jmledford3115.github.io/datascibiol/)
