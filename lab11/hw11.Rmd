@@ -1,0 +1,95 @@
+---
+title: "Homework 11"
+author: "Your Name Here"
+date: "`r Sys.Date()`"
+output:
+  html_document:
+    theme: spacelab
+    toc: no
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Instructions
+Answer the following questions and complete the exercises in RMarkdown. Please embed all of your code and push your final work to your repository. Your final lab report should be organized, clean, and run free from errors. Remember, you must remove the `#` for the included code chunks to run. Be sure to add your name to the author header above. For any included plots, make sure they are clearly labeled. You are free to use any plot type that you feel best communicates the results of your analysis.  
+
+Make sure to use the formatting conventions of RMarkdown to make your report neat and clean!  
+
+## Load the libraries
+```{r message=FALSE, warning=FALSE}
+library(tidyverse)
+library(janitor)
+``` 
+
+```{r}
+options(scipen = 999)
+```
+
+## Data
+For this homework, we are going to use the [Gapminder](https://www.gapminder.org/data/) data on population (pop), GDP per capita (gdp), and life expectancy (lex). These data were downloaded and compiled using the `gapminder_compile.Rmd` script in the data folder.  
+
+Let's focus our attention on data from the past 100 years, between 1925 and 2025.
+```{r message=FALSE, warning=FALSE}
+gapminder <- read_csv("data/gapminder.csv") %>% 
+  clean_names() %>% 
+  filter(between(year, 1925, 2025))
+```
+
+1. Use the function(s) of your choice to get an idea of the overall structure of the data, including its dimensions, column names, classes, etc. 
+```{r}
+
+```
+
+2. How many countries are represented in this dataset?
+```{r}
+
+```
+
+3. Which five countries have had the largest absolute population growth between 1925-2025? Show this as a table.
+```{r}
+
+```
+
+4. Make a plot that shows population growth over time for the top country you found in question #3.
+```{r}
+
+```
+
+5. Has global life expectancy changed between 1925 and 2025? Show the min, median, mean, and max for all countries (combined) in the dataset.
+```{r}
+
+```
+
+6. Make a plot that shows the distribution of life expectancy for all countries in 1925 and 2025 (try using `geom_density`). What do you notice about the shift in life expectancy over time?
+```{r}
+
+```
+
+7. We are interested in the relationship between per capita GDP and life expectancy; i.e. does having more money help you live longer in 2025? Show this as a plot. (Suggestion! Remove Monaco as an extreme outlier.)
+```{r}
+
+```
+
+8. Which five countries have had the highest absolute GDP per capita growth over the past 50 years? Show this as a table. (Suggestion! Remove Monaco as an extreme outlier.)
+```{r}
+
+```
+
+9. How does per capita GDP growth compare between these same five countries over the past 50 years? Show this as a plot.
+```{r}
+
+```
+
+10. Do one analysis of your choice that includes a table and plot as outputs.
+```{r}
+
+```
+
+```{r}
+
+```
+
+## Knit and Upload
+Please knit your work as an .html file and upload to Canvas. Homework is due before the start of the next lab. No late work is accepted. Make sure to use the formatting conventions of RMarkdown to make your report neat and clean! 

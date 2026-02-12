@@ -1,0 +1,110 @@
+---
+title: "Lab 11.1"
+output:
+  html_document:
+    theme: spacelab
+    toc: yes
+    toc_float: yes
+  pdf_document:
+    toc: yes
+---
+
+## Learning Goals
+*At the end of this exercise, you will be able to:*    
+1. Build line plots, histograms, and density plots.  
+2. Adjust colors using R's built-in color options.  
+3. Create new categories with `case_when()` and use those categories to build plots.  
+
+## Resources
+- [ggplot2 cheatsheet](https://rstudio.github.io/cheatsheets/data-visualization.pdf)  
+- [ggplot themes](https://ggplot2.tidyverse.org/reference/ggtheme.html)  
+- [Rebecca Barter `ggplot` Tutorial](http://www.rebeccabarter.com/blog/2017-11-17-ggplot2_tutorial/)  
+- [R Color Brewer](http://colorbrewer2.org/#type=sequential&scheme=BuGn&n=3)  
+- [Gapminder](https://www.gapminder.org/data/)  
+
+## Load the libraries
+```{r message=FALSE, warning=FALSE}
+library(tidyverse)
+library(janitor)
+```
+
+```{r}
+options(scipen=999) #cancels the use of scientific notation for the session
+```
+
+## Data
+For these exercises, we are going to use [Gapminder](https://www.gapminder.org/data/) data on population (pop), GDP per capita (gdp), and life expectancy (lex). These data were downloaded and compiled using the `gapminder_compile.Rmd` script in the data folder.
+```{r message=FALSE, warning=FALSE}
+gap <- read_csv("data/gapminder.csv") %>% clean_names()
+```
+
+## Line plots
+Line plots are great when you need to show changes over time. Let's see if we can find downturns in the US economy between 2000-2025.  
+
+Let's start by making a clear x and y so we know what we are going to plot.
+```{r}
+
+```
+
+```{r}
+
+```
+
+## Histograms
+Histograms show the distribution of continuous variables. As students, you have seen histograms of grade distributions. A histogram `bins` the data and you specify the number of bins that encompass a range of observations. For something like grades, this is easy because the number of bins corresponds to the grades A-F. By default, R uses a formula to calculate the number of bins but some adjustment may be required.  
+
+What was the distribution of life expectancy in 1935?
+```{r}
+
+```
+
+Let's rebuild the histogram, but this time we will specify the color and fill. Do a little experimentation on your own with the different colors.
+```{r}
+
+```
+
+## Density plots  
+Density plots are similar to histograms but they use a smoothing function to make the distribution more even and clean looking. They do not use bins.
+```{r}
+
+```
+
+I like to see both the histogram and the density curve so I often plot them together. Note that I assign the density plot a different color.
+```{r}
+
+```
+
+## Practice
+1. Antibiotics became widely available in the 1940's. How did life expectancy change between 1930 and 1950? Let's plot the density curves for both years on the same plot. Use the `fill` aesthetic to differentiate the two years.
+```{r warning=FALSE}
+
+```
+
+## Create Categories with mutate and case_when()
+`case_when()` is a very handy function from `dplyr` which allows us to calculate a new variable from other variables. We use `case_when()` within `mutate()` to do this.`case_when()` allows us to specify multiple conditions.  
+
+The approximate World Bank Income Categories are:  
+- Low income: $1,100 or less
+- Lower middle income: $1,100 to $4,500
+- Upper middle income: $4,500 to $13,900
+- High income: $13,900 or more
+
+Let's use `case_when()` to create a new column `income_category` that categorizes countries into these income categories based on their GDP per capita in 2000.
+```{r}
+
+```
+
+## Practice
+1. How many countries are in each of the World Bank Income Categories as of the year 2000?
+```{r}
+
+```
+
+2. Make a bar plot showing the number of countries in each income category in the year 2000.
+```{r}
+
+```
+
+## That's it! Let's take a break!  
+
+-->[Home](https://jmledford3115.github.io/datascibiol/)

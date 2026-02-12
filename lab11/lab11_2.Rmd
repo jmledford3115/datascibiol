@@ -1,0 +1,240 @@
+---
+title: "Lab 11.2"
+output:
+  html_document:
+    theme: spacelab
+    toc: yes
+    toc_float: yes
+  pdf_document:
+    toc: yes
+---
+
+## Learning Goals
+*At the end of this exercise, you will be able to:*    
+1. Adjust the aesthetics of plots in ggplot using `themes`, `RColorBrewer`, and `paletteer.`  
+2. Use faceting to produce multi-panel plots.  
+
+## Resources
+- [ggplot2 cheatsheet](https://rstudio.github.io/cheatsheets/data-visualization.pdf)  
+- [ggplot themes](https://ggplot2.tidyverse.org/reference/ggtheme.html)  
+- [Rebecca Barter `ggplot` Tutorial](http://www.rebeccabarter.com/blog/2017-11-17-ggplot2_tutorial/)  
+- [R Color Brewer](http://colorbrewer2.org/#type=sequential&scheme=BuGn&n=3)  
+- [Gapminder](https://www.gapminder.org/data/)  
+
+## Load the libraries
+```{r message=FALSE, warning=FALSE}
+library(tidyverse)
+library(RColorBrewer)
+library(paletteer)
+library(janitor)
+```
+
+```{r}
+options(scipen=999) #cancels the use of scientific notation for the session
+```
+
+## Data
+For this tutorial, we will use:  
+[Homerange](http://datadryad.org/resource/doi:10.5061/dryad.q5j65/1). The data are from: Tamburello N, Cote IM, Dulvy NK (2015) Energy and the scaling of animal space use. The American Naturalist 186(2):196-211. http://dx.doi.org/10.1086/682070.  
+```{r message=FALSE, warning=FALSE}
+homerange <- read_csv("data/Tamburelloetal_HomeRangeDatabase.csv", 
+                      na = c("", "NA", "\\")) %>% 
+  clean_names()
+```
+
+## ggplot themes
+There are many options to change the theme of your plots within ggplot. Have a look [here]https://ggplot2.tidyverse.org/reference/ggtheme.html) for a list of the themes.  
+
+Let's start by building a simple barplot.  
+```{r}
+p <- homerange %>% 
+  ggplot(aes(x=taxon, fill=thermoregulation))+
+  geom_bar(na.rm=T, position="dodge")+
+  theme(axis.text.x = element_text(angle = 60, hjust=1))+
+  labs(title = "Observations by Taxon in Homerange Data",
+       x = NULL,
+       y= "n",
+       fill= "Trophic Guild")
+p
+```
+
+Have a look at the `linedraw` theme; I am adding it as another layer.
+```{r}
+p + theme_linedraw()+
+  theme(axis.text.x = element_text(angle = 60, hjust=1))
+```
+
+## Practice
+1. Build a scatterplot that compares `log10_mass` and `log10_preymass`. Store this plot as object `q`.
+```{r}
+
+```
+
+2. Use plot `q` but add the classic theme.
+```{r}
+
+```
+
+## Legends
+There are lots of options to manipulate legends. Have a look [here](http://www.sthda.com/english/wiki/ggplot2-legend-easy-steps-to-change-the-position-and-the-appearance-of-a-graph-legend-in-r-software).
+```{r}
+p+theme_linedraw()+
+  theme(legend.position = "bottom",
+        axis.text.x = element_text(angle = 60, hjust=1))+
+  labs(title = "Observations by Taxon in Homerange Data",
+       x = NULL,
+       y= "n",
+       fill= "Trophic Guild")
+```
+
+## Not enough? Try using `ggthemes`
+There are many packages that include additional themes, one of which is [ggthemes](https://yutannihilation.github.io/allYourFigureAreBelongToUs/ggthemes/). Some of these are nice because they are designed to mimic the look of popular publications.
+```{r}
+#install.packages("ggthemes")
+library(ggthemes)
+```
+
+Here is a list of the `ggthemes`
+```{r}
+ls("package:ggthemes")[grepl("theme_", ls("package:ggthemes"))]
+```
+
+```{r}
+p + 
+  theme_few()+
+  theme(legend.position = "bottom",
+        axis.text.x = element_text(angle = 60, hjust=1))+
+  labs(title = "Observations by Taxon in Homerange Data",
+       x = NULL,
+       y= "n",
+       fill= "Trophic Guild")
+```
+
+## Practice
+1. Use plot `q` and try a theme of your choice.
+```{r}
+
+```
+
+## RColorBrewer
+The default colors used by ggplot are uninspiring. They don't make plots pop out in presentations or publications, and you may want to use a customized palette to make things visually consistent.  
+
+Access the help for `RColorBrewer`.
+```{r}
+?RColorBrewer
+```
+
+The thing to notice is that there are three different color palettes: 1) sequential, 2) diverging, and 3) qualitative. Within each of these there are several selections. You can bring up the colors by using `display.brewer.pal()`. Specify the number of colors that you want and the palette name.
+```{r}
+display.brewer.pal(9,"Set1") #qualitative palette
+```
+
+The [R Color Brewer](http://colorbrewer2.org/#type=sequential&scheme=BuGn&n=3) website is very helpful for getting an idea of the color palettes. To make things easy, use these two guidelines:
+
++`scale_colour_brewer()` is for points  
++`scale_fill_brewer()` is for fills  
+
+Here I chose the `Set2` palette. Take a moment and experiment with other options.
+```{r}
+p+scale_fill_brewer(palette = "Set1")+
+  theme(legend.position = "bottom",
+        axis.text.x = element_text(angle = 60, hjust=1))+
+  labs(title = "Observations by Taxon in Homerange Data",
+       x = NULL,
+       y= "n",
+       fill= "Trophic Guild")
+```
+
+## Practice
+1. Keep using the `same `q` plot, but test out one of R Color Brewer palettes.
+```{r}
+
+```
+
+## Paleteer
+You can also use `paleteer` to build a custom palette. To access the `paleteer` collection, I add it to a new object.
+```{r}
+colors <- paletteer::palettes_d_names
+```
+
+Now we can display the palettes. Assign the palette to `my_palette` and then build this base R bar plot. There are a lot of options; `paleteer` is a collection of popular palettes. I really like the [`ggsci` package] (https://cran.r-project.org/web/packages/ggsci/vignettes/ggsci.html)
+```{r}
+my_palette <- paletteer_d("ggsci::uniform_startrek")
+my_palette
+```
+
+```{r}
+barplot(rep(1,7), axes=FALSE, col=my_palette)
+```
+
+Now we just identify `my_palette` as part of `scale_fill_manual()`
+```{r}
+p+scale_fill_manual(values=my_palette)+
+  theme(legend.position = "bottom",
+        axis.text.x = element_text(angle = 60, hjust=1))+
+  labs(title = "Observations by Taxon in Homerange Data",
+       x = NULL,
+       y= "n",
+       fill= "Trophic Guild")
+```
+
+You can use custom colors by specifying the hex code. You can find hex codes for colors using [this website](https://r-charts.com/colors/).
+```{r}
+library(scales)
+
+my_cols <- c("#66CDAA",
+             "#FFCD00FF")
+
+show_col(my_cols)
+```
+
+## Practice
+1. Keep using the `same `q` plot, but test out one of `paleteer` themes.
+```{r}
+
+```
+
+## Faceting
+[Faceting](https://ggplot2-book.org/facet.html) is one of the amazing features of ggplot. It allows us to make multi-panel plots for easy comparison.  Here is a boxplot that shows the range of log10_mass by taxon, filled by thermoregulation.
+```{r}
+homerange %>% 
+  ggplot(aes(x=taxon, y=log10_mass, fill=thermoregulation))+
+  geom_boxplot()+
+  theme(axis.text.x = element_text(angle = 60, hjust=1))
+```
+
+`facet_wrap()` makes a ribbon of panels by a specified categorical variable and allows you to control how you want them arranged.  
+```{r}
+
+```
+
+`facet_grid()` allows control over the faceted variable; it can be arranged in rows or columns. rows~columns. 
+```{r}
+
+```
+
+```{r}
+
+```
+
+`facet_grid()` will also allow the comparison of two categorical variables, just remember a~b where a is rows and b is columns.  
+```{r}
+
+```
+
+## Practice
+1. Use facet_wrap to compare the distribution of `log10_mass` by `thermoregulation`.
+```{r}
+
+```
+
+2. Use facet_grid to compare the distribution of `log10_hra` by `locomotion` and `thermoregulation`.
+```{r}
+
+```
+
+## Wrap-up  
+
+Please review the learning goals and be sure to use the code here as a reference when completing the homework.    
+
+-->[Home](https://jmledford3115.github.io/datascibiol/)

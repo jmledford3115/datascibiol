@@ -34,6 +34,7 @@ Easy [setup instructions](https://jmledford3115.github.io/datascibiol/logistics/
 8. **Lab 8** | [part 1](https://jmledford3115.github.io/datascibiol/lab8/lab8_1.html)
 9. **Lab 9** | [part 1](https://jmledford3115.github.io/datascibiol/lab9/lab9_1.html) | [part 2](https://jmledford3115.github.io/datascibiol/lab9/lab9_2.html)
 10. **Lab 10** | [part 1](https://jmledford3115.github.io/datascibiol/lab10/lab10_1.html) | [part 2](https://jmledford3115.github.io/datascibiol/lab10/lab10_2.html)
+11. **Lab 11** | [part 1](https://jmledford3115.github.io/datascibiol/lab11/lab11_1.html) | [part 2](https://jmledford3115.github.io/datascibiol/lab11/lab11_2.html)
 
 ## Homework  
 1. [Homework 1](https://jmledford3115.github.io/datascibiol/lab1/hw1.html)
@@ -46,6 +47,7 @@ Easy [setup instructions](https://jmledford3115.github.io/datascibiol/logistics/
 8. [Homework 8](https://jmledford3115.github.io/datascibiol/lab8/hw8.html)
 9. [Homework 9](https://jmledford3115.github.io/datascibiol/lab9/hw9.html)
 10. [Homework 10](https://jmledford3115.github.io/datascibiol/lab10/hw10.html)
+11. [Homework 11](https://jmledford3115.github.io/datascibiol/lab11/hw11.html)
 
 ## About the Class  
 This class has been developed with the generous help of Bryshal Moore, Hannah Houts, Katherine Ransom, Rebecca Godwin, Min-Yao Jhu, Julin Maloof, and the students of BIS 15L.  

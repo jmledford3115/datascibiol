@@ -1,0 +1,65 @@
+---
+title: "Gapminder Compile"
+output:
+  html_document:
+    theme: spacelab
+    toc: yes
+    toc_float: yes
+  pdf_document:
+    toc: yes
+---
+
+## Resources
+- [Gapminder](https://www.gapminder.org/data/)  
+
+## Load the libraries
+```{r message=FALSE, warning=FALSE}
+library(tidyverse)
+library(janitor)
+```
+
+## Data
+This script was used to compile the most recent data available from  [Gapminder](https://www.gapminder.org/data/). It includes data on population (pop), GDP per capita (gdp), and life expectancy (lex).
+
+Load the individual datasets, clean them, and pivot to long format.
+```{r}
+pop <- read_csv("data/pop.csv") %>% 
+  clean_names() %>%
+  pivot_longer(
+    cols = starts_with("x"),
+    names_to = "year",
+    values_to = "pop") %>%
+  mutate(year = as.integer(str_remove(year, "^x"))) %>% 
+  select(!geo)
+
+gdp <- read_csv("data/gdp_pcap.csv") %>% 
+  clean_names() %>%
+  pivot_longer(
+    cols = starts_with("x"),
+    names_to = "year",
+    values_to = "gdp") %>%
+  mutate(year = as.integer(str_remove(year, "^x"))) %>% 
+  select(!geo)
+
+lex <- read_csv("data/lex.csv") %>% 
+  clean_names() %>%
+  pivot_longer(
+    cols = starts_with("x"),
+    names_to = "year",
+    values_to = "lex") %>%
+  mutate(year = as.integer(str_remove(year, "^x"))) %>% 
+  select(!geo)
+```
+
+Join the three datasets.
+```{r}
+gapminder <- pop %>% 
+  left_join(gdp, by = c("name", "year")) %>% 
+  left_join(lex, by = c("name", "year")) %>% 
+  rename(country = name)
+```
+
+Export as a .csv file.
+```{r}
+write_csv(gapminder, "data/gapminder.csv")
+```
