@@ -1,0 +1,43 @@
+---
+title: "Group Projects"
+date: "`r Sys.Date()`"
+output: ioslides_presentation
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+library("jpeg")
+library("tidyverse")
+```
+
+## Please have a seat, but don't log-in yet!
+1. Double check your group.
+2. If you did not choose groupmates, you have one last chance before I assign you.
+
+## Meet your group
+Please take 5 minutes to meet your partner(s) for the class project. Here is what you need to do:  
+1. Introduce yourself and exchange contact information.  
+2. Talk about the kind of data you would like to pursue.  
+3. Please make sure that you sit next to your group members for the rest of the quarter.  
+
+## Grading & Expectations
+1. 100 points (~30%) of your course grade.  
+2. 3-4 students per group.  
+3. Each student must contribute; you evaluate each other at the end of the quarter.  
+4. You must include a Shiny app.  
+6. You must include a presentation.  
+7. Data must follow specific guidelines and be approved. 
+8. The rubric will be posted this week.  
+
+## Data & Suggestions
+1. Unless approved otherwise, data must be from a peer-reviewed journal article.  
+2. You must include the article in your final project.  
+3. Find multiple candidate datasets; pick the best one as a group.  
+4. The data should have a story to tell.  
+5. You should have a mix of continuous and categorical variables.   
+ 
+## For Today
+1. Work together to browse online and find some candidate data.  
+2. Can they be used to show the range of skills you have learned?  
+3. Can they be used to tell a story?  
+4. Leave today with 2-3 candidate datasets.  

@@ -1,0 +1,42 @@
+---
+title: "Lab 12 AI"
+date: "`r Sys.Date()`"
+output: ioslides_presentation
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+library("jpeg")
+```
+
+## AI and R
+1. Two popular AI tools used in programming are GitHub Copilot and ChatGPT.  
+2. GitHub Copilot is an AI-powered code completion tool developed by GitHub (and OpenAI). It integrates into development environments (including RStudio and other IDEs) and provides inline code suggestions as you write.  
+3. ChatGPT (OpenAI) is a conversational AI system that can assist with coding, data analysis, debugging, explanation, and interpretation, depending on the model version being used.  
+
+## Basics
+1. Machine Learning is a broad category of AI that involves training algorithms on data to make predictions.  
+2. Generative AI refers to AI models that can generate new content (text, code, images, etc.) based on patterns learned from training data.  
+3. LLM's (Large Language Models) are a type of generative AI that can understand and generate human-like text based on vast amounts of training data.  
+
+## Discussion
+1. What AI tools have you used (ChatGPT, Copilot, Grammarly, image generators, etc.)?
+2. In what contexts have you used them (school, work, personal projects)?
+3. What worked well? What did not?
+4. What does “generative” mean in the context of AI? Does AI “understand” code, or does it predict patterns? 
+5. Is using AI to write code the same as plagiarism? Who owns AI work?
+6. How should AI use be acknowledged in academic work?
+7. What are the risks of relying on AI without understanding the code? 
+8. Why might AI-generated code look different from beginner-written code? 
+9. Do you think your professors use AI? Would you want instructors to disclose AI use in course materials?
+10. Will AI reduce the need to learn syntax? What skills will become more important in an AI-assisted world?  
+
+## My Thoughts
+1. AI is revolutionary, I am not 100% sure where it is going.  
+2. The rate at which AI is improving is very, very fast.  
+3. Prompting and interaction with AI is a skill that will be increasingly important.  
+4. You need a foundation in coding to use AI effectively.  
+5. You **must** think critically.  
+6. Data, privacy, ownership, and responsibility have not been responsibly addressed.  
+7. Last year, the big AI companies spent $400B on data centers. What is their plan for ROI?
+8. Nothing on the internet is free.  
