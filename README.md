@@ -23,6 +23,9 @@ The class schedule can be found [here](https://jmledford3115.github.io/datascibi
 ## Setup Your Computer  
 Easy [setup instructions](https://jmledford3115.github.io/datascibiol/logistics/setup.html) for your personal computer.  
 
+## Group Projects
+Your group assignments for the group project can be found [here](https://jmledford3115.github.io/datascibiol/logistics/Group_Project_Assignments.html).  
+
 ## Labs  
 1. **Lab 1** | [part 1](https://jmledford3115.github.io/datascibiol/lab1/lab1_1.html) | [part 2](https://jmledford3115.github.io/datascibiol/lab1/lab1_2.html) 
 2. **Lab 2** | [part 1](https://jmledford3115.github.io/datascibiol/lab2/lab2_1.html)
