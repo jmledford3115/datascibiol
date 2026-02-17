@@ -391,40 +391,15 @@ the included code chunks to run. Be sure to add your name to the author
 header above.</p>
 <p>Make sure to use the formatting conventions of RMarkdown to make your
 report neat and clean!</p>
-</div>
-<div id="load-the-libraries" class="section level2">
-<h2>Load the libraries</h2>
-<pre class="r"><code>library(tidyverse)
-library(janitor)
-library(naniar)</code></pre>
-</div>
-<div id="data" class="section level2">
-<h2>Data</h2>
-<p>For this homework, we will use <code>amniota</code> data from:
-Myhrvold N, Baldridge E, Chan B, Sivam D, Freeman DL, Ernest SKM (2015).
-“An amniote life-history database to perform comparative analyses with
-birds, mammals, and reptiles.” <em>Ecology</em>, <em>96</em>, 3109. doi:
-10.1890/15-0846.1 (URL: <a href="https://doi.org/10.1890/15-0846.1" class="uri">https://doi.org/10.1890/15-0846.1</a>).</p>
-<pre class="r"><code>amniota &lt;- read_csv(&quot;data/amniota.csv&quot;) %&gt;% 
-  clean_names()</code></pre>
 <ol style="list-style-type: decimal">
-<li><p>Do some exploratory analysis of the <code>amniota</code> data
-set. Use the function(s) of your choice. Try to get an idea of how NA’s
-are represented in the data.</p></li>
-<li><p>Make any necessary replacements in the data such that all NA’s
-appear as “NA”.</p></li>
-<li><p>How many total NA’s are in the data set? Use the package
-<code>naniar</code> to produce a summary, including percentages, of
-missing data in each column for the <code>amniota</code> data.</p></li>
-<li><p>Double check your replacement using <code>summary</code>. Do you
-see any other potential issues? If so, fix them.</p></li>
-<li><p>Use <code>naniar</code> to visualize the number of NA’s in each
-variable. Which variables have the most NA’s?</p></li>
-<li><p>Calculate the number of NAs in the <code>egg_mass_g</code> column
-sorted by taxonomic class; i.e. how many NA’s are present in the
-<code>egg_mass_g</code> column in birds, mammals, and reptiles? Does
-this results make sense biologically? How do these results affect your
-interpretation of NA’s?</p></li>
+<li><p>List your group members’ names below.</p></li>
+<li><p>Provide a link to your project repository. There should be only
+<em>one</em> project repository per group. The owner needsto add group
+members as collaborators along with <code>jmledford3115</code> and
+<code>bryshalm</code>.</p></li>
+<li><p>Inside your repository, create a data folder. Inside the data
+folder, put copies of the candidate datasets you found along with the
+original articles.</p></li>
 </ol>
 </div>
 <div id="knit-and-upload" class="section level2">

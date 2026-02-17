@@ -1,0 +1,21 @@
+---
+title: "Lab 12 AI Demo"
+date: "`r Sys.Date()`"
+output:
+  html_document:
+    theme: spacelab
+    toc: yes
+    toc_float: yes
+  pdf_document:
+    toc: yes
+---
+
+## Load the libraries
+```{r message=FALSE, warning=FALSE}
+library("tidyverse")
+library("naniar")
+library("janitor")
+```
+
+## Data
+For the following, we will use: Petar Pajic, Pavlos Pavlidis, Kirsten Dean, Lubov Neznanova, Rose-Anne Romano, Danielle Garneau, Erin Daugherity, Anja Globig, Stefan Ruhl, Omer Gokcumen (2019) Independent amylase gene copy number bursts correlate with dietary preferences in mammals eLife 8:e44628. https://doi.org/10.7554/eLife.44628

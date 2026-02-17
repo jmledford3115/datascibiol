@@ -1,7 +1,9 @@
 ---
 title: "Group Projects"
 date: "`r Sys.Date()`"
-output: ioslides_presentation
+output:
+  slidy_presentation: default
+  ioslides_presentation: default
 ---
 
 ```{r setup, include=FALSE}
