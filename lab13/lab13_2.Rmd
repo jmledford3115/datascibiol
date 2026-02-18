@@ -1,0 +1,148 @@
+---
+title: "Lab 13.2"
+date: "`r Sys.Date()`"
+output:
+  html_document:
+    theme: spacelab
+    toc: yes
+    toc_float: yes
+---
+
+## Learning Goals
+*At the end of this exercise, you will be able to:*  
+1. Join data frames in R.   
+2. Format dates in a data frame. 
+
+## Load the libraries
+```{r, message = FALSE}
+library("tidyverse")
+library("janitor")
+library("lubridate") #this will help us manage dates
+```
+
+## Joining Files
+Sometimes data we need is stored in a separate file or becomes available later and we need to join it to our existing data in order to work with it. Let's use an easy example to explore some of the different types of joins. This section was based on the excellent example provided by [Holly Emblem](https://hollyemblem.medium.com/joining-data-with-dplyr-in-r-874698eb8898).  
+
+Let's assume we have a database of customers and their purchases.
+```{r message=FALSE, warning=FALSE}
+
+```
+
+```{r}
+
+```
+
+```{r}
+
+```
+
+The general syntax for joins is...
+```{r}
+#join_type(firstTable, secondTable, by=columnTojoinOn)
+```
+
+`inner_join`  
+Where did customers 3 and 4 go? Since they are not on both tables, they were dropped. So, `inner_join` only keeps the rows that have matching values in both tables; it is very strict about matching.
+```{r}
+
+```
+
+`left_join`
+Where did customer 4 go? Notice the missing data for customer 3. So, `left_join` keeps all the rows in the first table and only the matching rows in the second table. If there is no match, it fills in with NA.
+```{r}
+
+```
+
+`right_join`
+Where did customer 3 go? Notice the missing data for customer 4. `right_join` does the opposite of `left_join`. It keeps all the rows in the second table and only the matching rows in the first table. If there is no match, it fills in with NA.
+```{r}
+
+```
+
+`full_join`
+`full_join` keeps all the rows in both tables and fills in with NA where there is no match.
+```{r}
+
+```
+
+`anti_join`
+Provides the rows in the first table for which there are not matching values in the second table.
+```{r}
+
+```
+
+## Dates
+The `lubridate` package was created to deal with dates of all types. There are many useful functions in `lubridate`, most of which are designed to make working with dates easier. For example, you can easily get the current date and time with `today()` and `now()`.
+```{r}
+
+```
+
+```{r}
+
+```
+
+There are many different options for working with dates and date-times in lubridate including `ymd`, `mdy`, `dmy`, `mdy_hms`, `ymd_hms`. The formats below are common examples of how you might see dates in your data.
+```{r}
+dateformat1 <- "20200922"
+dateformat2 <- "09-22-2020"
+dateformat3 <- "22/09/2020"
+dateformat4 <- "09-22-2020 17:00:00"
+dateformat5 <- "20200922 170000"
+```
+
+## Converting dates 
+We can convert each of the examples above using lubridate.
+```{r}
+
+```
+
+```{r}
+
+```
+
+```{r}
+
+```
+
+```{r}
+
+```
+
+```{r}
+
+```
+
+## Practice
+For this practice, we will use data from my research on _Usofila_ spiders. These spiders live mostly in caves and the data were collected by building a database of all the known museum specimens in the US. There are two files: 1. spider_records.csv which contains all the records of spiders and 2. spiders_locations.csv which contains the lat/long for each record. An accession number is a unique identifier for each specimen.
+
+1. Load the two files as separate dataframes. Make sure to clean the column names.
+```{r message=FALSE, warning=FALSE}
+
+```
+
+```{r, message = FALSE}
+
+```
+
+2. Join the files using an appropriate key and join type.
+```{r}
+
+```
+
+```{r}
+
+```
+
+3. Convert the date column to a date format using lubridate.
+```{r}
+
+```
+
+4. Save your final data to a `.csv`.
+```{r}
+
+```
+
+## That's it, let's take a break!   
+
+-->[Home](https://jmledford3115.github.io/datascibiol/)
