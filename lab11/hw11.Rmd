@@ -20,7 +20,6 @@ Make sure to use the formatting conventions of RMarkdown to make your report nea
 ## Load the libraries
 ```{r message=FALSE, warning=FALSE}
 library(tidyverse)
-library(janitor)
 ``` 
 
 ```{r}
@@ -33,62 +32,330 @@ For this homework, we are going to use the [Gapminder](https://www.gapminder.org
 Let's focus our attention on data from the past 100 years, between 1925 and 2025.
 ```{r message=FALSE, warning=FALSE}
 gapminder <- read_csv("data/gapminder.csv") %>% 
-  clean_names() %>% 
   filter(between(year, 1925, 2025))
 ```
 
 1. Use the function(s) of your choice to get an idea of the overall structure of the data, including its dimensions, column names, classes, etc. 
 ```{r}
-
+dim(gapminder)
+names(gapminder)
+glimpse(gapminder)
 ```
 
 2. How many countries are represented in this dataset?
 ```{r}
-
+gapminder %>% 
+  summarize(n_countries = n_distinct(country))
 ```
 
 3. Which five countries have had the largest absolute population growth between 1925-2025? Show this as a table.
 ```{r}
+pop_growth_top5 <- gapminder %>% 
+  filter(year %in% c(1925, 2025)) %>% 
+  select(country, year, pop) %>% 
+  pivot_wider(names_from = year, values_from = pop, names_prefix = "year_") %>% 
+  mutate(pop_growth = year_2025 - year_1925,
+         abs_pop_growth = abs(pop_growth)) %>% 
+  arrange(desc(abs_pop_growth)) %>% 
+  slice_head(n = 5)
 
+pop_growth_top5
 ```
 
 4. Make a plot that shows population growth over time for the top country you found in question #3.
 ```{r}
+top_country <- pop_growth_top5 %>% 
+  slice_head(n = 1) %>% 
+  pull(country)
 
+gapminder %>% 
+  filter(country == top_country) %>% 
+  ggplot(aes(year, pop)) +
+  geom_line(color = "steelblue", linewidth = 1) +
+  labs(
+    title = paste("Population Growth:", top_country),
+    x = "Year",
+    y = "Population"
+  ) +
+  theme_minimal()
 ```
 
 5. Has global life expectancy changed between 1925 and 2025? Show the min, median, mean, and max for all countries (combined) in the dataset.
 ```{r}
-
+gapminder %>% 
+  filter(year %in% c(1925, 2025)) %>% 
+  group_by(year) %>% 
+  summarize(
+    min_lex = min(lex, na.rm = TRUE),
+    median_lex = median(lex, na.rm = TRUE),
+    mean_lex = mean(lex, na.rm = TRUE),
+    max_lex = max(lex, na.rm = TRUE),
+    .groups = "drop"
+  )
 ```
 
 6. Make a plot that shows the distribution of life expectancy for all countries in 1925 and 2025 (try using `geom_density`). What do you notice about the shift in life expectancy over time?
 ```{r}
-
+gapminder %>% 
+  filter(year %in% c(1925, 2025)) %>% 
+  ggplot(aes(lex, fill = factor(year))) +
+  geom_density(alpha = 0.4) +
+  labs(
+    title = "Life Expectancy Distribution in 1925 vs 2025",
+    x = "Life Expectancy",
+    y = "Density",
+    fill = "Year"
+  ) +
+  theme_minimal()
 ```
 
 7. We are interested in the relationship between per capita GDP and life expectancy; i.e. does having more money help you live longer in 2025? Show this as a plot. (Suggestion! Remove Monaco as an extreme outlier.)
 ```{r}
-
+gapminder %>% 
+  filter(year == 2025, country != "Monaco") %>% 
+  ggplot(aes(gdp, lex)) +
+  geom_point(alpha = 0.6, color = "darkgreen") +
+  geom_smooth(method = "lm", se = FALSE, color = "black", linewidth = 0.8) +
+  labs(
+    title = "GDP per Capita vs Life Expectancy (2025)",
+    x = "GDP per Capita",
+    y = "Life Expectancy"
+  ) +
+  theme_minimal()
 ```
 
 8. Which five countries have had the highest absolute GDP per capita growth over the past 50 years? Show this as a table. (Suggestion! Remove Monaco as an extreme outlier.)
 ```{r}
+gdp_growth_top5 <- gapminder %>% 
+  filter(year %in% c(1975, 2025), country != "Monaco") %>% 
+  select(country, year, gdp) %>% 
+  pivot_wider(names_from = year, values_from = gdp, names_prefix = "year_") %>% 
+  mutate(gdp_growth = year_2025 - year_1975,
+         abs_gdp_growth = abs(gdp_growth)) %>% 
+  arrange(desc(abs_gdp_growth)) %>% 
+  slice_head(n = 5)
 
+gdp_growth_top5
 ```
 
 9. How does per capita GDP growth compare between these same five countries over the past 50 years? Show this as a plot.
 ```{r}
+top5_gdp_countries <- gdp_growth_top5 %>% 
+  pull(country)
 
+gapminder %>% 
+  filter(year >= 1975, country %in% top5_gdp_countries) %>% 
+  ggplot(aes(year, gdp, color = country)) +
+  geom_line(linewidth = 1) +
+  labs(
+    title = "GDP per Capita Trends (Top 5 Absolute Growth Countries)",
+    x = "Year",
+    y = "GDP per Capita",
+    color = "Country"
+  ) +
+  theme_minimal()
 ```
 
 10. Do one analysis of your choice that includes a table and plot as outputs.
 ```{r}
+lex_growth_table <- gapminder %>% 
+  filter(year %in% c(1975, 2025)) %>% 
+  select(country, year, lex) %>% 
+  pivot_wider(names_from = year, values_from = lex, names_prefix = "year_") %>% 
+  mutate(lex_growth = year_2025 - year_1975) %>% 
+  arrange(desc(lex_growth)) %>% 
+  slice_head(n = 10)
 
+lex_growth_table
 ```
 
 ```{r}
+lex_growth_table %>% 
+  ggplot(aes(reorder(country, lex_growth), lex_growth)) +
+  geom_col(fill = "tomato") +
+  coord_flip() +
+  labs(
+    title = "Top 10 Countries by Life Expectancy Gain (1975-2025)",
+    x = "Country",
+    y = "Life Expectancy Gain (years)"
+  ) +
+  theme_minimal()
+```
 
+## Additional Comprehensive EDA
+The analyses below add common EDA checks that are usually done before modeling or interpretation.
+
+11. Data quality checks: missingness, duplicate country-year rows, and year coverage by country.
+```{r}
+quality_summary <- gapminder %>% 
+  summarize(
+    n_rows = n(),
+    n_columns = ncol(gapminder),
+    n_countries = n_distinct(country),
+    min_year = min(year, na.rm = TRUE),
+    max_year = max(year, na.rm = TRUE)
+  )
+
+missing_summary <- gapminder %>% 
+  summarize(across(everything(), ~sum(is.na(.)))) %>% 
+  pivot_longer(
+    cols = everything(),
+    names_to = "variable",
+    values_to = "missing_n"
+  ) %>% 
+  mutate(missing_pct = 100 * missing_n / nrow(gapminder)) %>% 
+  arrange(desc(missing_n))
+
+duplicate_country_year <- gapminder %>% 
+  count(country, year) %>% 
+  filter(n > 1)
+
+country_year_coverage <- gapminder %>% 
+  group_by(country) %>% 
+  summarize(n_years = n_distinct(year), .groups = "drop")
+
+quality_summary
+missing_summary
+duplicate_country_year
+country_year_coverage %>% summarize(min_years = min(n_years), max_years = max(n_years))
+```
+
+```{r}
+missing_summary %>% 
+  ggplot(aes(reorder(variable, missing_n), missing_n)) +
+  geom_col(fill = "gray50") +
+  coord_flip() +
+  labs(
+    title = "Missing Values by Variable",
+    x = "Variable",
+    y = "Number of Missing Values"
+  ) +
+  theme_minimal()
+```
+
+12. Numeric distribution summary and potential outliers in 2025 using the IQR rule.
+```{r}
+numeric_summary <- gapminder %>% 
+  summarize(
+    across(
+      c(pop, gdp, lex),
+      list(
+        min = ~min(., na.rm = TRUE),
+        q1 = ~quantile(., 0.25, na.rm = TRUE),
+        median = ~median(., na.rm = TRUE),
+        mean = ~mean(., na.rm = TRUE),
+        q3 = ~quantile(., 0.75, na.rm = TRUE),
+        max = ~max(., na.rm = TRUE),
+        sd = ~sd(., na.rm = TRUE)
+      )
+    )
+  ) %>% 
+  pivot_longer(
+    cols = everything(),
+    names_to = c("variable", ".value"),
+    names_sep = "_"
+  )
+
+outliers_2025 <- gapminder %>% 
+  filter(year == 2025) %>% 
+  select(country, pop, gdp, lex) %>% 
+  pivot_longer(cols = c(pop, gdp, lex), names_to = "variable", values_to = "value") %>% 
+  group_by(variable) %>% 
+  mutate(
+    q1 = quantile(value, 0.25, na.rm = TRUE),
+    q3 = quantile(value, 0.75, na.rm = TRUE),
+    iqr = q3 - q1,
+    lower = q1 - 1.5 * iqr,
+    upper = q3 + 1.5 * iqr,
+    is_outlier = value < lower | value > upper
+  ) %>% 
+  ungroup() %>% 
+  filter(is_outlier) %>% 
+  arrange(variable, desc(value)) %>% 
+  select(variable, country, value, lower, upper)
+
+numeric_summary
+outliers_2025
+```
+
+```{r}
+gapminder %>% 
+  filter(year == 2025) %>% 
+  pivot_longer(cols = c(pop, gdp, lex), names_to = "variable", values_to = "value") %>% 
+  ggplot(aes(x = variable, y = value)) +
+  geom_boxplot(fill = "lightblue") +
+  scale_y_log10() +
+  labs(
+    title = "2025 Distributions by Variable (Log Scale)",
+    x = "Variable",
+    y = "Value (log10 scale)"
+  ) +
+  theme_minimal()
+```
+
+13. Global trends over time (population, weighted life expectancy, and median GDP per capita).
+```{r}
+global_yearly <- gapminder %>% 
+  group_by(year) %>% 
+  summarize(
+    global_population = sum(pop, na.rm = TRUE),
+    weighted_mean_lex = weighted.mean(lex, pop, na.rm = TRUE),
+    median_gdp = median(gdp, na.rm = TRUE),
+    .groups = "drop"
+  )
+
+global_yearly
+```
+
+```{r}
+global_yearly %>% 
+  ggplot(aes(year, weighted_mean_lex)) +
+  geom_line(color = "firebrick", linewidth = 1) +
+  labs(
+    title = "Population-Weighted Global Life Expectancy Over Time",
+    x = "Year",
+    y = "Weighted Mean Life Expectancy"
+  ) +
+  theme_minimal()
+```
+
+```{r}
+global_yearly %>% 
+  ggplot(aes(year, median_gdp)) +
+  geom_line(color = "navy", linewidth = 1) +
+  scale_y_log10() +
+  labs(
+    title = "Global Median GDP per Capita Over Time",
+    x = "Year",
+    y = "Median GDP per Capita (log10 scale)"
+  ) +
+  theme_minimal()
+```
+
+14. Relationship diagnostics: how the GDP-life expectancy correlation changes over time.
+```{r}
+correlation_by_year <- gapminder %>% 
+  filter(gdp > 0) %>% 
+  group_by(year) %>% 
+  summarize(
+    cor_log10gdp_lex = cor(log10(gdp), lex, use = "complete.obs"),
+    .groups = "drop"
+  )
+
+correlation_by_year
+```
+
+```{r}
+correlation_by_year %>% 
+  ggplot(aes(year, cor_log10gdp_lex)) +
+  geom_line(color = "darkgreen", linewidth = 1) +
+  geom_hline(yintercept = 0, linetype = "dashed", color = "gray40") +
+  labs(
+    title = "Correlation Between log10(GDP) and Life Expectancy Over Time",
+    x = "Year",
+    y = "Pearson Correlation"
+  ) +
+  theme_minimal()
 ```
 
 ## Knit and Upload
