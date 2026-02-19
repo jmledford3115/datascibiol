@@ -1,0 +1,21 @@
+---
+title: "Lab 13 Intro"
+date: "`r Sys.Date()`"
+output:
+  slidy_presentation: default
+  ioslides_presentation: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+library("jpeg")
+library("tidyverse")
+```
+
+## For Today:
+1. Please make sure to sit with your group and login as normal.
+2. Make sure you have each others' contact information.
+3. Make sure you have one new GitHub repository for your group. All group members should be added as collaborators.
+4. Bry and I will circulate and approve your data. 
+5. Have your data imported into R and ready for us to look at.
+6. While you wait for us, you should be exploring your data and thinking about how the kinds of questions/analyses you can do with it.
