@@ -1,0 +1,33 @@
+---
+title: "Lab 14 Intro"
+date: "`r Sys.Date()`"
+output: ioslides_presentation
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+library("jpeg")
+```
+
+## Mapping
+1. Make an account with [Stadia Maps](https://client.stadiamaps.com/signup/).  
+2. You need to add a "property" which is just a name for your project.   
+3. Once you have an account, you can get an API key.  
+4. Use your API key to get access to maps.  
+
+## Group project
+1. Make sure you have settled on a dataset.    
+2. All group members should have carefully read the original study.   
+3. Make a plan.
+    - What are the questions you want to answer? 
+    - What are the variables you will use to answer those questions? 
+    - What are the analyses you will perform? 
+    - How will you present your results? 
+    - Who is responsible for which parts?  
+    
+## Midterm 2
+1. Midterm 2 is next Tuesday, March 3.  
+2. It is worth 50 points towards your final grade.  
+3. Expect a similar format to midterm 1, and it is cumulative.  
+4. Mapping and simple Shiny Apps may be included on the exam.  
+5. You may use your repository, but no AI tools.  

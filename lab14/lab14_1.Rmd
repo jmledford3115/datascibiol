@@ -1,0 +1,143 @@
+---
+title: "Lab 14.1"
+date: "`r Sys.Date()`"
+output:
+  html_document:
+    theme: spacelab
+    toc: yes
+    toc_float: yes
+  pdf_document:
+    toc: yes
+---
+
+## Learning Goals
+*At the end of this exercise, you will be able to:*  
+1. Explain the difference between vector and raster data.  
+2. Use `ggmap` to produce distribution maps based on latitude and longitude coordinates.  
+ 
+## Resources
+[ggmap](https://cran.r-project.org/web/packages/ggmap/readme/README.html)
+
+## Vector vs. Raster Data
+In lab we are using vector data, which represents geographic features as points, lines, and polygons. Raster data represents space as a regular grid of cells (pixels), where each cell stores a value for a variable (elevation, precipitation, temperature, reflectance, etc.).  
+
+- Vector data is often used for discrete features (e.g., locations, roads, rivers, political boundaries).
+- Raster data is often used for continuous variables (e.g., elevation, temperature, land cover).  
+
+## Packages
+There are many packages and techniques for working with spatial data in R. We will cover only some of the basics. One package is ggmap, which allows us to retrieve and display base maps from services such as Google Maps and OpenStreetMap (and related tile providers). It integrates with ggplot2, meaning maps and spatial data can be layered using the same grammar of graphics framework.  
+
+We will also use leaflet, which is a package for creating interactive maps. It allows you to create maps that users can zoom and pan, and it supports a wide range of map tiles and markers.  
+
+## Load the libraries
+```{r message=FALSE, warning=FALSE}
+library(tidyverse)
+library(janitor)
+```
+
+## Install and load the `ggmap` and `leaflet` packages  
+```{r message=FALSE, warning=FALSE}
+#install.packages("ggmap")
+library(ggmap)
+#install.packages("leaflet")
+library(leaflet)
+```
+
+## Register for a Stamen API Key
+Because some of these maps are proprietary, you will need an API key to use them. We are going to use Stamen maps which requires registration, but no payment.   
+
+Start by making an account with [Stadia Maps](https://client.stadiamaps.com/signup/). You need to add a "property" which is just a name for your project. Once you have an account, you can get an API key. Use the following code to register your key.  
+```{r}
+register_stadiamaps("YOUR API KEY HERE", write = FALSE)
+```
+
+## Load the Data
+Let's load our processed spider data from the previous lab. There is an error in one of the coordinates that we will also fix here.
+```{r message=FALSE, warning=FALSE}
+spiders <- read_csv("data/spiders_with_locs.csv")%>% 
+  clean_names() %>% 
+  filter(latitude<=42)
+```
+
+## Create Base Map
+Our goal is to plot the spiders locations from the columns which contain the latitude and longitude. First, we need to get a base map for plotting our points on. We could plot them without a base map, but that wouldn't give us any context as to where they are in space. To get a base map we specify a min and max of each x and y coordinate, and create a bounding box.  
+
+We set the bounding box to a little outside our min and max locations with `f = 0.03`. This gives an extra 3% padding to the bounding box.   
+
+`summary()` gives us our min and max.
+```{r}
+
+```
+
+Now we set the bounding box. We use the min and max values for latitude and longitude to set the range.  
+```{r}
+
+```
+
+Let's get a base map for our bounding box area. There are several different map [styles](https://docs.stadiamaps.com/themes/)
+```{r}
+
+```
+
+Have a look at the map.  
+```{r}
+
+```
+
+## Adding Points to Base Map
+To add our points we only need to specify the x and y location similar to how we made plots in `ggplot.` 
+```{r}
+
+```
+
+## Leaflet
+If we want to make an interactive map, we can use the `leaflet` package. This allows us to zoom and pan around the map, and we can add popups with information about each point.  
+
+Get the min/max from the data.
+```{r}
+
+```
+
+Add this to four new variables which will be used to create the bounding box in leaflet.
+```{r}
+
+```
+
+Build the interactive map using Stadia maps.
+```{r}
+
+```
+
+Build the same interactive map using default OpenStreet maps.
+```{r}
+
+```
+
+## Practice
+For this practice we will use data on the distribution of grizzly bears in Alaska. The data are from: https://rcweb.dartmouth.edu/~f002d69/workshops/index_rspatial.html) represent sightings of grizzly bears (Ursos arctos) in Alaska.
+
+1. Load the `grizzly` data and evaluate its structure.  
+```{r message=FALSE, warning=FALSE}
+
+```
+
+2. Use the range of the latitude and longitude to build an appropriate bounding box for your map.  
+```{r}
+
+```
+
+3. Load a map from `stadiamaps` in a `stamen_terrain` projection and display the map.
+```{r}
+
+```
+
+```{r}
+
+```
+
+4. Build a final map that overlays the recorded observations of grizzly bears in Alaska.  
+```{r}
+
+```
+
+-->[Home](https://jmledford3115.github.io/datascibiol/)

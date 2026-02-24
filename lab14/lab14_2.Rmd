@@ -1,0 +1,124 @@
+---
+title: "Lab 14.2"
+date: "`r Sys.Date()`"
+output:
+  html_document: 
+    theme: spacelab
+    toc: yes
+    toc_float: yes
+---
+
+## Learning Goals
+*At the end of this exercise, you will be able to:*
+1. Understand the basic building blocks of a shiny app.
+2. Understand how shiny works with user inputs to build outputs.
+
+## Resources
+-   [Shiny Main Page](https://shiny.rstudio.com/gallery/)
+-   [Mastering Shiny](https://mastering-shiny.org/index.html)
+
+## Shiny
+Shiny is an R package which makes it easy to design interactive web applications without knowing any html, css, or java script. First we need to make sure we have shiny installed and loaded.
+```{r, echo=FALSE}
+#install.packages("shiny")
+library("shiny")
+```
+
+We will also need the `tidyverse`, `janitor`, and `palmerpenguins` to run the examples.
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+library("tidyverse")
+library("palmerpenguins")
+library("janitor")
+```
+
+## Shiny Example
+Shiny apps can be designed to do almost anything you can imagine. They are very useful for making specialized tools for specific needs in business and research, or just for fun! Let's run a basic example on our computer. Type the following into the R console. You should have the file `plot_iris.R` in your working directory. Use the drop down menus to change the x and y axes on the plot.
+```{r, eval=F, echo=T}
+#runApp("plot_iris.R")
+```
+
+## Built-in Examples
+There are many built-in examples in shiny. You can run them by typing the following into the R console. Examples: "01_hello", "02_text", "03_reactivity", "04_mpg", "05_sliders", "06_tabsets", "07_widgets", "08_html", "09_upload", "10_download", "11_timer"
+```{r}
+#runExample("04_mpg")
+```
+
+## Other Examples
+Shiny apps can be very powerful and complex. Here are some examples of shiny apps that have been built by the [life science community](https://www.appsilon.com/post/r-shiny-in-life-sciences-examples#dashboard-2).  
+
+## Shiny App Skeleton
+A shiny app consists of a user interface (ui) function, server function, and run function.
+
+1.  The `ui` function controls the user inputs and the way the app will be displayed; i.e. this controls how your app looks.  
+2.  The `server` function is the part of the app which takes the values of the user inputs, performs calculations and/or makes plots, and prepares the outputs for display; i.e. this controls how your app works.
+3.  The `run` function combines the ui and server function to run the app.  
+
+Below is a bare bones shiny app. You can get this code snippet by typing `shinyapp` + shift + tab. It doesn't do anything because we haven't created any inputs with the ui or any outputs with the server.  
+```{r, eval=F, echo=T}
+library(shiny)
+
+ui <- fluidPage(
+  
+)
+
+server <- function(input, output, session) {
+  
+}
+
+shinyApp(ui, server)
+```
+
+For the rest of the lab we will work on building an example app using `palmerpenguins`.
+
+## Shiny Inputs
+There are many types of inputs in shiny, see the [shiny cheat sheet](https://shiny.posit.co/r/articles/start/cheatsheet/). Our example app uses `selectInput()`, which takes a set of predefined choices and supplies them to the user in a drop down menu format. We are working with the `palmerpenguins` data set, so we want the selections to be the column names of the data frame.  
+
+Let's get the names of the `palmerpenguins` data frame and add them as a `selectInput()` to our ui. `selectInput()` takes several arguments including the label that the server function will use, the label that will display to the user, the selection choices, and the initially selected choice. I always start by making a simple example plot so I know where I am going. 
+
+```{r}
+
+```
+
+```{r}
+
+```
+
+Since we will make a scatterplot, let's focus on the continuous variables. The first step is to setup the x variable input.
+```{r, eval=F, echo=T}
+
+```
+
+Let's repeat the process for the y variable input.
+```{r, eval=F, echo=T}
+
+```
+
+## Server Side
+Great, we now have our user inputs set up! Next we need to work with those inputs so R can make the plot. This can be the tricky part. The processing is done in the server function. The ui passes the names of our choices via an object called `inputs` to the server function. We need to access our inputs by their names with the `$` symbol. To get the x input we type `input$x` and y is `input$y`.  
+
+All reactive inputs need to be wrapped in a reactive environment called a reactive function. Reactivity is the core of shiny. Let's wrap our reactive input values in a reactive function on the server side and run our app as a test. What happens? Are we doing anything with the inputs yet?  
+```{r, eval=F, echo=T}
+
+```
+
+## Shiny Outputs
+So we have our inputs in a reactive environment, but we want to actually use those inputs to make a plot and display it on the ui. To make and display the plot, we need to save it to a named output object that the ui can use. To do this we use the reactive expression `renderPlot()` and access the plot on the ui side with `plotOutput()`. The inputs from `selectInput()` are character strings, so we need to use `aes_string()` in `ggplot`.
+```{r, eval=F, echo=T}
+
+```
+
+Congratulations, you made your first shiny app!  
+
+## Practice
+
+1. Please load the data as a new object `homerange` and have a look at the column names.
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+
+```
+
+2.  Build a shiny app that produces a barplot that explores `locomotion` type with a fill reaction for the variables `trophic_guild` and `thermoregulation`.
+```{r, eval=F, echo=T}
+
+```
+
+--\>[Home](https://jmledford3115.github.io/datascibiol/)
