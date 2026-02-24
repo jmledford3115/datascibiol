@@ -27,36 +27,70 @@ Easy [setup instructions](https://jmledford3115.github.io/datascibiol/logistics/
 Your group assignments for the group project can be found [here](https://jmledford3115.github.io/datascibiol/logistics/Group_Project_Assignments.html).  
 
 ## Labs  
-1. **Lab 1** | [part 1](https://jmledford3115.github.io/datascibiol/lab1/lab1_1.html) | [part 2](https://jmledford3115.github.io/datascibiol/lab1/lab1_2.html) 
-2. **Lab 2** | [part 1](https://jmledford3115.github.io/datascibiol/lab2/lab2_1.html)
-3. **Lab 3** | [part 1](https://jmledford3115.github.io/datascibiol/lab3/lab3_1.html) | [part 2](https://jmledford3115.github.io/datascibiol/lab3/lab3_2.html)
-4. **Lab 4** | [part 1](https://jmledford3115.github.io/datascibiol/lab4/lab4.html)
-5. **Lab 5** | [part 1](https://jmledford3115.github.io/datascibiol/lab5/lab5_1.html) | [part 2](https://jmledford3115.github.io/datascibiol/lab5/lab5_2.html)
-6. **Lab 6** | [part 1](https://jmledford3115.github.io/datascibiol/lab6/lab6_1.html)
-7. **Lab 7** | [part 1](https://jmledford3115.github.io/datascibiol/lab7/lab7_1.html)
-8. **Lab 8** | [part 1](https://jmledford3115.github.io/datascibiol/lab8/lab8_1.html)
-9. **Lab 9** | [part 1](https://jmledford3115.github.io/datascibiol/lab9/lab9_1.html) | [part 2](https://jmledford3115.github.io/datascibiol/lab9/lab9_2.html)
-10. **Lab 10** | [part 1](https://jmledford3115.github.io/datascibiol/lab10/lab10_1.html) | [part 2](https://jmledford3115.github.io/datascibiol/lab10/lab10_2.html)
-11. **Lab 11** | [part 1](https://jmledford3115.github.io/datascibiol/lab11/lab11_1.html) | [part 2](https://jmledford3115.github.io/datascibiol/lab11/lab11_2.html)
-12. **Lab 12** | [part 1](https://jmledford3115.github.io/datascibiol/lab12/lab12_projects.html)
-13. **Lab 13** | [part 1](https://jmledford3115.github.io/datascibiol/lab13/lab13_1.html) | [part 2](https://jmledford3115.github.io/datascibiol/lab13/lab13_2.html)
-14. **Lab 14** | [part 1](https://jmledford3115.github.io/datascibiol/lab14/lab14_1.html) | [part 2](https://jmledford3115.github.io/datascibiol/lab14/lab14_2.html)
 
-## Homework  
-1. [Homework 1](https://jmledford3115.github.io/datascibiol/lab1/hw1.html)
-2. [Homework 2](https://jmledford3115.github.io/datascibiol/lab2/hw2.html)
-3. [Homework 3](https://jmledford3115.github.io/datascibiol/lab3/hw3.html)
-4. [Homework 4](https://jmledford3115.github.io/datascibiol/lab4/hw4.html)
-5. [Homework 5](https://jmledford3115.github.io/datascibiol/lab5/hw5.html)
-6. [Homework 6](https://jmledford3115.github.io/datascibiol/lab6/hw6.html)
-7. [Homework 7](https://jmledford3115.github.io/datascibiol/lab7/hw7.html)
-8. [Homework 8](https://jmledford3115.github.io/datascibiol/lab8/hw8.html)
-9. [Homework 9](https://jmledford3115.github.io/datascibiol/lab9/hw9.html)
-10. [Homework 10](https://jmledford3115.github.io/datascibiol/lab10/hw10.html)
-11. [Homework 11](https://jmledford3115.github.io/datascibiol/lab11/hw11.html)
-12. [Homework 12](https://jmledford3115.github.io/datascibiol/lab12/hw12.html)
-13. [Homework 13](https://jmledford3115.github.io/datascibiol/lab13/hw13.html)
-14. [Homework 14](https://jmledford3115.github.io/datascibiol/lab14/hw14.html)
+1. **Lab 1**
+   - [Part 1](https://jmledford3115.github.io/datascibiol/lab1/lab1_1.html)
+   - [Part 2](https://jmledford3115.github.io/datascibiol/lab1/lab1_2.html)
+   - [Homework 1](https://jmledford3115.github.io/datascibiol/lab1/hw1.html)
+
+2. **Lab 2**
+   - [Part 1](https://jmledford3115.github.io/datascibiol/lab2/lab2_1.html)
+   - [Homework 2](https://jmledford3115.github.io/datascibiol/lab2/hw2.html)
+
+3. **Lab 3**
+   - [Part 1](https://jmledford3115.github.io/datascibiol/lab3/lab3_1.html)
+   - [Part 2](https://jmledford3115.github.io/datascibiol/lab3/lab3_2.html)
+   - [Homework 3](https://jmledford3115.github.io/datascibiol/lab3/hw3.html)
+
+4. **Lab 4**
+   - [Part 1](https://jmledford3115.github.io/datascibiol/lab4/lab4.html)
+   - [Homework 4](https://jmledford3115.github.io/datascibiol/lab4/hw4.html)
+
+5. **Lab 5**
+   - [Part 1](https://jmledford3115.github.io/datascibiol/lab5/lab5_1.html)
+   - [Part 2](https://jmledford3115.github.io/datascibiol/lab5/lab5_2.html)
+   - [Homework 5](https://jmledford3115.github.io/datascibiol/lab5/hw5.html)
+
+6. **Lab 6**
+   - [Part 1](https://jmledford3115.github.io/datascibiol/lab6/lab6_1.html)
+   - [Homework 6](https://jmledford3115.github.io/datascibiol/lab6/hw6.html)
+
+7. **Lab 7**
+   - [Part 1](https://jmledford3115.github.io/datascibiol/lab7/lab7_1.html)
+   - [Homework 7](https://jmledford3115.github.io/datascibiol/lab7/hw7.html)
+
+8. **Lab 8**
+   - [Part 1](https://jmledford3115.github.io/datascibiol/lab8/lab8_1.html)
+   - [Homework 8](https://jmledford3115.github.io/datascibiol/lab8/hw8.html)
+
+9. **Lab 9**
+   - [Part 1](https://jmledford3115.github.io/datascibiol/lab9/lab9_1.html)
+   - [Part 2](https://jmledford3115.github.io/datascibiol/lab9/lab9_2.html)
+   - [Homework 9](https://jmledford3115.github.io/datascibiol/lab9/hw9.html)
+
+10. **Lab 10**
+    - [Part 1](https://jmledford3115.github.io/datascibiol/lab10/lab10_1.html)
+    - [Part 2](https://jmledford3115.github.io/datascibiol/lab10/lab10_2.html)
+    - [Homework 10](https://jmledford3115.github.io/datascibiol/lab10/hw10.html)
+
+11. **Lab 11**
+    - [Part 1](https://jmledford3115.github.io/datascibiol/lab11/lab11_1.html)
+    - [Part 2](https://jmledford3115.github.io/datascibiol/lab11/lab11_2.html)
+    - [Homework 11](https://jmledford3115.github.io/datascibiol/lab11/hw11.html)
+
+12. **Lab 12**
+    - [Part 1](https://jmledford3115.github.io/datascibiol/lab12/lab12_projects.html)
+    - [Homework 12](https://jmledford3115.github.io/datascibiol/lab12/hw12.html)
+
+13. **Lab 13**
+    - [Part 1](https://jmledford3115.github.io/datascibiol/lab13/lab13_1.html)
+    - [Part 2](https://jmledford3115.github.io/datascibiol/lab13/lab13_2.html)
+    - [Homework 13](https://jmledford3115.github.io/datascibiol/lab13/hw13.html)
+
+14. **Lab 14**
+    - [Part 1](https://jmledford3115.github.io/datascibiol/lab14/lab14_1.html)
+    - [Part 2](https://jmledford3115.github.io/datascibiol/lab14/lab14_2.html)
+    - [Homework 14](https://jmledford3115.github.io/datascibiol/lab14/hw14.html)
 
 ## About the Class  
 This class has been developed with the generous help of Bryshal Moore, Hannah Houts, Katherine Ransom, Rebecca Godwin, Min-Yao Jhu, Julin Maloof, and the students of BIS 15L.  
