@@ -92,5 +92,10 @@ Your group assignments for the group project can be found [here](https://jmledfo
     - [Part 2](https://jmledford3115.github.io/datascibiol/lab14/lab14_2.html)
     - [Homework 14](https://jmledford3115.github.io/datascibiol/lab14/hw14.html)
 
+15. **Lab 15**
+    - [Part 1](https://jmledford3115.github.io/datascibiol/lab15/lab15_1.html)
+    - [Part 2](https://jmledford3115.github.io/datascibiol/lab15/lab15_2.html)
+    - [Homework 15](https://jmledford3115.github.io/datascibiol/lab15/hw15.html)
+    
 ## About the Class  
 This class has been developed with the generous help of Bryshal Moore, Hannah Houts, Katherine Ransom, Rebecca Godwin, Min-Yao Jhu, Julin Maloof, and the students of BIS 15L.  

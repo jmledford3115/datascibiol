@@ -1,0 +1,106 @@
+---
+title: "Lab 15.2"
+date: "`r Sys.Date()`"
+output:
+  html_document: 
+    theme: spacelab
+    toc: yes
+    toc_float: yes
+---
+
+## Learning Goals
+*At the end of this exercise, you will be able to:*  
+1. Use `shinydashboard` to improve ui aesthetics.  
+
+## Load the Libraries  
+```{r message=FALSE, warning=FALSE}
+library(tidyverse)
+library(shiny)
+library(shinydashboard)
+library(janitor)
+```
+
+## Load the Data
+For this lab, we will use data on the gestation length of eutherian mammals. The data are from: Thodoris Danis, Antonis Rokas; The evolution of gestation length in eutherian mammals. Proc. Biol. Sci. 1 October 2024; 291 (2033): 20241412. https://doi.org/10.1098/rspb.2024.1412
+```{r message=FALSE, warning=FALSE}
+gestation <- read_csv("data/Data_S1.csv") %>% 
+  clean_names() %>% 
+  rename(gestationlength=gestationength)
+```
+
+```{r}
+names(gestation)
+```
+
+## Aesthetics
+There are many ways to adjust shiny apps for better visual appeal. Let's start with some more practice and then add details.  
+
+1. Build an app that allows users to select a mammalian `order` and a variable of interest (body mass, longevity, or gestation length) and then plots the density distribution of that variable for the selected order.
+```{r, eval=F, echo=T}
+
+```
+
+## ui Layout with `shinydashboard`
+We have a functional app, but the layout doesn't look very nice. We can change that with many different methods (and specialized libraries), but shiny dashboards are simple to use and offer a lot of functionality for making apps look professional quickly.  
+
+We won't use `fluidPage()` with `shinydashboard` but rather `dashboardPage()`. A shiny dashboard contains a minimum of a header, a sidebar, and a body.
+```{r, eval=F, echo=T}
+ui <- 
+  dashboardPage(
+    
+  
+  dashboardHeader(title = "This is the Header"),
+ 
+  dashboardSidebar(title = "This is the Sidebar"),
+  
+  dashboardBody() # this is where the output will go
+)
+
+server <- function(input, output) { }
+
+shinyApp(ui, server)
+```
+
+Let's add our ui and server elements to make a functional dashboard. We will put our ui elements in the `dashboardBody()`. For now, we will turn off the sidebar.
+```{r, eval=F, echo=T}
+
+```
+
+Now let's add our server functions.
+```{r, eval=F, echo=T}
+
+```
+
+What if you want to turn on the sidebar and put the inputs there? We can do that by moving the `selectInput()` functions to the `dashboardSidebar()`.
+```{r, eval=F, echo=T}
+
+```
+
+Whew! We made it! We created a nice looking app with `shinydashboard`. And now we can easily see how even a basic shiny app can become messy and why it's always helpful to include lots of annotations. chatGPT can really help troubleshoot errors and is especially helpful with annotation.    
+
+## Practice
+Let's try to build an app that allows users to explore sex composition of wolf packs by `pop`. These data are from: Brandell, Ellen E (2021), Serological dataset and R code for: Patterns and processes of pathogen exposure in gray wolves across North America, Dryad, [Dataset](https://doi.org/10.5061/dryad.5hqbzkh51)  
+
+1. Start by loading and exploring the data.
+```{r message=FALSE, warning=FALSE}
+wolves <- read_csv("data/wolves_data/wolves_dataset.csv") %>% clean_names()
+```
+
+```{r}
+names(wolves)
+```
+
+2. For the app, here is a faceted version of what we are looking for. We want the reactive part to be `pop` and you should try to use `shinydashboard`.
+```{r}
+wolves %>% 
+  filter(sex!="NA") %>% 
+  ggplot(aes(x=sex, fill=sex))+
+  geom_bar()+
+  facet_wrap(~pop)
+```
+
+```{r, eval=F, echo=T}
+
+```
+
+-->[Home](https://jmledford3115.github.io/datascibiol/)

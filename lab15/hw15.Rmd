@@ -1,0 +1,39 @@
+---
+title: "Homework 15"
+author: "Your Name Here"
+date: "`r Sys.Date()`"
+output:
+  html_document:
+    theme: spacelab
+    toc: no
+---
+
+## Instructions
+Answer the following questions and complete the exercises in RMarkdown. Please embed all of your code and push your final work to your repository. Your final lab report should be organized, clean, and run free from errors. Remember, you must remove the `#` for the included code chunks to run. Be sure to add your name to the author header above.  
+
+Make sure to use the formatting conventions of RMarkdown to make your report neat and clean!  
+
+## Load the libraries
+```{r message=FALSE, warning=FALSE}
+library(tidyverse)
+library(janitor)
+library(shiny)
+library(shinydashboard)
+``` 
+
+## Load the data
+For this homework, we will use data on African elephants. These data are from: Phyllis C. Lee, Luc F. Bussière, C. Elizabeth Webber, Joyce H. Poole, Cynthia J. Moss; Enduring consequences of early experiences: 40 year effects on survival and success among African elephants (Loxodonta africana). Biol Lett 23 April 2013; 9 (2): 20130011. https://doi.org/10.1098/rsbl.2013.0011
+```{r}
+elephants <- read_csv("data/elephants_data/elephants.csv") %>%
+  clean_names()
+```
+
+1. There are only three variables in the data. Two are continuous (age, height) and one is categorical (sex). Build an app that compares the range of age and height by sex. Users should be able to select either age or height. Make the app neat, clean, and professional. Use `shinydashboard` to improve the aesthetics of your app.
+```{r, eval=F, echo=T}
+
+```
+
+2. In addition to the .Rmd file, save your app as a standalone R script called `elephants.csv`.
+
+## Knit and Upload
+Please knit your work as an .html file and upload to Canvas. Homework is due before the start of the next lab. No late work is accepted. Make sure to use the formatting conventions of RMarkdown to make your report neat and clean!

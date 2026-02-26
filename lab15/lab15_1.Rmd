@@ -1,0 +1,71 @@
+---
+title: "Lab 15.1"
+date: "`r Sys.Date()`"
+output:
+  html_document: 
+    theme: spacelab
+    toc: yes
+    toc_float: yes
+---
+
+## Learning Goals
+*At the end of this exercise, you will be able to:*  
+1. Build a basic shiny app with reactive inputs and outputs.  
+2. Run a shiny app from a stand alone script.  
+3. Add a new input to the ui.  
+
+## Load the Libraries  
+```{r message=FALSE, warning=FALSE}
+library(tidyverse)
+library(shiny)
+library(shinythemes)
+library(janitor)
+```
+
+## Build a Basic Shiny App
+Recall that every shiny app has a ui, server, and run function. The ui is the user interface, which is what the user sees and interacts with. The server is where the code that creates the outputs goes. The run function is where we call the ui and server to run the app. 
+
+The basic skeleton of a shiny app looks like this:
+```{r, eval=F, echo=T}
+ui <- fluidPage(
+  
+)
+
+server <- function(input, output, session) {
+  
+}
+
+shinyApp(ui, server)
+```
+
+Let's use the built-in msleep data to build a basic app. The data are from: V. M. Savage and G. B. West. A quantitative, theoretical framework for understanding mammalian sleep. Proceedings of the National Academy of Sciences, 104 (3):1051-1056, 2007.
+```{r}
+
+```
+
+Since the data are focused on sleep patterns, let's make a plot that shows the range of `sleep_total` by `vore` type.
+```{r}
+
+```
+
+If we want to make the plot interactive, we could allow users to select the sleep variable of interest. These include `sleep_total`, `sleep_rem`, `sleep_cycle`, and `awake.` We can use a selectInput to allow users to select the variable of interest in a drop-down menu.
+```{r, eval=F, echo=T}
+
+```
+
+Since we only have one interaction, we can move on to the server function. The server function is where we write the code that creates the outputs. In this case, we want to create a plot that shows the range of the selected sleep variable by vore type. We can use the `renderPlot` function to create the plot output.
+```{r, eval=F, echo=T}
+
+```
+
+## Running A Shiny App from an R Script
+In BIS 15L, we use RMarkdown to write code, including building shiny apps. But, in practice shiny apps are often built as stand-alone scripts. This way, even people with limited programming experience can run an app or it can be hosted online.  
+
+Let's take our app above and make it into a standalone R Script.  
+
+1. Navigate to the file tab in RStudio and click "New File" > "R Script".  
+2. Copy/paste your app into the script.  
+3. Make sure to add the libraries that are needed at the top.  
+4. Save your app as `msleep.R`.  
+
+-->[Home](https://jmledford3115.github.io/datascibiol/)
