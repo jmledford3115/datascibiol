@@ -1,0 +1,23 @@
+---
+title: "Lab 14 Intro"
+date: "`r Sys.Date()`"
+output: ioslides_presentation
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+library("jpeg")
+```
+
+## Midterm 2
+1. Midterm 2 is next Tuesday, March 3.  
+2. It is worth 50 points towards your final grade.  
+3. Expect a similar format to midterm 1, and it is cumulative.  
+4. Mapping and a simple Shiny App may be included on the exam.  
+5. You may use your repository, but no AI tools.  
+
+## Group project
+1. The rubric has been uploaded.  
+2. Each group member should have a clearly defined set of responsibilities.  
+3. There should be a "story" to tell; each group will give a short presentation.  
+4. The project should showcase a range of skills learned in this course, including data wrangling, visualization, mapping, etc.
