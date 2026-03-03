@@ -1,0 +1,101 @@
+---
+title: "Midterm 2 W26"
+date: "`r Sys.Date()`"
+output:
+  html_document:
+    theme: spacelab
+    toc: no
+---
+
+## Instructions
+This is an in-person exam. Your exam must be complete and uploaded to Gradescope by 2:00p.  
+
+Answer the following questions and complete the exercises in RMarkdown. Please embed all of your code and push your final work to your repository. Your code must be organized, clean, and run free from errors. Remember, you must remove the `#` for any included code chunks to run. Be sure to add your name to the author header above. 
+
+Your code must knit in order to be considered. If you are stuck and cannot answer a question, then comment out your code and knit the document. You may use your notes, labs, and homework to help you complete this exam. Do not use any other resources- including AI assistance or other students' work.  
+
+Don't forget to answer any questions that are asked in the prompt! Each question must be coded; it cannot be answered by a sort in a spreadsheet or a written response only.  
+
+For all plots you create, a title and clearly labeled axes must be provided.  
+
+Be sure to push your completed midterm to your repository and upload the document to Gradescope. _Incorrectly uploading the exam to Gradescope will result in a 5 point deduction._ This exam is worth 50 points. 
+
+## Load the libraries
+```{r message=FALSE, warning=FALSE}
+library(tidyverse)
+library(janitor)
+library(naniar)
+library(ggmap)
+library(lubridate)
+library(shiny)
+``` 
+
+## API Key
+Since you will build a map as part of the exam, take a moment to register your API key. You may need to look up your [stadia maps](https://client.stadiamaps.com/dashboard/overview) API key online (please do that now).
+```{r}
+#register_stadiamaps("YOUR API KEY", write = FALSE)
+```
+
+## About the data
+This study is focused on the fasting behavior of polar bears in the Southern Beaufort (SB) and Chukchi seas (CS). The data were collected from 1983-2017 and include measurements of blood urea nitrogen (BUN) and creatinine, which are used to calculate a ratio that indicates whether a bear is fasting or not. The original paper is included in the data folder. _It may help to quickly read the abstract before starting the exam._  
+
+The data are from: Rode, K.D., Wilson, R.R., Douglas, D.C., Muhlenbruch, V., Atwood, T.C., Regehr, E.V., Richardson, E.S., Pilfold, N.W., Derocher, A.E., Durner, G.M., Stirling, I., Amstrup, S.C., St. Martin, M., Pagano, A.M., and others, 2017, Spring fasting behavior in a marine apex predator provides an index of ecosystem productivity: Global Change Biology, v. 24, no. 1, p. 410–423, https://doi.org/10.1111/gcb.13933.  
+
+## Data resources
+- https://data.usgs.gov/datacatalog/data/USGS:ASC141
+- https://www.sciencebase.gov/catalog/item/61a1a9e7d34eb622f69743d2
+
+## The variables include:  
+- `bear_id`: A unique number given to each bear.    
+- `capture_date`: The data when the bear was tranquilized and assessed.  
+- `popn`: The population to which the bear belongs.  
+- `sex `: Sex of each bear.    
+- `age_class`: The age class of each bear (A=adult, S=subadult).   
+- `mating`: Whether or not the bear is pursuing a mate.  
+- `denning`: Whether or not the bear denned last year.  
+- `lat`: Latitude where the bear was located.  
+- `long`: Longitude where the bear was located.  
+- `urea_nitrogen`: Concentration of urea nitrogen.  
+- `creatinine`: Concentration of creatinine.  
+
+## Load the data
+Run the code chunk below to load the data, clean the names, and do some tidying.
+```{r message=FALSE, warning=FALSE}
+polar_bears <- 
+  read_csv("data/polarBear_serumUreaCreatinine_beaufortChukchi_rode.csv") %>% 
+  clean_names() %>% 
+  select(-den_method, -no_cubs, -cub_age) %>%
+  filter(age_class==c("A", "S")) %>% 
+  mutate(sex=toupper(sex), 
+         age_class=toupper(age_class))
+```
+
+1. (2 points) List the variable names and use a summary function to get an idea of the data structure.
+
+2. (3 points) How are NA's represented and where are they distributed in the variables? Use the `naniar` package to visualize the distribution of NA's in the data and replace any alternative representations of NA with actual NA values.
+
+3. (6 points) Is sampling even for both sexes? Make a count the shows the number of males and females sampled by population and make a plot to visualize the counts.
+
+4. (6 points) How many bears were sampled in each year for both populations? Make a line plot(s) to visualize sampling by year for both populations. (hint: you will need to pull apart the date to get the year in its own column)
+
+5. (2 points) What are the min, median, mean, and max values for `urea_nitrogen` and `creatinine`?
+
+6. (3 points) As explained above, the ratio of `urea_nitrogen` to `creatinine` is used as an index of fasting. To calculate the ratio, we need to multiply `urea_nitrogen` by 0.466, then divide by `creatinine`. Create a new variable called `un_creat_ratio` that contains this calculation.
+
+7. (4 points) The authors of the study categorized bears as fasting if their `un_creat_ratio` was less than or equal to 10. Use `case_when()` to create a new variable called `fasting` that categorizes bears as fasting or not.
+
+8. (6 points) The authors found that the number of fasting bears increased in the SB population but decreased in the CS population. Make a plot(s) that shows the number of fasting bears by year for both populations to visualize this trend.
+
+9. (8 points) Where are the polar bears used in this study located? Make a static (not leaflet) distribution map that shows the locations of  bears by population. (hint: use `color=popn` in the `aes()` of `geom_point()`)
+
+10. (10 points) Build a simple shiny app that shows the range of `un_creat_ratio` values for both populations. The user should be able to select the fill variable and choose between sex, mating, age_class, denning, and fasting. Please use the code chunk below so that your exam knits.
+```{r, eval=F, echo=T}
+
+```
+
+## Submit the Midterm
+1. Save your work and knit the .rmd file.  
+2. Open the .html file and "print" it to a .pdf file in Google Chrome (not Safari).    
+3. Go to the class Canvas page and open Gradescope.  
+4. Submit your .pdf file to the midterm assignment- be sure to assign the pages to the correct questions.  
+5. Commit and push your work to your repository. 
