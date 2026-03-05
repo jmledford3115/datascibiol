@@ -1,0 +1,238 @@
+---
+title: "Lab 16.2"
+author: "Bryshal Moore"
+date: "2026-02-26"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r, quiet=TRUE, message=FALSE, warning=FALSE}
+library(tidyverse)
+library(janitor)
+library(dplyr)
+library(readr)
+```
+
+# Lab 16.2 Introduction to NCBI
+The **National Center for Biotechnology Information (NCBI)** is a branch of the U.S. National Library of Medicine. It maintains some of the most widely used databases in all of biology, including:
+
+- **GenBank** — a database of all publicly available nucleotide sequences
+- **RefSeq** — a curated, non-redundant set of reference sequences (more on this in Part 3)re
+- **BLAST** — a tool for comparing sequences against databases
+
+Think of NCBI as a large, semi-organized library of biological data. When a researcher sequences a new organism, they deposit their sequences here so the entire scientific community can use them.
+
+**Website:** [https://www.ncbi.nlm.nih.gov](https://www.ncbi.nlm.nih.gov)
+
+## Learning Goals
+**At the end of this exercise, you will be able to:**
+1.Describe what NCBI is and why it is important in biology.
+2.Perform a BLAST search on the NCBI website and interpret the results.
+3.Identify the five major BLAST types and choose the correct one for a given query.
+
+In this lesson, you will be introduced to NCBI — the world's largest repository of biological sequence data — and incorporate the use of command line to work with genomic data. 
+
+## Resources
+
+- [NCBI Help Manual](https://www.ncbi.nlm.nih.gov/books/NBK3831/)
+- [BLAST Documentation](https://blast.ncbi.nlm.nih.gov/doc/blast-help/)
+
+## BLAST — Basic Local Alignment Search Tool
+
+**BLAST** is a tool that finds sequences in a database that are similar to a query sequence you provide. It works by breaking your query into short "words," finding exact matches in the database, and then extending those matches to find the best local alignment.
+
+Its like a search engine, but instead of searching for words in web pages, it searches for sequence similarity in biological databases.
+
+
+### The Five BLAST Types
+
+There are five main types of BLAST, each designed for a specific combination of query type and database type:
+
+| BLAST Type | Query | Database | Best Used When... |
+|------------|-------|----------|-------------------|
+| **blastn** | Nucleotide | Nucleotide | You have a DNA/RNA sequence and want to find similar DNA/RNA sequences |
+| **blastp** | Protein | Protein | You have a protein sequence and want to find similar proteins |
+| **blastx** | Nucleotide (translated) | Protein | You have a DNA sequence and want to search for similar proteins (BLAST translates your DNA in all 6 reading frames) |
+| **tblastn** | Protein | Nucleotide (translated) | You have a protein and want to find the gene(s) that might encode it in a nucleotide database |
+| **tblastx** | Nucleotide (translated) | Nucleotide (translated) | You have a DNA sequence and want to find distantly related DNA sequences by comparing at the protein level |
+
+> 💡 **How to remember them:**
+> - The **"n"** in blastn and tblastn refers to **nucleotide**
+> - The **"p"** in blastp refers to **protein**
+> - The **"x"** means **translation** is happening
+> - The **"t"** prefix means the **database** is being translated
+
+![The Central Dogma. Source: Khan Academy](img/central_dogma.png "Source: Khan Academy (https://www.khanacademy.org/science/ap-biology/gene-expression-and-regulation/translation/a/intro-to-gene-expression-central-dogma)")
+
+
+### Let's run a BLAST Search
+
+**Step-by-step instructions:**
+
+1. Go to [https://blast.ncbi.nlm.nih.gov](https://blast.ncbi.nlm.nih.gov)
+
+2. Click the appropriate Nucleotide Blast (blastn)
+
+3. Select the folder that contains our query sequence, **unknown_genome_02.txt** or paste the sequence in the **Enter Query Sequence** text box. 
+
+4. Under **"Database"**, make sure it is set for **core nucleotide database(core_nt)**. Optimize for "Highly similar sequences (megablast)".Under "Algorithm parameters", set the "Max target sequences" to 50.
+
+5. Click the **"BLAST"** button and wait for results (this can take 30 seconds to several minutes).
+
+6. Examine your results:
+   -**Max Score** - the highest alignment score between your query and a database sequence. (Higher is better.)
+   - **Total Score** — the sum of scores for all alignments between your query and a database sequence. (Higher is better.)
+   - **E-value** —  parameter that describes the number of hits one can “expect” to see by chance when searching a database of a particular size. (Lower is better)
+   - **% Identity** — what percentage of aligned positions match exactly.
+   - **Query Cover** — what percentage of your query sequence is covered by the alignment.
+   - **Accession Number** — a unique identifier for the database entry that matched your query. You can click on this to learn more about the sequence.
+   
+7. Check the **Select All** box. Click on Download and select the **Alginment Descrptions CSV**. Download the results in CSV format. Using the command line move the file into your data folder and rename the file to "genome01_blastn.csv".
+   
+Load the blast search results into R. 
+```{r}
+
+```
+
+```{r}
+
+```
+
+What was the top 5 hits for your blast search ? 
+```{r}
+
+```
+
+
+Which hit had the highest e-value?**(include the description, taxid, e_value, and link to the accession number for this hit)**
+```{r}
+
+```
+
+### Practice 
+
+1. Go to NCBI and use blastn for the for *unknown_genome_02* in the "Gene" database.  
+
+2. Download the blast search results in CSV format, change the name to "genome02_blastn.csv" using command line and store the results in the "blast_results" folder.What commands did you use to change the name and move the file into the blast_results folder?
+```{}
+
+```
+
+```{}
+
+```
+
+```{}
+
+```
+
+
+3. Read the blast results into R and clean the column names.
+```{r}
+
+```
+
+```{r}
+
+```
+
+3. What were the top 20 hits for this genome, based on Max Score?
+```{r}
+
+```
+
+```{r}
+
+```
+
+4. Which hit had the highest e-value? (include the description, taxid, e_value, and link to the accession number for this hit)
+```{r}
+
+```
+
+### View Fasta Files in R
+
+#### Install Biostrings
+```{r,bquiet=TRUE, message=FALSE, warning=FALSE}
+if (!requireNamespace("BiocManager", quietly = TRUE))
+  install.packages("BiocManager")
+
+#BiocManager::install("Biostrings")
+```
+
+
+Load Library
+```{r, quiet=TRUE, message=FALSE, warning=FALSE}
+library(Biostrings)
+```
+
+Lets take a look at a dna fasta file
+```{r}
+
+```
+
+Lets look at the head of the fasta file
+```{r}
+
+```
+
+Lets take a look at a amino acid fasta file
+```{r}
+
+```
+
+```{r}
+
+```
+
+Lets try Protein Blast (blastp). *(use unknown_aminoaacid_sequence.txt as the query and the "RefSeq Protein" `refseq_protein` database, use the blastp Algorithm)*.
+```{r}
+
+```
+
+## Practice 
+1.Download the **Description Table** in CSV format, change the name to "blastp_results.csv" using command line and store the results in the "blast_results" folder. What commands did you use to change the name and move the file into the blast_results folder?
+```{}
+
+```
+
+2. Read the csv file into R and clean the column names. Save the cleaned data frame as `blastp_results`.
+
+```{r}
+
+```
+
+3. What were the top 20 hits, based on e_value, for this blastp search?
+```{r}
+
+```
+
+4. Now try tblastn with the same query and database, use the core nucleotide database (core_nt) database? Download the **Description Table** in CSV format, change the name to "tblastn_results.csv" using command line and store the results in the "blast_results" folder. What commands did you use to change the name and move the file into the blast_results folder?
+
+```{}
+
+```
+
+```{}
+
+```
+
+```{r}
+
+```
+
+
+5. What were the top 20 hits, based on e_value, for this tblastn search? How do they compare to the blastp hits?
+```{r}
+
+```
+
+
+
+### That's it! Let's take a break and then move on to to the homework.
+
+-->[Home](https://jmledford3115.github.io/datascibiol/)
+

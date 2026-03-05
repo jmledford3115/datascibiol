@@ -1,0 +1,211 @@
+---
+title: "Lab 16.1"
+output: html_document
+date: "`r Sys.Date()`"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Introduction to Command Line
+[source](https://bioinformatics-core-shared-training.github.io/shell-genomics/01-introduction/index.html)
+What is a command line and why should I use it?
+The command line refers to an interface which allows you to control your computer using commands entered with a keyboard instead of controlling graphical user interfaces (GUIs) with a mouse/keyboard combination. Command lines are often accessed through the terminal or shell, which is an application that allows you to use the command line. For the Mac lab computers we use Terminal. 
+
+**Rstudio, Adobe Photoshop and even Microsoft excel are examples of GUI's.** 
+
+Many bioinformatics tools can only be used through a command line interface, or have extra capabilities in the command line version that are not available in the GUI. This is true, for example, of BLAST, which offers many advanced functions only accessible to users who know how to use a shell.  
+
+The shell makes your work more easy to automate and reproduce. In bioinformatics you will often need to do the same set of tasks with a large number of files. Learning to use the command line will allow you to manipulate large data, automate those repetitive tasks, thus decreasing your chance of error, making your work more reproducible and making it easier to share/distribute your code.  
+
+In the future you may have to process a large amount of data that would require more computing power than you can do on your own machine. In this case you will have to connect to a remote computer which will require command line operation.  
+
+In this lesson you will learn the basics of command line and some bash commands.  
+
+## Learning Goals
+*At the end of this exercise, you will be able to:*    
+1. Open Terminal.  
+2. Determine your working directory with bash.    
+3. Move to different directories within Terminal.  
+4. Create a new folder/directory within Terminal.  
+
+
+## Open the Terminal
+Navigate to Terminal on your lab computer
+Shortcut: hit [command] + [space bar] -> type in "Terminal" -> press [Enter]
+
+First let check our current directory within our terminal. Copy and paste the code into your terminal. This gives your current working directory same at `getwd()` in R.
+```{}
+# pwd stands for print workng directory
+
+pwd
+```
+
+We can see that we are in the something like this: `scc2XXX-XX:~yourusername$`this is called a prompt. The portion before the `:` is specific to your SCC computer, after the column is your current working directory followed by your user name. The `~` represents the home directory. The home directory is the default directory or the directory we are in every time we open the terminal.  
+ 
+To see how our file system is organized. We can see files and sub directories by using the command `ls`. 
+```{}
+# ls stands for listing
+
+ls
+```
+
+You  should now see every file or directory within our current working directory. You should now see the directories like "Desktop", "Downloads" and "Documents"
+
+Try this
+```{}
+# -f gives different indicators for file type (/ = directory, * = executable file)
+
+
+```
+
+```{}
+# -l list in long format
+
+```
+
+```{}
+# -h list in human readable format
+
+
+```
+
+
+```{}
+# -lh list in long human readable format
+
+```
+
+Lets move to a new directory.  To navigate to a new directory we use the `cd` command followed by the directory we would like to navigate to. Let try navigating to the "Documents" directory now. 
+```{} 
+# cd stands for change directory
+
+cd Documents/
+```
+
+**Similar to in R, typing out file or directory names can waste a lot of time and it’s easy to make typing mistakes. Instead we can use tab complete as a shortcut. Start by typing out the name of a directory or file, then hit the Tab key, the rest of the directory or file name will fill in if it is distinct.** 
+
+Lets go back to our home directory
+```{}
+# the ../ represents the previous directory
+
+cd ../
+```
+
+*You can also navigate to your home directory by just using `cd` without any arguments.*
+
+
+Lets navigate to our repository folder we can use `cd`. This is similar to setwd() in R. Please navigate to the lab16 folder on your Terminal. 
+```{}
+# cd stands for change directory
+
+cd /path/to/your_repository_folder
+```
+
+At this point you will notice your prompt has changed to something like this: `scc2XXX-XX:Desktop yourusername$`.On terminal it always shows your current working directory after the `:`.
+
+We notice that this folder is very cluttered with files. It is good practice to keep your files organized in folders. Since
+we do not have data folder in our repository, lets make a data folder in our repository. We can use the `mkdir` command to make a new directory.
+```{}
+# mkdir stands for make directory
+
+mkdir data/
+```
+
+Now lets move all of our data files into the data folder. We can use the `mv` command to move files.
+```{}
+# mv stands for move
+mv e.coli_genbank.fasta data/
+```
+
+We can move more than one file at a time by using the `*` wildcard. The wildcard `*` represents any string of characters. This allows us to move all files that share a common pattern in their name. For example, if we wanted to move all files that end with .fasta into the data folder we could use the following command:
+```{}
+
+
+```
+
+Move can also be used to rename files. For example, if we wanted to rename the blast output file "e.coli_coding_seq.fasta" to "e.coli_cds.fasta" we could use the following command:
+```{}
+# mv is also used to rename files
+
+```{r}
+```{r}
+```
+
+
+```{r}
+```
+
+```
+
+```
+
+Viewing files in the terminal . . .
+```{}
+# head stands for head of the file, similar to the R command head()
+
+
+```
+
+```{}
+# tail stands for tail of the file, similar to the R command tail()
+
+
+```
+
+```{}
+# grep stands for global regular expression print, it searches for a pattern in a file and prints the lines that match the pattern. 
+
+
+```
+
+```{}
+# less is a command that allows you to view the contents of a file one page at a time
+
+
+```
+
+```{}
+# cat stands for concatenate, it prints the contents of a file to the terminal
+
+
+```
+
+## Practice 
+1. Move all of your text files into the data folder. What command did you use to move the text files into the data folder?
+```{}
+
+```
+
+2.Go into your data folder and make a new directory called "blast_results".
+What commands did you use to make the blast_results folder?
+```{}
+
+```
+
+3. What are some of the genes found in e.coli *(Hint: look at the e.coli_cds.fasta file)*? What command did you use to find the genes?
+```{}
+
+```
+
+4. Display at least five of the genes found in ecoli. 
+```{}
+
+```
+
+5. Move back into your lab16 folder. What command did you use to move back into your lab16 folder?
+```{}
+
+```
+
+
+### That's it! Let's take a break and then move part 2.
+
+-->[Home](https://jmledford3115.github.io/datascibiol/)
+
+
+
+
+
+

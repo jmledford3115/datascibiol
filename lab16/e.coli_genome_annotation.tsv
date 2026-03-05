@@ -1,0 +1,21 @@
+Accession	Begin	End	Chromosome	Orientation	Name	Symbol	Gene ID	Gene Type	Transcripts accession	Protein accession	Protein length	Locus tag
+NC_000913.3	190	255		plus	thr operon leader peptide	thrL	944742	protein-coding		NP_414542.1	21	b0001
+NC_000913.3	337	2799		plus	fused aspartate kinase/homoserine dehydrogenase 1	thrA	945803	protein-coding		NP_414543.1	820	b0002
+NC_000913.3	2801	3733		plus	homoserine kinase	thrB	947498	protein-coding		NP_414544.1	310	b0003
+NC_000913.3	3734	5020		plus	threonine synthase	thrC	945198	protein-coding		NP_414545.1	428	b0004
+NC_000913.3	5234	5530		plus	DUF2502 domain-containing protein YaaX	yaaX	944747	protein-coding		NP_414546.1	98	b0005
+NC_000913.3	5683	6459		minus	DNA binding and peroxide stress response protein YaaA	yaaA	944749	protein-coding		NP_414547.1	258	b0006
+NC_000913.3	6529	7959		minus	putative transporter YaaJ	yaaJ	944745	protein-coding		NP_414548.1	476	b0007
+NC_000913.3	8238	9191		plus	transaldolase B	talB	944748	protein-coding		NP_414549.1	317	b0008
+NC_000913.3	9306	9893		plus	molybdopterin adenylyltransferase	mog	944760	protein-coding		NP_414550.1	195	b0009
+NC_000913.3	9928	10494		minus	acetate/succinate:H(+) symporter	satP	944792	protein-coding		NP_414551.1	188	b0010
+NC_000913.3	10643	11356		minus	putative enzyme-specific chaperone YaaW	yaaW	944771	protein-coding		NP_414552.1	237	b0011
+NC_000913.3	10830	11315		plus	uncharacterized protein MbiA	mbiA	948295	protein-coding		YP_009518733.1	161	b0012
+NC_000913.3	11382	11786		minus	DUF2541 domain-containing protein YaaI	yaaI	944751	protein-coding		NP_414554.1	134	b0013
+NC_000913.3	12163	14079		plus	chaperone protein DnaK	dnaK	944750	protein-coding		NP_414555.1	638	b0014
+NC_000913.3	14168	15298		plus	chaperone protein DnaJ	dnaJ	944753	protein-coding		NP_414556.1	376	b0015
+NC_000913.3	15445	16557		plus	IS186/IS421 family transposase	insL1	944754	protein-coding		NP_414557.1	370	b0016
+NC_000913.3	16751	16960		minus	regulatory protein MokC	mokC	944756	protein-coding		NP_414559.1	69	b0018
+NC_000913.3	16751	16903		minus	small toxic polypeptide HokC	hokC	2847744	protein-coding		YP_025292.1	50	b4412
+NC_000913.3	16952	17010		plus	small regulatory RNA antitoxin SokC	sokC	2847745	ncRNA				b4413
+NC_000913.3	17489	18655		plus	Na(+):H(+) antiporter NhaA	nhaA	944758	protein-coding		NP_414560.1	388	b0019

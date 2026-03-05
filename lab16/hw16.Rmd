@@ -1,0 +1,118 @@
+---
+title: "Homework YY"
+author: "Your Name Here"
+date: "`r Sys.Date()`"
+output:
+  html_document:
+    theme: spacelab
+    toc: no
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+## Instructions
+Answer the following questions and complete the exercises in RMarkdown. Please embed all of your code and push your final work to your repository. Your final lab report should be organized, clean, and run free from errors. Remember, you must remove the `#` for the included code chunks to run. Be sure to add your name to the author header above. For any included plots, make sure they are clearly labeled. You are free to use any plot type that you feel best communicates the results of your analysis.  
+
+Make sure to use the formatting conventions of RMarkdown to make your report neat and clean!  
+
+### Install Biostrings
+```{r,bquiet=TRUE, message=FALSE, warning=FALSE}
+#if (!requireNamespace("BiocManager", quietly = TRUE))
+#  install.packages("BiocManager")
+
+#BiocManager::install("Biostrings")
+```
+## Load the libraries
+```{r message=FALSE, warning=FALSE}
+library(tidyverse)
+library(janitor)
+library(dplyr)
+library(readr)
+library(Biostrings)
+``` 
+
+```{r}
+options(scipen = 999)
+```
+
+
+## Background
+A patient has been admitted to the hospital with a severe and rapidly progressing bacterial infection of unknown origin. Standard clinical cultures have been inconclusive. As part of the diagnostic workup, RNA was extracted directly from the patient's tissue sample and submitted for RNA sequencing (RNA-seq). From this sequencing data, you have successfully assembled the complete coding sequence of a gene expressed by the infecting bacterium.
+You will use BLAST, a tool used in real clinical and research microbiology labs, to compare this unknown sequence against all known biological sequences in the NCBI database.
+
+**1. Read the "gene of interest" sequence from the `goi_01.txt` file into R using the Biostrings package. Store this in an object called `query_seq`.What type sequence is this? (DNA, RNA or Protien) **
+```{r}
+
+```
+
+```{r}
+
+```
+
+
+**2.Perform a blastx search using `goi_01.txt` as the query and the "core_nt" database. Download the cluter table results in CSV format, change the name to "goi_01_blastx.csv" in the homework folder. Read the csv file into R and clean the column names. Save the cleaned data frame as goi_01_blastx.**
+```{r}
+
+```
+
+```{r}
+
+```
+
+**3.Display the top 10 blastx hits, based on e_value, for this blastx search? (Include the Scientific Name, Cluster Anscestor, Cluster Representative Sequence, Max Score, Query Cover, E value and Percent Identity)**
+```{r}
+
+```
+ 
+
+**4. create a plot that shows the different in percent identity for each Scientific Name of the top 10 blastx hits. Make sure to label your axes and give your plot a title.**
+```{r}
+
+```
+
+
+**5 Perform a blastn search using `goi_01.txt` as the query and the "core_nt" database. Download the alignment description in CSV format, change the name to "goi_01_blastn.csv" in the homework folder. Read the csv file into R and clean the column names. Save the cleaned data frame as goi_01_blastn.**
+```{r}
+
+```
+
+```{r}
+
+```
+
+**6. What was the top blastn hit, based on e_value, for this blastn search? (Include the Cluster Ancestor, Cluster Representative Sequence, Max Score, Query Cover, E value, Percent Identity and Accession Link)**
+```{r}
+
+```
+
+**7. Based on the blastx and blastn results, what do you think this gene is and what bacteria do you think it came from?**
+```{}
+
+```
+
+**8. For the top blastn hit, click on the accession link for this bacteria and download the coding sequences as a FASTA Protein file. Read the fasta file into R using the Biostrings package and store it in an object called `goi_blastn_hit`.**
+```{r}
+
+```
+
+```{r}
+
+```
+
+**9. From the same organism, identify 5 other annotated genes? Do these genes suggest about the biology or virulence of this bacterium?** *Annotated genes can be found in the "CDS" section of the GenBank file. You can also find genes by going to summary page for the organism and looking at the "View annotated genes" section.*
+```{r}
+
+```
+
+
+**10. Now that you have an idea of this bacteria's identity, what illness/disease do you think the patient has? What is the historical or public health significance of this disease? Based on the gene you identified, what role might this gene play in pathogenicity?**
+```{}
+
+```
+
+
+## Knit and Upload
+Please knit your work as an .html file and upload to Canvas. Homework is due before the start of the next lab. No late work is accepted. Make sure to use the formatting conventions of RMarkdown to make your report neat and clean! 
