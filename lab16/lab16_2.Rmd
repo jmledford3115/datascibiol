@@ -23,7 +23,7 @@ The **National Center for Biotechnology Information (NCBI)** is a branch of the 
 - **RefSeq** — a curated, non-redundant set of reference sequences (more on this in Part 3)re
 - **BLAST** — a tool for comparing sequences against databases
 
-Think of NCBI as a large, semi-organized library of biological data. When a researcher sequences a new organism, they deposit their sequences here so the entire scientific community can use them.
+Think of NCBI as a large, *semi-organized* library of biological data. When a researcher sequences a new organism, they deposit their sequences here so the entire scientific community can use them.
 
 **Website:** [https://www.ncbi.nlm.nih.gov](https://www.ncbi.nlm.nih.gov)
 
@@ -90,7 +90,12 @@ There are five main types of BLAST, each designed for a specific combination of 
    - **Query Cover** — what percentage of your query sequence is covered by the alignment.
    - **Accession Number** — a unique identifier for the database entry that matched your query. You can click on this to learn more about the sequence.
    
-7. Check the **Select All** box. Click on Download and select the **Alginment Descrptions CSV**. Download the results in CSV format. Using the command line move the file into your data folder and rename the file to "genome01_blastn.csv".
+7. Check the **Select All** box. Click on Download and select the **Alginment Descrptions CSV**. Download the results in CSV format. Using the command line move the file into your "data/blast_results" folder and rename the file to "genome01_blastn.csv".
+```{}
+
+```
+
+
    
 Load the blast search results into R. 
 ```{r}
@@ -108,47 +113,6 @@ What was the top 5 hits for your blast search ?
 
 
 Which hit had the highest e-value?**(include the description, taxid, e_value, and link to the accession number for this hit)**
-```{r}
-
-```
-
-### Practice 
-
-1. Go to NCBI and use blastn for the for *unknown_genome_02* in the "Gene" database.  
-
-2. Download the blast search results in CSV format, change the name to "genome02_blastn.csv" using command line and store the results in the "blast_results" folder.What commands did you use to change the name and move the file into the blast_results folder?
-```{}
-
-```
-
-```{}
-
-```
-
-```{}
-
-```
-
-
-3. Read the blast results into R and clean the column names.
-```{r}
-
-```
-
-```{r}
-
-```
-
-3. What were the top 20 hits for this genome, based on Max Score?
-```{r}
-
-```
-
-```{r}
-
-```
-
-4. Which hit had the highest e-value? (include the description, taxid, e_value, and link to the accession number for this hit)
 ```{r}
 
 ```
@@ -193,7 +157,7 @@ Lets try Protein Blast (blastp). *(use unknown_aminoaacid_sequence.txt as the qu
 
 ```
 
-## Practice 
+## Practice *(if time allows)*
 1.Download the **Description Table** in CSV format, change the name to "blastp_results.csv" using command line and store the results in the "blast_results" folder. What commands did you use to change the name and move the file into the blast_results folder?
 ```{}
 
@@ -205,12 +169,8 @@ Lets try Protein Blast (blastp). *(use unknown_aminoaacid_sequence.txt as the qu
 
 ```
 
-3. What were the top 20 hits, based on e_value, for this blastp search?
-```{r}
 
-```
-
-4. Now try tblastn with the same query and database, use the core nucleotide database (core_nt) database? Download the **Description Table** in CSV format, change the name to "tblastn_results.csv" using command line and store the results in the "blast_results" folder. What commands did you use to change the name and move the file into the blast_results folder?
+3. Now try tblastn with the same query and database, use the core nucleotide database (core_nt) database? Download the **Description Table** in CSV format, change the name to "tblastn_results.csv" using command line and store the results in the "blast_results" folder. What commands did you use to change the name and move the file into the blast_results folder?
 
 ```{}
 
@@ -225,11 +185,14 @@ Lets try Protein Blast (blastp). *(use unknown_aminoaacid_sequence.txt as the qu
 ```
 
 
-5. What were the top 20 hits, based on e_value, for this tblastn search? How do they compare to the blastp hits?
+4. What were the top 20 hits, based on e_value, for each blast search? How do they compare? *(Hint: the description column)*
 ```{r}
 
 ```
 
+```{r}
+
+```
 
 
 ### That's it! Let's take a break and then move on to to the homework.

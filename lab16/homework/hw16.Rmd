@@ -1,5 +1,5 @@
 ---
-title: "Homework 16"
+title: "Homework YY"
 author: "Your Name Here"
 date: "`r Sys.Date()`"
 output:
@@ -53,7 +53,7 @@ You will use BLAST, a tool used in real clinical and research microbiology labs,
 ```
 
 
-**2.Perform a blastx search using `goi_01.txt` as the query and the "core_nt" database. Download the cluter table results in CSV format, change the name to "goi_01_blastx.csv" in the homework folder. Read the csv file into R and clean the column names. Save the cleaned data frame as goi_01_blastx.**
+**2.Perform a blastx search using `goi_01.txt` as the query and the "core_nt" database. Download the cluster table results in CSV format, change the name to "goi_01_blastx.csv" and store in the homework/data folder. Read the csv file into R and clean the column names. Save the cleaned data frame as goi_01_blastx.**
 ```{r}
 
 ```
@@ -74,7 +74,7 @@ You will use BLAST, a tool used in real clinical and research microbiology labs,
 ```
 
 
-**5 Perform a blastn search using `goi_01.txt` as the query and the "core_nt" database. Download the alignment description in CSV format, change the name to "goi_01_blastn.csv" in the homework folder. Read the csv file into R and clean the column names. Save the cleaned data frame as goi_01_blastn.**
+**5 Perform a blastn search using `goi_01.txt` as the query and the "core_nt" database. Download the alignment description in CSV format, change the name to "goi_01_blastn.csv" and store in the homework/data folder. Read the csv file into R and clean the column names. Save the cleaned data frame as goi_01_blastn.**
 ```{r}
 
 ```
@@ -83,7 +83,7 @@ You will use BLAST, a tool used in real clinical and research microbiology labs,
 
 ```
 
-**6. What was the top blastn hit, based on e_value, for this blastn search? (Include the Cluster Ancestor, Cluster Representative Sequence, Max Score, Query Cover, E value, Percent Identity and Accession Link)**
+**6. What was the top blastn hit, based on e_value, for this blastn search? (Include the Cluster Ancestor, Cluster, Representative Sequence, Max Score, Query Cover, E value, Percent Identity and Accession Link)**
 ```{r}
 
 ```
