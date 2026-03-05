@@ -1,0 +1,707 @@
+---
+title: "Dog Project"
+author: "Allyson Hafezi, Fiona Davoudi, and Jenna Hussein"
+date: "`r Sys.Date()`"
+output:
+  html_document:
+    theme: spacelab
+    toc: no
+runtime: shiny
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Load the libraries 
+```{r message=FALSE, warning=FALSE}
+library(tidyverse)
+library(janitor)
+library(naniar)
+library("ggthemes")
+library("RColorBrewer")
+library("paletteer")
+library(ggplot2)
+``` 
+
+## Organization of Project
+
+Todo List
+
+1. Clean Data
+    - make nice names with underscores 
+    - remove $ and , and % from variables in dog_rankings 
+    - change chr to num variables when needed
+    - clean shelter_dogs?/maybe pivot some columns in either dataset 
+    
+2. Introduction - what is our research topic? List ideas below:
+    - Making an App to choose a dog breed (dogs_ranking) and what are their traits, health situations. Combine with real shelter data on how many of that breed are typically available. 
+
+3. Methods - how will we analyze
+    - make quiz shiny app so people can figure out what dog/dog breed fits their needs
+    - create graphs showing notatble characteristics associated with popularity or that correlate with each other
+
+4. Visuals - graphs, what are our key variables?
+
+5. Conclusion - clear message
+
+6. Organize Repository (going off the example given, but we can refine)
+    - datasets folder
+    - background info folder - need to check if we have any
+    - shiny app folder
+    - exploring data
+    - graphs
+
+## Read in the Data
+
+"This data is a compilation of information on dogs who were available for adoption on December 12, 2019 in the Hungarian Database of Homeless Pets. In total, there were 2,937 dogs in the database. It contains information on dogs' names, breed, color, age, sex, the date they were found, and some characteristics of their personalities."
+[shelter_dogs](https://www.kaggle.com/datasets/jmolitoris/adoptable-dogs)
+```{r}
+shelter_dogs <- read_csv("datasets/ShelterDogs.csv") %>% clean_names()
+```
+
+"This dataset provides various attributes related to different dog breeds. Each row represents a specific breed and includes information on several characteristics, costs, and suitability aspects."
+[dog_rankings](https://www.kaggle.com/datasets/jainaru/dog-breeds-ranking-best-to-worst)
+```{r}
+dog_rankings <- read_csv("datasets/dogs-ranking-dataset.csv") %>% clean_names
+```
+
+## Evaluate Data
+
+```{r}
+glimpse(shelter_dogs)
+```
+
+```{r}
+glimpse(dog_rankings)
+```
+
+## Data Cleaning - Fiona
+```{r}
+#change name of size_5 and size_9 column in dog_rankings
+dog_rankings_c <- dog_rankings %>% 
+  rename(size_score=size_5) %>% 
+  rename(size_description=size_9)
+```
+
+```{r}
+#remove $ or , or % from entries
+dog_rankings_c <- dog_rankings_c %>% 
+  mutate(lifetime_cost = str_remove(lifetime_cost, ",")) %>% 
+  mutate(lifetime_cost = str_remove(lifetime_cost, "\\$")) %>% 
+  mutate(intelligence_percent = str_remove(intelligence_percent, "%")) %>% 
+  mutate(purchase_price = str_remove(purchase_price, "\\$")) %>% 
+  mutate(purchase_price = str_remove(purchase_price, ",")) %>% 
+  mutate(food_costs_per_year = str_remove(food_costs_per_year, "\\$")) %>% 
+  mutate(food_costs_per_year = str_remove(food_costs_per_year, ","))
+```
+
+```{r}
+#convert chr to num
+dog_rankings_c <- dog_rankings_c %>% 
+  mutate(lifetime_cost = as.numeric(lifetime_cost)) %>% 
+  mutate(intelligence_percent = as.numeric(intelligence_percent)) %>% 
+  mutate(purchase_price = as.numeric(purchase_price)) %>% 
+  mutate(food_costs_per_year = as.numeric(food_costs_per_year))
+
+glimpse(dog_rankings_c)
+```
+```{r}
+write.csv(dog_rankings_c, "datasets/dog_rankings_c", row.names = F)
+```
+
+## Fiona Data Exploration
+```{r}
+#popularity by type of dog
+dog_rankings_c %>% 
+  group_by(type) %>% 
+  summarize(popularity = mean(popularity_ranking)) %>% 
+  arrange(desc(popularity))
+```
+
+Two type of scoring for family/kid friendly
+
+1. score_for_kids: A rating indicating how suitable the breed is for families with children. Higher scores suggest greater suitability. Intelligence + longevity + ailments + cost scores (50% each) + 100% grooming score. highest possible score: 5
+
+2. suitability_for_children: The suitability of the breed for families with children, typically measured on a scale (1 = high suitability, 2= medium suitability, 3= low suitability).
+```{r}
+#good for kids
+dog_rankings_c %>% 
+  arrange(suitability_for_children) %>% 
+  select(breed, suitability_for_children, score_for_kids) %>% 
+  filter(score_for_kids >= 4.00) %>% 
+  arrange(-score_for_kids)
+```
+
+```{r}
+#most expensive purchase dog
+dog_rankings_c %>% 
+  select(breed, type, lifetime_cost, purchase_price, food_costs_per_year, grooming_frequncy) %>% 
+  slice_max(purchase_price, n=20) %>% 
+  ggplot(aes(x=reorder(breed, purchase_price), y=purchase_price))+
+  geom_col()+
+  coord_flip()
+```
+```{r}
+#cheapest purchase dog
+dog_rankings_c %>% 
+  select(breed, type, lifetime_cost, purchase_price, food_costs_per_year, grooming_frequncy) %>% 
+  slice_min(purchase_price, n=20) %>% 
+  ggplot(aes(x=reorder(breed, -purchase_price), y=purchase_price))+
+  geom_col()+
+  coord_flip()
+```
+
+```{r}
+#most common breed in shelter
+shelter_dogs %>% 
+  count(breed) %>% 
+  arrange(desc(n))
+```
+
+## Allyson Data Exploration
+```{r}
+dog_rankings_c
+```
+```{r}
+#Graphs for the Presentation
+  # 1) Is popularity determined by breed intelligence?
+dog_rankings_c %>% 
+  ggplot(aes(x=popularity_ranking, y=intelligence_rank))+
+  geom_col()
+
+#No correlation, popular dogs have no correlation with intelligence
+```
+```{r}
+# 2) Does breed size (smaller or larger dogs) correlate with number of genetic aliments?
+dog_rankings_c %>% 
+  ggplot(aes(x=size_description, y=number_of_genetic_ailments))+
+  geom_boxplot()
+
+#No correlation
+```
+
+```{r}
+# 3) Is there a correlation between size and longevity? Do smaller dogs live longer according to this data?
+dog_rankings_c %>% 
+  ggplot(aes(x=size_description, y=longevity_years))+
+  geom_col()
+
+#There is a correlation! Small dogs live longer!
+```
+
+```{r}
+# 4) Do small dogs tend to be more popular?
+dog_rankings_c %>% 
+  ggplot(aes(x=popularity_ranking, y=size_description))+
+  geom_col()
+```
+
+## Jenna Data Exploration
+```{r}
+summary(shelter_dogs)
+```
+
+```{r}
+#number of male and female dogs
+shelter_dogs %>% 
+  select(sex, breed) %>% 
+  count(sex)
+```
+
+```{r}
+#breeds in the shelter
+shelter_dogs %>% 
+  filter(breed != "Adoptable From:", breed != "Unknown Mix") %>% 
+  count(breed) %>% 
+  arrange(-n)
+```
+
+```{r}
+#different breeds of SMALL dogs in the shelter waiting to be adopted
+small_breeds <- shelter_dogs %>% 
+  select(breed, size) %>% 
+  filter(breed != "Unknown Mix", size == "small") %>% 
+  count(breed) %>% 
+  arrange(-n)
+small_breeds
+```
+
+```{r}
+#different breeds of MEDIUM dogs in the shelter waiting to be adopted
+medium_breeds <- shelter_dogs %>% 
+  select(breed, size) %>% 
+  filter(breed != "Unknown Mix", size == "medium") %>% 
+  count(breed) %>% 
+  arrange(-n)
+medium_breeds
+```
+
+```{r}
+#different breeds of LARGE dogs in the shelter waiting to be adopted
+large_breeds <- shelter_dogs %>% 
+  select(breed, size) %>% 
+  filter(breed != "Unknown Mix", breed != "Adoptable From:", size == "large") %>% 
+  count(breed) %>% 
+  arrange(-n)
+large_breeds
+```
+
+```{r}
+dog_rankings %>% 
+  count(type)
+```
+
+```{r}
+#age distribution
+shelter_dogs %>% 
+  ggplot(aes(x = age))+
+  geom_density(color = 'black', fill = 'hotpink', alpha = 0.6)
+```
+
+## Notable Graphs for Presentation Visuals
+
+```{r}
+#theme and colors
+colors <- paletteer::palettes_d_names
+my_palette <- paletteer_d("calecopal::superbloom1")
+my_extended_palette <- c("#b9c7e2", "#edab99", "#ddb109", "#5b6530", "#9484b0", "#22A884", "#2A788E", "#FBAE17",  "#FBCE89", "#196F6A", "#E26D5A", "#7A8439")
+barplot(rep(1,12), axes=FALSE, col=my_extended_palette)
+```
+
+```{r}
+#most common breed in shelter
+shelter_dogs %>%
+  count(breed) %>%
+  slice_max(n, n = 5) %>%
+  ggplot(aes(x = reorder(breed, n), y = n, fill = breed)) +
+  geom_bar(stat = "identity")+
+  coord_flip()+
+  labs(title = "Most Common Breeds in Shelter", 
+       x= "Breed", 
+       y= "Count", 
+       fill = "Breed")+
+  theme_few()+
+  scale_fill_manual(values=my_palette)
+```
+
+```{r}
+#age distribution
+shelter_dogs %>% 
+  ggplot(aes(x = age))+
+  geom_density(color = 'black', fill = 'lightblue', alpha = 0.6)+
+  labs(title = "Distribution of Shelter Dog's Age", 
+       x = "Age", 
+       y = "Density")+
+  theme_few()+
+  scale_fill_manual(values=my_palette)
+```
+
+```{r}
+#color of dogs available at the shelter
+shelter_dogs %>%
+  count(color) %>%
+  slice_max(n, n = 12) %>%
+  ggplot(aes(x = reorder(color, n), y = n, fill = color)) +
+  geom_bar(stat = "identity")+
+  coord_flip()+
+  labs(title = "Dog Colors Available in the Shelter", 
+       x= "Color", 
+       y= "Count", 
+       fill = "Color")+
+  theme_few()+
+  scale_fill_manual(values=my_extended_palette)
+```
+
+```{r}
+#traits present
+shelter_dogs %>% 
+  pivot_longer(neutered:get_along_cats,
+               names_to = "traits", 
+               values_to = "have_trait") %>% 
+  filter(have_trait == "yes") %>% 
+  ggplot(aes(x=traits, fill = traits))+
+  geom_bar()+
+  labs(title = "Shelter Dogs Traits", 
+       x= "Trait", 
+       y= "Count", 
+       fill = "Trait")+
+  theme_few()+
+  theme(axis.text.x=element_text(angle=60, hjust=1))+
+  scale_fill_manual(values=my_extended_palette)
+```
+
+```{r}
+#now looking at dog_rankings dataset
+#popular type of dog
+dog_rankings_c %>%
+  ggplot(aes(x = reorder(type, popularity_ranking), y = popularity_ranking, fill = type))+
+  geom_boxplot()+
+  coord_flip()+
+  labs(title = "Most Popular Type of Dog", 
+       x= "Dog Type", 
+       y= "Popularity Score", 
+       fill = "Dog Type")+
+  theme_few()+
+  scale_fill_manual(values=my_extended_palette)
+```
+
+```{r}
+#intelligence vs popularity
+dog_rankings_c %>% 
+  mutate(intelligence = factor(intelligence, levels = c("Lowest", "Fair", "Average", "Above average", "Excellent", "Brightest"))) %>%
+  ggplot(aes(x=intelligence_percent, y=score, color = intelligence))+
+  geom_point()+
+  geom_smooth(method=lm, se=T, color = "black") + 
+  labs(title = "Intelligence vs. Popularity", 
+       x= "Intelligence Percent", 
+       y= "Score", 
+       color = "Intelligence")+
+  theme_few()+
+  scale_color_manual(values=my_extended_palette)
+```
+
+```{r}
+#size vs longevity
+dog_rankings_c %>% 
+  ggplot(aes(x=size_description, y=longevity_years, fill = size_description))+
+  geom_boxplot()+
+  labs(title = "Size vs. Longevity", 
+       x= "Size", 
+       y= "Longevity (years)", 
+       fill = "Size")+
+  theme_few()+
+  scale_fill_manual(values=my_extended_palette)
+```
+
+```{r}
+#genetic ailments vs size
+dog_rankings_c %>%
+  group_by(size_description) %>%
+  summarise(avg_genetic_ailments = mean(number_of_genetic_ailments, na.rm = TRUE)) %>%
+  ggplot(aes(x = size_description, y = avg_genetic_ailments, fill = size_description)) +
+  geom_col(position = 'dodge') +
+  labs(title = "Genetic Ailments vs. Size", 
+       x = "Size", 
+       y = "Average Number of Genetic Ailments", 
+       fill = "Size Category") +
+  theme_few() +
+  scale_fill_manual(values = my_extended_palette)
+```
+
+## Shelter Dogs Shiny App - Allyson Hafezi
+
+```{r}
+library(shiny)
+library(shinythemes)
+library(tidyverse)
+
+# Load dataset
+dog_data <- read_csv("datasets/ShelterDogs.csv")
+
+ui <- fluidPage(
+  theme = shinytheme("cerulean"),
+  tags$head(tags$style(HTML("
+    body { background-color: #f0f8ff; font-size: 18px; }
+    .title-panel { text-align: center; padding: 20px; }
+    .panel-box {
+      background: #ffffff;
+      padding: 25px;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      margin: 20px auto;
+      max-width: 850px;
+    }
+    h1 { font-size: 40px; color: #333333; }
+    h3 { font-size: 28px; color: #333333; }
+    label { font-size: 20px; color: #333333; font-weight: bold; }
+    .btn-primary { font-size: 22px; padding: 12px 20px; background-color: #ff6b6b; border-color: #ff6b6b; }
+    .btn-primary:hover { background-color: #ff4757; border-color: #ff4757; }
+    .dog-card {
+      background: #fff;
+      padding: 20px;
+      margin-bottom: 15px;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      font-size: 20px;
+    }
+  "))),
+  
+  div(class = "title-panel", h1("🐶 Find Your Perfect Shelter Dog! 🐾")),
+  
+  # Row for both questions and results (displayed in two columns)
+  fluidRow(
+    # Column for questions
+    column(6,
+           div(class = "panel-box",
+               h3("Tell us about your ideal dog!"),
+               selectInput("size", "Preferred Dog Size:",
+                           choices = c("Not Important", unique(dog_data$size))),
+               selectInput("coat", "Preferred Coat Type:",
+                           choices = c("Not Important", unique(dog_data$coat))),
+               selectInput("coat_color", "What coat color do you prefer?",
+                           choices = c("Not Important", unique(dog_data$color))),
+               selectInput("sex", "Preferred Sex:",
+                           choices = c("Not Important", unique(dog_data$sex))),
+               sliderInput("age", "Preferred Age Range:",
+                           min = floor(min(dog_data$age, na.rm = TRUE)),
+                           max = ceiling(max(dog_data$age, na.rm = TRUE)),
+                           value = c(floor(min(dog_data$age, na.rm = TRUE)),
+                                     ceiling(max(dog_data$age, na.rm = TRUE))),
+                           step = 1),
+               selectInput("good_with_kids", "Good with children?",
+                           choices = c("Not Important", "yes")),
+               selectInput("good_with_males", "Good with male dogs?",
+                           choices = c("Not Important", "yes")),
+               selectInput("good_with_females", "Good with female dogs?",
+                           choices = c("Not Important", "yes")),
+               selectInput("good_with_cats", "Good with cats?",
+                           choices = c("Not Important", "yes")),
+               selectInput("house_trained", "House Trained?",
+                           choices = c("Not Important", "yes")),
+               selectInput("neutered", "Neutered?",
+                           choices = c("Not Important", "yes", "no")),
+               br(),
+               actionButton("find", "🐾 Find My Dog!", class = "btn-primary btn-lg")
+           )
+    ),
+    
+    # Column for results
+    column(6,
+           div(class = "panel-box",
+               h3("Your Best Matches:"),
+               h4(textOutput("num_results")),
+               uiOutput("results")
+           )
+    )
+  )
+)
+
+server <- function(input, output, session) {
+  
+  filtered_data <- eventReactive(input$find, {
+    df <- dog_data
+    
+    # Filter based on user input
+    if (input$size != "Not Important") {
+      df <- df %>% filter(size == input$size)
+    }
+    if (input$coat != "Not Important") {
+      df <- df %>% filter(coat == input$coat)
+    }
+    if (input$coat_color != "Not Important") {
+      df <- df %>% filter(color == input$coat_color)
+    }
+    if (input$sex != "Not Important") {
+      df <- df %>% filter(sex == input$sex)
+    }
+    df <- df %>% filter(age >= input$age[1] & age <= input$age[2])
+    if (input$good_with_kids == "yes") {
+      df <- df %>% filter(likes_children == "yes")
+    }
+    if (input$good_with_males == "yes") {
+      df <- df %>% filter(get_along_males == "yes")
+    }
+    if (input$good_with_females == "yes") {
+      df <- df %>% filter(get_along_females == "yes")
+    }
+    if (input$good_with_cats == "yes") {
+      df <- df %>% filter(get_along_cats == "yes")
+    }
+    if (input$house_trained == "yes") {
+      df <- df %>% filter(housebroken == "yes")
+    }
+    if (input$neutered != "Not Important") {
+      df <- df %>% filter(neutered == input$neutered)
+    }
+    df
+  })
+  
+  output$num_results <- renderText({
+    paste("Number of Matches:", nrow(filtered_data()))
+  })
+  
+  output$results <- renderUI({
+    df <- filtered_data()
+    if (nrow(df) == 0) {
+      return(h4("No matches found! Try adjusting your preferences.",
+                style = "color: red; text-align: center; font-size: 22px;"))
+    }
+    lapply(1:nrow(df), function(i) {
+      div(class = "dog-card",
+          h4(df$name[i], style = "color: #ff6b6b; font-size: 24px;"),
+          p(strong("Breed:"), df$breed[i]),
+          p(strong("Sex:"), df$sex[i]),
+          p(strong("Size:"), df$size[i]),
+          p(strong("Age:"), df$age[i], "years"),
+          p(strong("Coat:"), df$coat[i]),
+          p(strong("Coat Color:"), df$color[i])
+      )
+    })
+  })
+}
+
+shinyApp(ui = ui, server = server)
+
+```
+
+
+##Shiny App Dog Rankings - Jenna Hussein
+
+```{r}
+library(shiny)
+library(shinythemes)
+
+dog_data <- read.csv("datasets/dog_rankings_c.csv")
+
+ui <- fluidPage(
+  theme = shinytheme("sandstone"),
+  
+  # Add custom CSS for styling the dog cards with larger fonts
+  tags$style(HTML("
+    body {
+      font-size: 18px; /* Increase the base font size */
+    }
+    .title-panel h1 {
+      font-size: 40px; /* Title size */
+      color: #ff6b6b;
+    }
+    .sidebar-panel {
+      font-size: 20px; /* Larger font for sidebar inputs */
+    }
+    .main-panel h3, .main-panel h4 {
+      font-size: 28px; /* Larger font for section titles */
+      color: #333333;
+    }
+    .dog-card {
+      background-color: #f9f9f9;
+      border-radius: 10px;
+      padding: 20px;
+      margin-bottom: 20px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      font-size: 20px; /* Larger font inside the dog cards */
+    }
+    .dog-card h4 {
+      color: #ff6b6b;
+      font-size: 26px; /* Name in dog card */
+    }
+    .dog-card p {
+      font-size: 20px; /* Text inside dog card */
+    }
+    .btn-primary, .btn-warning {
+      font-size: 22px; /* Larger button text */
+      padding: 15px 25px; /* Increase padding for easier clicking */
+    }
+    .btn-primary:hover, .btn-warning:hover {
+      font-size: 22px;
+    }
+  ")),
+  
+  div(class = "title-panel", h1("🐶 Find Your Perfect Breed! 🐾")),
+  
+  sidebarLayout(
+    sidebarPanel(
+      class = "sidebar-panel",
+      
+      # Input widgets with larger font sizes
+      selectInput("dog_type", "Dog Type:", choices = c("Any", unique(dog_data$type))),
+      selectInput("intelligence", "Intelligence Level:", choices = c("Any", "Above average", "Average", "Excellent", "Fair", "Brightest", "Lowest")),
+      selectInput("size_descriptions", "Size Description:", choices = c("Any", "small", "medium", "large")),
+      sliderInput("longevity", "Longevity (years):", min = 9, max = 17, value = c(9, 17), step = 1),
+      selectInput("grooming_frequency", "Grooming Frequency:", choices = c("Any", unique(dog_data$grooming_frequency))),
+      selectInput("breed", "Breed:", choices = c("Any", unique(dog_data$breed))),
+      
+      br(),
+      actionButton("find", "🐾 Find My Dog!", class = "btn-primary btn-lg"),
+      actionButton("reset", "🔄 Reset Choices", class = "btn-warning btn-lg")
+    ),
+    
+    mainPanel(
+      class = "main-panel",
+      
+      h3("🐕 Your Best Matches:"),
+      h4(textOutput("num_results"), style = "color: #333333; text-align: center;"),
+      uiOutput("results"),
+      
+      h3("🐾 Dog Rankings:", style = "margin-top: 30px;"),
+      tableOutput("rankings_table")
+    )
+  )
+)
+
+server <- function(input, output, session) {
+  
+  # Reset inputs to default values
+  observeEvent(input$reset, {
+    updateSelectInput(session, "dog_type", selected = "Any")
+    updateSelectInput(session, "intelligence", selected = "Any")
+    updateSelectInput(session, "size_descriptions", selected = "Any")
+    updateSliderInput(session, "longevity", value = c(9, 17))
+    updateSelectInput(session, "grooming_frequency", selected = "Any")
+    updateSelectInput(session, "breed", selected = "Any")
+  })
+  
+  # Filter the data based on user input
+  filtered_data <- eventReactive(input$find, {
+    df <- dog_data
+    
+    if (input$dog_type != "Any") {
+      df <- df[tolower(df$type) == tolower(input$dog_type), ]
+    }
+    if (input$intelligence != "Any") {
+      df <- df[tolower(df$intelligence) == tolower(input$intelligence), ]
+    }
+    if (input$size_descriptions != "Any") {
+      df <- df[tolower(df$size_descriptions) == tolower(input$size_descriptions), ]
+    }
+    df <- df[df$longevity_years >= input$longevity[1] & df$longevity_years <= input$longevity[2], ]
+    if (input$grooming_frequency != "Any") {
+      df <- df[tolower(trimws(df$grooming_frequency)) == tolower(trimws(input$grooming_frequency)), ]
+    }
+    if (input$breed != "Any") {
+      df <- df[tolower(df$breed) == tolower(input$breed), ]
+    }
+    
+    df
+  })
+  
+  # Display number of results
+  output$num_results <- renderText({
+    paste("Number of Matches:", nrow(filtered_data()))
+  })
+  
+  # Display dog matches
+  output$results <- renderUI({
+    dog_list <- filtered_data()
+    if (nrow(dog_list) == 0) {
+      return(h4("No matches found! Try adjusting your preferences.", style = "color: red; text-align: center;"))
+    }
+    
+    dog_ui <- lapply(1:nrow(dog_list), function(i) {
+      dog <- dog_list[i, ]
+      div(class = "dog-card",
+          h4(dog$name, style = "color: #ff6b6b;"),
+          p(strong("Breed:"), dog$breed),
+          p(strong("Size:"), dog$size_descriptions),
+          p(strong("Dog Type:"), dog$type),
+          p(strong("Intelligence Level:"), dog$intelligence),
+          p(strong("Longevity:"), dog$longevity_years, "years"),
+          p(strong("Grooming Frequency:"), dog$grooming_frequency)
+      )
+    })
+    
+    do.call(tagList, dog_ui)
+  })
+  
+  # Display dog rankings table
+  output$rankings_table <- renderTable({
+    df <- dog_data
+    colnames(df) <- c("Rank", "Name", "Breed", "Type", "Intelligence", "Size", "Longevity (years)", "Grooming Frequency")  # Custom column names
+    df
+  }, striped = TRUE, hover = TRUE, bordered = TRUE, rownames = TRUE, escape = FALSE)
+}
+
+shinyApp(ui, server)
+
+```
+
