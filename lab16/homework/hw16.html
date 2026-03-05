@@ -422,15 +422,16 @@ by the infecting bacterium. You will use BLAST, a tool used in real
 clinical and research microbiology labs, to compare this unknown
 sequence against all known biological sequences in the NCBI
 database.</p>
+<p><strong>SKIP #1</strong></p>
 <p><strong>1. Read the “gene of interest” sequence from the
 <code>goi_01.txt</code> file into R using the Biostrings package. Store
 this in an object called <code>query_seq</code>.What type sequence is
 this? (DNA, RNA or Protien) </strong></p>
 <p><strong>2.Perform a blastx search using <code>goi_01.txt</code> as
-the query and the “core_nt” database. Download the cluster table results
-in CSV format, change the name to “goi_01_blastx.csv” and store in the
-homework/data folder. Read the csv file into R and clean the column
-names. Save the cleaned data frame as goi_01_blastx.</strong></p>
+the query and the “nr_cluster_seq” database. Download the cluter table
+results in CSV format, change the name to “goi_01_blastx.csv” in the
+homework folder. Read the csv file into R and clean the column names.
+Save the cleaned data frame as goi_01_blastx.</strong></p>
 <p><strong>3.Display the top 10 blastx hits, based on e_value, for this
 blastx search? (Include the Scientific Name, Cluster Anscestor, Cluster
 Representative Sequence, Max Score, Query Cover, E value and Percent
@@ -440,11 +441,11 @@ for each Scientific Name of the top 10 blastx hits. Make sure to label
 your axes and give your plot a title.</strong></p>
 <p><strong>5 Perform a blastn search using <code>goi_01.txt</code> as
 the query and the “core_nt” database. Download the alignment description
-in CSV format, change the name to “goi_01_blastn.csv” and store in the
-homework/data folder. Read the csv file into R and clean the column
-names. Save the cleaned data frame as goi_01_blastn.</strong></p>
+in CSV format, change the name to “goi_01_blastn.csv” in the homework
+folder. Read the csv file into R and clean the column names. Save the
+cleaned data frame as goi_01_blastn.</strong></p>
 <p><strong>6. What was the top blastn hit, based on e_value, for this
-blastn search? (Include the Cluster Ancestor, Cluster, Representative
+blastn search? (Include the Cluster Ancestor, Cluster Representative
 Sequence, Max Score, Query Cover, E value, Percent Identity and
 Accession Link)</strong></p>
 <p><strong>7. Based on the blastx and blastn results, what do you think
