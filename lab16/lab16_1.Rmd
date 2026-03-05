@@ -8,6 +8,10 @@ date: "`r Sys.Date()`"
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
+```{r, quiet=TRUE, message=FALSE, warning=FALSE}
+library(tidyverse)
+```
+
 # Introduction to Command Line
 [source](https://bioinformatics-core-shared-training.github.io/shell-genomics/01-introduction/index.html)
 What is a command line and why should I use it?
@@ -55,7 +59,7 @@ You  should now see every file or directory within our current working directory
 
 Try this
 ```{}
-# -f gives different indicators for file type (/ = directory, * = executable file)
+# -F gives different indicators for file type (/ = directory, * = executable file)
 
 
 ```
@@ -129,17 +133,18 @@ Move can also be used to rename files. For example, if we wanted to rename the b
 ```{}
 # mv is also used to rename files
 
-```{r}
-```{r}
 ```
 
 
-```{r}
-```
+```{}
 
 ```
 
+
+```{}
+
 ```
+
 
 Viewing files in the terminal . . .
 ```{}
@@ -155,12 +160,6 @@ Viewing files in the terminal . . .
 ```
 
 ```{}
-# grep stands for global regular expression print, it searches for a pattern in a file and prints the lines that match the pattern. 
-
-
-```
-
-```{}
 # less is a command that allows you to view the contents of a file one page at a time
 
 
@@ -168,6 +167,12 @@ Viewing files in the terminal . . .
 
 ```{}
 # cat stands for concatenate, it prints the contents of a file to the terminal
+
+
+```
+
+```{}
+# grep stands for global regular expression print, it searches for a pattern in a file and prints the lines that match the pattern. 
 
 
 ```

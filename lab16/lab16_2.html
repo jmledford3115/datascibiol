@@ -375,9 +375,10 @@ sequences (more on this in Part 3)re</li>
 <li><strong>BLAST</strong> — a tool for comparing sequences against
 databases</li>
 </ul>
-<p>Think of NCBI as a large, semi-organized library of biological data.
-When a researcher sequences a new organism, they deposit their sequences
-here so the entire scientific community can use them.</p>
+<p>Think of NCBI as a large, <em>semi-organized</em> library of
+biological data. When a researcher sequences a new organism, they
+deposit their sequences here so the entire scientific community can use
+them.</p>
 <p><strong>Website:</strong> <a href="https://www.ncbi.nlm.nih.gov">https://www.ncbi.nlm.nih.gov</a></p>
 <div id="learning-goals" class="section level2">
 <h2>Learning Goals</h2>
@@ -511,35 +512,15 @@ more about the sequence.</li>
 <li><p>Check the <strong>Select All</strong> box. Click on Download and
 select the <strong>Alginment Descrptions CSV</strong>. Download the
 results in CSV format. Using the command line move the file into your
-data folder and rename the file to “genome01_blastn.csv”.</p></li>
+“data/blast_results” folder and rename the file to
+“genome01_blastn.csv”.</p></li>
 </ol>
+<pre><code></code></pre>
 <p>Load the blast search results into R.</p>
 <p>What was the top 5 hits for your blast search ?</p>
 <p>Which hit had the highest e-value?<strong>(include the description,
 taxid, e_value, and link to the accession number for this
 hit)</strong></p>
-</div>
-<div id="practice" class="section level3">
-<h3>Practice</h3>
-<ol style="list-style-type: decimal">
-<li><p>Go to NCBI and use blastn for the for <em>unknown_genome_02</em>
-in the “Gene” database.</p></li>
-<li><p>Download the blast search results in CSV format, change the name
-to “genome02_blastn.csv” using command line and store the results in the
-“blast_results” folder.What commands did you use to change the name and
-move the file into the blast_results folder?</p></li>
-</ol>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<pre><code></code></pre>
-<ol start="3" style="list-style-type: decimal">
-<li><p>Read the blast results into R and clean the column
-names.</p></li>
-<li><p>What were the top 20 hits for this genome, based on Max
-Score?</p></li>
-<li><p>Which hit had the highest e-value? (include the description,
-taxid, e_value, and link to the accession number for this hit)</p></li>
-</ol>
 </div>
 <div id="view-fasta-files-in-r" class="section level3">
 <h3>View Fasta Files in R</h3>
@@ -561,8 +542,8 @@ Algorithm)</em>.</p>
 </div>
 </div>
 </div>
-<div id="practice-1" class="section level2">
-<h2>Practice</h2>
+<div id="practice-if-time-allows" class="section level2">
+<h2>Practice <em>(if time allows)</em></h2>
 <p>1.Download the <strong>Description Table</strong> in CSV format,
 change the name to “blastp_results.csv” using command line and store the
 results in the “blast_results” folder. What commands did you use to
@@ -571,8 +552,6 @@ change the name and move the file into the blast_results folder?</p>
 <ol start="2" style="list-style-type: decimal">
 <li><p>Read the csv file into R and clean the column names. Save the
 cleaned data frame as <code>blastp_results</code>.</p></li>
-<li><p>What were the top 20 hits, based on e_value, for this blastp
-search?</p></li>
 <li><p>Now try tblastn with the same query and database, use the core
 nucleotide database (core_nt) database? Download the <strong>Description
 Table</strong> in CSV format, change the name to “tblastn_results.csv”
@@ -582,9 +561,9 @@ blast_results folder?</p></li>
 </ol>
 <pre><code></code></pre>
 <pre><code></code></pre>
-<ol start="5" style="list-style-type: decimal">
-<li>What were the top 20 hits, based on e_value, for this tblastn
-search? How do they compare to the blastp hits?</li>
+<ol start="4" style="list-style-type: decimal">
+<li>What were the top 20 hits, based on e_value, for each blast search?
+How do they compare? <em>(Hint: the description column)</em></li>
 </ol>
 <div id="thats-it-lets-take-a-break-and-then-move-on-to-to-the-homework." class="section level3">
 <h3>That’s it! Let’s take a break and then move on to to the
