@@ -1,0 +1,88 @@
+Breed,type,score,popularity ranking,size,intelligence,congential ailments,score for kids,size,$LIFETIME COST,INTELLIGENCE RANK,INTELLIGENCE %,LONGEVITY(YEARS),NUMBER OF GENETIC AILMENTS,GENETIC AILMENTS,PURCHASE PRICE,FOOD COSTS PER YEAR,GROOMING FREQUNCY,SUITABILITY FOR CHILDREN
+Border Terrier,terrier,3.61,61,1,Above average,none,4.99,small,"$22,638 ",30,70%,14,0,none,$833 ,$324 ,Once a week,1
+Cairn Terrier,terrier,3.53,48,1,Above average,"'lion jaw', heart problems  ",4.91,small,"$21,992 ",35,61%,13.84,2,"'lion jaw', heart problems  ",$435 ,$324 ,Once a week,1
+Siberian Husky,working,3.22,16,2,Average,none,4.72,medium,"$22,049 ",45,45%,12.58,0,none,$650 ,$466 ,Once in a few weeks,1
+Welsh Springer Spaniel,sporting,3.34,81,2,Above average,hip problems,4.71,medium,"$20,224 ",31,69%,12.49,1,hip problems,$750 ,$324 ,Once a week,1
+English Cocker Spaniel,sporting,3.33,51,2,Excellent,none,4.7,medium,"$18,993 ",18,82%,11.66,0,none,$800 ,$324 ,Once a week,1
+Cocker Spaniel,sporting,3.3,27,1,Excellent,"eye, skin problems",4.67,small,"$24,330 ",20,79%,12.5,2,"eye, skin problems",$465 ,$674 ,Once a week,1
+Lhasa Apso,non-sporting,3.21,50,1,Fair,'dry eye',4.58,small,"$22,031 ",68,15%,13.92,1,dry eye,$350 ,$324 ,Once a week,1
+English Springer Spaniel,sporting,3.09,29,2,Excellent,"hip, eye, skin problems; enzyme deficiency",4.47,medium,"$21,946 ",13,86%,12.54,4,"hip, eye, skin problems; enzyme deficiency",$615 ,$466 ,Once a week,1
+Shetland Sheepdog,herding,3.22,20,1,Brightest,"eye problems, deafness, skin + heart problems, blood clotting disorders",4.47,small,"$21,006 ",6,94%,12.53,5,"eye problems, deafness, skin + heart problems, blood clotting disorders",$465 ,$405 ,Daily,1
+West Highland White Terrier,terrier,3.08,32,1,Average,"'lion jaw', 'dry eye', skin problems",4.45,small,"$20,490 ",47,41%,12.8,3,"'lion jaw', 'dry eye', skin problems",$538 ,$324 ,Once a week,1
+Brittany,sporting,3.54,30,2,Excellent,none,4.42,medium,"$22,589 ",19,80%,12.92,0,none,$618 ,$466 ,Once a week,2
+German Shorthaired Pointer,sporting,3.03,15,3,Excellent,hip problems,4.41,large,"$25,842 ",17,84%,11.46,1,hip problems,$545 ,$971 ,Once a week,1
+Pointer,sporting,3.03,74,3,Average,hip problems,4.4,large,"$24,445 ",43,49%,12.42,1,hip problems,$294 ,$710 ,Once a week,1
+Tibetan Spaniel,non-sporting,3.02,73,1,Average,none,4.4,small,"$25,549 ",46,43%,14.42,0,none,"$1,050 ",$466 ,Once a week,1
+Labrador Retriever,sporting,2.97,1,2,Brightest,"elbows, hips, eyes",4.35,medium,"$21,299 ",7,93%,12.04,3,"elbows, hips, eyes",$810 ,$466 ,Once a week,1
+Bichon Frise,non-sporting,3.03,34,1,Average,none,4.28,small,"$19,735 ",45,45%,12.21,0,none,$693 ,$324 ,Daily,1
+Irish Setter,sporting,2.84,56,3,Above average,"hip, eye problems",4.21,large,"$20,323 ",35,61%,11.63,2,"hip, eye problems",$525 ,$466 ,Once a week,1
+Samoyed,working,2.8,55,2,Above average,hip problems,4.18,medium,"$25,352 ",33,68%,12.44,1,hip problems,"$1,162 ",$710 ,Once a week,1
+Shih Tzu,toy,2.93,11,1,Lowest,eye problems,4.18,small,"$21,152 ",70,13%,13.2,1,eye problems,$583 ,$324 ,Daily,1
+Golden Retriever,sporting,2.8,4,2,Brightest,"elbows, hips, eyes, heart ",4.17,medium,"$21,447 ",4,97%,12.04,4,"elbows, hips, eyes, heart ",$958 ,$466 ,Once a week,1
+Chesapeake Bay Retriever,sporting,2.78,40,3,Above average,hip problems,4.16,large,"$16,697 ",27,75%,9.48,1,hip problems,$522 ,$466 ,Once a week,1
+Papillon,toy,3.26,33,1,Brightest,"cataracts, hair loss, heart, eye, blood clotting disorders",4.13,small,"$21,001 ",8,92%,13,5,"cataracts, hair loss, heart, eye, blood clotting disorders",$740 ,$324 ,Once a week,2
+Gordon Setter,sporting,2.73,69,3,Above average,hip problems,4.1,large,"$19,605 ",34,64%,11.1,1,no data,$700 ,$466 ,Once a week,1
+English Setter,sporting,2.72,65,3,Above average,"deafness, hip problems",4.09,large,"$20,312 ",37,56%,11.57,2,"deafness, hip problems",$615 ,$466 ,Once a week,1
+Pug,toy,2.72,26,2,Fair,'dry eye',4.09,medium,"$18,527 ",57,29%,11,1,'dry eye',$469 ,$405 ,Once a week,1
+Affenpinscher,toy,3.2,84,1,Above average,none,4.07,small,"$18,333 ",37,56%,11.42,0,none,$510 ,$324 ,Once in a few weeks,2
+Miniature Schnauzer,terrier,3.19,12,1,Excellent,"liver, sinus problems",4.07,small,"$20,087 ",12,87%,11.81,2,"liver, sinus problems",$715 ,$405 ,Once a week,2
+Beagle,hound,2.79,3,1,Lowest,heart problems,4.04,small,"$19,468 ",73,9%,12.3,1,heart problems,$288 ,$324 ,Daily,1
+Border Collie,herding,3.64,39,2,Brightest,"eye problems, deafness",4.02,medium,"$20,143 ",1,100%,12.52,2,"eye problems, deafness",$623 ,$324 ,Once a week,3
+Australian Terrier,terrier,3.11,77,1,Above average,none,3.99,small,"$17,892 ",34,64%,11.05,0,none,$640 ,$324 ,Once a week,2
+Whippet,hound,3.11,46,2,Average,none,3.99,medium,"$20,976 ",51,34%,12.87,0,none,$915 ,$324 ,Once a week,2
+Boston Terrier,non-sporting,2.61,22,2,Average,breathing problems,3.98,medium,"$17,741 ",54,31%,10.92,1,breathing problems,$690 ,$324 ,Once a week,1
+Briard,herding,2.71,79,3,Above average,hip problems,3.96,large,"$19,673 ",30,70%,11.17,1,hip problems,$650 ,$466 ,Daily,1
+Bedlington Terrier,terrier,3.07,83,1,Average,"liver, eye problems",3.95,small,"$22,107 ",40,54%,13.51,2,"liver, eye problems","$1,058 ",$324 ,Once a week,2
+Cavalier King Charles Spaniel,toy,2.57,21,1,Average,"heart, spinal problems",3.95,small,"$18,639 ",44,48%,11.29,2,"heart, spinal problems","$1,017 ",$324 ,Once a week,1
+Dalmatian,non-sporting,2.57,57,2,Above average,"deafness, urinary stones",3.95,medium,"$19,886 ",39,55%,11.27,2,"deafness, urinary stones",$695 ,$466 ,Once a week,1
+Flat-Coated Retriever,sporting,2.7,67,2,Excellent,none,3.95,medium,"$16,000 ",18,82%,9.02,0,none,$600 ,$466 ,Daily,1
+Belgian Tervuren,herding,2.57,72,3,Excellent,"epilepsy, eye problems",3.94,large,"$19,132 ",14,85%,10.6,2,"epilepsy, eye problems","$1,070 ",$466 ,Once a week,1
+Basset Hound,hound,2.54,36,1,Lowest,"blood, skin disorders",3.92,small,"$18,328 ",71,11%,11.43,2,"blood, skin disorders",$490 ,$324 ,Once a week,1
+Poodle,non-sporting,3.04,8,2,Brightest,"fatal stomach bloat, skin disorder",3.92,medium,"$21,237 ",2,99%,11.95,2,"fatal stomach bloat, skin disorder",$900 ,$466 ,Once a week,2
+Staffordshire Bull Terrier,terrier,2.48,58,2,Average,hip problems,3.86,medium,"$21,650 ",49,37%,12.05,1,hip problems,"$1,145 ",$466 ,Once a week,1
+Bouvier des Flandres,herding,2.47,62,3,Above average,hip problems,3.84,large,"$18,959 ",29,72%,10.34,1,hip problems,"$1,335 ",$466 ,Once a week,1
+Pembroke Welsh Corgi,herding,2.45,25,1,Excellent,"cataracts + other eye problems, connective tissue, nerves, kidneys, spine, blood clotting disorders",3.82,small,"$23,978 ",11,89%,12.25,9,"cataracts + other eye problems, connective tissue, nerves, kidneys, spine, blood clotting disorders",$587 ,$674 ,Once a week,1
+Clumber Spaniel,sporting,2.44,82,2,Above average,none,3.81,medium,"$18,084 ",37,56%,10,0,none,"$1,033 ",$466 ,Once a week,1
+Pomeranian,toy,2.93,17,1,Excellent,heart problems,3.81,small,"$15,792 ",23,77%,9.67,1,heart problems,$670 ,$324 ,Once a week,2
+Australian Shepherd,herding,2.91,24,2,Average,"deafness, hip problems",3.78,medium,"$21,458 ",42,52%,12.28,2,"deafness, hip problems",$565 ,$466 ,Once a week,2
+Pharaoh Hound,hound,2.81,86,2,Above average,none,3.69,medium,"$21,047 ",37,56%,11.83,0,none,$913 ,$466 ,Once a week,2
+Dandie Dinmont Terrier,terrier,2.42,87,1,Fair,none,3.67,small,"$21,633 ",62,22%,12.17,0,none,$925 ,$466 ,Daily,1
+Greyhound,hound,2.29,85,3,Average,blood vessel disorders,3.67,large,"$15,819 ",46,43%,9.36,1,blood vessel disorders,"$1,175 ",$324 ,Once a week,1
+Saluki,hound,2.41,75,2,Average,none,3.66,medium,"$24,866 ",43,49%,12,0,none,"$1,525 ",$710 ,Daily,1
+Australian Cattle Dog,herding,3.25,49,2,Brightest,hip problems,3.63,medium,"$20,395 ",10,90%,11.67,1,hip problems,$530 ,$466 ,Once a week,3
+Tibetan Terrier,non-sporting,2.75,64,1,Fair,none,3.63,small,"$20,336 ",62,22%,12.31,0,none,"$1,140 ",$324 ,Once a week,2
+Norfolk Terrier,terrier,2.71,76,1,Fair,none,3.58,small,"$24,308 ",56,30%,13.07,0,none,"$2,083 ",$466 ,Once a week,2
+Dachshund,hound,3.19,9,1,Average,"skin, spinal problems",3.57,small,"$20,113 ",49,37%,12.63,2,"skin, spinal problems",$423 ,$324 ,Once a week,3
+Chihuahua,toy,3.15,14,1,Fair,knee problems,3.53,small,"$26,250 ",67,16%,16.5,1,knee problems,$588 ,$324 ,Once a week,3
+Doberman Pinscher,working,2.59,13,3,Brightest,"heart, spine, blood clotting disorders",3.47,large,"$18,397 ",5,95%,10.33,4,"heart, spine, blood clotting disorders",$790 ,$466 ,Once a week,2
+English Toy Spaniel,toy,2.59,80,1,Average,none,3.47,small,"$17,521 ",45,45%,10.1,0,none,$925 ,$405 ,Once a week,2
+Newfoundland,working,2.07,37,3,Above average,"hip problems, heart defects",3.45,large,"$19,351 ",34,64%,9.32,2,"hip problems, heart defects","$1,178 ",$710 ,Once a week,1
+Basenji,hound,2.51,68,2,Lowest,"kidney, eye problems, anaemia",3.38,medium,"$22,096 ",79,2%,13.58,3,"kidney, eye problems, anaemia",$940 ,$324 ,Once a week,2
+Afghan Hound,hound,2.08,66,3,Lowest,none,3.33,large,"$24,077 ",80,1%,11.92,0,none,$890 ,$710 ,Daily,1
+Old English Sheepdog,herding,2.04,63,2,Fair,hip problems,3.29,medium,"$22,611 ",63,21%,11.19,1,hip problems,$832 ,$710 ,Daily,1
+French Bulldog,non-sporting,1.9,18,2,Fair,none,3.27,medium,"$17,266 ",58,28%,9,0,none,"$1,900 ",$466 ,Once a week,1
+Bernese Mountain Dog,working,1.85,31,3,Excellent,"meningitis, elbow + hip problems, complex immune disorder",3.23,large,"$16,099 ",22,78%,7.56,4,"meningitis, elbow + hip problems, complex immune disorder","$1,320 ",$710 ,Once a week,1
+Boxer,working,1.83,7,2,Average,"eye, nerve, heart problems",3.21,medium,"$15,746 ",48,39%,8.81,4,"eye, nerve, heart problems",$700 ,$466 ,Once a week,1
+Brussels Griffon,toy,2.8,59,1,Fair,none,3.18,small,"$19,551 ",59,25%,12,0,none,$833 ,$324 ,Once a week,3
+Maltese,toy,2.93,23,1,Fair,heart problems,3.18,small,"$19,084 ",59,25%,12.25,1,heart problem,$650 ,$270 ,Daily,3
+Giant Schnauzer,working,2.38,70,3,Above average,hip problems,3.13,large,"$26,686 ",28,74%,10,1,hip problems,$810 ,"$1,349 ",Daily,2
+Rottweiler,working,2.24,10,3,Brightest,"heart, elbow, hip problems",3.12,large,"$18,886 ",9,91%,9.11,3,"heart, elbow, hip problems","$1,118 ",$710 ,Once a week,2
+Yorkshire Terrier,toy,2.85,5,1,Above average,"knee, liver, trachea, eye disorders",3.1,small,"$20,701 ",27,75%,12.6,4,"knee, liver, trachea, eye disorders","$1,057 ",$324 ,Daily,3
+Irish Wolfhound,hound,1.66,60,3,Average,"heart, liver, hip problems",3.04,large,"$18,435 ",41,53%,6.94,3,"heart, liver, hips","$1,333 ","$1,217 ",Once a week,1
+Scottish Terrier,terrier,2.27,45,1,Fair,blood clotting disorder,3.02,small,"$17,525 ",65,18%,10.69,1,blood clotting disorder,$829 ,$324 ,Daily,2
+Bullmastiff,working,1.64,35,3,Fair,"eye, hip problems",3.01,large,"$13,936 ",69,14%,7.57,2,"eye, hip problems",$980 ,$466 ,Once a week,1
+German Shepherd,herding,2.06,2,3,Brightest,"nerves, pancreas, blood (hemophilia), hip joints",2.94,large,"$17,416 ",3,98%,9.73,8,"nerves, pancreas, blood (hemophilia), hip joints",$820 ,$466 ,Once a week,2
+Mastiff,working,1.57,28,3,Lowest,"hip, heart problems",2.94,large,"$13,581 ",72,10%,6.5,2,"hip, heart problems",$900 ,$701 ,Once a week,1
+Great Dane,working,1.53,19,3,Average,"heart, spinal, hip problems, fatal stomach bloat",2.91,large,"$14,662 ",48,39%,6.96,4,"heart, spinal, hip problems, fatal stomach bloat","$1,040 ",$710 ,Once a week,1
+Kerry Blue Terrier,terrier,2.13,78,2,Above average,heart problems,2.88,medium,"$17,240 ",35,61%,9.4,1,heart problems,"$1,200 ",$466 ,Daily,2
+Italian Greyhound,toy,2.49,53,1,Fair,none,2.86,small,"$16,463 ",60,24%,10.02,0,none,$800 ,$324 ,Once a week,3
+Pekingese,toy,2.05,52,1,Lowest,knee problems,2.8,small,"$20,565 ",74,8%,11.56,1,knee problems,$885 ,$466 ,Daily,2
+Rhodesian Ridgeback,hound,1.91,38,3,Average,"birth defects, hip problems",2.78,large,"$16,530 ",52,33%,9.1,2,"birth defects, hip problems",$995 ,$466 ,Once a week,2
+Bull Terrier,terrier,1.85,44,2,Fair,"heart problems, zinc metabolism disorder",2.72,medium,"$18,490 ",66,17%,10.21,2,"heart problems, zinc metabolism disorder","$1,085 ",$466 ,Once a week,2
+Saint Bernard,working,1.42,43,3,Fair,"heart, hip disorders, fatal stomach bloat",2.67,large,"$20,022 ",65,18%,7.78,3,"heart, hip disorders, fatal stomach bloat",$875 ,"$1,217 ",Daily,1
+Borzoi,hound,1.89,71,3,Lowest,none,2.64,large,"$16,176 ",76,6%,9.08,0,none,$675 ,$466 ,Daily,2
+Alaskan Malamute,working,1.82,47,3,Average,"hip problems, dwarfism",2.57,large,"$21,986 ",50,36%,10.67,2,"hip problems, dwarfism","$1,210 ",$710 ,Daily,2
+Bloodhound,hound,1.66,42,3,Lowest,"fatal stomach bloat, skin problems",2.54,large,"$13,824 ",75,7%,6.75,2,"fatal stomach bloat, skin problems",$608 ,$710 ,Once a week,2
+Chow Chow,non-sporting,1.76,54,2,Lowest,"eye, hip problems",2.51,medium,"$15,898 ",77,5%,9.01,2,"eye, hip problems",$515 ,$466 ,Daily,2
+Akita,working,1.95,41,3,Average,hip problems,2.33,large,"$20,994 ",54,31%,10.16,1,hip problems,"$1,202 ",$710 ,Once a week,3
+Bulldog,non-sporting,0.99,6,2,Lowest,"breathing, hip, heart problems, 'dry eye'",1.86,medium,"$13,479 ",78,3%,6.29,5,"breathing, hip, heart problems, 'dry eye'","$2,680 ",$466 ,Once a week,2
