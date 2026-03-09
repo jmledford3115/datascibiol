@@ -24,6 +24,8 @@ library("tidyverse")
 ## Data Frames
 In part 1, you learned how to work with vectors and data frames. For the remainder of the course, we will work exclusively with data frames. Recall that data frames store multiple classes of data. Last time, you were shown how to build data frames by combining multiple vectors using  `tibble()`.  
 
+We only use `tibble()` when working in the tidyverse. The equivalent command in base R is `data.frame()`.
+
 ## Importing Data
 Scientists often make their data available as supplementary material associated with a publication. This is excellent scientific practice as it insures repeatability by showing exactly how analyses were performed. As data scientists, we capitalize on this by importing data directly into R.  
 
@@ -54,16 +56,20 @@ Recall that factors are categorical variables that have a fixed number of possib
 
 What is the class of the scientist column? Let's change it to factor and then show the levels of that factor.  
 ```{r}
-class(hot_springs$scientist)
+names(hot_springs)
 ```
 
 ```{r}
-hot_springs$scientist <- as.factor(hot_springs$scientist)
+class(hot_springs$scientist)
 ```
 
 Did our change work? We can also check the levels of each column.
 ```{r}
-levels(hot_springs$scientist)
+hot_springs$scientist <- as.factor(hot_springs$scientist)
+```
+
+```{r}
+class(hot_springs$scientist)
 ```
 
 ## Practice
@@ -77,6 +83,11 @@ hot_springs$spring <- as.factor(hot_springs$spring)
 levels(hot_springs$spring)
 ```
 
+```{r}
+table(hot_springs$spring)
+```
+
+
 ## Importing Data from a Published Study
 In your lab 3 folder there is another folder titled `data`. Inside the `data` folder there is a `.csv` titled `Gaeta_etal_CLC_data.csv`. Open this data and store them as an object called `fish`.  
 
@@ -87,6 +98,14 @@ fish <- read_csv("data/Gaeta_etal_CLC_data.csv")
 
 ## Additional summary functions
 Once data have been loaded, you need to get an idea of its structure, contents, and dimensions. I routinely run one or more of these commands when data are first imported.  
+
+```{r}
+names(fish)
+```
+
+```{r}
+str(fish)
+```
 
 We can summarize our data frame with the`summary()` function.  
 ```{r}
@@ -130,7 +149,7 @@ tail(fish)
 
 `table()` is useful when you have a limited number of categorical variables. It produces fast counts of the number of observations in a variable.
 ```{r}
-table(fish$lakeid)
+table(fish$fish_id)
 ```
 
 ## Practice
@@ -152,10 +171,15 @@ names(mammals)
 4. Use `str()` to show the structure of the data frame and its individual columns; compare this to `glimpse()`. 
 ```{r}
 str(mammals)
-glimpse(mammals)
+summary(mammals)
 ```
 
 5. Try the `table()` command to produce counts of mammal order.  
 ```{r}
+names(mammals)
+```
+
+```{r}
 table(mammals$order)
 ```
+

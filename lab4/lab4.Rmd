@@ -54,7 +54,7 @@ names(penguins)
 ```
 
 ```{r}
-glimpse(penguins) #notice that we have a mix of categorical and continuous data
+glimpse(penguins)
 ```
 
 Let's start by asking the question: How does body mass vary among penguin species?
@@ -70,8 +70,8 @@ Notice that we have a nice background, labeled axes, and even a value range of o
 Here we want a boxplot, specified by `geom_boxplot()`. We will explore boxplots in more detail later, but for now we just need an example.
 ```{r}
 ggplot(data=penguins, #specify the data
-       mapping=aes(x=species, y=body_mass_g))+ #map the aesthetics
-  geom_boxplot() #add the plot type
+       mapping=aes(x=species, y=body_mass_g))+#map the aesthetics
+  geom_boxplot()
 ```
 
 ## Practice
@@ -81,7 +81,7 @@ names(penguins)
 ```
 
 ```{r}
-ggplot(data=penguins, 
+ggplot(data=penguins,
        mapping=aes(x=species, y=flipper_length_mm))+
   geom_boxplot()
 ```
@@ -98,57 +98,62 @@ names(penguins)
 ```
 
 ```{r}
-ggplot(data=penguins, #specify the data
-       mapping=aes(x=body_mass_g, y=flipper_length_mm))+ #map the aesthetics
-  geom_point() #add the plot type
+ggplot(data=penguins,
+       mapping=aes(x=body_mass_g, y=flipper_length_mm))+
+  geom_point()
 ```
 
 Notice the warning! R is telling us that there are some missing values in our data. This is common in real world data sets. R automatically omits these missing values when plotting. We can also deal with the NA's explicitly using the `na.rm=T` function.  
 ```{r}
-ggplot(data=penguins, #specify the data
-       mapping=aes(x=body_mass_g, y=flipper_length_mm))+ #map the aesthetics
-  geom_point(na.rm=T) #add the plot type, disregard NA's
+ggplot(data=penguins,
+       mapping=aes(x=body_mass_g, y=flipper_length_mm))+
+  geom_point(na.rm=T)
 ```
 
 To add a regression (best of fit) line, we add another layer.
 ```{r}
-ggplot(data=penguins, #specify the data
-       mapping=aes(x=body_mass_g, y=flipper_length_mm))+ #map the aesthetics
-  geom_point()+ #add the plot type
-  geom_smooth(method=lm, se=T) #add a regression line
+ggplot(data=penguins,
+       mapping=aes(x=body_mass_g, y=flipper_length_mm))+
+  geom_point(na.rm=T)+
+  geom_smooth(method=lm, se=T)
 ```
 
 This graph is fine, but it doesn't distinguish between species. It might be helpful for the reader to see how each species is represented. We can do this by mapping the color aesthetic to species.
 ```{r}
-ggplot(data=penguins, #specify the data
-       mapping=aes(x=body_mass_g, y=flipper_length_mm, color=species))+ #map the aesthetics
-  geom_point()+ #add the plot type, map color to species
-  geom_smooth(method=lm, se=T) #add a regression line
+ggplot(data=penguins,
+       mapping=aes(x=body_mass_g, y=flipper_length_mm, color=species))+
+  geom_point(na.rm=T)+
+  geom_smooth(method=lm, se=T)
 ```
 
 The plot above looks good, but I think it's a bit messy having the regression line presented for each species. When we add the color aesthetic, it is passed down to all layers. To fix this, we can move the color aesthetic to just the geom_point layer.
 ```{r}
-ggplot(data=penguins, #specify the data
-       mapping=aes(x=body_mass_g, y=flipper_length_mm))+ #map the aesthetics
-  geom_point(mapping = aes(color = species))+ #add the plot type, map color to species
-  geom_smooth(method=lm, se=T) #add a regression line
+ggplot(data=penguins,
+       mapping=aes(x=body_mass_g, y=flipper_length_mm))+
+  geom_point(mapping=aes(color=species))+
+  geom_smooth(method=lm, se=T)
 ```
 
 Another helpful aesthetic is `shape` which can be used to distinguish points by shape instead of or in addition to color. A common approach is to map both color and shape to the same variable.
 ```{r}
-ggplot(data=penguins, #specify the data
-       mapping=aes(x=body_mass_g, y=flipper_length_mm))+ #map the aesthetics
-  geom_point(mapping = aes(color = species, shape=species))+ #add the plot type, map color to species
-  geom_smooth(method=lm, se=T) #add a regression line
+names(penguins)
+```
+
+```{r}
+ggplot(data=penguins,
+       mapping=aes(x=body_mass_g, y=flipper_length_mm))+
+  geom_point(mapping=aes(color=species))+
+  geom_smooth(method=lm, se=T)
 ```
 
 But don't we want a title? We do this using the `labs()` function.
 ```{r}
-ggplot(data=penguins, #specify the data
-       mapping=aes(x=body_mass_g, y=flipper_length_mm))+ #map the aesthetics
-  geom_point(mapping = aes(color = species, shape=species))+ #add the plot type, map color to species
-  geom_smooth(method=lm, se=T)+ #add a regression line
-  labs(title = "Body mass (g) vs. Flipper length (mm)")
+ggplot(data=penguins,
+       mapping=aes(x=body_mass_g, y=flipper_length_mm))+
+  geom_point(mapping=aes(color=species))+
+  geom_smooth(method=lm, se=T)+
+  labs(title="Body Mass (g) vs. Flipper Length (mm)",
+       x="Body Mass (g)")
 ```
 
 ### Practice
@@ -160,9 +165,9 @@ names(penguins)
 ```{r}
 ggplot(data=penguins,
        mapping=aes(x=bill_length_mm, y=bill_depth_mm))+
-  geom_point(mapping=aes(color=species))+
-  geom_smooth(method=lm, se=T)+
-  labs(title="Bill length (mm) vs. Bill depth (mm)")
+  geom_point()+
+  geom_smooth(method=lm, se=F)+
+  labs(title="Bill Length (mm) vs. Bill Depth (mm)")
 ```
 
 ### Bar Plot: `geom_bar()`
@@ -171,24 +176,25 @@ The simplest type of bar plot counts the number of observations in a categorical
 names(penguins)
 ```
 
+How many individuals per species?
 ```{r}
-ggplot(data=penguins, #specify the data
-       mapping=aes(x=species))+ #map the aesthetics
-  geom_bar() #good for counts
+ggplot(data=penguins,
+       mapping=aes(x=species))+
+  geom_bar()
 ```
 
 What if we want to use the color aesthetic like we did for `geom_point` above? Let's try...
 ```{r}
-ggplot(data=penguins, #specify the data
-       mapping=aes(x=species))+ #map the aesthetics
-  geom_bar(mapping=aes(color=species)) #good for counts
+ggplot(data=penguins,
+       mapping=aes(x=species))+
+  geom_bar(mapping=aes(color=species))
 ```
 
 This doesn't work because the color aesthetic is being applied to the bars themselves. Instead, we need to use `fill` to color the inside of the bars.
 ```{r}
-ggplot(data=penguins, #specify the data
-       mapping=aes(x=species))+ #map the aesthetics
-  geom_bar(mapping=aes(fill=species)) #good for counts
+ggplot(data=penguins,
+       mapping=aes(x=species))+
+  geom_bar(mapping=aes(fill=species))
 ```
 
 ## Practice
@@ -198,7 +204,7 @@ names(penguins)
 ```
 
 ```{r}
-ggplot(data=penguins, 
+ggplot(data=penguins,
        mapping=aes(x=island))+
   geom_bar(mapping=aes(fill=island))
 ```
@@ -207,7 +213,8 @@ ggplot(data=penguins,
 ```{r}
 ggplot(data=penguins,
        mapping=aes(x=island))+
-  geom_bar(mapping=aes(fill=species), position="dodge")
+  geom_bar(mapping=aes(fill=species), position="dodge")+
+  labs(title="#Penguins for each species by island")
 ```
 
 ## Wrap-up  

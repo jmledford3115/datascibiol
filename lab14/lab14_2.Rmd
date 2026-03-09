@@ -76,21 +76,64 @@ There are many types of inputs in shiny, see the [shiny cheat sheet](https://shi
 Let's get the names of the `palmerpenguins` data frame and add them as a `selectInput()` to our ui. `selectInput()` takes several arguments including the label that the server function will use, the label that will display to the user, the selection choices, and the initially selected choice. I always start by making a simple example plot so I know where I am going. 
 
 ```{r}
-
+names(penguins)
 ```
 
 ```{r}
-
+penguins %>% 
+  ggplot(aes(x=bill_length_mm, y=body_mass_g))+
+  geom_point(na.rm=T)
 ```
 
 Since we will make a scatterplot, let's focus on the continuous variables. The first step is to setup the x variable input.
 ```{r, eval=F, echo=T}
+library(shiny)
 
+ui <- fluidPage(
+  selectInput("x",
+              "Select X Variable",
+              choices = c("bill_length_mm",
+                          "bill_depth_mm",
+                          "flipper_length_mm",
+                          "body_mass_g"),
+              selected="bill_length_mm")
+  
+)
+
+server <- function(input, output, session) {
+  
+}
+
+shinyApp(ui, server)
 ```
 
 Let's repeat the process for the y variable input.
 ```{r, eval=F, echo=T}
+library(shiny)
 
+ui <- fluidPage(
+  selectInput("x",
+              "Select X Variable",
+              choices = c("bill_length_mm",
+                          "bill_depth_mm",
+                          "flipper_length_mm",
+                          "body_mass_g"),
+              selected="bill_length_mm"),
+  
+  selectInput("y",
+              "Select Y Variable",
+              choices = c("bill_length_mm",
+                          "bill_depth_mm",
+                          "flipper_length_mm",
+                          "body_mass_g"),
+              selected="bill_length_mm")
+)
+
+server <- function(input, output, session) {
+  
+}
+
+shinyApp(ui, server)
 ```
 
 ## Server Side
@@ -98,14 +141,153 @@ Great, we now have our user inputs set up! Next we need to work with those input
 
 All reactive inputs need to be wrapped in a reactive environment called a reactive function. Reactivity is the core of shiny. Let's wrap our reactive input values in a reactive function on the server side and run our app as a test. What happens? Are we doing anything with the inputs yet?  
 ```{r, eval=F, echo=T}
+library(shiny)
 
+ui <- fluidPage(
+  selectInput("x",
+              "Select X Variable",
+              choices = c("bill_length_mm",
+                          "bill_depth_mm",
+                          "flipper_length_mm",
+                          "body_mass_g"),
+              selected="bill_length_mm"),
+  
+  selectInput("y",
+              "Select Y Variable",
+              choices = c("bill_length_mm",
+                          "bill_depth_mm",
+                          "flipper_length_mm",
+                          "body_mass_g"),
+              selected="bill_length_mm")
+)
+
+server <- function(input, output, session) {
+  reactive({input$x
+            input$y
+            })
+}
+
+shinyApp(ui, server)
 ```
 
 ## Shiny Outputs
 So we have our inputs in a reactive environment, but we want to actually use those inputs to make a plot and display it on the ui. To make and display the plot, we need to save it to a named output object that the ui can use. To do this we use the reactive expression `renderPlot()` and access the plot on the ui side with `plotOutput()`. The inputs from `selectInput()` are character strings, so we need to use `aes_string()` in `ggplot`.
 ```{r, eval=F, echo=T}
+library(shiny)
 
+ui <- fluidPage(
+  selectInput("x",
+              "Select X Variable",
+              choices = c("bill_length_mm",
+                          "bill_depth_mm",
+                          "flipper_length_mm",
+                          "body_mass_g"),
+              selected="bill_length_mm"),
+  
+  selectInput("y",
+              "Select Y Variable",
+              choices = c("bill_length_mm",
+                          "bill_depth_mm",
+                          "flipper_length_mm",
+                          "body_mass_g"),
+              selected="bill_length_mm")
+)
+
+server <- function(input, output, session) {
+  
+}
+
+shinyApp(ui, server)
 ```
+
+## Server Side
+Great, we now have our user inputs set up! Next we need to work with those inputs so R can make the plot. This can be the tricky part. The processing is done in the server function. The ui passes the names of our choices via an object called `inputs` to the server function. We need to access our inputs by their names with the `$` symbol. To get the x input we type `input$x` and y is `input$y`.  
+
+All reactive inputs need to be wrapped in a reactive environment called a reactive function. Reactivity is the core of shiny. Let's wrap our reactive input values in a reactive function on the server side and run our app as a test. What happens? Are we doing anything with the inputs yet?  
+```{r, eval=F, echo=T}
+library(shiny)
+
+ui <- fluidPage(
+  selectInput("x",
+              "Select X Variable",
+              choices = c("bill_length_mm",
+                          "bill_depth_mm",
+                          "flipper_length_mm",
+                          "body_mass_g"),
+              selected="bill_length_mm"),
+  
+  selectInput("y",
+              "Select Y Variable",
+              choices = c("bill_length_mm",
+                          "bill_depth_mm",
+                          "flipper_length_mm",
+                          "body_mass_g"),
+              selected="bill_length_mm"),
+  plotOutput("plot",
+             width="500px",
+             height="400px")
+)
+
+server <- function(input, output, session) {
+
+  output$plot <- renderPlot({
+    
+    ggplot(data=penguins,
+           aes_string(x=input$x, y=input$y, color="species"))+
+      geom_point(na.rm=T)
+            })
+}
+
+shinyApp(ui, server)
+```
+
+```{r, eval=F, echo=T}
+library(shiny)
+
+ui <- fluidPage(
+  selectInput("x",
+              "Select X Variable",
+              choices = c("bill_length_mm",
+                          "bill_depth_mm",
+                          "flipper_length_mm",
+                          "body_mass_g"),
+              selected="bill_length_mm"),
+  
+  selectInput("y",
+              "Select Y Variable",
+              choices = c("bill_length_mm",
+                          "bill_depth_mm",
+                          "flipper_length_mm",
+                          "body_mass_g"),
+              selected="bill_depth_mm"),
+  
+  checkboxInput("show_lm",
+                "Show best-fit line(lm)",
+                value=FALSE),
+  
+  plotOutput("plot",
+             width="500px",
+             height="400px")
+)
+
+server <- function(input, output, session) {
+
+  output$plot <- renderPlot({
+    
+    ggplot(penguins,
+           aes(x = .data[[input$x]],
+               y = .data[[input$y]]))+
+      geom_point(na.rm=T)+
+      if (input$show_lm)
+        geom_smooth(method="lm", se=F, na.rm=T)
+    else
+      NULL
+            })
+}
+
+shinyApp(ui, server)
+```
+
 
 Congratulations, you made your first shiny app!  
 
@@ -113,12 +295,49 @@ Congratulations, you made your first shiny app!
 
 1. Please load the data as a new object `homerange` and have a look at the column names.
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
+homerange <- read_csv("data/Tamburelloetal_HomeRangeDatabase.csv") %>% clean_names()
+```
 
+```{r}
+homerange %>% 
+  ggplot(aes(x=locomotion, fill=trophic_guild))+
+  geom_bar(position="dodge")
+```
+
+```{r}
+homerange %>% 
+  ggplot(aes(x=locomotion, fill=thermoregulation))+
+  geom_bar(position="dodge")
 ```
 
 2.  Build a shiny app that produces a barplot that explores `locomotion` type with a fill reaction for the variables `trophic_guild` and `thermoregulation`.
 ```{r, eval=F, echo=T}
+library(shiny)
 
+ui <- fluidPage(
+  
+  radioButtons("x",
+               "Select Fill Variable",
+               choices=c("trophic_guild",
+                         "thermoregulation"),
+               selected="trophic_guild"),
+  
+  plotOutput("plot")
+)
+
+server <- function(input, output, session) {
+  
+  output$plot <- renderPlot({
+    
+    ggplot(data=homerange,
+           aes_string(x="locomotion", fill=input$x))+
+      geom_bar(position="dodge", alpha=0.8, color="black")+
+      labs(x=NULL, y=NULL, fill="Fill Variable")
+  })
+  
+}
+
+shinyApp(ui, server)
 ```
 
 --\>[Home](https://jmledford3115.github.io/datascibiol/)

@@ -25,15 +25,16 @@ Sometimes data we need is stored in a separate file or becomes available later a
 
 Let's assume we have a database of customers and their purchases.
 ```{r message=FALSE, warning=FALSE}
-
+table_A <- read_csv("data/table_A.csv")
+table_B <- read_csv("data/table_B.csv")
 ```
 
 ```{r}
-
+table_A
 ```
 
 ```{r}
-
+table_B
 ```
 
 The general syntax for joins is...
@@ -44,41 +45,41 @@ The general syntax for joins is...
 `inner_join`  
 Where did customers 3 and 4 go? Since they are not on both tables, they were dropped. So, `inner_join` only keeps the rows that have matching values in both tables; it is very strict about matching.
 ```{r}
-
+inner_join(table_A, table_B, by="customer_ID")
 ```
 
 `left_join`
 Where did customer 4 go? Notice the missing data for customer 3. So, `left_join` keeps all the rows in the first table and only the matching rows in the second table. If there is no match, it fills in with NA.
 ```{r}
-
+left_join(table_A, table_B, by="customer_ID")
 ```
 
 `right_join`
 Where did customer 3 go? Notice the missing data for customer 4. `right_join` does the opposite of `left_join`. It keeps all the rows in the second table and only the matching rows in the first table. If there is no match, it fills in with NA.
 ```{r}
-
+right_join(table_A, table_B, by="customer_ID")
 ```
 
 `full_join`
 `full_join` keeps all the rows in both tables and fills in with NA where there is no match.
 ```{r}
-
+full_join(table_A, table_B, by="customer_ID")
 ```
 
 `anti_join`
 Provides the rows in the first table for which there are not matching values in the second table.
 ```{r}
-
+anti_join(table_A, table_B, by="customer_ID") #use to troubleshoot problematic joins
 ```
 
 ## Dates
 The `lubridate` package was created to deal with dates of all types. There are many useful functions in `lubridate`, most of which are designed to make working with dates easier. For example, you can easily get the current date and time with `today()` and `now()`.
 ```{r}
-
+today()
 ```
 
 ```{r}
-
+now()
 ```
 
 There are many different options for working with dates and date-times in lubridate including `ymd`, `mdy`, `dmy`, `mdy_hms`, `ymd_hms`. The formats below are common examples of how you might see dates in your data.
@@ -93,23 +94,23 @@ dateformat5 <- "20200922 170000"
 ## Converting dates 
 We can convert each of the examples above using lubridate.
 ```{r}
-
+ymd(dateformat1)
 ```
 
 ```{r}
-
+mdy(dateformat2)
 ```
 
 ```{r}
-
+dmy(dateformat3)
 ```
 
 ```{r}
-
+mdy_hms(dateformat4)
 ```
 
 ```{r}
-
+ymd_hms(dateformat5)
 ```
 
 ## Practice
@@ -117,30 +118,32 @@ For this practice, we will use data from my research on _Usofila_ spiders. These
 
 1. Load the two files as separate dataframes. Make sure to clean the column names.
 ```{r message=FALSE, warning=FALSE}
-
+spider_records <- read_csv("data/spider_records.csv") %>% clean_names()
 ```
 
 ```{r, message = FALSE}
-
+spider_locs <- read_csv("data/spiders_locations.csv") %>% clean_names()
 ```
 
 2. Join the files using an appropriate key and join type.
 ```{r}
-
+spiders_with_locs <- 
+  left_join(spider_records, spider_locs, by="accession")
 ```
 
 ```{r}
-
+names(spiders_with_locs) #check to see if it worked
 ```
 
 3. Convert the date column to a date format using lubridate.
 ```{r}
-
+spiders_with_locs <-spiders_with_locs %>% 
+  mutate(date=dmy(date))
 ```
 
 4. Save your final data to a `.csv`.
 ```{r}
-
+write.csv(spiders_with_locs, file="spiders_with_locs.csv", row.names=FALSE)
 ```
 
 ## That's it, let's take a break!   

@@ -1,0 +1,34 @@
+---
+title: "Lab 6 Intro"
+date: "`r Sys.Date()`"
+output: ioslides_presentation
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+library("jpeg")
+```
+
+## Setup
+1. Login to the lab computer.    
+2. Navigate to github.com and login.  
+3. Find the class repository "datascibiol" (https://github.com/jmledford3115/datascibiol).  
+4. Download a copy the class repository to the desktop.  
+5. Clone your repository to the desktop using GitHub Desktop.  
+6. Copy the files for today's lab from the class repository and paste them into **your** repository.  
+7. Open today's lab in RStudio.  
+
+## Midterm 1
+1. Your first midterm will be held next Thursday, Jan 29th during class.  
+2. We will have an in-class practice exam next Tuesday, Jan 27th.  
+3. The exam in open note; i.e. you can use the notes in your repository.  
+4. There are no internet searches or AI allowed during the exam and you must use the lab computers.  
+
+## Extra Details
+1. The lab 6 homework is a bit more challenging to give you extra practice.  
+2. I am giving you the first question on the exam!  
+- Paste a link below to your repository. Please make sure that it:
+  - is public and professionally presented
+  - has a clear README
+  - is well-organized, without duplicate or other mislabeled files
+  - contains all of your labs and homework

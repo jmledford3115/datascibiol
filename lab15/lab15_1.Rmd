@@ -40,22 +40,82 @@ shinyApp(ui, server)
 
 Let's use the built-in msleep data to build a basic app. The data are from: V. M. Savage and G. B. West. A quantitative, theoretical framework for understanding mammalian sleep. Proceedings of the National Academy of Sciences, 104 (3):1051-1056, 2007.
 ```{r}
-
+glimpse(msleep)
 ```
 
 Since the data are focused on sleep patterns, let's make a plot that shows the range of `sleep_total` by `vore` type.
 ```{r}
-
+msleep %>% 
+  filter(vore!="NA") %>% #took out the NA
+  ggplot(aes(x=vore, y=sleep_total, fill=vore))+
+  geom_boxplot(alpha=0.75)+
+  labs(title="Sleep Variables by Vore Type", fill="Vore Type")
 ```
+
+```{r}
+names(msleep)
+```
+
 
 If we want to make the plot interactive, we could allow users to select the sleep variable of interest. These include `sleep_total`, `sleep_rem`, `sleep_cycle`, and `awake.` We can use a selectInput to allow users to select the variable of interest in a drop-down menu.
 ```{r, eval=F, echo=T}
+ui <- fluidPage(
+  
+  selectInput("y",
+              "Select Sleep Variable",
+              choices = c("sleep_total",
+                          "sleep_rem",
+                          "sleep_cycle",
+                          "awake"),
+              selected = "sleep_total"),
+  
+  plotOutput("plot", width="600px", height= "500px")
+  
+)
 
+server <- function(input, output, session) {
+  
+}
+
+shinyApp(ui, server)
 ```
 
 Since we only have one interaction, we can move on to the server function. The server function is where we write the code that creates the outputs. In this case, we want to create a plot that shows the range of the selected sleep variable by vore type. We can use the `renderPlot` function to create the plot output.
 ```{r, eval=F, echo=T}
+ui <- fluidPage(
+  
+  theme=shinythemes::shinytheme("cyborg"),
+  
+  selectInput("y",
+              "Select Sleep Variable",
+              choices = c("sleep_total",
+                          "sleep_rem",
+                          "sleep_cycle",
+                          "awake"),
+              selected = "sleep_total"),
+  
+  plotOutput("plot", width="600px", height= "500px")
+  
+)
 
+server <- function(input, output, session) {
+  
+  output$plot <- renderPlot({
+    
+    msleep %>% 
+      filter(vore!="NA") %>% 
+      ggplot(aes(x = vore,
+                 y = .data[[input$y]],
+                 fill = vore))+
+      geom_boxplot(alpha=0.75)+
+      labs(title="Sleep Variables by Vore Type",
+           x="Vore",
+           fill="Vore Type")+
+      theme_minimal()
+  })
+}
+
+shinyApp(ui, server)
 ```
 
 ## Running A Shiny App from an R Script

@@ -43,11 +43,33 @@ Line plots are great when you need to show changes over time. Let's see if we ca
 
 Let's start by making a clear x and y so we know what we are going to plot.
 ```{r}
-
+gap %>% 
+  filter((year>=2000 & year<=2025) & country=="USA") %>% 
+  ggplot(aes(x=year, y=gdp))+
+  geom_line()+
+  geom_point(shape=5)+
+  scale_x_continuous(breaks=2000:2025, minor_breaks = NULL)+
+  theme(axis.text.x = element_text(angle=60, hjust=1))+
+  labs(title="GDP per Capita in the USA, 2000-2025",
+       x="Year",
+       y="GDP")
 ```
 
 ```{r}
+glimpse(gap)
+```
 
+```{r}
+gap %>% 
+  filter((year>=2000 & year<=2025) & country=="USA") %>% 
+  ggplot(aes(x=year, y=gdp))+
+  geom_line(color="red")+
+  geom_point(shape=5)+
+  scale_x_continuous(breaks=seq(2000, 2025, by=5))+
+  theme(axis.text.x = element_text(angle=60, hjust=1))+
+  labs(title="GDP per Capita in the USA, 2000-2025",
+       x="Year",
+       y="GDP")
 ```
 
 ## Histograms
@@ -55,29 +77,53 @@ Histograms show the distribution of continuous variables. As students, you have 
 
 What was the distribution of life expectancy in 1935?
 ```{r}
-
+gap %>% 
+  filter(year==1935) %>% 
+  ggplot(aes(x=lex))+
+  geom_histogram()
 ```
 
 Let's rebuild the histogram, but this time we will specify the color and fill. Do a little experimentation on your own with the different colors.
 ```{r}
-
+gap %>% 
+  filter(year==1935) %>% 
+  ggplot(aes(x=lex))+
+  geom_histogram(color="black", fill="turquoise4", bins=30)+
+  labs(title="Distribution of Life Expectancy")
 ```
 
 ## Density plots  
 Density plots are similar to histograms but they use a smoothing function to make the distribution more even and clean looking. They do not use bins.
 ```{r}
-
+gap %>% 
+  filter(year==1935) %>% 
+  ggplot(aes(x=lex))+
+  geom_density(color="turquoise4", fill="turquoise4", alpha=0.4)+
+  labs(title="Distribution of Life Expectancy")
 ```
 
 I like to see both the histogram and the density curve so I often plot them together. Note that I assign the density plot a different color.
 ```{r}
-
+gap %>% 
+  filter(year==1935) %>% 
+  ggplot(aes(x=lex))+
+  geom_histogram(aes(y=after_stat(density)), color="black", fill="turquoise4")+
+  geom_density(color="red")
 ```
 
 ## Practice
 1. Antibiotics became widely available in the 1940's. How did life expectancy change between 1930 and 1950? Let's plot the density curves for both years on the same plot. Use the `fill` aesthetic to differentiate the two years.
 ```{r warning=FALSE}
-
+gap %>% 
+  filter(year %in% c(1930, 1950)) %>% #pull out the years
+  mutate(year=factor(year)) %>% #change to a factor
+  ggplot(aes(x=lex, color=year, fill=year))+
+  geom_density(alpha=0.3)+
+  labs(title="Distribution of Life Expectancy, 1930 and 1950",
+       x="Life Expectancy (years)",
+       y=NULL,
+       color="Year",
+       fill="Year")
 ```
 
 ## Create Categories with mutate and case_when()
@@ -91,18 +137,38 @@ The approximate World Bank Income Categories are:
 
 Let's use `case_when()` to create a new column `income_category` that categorizes countries into these income categories based on their GDP per capita in 2000.
 ```{r}
-
+income_cat2000 <- gap %>% 
+  filter(year==2000) %>% 
+  mutate(income_category=case_when(gdp<=1100 ~ "low",
+                                   gdp>1100 & gdp <=4500 ~ "low_middle",
+                                   gdp>4500 & gdp<=13900 ~ "upper_middle",
+                                   gdp>13900 ~ "high")) %>% 
+  select(country, gdp, income_category) %>% 
+  mutate(income_category=factor(income_category,
+                                levels=c("low",
+                                         "low_middle",
+                                         "upper_middle",
+                                         "high")))
 ```
 
 ## Practice
 1. How many countries are in each of the World Bank Income Categories as of the year 2000?
 ```{r}
-
+income_cat2000 %>% 
+  group_by(income_category) %>% 
+  summarize(count=n())
 ```
 
 2. Make a bar plot showing the number of countries in each income category in the year 2000.
 ```{r}
-
+income_cat2000 %>% 
+  drop_na(income_category) %>% #get rid of NA's
+  ggplot(aes(x=income_category, fill=income_category))+
+  geom_bar()+
+  labs(title="Countries in WB Income Categories",
+       x="Income Category",
+       y=NULL)+
+  theme(legend.position="none") #remove the legend
 ```
 
 ## That's it! Let's take a break!  
