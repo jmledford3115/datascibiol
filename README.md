@@ -107,7 +107,8 @@ Your group assignments for the group project can be found [here](https://jmledfo
 1. **Midterm 1**
     - [Midterm 1 Key](https://jmledford3115.github.io/datascibiol/midterms/midterm1_key/midterm1_key.html)
 
-2. [Midterm 2] 
+2. **Midterm 2**
+    - [Midterm 2](https://jmledford3115.github.io/datascibiol/midterms/midterm2/midterm_2.html) 
 
 ## About the Class  
 This class has been developed with the generous help of Bryshal Moore, Hannah Houts, Katherine Ransom, Rebecca Godwin, Min-Yao Jhu, Julin Maloof, and the students of BIS 15L.  
