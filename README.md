@@ -24,7 +24,8 @@ The class schedule can be found [here](https://jmledford3115.github.io/datascibi
 Easy [setup instructions](https://jmledford3115.github.io/datascibiol/logistics/setup.html) for your personal computer.  
 
 ## Group Projects
-Your group assignments for the group project can be found [here](https://jmledford3115.github.io/datascibiol/logistics/Group_Project_Assignments.html).  
+1. Your group assignments for the group project can be found [here](https://jmledford3115.github.io/datascibiol/projects/Group_Project_Assignments.html).  
+2. The project rubric can be found [here](https://jmledford3115.github.io/datascibiol/projects/BIS_15L_Project_Rubric_W26.html).
 
 ## Labs  
 
